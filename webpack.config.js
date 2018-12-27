@@ -27,7 +27,8 @@ const extractConfig = {
 
 // Externals
 const externals = {
-	react: 'React'
+	react: 'React',
+	'react-dom': 'ReactDOM',
 };
 
 // Webpack config
