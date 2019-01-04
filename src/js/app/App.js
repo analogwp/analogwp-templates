@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Filters from './filters';
 import Footer from './Footer';
+import Templates from './Templates';
 
 const Analog = styled.div`
 	margin: -20px 0 0 -20px;
@@ -21,6 +22,8 @@ class App extends React.Component {
 					<h3>AnalogWP Templates</h3>
 					<Filters />
 				</Header>
+
+				<Templates />
 				<Footer />
 			</Analog>
 		)
