@@ -21,7 +21,8 @@
   "homepage": "https://github.com/mauryaratan/analogwp-templates#readme",
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "styled-components": "^4.1.3"
   },
   "devDependencies": {
     "@wordpress/babel-plugin-makepot": "^1.0.0",
