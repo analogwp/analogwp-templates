@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Filters from './filters';
 import Footer from './Footer';
+import Logo from './logo';
 import Templates from './Templates';
 
 const Analog = styled.div`
@@ -12,6 +13,10 @@ const Analog = styled.div`
 const Header = styled.div`
 	background: #fff;
 	padding: 20px;
+
+	svg {
+		margin-top: 30px;
+	}
 `;
 
 class App extends React.Component {
@@ -19,7 +24,7 @@ class App extends React.Component {
 		return (
 			<Analog>
 				<Header>
-					<h3>AnalogWP Templates</h3>
+					<Logo />
 					<Filters />
 				</Header>
 

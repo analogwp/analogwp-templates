@@ -104,7 +104,7 @@ final class Analog_Templates {
 			return;
 		}
 
-		wp_enqueue_script( 'analogwp-app', ANG_PLUGIN_URL . 'assets/js/app.js', [ 'react', 'react-dom' ], ANG_VERSION, true );
+		wp_enqueue_script( 'analogwp-app', ANG_PLUGIN_URL . 'assets/js/app.js', [ 'react', 'react-dom', 'wp-components' ], ANG_VERSION, true );
 	}
 }
 
