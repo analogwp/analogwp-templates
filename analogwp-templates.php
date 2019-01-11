@@ -97,12 +97,15 @@ final class Analog_Templates {
 	 */
 	private function includes() {
 		require_once ANG_PLUGIN_DIR . 'inc/register-settings.php';
+		require_once ANG_PLUGIN_DIR . 'inc/class-elementor.php';
 	}
 
 	public function scripts( $hook ) {
 		if ( 'toplevel_page_analogwp_templates' !== $hook ) {
 			return;
 		}
+
+		wp_enqueue_style( 'wp-components' );
 
 		wp_enqueue_script( 'analogwp-app', ANG_PLUGIN_URL . 'assets/js/app.js', [ 'react', 'react-dom', 'wp-components' ], ANG_VERSION, true );
 	}

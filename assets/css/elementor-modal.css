@@ -1,0 +1,13 @@
+.elementor-add-analogwp-button {
+	background-color: #FF7965;
+	margin-left: 5px;
+}
+
+#analogwp-templates-modal .dialog-widget-content {
+    width: 95vw;
+    max-width: 1200px;
+    height: 800px;
+    max-height: 95vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

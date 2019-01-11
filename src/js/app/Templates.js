@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 const { decodeEntities } = wp.htmlEntities;
+const { Modal, Button } = wp.components;
 
 const TemplatesList = styled.ul`
 	padding: 20px;
@@ -61,6 +62,7 @@ export default class Templates extends React.Component {
 	state = {
 		templates: [],
 		count: null,
+		isOpen: false,
 	}
 
 	componentDidMount() {
@@ -76,9 +78,21 @@ export default class Templates extends React.Component {
 			} );
 	}
 
+	getModal = (content) => {
+		return this.state.isOpen ? <Modal
+                title="This is my modal"
+                onRequestClose={ () => this.setState( { isOpen: false } ) }>
+                <Button isDefault onClick={ () => this.setState( { isOpen: false } ) }>
+                    My custom close button
+                </Button>
+            </Modal>
+            : null;
+	}
+
 	render() {
 		return (
 			<TemplatesList>
+				{ this.getModal() }
 				{ this.state.count >= 1 && this.state.templates.map( (template) => (
 					<li data-type={ template.type }>
 						<figure>
