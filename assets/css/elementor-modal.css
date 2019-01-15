@@ -11,3 +11,11 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+#analogwp-templates {
+    text-align: left;
+}
+
+#analogwp-templates input[type=search] {
+    width: auto;
+}

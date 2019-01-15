@@ -2826,7 +2826,20 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-ReactDOM.render(React.createElement(_App2.default, null), document.getElementById('analogwp-templates'));
+var target = document.getElementById('analogwp-templates');
+
+/**
+ * Possible solution at: https://monkeyraptor.johanpaul.net/2014/12/javascript-how-to-detect-if-element.html
+ */
+
+var checkLength = setInterval(function () {
+	console.log('still ticking');
+	if (document.getElementById('analogwp-templates')) {
+		console.log('found');
+		ReactDOM.render(React.createElement(_App2.default, null), document.getElementById('analogwp-templates'));
+		clearInterval(checkLength);
+	}
+}, 100);
 
 /***/ }),
 /* 4 */

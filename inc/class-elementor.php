@@ -21,6 +21,8 @@ class Elementor {
 	public function enqueue_editor_scripts() {
 		wp_enqueue_script( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/js/elementor-modal.js', [ 'jquery' ], filemtime( ANG_PLUGIN_DIR . 'assets/js/elementor-modal.js' ) );
 		wp_enqueue_style( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/css/elementor-modal.css', [], filemtime( ANG_PLUGIN_DIR . 'assets/css/elementor-modal.css' ) );
+
+		wp_enqueue_script( 'analogwp-app', ANG_PLUGIN_URL . 'assets/js/app.js', [ 'react', 'react-dom', 'wp-components' ], ANG_VERSION, true );
 	}
 }
 
