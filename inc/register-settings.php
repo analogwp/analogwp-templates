@@ -22,6 +22,7 @@ add_action( 'admin_menu', 'Analog\settings\register_menu' );
 
 function settings_page() {
 	?>
+	<style>body { background: #E3E3E3; }</style>
 	<div id="analogwp-templates"></div>
 	<?php
 }
