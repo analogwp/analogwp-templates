@@ -1,18 +1,16 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const FooterContainer = styled.p`
 	text-transform: uppercase;
 	text-align: center;
-	color: #CECECE;
+	color: #cecece;
 	font-weight: 700;
 	margin-top: 50px;
 	letter-spacing: 2px;
 `;
 
 const Footer = () => (
-	<FooterContainer>
-		New Templates are coming soon
-	</FooterContainer>
+	<FooterContainer>New Templates are coming soon</FooterContainer>
 );
 
 export default Footer;

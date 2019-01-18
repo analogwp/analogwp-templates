@@ -3370,7 +3370,7 @@ function index (resultFn, isEqual) {
   var calledOnce = false;
 
   var isNewArgEqualToLast = function isNewArgEqualToLast(newArg, index) {
-    return isEqual(newArg, lastArgs[index]);
+    return isEqual(newArg, lastArgs[index], index);
   };
 
   var result = function result() {

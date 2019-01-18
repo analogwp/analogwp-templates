@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import Filters from './filters';
-import Footer from './Footer';
-import Header from './Header';
-import Templates from './Templates';
+import styled from "styled-components";
+import Filters from "./filters";
+import Footer from "./Footer";
+import Header from "./Header";
+import Templates from "./Templates";
 
 const Analog = styled.div`
 	margin: 0 0 0 -20px;
@@ -11,7 +11,7 @@ const Analog = styled.div`
 `;
 
 const Content = styled.div`
-	background: #E3E3E3;
+	background: #e3e3e3;
 	padding: 40px;
 `;
 
@@ -19,7 +19,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<Analog>
-				<Header/>
+				<Header />
 
 				<Content>
 					<Filters />
@@ -27,7 +27,7 @@ class App extends React.Component {
 					<Footer />
 				</Content>
 			</Analog>
-		)
+		);
 	}
 }
 

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import Logo from './logo';
+import styled from "styled-components";
+import Logo from "./logo";
 
 const Container = styled.div`
 	background: #fff;
@@ -25,8 +25,8 @@ const Container = styled.div`
 			position: relative;
 			margin-left: 30px;
 			&:before {
-				content: '';
-				background: #D4D4D4;
+				content: "";
+				background: #d4d4d4;
 				width: 2px;
 				height: 25px;
 				position: absolute;
@@ -42,7 +42,7 @@ const Header = () => (
 	<Container>
 		<Logo />
 		<a href="#">Sync Library</a>
-		{ ! AGWP.is_settings_page && <a href="#">Close</a> }
+		{!AGWP.is_settings_page && <a href="#">Close</a>}
 	</Container>
 );
 

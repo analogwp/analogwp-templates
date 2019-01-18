@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Container = styled.div`
 	position: absolute;
@@ -44,7 +44,7 @@ const Container = styled.div`
 		color: #fff;
 		border-radius: 0;
 		border: none;
-		background: #FF7865;
+		background: #ff7865;
 		outline: 0;
 		box-shadow: none;
 		padding: 15px 30px;
@@ -52,13 +52,17 @@ const Container = styled.div`
 	}
 `;
 
-const Modal = (props) => (
+const Modal = props => (
 	<Container>
 		<div className="frame-header">
-			<button className="button--plain" onClick={props.onRequestClose}>Back to Library</button>
-			<button className="button--accent" onClick={props.onRequestImport}>Insert Layout</button>
+			<button className="button--plain" onClick={props.onRequestClose}>
+				Back to Library
+			</button>
+			<button className="button--accent" onClick={props.onRequestImport}>
+				Insert Layout
+			</button>
 		</div>
-		<iframe src={props.template.url} frameBorder="0"></iframe>
+		<iframe src={props.template.url} frameBorder="0" />
 	</Container>
 );
 

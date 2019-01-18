@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const FiltersContainer = styled.div`
 	margin: 0 0 40px 0;
@@ -15,7 +15,7 @@ const FiltersContainer = styled.div`
 			color: #000;
 		}
 	}
-	input[type=search] {
+	input[type="search"] {
 		margin-left: auto;
 		text-transform: uppercase;
 		padding: 12px;
@@ -47,13 +47,21 @@ const Filters = () => (
 	<FiltersContainer>
 		<List>
 			<li>Sort By:</li>
-			<li><a href="#">Popular</a></li>
-			<li><a href="#">New</a></li>
+			<li>
+				<a href="#">Popular</a>
+			</li>
+			<li>
+				<a href="#">New</a>
+			</li>
 		</List>
 		<List>
 			<li>Show:</li>
-			<li><a href="#">All</a></li>
-			<li><a href="#">Only Packs</a></li>
+			<li>
+				<a href="#">All</a>
+			</li>
+			<li>
+				<a href="#">Only Packs</a>
+			</li>
 		</List>
 
 		<input type="search" placeholder="Search" />
