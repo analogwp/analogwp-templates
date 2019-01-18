@@ -4311,7 +4311,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(["\n\tmargin: 0 0 40px 0;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=search] {\n\t\tmargin-left: 100px;\n\t\ttext-transform: uppercase;\n\t\tpadding: 12px;\n\t\tborder: none;\n\t\toutline: none;\n\t\twidth: 250px;\n\t}\n"], ["\n\tmargin: 0 0 40px 0;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=search] {\n\t\tmargin-left: 100px;\n\t\ttext-transform: uppercase;\n\t\tpadding: 12px;\n\t\tborder: none;\n\t\toutline: none;\n\t\twidth: 250px;\n\t}\n"]),
+var _templateObject = _taggedTemplateLiteral(["\n\tmargin: 0 0 40px 0;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=search] {\n\t\tmargin-left: auto;\n\t\ttext-transform: uppercase;\n\t\tpadding: 12px;\n\t\tborder: none;\n\t\toutline: none;\n\t\twidth: 250px;\n\t}\n"], ["\n\tmargin: 0 0 40px 0;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=search] {\n\t\tmargin-left: auto;\n\t\ttext-transform: uppercase;\n\t\tpadding: 12px;\n\t\tborder: none;\n\t\toutline: none;\n\t\twidth: 250px;\n\t}\n"]),
     _templateObject2 = _taggedTemplateLiteral(["\n\tmargin: 0;\n\tpadding: 0;\n\tdisplay: inline-flex;\n\talign-items: center;\n\n\t+ ul {\n\t\tmargin-left: 100px;\n\t}\n\n\tli {\n\t\tmargin-bottom: 0;\n\t\t+ li {\n\t\t\tmargin-left: 20px;\n\t\t}\n\t}\n"], ["\n\tmargin: 0;\n\tpadding: 0;\n\tdisplay: inline-flex;\n\talign-items: center;\n\n\t+ ul {\n\t\tmargin-left: 100px;\n\t}\n\n\tli {\n\t\tmargin-bottom: 0;\n\t\t+ li {\n\t\t\tmargin-left: 20px;\n\t\t}\n\t}\n"]);
 
 var _styledComponents = __webpack_require__(0);
@@ -4511,7 +4511,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0,0,0,0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n'], ['\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0,0,0,0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n']),
+var _templateObject = _taggedTemplateLiteral(['\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0,0,0,0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n\n\tbutton {\n\t\tdisplay: block;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tpadding: 10px;\n\t\tfont-weight: bold;\n\t\tbackground: #FF7865;\n\t\twidth: 100px;\n\t\tcolor: #fff;\n\t\tcursor: pointer;\n\n\t\t+ button {\n\t\t\tmargin-top: 10px;\n\t\t}\n\t}\n'], ['\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0,0,0,0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n\n\tbutton {\n\t\tdisplay: block;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tpadding: 10px;\n\t\tfont-weight: bold;\n\t\tbackground: #FF7865;\n\t\twidth: 100px;\n\t\tcolor: #fff;\n\t\tcursor: pointer;\n\n\t\t+ button {\n\t\t\tmargin-top: 10px;\n\t\t}\n\t}\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n\ttext-transform: uppercase;\n\tpadding: 5px 10px;\n'], ['\n\ttext-transform: uppercase;\n\tpadding: 5px 10px;\n']);
 
 var _styledComponents = __webpack_require__(0);
@@ -4563,7 +4563,10 @@ var Templates = function (_React$Component) {
 				isOpen: !_this.state.isOpen,
 				template: template
 			});
-		}, _this.importLayout = function () {
+		}, _this.importLayout = function (template) {
+			if (!template) {
+				template = _this.state.template;
+			}
 			var speak = new SpeechSynthesisUtterance('This action should initiate import process in future.');
 			speechSynthesis.speak(speak);
 		}, _temp), _possibleConstructorReturn(_this, _ret);
@@ -4625,6 +4628,13 @@ var Templates = function (_React$Component) {
 												return _this3.setModalContent(template);
 											} },
 										'Preview'
+									),
+									React.createElement(
+										StyledButton,
+										{ onClick: function onClick() {
+												return _this3.importLayout(template);
+											} },
+										'Import'
 									)
 								)
 							),

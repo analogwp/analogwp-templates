@@ -43,12 +43,31 @@ const TemplatesList = styled.ul`
 		width: 100%;
 		height: 100%;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		background: rgba(0,0,0,0.7);
 		top: 0;
 		left: 0;
 		z-index: 100;
+	}
+
+	button {
+		display: block;
+		border: none;
+		outline: 0;
+		font-size: 12px;
+		text-transform: uppercase;
+		padding: 10px;
+		font-weight: bold;
+		background: #FF7865;
+		width: 100px;
+		color: #fff;
+		cursor: pointer;
+
+		+ button {
+			margin-top: 10px;
+		}
 	}
 `;
 
@@ -85,7 +104,10 @@ export default class Templates extends React.Component {
 		});
 	}
 
-	importLayout = () => {
+	importLayout = (template) => {
+		if ( ! template ) {
+			template = this.state.template;
+		}
 		const speak = new SpeechSynthesisUtterance('This action should initiate import process in future.');
 		speechSynthesis.speak(speak);
 	}
@@ -108,6 +130,7 @@ export default class Templates extends React.Component {
 								{ template.thumbnail && <img src={ template.thumbnail } /> }
 								<div className="actions">
 									<StyledButton onClick={ () => this.setModalContent(template) }>Preview</StyledButton>
+									<StyledButton onClick={ () => this.importLayout(template) }>Import</StyledButton>
 								</div>
 							</figure>
 							<h3>{ decodeEntities(template.title) }</h3>

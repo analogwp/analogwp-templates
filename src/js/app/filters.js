@@ -16,7 +16,7 @@ const FiltersContainer = styled.div`
 		}
 	}
 	input[type=search] {
-		margin-left: 100px;
+		margin-left: auto;
 		text-transform: uppercase;
 		padding: 12px;
 		border: none;
