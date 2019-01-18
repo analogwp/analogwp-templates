@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const FiltersContainer = styled.div`
-	margin: 25px 0 30px;
+	margin: 0 0 40px 0;
 	display: flex;
 	text-transform: uppercase;
 	font-weight: 600;
@@ -15,7 +15,14 @@ const FiltersContainer = styled.div`
 			color: #000;
 		}
 	}
-	input[type=search] { margin-left: 100px; }
+	input[type=search] {
+		margin-left: 100px;
+		text-transform: uppercase;
+		padding: 12px;
+		border: none;
+		outline: none;
+		width: 250px;
+	}
 `;
 
 const List = styled.ul`
@@ -49,7 +56,7 @@ const Filters = () => (
 			<li><a href="#">Only Packs</a></li>
 		</List>
 
-		<input type="search" />
+		<input type="search" placeholder="Search" />
 	</FiltersContainer>
 );
 

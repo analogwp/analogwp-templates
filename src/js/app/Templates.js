@@ -3,7 +3,6 @@ const { decodeEntities } = wp.htmlEntities;
 const { Modal, Button } = wp.components;
 
 const TemplatesList = styled.ul`
-	padding: 20px;
 	margin: 0;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
@@ -66,14 +65,14 @@ export default class Templates extends React.Component {
 	}
 
 	componentDidMount() {
-		let callbackURL = 'https://analogwp.com/wp-json/analogwp/v1/templates';
+		let callbackURL = 'https://analogwp.com/wp-json/analogwp/v1/templates/';
 
 		fetch( callbackURL )
 			.then( ( response ) => response.json() )
 			.then( ( response ) => {
 				this.setState({
 					templates: response.templates,
-					count: response.total_templates
+					count: response.count
 				});
 			} );
 	}
@@ -94,15 +93,14 @@ export default class Templates extends React.Component {
 			<TemplatesList>
 				{ this.getModal() }
 				{ this.state.count >= 1 && this.state.templates.map( (template) => (
-					<li data-type={ template.type }>
+					<li key={ template.id }>
 						<figure>
-							<img src={ template.thumb } />
+							<img src={ template.thumbnail } />
 							<div className="actions">
-								<StyledButton link={ template.previewURL }>Preview</StyledButton>
+								<StyledButton link={ template.url } onClick={this.getModal()}>Preview</StyledButton>
 							</div>
 						</figure>
 						<h3>{ decodeEntities(template.title) }</h3>
-						<p>{ template.category }</p>
 					</li>
 				) ) }
 			</TemplatesList>
