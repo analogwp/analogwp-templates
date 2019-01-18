@@ -66,196 +66,6 @@ this["ang"] = this["ang"] || {}; this["ang"]["main"] =
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2792,7 +2602,197 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test' && 
 
 //# sourceMappingURL=styled-components.browser.esm.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0), __webpack_require__(5)(module)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(5)(module)))
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
 
 /***/ }),
 /* 2 */
@@ -2826,20 +2826,21 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var target = document.getElementById('analogwp-templates');
-
-/**
- * Possible solution at: https://monkeyraptor.johanpaul.net/2014/12/javascript-how-to-detect-if-element.html
- */
-
-var checkLength = setInterval(function () {
-	console.log('still ticking');
-	if (document.getElementById('analogwp-templates')) {
-		console.log('found');
-		ReactDOM.render(React.createElement(_App2.default, null), document.getElementById('analogwp-templates'));
-		clearInterval(checkLength);
+var waitForEl = function waitForEl(selector, callback) {
+	if (!document.getElementById('analogwp-templates')) {
+		setTimeout(function () {
+			window.requestAnimationFrame(function () {
+				waitForEl(selector, callback);
+			});
+		}, 1000);
+	} else {
+		callback();
 	}
-}, 100);
+};
+
+waitForEl(document.getElementById('analogwp-templates'), function () {
+	ReactDOM.render(React.createElement(_App2.default, null), document.getElementById('analogwp-templates'));
+});
 
 /***/ }),
 /* 4 */
@@ -2854,10 +2855,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n\tmargin: -20px 0 0 -20px;\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n'], ['\n\tmargin: -20px 0 0 -20px;\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n\tbackground: #fff;\n\tpadding: 20px;\n\n\tsvg {\n\t\tmargin-top: 30px;\n\t}\n'], ['\n\tbackground: #fff;\n\tpadding: 20px;\n\n\tsvg {\n\t\tmargin-top: 30px;\n\t}\n']);
+var _templateObject = _taggedTemplateLiteral(['\n\tmargin: 0 0 0 -20px;\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n'], ['\n\tmargin: 0 0 0 -20px;\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n\tbackground: #E3E3E3;\n\tpadding: 40px;\n'], ['\n\tbackground: #E3E3E3;\n\tpadding: 40px;\n']);
 
-var _styledComponents = __webpack_require__(1);
+var _styledComponents = __webpack_require__(0);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
@@ -2869,11 +2870,11 @@ var _Footer = __webpack_require__(23);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
-var _logo = __webpack_require__(24);
+var _Header = __webpack_require__(24);
 
-var _logo2 = _interopRequireDefault(_logo);
+var _Header2 = _interopRequireDefault(_Header);
 
-var _Templates = __webpack_require__(25);
+var _Templates = __webpack_require__(26);
 
 var _Templates2 = _interopRequireDefault(_Templates);
 
@@ -2889,7 +2890,7 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 var Analog = _styledComponents2.default.div(_templateObject);
 
-var Header = _styledComponents2.default.div(_templateObject2);
+var Content = _styledComponents2.default.div(_templateObject2);
 
 var App = function (_React$Component) {
 	_inherits(App, _React$Component);
@@ -2906,14 +2907,14 @@ var App = function (_React$Component) {
 			return React.createElement(
 				Analog,
 				null,
+				React.createElement(_Header2.default, null),
 				React.createElement(
-					Header,
+					Content,
 					null,
-					React.createElement(_logo2.default, null),
-					React.createElement(_filters2.default, null)
-				),
-				React.createElement(_Templates2.default, null),
-				React.createElement(_Footer2.default, null)
+					React.createElement(_filters2.default, null),
+					React.createElement(_Templates2.default, null),
+					React.createElement(_Footer2.default, null)
+				)
 			);
 		}
 	}]);
@@ -3090,7 +3091,7 @@ if (process.env.NODE_ENV === 'production') {
   module.exports = __webpack_require__(12);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 11 */
@@ -3347,7 +3348,7 @@ exports.isSuspense = isSuspense;
   })();
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 13 */
@@ -3427,7 +3428,7 @@ if (process.env.NODE_ENV !== 'production') {
   module.exports = __webpack_require__(18)();
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 15 */
@@ -3990,7 +3991,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
   return ReactPropTypes;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 16 */
@@ -4186,7 +4187,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 
 module.exports = checkPropTypes;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 18 */
@@ -4310,10 +4311,10 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(["\n\tmargin: 25px 0 30px;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=search] { margin-left: 100px; }\n"], ["\n\tmargin: 25px 0 30px;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=search] { margin-left: 100px; }\n"]),
+var _templateObject = _taggedTemplateLiteral(["\n\tmargin: 0 0 40px 0;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=search] {\n\t\tmargin-left: 100px;\n\t\ttext-transform: uppercase;\n\t\tpadding: 12px;\n\t\tborder: none;\n\t\toutline: none;\n\t\twidth: 250px;\n\t}\n"], ["\n\tmargin: 0 0 40px 0;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=search] {\n\t\tmargin-left: 100px;\n\t\ttext-transform: uppercase;\n\t\tpadding: 12px;\n\t\tborder: none;\n\t\toutline: none;\n\t\twidth: 250px;\n\t}\n"]),
     _templateObject2 = _taggedTemplateLiteral(["\n\tmargin: 0;\n\tpadding: 0;\n\tdisplay: inline-flex;\n\talign-items: center;\n\n\t+ ul {\n\t\tmargin-left: 100px;\n\t}\n\n\tli {\n\t\tmargin-bottom: 0;\n\t\t+ li {\n\t\t\tmargin-left: 20px;\n\t\t}\n\t}\n"], ["\n\tmargin: 0;\n\tpadding: 0;\n\tdisplay: inline-flex;\n\talign-items: center;\n\n\t+ ul {\n\t\tmargin-left: 100px;\n\t}\n\n\tli {\n\t\tmargin-bottom: 0;\n\t\t+ li {\n\t\t\tmargin-left: 20px;\n\t\t}\n\t}\n"]);
 
-var _styledComponents = __webpack_require__(1);
+var _styledComponents = __webpack_require__(0);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
@@ -4383,7 +4384,7 @@ var Filters = function Filters() {
 				)
 			)
 		),
-		React.createElement("input", { type: "search" })
+		React.createElement("input", { type: "search", placeholder: "Search" })
 	);
 };
 
@@ -4402,7 +4403,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _templateObject = _taggedTemplateLiteral(['\n\ttext-transform: uppercase;\n\ttext-align: center;\n\tcolor: #CECECE;\n\tfont-weight: 700;\n\tmargin-top: 50px;\n\tletter-spacing: 2px;\n'], ['\n\ttext-transform: uppercase;\n\ttext-align: center;\n\tcolor: #CECECE;\n\tfont-weight: 700;\n\tmargin-top: 50px;\n\tletter-spacing: 2px;\n']);
 
-var _styledComponents = __webpack_require__(1);
+var _styledComponents = __webpack_require__(0);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
@@ -4432,6 +4433,53 @@ exports.default = Footer;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _templateObject = _taggedTemplateLiteral(['\n\tbackground: #fff;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 12px 24px;\n\n\tsvg {\n\t\tvertical-align: bottom;\n\t}\n\n\ta {\n\t\tcolor: #060606;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\ttext-decoration: none;\n\t\t&:first-of-type {\n\t\t\tmargin-left: auto;\n\t\t}\n\t\t+ a {\n\t\t\tposition: relative;\n\t\t\tmargin-left: 30px;\n\t\t\t&:before {\n\t\t\t\tcontent: \'\';\n\t\t\t\tbackground: #D4D4D4;\n\t\t\t\twidth: 2px;\n\t\t\t\theight: 25px;\n\t\t\t\tposition: absolute;\n\t\t\t\tdisplay: block;\n\t\t\t\tleft: -16px;\n\t\t\t\ttop: -4px;\n\t\t\t}\n\t\t}\n\t}\n'], ['\n\tbackground: #fff;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 12px 24px;\n\n\tsvg {\n\t\tvertical-align: bottom;\n\t}\n\n\ta {\n\t\tcolor: #060606;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\ttext-decoration: none;\n\t\t&:first-of-type {\n\t\t\tmargin-left: auto;\n\t\t}\n\t\t+ a {\n\t\t\tposition: relative;\n\t\t\tmargin-left: 30px;\n\t\t\t&:before {\n\t\t\t\tcontent: \'\';\n\t\t\t\tbackground: #D4D4D4;\n\t\t\t\twidth: 2px;\n\t\t\t\theight: 25px;\n\t\t\t\tposition: absolute;\n\t\t\t\tdisplay: block;\n\t\t\t\tleft: -16px;\n\t\t\t\ttop: -4px;\n\t\t\t}\n\t\t}\n\t}\n']);
+
+var _styledComponents = __webpack_require__(0);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _logo = __webpack_require__(25);
+
+var _logo2 = _interopRequireDefault(_logo);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Container = _styledComponents2.default.div(_templateObject);
+
+var Header = function Header() {
+	return React.createElement(
+		Container,
+		null,
+		React.createElement(_logo2.default, null),
+		React.createElement(
+			'a',
+			{ href: '#' },
+			'Sync Library'
+		),
+		!AGWP.is_settings_page && React.createElement(
+			'a',
+			{ href: '#' },
+			'Close'
+		)
+	);
+};
+
+exports.default = Header;
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 var Logo = function Logo() {
 	return React.createElement(
 		"svg",
@@ -4451,7 +4499,7 @@ var Logo = function Logo() {
 exports.default = Logo;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4463,12 +4511,16 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n\tpadding: 20px;\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0,0,0,0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n'], ['\n\tpadding: 20px;\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0,0,0,0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n']),
+var _templateObject = _taggedTemplateLiteral(['\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0,0,0,0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n'], ['\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0,0,0,0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n\ttext-transform: uppercase;\n\tpadding: 5px 10px;\n'], ['\n\ttext-transform: uppercase;\n\tpadding: 5px 10px;\n']);
 
-var _styledComponents = __webpack_require__(1);
+var _styledComponents = __webpack_require__(0);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _Modal = __webpack_require__(27);
+
+var _Modal2 = _interopRequireDefault(_Modal);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4481,9 +4533,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var decodeEntities = wp.htmlEntities.decodeEntities;
-var _wp$components = wp.components,
-    Modal = _wp$components.Modal,
-    Button = _wp$components.Button;
 
 
 var TemplatesList = _styledComponents2.default.ul(_templateObject);
@@ -4507,23 +4556,16 @@ var Templates = function (_React$Component) {
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Templates.__proto__ || Object.getPrototypeOf(Templates)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			templates: [],
 			count: null,
-			isOpen: false
-		}, _this.getModal = function (content) {
-			return _this.state.isOpen ? React.createElement(
-				Modal,
-				{
-					title: 'This is my modal',
-					onRequestClose: function onRequestClose() {
-						return _this.setState({ isOpen: false });
-					} },
-				React.createElement(
-					Button,
-					{ isDefault: true, onClick: function onClick() {
-							return _this.setState({ isOpen: false });
-						} },
-					'My custom close button'
-				)
-			) : null;
+			isOpen: false,
+			modalContent: 'Dummy Content'
+		}, _this.setModalContent = function (template) {
+			_this.setState({
+				isOpen: !_this.state.isOpen,
+				template: template
+			});
+		}, _this.importLayout = function () {
+			var speak = new SpeechSynthesisUtterance('This action should initiate import process in future.');
+			speechSynthesis.speak(speak);
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
@@ -4532,54 +4574,68 @@ var Templates = function (_React$Component) {
 		value: function componentDidMount() {
 			var _this2 = this;
 
-			var callbackURL = 'https://analogwp.com/wp-json/analogwp/v1/templates';
+			var callbackURL = 'https://analogwp.com/wp-json/analogwp/v1/templates/';
 
 			fetch(callbackURL).then(function (response) {
 				return response.json();
 			}).then(function (response) {
 				_this2.setState({
 					templates: response.templates,
-					count: response.total_templates
+					count: response.count
 				});
 			});
 		}
 	}, {
 		key: 'render',
 		value: function render() {
+			var _this3 = this;
+
 			return React.createElement(
-				TemplatesList,
-				null,
-				this.getModal(),
-				this.state.count >= 1 && this.state.templates.map(function (template) {
-					return React.createElement(
-						'li',
-						{ 'data-type': template.type },
-						React.createElement(
-							'figure',
-							null,
-							React.createElement('img', { src: template.thumb }),
+				'div',
+				{ style: {
+						position: 'relative',
+						minHeight: '80vh'
+					} },
+				this.state.isOpen && React.createElement(_Modal2.default, {
+					template: this.state.template,
+					onRequestClose: function onRequestClose() {
+						return _this3.setState({ isOpen: false });
+					},
+					onRequestImport: function onRequestImport() {
+						return _this3.importLayout();
+					}
+				}),
+				React.createElement(
+					TemplatesList,
+					null,
+					this.state.count >= 1 && this.state.templates.map(function (template) {
+						return React.createElement(
+							'li',
+							{ key: template.id },
 							React.createElement(
-								'div',
-								{ className: 'actions' },
+								'figure',
+								null,
+								template.thumbnail && React.createElement('img', { src: template.thumbnail }),
 								React.createElement(
-									StyledButton,
-									{ link: template.previewURL },
-									'Preview'
+									'div',
+									{ className: 'actions' },
+									React.createElement(
+										StyledButton,
+										{ onClick: function onClick() {
+												return _this3.setModalContent(template);
+											} },
+										'Preview'
+									)
 								)
+							),
+							React.createElement(
+								'h3',
+								null,
+								decodeEntities(template.title)
 							)
-						),
-						React.createElement(
-							'h3',
-							null,
-							decodeEntities(template.title)
-						),
-						React.createElement(
-							'p',
-							null,
-							template.category
-						)
-					);
-				})
+						);
+					})
+				)
 			);
 		}
 	}]);
@@ -4588,6 +4644,53 @@ var Templates = function (_React$Component) {
 }(React.Component);
 
 exports.default = Templates;
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _templateObject = _taggedTemplateLiteral(["\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\toverflow: scroll;\n\tbackground: #e3e3e3;\n\tz-index: 999;\n\n\tiframe {\n\t\twidth: 100%;\n\t\theight: 100%;\n\t}\n\n\t.frame-header {\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\tmargin-bottom: 25px;\n\t}\n\n\t.button--plain {\n\t\t-webkit-appearance: none;\n\t\t-moz-appearance: none;\n\t\tpadding: 0;\n\t\tmargin: 0;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\tcolor: #060606;\n\t\tbackground: transparent;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tcursor: pointer;\n\t}\n\n\t.button--accent {\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tfont-weight: bold;\n\t\tcolor: #fff;\n\t\tborder-radius: 0;\n\t\tborder: none;\n\t\tbackground: #FF7865;\n\t\toutline: 0;\n\t\tbox-shadow: none;\n\t\tpadding: 15px 30px;\n\t\tcursor: pointer;\n\t}\n"], ["\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\toverflow: scroll;\n\tbackground: #e3e3e3;\n\tz-index: 999;\n\n\tiframe {\n\t\twidth: 100%;\n\t\theight: 100%;\n\t}\n\n\t.frame-header {\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\tmargin-bottom: 25px;\n\t}\n\n\t.button--plain {\n\t\t-webkit-appearance: none;\n\t\t-moz-appearance: none;\n\t\tpadding: 0;\n\t\tmargin: 0;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\tcolor: #060606;\n\t\tbackground: transparent;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tcursor: pointer;\n\t}\n\n\t.button--accent {\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tfont-weight: bold;\n\t\tcolor: #fff;\n\t\tborder-radius: 0;\n\t\tborder: none;\n\t\tbackground: #FF7865;\n\t\toutline: 0;\n\t\tbox-shadow: none;\n\t\tpadding: 15px 30px;\n\t\tcursor: pointer;\n\t}\n"]);
+
+var _styledComponents = __webpack_require__(0);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Container = _styledComponents2.default.div(_templateObject);
+
+var Modal = function Modal(props) {
+	return React.createElement(
+		Container,
+		null,
+		React.createElement(
+			"div",
+			{ className: "frame-header" },
+			React.createElement(
+				"button",
+				{ className: "button--plain", onClick: props.onRequestClose },
+				"Back to Library"
+			),
+			React.createElement(
+				"button",
+				{ className: "button--accent", onClick: props.onRequestImport },
+				"Insert Layout"
+			)
+		),
+		React.createElement("iframe", { src: props.template.url, frameBorder: "0" })
+	);
+};
+
+exports.default = Modal;
 
 /***/ })
 /******/ ]);

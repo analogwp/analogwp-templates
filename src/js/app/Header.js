@@ -42,7 +42,7 @@ const Header = () => (
 	<Container>
 		<Logo />
 		<a href="#">Sync Library</a>
-		{ AGWP.is_settings_page && <a href="#">Close</a> }
+		{ ! AGWP.is_settings_page && <a href="#">Close</a> }
 	</Container>
 );
 

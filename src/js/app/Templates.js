@@ -1,6 +1,6 @@
 import styled from 'styled-components';
+import Modal from './Modal';
 const { decodeEntities } = wp.htmlEntities;
-const { Modal, Button } = wp.components;
 
 const TemplatesList = styled.ul`
 	margin: 0;
@@ -62,6 +62,7 @@ export default class Templates extends React.Component {
 		templates: [],
 		count: null,
 		isOpen: false,
+		modalContent: 'Dummy Content',
 	}
 
 	componentDidMount() {
@@ -77,33 +78,43 @@ export default class Templates extends React.Component {
 			} );
 	}
 
-	getModal = (content) => {
-		return this.state.isOpen ? <Modal
-                title="This is my modal"
-                onRequestClose={ () => this.setState( { isOpen: false } ) }>
-                <Button isDefault onClick={ () => this.setState( { isOpen: false } ) }>
-                    My custom close button
-                </Button>
-            </Modal>
-            : null;
+	setModalContent = (template) => {
+		this.setState({
+			isOpen: ! this.state.isOpen,
+			template: template,
+		});
+	}
+
+	importLayout = () => {
+		const speak = new SpeechSynthesisUtterance('This action should initiate import process in future.');
+		speechSynthesis.speak(speak);
 	}
 
 	render() {
 		return (
-			<TemplatesList>
-				{ this.getModal() }
-				{ this.state.count >= 1 && this.state.templates.map( (template) => (
-					<li key={ template.id }>
-						<figure>
-							<img src={ template.thumbnail } />
-							<div className="actions">
-								<StyledButton link={ template.url } onClick={this.getModal()}>Preview</StyledButton>
-							</div>
-						</figure>
-						<h3>{ decodeEntities(template.title) }</h3>
-					</li>
-				) ) }
-			</TemplatesList>
+			<div style={{
+				position: 'relative',
+				minHeight: '80vh',
+			}}>
+				{ this.state.isOpen && <Modal
+					template={ this.state.template }
+					onRequestClose={ () => this.setState( { isOpen: false } ) }
+					onRequestImport={ () => this.importLayout() }
+					/> }
+				<TemplatesList>
+					{ this.state.count >= 1 && this.state.templates.map( (template) => (
+						<li key={ template.id }>
+							<figure>
+								{ template.thumbnail && <img src={ template.thumbnail } /> }
+								<div className="actions">
+									<StyledButton onClick={ () => this.setModalContent(template) }>Preview</StyledButton>
+								</div>
+							</figure>
+							<h3>{ decodeEntities(template.title) }</h3>
+						</li>
+					) ) }
+				</TemplatesList>
+			</div>
 		)
 	}
 }

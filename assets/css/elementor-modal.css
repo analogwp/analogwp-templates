@@ -17,5 +17,11 @@
 }
 
 #analogwp-templates input[type=search] {
-    width: auto;
+    background: #fff;
+    border-radius: 0;
+    font-weight: bold;
+}
+
+#analogwp-templates > div {
+    margin: 0 -20px;
 }
