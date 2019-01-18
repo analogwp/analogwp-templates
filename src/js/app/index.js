@@ -1,17 +1,15 @@
 import App from './App';
 
-let target =  document.getElementById( 'analogwp-templates' );
-
-/**
- * Possible solution at: https://monkeyraptor.johanpaul.net/2014/12/javascript-how-to-detect-if-element.html
- */
-
-let checkLength = setInterval(() => {
-	console.log('still ticking');
-	if ( document.getElementById( 'analogwp-templates' ) ) {
-		console.log('found')
-		ReactDOM.render( <App />, document.getElementById( 'analogwp-templates' ) );
-		clearInterval(checkLength);
+const waitForEl = function(selector, callback) {
+	if ( ! document.getElementById( 'analogwp-templates' ) ) {
+		setTimeout(function() {
+			window.requestAnimationFrame(function(){ waitForEl(selector, callback) });
+		}, 1000);
+	} else {
+		callback();
 	}
-}, 100);
+};
 
+waitForEl( document.getElementById( 'analogwp-templates' ), function() {
+	ReactDOM.render( <App />, document.getElementById( 'analogwp-templates' ) );
+} );
