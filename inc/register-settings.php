@@ -14,7 +14,8 @@ function register_menu() {
 		'manage_options',
 		'analogwp_templates',
 		'Analog\settings\settings_page',
-		'dashicons-marker'
+		'dashicons-marker',
+		'58.6'
 	);
 }
 
