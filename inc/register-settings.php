@@ -19,8 +19,7 @@ function register_menu() {
 	);
 }
 
-add_action( 'admin_menu', 'Analog\settings\register_menu' );
-
+// add_action( 'admin_menu', 'Analog\settings\register_menu' );
 function settings_page() {
 	do_action( 'ang_loaded' );
 	?>
