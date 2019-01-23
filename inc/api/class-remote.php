@@ -60,10 +60,12 @@ class Remote extends Base {
 	/**
 	 * Get template info.
 	 *
+	 * @param boolean $force_update Force new info from remote API.
+	 *
 	 * @return array
 	 */
-	public function get_templates_info() {
-		if ( ! get_transient( self::TRANSIENT_KEY ) ) {
+	public function get_templates_info( $force_update = false ) {
+		if ( ! get_transient( self::TRANSIENT_KEY ) || $force_update ) {
 			self::set_templates_info( true );
 		}
 		return get_transient( self::TRANSIENT_KEY );

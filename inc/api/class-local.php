@@ -55,7 +55,13 @@ class Local extends Base {
 		return 'Hello world';
 	}
 
-	public function templates_list() {
+	public function templates_list( $request ) {
+		$force_update = $request->get_param( 'force_update' );
+
+		if ( $force_update ) {
+			return Remote::get_instance()->get_templates_info( true );
+		}
+
 		return Remote::get_instance()->get_templates_info();
 	}
 
