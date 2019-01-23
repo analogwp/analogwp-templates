@@ -81,8 +81,7 @@ export default class Templates extends React.Component {
 	state = {
 		templates: [],
 		count: null,
-		isOpen: false,
-		modalContent: "Dummy Content"
+		isOpen: false
 	};
 
 	componentDidMount() {

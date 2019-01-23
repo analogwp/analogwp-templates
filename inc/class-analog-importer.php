@@ -8,7 +8,7 @@
 namespace Elementor\TemplateLibrary;
 
 use \Analog\API\Remote;
-use \Elementor\TemplateLibrary\Source_Remote;
+use Elementor\TemplateLibrary\Source_Remote;
 use Elementor\TemplateLibrary\Classes\Images;
 use Elementor\Api;
 use Elementor\Plugin;

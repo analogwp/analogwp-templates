@@ -4572,8 +4572,7 @@ var Templates = function (_React$Component) {
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Templates.__proto__ || Object.getPrototypeOf(Templates)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			templates: [],
 			count: null,
-			isOpen: false,
-			modalContent: "Dummy Content"
+			isOpen: false
 		}, _this.setModalContent = function (template) {
 			_this.setState({
 				isOpen: !_this.state.isOpen,
