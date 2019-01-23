@@ -2862,19 +2862,23 @@ var _styledComponents = __webpack_require__(0);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _filters = __webpack_require__(22);
+var _AnalogContext = __webpack_require__(22);
+
+var _AnalogContext2 = _interopRequireDefault(_AnalogContext);
+
+var _filters = __webpack_require__(23);
 
 var _filters2 = _interopRequireDefault(_filters);
 
-var _Footer = __webpack_require__(23);
+var _Footer = __webpack_require__(24);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
-var _Header = __webpack_require__(24);
+var _Header = __webpack_require__(25);
 
 var _Header2 = _interopRequireDefault(_Header);
 
-var _Templates = __webpack_require__(26);
+var _Templates = __webpack_require__(27);
 
 var _Templates2 = _interopRequireDefault(_Templates);
 
@@ -2888,6 +2892,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+var _wp = wp,
+    apiFetch = _wp.apiFetch;
+
+
 var Analog = _styledComponents2.default.div(_templateObject);
 
 var Content = _styledComponents2.default.div(_templateObject2);
@@ -2896,24 +2904,73 @@ var App = function (_React$Component) {
 	_inherits(App, _React$Component);
 
 	function App() {
+		var _ref;
+
+		var _temp, _this, _ret;
+
 		_classCallCheck(this, App);
 
-		return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+			templates: [],
+			count: null,
+			isOpen: false // Determines whether modal to preview template is open or not.
+		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
 	_createClass(App, [{
+		key: "componentDidMount",
+		value: function componentDidMount() {
+			var _this2 = this;
+
+			apiFetch({ path: "/agwp/v1/templates" }).then(function (data) {
+				_this2.setState({
+					templates: data.templates,
+					count: data.count,
+					timestamp: data.timestamp
+				});
+			});
+		}
+	}, {
+		key: "refreshAPI",
+		value: function refreshAPI() {
+			var _this3 = this;
+
+			apiFetch({
+				path: "/agwp/v1/templates/?force_update=true"
+			}).then(function (data) {
+				_this3.setState({
+					templates: data.templates,
+					count: data.count,
+					timestamp: data.timestamp
+				});
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			return React.createElement(
 				Analog,
 				null,
-				React.createElement(_Header2.default, null),
 				React.createElement(
-					Content,
-					null,
-					React.createElement(_filters2.default, null),
-					React.createElement(_Templates2.default, null),
-					React.createElement(_Footer2.default, null)
+					_AnalogContext2.default.Provider,
+					{
+						value: {
+							state: this.state,
+							forceRefresh: this.refreshAPI
+						}
+					},
+					React.createElement(_Header2.default, null),
+					React.createElement(
+						Content,
+						null,
+						React.createElement(_filters2.default, null),
+						React.createElement(_Templates2.default, null),
+						React.createElement(_Footer2.default, null)
+					)
 				)
 			);
 		}
@@ -4308,6 +4365,20 @@ function memoize(fn) {
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var AnalogContext = React.createContext();
+
+exports.default = AnalogContext;
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -4391,7 +4462,7 @@ var Filters = function Filters() {
 exports.default = Filters;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4424,7 +4495,7 @@ var Footer = function Footer() {
 exports.default = Footer;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4440,7 +4511,11 @@ var _styledComponents = __webpack_require__(0);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _logo = __webpack_require__(25);
+var _AnalogContext = __webpack_require__(22);
+
+var _AnalogContext2 = _interopRequireDefault(_AnalogContext);
+
+var _logo = __webpack_require__(26);
 
 var _logo2 = _interopRequireDefault(_logo);
 
@@ -4456,9 +4531,21 @@ var Header = function Header() {
 		null,
 		React.createElement(_logo2.default, null),
 		React.createElement(
-			"a",
-			{ href: "#" },
-			"Sync Library"
+			_AnalogContext2.default.Consumer,
+			null,
+			function (context) {
+				return React.createElement(
+					"a",
+					{
+						href: "#",
+						onClick: function onClick(e) {
+							e.preventDefault();
+							context.forceRefresh();
+						}
+					},
+					"Sync Library"
+				);
+			}
 		),
 		!AGWP.is_settings_page && React.createElement(
 			"a",
@@ -4471,7 +4558,7 @@ var Header = function Header() {
 exports.default = Header;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4513,7 +4600,7 @@ var Logo = function Logo() {
 exports.default = Logo;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4532,7 +4619,7 @@ var _styledComponents = __webpack_require__(0);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _Modal = __webpack_require__(27);
+var _Modal = __webpack_require__(28);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -4697,7 +4784,7 @@ var Templates = function (_React$Component) {
 exports.default = Templates;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import AnalogContext from "./AnalogContext";
 import Logo from "./logo";
 
 const Container = styled.div`
@@ -41,7 +42,19 @@ const Container = styled.div`
 const Header = () => (
 	<Container>
 		<Logo />
-		<a href="#">Sync Library</a>
+		<AnalogContext.Consumer>
+			{context => (
+				<a
+					href="#"
+					onClick={e => {
+						e.preventDefault();
+						context.forceRefresh();
+					}}
+				>
+					Sync Library
+				</a>
+			)}
+		</AnalogContext.Consumer>
 		{!AGWP.is_settings_page && <a href="#">Close</a>}
 	</Container>
 );
