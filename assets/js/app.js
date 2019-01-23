@@ -2827,7 +2827,7 @@ var _App2 = _interopRequireDefault(_App);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var waitForEl = function waitForEl(selector, callback) {
-	if (!document.getElementById('analogwp-templates')) {
+	if (!document.getElementById("analogwp-templates")) {
 		setTimeout(function () {
 			window.requestAnimationFrame(function () {
 				waitForEl(selector, callback);
@@ -2838,8 +2838,8 @@ var waitForEl = function waitForEl(selector, callback) {
 	}
 };
 
-waitForEl(document.getElementById('analogwp-templates'), function () {
-	ReactDOM.render(React.createElement(_App2.default, null), document.getElementById('analogwp-templates'));
+waitForEl(document.getElementById("analogwp-templates"), function () {
+	ReactDOM.render(React.createElement(_App2.default, null), document.getElementById("analogwp-templates"));
 });
 
 /***/ }),
@@ -2855,8 +2855,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n\tmargin: 0 0 0 -20px;\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n'], ['\n\tmargin: 0 0 0 -20px;\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n\tbackground: #E3E3E3;\n\tpadding: 40px;\n'], ['\n\tbackground: #E3E3E3;\n\tpadding: 40px;\n']);
+var _templateObject = _taggedTemplateLiteral(["\n\tmargin: 0 0 0 -20px;\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n"], ["\n\tmargin: 0 0 0 -20px;\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n"]),
+    _templateObject2 = _taggedTemplateLiteral(["\n\tbackground: #e3e3e3;\n\tpadding: 40px;\n"], ["\n\tbackground: #e3e3e3;\n\tpadding: 40px;\n"]);
 
 var _styledComponents = __webpack_require__(0);
 
@@ -2902,7 +2902,7 @@ var App = function (_React$Component) {
 	}
 
 	_createClass(App, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
 			return React.createElement(
 				Analog,
@@ -4311,7 +4311,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(["\n\tmargin: 0 0 40px 0;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=search] {\n\t\tmargin-left: auto;\n\t\ttext-transform: uppercase;\n\t\tpadding: 12px;\n\t\tborder: none;\n\t\toutline: none;\n\t\twidth: 250px;\n\t}\n"], ["\n\tmargin: 0 0 40px 0;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=search] {\n\t\tmargin-left: auto;\n\t\ttext-transform: uppercase;\n\t\tpadding: 12px;\n\t\tborder: none;\n\t\toutline: none;\n\t\twidth: 250px;\n\t}\n"]),
+var _templateObject = _taggedTemplateLiteral(["\n\tmargin: 0 0 40px 0;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=\"search\"] {\n\t\tmargin-left: auto;\n\t\ttext-transform: uppercase;\n\t\tpadding: 12px;\n\t\tborder: none;\n\t\toutline: none;\n\t\twidth: 250px;\n\t}\n"], ["\n\tmargin: 0 0 40px 0;\n\tdisplay: flex;\n\ttext-transform: uppercase;\n\tfont-weight: 600;\n\talign-items: center;\n\tcolor: #959595;\n\n\ta {\n\t\ttext-decoration: none;\n\t\tcolor: currentColor;\n\t\t&:hover {\n\t\t\tcolor: #000;\n\t\t}\n\t}\n\tinput[type=\"search\"] {\n\t\tmargin-left: auto;\n\t\ttext-transform: uppercase;\n\t\tpadding: 12px;\n\t\tborder: none;\n\t\toutline: none;\n\t\twidth: 250px;\n\t}\n"]),
     _templateObject2 = _taggedTemplateLiteral(["\n\tmargin: 0;\n\tpadding: 0;\n\tdisplay: inline-flex;\n\talign-items: center;\n\n\t+ ul {\n\t\tmargin-left: 100px;\n\t}\n\n\tli {\n\t\tmargin-bottom: 0;\n\t\t+ li {\n\t\t\tmargin-left: 20px;\n\t\t}\n\t}\n"], ["\n\tmargin: 0;\n\tpadding: 0;\n\tdisplay: inline-flex;\n\talign-items: center;\n\n\t+ ul {\n\t\tmargin-left: 100px;\n\t}\n\n\tli {\n\t\tmargin-bottom: 0;\n\t\t+ li {\n\t\t\tmargin-left: 20px;\n\t\t}\n\t}\n"]);
 
 var _styledComponents = __webpack_require__(0);
@@ -4401,7 +4401,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n\ttext-transform: uppercase;\n\ttext-align: center;\n\tcolor: #CECECE;\n\tfont-weight: 700;\n\tmargin-top: 50px;\n\tletter-spacing: 2px;\n'], ['\n\ttext-transform: uppercase;\n\ttext-align: center;\n\tcolor: #CECECE;\n\tfont-weight: 700;\n\tmargin-top: 50px;\n\tletter-spacing: 2px;\n']);
+var _templateObject = _taggedTemplateLiteral(["\n\ttext-transform: uppercase;\n\ttext-align: center;\n\tcolor: #cecece;\n\tfont-weight: 700;\n\tmargin-top: 50px;\n\tletter-spacing: 2px;\n"], ["\n\ttext-transform: uppercase;\n\ttext-align: center;\n\tcolor: #cecece;\n\tfont-weight: 700;\n\tmargin-top: 50px;\n\tletter-spacing: 2px;\n"]);
 
 var _styledComponents = __webpack_require__(0);
 
@@ -4417,7 +4417,7 @@ var Footer = function Footer() {
 	return React.createElement(
 		FooterContainer,
 		null,
-		'New Templates are coming soon'
+		"New Templates are coming soon"
 	);
 };
 
@@ -4434,7 +4434,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n\tbackground: #fff;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 12px 24px;\n\n\tsvg {\n\t\tvertical-align: bottom;\n\t}\n\n\ta {\n\t\tcolor: #060606;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\ttext-decoration: none;\n\t\t&:first-of-type {\n\t\t\tmargin-left: auto;\n\t\t}\n\t\t+ a {\n\t\t\tposition: relative;\n\t\t\tmargin-left: 30px;\n\t\t\t&:before {\n\t\t\t\tcontent: \'\';\n\t\t\t\tbackground: #D4D4D4;\n\t\t\t\twidth: 2px;\n\t\t\t\theight: 25px;\n\t\t\t\tposition: absolute;\n\t\t\t\tdisplay: block;\n\t\t\t\tleft: -16px;\n\t\t\t\ttop: -4px;\n\t\t\t}\n\t\t}\n\t}\n'], ['\n\tbackground: #fff;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 12px 24px;\n\n\tsvg {\n\t\tvertical-align: bottom;\n\t}\n\n\ta {\n\t\tcolor: #060606;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\ttext-decoration: none;\n\t\t&:first-of-type {\n\t\t\tmargin-left: auto;\n\t\t}\n\t\t+ a {\n\t\t\tposition: relative;\n\t\t\tmargin-left: 30px;\n\t\t\t&:before {\n\t\t\t\tcontent: \'\';\n\t\t\t\tbackground: #D4D4D4;\n\t\t\t\twidth: 2px;\n\t\t\t\theight: 25px;\n\t\t\t\tposition: absolute;\n\t\t\t\tdisplay: block;\n\t\t\t\tleft: -16px;\n\t\t\t\ttop: -4px;\n\t\t\t}\n\t\t}\n\t}\n']);
+var _templateObject = _taggedTemplateLiteral(["\n\tbackground: #fff;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 12px 24px;\n\n\tsvg {\n\t\tvertical-align: bottom;\n\t}\n\n\ta {\n\t\tcolor: #060606;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\ttext-decoration: none;\n\t\t&:first-of-type {\n\t\t\tmargin-left: auto;\n\t\t}\n\t\t+ a {\n\t\t\tposition: relative;\n\t\t\tmargin-left: 30px;\n\t\t\t&:before {\n\t\t\t\tcontent: \"\";\n\t\t\t\tbackground: #d4d4d4;\n\t\t\t\twidth: 2px;\n\t\t\t\theight: 25px;\n\t\t\t\tposition: absolute;\n\t\t\t\tdisplay: block;\n\t\t\t\tleft: -16px;\n\t\t\t\ttop: -4px;\n\t\t\t}\n\t\t}\n\t}\n"], ["\n\tbackground: #fff;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 12px 24px;\n\n\tsvg {\n\t\tvertical-align: bottom;\n\t}\n\n\ta {\n\t\tcolor: #060606;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\ttext-decoration: none;\n\t\t&:first-of-type {\n\t\t\tmargin-left: auto;\n\t\t}\n\t\t+ a {\n\t\t\tposition: relative;\n\t\t\tmargin-left: 30px;\n\t\t\t&:before {\n\t\t\t\tcontent: \"\";\n\t\t\t\tbackground: #d4d4d4;\n\t\t\t\twidth: 2px;\n\t\t\t\theight: 25px;\n\t\t\t\tposition: absolute;\n\t\t\t\tdisplay: block;\n\t\t\t\tleft: -16px;\n\t\t\t\ttop: -4px;\n\t\t\t}\n\t\t}\n\t}\n"]);
 
 var _styledComponents = __webpack_require__(0);
 
@@ -4456,14 +4456,14 @@ var Header = function Header() {
 		null,
 		React.createElement(_logo2.default, null),
 		React.createElement(
-			'a',
-			{ href: '#' },
-			'Sync Library'
+			"a",
+			{ href: "#" },
+			"Sync Library"
 		),
 		!AGWP.is_settings_page && React.createElement(
-			'a',
-			{ href: '#' },
-			'Close'
+			"a",
+			{ href: "#" },
+			"Close"
 		)
 	);
 };
@@ -4483,7 +4483,13 @@ Object.defineProperty(exports, "__esModule", {
 var Logo = function Logo() {
 	return React.createElement(
 		"svg",
-		{ width: "145", height: "31", viewBox: "0 0 145 31", fill: "#000000", xmlns: "http://www.w3.org/2000/svg" },
+		{
+			width: "145",
+			height: "31",
+			viewBox: "0 0 145 31",
+			fill: "#000000",
+			xmlns: "http://www.w3.org/2000/svg"
+		},
 		React.createElement("circle", { cx: "73.309", cy: "15.075", r: "8.279" }),
 		React.createElement("path", { d: "M11.9804 7.87103V9.64122C10.9373 8.15552 8.94579 7.52331 7.23882 7.52331C3.44555 7.52331 0 10.4631 0 15.2047C0 19.9463 3.44555 22.886 7.23882 22.886C8.88257 22.886 10.9373 22.2222 11.9804 20.7681V22.6015H16.1214V7.87103H11.9804ZM8.02908 19.0296C5.94278 19.0296 4.2042 17.3542 4.2042 15.2047C4.2042 13.0236 5.94278 11.4114 8.02908 11.4114C9.95733 11.4114 11.854 12.9287 11.854 15.2047C11.854 17.449 10.0522 19.0296 8.02908 19.0296Z" }),
 		React.createElement("path", { d: "M28.8686 7.4917C27.4145 7.4917 25.0753 8.34519 24.4431 10.3367V7.87103H20.3021V22.6015H24.4431V15.0466C24.4431 12.3597 26.2765 11.5695 27.7622 11.5695C29.1847 11.5695 30.5756 12.6126 30.5756 14.9518V22.6015H34.7165V14.5092C34.7481 10.0838 32.7251 7.4917 28.8686 7.4917Z" }),
@@ -4491,8 +4497,16 @@ var Logo = function Logo() {
 		React.createElement("path", { d: "M58.1175 22.6015H62.2585V0H58.1175V22.6015Z" }),
 		React.createElement("path", { d: "M73.439 22.886C77.6432 22.886 81.3732 19.8514 81.3732 15.2047C81.3732 10.5263 77.6432 7.4917 73.439 7.4917C69.2348 7.4917 65.5047 10.5263 65.5047 15.2047C65.5047 19.8514 69.2348 22.886 73.439 22.886ZM73.439 19.0296C71.3843 19.0296 69.7089 17.4806 69.7089 15.2047C69.7089 12.8971 71.3843 11.3482 73.439 11.3482C75.4937 11.3482 77.169 12.8971 77.169 15.2047C77.169 17.4806 75.4937 19.0296 73.439 19.0296Z" }),
 		React.createElement("path", { d: "M95.7298 7.87103V9.60961C94.6551 8.18713 92.6636 7.52331 90.9883 7.52331C87.195 7.52331 83.7494 10.4631 83.7494 15.2047C83.7494 19.9463 87.195 22.886 90.9883 22.886C92.632 22.886 94.6551 22.2222 95.7298 20.7997V21.021C95.7298 24.8775 94.0545 26.3316 91.3992 26.3316C89.8187 26.3316 88.3014 25.3833 87.6692 24.0556L84.2236 25.5413C85.488 28.2598 88.2381 30.03 91.3992 30.03C96.6149 30.03 99.8708 27.027 99.8708 20.5785V7.87103H95.7298ZM91.7785 19.0296C89.6922 19.0296 87.9537 17.3542 87.9537 15.2047C87.9537 13.0236 89.6922 11.4114 91.7785 11.4114C93.7068 11.4114 95.6034 12.9287 95.6034 15.2047C95.6034 17.449 93.8016 19.0296 91.7785 19.0296Z" }),
-		React.createElement("path", { d: "M121.976 7.87103L119.195 16.8484L116.381 7.87103H112.904L110.091 16.8484L107.309 7.87103H102.82L108.194 22.6015H111.734L114.674 13.0235L117.709 22.6015H121.249L126.465 7.87103H121.976Z", fill: "#000", fillOpacity: "0.22" }),
-		React.createElement("path", { d: "M137.648 7.4917C135.972 7.4917 133.949 8.15552 132.906 9.64122V7.87103H128.765V29.8404H132.906V20.7681C133.949 22.2538 135.972 22.886 137.648 22.886C141.441 22.886 144.887 19.9463 144.887 15.2047C144.887 10.4631 141.441 7.4917 137.648 7.4917ZM136.857 18.9979C134.929 18.9979 133.033 17.4806 133.033 15.2047C133.033 12.9603 134.834 11.3798 136.857 11.3798C138.944 11.3798 140.651 13.0552 140.651 15.2047C140.651 17.3858 138.944 18.9979 136.857 18.9979Z", fill: "#000", fillOpacity: "0.22" })
+		React.createElement("path", {
+			d: "M121.976 7.87103L119.195 16.8484L116.381 7.87103H112.904L110.091 16.8484L107.309 7.87103H102.82L108.194 22.6015H111.734L114.674 13.0235L117.709 22.6015H121.249L126.465 7.87103H121.976Z",
+			fill: "#000",
+			fillOpacity: "0.22"
+		}),
+		React.createElement("path", {
+			d: "M137.648 7.4917C135.972 7.4917 133.949 8.15552 132.906 9.64122V7.87103H128.765V29.8404H132.906V20.7681C133.949 22.2538 135.972 22.886 137.648 22.886C141.441 22.886 144.887 19.9463 144.887 15.2047C144.887 10.4631 141.441 7.4917 137.648 7.4917ZM136.857 18.9979C134.929 18.9979 133.033 17.4806 133.033 15.2047C133.033 12.9603 134.834 11.3798 136.857 11.3798C138.944 11.3798 140.651 13.0552 140.651 15.2047C140.651 17.3858 138.944 18.9979 136.857 18.9979Z",
+			fill: "#000",
+			fillOpacity: "0.22"
+		})
 	);
 };
 
@@ -4511,8 +4525,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0,0,0,0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n\n\tbutton {\n\t\tdisplay: block;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tpadding: 10px;\n\t\tfont-weight: bold;\n\t\tbackground: #FF7865;\n\t\twidth: 100px;\n\t\tcolor: #fff;\n\t\tcursor: pointer;\n\n\t\t+ button {\n\t\t\tmargin-top: 10px;\n\t\t}\n\t}\n'], ['\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0,0,0,0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n\n\tbutton {\n\t\tdisplay: block;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tpadding: 10px;\n\t\tfont-weight: bold;\n\t\tbackground: #FF7865;\n\t\twidth: 100px;\n\t\tcolor: #fff;\n\t\tcursor: pointer;\n\n\t\t+ button {\n\t\t\tmargin-top: 10px;\n\t\t}\n\t}\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n\ttext-transform: uppercase;\n\tpadding: 5px 10px;\n'], ['\n\ttext-transform: uppercase;\n\tpadding: 5px 10px;\n']);
+var _templateObject = _taggedTemplateLiteral(["\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0, 0, 0, 0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n\n\tbutton {\n\t\tdisplay: block;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tpadding: 10px;\n\t\tfont-weight: bold;\n\t\tbackground: #ff7865;\n\t\twidth: 100px;\n\t\tcolor: #fff;\n\t\tcursor: pointer;\n\n\t\t+ button {\n\t\t\tmargin-top: 10px;\n\t\t}\n\t}\n"], ["\n\tmargin: 0;\n\tdisplay: grid;\n\tgrid-template-columns: repeat(4, 1fr);\n\tgrid-gap: 20px;\n\ttext-transform: uppercase;\n\tcolor: #000;\n\n\tp {\n\t\tcolor: #939393;\n\t\tletter-spacing: 1px;\n\t\tfont-size: 10px;\n\t\tmargin: 0;\n\t\tfont-weight: 500;\n\t}\n\n\th3 {\n\t\tfont-size: 15px;\n\t\tmargin: 10px 0 5px;\n\t}\n\n\timg {\n\t\twidth: 100%;\n\t\theight: auto;\n\t}\n\n\tfigure {\n\t\tmargin: 0;\n\t\tposition: relative;\n\n\t\t&:hover .actions {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.actions {\n\t\topacity: 0;\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tbackground: rgba(0, 0, 0, 0.7);\n\t\ttop: 0;\n\t\tleft: 0;\n\t\tz-index: 100;\n\t}\n\n\tbutton {\n\t\tdisplay: block;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tpadding: 10px;\n\t\tfont-weight: bold;\n\t\tbackground: #ff7865;\n\t\twidth: 100px;\n\t\tcolor: #fff;\n\t\tcursor: pointer;\n\n\t\t+ button {\n\t\t\tmargin-top: 10px;\n\t\t}\n\t}\n"]),
+    _templateObject2 = _taggedTemplateLiteral(["\n\ttext-transform: uppercase;\n\tpadding: 5px 10px;\n"], ["\n\ttext-transform: uppercase;\n\tpadding: 5px 10px;\n"]);
 
 var _styledComponents = __webpack_require__(0);
 
@@ -4533,6 +4547,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var decodeEntities = wp.htmlEntities.decodeEntities;
+var _wp = wp,
+    apiFetch = _wp.apiFetch;
 
 
 var TemplatesList = _styledComponents2.default.ul(_templateObject);
@@ -4557,7 +4573,7 @@ var Templates = function (_React$Component) {
 			templates: [],
 			count: null,
 			isOpen: false,
-			modalContent: 'Dummy Content'
+			modalContent: "Dummy Content"
 		}, _this.setModalContent = function (template) {
 			_this.setState({
 				isOpen: !_this.state.isOpen,
@@ -4567,38 +4583,36 @@ var Templates = function (_React$Component) {
 			if (!template) {
 				template = _this.state.template;
 			}
-			var speak = new SpeechSynthesisUtterance('This action should initiate import process in future.');
-			speechSynthesis.speak(speak);
+
+			console.log(template);
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
 	_createClass(Templates, [{
-		key: 'componentDidMount',
+		key: "componentDidMount",
 		value: function componentDidMount() {
 			var _this2 = this;
 
-			var callbackURL = 'https://analogwp.com/wp-json/analogwp/v1/templates/';
-
-			fetch(callbackURL).then(function (response) {
-				return response.json();
-			}).then(function (response) {
+			apiFetch({ path: "/agwp/v1/templates" }).then(function (data) {
 				_this2.setState({
-					templates: response.templates,
-					count: response.count
+					templates: data.templates,
+					count: data.count
 				});
 			});
 		}
 	}, {
-		key: 'render',
+		key: "render",
 		value: function render() {
 			var _this3 = this;
 
 			return React.createElement(
-				'div',
-				{ style: {
-						position: 'relative',
-						minHeight: '80vh'
-					} },
+				"div",
+				{
+					style: {
+						position: "relative",
+						minHeight: "80vh"
+					}
+				},
 				this.state.isOpen && React.createElement(_Modal2.default, {
 					template: this.state.template,
 					onRequestClose: function onRequestClose() {
@@ -4613,33 +4627,35 @@ var Templates = function (_React$Component) {
 					null,
 					this.state.count >= 1 && this.state.templates.map(function (template) {
 						return React.createElement(
-							'li',
+							"li",
 							{ key: template.id },
 							React.createElement(
-								'figure',
+								"figure",
 								null,
-								template.thumbnail && React.createElement('img', { src: template.thumbnail }),
+								template.thumbnail && React.createElement("img", { src: template.thumbnail }),
 								React.createElement(
-									'div',
-									{ className: 'actions' },
+									"div",
+									{ className: "actions" },
 									React.createElement(
 										StyledButton,
-										{ onClick: function onClick() {
+										{
+											onClick: function onClick() {
 												return _this3.setModalContent(template);
-											} },
-										'Preview'
+											}
+										},
+										"Preview"
 									),
 									React.createElement(
 										StyledButton,
 										{ onClick: function onClick() {
 												return _this3.importLayout(template);
 											} },
-										'Import'
+										"Import"
 									)
 								)
 							),
 							React.createElement(
-								'h3',
+								"h3",
 								null,
 								decodeEntities(template.title)
 							)
@@ -4666,7 +4682,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(["\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\toverflow: scroll;\n\tbackground: #e3e3e3;\n\tz-index: 999;\n\n\tiframe {\n\t\twidth: 100%;\n\t\theight: 100%;\n\t}\n\n\t.frame-header {\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\tmargin-bottom: 25px;\n\t}\n\n\t.button--plain {\n\t\t-webkit-appearance: none;\n\t\t-moz-appearance: none;\n\t\tpadding: 0;\n\t\tmargin: 0;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\tcolor: #060606;\n\t\tbackground: transparent;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tcursor: pointer;\n\t}\n\n\t.button--accent {\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tfont-weight: bold;\n\t\tcolor: #fff;\n\t\tborder-radius: 0;\n\t\tborder: none;\n\t\tbackground: #FF7865;\n\t\toutline: 0;\n\t\tbox-shadow: none;\n\t\tpadding: 15px 30px;\n\t\tcursor: pointer;\n\t}\n"], ["\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\toverflow: scroll;\n\tbackground: #e3e3e3;\n\tz-index: 999;\n\n\tiframe {\n\t\twidth: 100%;\n\t\theight: 100%;\n\t}\n\n\t.frame-header {\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\tmargin-bottom: 25px;\n\t}\n\n\t.button--plain {\n\t\t-webkit-appearance: none;\n\t\t-moz-appearance: none;\n\t\tpadding: 0;\n\t\tmargin: 0;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\tcolor: #060606;\n\t\tbackground: transparent;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tcursor: pointer;\n\t}\n\n\t.button--accent {\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tfont-weight: bold;\n\t\tcolor: #fff;\n\t\tborder-radius: 0;\n\t\tborder: none;\n\t\tbackground: #FF7865;\n\t\toutline: 0;\n\t\tbox-shadow: none;\n\t\tpadding: 15px 30px;\n\t\tcursor: pointer;\n\t}\n"]);
+var _templateObject = _taggedTemplateLiteral(["\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\toverflow: scroll;\n\tbackground: #e3e3e3;\n\tz-index: 999;\n\n\tiframe {\n\t\twidth: 100%;\n\t\theight: 100%;\n\t}\n\n\t.frame-header {\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\tmargin-bottom: 25px;\n\t}\n\n\t.button--plain {\n\t\t-webkit-appearance: none;\n\t\t-moz-appearance: none;\n\t\tpadding: 0;\n\t\tmargin: 0;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\tcolor: #060606;\n\t\tbackground: transparent;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tcursor: pointer;\n\t}\n\n\t.button--accent {\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tfont-weight: bold;\n\t\tcolor: #fff;\n\t\tborder-radius: 0;\n\t\tborder: none;\n\t\tbackground: #ff7865;\n\t\toutline: 0;\n\t\tbox-shadow: none;\n\t\tpadding: 15px 30px;\n\t\tcursor: pointer;\n\t}\n"], ["\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\toverflow: scroll;\n\tbackground: #e3e3e3;\n\tz-index: 999;\n\n\tiframe {\n\t\twidth: 100%;\n\t\theight: 100%;\n\t}\n\n\t.frame-header {\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\tmargin-bottom: 25px;\n\t}\n\n\t.button--plain {\n\t\t-webkit-appearance: none;\n\t\t-moz-appearance: none;\n\t\tpadding: 0;\n\t\tmargin: 0;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\tcolor: #060606;\n\t\tbackground: transparent;\n\t\tborder: none;\n\t\toutline: 0;\n\t\tcursor: pointer;\n\t}\n\n\t.button--accent {\n\t\tfont-size: 12px;\n\t\ttext-transform: uppercase;\n\t\tfont-weight: bold;\n\t\tcolor: #fff;\n\t\tborder-radius: 0;\n\t\tborder: none;\n\t\tbackground: #ff7865;\n\t\toutline: 0;\n\t\tbox-shadow: none;\n\t\tpadding: 15px 30px;\n\t\tcursor: pointer;\n\t}\n"]);
 
 var _styledComponents = __webpack_require__(0);
 

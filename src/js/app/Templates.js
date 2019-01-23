@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Modal from "./Modal";
 const { decodeEntities } = wp.htmlEntities;
+const { apiFetch } = wp;
 
 const TemplatesList = styled.ul`
 	margin: 0;
@@ -85,16 +86,12 @@ export default class Templates extends React.Component {
 	};
 
 	componentDidMount() {
-		let callbackURL = "https://analogwp.com/wp-json/analogwp/v1/templates/";
-
-		fetch(callbackURL)
-			.then(response => response.json())
-			.then(response => {
-				this.setState({
-					templates: response.templates,
-					count: response.count
-				});
+		apiFetch({ path: "/agwp/v1/templates" }).then(data => {
+			this.setState({
+				templates: data.templates,
+				count: data.count
 			});
+		});
 	}
 
 	setModalContent = template => {
@@ -108,10 +105,8 @@ export default class Templates extends React.Component {
 		if (!template) {
 			template = this.state.template;
 		}
-		const speak = new SpeechSynthesisUtterance(
-			"This action should initiate import process in future."
-		);
-		speechSynthesis.speak(speak);
+
+		console.log(template);
 	};
 
 	render() {

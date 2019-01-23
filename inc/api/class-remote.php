@@ -5,9 +5,13 @@
  * @package AnalogWP
  */
 
-namespace Analog;
+namespace Analog\API;
 
-class API_Remote {
+use \Analog\Base;
+
+defined( 'ABSPATH' ) || exit;
+
+class Remote extends Base {
 	protected const TRANSIENT_KEY = 'analogwp_template_info';
 	protected const ENDPOINT      = 'https://analogwp.com/wp-json/analogwp/v1/templates/';
 
@@ -31,7 +35,6 @@ class API_Remote {
 	 */
 	public function __construct() {
 		add_action( 'ang_loaded', [ $this, 'set_templates_info' ] );
-		add_action( 'wp_ajax_ang_templates', [ $this, 'ajax_ang_templates' ] );
 
 		self::$api_call_args = [
 			'plugin_version' => ANG_VERSION,
@@ -45,11 +48,11 @@ class API_Remote {
 	 * @param boolean $force_update Force new info from remote API.
 	 * @return void
 	 */
-	private static function set_templates_info( $force_update = false ) {
+	public static function set_templates_info( $force_update = false ) {
 		$transient = get_transient( self::TRANSIENT_KEY );
 
 		if ( ! $transient || $force_update ) {
-			$info = $this->request_remote_templates_info( $force_update );
+			$info = self::request_remote_templates_info( $force_update );
 			set_transient( self::TRANSIENT_KEY, $info, DAY_IN_SECONDS );
 		}
 	}
@@ -60,12 +63,16 @@ class API_Remote {
 	 * @return array
 	 */
 	public function get_templates_info() {
+		if ( ! get_transient( self::TRANSIENT_KEY ) ) {
+			self::set_templates_info( true );
+		}
 		return get_transient( self::TRANSIENT_KEY );
 	}
 
 	/**
 	 * Fetch remote template library info.
 	 *
+	 * @param boolean $force_update Force update.
 	 * @return array $response AnalogWP Templates library.
 	 */
 	public function request_remote_templates_info( $force_update ) {
@@ -83,22 +90,6 @@ class API_Remote {
 		$response = json_decode( wp_remote_retrieve_body( $request ), true );
 
 		return $response;
-	}
-
-	public function ajax_ang_templates() {
-		$data = get_transient( self::TRANSIENT_KEY );
-
-		if ( $data ) {
-			wp_send_json_success( $data );
-		} else {
-			wp_send_json_error( [ 'message' => __( 'No template data found.', 'ang' ) ] );
-		}
-	}
-
-	public function ajax_get_template() {
-		if ( empty( $_POST['template_id'] ) ) {
-			wp_send_json_error( [ 'message' => __( 'Please provide a template ID.', 'ang' ) ] );
-		}
 	}
 
 	/**
@@ -140,4 +131,4 @@ class API_Remote {
 	}
 }
 
-new \Analog\API_Remote();
+new \Analog\API\Remote();
