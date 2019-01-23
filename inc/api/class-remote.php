@@ -12,8 +12,8 @@ use \Analog\Base;
 defined( 'ABSPATH' ) || exit;
 
 class Remote extends Base {
-	protected const TRANSIENT_KEY = 'analogwp_template_info';
-	protected const ENDPOINT      = 'https://analogwp.com/wp-json/analogwp/v1/templates/';
+	const TRANSIENT_KEY = 'analogwp_template_info';
+	const ENDPOINT      = 'https://analogwp.com/wp-json/analogwp/v1/templates/';
 
 	/**
 	 * API template URL.
