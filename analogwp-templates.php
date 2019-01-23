@@ -100,6 +100,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-remote.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-local.php';
+		require_once ANG_PLUGIN_DIR . 'inc/class-analog-importer.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-elementor.php';
 	}
 
@@ -112,10 +113,12 @@ final class Analog_Templates {
 
 		wp_enqueue_script( 'analogwp-app', ANG_PLUGIN_URL . 'assets/js/app.js', [ 'react', 'react-dom', 'wp-components' ], ANG_VERSION, true );
 
-		wp_localize_script( 'analogwp-app', 'AGWP', [
-			'ajaxurl'          => admin_url( 'admin-ajax.php' ),
-			'is_settings_page' => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
-		] );
+		wp_localize_script(
+			'analogwp-app', 'AGWP', [
+				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
+				'is_settings_page' => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
+			]
+		);
 	}
 }
 

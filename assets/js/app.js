@@ -4584,7 +4584,31 @@ var Templates = function (_React$Component) {
 				template = _this.state.template;
 			}
 
-			console.log(template);
+			apiFetch({
+				path: "/agwp/v1/import/elementor",
+				method: "post",
+				data: {
+					template_id: template.id,
+					editor_post_id: ElementorConfig.post_id
+				}
+			}).then(function (data) {
+				var template = JSON.parse(data);
+
+				if (AGWP.is_settings_page) {
+					var model = new Backbone.Model({
+						getTitle: function getTitle() {
+							return "Test";
+						}
+					});
+
+					elementor.channels.data.trigger("template:before:insert", model);
+					for (var i = 0; i < template.content.length; i++) {
+						elementor.getPreviewView().addChildElement(template.content[i]);
+					}
+					elementor.channels.data.trigger("template:after:insert", {});
+					window.analogModal.hide();
+				}
+			});
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 

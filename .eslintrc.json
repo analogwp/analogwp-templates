@@ -23,6 +23,9 @@
 		"console": true,
 		"window": true,
 		"React": true,
+		"elementor": true,
+		"Backbone": true,
+		"ElementorConfig": true,
 		"AGWP": true
 	},
 	"settings": {

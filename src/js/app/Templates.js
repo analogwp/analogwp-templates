@@ -106,7 +106,31 @@ export default class Templates extends React.Component {
 			template = this.state.template;
 		}
 
-		console.log(template);
+		apiFetch({
+			path: "/agwp/v1/import/elementor",
+			method: "post",
+			data: {
+				template_id: template.id,
+				editor_post_id: ElementorConfig.post_id
+			}
+		}).then(data => {
+			const template = JSON.parse(data);
+
+			if (AGWP.is_settings_page) {
+				const model = new Backbone.Model({
+					getTitle: function getTitle() {
+						return "Test";
+					}
+				});
+
+				elementor.channels.data.trigger("template:before:insert", model);
+				for (let i = 0; i < template.content.length; i++) {
+					elementor.getPreviewView().addChildElement(template.content[i]);
+				}
+				elementor.channels.data.trigger("template:after:insert", {});
+				window.analogModal.hide();
+			}
+		});
 	};
 
 	render() {

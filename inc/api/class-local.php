@@ -51,8 +51,21 @@ class Local extends Base {
 		return current_user_can( 'edit_posts' );
 	}
 
-	public function handle_import() {
-		return 'Hello world';
+	public function handle_import( $request ) {
+		$template_id = $request->get_param( 'template_id' );
+		$editor_id   = $request->get_param( 'editor_post_id' );
+
+		if ( ! $template_id ) {
+			return new \WP_REST_Response( [ 'error' => 'Invalid Template ID.' ], 500 );
+		}
+
+		$obj  = new \Elementor\TemplateLibrary\Analog_Importer();
+		$data = $obj->get_data([
+			'template_id'    => $template_id,
+			'editor_post_id' => $editor_id,
+		]);
+
+		return new \WP_REST_Response( json_encode( maybe_unserialize( $data ) ), 200 );
 	}
 
 	public function templates_list( $request ) {
