@@ -4584,17 +4584,19 @@ var Templates = function (_React$Component) {
 				template = _this.state.template;
 			}
 
+			var editor_id = "undefined" !== typeof ElementorConfig ? ElementorConfig.post_id : false;
+
 			apiFetch({
 				path: "/agwp/v1/import/elementor",
 				method: "post",
 				data: {
 					template_id: template.id,
-					editor_post_id: ElementorConfig.post_id
+					editor_post_id: editor_id
 				}
 			}).then(function (data) {
 				var template = JSON.parse(data);
 
-				if (AGWP.is_settings_page) {
+				if (typeof elementor !== "undefined") {
 					var model = new Backbone.Model({
 						getTitle: function getTitle() {
 							return "Test";

@@ -106,17 +106,20 @@ export default class Templates extends React.Component {
 			template = this.state.template;
 		}
 
+		const editor_id =
+			"undefined" !== typeof ElementorConfig ? ElementorConfig.post_id : false;
+
 		apiFetch({
 			path: "/agwp/v1/import/elementor",
 			method: "post",
 			data: {
 				template_id: template.id,
-				editor_post_id: ElementorConfig.post_id
+				editor_post_id: editor_id
 			}
 		}).then(data => {
 			const template = JSON.parse(data);
 
-			if (AGWP.is_settings_page) {
+			if (typeof elementor !== "undefined") {
 				const model = new Backbone.Model({
 					getTitle: function getTitle() {
 						return "Test";
