@@ -2904,21 +2904,18 @@ var App = function (_React$Component) {
 	_inherits(App, _React$Component);
 
 	function App() {
-		var _ref;
-
-		var _temp, _this, _ret;
-
 		_classCallCheck(this, App);
 
-		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-			args[_key] = arguments[_key];
-		}
+		var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+		_this.state = {
 			templates: [],
 			count: null,
 			isOpen: false // Determines whether modal to preview template is open or not.
-		}, _temp), _possibleConstructorReturn(_this, _ret);
+		};
+
+		_this.refreshAPI = _this.refreshAPI.bind(_this);
+		return _this;
 	}
 
 	_createClass(App, [{
@@ -2938,6 +2935,11 @@ var App = function (_React$Component) {
 		key: "refreshAPI",
 		value: function refreshAPI() {
 			var _this3 = this;
+
+			this.setState({
+				templates: [],
+				count: null
+			});
 
 			apiFetch({
 				path: "/agwp/v1/templates/?force_update=true"

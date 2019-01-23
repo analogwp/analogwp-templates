@@ -19,11 +19,17 @@ const Content = styled.div`
 `;
 
 class App extends React.Component {
-	state = {
-		templates: [],
-		count: null,
-		isOpen: false // Determines whether modal to preview template is open or not.
-	};
+	constructor() {
+		super(...arguments);
+
+		this.state = {
+			templates: [],
+			count: null,
+			isOpen: false // Determines whether modal to preview template is open or not.
+		};
+
+		this.refreshAPI = this.refreshAPI.bind(this);
+	}
 
 	componentDidMount() {
 		apiFetch({ path: "/agwp/v1/templates" }).then(data => {
@@ -36,6 +42,11 @@ class App extends React.Component {
 	}
 
 	refreshAPI() {
+		this.setState({
+			templates: [],
+			count: null
+		});
+
 		apiFetch({
 			path: "/agwp/v1/templates/?force_update=true"
 		}).then(data => {
