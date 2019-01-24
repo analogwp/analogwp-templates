@@ -25,6 +25,9 @@ class Local extends Base {
 			'/templates'        => [
 				\WP_REST_Server::READABLE => 'templates_list',
 			],
+			'/mark_favorite/'        => [
+				\WP_REST_Server::CREATABLE => 'mark_as_favorite',
+			],
 		];
 
 		foreach ( $endpoints as $endpoint => $details ) {
@@ -78,6 +81,25 @@ class Local extends Base {
 		return Remote::get_instance()->get_templates_info();
 	}
 
+	public function mark_as_favorite( \WP_REST_Request $request ) {
+		$template_id         = $request->get_param( 'template_id' );
+		$favorite            = $request->get_param( 'favorite' );
+		$favorites_templates = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
+
+		if ( ! $favorites_templates ) {
+			$favorites_templates = [];
+		}
+
+		if ( $favorite ) {
+			$favorites_templates[ $template_id ] = $favorite;
+		} elseif ( isset( $favorites_templates[ $template_id ] ) ) {
+			unset( $favorites_templates[ $template_id ] );
+		}
+
+		$data = update_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, $favorites_templates );
+
+		return new \WP_REST_Response( $data, 200 );
+	}
 }
 
 new \Analog\API\Local();

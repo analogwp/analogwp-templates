@@ -24,6 +24,13 @@ final class Analog_Templates {
 	private static $instance;
 
 	/**
+	 * Holds key for Favorite templates user meta.
+	 *
+	 * @var string
+	 */
+	public static $user_meta_prefix = 'analog_library_favorites';
+
+	/**
 	 * Main Analog_Templates instance.
 	 *
 	 * @return object|Analog_Templates The one true Analog_Templates.
@@ -110,13 +117,17 @@ final class Analog_Templates {
 		}
 
 		wp_enqueue_style( 'wp-components' );
-
 		wp_enqueue_script( 'analogwp-app', ANG_PLUGIN_URL . 'assets/js/app.js', [ 'react', 'react-dom', 'wp-components' ], ANG_VERSION, true );
+
+		$favorites = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
+
+		if ( ! $favorites )  $favorites = [];
 
 		wp_localize_script(
 			'analogwp-app', 'AGWP', [
 				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 				'is_settings_page' => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
+				'favorites'        => $favorites,
 			]
 		);
 	}
