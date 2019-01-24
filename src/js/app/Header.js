@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import AnalogContext from "./AnalogContext";
-import Logo from "./logo";
+import Logo from "./icons/logo";
 
 const Container = styled.div`
 	background: #fff;
