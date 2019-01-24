@@ -68,7 +68,7 @@ class App extends React.Component {
 					value={{
 						state: this.state,
 						forceRefresh: this.refreshAPI,
-						dispatch: (action, value) => this.setState({ [action]: value })
+						dispatch: action => this.setState(action)
 					}}
 				>
 					<Header />

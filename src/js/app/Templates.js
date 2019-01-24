@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import AnalogContext from "./AnalogContext";
 import Modal from "./Modal";
 const { decodeEntities } = wp.htmlEntities;
 const { apiFetch } = wp;
@@ -77,25 +78,16 @@ const StyledButton = styled.button`
 	padding: 5px 10px;
 `;
 
-export default class Templates extends React.Component {
+class Templates extends React.Component {
 	state = {
-		templates: [],
-		count: null,
-		isOpen: false
+		template: null
 	};
 
-	componentDidMount() {
-		apiFetch({ path: "/agwp/v1/templates" }).then(data => {
-			this.setState({
-				templates: data.templates,
-				count: data.count
-			});
-		});
-	}
-
 	setModalContent = template => {
+		this.context.dispatch({
+			isOpen: !this.context.state.isOpen
+		});
 		this.setState({
-			isOpen: !this.state.isOpen,
 			template: template
 		});
 	};
@@ -143,35 +135,43 @@ export default class Templates extends React.Component {
 					minHeight: "80vh"
 				}}
 			>
-				{this.state.isOpen && (
+				{this.context.state.isOpen && (
 					<Modal
 						template={this.state.template}
-						onRequestClose={() => this.setState({ isOpen: false })}
+						onRequestClose={() => this.context.dispatch({ isOpen: false })}
 						onRequestImport={() => this.importLayout()}
 					/>
 				)}
 				<TemplatesList>
-					{this.state.count >= 1 &&
-						this.state.templates.map(template => (
-							<li key={template.id}>
-								<figure>
-									{template.thumbnail && <img src={template.thumbnail} />}
-									<div className="actions">
-										<StyledButton
-											onClick={() => this.setModalContent(template)}
-										>
-											Preview
-										</StyledButton>
-										<StyledButton onClick={() => this.importLayout(template)}>
-											Import
-										</StyledButton>
-									</div>
-								</figure>
-								<h3>{decodeEntities(template.title)}</h3>
-							</li>
-						))}
+					<AnalogContext.Consumer>
+						{context =>
+							context.state.count >= 1 &&
+							context.state.templates.map(template => (
+								<li key={template.id}>
+									<figure>
+										{template.thumbnail && <img src={template.thumbnail} />}
+										<div className="actions">
+											<StyledButton
+												onClick={() => this.setModalContent(template)}
+											>
+												Preview
+											</StyledButton>
+											<StyledButton onClick={() => this.importLayout(template)}>
+												Import
+											</StyledButton>
+										</div>
+									</figure>
+									<h3>{decodeEntities(template.title)}</h3>
+								</li>
+							))
+						}
+					</AnalogContext.Consumer>
 				</TemplatesList>
 			</div>
 		);
 	}
 }
+
+Templates.contextType = AnalogContext;
+
+export default Templates;
