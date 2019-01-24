@@ -30,7 +30,7 @@ const TemplatesList = styled.ul`
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 13px 20px;
+		padding: 13px 20px 7px;
 
 		svg {
 			fill: #d0d0d0;
@@ -96,6 +96,16 @@ const TemplatesList = styled.ul`
 
 		+ button {
 			margin-top: 10px;
+		}
+	}
+
+	.tags {
+		color: #999999;
+		text-transform: capitalize;
+		padding: 0 20px 15px 20px;
+
+		span + span:before {
+			content: " / ";
 		}
 	}
 `;
@@ -217,6 +227,13 @@ class Templates extends React.Component {
 											<Star />
 										</a>
 									</div>
+									{template.tags && (
+										<div className="tags">
+											{template.tags.map(tag => (
+												<span key={tag}>{tag}</span>
+											))}
+										</div>
+									)}
 								</li>
 							))
 						}
