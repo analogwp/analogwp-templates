@@ -4726,7 +4726,12 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(["\n\tbackground: #fff;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 12px 24px;\n\n\tsvg {\n\t\tvertical-align: bottom;\n\t}\n\n\ta {\n\t\tcolor: #060606;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\ttext-decoration: none;\n\t\t&:first-of-type {\n\t\t\tmargin-left: auto;\n\t\t}\n\t\t+ a {\n\t\t\tposition: relative;\n\t\t\tmargin-left: 30px;\n\t\t\t&:before {\n\t\t\t\tcontent: \"\";\n\t\t\t\tbackground: #d4d4d4;\n\t\t\t\twidth: 2px;\n\t\t\t\theight: 25px;\n\t\t\t\tposition: absolute;\n\t\t\t\tdisplay: block;\n\t\t\t\tleft: -16px;\n\t\t\t\ttop: -4px;\n\t\t\t}\n\t\t}\n\t}\n"], ["\n\tbackground: #fff;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 12px 24px;\n\n\tsvg {\n\t\tvertical-align: bottom;\n\t}\n\n\ta {\n\t\tcolor: #060606;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\ttext-decoration: none;\n\t\t&:first-of-type {\n\t\t\tmargin-left: auto;\n\t\t}\n\t\t+ a {\n\t\t\tposition: relative;\n\t\t\tmargin-left: 30px;\n\t\t\t&:before {\n\t\t\t\tcontent: \"\";\n\t\t\t\tbackground: #d4d4d4;\n\t\t\t\twidth: 2px;\n\t\t\t\theight: 25px;\n\t\t\t\tposition: absolute;\n\t\t\t\tdisplay: block;\n\t\t\t\tleft: -16px;\n\t\t\t\ttop: -4px;\n\t\t\t}\n\t\t}\n\t}\n"]);
+var _templateObject = _taggedTemplateLiteral(["\n  from {\n    transform: rotate(0deg);\n  }\n\n  to {\n    transform: rotate(360deg);\n  }\n"], ["\n  from {\n    transform: rotate(0deg);\n  }\n\n  to {\n    transform: rotate(360deg);\n  }\n"]),
+    _templateObject2 = _taggedTemplateLiteral(["\n\tbackground: #fff;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 12px 24px;\n\n\tsvg {\n\t\tvertical-align: bottom;\n\t}\n\n\ta {\n\t\tcolor: #060606;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\ttext-decoration: none;\n\t\tdisplay: inline-flex;\n\t\talign-items: center;\n\n\t\t&.is-active {\n\t\t\tsvg {\n\t\t\t\tanimation: ", " 2s linear infinite;\n\t\t\t}\n\t\t}\n\n\t\tsvg {\n\t\t\tmargin-left: 10px;\n\t\t}\n\n\t\t&:first-of-type {\n\t\t\tmargin-left: auto;\n\t\t}\n\t\t+ a {\n\t\t\tposition: relative;\n\t\t\tmargin-left: 30px;\n\t\t\t&:before {\n\t\t\t\tcontent: \"\";\n\t\t\t\tbackground: #d4d4d4;\n\t\t\t\twidth: 2px;\n\t\t\t\theight: 25px;\n\t\t\t\tposition: absolute;\n\t\t\t\tdisplay: block;\n\t\t\t\tleft: -16px;\n\t\t\t\ttop: -4px;\n\t\t\t}\n\t\t}\n\t}\n"], ["\n\tbackground: #fff;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 12px 24px;\n\n\tsvg {\n\t\tvertical-align: bottom;\n\t}\n\n\ta {\n\t\tcolor: #060606;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 12px;\n\t\tfont-weight: bold;\n\t\ttext-decoration: none;\n\t\tdisplay: inline-flex;\n\t\talign-items: center;\n\n\t\t&.is-active {\n\t\t\tsvg {\n\t\t\t\tanimation: ", " 2s linear infinite;\n\t\t\t}\n\t\t}\n\n\t\tsvg {\n\t\t\tmargin-left: 10px;\n\t\t}\n\n\t\t&:first-of-type {\n\t\t\tmargin-left: auto;\n\t\t}\n\t\t+ a {\n\t\t\tposition: relative;\n\t\t\tmargin-left: 30px;\n\t\t\t&:before {\n\t\t\t\tcontent: \"\";\n\t\t\t\tbackground: #d4d4d4;\n\t\t\t\twidth: 2px;\n\t\t\t\theight: 25px;\n\t\t\t\tposition: absolute;\n\t\t\t\tdisplay: block;\n\t\t\t\tleft: -16px;\n\t\t\t\ttop: -4px;\n\t\t\t}\n\t\t}\n\t}\n"]);
+
+var _classnames = __webpack_require__(4);
+
+var _classnames2 = _interopRequireDefault(_classnames);
 
 var _styledComponents = __webpack_require__(0);
 
@@ -4736,15 +4741,25 @@ var _AnalogContext = __webpack_require__(2);
 
 var _AnalogContext2 = _interopRequireDefault(_AnalogContext);
 
+var _close = __webpack_require__(33);
+
+var _close2 = _interopRequireDefault(_close);
+
 var _logo = __webpack_require__(29);
 
 var _logo2 = _interopRequireDefault(_logo);
+
+var _refresh = __webpack_require__(32);
+
+var _refresh2 = _interopRequireDefault(_refresh);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Container = _styledComponents2.default.div(_templateObject);
+var rotate = (0, _styledComponents.keyframes)(_templateObject);
+
+var Container = _styledComponents2.default.div(_templateObject2, rotate);
 
 var Header = function Header() {
 	return React.createElement(
@@ -4759,19 +4774,24 @@ var Header = function Header() {
 					"a",
 					{
 						href: "#",
+						className: (0, _classnames2.default)({
+							"is-active": context.state.syncing
+						}),
 						onClick: function onClick(e) {
 							e.preventDefault();
 							context.forceRefresh();
 						}
 					},
-					context.state.syncing ? "Syncing..." : "Sync Library"
+					context.state.syncing ? "Syncing..." : "Sync Library",
+					React.createElement(_refresh2.default, null)
 				);
 			}
 		),
 		!AGWP.is_settings_page && React.createElement(
 			"a",
-			{ href: "#" },
-			"Close"
+			{ className: "close-modal", href: "#" },
+			"Close ",
+			React.createElement(_close2.default, null)
 		)
 	);
 };
@@ -5083,6 +5103,64 @@ var Modal = function Modal(props) {
 };
 
 exports.default = Modal;
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var Refresh = function Refresh() {
+	return React.createElement(
+		"svg",
+		{
+			width: "13",
+			height: "13",
+			viewBox: "0 0 13 13",
+			fill: "none",
+			xmlns: "http://www.w3.org/2000/svg"
+		},
+		React.createElement("path", {
+			d: "M9.41281 3.38406C8.61905 2.64083 7.58895 2.23341 6.49614 2.23438C4.52943 2.2361 2.83156 3.5846 2.36278 5.45518C2.32865 5.59135 2.20733 5.6875 2.06695 5.6875H0.61199C0.421611 5.6875 0.276986 5.51467 0.312203 5.32756C0.86158 2.41018 3.42299 0.203125 6.5 0.203125C8.18716 0.203125 9.7193 0.866734 10.8498 1.94708L11.7566 1.04025C12.1405 0.656373 12.7969 0.928256 12.7969 1.47116V4.875C12.7969 5.21155 12.5241 5.48438 12.1875 5.48438H8.78366C8.24076 5.48438 7.96887 4.828 8.35275 4.4441L9.41281 3.38406ZM0.8125 7.51562H4.21634C4.75924 7.51562 5.03113 8.172 4.64725 8.5559L3.58719 9.61596C4.38095 10.3592 5.41112 10.7666 6.50396 10.7657C8.46965 10.7639 10.1682 9.41629 10.6372 7.54488C10.6713 7.40871 10.7927 7.31255 10.9331 7.31255H12.388C12.5784 7.31255 12.723 7.48538 12.6878 7.67249C12.1384 10.5898 9.57701 12.7969 6.5 12.7969C4.81284 12.7969 3.2807 12.1333 2.15021 11.0529L1.24338 11.9597C0.859498 12.3436 0.203125 12.0717 0.203125 11.5288V8.125C0.203125 7.78845 0.475947 7.51562 0.8125 7.51562Z",
+			fill: "#000"
+		})
+	);
+};
+
+exports.default = Refresh;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var Close = function Close() {
+	return React.createElement(
+		"svg",
+		{
+			width: "10",
+			height: "9",
+			viewBox: "0 0 10 9",
+			fill: "none",
+			xmlns: "http://www.w3.org/2000/svg"
+		},
+		React.createElement("path", {
+			d: "M6.27486 4.5L8.8619 1.95916C9.17937 1.64736 9.17937 1.14184 8.8619 0.829785L8.28695 0.265098C7.96948 -0.0466992 7.45476 -0.0466992 7.13704 0.265098L4.55 2.80594L1.96296 0.265098C1.6455 -0.0466992 1.13078 -0.0466992 0.813054 0.265098L0.238099 0.829785C-0.0793665 1.14158 -0.0793665 1.64711 0.238099 1.95916L2.82514 4.5L0.238099 7.04084C-0.0793665 7.35264 -0.0793665 7.85816 0.238099 8.17021L0.813054 8.7349C1.13052 9.0467 1.6455 9.0467 1.96296 8.7349L4.55 6.19406L7.13704 8.7349C7.4545 9.0467 7.96948 9.0467 8.28695 8.7349L8.8619 8.17021C9.17937 7.85842 9.17937 7.35289 8.8619 7.04084L6.27486 4.5Z",
+			fill: "#000"
+		})
+	);
+};
+
+exports.default = Close;
 
 /***/ })
 /******/ ]);

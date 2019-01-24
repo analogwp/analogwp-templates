@@ -1,6 +1,19 @@
-import styled from "styled-components";
+import classNames from "classnames";
+import { default as styled, keyframes } from "styled-components";
 import AnalogContext from "./AnalogContext";
+import Close from "./icons/close";
 import Logo from "./icons/logo";
+import Refresh from "./icons/refresh";
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 const Container = styled.div`
 	background: #fff;
@@ -19,6 +32,19 @@ const Container = styled.div`
 		font-size: 12px;
 		font-weight: bold;
 		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+
+		&.is-active {
+			svg {
+				animation: ${rotate} 2s linear infinite;
+			}
+		}
+
+		svg {
+			margin-left: 10px;
+		}
+
 		&:first-of-type {
 			margin-left: auto;
 		}
@@ -46,16 +72,24 @@ const Header = () => (
 			{context => (
 				<a
 					href="#"
+					className={classNames({
+						"is-active": context.state.syncing
+					})}
 					onClick={e => {
 						e.preventDefault();
 						context.forceRefresh();
 					}}
 				>
 					{context.state.syncing ? "Syncing..." : "Sync Library"}
+					<Refresh />
 				</a>
 			)}
 		</AnalogContext.Consumer>
-		{!AGWP.is_settings_page && <a href="#">Close</a>}
+		{!AGWP.is_settings_page && (
+			<a className="close-modal" href="#">
+				Close <Close />
+			</a>
+		)}
 	</Container>
 );
 
