@@ -84,7 +84,7 @@ class Local extends Base {
 	public function mark_as_favorite( \WP_REST_Request $request ) {
 		$template_id         = $request->get_param( 'template_id' );
 		$favorite            = $request->get_param( 'favorite' );
-		$favorites_templates = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
+		$favorites_templates = get_user_meta( get_current_user_id(), \Analog\Analog_Templates::$user_meta_prefix, true );
 
 		if ( ! $favorites_templates ) {
 			$favorites_templates = [];
@@ -96,7 +96,11 @@ class Local extends Base {
 			unset( $favorites_templates[ $template_id ] );
 		}
 
-		$data = update_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, $favorites_templates );
+		$data                  = [];
+		$data['template_id']   = $template_id;
+		$data['action']        = $favorite;
+		$data['update_status'] = update_user_meta( get_current_user_id(), \Analog\Analog_Templates::$user_meta_prefix, $favorites_templates );
+		$data['favorites']           = get_user_meta( get_current_user_id(), \Analog\Analog_Templates::$user_meta_prefix, true );
 
 		return new \WP_REST_Response( $data, 200 );
 	}

@@ -32,7 +32,7 @@ class Elementor {
 
 		wp_enqueue_script( 'analogwp-app', ANG_PLUGIN_URL . 'assets/js/app.js', [ 'react', 'react-dom', 'wp-components' ], ANG_VERSION, true );
 
-		$favorites = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
+		$favorites = get_user_meta( get_current_user_id(), \Analog\Analog_Templates::$user_meta_prefix, true );
 
 		if ( ! $favorites )  $favorites = [];
 

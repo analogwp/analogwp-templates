@@ -155,7 +155,6 @@ class Templates extends React.Component {
 	};
 
 	render() {
-		const favorites = [...this.context.state.favorites];
 		return (
 			<div
 				style={{
@@ -194,19 +193,25 @@ class Templates extends React.Component {
 										<a
 											href="#"
 											className={classNames({
-												"is-active": favorites.includes(template.id)
+												"is-active": template.id in this.context.state.favorites
 											})}
 											onClick={e => {
 												e.preventDefault();
 
+												let favorites = this.context.state.favorites;
+
 												this.context.markFavorite(
 													template.id,
-													!favorites.includes(template.id)
+													!(template.id in favorites)
 												);
 
-												this.context.dispatch({
-													favorites: [template.id, ...favorites]
-												});
+												template.id in favorites
+													? delete favorites[template.id]
+													: (favorites[template.id] = !(
+															template.id in favorites
+													  ));
+
+												this.context.dispatch({ favorites });
 											}}
 										>
 											<Star />

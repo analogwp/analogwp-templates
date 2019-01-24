@@ -73,8 +73,8 @@ class App extends React.Component {
 	}
 
 	toggleFavorites() {
-		const filtered_templates = this.state.templates.filter(template =>
-			[...this.state.favorites].includes(template.id)
+		const filtered_templates = this.state.templates.filter(
+			template => template.id in this.state.favorites
 		);
 
 		this.setState({
