@@ -32,8 +32,8 @@ const FiltersContainer = styled.div`
 	}
 
 	.favorites {
-		margin-right: 20px;
 		svg {
+			margin-right: 8px;
 			fill: #060606;
 		}
 	}
@@ -45,21 +45,25 @@ const FiltersContainer = styled.div`
 	}
 `;
 
-const List = styled.ul`
+const List = styled.div`
 	margin: 0;
 	padding: 0;
 	display: inline-flex;
 	align-items: center;
-
-	+ ul {
-		margin-left: 100px;
+	position: relative;
+	margin-left: 40px;
+	&:before {
+		content: "";
+		width: 2px;
+		height: 25px;
+		background: #d4d4d4;
+		transform: translateX(-21px);
 	}
 
-	li {
-		margin-bottom: 0;
-		+ li {
-			margin-left: 20px;
-		}
+	label {
+		color: #969696;
+		margin-right: 15px;
+		letter-spacing: 1px;
 	}
 `;
 
@@ -79,23 +83,20 @@ class Filters extends React.Component {
 						? "Back to all"
 						: "My Favorites"}
 				</a>
+				{/* Might use this for custom select https://react-select.com/home */}
 				<List>
-					<li>Sort By:</li>
-					<li>
-						<a href="#">Popular</a>
-					</li>
-					<li>
-						<a href="#">New</a>
-					</li>
+					<label htmlFor="filter">Filter</label>
+					<select id="filter" name="filter">
+						<option value="all">Show All</option>
+						<option value="packs">Only Packs</option>
+					</select>
 				</List>
 				<List>
-					<li>Show:</li>
-					<li>
-						<a href="#">All</a>
-					</li>
-					<li>
-						<a href="#">Only Packs</a>
-					</li>
+					<label htmlFor="sort">Sort By</label>
+					<select id="sort" name="sort">
+						<option value="latest">Latest</option>
+						<option value="popular">Popular</option>
+					</select>
 				</List>
 
 				<input type="search" placeholder="Search" />

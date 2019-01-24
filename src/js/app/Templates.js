@@ -9,7 +9,8 @@ const { apiFetch } = wp;
 const TemplatesList = styled.ul`
 	margin: 0;
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	/* grid-template-columns: repeat(4, 1fr); */
+	grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
 	grid-gap: 25px;
 	text-transform: uppercase;
 	color: #000;
