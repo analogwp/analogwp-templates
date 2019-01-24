@@ -33,16 +33,20 @@ class App extends React.Component {
 			count: null,
 			isOpen: false, // Determines whether modal to preview template is open or not.
 			syncing: false,
-			favorites: AGWP.favorites
+			favorites: AGWP.favorites,
+			showing_favorites: false,
+			archive: [] // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 		};
 
 		this.refreshAPI = this.refreshAPI.bind(this);
+		this.toggleFavorites = this.toggleFavorites.bind(this);
 	}
 
 	componentDidMount() {
 		apiFetch({ path: "/agwp/v1/templates" }).then(data => {
 			this.setState({
 				templates: data.templates,
+				archive: data.templates,
 				count: data.count,
 				timestamp: data.timestamp
 			});
@@ -68,6 +72,19 @@ class App extends React.Component {
 		});
 	}
 
+	toggleFavorites() {
+		const filtered_templates = this.state.templates.filter(template =>
+			[...this.state.favorites].includes(template.id)
+		);
+
+		this.setState({
+			showing_favorites: !this.state.showing_favorites,
+			templates: !this.state.showing_favorites
+				? filtered_templates
+				: this.state.archive
+		});
+	}
+
 	render() {
 		return (
 			<Analog>
@@ -76,6 +93,7 @@ class App extends React.Component {
 						state: this.state,
 						forceRefresh: this.refreshAPI,
 						markFavorite: markFavorite,
+						toggleFavorites: this.toggleFavorites,
 						dispatch: action => this.setState(action)
 					}}
 				>

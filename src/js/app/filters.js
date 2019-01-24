@@ -1,7 +1,7 @@
+import classNames from "classnames";
 import styled from "styled-components";
 import AnalogContext from "./AnalogContext";
 import Star from "./icons/star";
-const { apiFetch } = wp;
 
 const FiltersContainer = styled.div`
 	margin: 0 0 40px 0;
@@ -37,6 +37,12 @@ const FiltersContainer = styled.div`
 			fill: #060606;
 		}
 	}
+
+	.is-active {
+		svg {
+			fill: #ff7865;
+		}
+	}
 `;
 
 const List = styled.ul`
@@ -61,8 +67,17 @@ class Filters extends React.Component {
 	render() {
 		return (
 			<FiltersContainer>
-				<a href="#" className="favorites">
-					<Star /> My Favorites
+				<a
+					href="#"
+					onClick={this.context.toggleFavorites}
+					className={classNames("favorites", {
+						"is-active": this.context.state.showing_favorites
+					})}
+				>
+					<Star />{" "}
+					{this.context.state.showing_favorites
+						? "Back to all"
+						: "My Favorites"}
 				</a>
 				<List>
 					<li>Sort By:</li>
