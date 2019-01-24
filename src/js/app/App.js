@@ -51,6 +51,14 @@ class App extends React.Component {
 				timestamp: data.timestamp
 			});
 		});
+
+		document.addEventListener("modal-close", () => {
+			this.setState({
+				isOpen: false,
+				showing_favorites: false,
+				templates: this.state.archive
+			});
+		});
 	}
 
 	refreshAPI() {
