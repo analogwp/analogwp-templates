@@ -51,7 +51,7 @@ const Header = () => (
 						context.forceRefresh();
 					}}
 				>
-					Sync Library
+					{context.state.syncing ? "Syncing..." : "Sync Library"}
 				</a>
 			)}
 		</AnalogContext.Consumer>

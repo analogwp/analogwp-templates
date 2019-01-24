@@ -25,7 +25,8 @@ class App extends React.Component {
 		this.state = {
 			templates: [],
 			count: null,
-			isOpen: false // Determines whether modal to preview template is open or not.
+			isOpen: false, // Determines whether modal to preview template is open or not.
+			syncing: false
 		};
 
 		this.refreshAPI = this.refreshAPI.bind(this);
@@ -44,7 +45,8 @@ class App extends React.Component {
 	refreshAPI() {
 		this.setState({
 			templates: [],
-			count: null
+			count: null,
+			syncing: true
 		});
 
 		apiFetch({
@@ -53,7 +55,8 @@ class App extends React.Component {
 			this.setState({
 				templates: data.templates,
 				count: data.count,
-				timestamp: data.timestamp
+				timestamp: data.timestamp,
+				syncing: false
 			});
 		});
 	}
@@ -64,7 +67,8 @@ class App extends React.Component {
 				<AnalogContext.Provider
 					value={{
 						state: this.state,
-						forceRefresh: this.refreshAPI
+						forceRefresh: this.refreshAPI,
+						dispatch: (action, value) => this.setState({ [action]: value })
 					}}
 				>
 					<Header />
