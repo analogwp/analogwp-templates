@@ -222,6 +222,15 @@ class Templates extends React.Component {
 													  ));
 
 												this.context.dispatch({ favorites });
+
+												if (this.context.state.showing_favorites) {
+													const filtered_templates = this.context.state.templates.filter(
+														template => template.id in favorites
+													);
+													this.context.dispatch({
+														templates: filtered_templates
+													});
+												}
 											}}
 										>
 											<Star />
