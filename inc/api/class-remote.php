@@ -77,7 +77,7 @@ class Remote extends Base {
 	 * @param boolean $force_update Force update.
 	 * @return array $response AnalogWP Templates library.
 	 */
-	public function request_remote_templates_info( $force_update ) {
+	public static function request_remote_templates_info( $force_update ) {
 		global $wp_version;
 
 		$body_args = apply_filters( 'analog/api/get_templates/body_args', self::$api_call_args );
