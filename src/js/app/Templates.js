@@ -1,5 +1,7 @@
+import classNames from "classnames";
 import styled from "styled-components";
 import AnalogContext from "./AnalogContext";
+import Star from "./icons/star";
 import Modal from "./Modal";
 const { decodeEntities } = wp.htmlEntities;
 const { apiFetch } = wp;
@@ -8,9 +10,13 @@ const TemplatesList = styled.ul`
 	margin: 0;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	grid-gap: 20px;
+	grid-gap: 25px;
 	text-transform: uppercase;
 	color: #000;
+
+	li {
+		background: #fff;
+	}
 
 	p {
 		color: #939393;
@@ -20,9 +26,30 @@ const TemplatesList = styled.ul`
 		font-weight: 500;
 	}
 
+	.content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 13px 20px;
+
+		svg {
+			fill: #d0d0d0;
+			transition: all 100ms ease-in;
+		}
+
+		a:hover,
+		a.is-active {
+			svg {
+				fill: #ff7865;
+			}
+		}
+	}
+
 	h3 {
-		font-size: 15px;
-		margin: 10px 0 5px;
+		font-size: 12px;
+		margin: 0;
+		font-weight: bold;
+		letter-spacing: 1px;
 	}
 
 	img {
@@ -128,6 +155,7 @@ class Templates extends React.Component {
 	};
 
 	render() {
+		const favorites = [...this.context.state.favorites];
 		return (
 			<div
 				style={{
@@ -161,7 +189,29 @@ class Templates extends React.Component {
 											</StyledButton>
 										</div>
 									</figure>
-									<h3>{decodeEntities(template.title)}</h3>
+									<div className="content">
+										<h3>{decodeEntities(template.title)}</h3>
+										<a
+											href="#"
+											className={classNames({
+												"is-active": favorites.includes(template.id)
+											})}
+											onClick={e => {
+												e.preventDefault();
+
+												this.context.markFavorite(
+													template.id,
+													!favorites.includes(template.id)
+												);
+
+												this.context.dispatch({
+													favorites: [template.id, ...favorites]
+												});
+											}}
+										>
+											<Star />
+										</a>
+									</div>
 								</li>
 							))
 						}

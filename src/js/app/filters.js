@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import AnalogContext from "./AnalogContext";
+import Star from "./icons/star";
+const { apiFetch } = wp;
 
 const FiltersContainer = styled.div`
 	margin: 0 0 40px 0;
@@ -6,7 +9,7 @@ const FiltersContainer = styled.div`
 	text-transform: uppercase;
 	font-weight: 600;
 	align-items: center;
-	color: #959595;
+	color: #060606;
 
 	a {
 		text-decoration: none;
@@ -22,6 +25,17 @@ const FiltersContainer = styled.div`
 		border: none;
 		outline: none;
 		width: 250px;
+	}
+	p {
+		margin: 0;
+		line-height: 1;
+	}
+
+	.favorites {
+		margin-right: 20px;
+		svg {
+			fill: #060606;
+		}
 	}
 `;
 
@@ -43,29 +57,38 @@ const List = styled.ul`
 	}
 `;
 
-const Filters = () => (
-	<FiltersContainer>
-		<List>
-			<li>Sort By:</li>
-			<li>
-				<a href="#">Popular</a>
-			</li>
-			<li>
-				<a href="#">New</a>
-			</li>
-		</List>
-		<List>
-			<li>Show:</li>
-			<li>
-				<a href="#">All</a>
-			</li>
-			<li>
-				<a href="#">Only Packs</a>
-			</li>
-		</List>
+class Filters extends React.Component {
+	render() {
+		return (
+			<FiltersContainer>
+				<a href="#" className="favorites">
+					<Star /> My Favorites
+				</a>
+				<List>
+					<li>Sort By:</li>
+					<li>
+						<a href="#">Popular</a>
+					</li>
+					<li>
+						<a href="#">New</a>
+					</li>
+				</List>
+				<List>
+					<li>Show:</li>
+					<li>
+						<a href="#">All</a>
+					</li>
+					<li>
+						<a href="#">Only Packs</a>
+					</li>
+				</List>
 
-		<input type="search" placeholder="Search" />
-	</FiltersContainer>
-);
+				<input type="search" placeholder="Search" />
+			</FiltersContainer>
+		);
+	}
+}
+
+Filters.contextType = AnalogContext;
 
 export default Filters;

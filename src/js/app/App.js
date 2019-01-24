@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import AnalogContext from "./AnalogContext";
+import { markFavorite } from "./api";
 import Filters from "./filters";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -11,6 +12,11 @@ const Analog = styled.div`
 	margin: 0 0 0 -20px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+
+	a {
+		outline: 0;
+		box-shadow: none;
+	}
 `;
 
 const Content = styled.div`
@@ -26,7 +32,8 @@ class App extends React.Component {
 			templates: [],
 			count: null,
 			isOpen: false, // Determines whether modal to preview template is open or not.
-			syncing: false
+			syncing: false,
+			favorites: AGWP.favorites
 		};
 
 		this.refreshAPI = this.refreshAPI.bind(this);
@@ -68,6 +75,7 @@ class App extends React.Component {
 					value={{
 						state: this.state,
 						forceRefresh: this.refreshAPI,
+						markFavorite: markFavorite,
 						dispatch: action => this.setState(action)
 					}}
 				>
