@@ -131,4 +131,7 @@ function ANG() {
 	return Analog_Templates::instance();
 }
 
-ANG();
+// Fire up plugin instance.
+add_action( 'plugins_loaded', function() {
+	ANG();
+} );
