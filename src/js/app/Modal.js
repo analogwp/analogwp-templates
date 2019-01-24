@@ -1,4 +1,5 @@
 import styled from "styled-components";
+const { Tooltip } = wp.components;
 
 const Container = styled.div`
 	position: absolute;
@@ -20,6 +21,17 @@ const Container = styled.div`
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 25px;
+
+		a {
+			margin-left: auto;
+			margin-right: 20px;
+			color: currentColor;
+			text-decoration: none;
+		}
+
+		.dashicons {
+			font-size: 25px;
+		}
 	}
 
 	.button--plain {
@@ -58,6 +70,11 @@ const Modal = props => (
 			<button className="button--plain" onClick={props.onRequestClose}>
 				Back to Library
 			</button>
+			<Tooltip text="Open preview in new tab">
+				<a href={props.template.url} rel="noopener noreferrer" target="_blank">
+					<span className="dashicons dashicons-external" />
+				</a>
+			</Tooltip>
 			<button className="button--accent" onClick={props.onRequestImport}>
 				Insert Layout
 			</button>
