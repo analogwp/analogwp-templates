@@ -65,8 +65,13 @@ class App extends React.Component {
 	}
 
 	handleSort(value) {
+		this.setState({
+			showing_favorites: false,
+			templates: this.state.archive
+		});
+
 		if ("popular" === value) {
-			const templates = [...this.state.templates];
+			const templates = [...this.state.archive];
 			const sorted = templates.sort((a, b) => {
 				if ("popularityIndex" in a) {
 					if (parseInt(a.popularityIndex) < parseInt(b.popularityIndex)) {
