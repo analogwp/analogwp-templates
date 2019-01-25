@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import Select from "react-select";
 import styled from "styled-components";
 import AnalogContext from "./AnalogContext";
 import Star from "./icons/star";
@@ -65,10 +66,24 @@ const List = styled.div`
 		color: #969696;
 		margin-right: 15px;
 	}
+
+	.dropdown {
+		width: 140px;
+		z-index: 1000;
+	}
 `;
 
 class Filters extends React.Component {
 	render() {
+		const filterOptions = [
+			{ value: "all", label: __("Show All", "ang") },
+			{ value: "packs", label: __("Only Packs", "ang") }
+		];
+
+		const sortOptions = [
+			{ value: "latest", label: __("Latest", "ang") },
+			{ value: "popular", label: __("Popular", "ang") }
+		];
 		return (
 			<FiltersContainer>
 				<a
@@ -83,26 +98,30 @@ class Filters extends React.Component {
 						? __("Back to all", "ang")
 						: __("My Favorites", "ang")}
 				</a>
-				{/*
-					Custom select options:
-					https://react-select.com/home
-					https://www.filamentgroup.com/lab/select-css.html
-				*/}
-				<List>
+				<List
+					style={{
+						display: "none"
+					}}
+				>
 					<label htmlFor="filter">{__("Filter", "ang")}</label>
-					<select id="filter" name="filter">
-						<option value="all">{__("Show All", "ang")}</option>
-						<option value="packs">{__("Only Packs", "ang")}</option>
-					</select>
+					<Select
+						inputId="filter"
+						className="dropdown"
+						defaultValue={filterOptions[0]}
+						isSearchable={false}
+						options={filterOptions}
+					/>
 				</List>
 				<List>
 					<label htmlFor="sort">{__("Sort By", "ang")}</label>
-					<select id="sort" name="sort">
-						<option value="latest">{__("Latest", "ang")}</option>
-						<option value="popular">{__("Popular", "ang")}</option>
-					</select>
+					<Select
+						inputId="sort"
+						className="dropdown"
+						defaultValue={sortOptions[0]}
+						isSearchable={false}
+						options={sortOptions}
+					/>
 				</List>
-
 				<input type="search" placeholder="Search" />
 			</FiltersContainer>
 		);

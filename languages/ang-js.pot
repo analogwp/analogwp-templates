@@ -35,34 +35,34 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: src/js/app/filters.js:101
-msgid "Latest"
-msgstr ""
-
-#: src/js/app/filters.js:102
-msgid "Popular"
-msgstr ""
-
-#: src/js/app/filters.js:83
-msgid "Back to all"
-msgstr ""
-
-#: src/js/app/filters.js:84
-msgid "My Favorites"
-msgstr ""
-
-#: src/js/app/filters.js:92
+#: src/js/app/filters.js:106
 msgid "Filter"
 msgstr ""
 
-#: src/js/app/filters.js:94
+#: src/js/app/filters.js:116
+msgid "Sort By"
+msgstr ""
+
+#: src/js/app/filters.js:79
 msgid "Show All"
 msgstr ""
 
-#: src/js/app/filters.js:95
+#: src/js/app/filters.js:80
 msgid "Only Packs"
 msgstr ""
 
+#: src/js/app/filters.js:84
+msgid "Latest"
+msgstr ""
+
+#: src/js/app/filters.js:85
+msgid "Popular"
+msgstr ""
+
+#: src/js/app/filters.js:98
+msgid "Back to all"
+msgstr ""
+
 #: src/js/app/filters.js:99
-msgid "Sort By"
+msgid "My Favorites"
 msgstr ""
