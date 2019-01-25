@@ -42,6 +42,7 @@ class App extends React.Component {
 		this.refreshAPI = this.refreshAPI.bind(this);
 		this.toggleFavorites = this.toggleFavorites.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
+		this.handleSort = this.handleSort.bind(this);
 	}
 
 	componentDidMount() {
@@ -61,6 +62,28 @@ class App extends React.Component {
 				templates: this.state.archive
 			});
 		});
+	}
+
+	handleSort(value) {
+		if ("popular" === value) {
+			const templates = [...this.state.templates];
+			const sorted = templates.sort((a, b) => {
+				if ("popularityIndex" in a) {
+					if (parseInt(a.popularityIndex) < parseInt(b.popularityIndex)) {
+						return 1;
+					}
+					if (parseInt(a.popularityIndex) > parseInt(b.popularityIndex)) {
+						return -1;
+					}
+				}
+				return 0;
+			});
+			this.setState({ templates: sorted });
+		}
+
+		if ("latest" === value) {
+			this.setState({ templates: this.state.archive });
+		}
 	}
 
 	handleSearch(value) {
@@ -128,6 +151,7 @@ class App extends React.Component {
 						markFavorite: markFavorite,
 						toggleFavorites: this.toggleFavorites,
 						handleSearch: this.handleSearch,
+						handleSort: this.handleSort,
 						dispatch: action => this.setState(action)
 					}}
 				>

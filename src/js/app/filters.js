@@ -133,6 +133,7 @@ class Filters extends React.Component {
 						defaultValue={sortOptions[0]}
 						isSearchable={false}
 						options={sortOptions}
+						onChange={e => this.context.handleSort(e.value)}
 					/>
 				</List>
 				<input
