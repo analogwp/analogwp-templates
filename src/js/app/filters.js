@@ -115,7 +115,7 @@ class Filters extends React.Component {
 						? __("Back to all", "ang")
 						: __("My Favorites", "ang")}
 				</a>
-				{this.context.state.filters.length >= 1 && (
+				{this.context.state.filters.length > 1 && (
 					<List>
 						<label htmlFor="filter">{__("Filter", "ang")}</label>
 						<Select

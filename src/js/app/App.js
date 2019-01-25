@@ -53,7 +53,8 @@ class App extends React.Component {
 				templates: data.templates,
 				archive: data.templates,
 				count: data.count,
-				timestamp: data.timestamp
+				timestamp: data.timestamp,
+				filters: [...new Set(data.templates.map(f => f.type))]
 			});
 		});
 
