@@ -18,6 +18,20 @@ const TemplatesList = styled.ul`
 
 	li {
 		background: #fff;
+		position: relative;
+	}
+
+	.pro {
+		position: absolute;
+		top: 8px;
+		right: -8px;
+		background: #ff7865;
+		color: #fff;
+		z-index: 110;
+		font-weight: bold;
+		font-size: 12px;
+		padding: 8px 10px;
+		line-height: 1;
 	}
 
 	p {
@@ -186,6 +200,9 @@ class Templates extends React.Component {
 							context.state.count >= 1 &&
 							context.state.templates.map(template => (
 								<li key={template.id}>
+									{template.is_pro && (
+										<span className="pro">{__("Pro", "ang")}</span>
+									)}
 									<figure>
 										{template.thumbnail && <img src={template.thumbnail} />}
 										<div className="actions">
