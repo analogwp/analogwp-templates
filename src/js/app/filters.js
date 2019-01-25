@@ -88,9 +88,13 @@ class Filters extends React.Component {
 		this.searchInput = React.createRef();
 	}
 	render() {
+		const filterTypes = [...this.context.state.filters].map(filter => {
+			return { value: `${filter}`, label: `${filter}` };
+		});
+
 		const filterOptions = [
 			{ value: "all", label: __("Show All", "ang") },
-			{ value: "packs", label: __("Only Packs", "ang") }
+			...filterTypes
 		];
 
 		const sortOptions = [
@@ -111,20 +115,19 @@ class Filters extends React.Component {
 						? __("Back to all", "ang")
 						: __("My Favorites", "ang")}
 				</a>
-				<List
-					style={{
-						display: "none"
-					}}
-				>
-					<label htmlFor="filter">{__("Filter", "ang")}</label>
-					<Select
-						inputId="filter"
-						className="dropdown"
-						defaultValue={filterOptions[0]}
-						isSearchable={false}
-						options={filterOptions}
-					/>
-				</List>
+				{this.context.state.filters.length >= 1 && (
+					<List>
+						<label htmlFor="filter">{__("Filter", "ang")}</label>
+						<Select
+							inputId="filter"
+							className="dropdown"
+							defaultValue={filterOptions[0]}
+							isSearchable={false}
+							options={filterOptions}
+							onChange={e => this.context.handleFilter(e.value)}
+						/>
+					</List>
+				)}
 				<List>
 					<label htmlFor="sort">{__("Sort By", "ang")}</label>
 					<Select

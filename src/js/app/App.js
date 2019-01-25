@@ -36,13 +36,15 @@ class App extends React.Component {
 			syncing: false,
 			favorites: AGWP.favorites,
 			showing_favorites: false,
-			archive: [] // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
+			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
+			filters: []
 		};
 
 		this.refreshAPI = this.refreshAPI.bind(this);
 		this.toggleFavorites = this.toggleFavorites.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
 		this.handleSort = this.handleSort.bind(this);
+		this.handleFilter = this.handleFilter.bind(this);
 	}
 
 	componentDidMount() {
@@ -62,6 +64,17 @@ class App extends React.Component {
 				templates: this.state.archive
 			});
 		});
+	}
+
+	handleFilter(type) {
+		const templates = [...this.state.archive];
+		if (type === "all") {
+			this.setState({ templates: this.state.archive });
+			return;
+		}
+
+		const filtered = templates.filter(template => template.type === type);
+		this.setState({ templates: filtered });
 	}
 
 	handleSort(value) {
@@ -157,6 +170,7 @@ class App extends React.Component {
 						toggleFavorites: this.toggleFavorites,
 						handleSearch: this.handleSearch,
 						handleSort: this.handleSort,
+						handleFilter: this.handleFilter,
 						dispatch: action => this.setState(action)
 					}}
 				>
