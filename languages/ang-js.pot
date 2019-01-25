@@ -19,46 +19,50 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+#: src/js/app/Modal.js:74
+msgid "Open Preview in New Tab"
+msgstr ""
+
 #: src/js/app/Modal.js:80
 msgid "Insert Layout"
 msgstr ""
 
-#: src/js/app/Templates.js:196
+#: src/js/app/Templates.js:195
 msgid "Preview"
 msgstr ""
 
-#: src/js/app/Templates.js:199
+#: src/js/app/Templates.js:198
 msgid "Import"
 msgstr ""
 
-#: src/js/app/filters.js:100
-msgid "Sort By"
-msgstr ""
-
-#: src/js/app/filters.js:102
+#: src/js/app/filters.js:101
 msgid "Latest"
 msgstr ""
 
-#: src/js/app/filters.js:103
+#: src/js/app/filters.js:102
 msgid "Popular"
 msgstr ""
 
-#: src/js/app/filters.js:84
+#: src/js/app/filters.js:83
 msgid "Back to all"
 msgstr ""
 
-#: src/js/app/filters.js:85
+#: src/js/app/filters.js:84
 msgid "My Favorites"
 msgstr ""
 
-#: src/js/app/filters.js:93
+#: src/js/app/filters.js:92
 msgid "Filter"
 msgstr ""
 
-#: src/js/app/filters.js:95
+#: src/js/app/filters.js:94
 msgid "Show All"
 msgstr ""
 
-#: src/js/app/filters.js:96
+#: src/js/app/filters.js:95
 msgid "Only Packs"
+msgstr ""
+
+#: src/js/app/filters.js:99
+msgid "Sort By"
 msgstr ""

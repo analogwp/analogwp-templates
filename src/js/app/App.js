@@ -13,6 +13,7 @@ const Analog = styled.div`
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-family: "Roboto", sans-serif;
+	letter-spacing: 1px;
 
 	a {
 		outline: 0;

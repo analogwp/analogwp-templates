@@ -71,7 +71,7 @@ const Modal = props => (
 			<button className="button--plain" onClick={props.onRequestClose}>
 				Back to Library
 			</button>
-			<Tooltip text={("Open preview in new tab", "ang")}>
+			<Tooltip text={__("Open Preview in New Tab", "ang")}>
 				<a href={props.template.url} rel="noopener noreferrer" target="_blank">
 					<span className="dashicons dashicons-external" />
 				</a>

@@ -22,7 +22,6 @@ const TemplatesList = styled.ul`
 
 	p {
 		color: #939393;
-		letter-spacing: 1px;
 		font-size: 10px;
 		margin: 0;
 		font-weight: 500;
@@ -51,7 +50,6 @@ const TemplatesList = styled.ul`
 		font-size: 12px;
 		margin: 0;
 		font-weight: bold;
-		letter-spacing: 1px;
 	}
 
 	img {
@@ -105,6 +103,7 @@ const TemplatesList = styled.ul`
 		color: #999999;
 		text-transform: capitalize;
 		padding: 0 20px 15px 20px;
+		letter-spacing: 0;
 
 		span + span:before {
 			content: " / ";

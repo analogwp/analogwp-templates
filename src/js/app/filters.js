@@ -64,7 +64,6 @@ const List = styled.div`
 	label {
 		color: #969696;
 		margin-right: 15px;
-		letter-spacing: 1px;
 	}
 `;
 
