@@ -216,6 +216,7 @@ class Templates extends React.Component {
 				<TemplatesList>
 					<AnalogContext.Consumer>
 						{context =>
+							!context.state.isOpen &&
 							context.state.count >= 1 &&
 							context.state.templates.map(template => (
 								<li key={template.id}>
