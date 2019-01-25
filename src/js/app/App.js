@@ -5,7 +5,6 @@ import Filters from "./filters";
 import Footer from "./Footer";
 import Header from "./Header";
 import Templates from "./Templates";
-
 const { apiFetch } = wp;
 
 const Analog = styled.div`
@@ -42,6 +41,7 @@ class App extends React.Component {
 
 		this.refreshAPI = this.refreshAPI.bind(this);
 		this.toggleFavorites = this.toggleFavorites.bind(this);
+		this.handleSearch = this.handleSearch.bind(this);
 	}
 
 	componentDidMount() {
@@ -60,6 +60,29 @@ class App extends React.Component {
 				showing_favorites: false,
 				templates: this.state.archive
 			});
+		});
+	}
+
+	handleSearch(value) {
+		const templates = this.state.templates;
+		let filtered = [];
+		let searchTags = [];
+
+		if (value) {
+			filtered = templates.filter(template => {
+				if (template.tags) {
+					searchTags = template.tags.filter(tag => {
+						return tag.toLowerCase().includes(value);
+					});
+				}
+				return (
+					template.title.toLowerCase().includes(value) || searchTags.length >= 1
+				);
+			});
+		}
+
+		this.setState({
+			templates: filtered.length ? filtered : this.state.archive
 		});
 	}
 
@@ -104,6 +127,7 @@ class App extends React.Component {
 						forceRefresh: this.refreshAPI,
 						markFavorite: markFavorite,
 						toggleFavorites: this.toggleFavorites,
+						handleSearch: this.handleSearch,
 						dispatch: action => this.setState(action)
 					}}
 				>

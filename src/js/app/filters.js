@@ -74,6 +74,11 @@ const List = styled.div`
 `;
 
 class Filters extends React.Component {
+	constructor() {
+		super(...arguments);
+
+		this.searchInput = React.createRef();
+	}
 	render() {
 		const filterOptions = [
 			{ value: "all", label: __("Show All", "ang") },
@@ -122,7 +127,16 @@ class Filters extends React.Component {
 						options={sortOptions}
 					/>
 				</List>
-				<input type="search" placeholder="Search" />
+				<input
+					type="search"
+					placeholder="Search"
+					ref={this.searchInput}
+					onChange={() =>
+						this.context.handleSearch(
+							this.searchInput.current.value.toLowerCase()
+						)
+					}
+				/>
 			</FiltersContainer>
 		);
 	}
