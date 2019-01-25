@@ -37,6 +37,7 @@ const Container = styled.div`
 		align-items: center;
 
 		&.is-active {
+			pointer-events: none;
 			svg {
 				animation: ${rotate} 2s linear infinite;
 			}
