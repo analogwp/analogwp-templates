@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: src/js/app/Footer.js:15
+msgid "New Templates are coming soon"
+msgstr ""
+
+#: src/js/app/Header.js:85
+msgid "Syncing..."
+msgstr ""
+
+#: src/js/app/Header.js:86
+msgid "Sync Library"
+msgstr ""
+
+#: src/js/app/Header.js:93
+msgid "Close"
+msgstr ""
+
+#: src/js/app/Modal.js:80
+msgid "Insert Layout"
+msgstr ""
+
+#: src/js/app/Templates.js:196
+msgid "Preview"
+msgstr ""
+
+#: src/js/app/Templates.js:199
+msgid "Import"
+msgstr ""
+
+#: src/js/app/filters.js:100
+msgid "Sort By"
+msgstr ""
+
+#: src/js/app/filters.js:102
+msgid "Latest"
+msgstr ""
+
+#: src/js/app/filters.js:103
+msgid "Popular"
+msgstr ""
+
+#: src/js/app/filters.js:84
+msgid "Back to all"
+msgstr ""
+
+#: src/js/app/filters.js:85
+msgid "My Favorites"
+msgstr ""
+
+#: src/js/app/filters.js:93
+msgid "Filter"
+msgstr ""
+
+#: src/js/app/filters.js:95
+msgid "Show All"
+msgstr ""
+
+#: src/js/app/filters.js:96
+msgid "Only Packs"
+msgstr ""

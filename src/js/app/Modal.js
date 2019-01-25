@@ -1,5 +1,6 @@
 import styled from "styled-components";
 const { Tooltip } = wp.components;
+const { __ } = wp.i18n;
 
 const Container = styled.div`
 	position: absolute;
@@ -70,13 +71,13 @@ const Modal = props => (
 			<button className="button--plain" onClick={props.onRequestClose}>
 				Back to Library
 			</button>
-			<Tooltip text="Open preview in new tab">
+			<Tooltip text={("Open preview in new tab", "ang")}>
 				<a href={props.template.url} rel="noopener noreferrer" target="_blank">
 					<span className="dashicons dashicons-external" />
 				</a>
 			</Tooltip>
 			<button className="button--accent" onClick={props.onRequestImport}>
-				Insert Layout
+				{__("Insert Layout", "ang")}
 			</button>
 		</div>
 		<iframe src={props.template.url} frameBorder="0" />

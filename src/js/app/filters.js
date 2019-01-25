@@ -2,6 +2,7 @@ import classNames from "classnames";
 import styled from "styled-components";
 import AnalogContext from "./AnalogContext";
 import Star from "./icons/star";
+const { __ } = wp.i18n;
 
 const FiltersContainer = styled.div`
 	margin: 0 0 40px 0;
@@ -80,22 +81,26 @@ class Filters extends React.Component {
 				>
 					<Star />{" "}
 					{this.context.state.showing_favorites
-						? "Back to all"
-						: "My Favorites"}
+						? __("Back to all", "ang")
+						: __("My Favorites", "ang")}
 				</a>
-				{/* Might use this for custom select https://react-select.com/home */}
+				{/*
+					Custom select options:
+					https://react-select.com/home
+					https://www.filamentgroup.com/lab/select-css.html
+				*/}
 				<List>
-					<label htmlFor="filter">Filter</label>
+					<label htmlFor="filter">{__("Filter", "ang")}</label>
 					<select id="filter" name="filter">
-						<option value="all">Show All</option>
-						<option value="packs">Only Packs</option>
+						<option value="all">{__("Show All", "ang")}</option>
+						<option value="packs">{__("Only Packs", "ang")}</option>
 					</select>
 				</List>
 				<List>
-					<label htmlFor="sort">Sort By</label>
+					<label htmlFor="sort">{__("Sort By", "ang")}</label>
 					<select id="sort" name="sort">
-						<option value="latest">Latest</option>
-						<option value="popular">Popular</option>
+						<option value="latest">{__("Latest", "ang")}</option>
+						<option value="popular">{__("Popular", "ang")}</option>
 					</select>
 				</List>
 

@@ -4,6 +4,7 @@ import AnalogContext from "./AnalogContext";
 import Close from "./icons/close";
 import Logo from "./icons/logo";
 import Refresh from "./icons/refresh";
+const { __ } = wp.i18n;
 
 const rotate = keyframes`
   from {
@@ -80,14 +81,16 @@ const Header = () => (
 						context.forceRefresh();
 					}}
 				>
-					{context.state.syncing ? "Syncing..." : "Sync Library"}
+					{context.state.syncing
+						? __("Syncing...", "ang")
+						: __("Sync Library", "ang")}
 					<Refresh />
 				</a>
 			)}
 		</AnalogContext.Consumer>
 		{!AGWP.is_settings_page && (
 			<a className="close-modal" href="#">
-				Close <Close />
+				{__("Close", "ang")} <Close />
 			</a>
 		)}
 	</Container>

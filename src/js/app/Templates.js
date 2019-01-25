@@ -5,6 +5,7 @@ import Star from "./icons/star";
 import Modal from "./Modal";
 const { decodeEntities } = wp.htmlEntities;
 const { apiFetch } = wp;
+const { __ } = wp.i18n;
 
 const TemplatesList = styled.ul`
 	margin: 0;
@@ -192,10 +193,10 @@ class Templates extends React.Component {
 											<StyledButton
 												onClick={() => this.setModalContent(template)}
 											>
-												Preview
+												{__("Preview", "ang")}
 											</StyledButton>
 											<StyledButton onClick={() => this.importLayout(template)}>
-												Import
+												{__("Import", "ang")}
 											</StyledButton>
 										</div>
 									</figure>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+const { __ } = wp.i18n;
 
 const FooterContainer = styled.p`
 	text-transform: uppercase;
@@ -10,7 +11,9 @@ const FooterContainer = styled.p`
 `;
 
 const Footer = () => (
-	<FooterContainer>New Templates are coming soon</FooterContainer>
+	<FooterContainer>
+		{__("New Templates are coming soon", "ang")}
+	</FooterContainer>
 );
 
 export default Footer;
