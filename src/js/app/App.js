@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import AnalogContext from "./AnalogContext";
-import { markFavorite } from "./api";
+import { markFavorite, requestTemplateList } from "./api";
 import Filters from "./filters";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -47,17 +47,18 @@ class App extends React.Component {
 		this.handleFilter = this.handleFilter.bind(this);
 	}
 
-	componentDidMount() {
-		apiFetch({ path: "/agwp/v1/templates" }).then(data => {
-			this.setState({
-				templates: data.templates,
-				archive: data.templates,
-				count: data.count,
-				timestamp: data.timestamp,
-				filters: [...new Set(data.templates.map(f => f.type))]
-			});
+	async componentDidMount() {
+		const templates = await requestTemplateList();
+
+		this.setState({
+			templates: templates.templates,
+			archive: templates.templates,
+			count: templates.count,
+			timestamp: templates.timestamp,
+			filters: [...new Set(templates.templates.map(f => f.type))]
 		});
 
+		// Listen for Elementor modal close, so we can reset some states.
 		document.addEventListener("modal-close", () => {
 			this.setState({
 				isOpen: false,
