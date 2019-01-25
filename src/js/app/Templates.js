@@ -77,6 +77,10 @@ const TemplatesList = styled.ul`
 
 		&:hover .actions {
 			opacity: 1;
+			button {
+				transform: none;
+				opacity: 1;
+			}
 		}
 	}
 
@@ -93,6 +97,7 @@ const TemplatesList = styled.ul`
 		top: 0;
 		left: 0;
 		z-index: 100;
+		transition: all 200ms;
 	}
 
 	button {
@@ -107,6 +112,20 @@ const TemplatesList = styled.ul`
 		width: 100px;
 		color: #fff;
 		cursor: pointer;
+		letter-spacing: 1px;
+		transition: all 200ms ease-in;
+		opacity: 0;
+
+		&:nth-child(1) {
+			transform: translateX(-20px);
+		}
+		&:nth-child(2) {
+			transform: translateX(20px);
+		}
+
+		&:hover {
+			background: rgba(255, 120, 101, 0.9);
+		}
 
 		+ button {
 			margin-top: 10px;
