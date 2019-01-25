@@ -26,7 +26,15 @@ const FiltersContainer = styled.div`
 		padding: 12px;
 		border: none;
 		outline: none;
+		box-shadow: none;
 		width: 250px;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
+		&::placeholder {
+			color: #b9b9b9;
+			letter-spacing: 1px;
+		}
 	}
 	p {
 		margin: 0;
