@@ -40,7 +40,8 @@ const config = {
 	plugins: [new CleanWebpackPlugin(["build"]), new WebpackRTLPlugin()],
 	stats: {
 		children: false
-	}
+	},
+	devtool: !inProduction ? "source-map" : "(none)"
 };
 
 // For Productions
