@@ -40,7 +40,7 @@ final class Analog_Templates {
 			self::$instance = new Analog_Templates();
 			self::$instance->setup_constants();
 
-			// add_action( 'plugins_loaded', [ self::$instance, 'load_textdomain' ] );
+			add_action( 'plugins_loaded', [ self::$instance, 'load_textdomain' ] );
 			add_action( 'admin_enqueue_scripts', [ self::$instance, 'scripts' ] );
 
 			self::$instance->includes();
@@ -117,7 +117,8 @@ final class Analog_Templates {
 		}
 
 		wp_enqueue_style( 'wp-components' );
-		wp_enqueue_script( 'analogwp-app', ANG_PLUGIN_URL . 'assets/js/app.js', [ 'react', 'react-dom', 'wp-components' ], ANG_VERSION, true );
+		wp_enqueue_script( 'analogwp-app', ANG_PLUGIN_URL . 'assets/js/app.js', [ 'react', 'react-dom', 'wp-components', 'wp-i18n' ], ANG_VERSION, true );
+		wp_set_script_translations( 'analogwp-app', 'ang' );
 
 		$favorites = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
 
@@ -130,6 +131,16 @@ final class Analog_Templates {
 				'favorites'        => $favorites,
 			]
 		);
+	}
+
+	/**
+	 * Load plugin language files.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function load_textdomain() {
+		load_plugin_textdomain( 'ang', false, dirname( plugin_basename( ANG_PLUGIN_DIR ) ) . '/languages/' );
 	}
 }
 

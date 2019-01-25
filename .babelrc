@@ -4,6 +4,12 @@
         "react"
     ],
     "plugins": [
-        "transform-class-properties"
+		"transform-class-properties",
+		[
+			"@wordpress/babel-plugin-makepot",
+			{
+				"output": "languages/ang-js.pot"
+			}
+		]
     ]
 }
