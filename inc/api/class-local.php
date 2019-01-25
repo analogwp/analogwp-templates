@@ -34,10 +34,10 @@ class Local extends Base {
 			foreach ( $details as $method => $callback ) {
 				register_rest_route(
 					'agwp/v1', $endpoint, [
-						'methods'  => $method,
-						'callback' => [ $this, $callback ],
-						// 'permission_callback' => [ $this, 'rest_permission_check' ],
-						'args'     => [],
+						'methods'             => $method,
+						'callback'            => [ $this, $callback ],
+						'permission_callback' => [ $this, 'rest_permission_check' ],
+						'args'                => [],
 					]
 				);
 			}
