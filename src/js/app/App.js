@@ -199,7 +199,7 @@ class App extends React.Component {
 					<Header />
 
 					<Content>
-						<Filters />
+						{ ! this.state.isOpen && <Filters /> }
 						<Templates />
 						<Footer />
 					</Content>
