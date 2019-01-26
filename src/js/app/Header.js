@@ -1,9 +1,9 @@
-import classNames from "classnames";
-import { default as styled, keyframes } from "styled-components";
-import AnalogContext from "./AnalogContext";
-import Close from "./icons/close";
-import Logo from "./icons/logo";
-import Refresh from "./icons/refresh";
+import classNames from 'classnames';
+import { default as styled, keyframes } from 'styled-components';
+import AnalogContext from './AnalogContext';
+import Close from './icons/close';
+import Logo from './icons/logo';
+import Refresh from './icons/refresh';
 const { __ } = wp.i18n;
 
 const rotate = keyframes`
@@ -27,7 +27,7 @@ const Container = styled.div`
 		vertical-align: bottom;
 	}
 
-	a {
+	.button-plain {
 		color: #060606;
 		text-transform: uppercase;
 		font-size: 12px;
@@ -39,7 +39,7 @@ const Container = styled.div`
 		&.is-active {
 			pointer-events: none;
 			svg {
-				animation: ${rotate} 2s linear infinite;
+				animation: ${ rotate } 2s linear infinite;
 			}
 		}
 
@@ -50,7 +50,7 @@ const Container = styled.div`
 		&:first-of-type {
 			margin-left: auto;
 		}
-		+ a {
+		+ .button-plain {
 			position: relative;
 			margin-left: 30px;
 			&:before {
@@ -71,29 +71,28 @@ const Header = () => (
 	<Container>
 		<Logo />
 		<AnalogContext.Consumer>
-			{context => (
-				<a
-					href="#"
-					className={classNames({
-						"is-active": context.state.syncing
-					})}
-					onClick={e => {
+			{ context => (
+				<button
+					className={ classNames( 'button-plain', {
+						'is-active': context.state.syncing,
+					} ) }
+					onClick={ e => {
 						e.preventDefault();
 						context.forceRefresh();
-					}}
+					} }
 				>
-					{context.state.syncing
-						? __("Syncing...", "ang")
-						: __("Sync Library", "ang")}
+					{ context.state.syncing ?
+						__( 'Syncing...', 'ang' ) :
+						__( 'Sync Library', 'ang' ) }
 					<Refresh />
-				</a>
-			)}
+				</button>
+			) }
 		</AnalogContext.Consumer>
-		{!AGWP.is_settings_page && (
-			<a className="close-modal" href="#">
-				{__("Close", "ang")} <Close />
-			</a>
-		)}
+		{ ! AGWP.is_settings_page && (
+			<button className="button-plain close-modal">
+				{ __( 'Close', 'ang' ) } <Close />
+			</button>
+		) }
 	</Container>
 );
 

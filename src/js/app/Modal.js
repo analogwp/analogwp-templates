@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 const { Tooltip } = wp.components;
 const { __ } = wp.i18n;
 
@@ -68,19 +68,19 @@ const Container = styled.div`
 const Modal = props => (
 	<Container>
 		<div className="frame-header">
-			<button className="button--plain" onClick={props.onRequestClose}>
+			<button className="button--plain" onClick={ props.onRequestClose }>
 				Back to Library
 			</button>
-			<Tooltip text={__("Open Preview in New Tab", "ang")}>
-				<a href={props.template.url} rel="noopener noreferrer" target="_blank">
+			<Tooltip text={ __( 'Open Preview in New Tab', 'ang' ) }>
+				<a href={ props.template.url } rel="noopener noreferrer" target="_blank">
 					<span className="dashicons dashicons-external" />
 				</a>
 			</Tooltip>
-			<button className="button--accent" onClick={props.onRequestImport}>
-				{__("Insert Layout", "ang")}
+			<button className="button--accent" onClick={ props.onRequestImport }>
+				{ __( 'Insert Layout', 'ang' ) }
 			</button>
 		</div>
-		<iframe src={props.template.url} frameBorder="0" />
+		<iframe src={ props.template.url } frameBorder="0" title={ __( 'Preview', 'ang' ) } />
 	</Container>
 );
 

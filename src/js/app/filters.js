@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import Select from "react-select";
-import styled from "styled-components";
-import AnalogContext from "./AnalogContext";
-import Star from "./icons/star";
+import classNames from 'classnames';
+import Select from 'react-select';
+import styled from 'styled-components';
+import AnalogContext from './AnalogContext';
+import Star from './icons/star';
 const { __ } = wp.i18n;
 
 const FiltersContainer = styled.div`
@@ -83,67 +83,66 @@ const List = styled.div`
 
 class Filters extends React.Component {
 	constructor() {
-		super(...arguments);
+		super( ...arguments );
 
 		this.searchInput = React.createRef();
 	}
 	render() {
-		const filterTypes = [...this.context.state.filters].map(filter => {
-			return { value: `${filter}`, label: `${filter}` };
-		});
+		const filterTypes = [ ...this.context.state.filters ].map( filter => {
+			return { value: `${ filter }`, label: `${ filter }` };
+		} );
 
 		const filterOptions = [
-			{ value: "all", label: __("Show All", "ang") },
-			...filterTypes
+			{ value: 'all', label: __( 'Show All', 'ang' ) },
+			...filterTypes,
 		];
 
 		const sortOptions = [
-			{ value: "latest", label: __("Latest", "ang") },
-			{ value: "popular", label: __("Popular", "ang") }
+			{ value: 'latest', label: __( 'Latest', 'ang' ) },
+			{ value: 'popular', label: __( 'Popular', 'ang' ) },
 		];
 		return (
 			<FiltersContainer>
-				<a
-					href="#"
-					onClick={this.context.toggleFavorites}
-					className={classNames("favorites", {
-						"is-active": this.context.state.showing_favorites
-					})}
+				<button
+					onClick={ this.context.toggleFavorites }
+					className={ classNames( 'favorites button-plain', {
+						'is-active': this.context.state.showing_favorites,
+					} ) }
 				>
-					<Star />{" "}
-					{this.context.state.showing_favorites
-						? __("Back to all", "ang")
-						: __("My Favorites", "ang")}
-				</a>
-				{this.context.state.filters.length > 1 && (
+					<Star />{ ' ' }
+					{ this.context.state.showing_favorites ?
+						__( 'Back to all', 'ang' ) :
+						__( 'My Favorites', 'ang' ) }
+				</button>
+				{ this.context.state.filters.length > 1 && (
 					<List>
-						<label htmlFor="filter">{__("Filter", "ang")}</label>
+						<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
 						<Select
 							inputId="filter"
 							className="dropdown"
-							defaultValue={filterOptions[0]}
-							isSearchable={false}
-							options={filterOptions}
-							onChange={e => this.context.handleFilter(e.value)}
+							defaultValue={ filterOptions[ 0 ] }
+							isSearchable={ false }
+							options={ filterOptions }
+							onChange={ e => this.context.handleFilter( e.value ) }
 						/>
 					</List>
-				)}
+				) }
 				<List>
-					<label htmlFor="sort">{__("Sort By", "ang")}</label>
+					<label htmlFor="sort">{ __( 'Sort By', 'ang' ) }</label>
 					<Select
 						inputId="sort"
 						className="dropdown"
-						defaultValue={sortOptions[0]}
-						isSearchable={false}
-						options={sortOptions}
-						onChange={e => this.context.handleSort(e.value)}
+						defaultValue={ sortOptions[ 0 ] }
+						isSearchable={ false }
+						options={ sortOptions }
+						onChange={ e => this.context.handleSort( e.value ) }
 					/>
 				</List>
 				<input
 					type="search"
 					placeholder="Search"
-					ref={this.searchInput}
-					onChange={() =>
+					ref={ this.searchInput }
+					onChange={ () =>
 						this.context.handleSearch(
 							this.searchInput.current.value.toLowerCase()
 						)

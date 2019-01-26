@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import styled from "styled-components";
-import AnalogContext from "./AnalogContext";
-import Star from "./icons/star";
-import CustomModal from "./modal";
+import classNames from 'classnames';
+import styled from 'styled-components';
+import AnalogContext from './AnalogContext';
+import Star from './icons/star';
+import CustomModal from './modal';
 const { decodeEntities } = wp.htmlEntities;
 const { apiFetch } = wp;
 const { __ } = wp.i18n;
@@ -53,8 +53,8 @@ const TemplatesList = styled.ul`
 			transition: all 100ms ease-in;
 		}
 
-		a:hover,
-		a.is-active {
+		button:hover,
+		button.is-active {
 			svg {
 				fill: #ff7865;
 			}
@@ -101,7 +101,7 @@ const TemplatesList = styled.ul`
 		transition: all 200ms;
 	}
 
-	button {
+	.actions button {
 		display: block;
 		border: none;
 		outline: 0;
@@ -154,192 +154,192 @@ class Templates extends React.Component {
 	state = {
 		template: null,
 		pageName: null,
-		showingModal: false
+		showingModal: false,
 	};
 
 	setModalContent = template => {
-		this.context.dispatch({
-			isOpen: !this.context.state.isOpen
-		});
-		this.setState({
-			template: template
-		});
+		this.context.dispatch( {
+			isOpen: ! this.context.state.isOpen,
+		} );
+		this.setState( {
+			template: template,
+		} );
 	};
 
 	importLayout = template => {
-		if (!template) {
+		if ( ! template ) {
 			template = this.state.template;
 		} else {
-			this.setState({ template });
+			this.setState( { template } );
 		}
 
-		if (typeof elementor !== "undefined") {
-			const editor_id =
-				"undefined" !== typeof ElementorConfig
-					? ElementorConfig.post_id
-					: false;
+		if ( typeof elementor !== 'undefined' ) {
+			const editorId =
+				'undefined' !== typeof ElementorConfig ?
+					ElementorConfig.post_id :
+					false;
 
-			apiFetch({
-				path: "/agwp/v1/import/elementor",
-				method: "post",
+			apiFetch( {
+				path: '/agwp/v1/import/elementor',
+				method: 'post',
 				data: {
 					template_id: template.id,
-					editor_post_id: editor_id
-				}
-			}).then(data => {
-				const template = JSON.parse(data);
+					editor_post_id: editorId,
+				},
+			} ).then( data => {
+				const parsedTemplate = JSON.parse( data );
 
-				const model = new Backbone.Model({
+				const model = new Backbone.Model( {
 					getTitle: function getTitle() {
-						return "Test";
-					}
-				});
+						return 'Test';
+					},
+				} );
 
-				elementor.channels.data.trigger("template:before:insert", model);
-				for (let i = 0; i < template.content.length; i++) {
-					elementor.getPreviewView().addChildElement(template.content[i]);
+				elementor.channels.data.trigger( 'template:before:insert', model );
+				for ( let i = 0; i < parsedTemplate.content.length; i++ ) {
+					elementor.getPreviewView().addChildElement( parsedTemplate.content[ i ] );
 				}
-				elementor.channels.data.trigger("template:after:insert", {});
+				elementor.channels.data.trigger( 'template:after:insert', {} );
 				window.analogModal.hide();
-			});
+			} );
 		} else {
-			this.setState({
-				showingModal: true
-			});
+			this.setState( {
+				showingModal: true,
+			} );
 		}
 	};
 
 	render() {
 		return (
 			<div
-				style={{
-					position: "relative",
-					minHeight: "80vh"
-				}}
+				style={ {
+					position: 'relative',
+					minHeight: '80vh',
+				} }
 			>
-				{this.context.state.isOpen && (
+				{ this.context.state.isOpen && (
 					<CustomModal
-						template={this.state.template}
-						onRequestClose={() => this.context.dispatch({ isOpen: false })}
-						onRequestImport={() => this.importLayout()}
+						template={ this.state.template }
+						onRequestClose={ () => this.context.dispatch( { isOpen: false } ) }
+						onRequestImport={ () => this.importLayout() }
 					/>
-				)}
+				) }
 
-				{this.state.showingModal && (
+				{ this.state.showingModal && (
 					<Modal
-						title={decodeEntities(this.state.template.title)}
-						onRequestClose={() => this.setState({ showingModal: false })}
-						style={{
-							textAlign: "center",
-							maxWidth: "380px"
-						}}
+						title={ decodeEntities( this.state.template.title ) }
+						onRequestClose={ () => this.setState( { showingModal: false } ) }
+						style={ {
+							textAlign: 'center',
+							maxWidth: '380px',
+						} }
 					>
 						<div>
 							<p>
-								{__(
-									"Import this template to make it available in your Elementor ",
-									"ang"
-								)}
-								<a href={AGWP.elementorURL}>{__("Saved Templates", "ang")}</a>
-								{__(" list for future use.", "ang")}
+								{ __(
+									'Import this template to make it available in your Elementor ',
+									'ang'
+								) }
+								<a href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'ang' ) }</a>
+								{ __( ' list for future use.', 'ang' ) }
 							</p>
 							<p>
-								<Button isPrimary>{__("Import Template", "ang")}</Button>
+								<Button isPrimary>{ __( 'Import Template', 'ang' ) }</Button>
 							</p>
 						</div>
-						<p className="or">{__("or", "ang")}</p>
+						<p className="or">{ __( 'or', 'ang' ) }</p>
 
 						<div>
 							<p>
-								{__(
-									"Create a new page from this template to make it available as a draft page in your Pages list.",
-									"ang"
-								)}
+								{ __(
+									'Create a new page from this template to make it available as a draft page in your Pages list.',
+									'ang'
+								) }
 							</p>
 							<p>
 								<TextControl
-									placeholder={__("Enter a Page Name", "ang")}
-									style={{ maxWidth: "60%" }}
-									onChange={val => this.setState({ pageName: val })}
+									placeholder={ __( 'Enter a Page Name', 'ang' ) }
+									style={ { maxWidth: '60%' } }
+									onChange={ val => this.setState( { pageName: val } ) }
 								/>
 							</p>
 							<p>
-								<Button isDefault>{__("Create New Page", "ang")}</Button>
+								<Button isDefault>{ __( 'Create New Page', 'ang' ) }</Button>
 							</p>
 						</div>
 					</Modal>
-				)}
+				) }
 
 				<TemplatesList>
 					<AnalogContext.Consumer>
-						{context =>
-							!context.state.isOpen &&
+						{ context =>
+							! context.state.isOpen &&
 							context.state.count >= 1 &&
-							context.state.templates.map(template => (
-								<li key={template.id}>
-									{template.is_pro && (
-										<span className="pro">{__("Pro", "ang")}</span>
-									)}
+							context.state.templates.map( template => (
+								<li key={ template.id }>
+									{ template.is_pro && (
+										<span className="pro">{ __( 'Pro', 'ang' ) }</span>
+									) }
 									<figure>
-										{template.thumbnail && <img src={template.thumbnail} />}
+										{ template.thumbnail && <img alt={ template.title } src={ template.thumbnail } /> }
 										<div className="actions">
 											<StyledButton
-												onClick={() => this.setModalContent(template)}
+												onClick={ () => this.setModalContent( template ) }
 											>
-												{__("Preview", "ang")}
+												{ __( 'Preview', 'ang' ) }
 											</StyledButton>
-											<StyledButton onClick={() => this.importLayout(template)}>
-												{__("Import", "ang")}
+											<StyledButton onClick={ () => this.importLayout( template ) }>
+												{ __( 'Import', 'ang' ) }
 											</StyledButton>
 										</div>
 									</figure>
 									<div className="content">
-										<h3>{decodeEntities(template.title)}</h3>
-										<a
+										<h3>{ decodeEntities( template.title ) }</h3>
+										<button
 											href="#"
-											className={classNames({
-												"is-active": template.id in this.context.state.favorites
-											})}
-											onClick={e => {
+											className={ classNames( 'button-plain', {
+												'is-active': template.id in this.context.state.favorites,
+											} ) }
+											onClick={ e => {
 												e.preventDefault();
 
-												let favorites = this.context.state.favorites;
+												const favorites = this.context.state.favorites;
 
 												this.context.markFavorite(
 													template.id,
-													!(template.id in favorites)
+													! ( template.id in favorites )
 												);
 
-												template.id in favorites
-													? delete favorites[template.id]
-													: (favorites[template.id] = !(
-															template.id in favorites
-													  ));
-
-												this.context.dispatch({ favorites });
-
-												if (this.context.state.showing_favorites) {
-													const filtered_templates = this.context.state.templates.filter(
-														template => template.id in favorites
-													);
-													this.context.dispatch({
-														templates: filtered_templates
-													});
+												if ( template.id in favorites ) {
+													delete favorites[ template.id ];
+												} else {
+													favorites[ template.id ] = ! ( template.id in favorites );
 												}
-											}}
+
+												this.context.dispatch( { favorites } );
+
+												if ( this.context.state.showing_favorites ) {
+													const filteredTemplates = this.context.state.templates.filter(
+														t => t.id in favorites
+													);
+													this.context.dispatch( {
+														templates: filteredTemplates,
+													} );
+												}
+											} }
 										>
 											<Star />
-										</a>
+										</button>
 									</div>
-									{template.tags && (
+									{ template.tags && (
 										<div className="tags">
-											{template.tags.map(tag => (
-												<span key={tag}>{tag}</span>
-											))}
+											{ template.tags.map( tag => (
+												<span key={ tag }>{ tag }</span>
+											) ) }
 										</div>
-									)}
+									) }
 								</li>
-							))
+							) )
 						}
 					</AnalogContext.Consumer>
 				</TemplatesList>

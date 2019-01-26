@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import AnalogContext from "./AnalogContext";
-import { markFavorite, requestTemplateList } from "./api";
-import Filters from "./filters";
-import Footer from "./Footer";
-import Header from "./Header";
-import Templates from "./Templates";
+import styled from 'styled-components';
+import AnalogContext from './AnalogContext';
+import { markFavorite, requestTemplateList } from './api';
+import Filters from './filters';
+import Footer from './Footer';
+import Header from './Header';
+import Templates from './Templates';
 const { apiFetch } = wp;
 
 const Analog = styled.div`
@@ -18,6 +18,24 @@ const Analog = styled.div`
 		outline: 0;
 		box-shadow: none;
 	}
+
+	.button-plain {
+		padding: 0;
+		margin: 0;
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
+		cursor: pointer;
+		-webkit-appearance: none;
+		appearance: none;
+		outline: 0;
+		background: transparent;
+		font-size: 12px;
+		font-weight: bold;
+		text-transform: uppercase;
+		color: #060606;
+		letter-spacing: 1px;
+	}
 `;
 
 const Content = styled.div`
@@ -27,7 +45,7 @@ const Content = styled.div`
 
 class App extends React.Component {
 	constructor() {
-		super(...arguments);
+		super( ...arguments );
 
 		this.state = {
 			templates: [],
@@ -37,135 +55,135 @@ class App extends React.Component {
 			favorites: AGWP.favorites,
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
-			filters: []
+			filters: [],
 		};
 
-		this.refreshAPI = this.refreshAPI.bind(this);
-		this.toggleFavorites = this.toggleFavorites.bind(this);
-		this.handleSearch = this.handleSearch.bind(this);
-		this.handleSort = this.handleSort.bind(this);
-		this.handleFilter = this.handleFilter.bind(this);
+		this.refreshAPI = this.refreshAPI.bind( this );
+		this.toggleFavorites = this.toggleFavorites.bind( this );
+		this.handleSearch = this.handleSearch.bind( this );
+		this.handleSort = this.handleSort.bind( this );
+		this.handleFilter = this.handleFilter.bind( this );
 	}
 
 	async componentDidMount() {
 		const templates = await requestTemplateList();
 
-		this.setState({
+		this.setState( {
 			templates: templates.templates,
 			archive: templates.templates,
 			count: templates.count,
 			timestamp: templates.timestamp,
-			filters: [...new Set(templates.templates.map(f => f.type))]
-		});
+			filters: [ ...new Set( templates.templates.map( f => f.type ) ) ],
+		} );
 
 		// Listen for Elementor modal close, so we can reset some states.
-		document.addEventListener("modal-close", () => {
-			this.setState({
+		document.addEventListener( 'modal-close', () => {
+			this.setState( {
 				isOpen: false,
 				showing_favorites: false,
-				templates: this.state.archive
-			});
-		});
+				templates: this.state.archive,
+			} );
+		} );
 	}
 
-	handleFilter(type) {
-		const templates = [...this.state.archive];
-		if (type === "all") {
-			this.setState({ templates: this.state.archive });
+	handleFilter( type ) {
+		const templates = [ ...this.state.archive ];
+		if ( type === 'all' ) {
+			this.setState( { templates: this.state.archive } );
 			return;
 		}
 
-		const filtered = templates.filter(template => template.type === type);
-		this.setState({ templates: filtered });
+		const filtered = templates.filter( template => template.type === type );
+		this.setState( { templates: filtered } );
 	}
 
-	handleSort(value) {
-		this.setState({
+	handleSort( value ) {
+		this.setState( {
 			showing_favorites: false,
-			templates: this.state.archive
-		});
+			templates: this.state.archive,
+		} );
 
-		if ("popular" === value) {
-			const templates = [...this.state.archive];
-			const sorted = templates.sort((a, b) => {
-				if ("popularityIndex" in a) {
-					if (parseInt(a.popularityIndex) < parseInt(b.popularityIndex)) {
+		if ( 'popular' === value ) {
+			const templates = [ ...this.state.archive ];
+			const sorted = templates.sort( ( a, b ) => {
+				if ( 'popularityIndex' in a ) {
+					if ( parseInt( a.popularityIndex ) < parseInt( b.popularityIndex ) ) {
 						return 1;
 					}
-					if (parseInt(a.popularityIndex) > parseInt(b.popularityIndex)) {
+					if ( parseInt( a.popularityIndex ) > parseInt( b.popularityIndex ) ) {
 						return -1;
 					}
 				}
 				return 0;
-			});
-			this.setState({ templates: sorted });
+			} );
+			this.setState( { templates: sorted } );
 		}
 
-		if ("latest" === value) {
-			this.setState({ templates: this.state.archive });
+		if ( 'latest' === value ) {
+			this.setState( { templates: this.state.archive } );
 		}
 	}
 
-	handleSearch(value) {
+	handleSearch( value ) {
 		const templates = this.state.templates;
 		let filtered = [];
 		let searchTags = [];
 
-		if (value) {
-			filtered = templates.filter(template => {
-				if (template.tags) {
-					searchTags = template.tags.filter(tag => {
-						return tag.toLowerCase().includes(value);
-					});
+		if ( value ) {
+			filtered = templates.filter( template => {
+				if ( template.tags ) {
+					searchTags = template.tags.filter( tag => {
+						return tag.toLowerCase().includes( value );
+					} );
 				}
 				return (
-					template.title.toLowerCase().includes(value) || searchTags.length >= 1
+					template.title.toLowerCase().includes( value ) || searchTags.length >= 1
 				);
-			});
+			} );
 		}
 
-		this.setState({
-			templates: filtered.length ? filtered : this.state.archive
-		});
+		this.setState( {
+			templates: filtered.length ? filtered : this.state.archive,
+		} );
 	}
 
 	refreshAPI() {
-		this.setState({
+		this.setState( {
 			templates: [],
 			count: null,
-			syncing: true
-		});
+			syncing: true,
+		} );
 
-		apiFetch({
-			path: "/agwp/v1/templates/?force_update=true"
-		}).then(data => {
-			this.setState({
+		apiFetch( {
+			path: '/agwp/v1/templates/?force_update=true',
+		} ).then( data => {
+			this.setState( {
 				templates: data.templates,
 				count: data.count,
 				timestamp: data.timestamp,
-				syncing: false
-			});
-		});
+				syncing: false,
+			} );
+		} );
 	}
 
 	toggleFavorites() {
-		const filtered_templates = this.state.templates.filter(
+		const filteredTemplates = this.state.templates.filter(
 			template => template.id in this.state.favorites
 		);
 
-		this.setState({
-			showing_favorites: !this.state.showing_favorites,
-			templates: !this.state.showing_favorites
-				? filtered_templates
-				: this.state.archive
-		});
+		this.setState( {
+			showing_favorites: ! this.state.showing_favorites,
+			templates: ! this.state.showing_favorites ?
+				filteredTemplates :
+				this.state.archive,
+		} );
 	}
 
 	render() {
 		return (
 			<Analog>
 				<AnalogContext.Provider
-					value={{
+					value={ {
 						state: this.state,
 						forceRefresh: this.refreshAPI,
 						markFavorite: markFavorite,
@@ -173,8 +191,8 @@ class App extends React.Component {
 						handleSearch: this.handleSearch,
 						handleSort: this.handleSort,
 						handleFilter: this.handleFilter,
-						dispatch: action => this.setState(action)
-					}}
+						dispatch: action => this.setState( action ),
+					} }
 				>
 					<Header />
 

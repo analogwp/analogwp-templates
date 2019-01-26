@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 const { __ } = wp.i18n;
 
 const FooterContainer = styled.p`
@@ -12,7 +12,7 @@ const FooterContainer = styled.p`
 
 const Footer = () => (
 	<FooterContainer>
-		{__("New Templates are coming soon", "ang")}
+		{ __( 'New Templates are coming soon', 'ang' ) }
 	</FooterContainer>
 );
 
