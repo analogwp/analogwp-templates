@@ -2,10 +2,11 @@ import classNames from "classnames";
 import styled from "styled-components";
 import AnalogContext from "./AnalogContext";
 import Star from "./icons/star";
-import Modal from "./Modal";
+import CustomModal from "./modal";
 const { decodeEntities } = wp.htmlEntities;
 const { apiFetch } = wp;
 const { __ } = wp.i18n;
+const { Modal, TextControl, Button } = wp.components;
 
 const TemplatesList = styled.ul`
 	margin: 0;
@@ -151,7 +152,9 @@ const StyledButton = styled.button`
 
 class Templates extends React.Component {
 	state = {
-		template: null
+		template: null,
+		pageName: null,
+		showingModal: false
 	};
 
 	setModalContent = template => {
@@ -166,22 +169,26 @@ class Templates extends React.Component {
 	importLayout = template => {
 		if (!template) {
 			template = this.state.template;
+		} else {
+			this.setState({ template });
 		}
 
-		const editor_id =
-			"undefined" !== typeof ElementorConfig ? ElementorConfig.post_id : false;
+		if (typeof elementor !== "undefined") {
+			const editor_id =
+				"undefined" !== typeof ElementorConfig
+					? ElementorConfig.post_id
+					: false;
 
-		apiFetch({
-			path: "/agwp/v1/import/elementor",
-			method: "post",
-			data: {
-				template_id: template.id,
-				editor_post_id: editor_id
-			}
-		}).then(data => {
-			const template = JSON.parse(data);
+			apiFetch({
+				path: "/agwp/v1/import/elementor",
+				method: "post",
+				data: {
+					template_id: template.id,
+					editor_post_id: editor_id
+				}
+			}).then(data => {
+				const template = JSON.parse(data);
 
-			if (typeof elementor !== "undefined") {
 				const model = new Backbone.Model({
 					getTitle: function getTitle() {
 						return "Test";
@@ -194,8 +201,12 @@ class Templates extends React.Component {
 				}
 				elementor.channels.data.trigger("template:after:insert", {});
 				window.analogModal.hide();
-			}
-		});
+			});
+		} else {
+			this.setState({
+				showingModal: true
+			});
+		}
 	};
 
 	render() {
@@ -207,12 +218,58 @@ class Templates extends React.Component {
 				}}
 			>
 				{this.context.state.isOpen && (
-					<Modal
+					<CustomModal
 						template={this.state.template}
 						onRequestClose={() => this.context.dispatch({ isOpen: false })}
 						onRequestImport={() => this.importLayout()}
 					/>
 				)}
+
+				{this.state.showingModal && (
+					<Modal
+						title={decodeEntities(this.state.template.title)}
+						onRequestClose={() => this.setState({ showingModal: false })}
+						style={{
+							textAlign: "center",
+							maxWidth: "380px"
+						}}
+					>
+						<div>
+							<p>
+								{__(
+									"Import this template to make it available in your Elementor ",
+									"ang"
+								)}
+								<a href={AGWP.elementorURL}>{__("Saved Templates", "ang")}</a>
+								{__(" list for future use.", "ang")}
+							</p>
+							<p>
+								<Button isPrimary>{__("Import Template", "ang")}</Button>
+							</p>
+						</div>
+						<p className="or">{__("or", "ang")}</p>
+
+						<div>
+							<p>
+								{__(
+									"Create a new page from this template to make it available as a draft page in your Pages list.",
+									"ang"
+								)}
+							</p>
+							<p>
+								<TextControl
+									placeholder={__("Enter a Page Name", "ang")}
+									style={{ maxWidth: "60%" }}
+									onChange={val => this.setState({ pageName: val })}
+								/>
+							</p>
+							<p>
+								<Button isDefault>{__("Create New Page", "ang")}</Button>
+							</p>
+						</div>
+					</Modal>
+				)}
+
 				<TemplatesList>
 					<AnalogContext.Consumer>
 						{context =>
