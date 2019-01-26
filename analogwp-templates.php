@@ -131,6 +131,7 @@ final class Analog_Templates {
 				'is_settings_page' => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
 				'favorites'        => $favorites,
 				'elementorURL'     => admin_url( 'edit.php?post_type=elementor_library' ),
+				'debugMode'        => defined( 'ANALOG_DEV_DEBUG' ),
 			]
 		);
 	}
