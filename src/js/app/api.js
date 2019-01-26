@@ -27,7 +27,6 @@ export async function requestDirectImport( template, withPage = false ) {
 			with_page: withPage,
 		},
 	} ).then( response => {
-		console.log( response.page );
 		return response;
 	} );
 }

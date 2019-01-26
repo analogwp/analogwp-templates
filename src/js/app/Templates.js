@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { requestDirectImport } from './api';
+import Loader from './icons/loader';
 import Star from './icons/star';
 import CustomModal from './modal';
 const { decodeEntities } = wp.htmlEntities;
@@ -9,6 +10,7 @@ const { apiFetch } = wp;
 const { __ } = wp.i18n;
 const { Modal, TextControl, Button, Dashicon } = wp.components;
 const { Fragment } = React;
+const { addQueryArgs } = wp.url;
 
 const TemplatesList = styled.ul`
 	margin: 0;
@@ -235,12 +237,24 @@ class Templates extends React.Component {
 						onRequestClose={ () => this.setState( { showingModal: false } ) }
 						style={ {
 							textAlign: 'center',
-							maxWidth: '380px',
+							width: '380px',
 						} }
 					>
 						{ this.state.importing &&
 							<Fragment>
 								<p>{ ! this.state.importedPage ? __( 'Importing:', 'ang' ) : __( 'Imported:', 'ang' ) } { decodeEntities( this.state.template.title ) }</p>
+
+								{ this.state.importedPage ?
+									( <Fragment>
+										<p>{ __( 'Blimey! Your template has been imported.', 'ang' ) }</p>
+										<p>
+											<a
+												href={ addQueryArgs( 'post.php', { post: this.state.importedPage, action: 'elementor' } ) }
+											>{ __( 'Edit Template' ) }</a>
+										</p>
+									</Fragment> ) :
+									<Loader width={ 100 } />
+								}
 							</Fragment>
 						}
 						{ ! this.state.importing &&
