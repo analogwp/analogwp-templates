@@ -7,6 +7,8 @@
 
 namespace Analog;
 
+use \Elementor\Core\Files\CSS\Post;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -89,6 +91,19 @@ class Base {
 			if ( $val < ( 1024 * 1024 * 1024 ) ) {
 				@ini_set( 'memory_limit', '512M' ); // @codingStandardsIgnoreLine
 			}
+		}
+	}
+
+	/**
+	 * Regenrate the CSS for an Elementor post.
+	 *
+	 * @param int $post_id Post ID to regenerate CSS for.
+	 * @return void
+	 */
+	public function regenerate_elementor_css( $post_id ) {
+		if ( class_exists( '\Elementor\Core\Files\CSS\Post' ) ) {
+			$post_css = new \Elementor\Core\Files\CSS\Post( $post_id );
+			$post_css->update();
 		}
 	}
 }
