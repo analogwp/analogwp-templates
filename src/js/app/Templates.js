@@ -164,6 +164,7 @@ class Templates extends React.Component {
 	};
 
 	setModalContent = template => {
+		window.scrollTo( 0, 0 );
 		this.context.dispatch( {
 			isOpen: ! this.context.state.isOpen,
 		} );
