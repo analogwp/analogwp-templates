@@ -249,6 +249,7 @@ class Templates extends React.Component {
 										<p>{ __( 'Blimey! Your template has been imported.', 'ang' ) }</p>
 										<p>
 											<a
+												className="button button-primary"
 												href={ addQueryArgs( 'post.php', { post: this.state.importedPage, action: 'elementor' } ) }
 											>{ __( 'Edit Template' ) }</a>
 										</p>
