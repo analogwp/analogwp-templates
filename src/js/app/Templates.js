@@ -1,12 +1,14 @@
 import classNames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
+import { requestDirectImport } from './api';
 import Star from './icons/star';
 import CustomModal from './modal';
 const { decodeEntities } = wp.htmlEntities;
 const { apiFetch } = wp;
 const { __ } = wp.i18n;
-const { Modal, TextControl, Button } = wp.components;
+const { Modal, TextControl, Button, Dashicon } = wp.components;
+const { Fragment } = React;
 
 const TemplatesList = styled.ul`
 	margin: 0;
@@ -155,6 +157,8 @@ class Templates extends React.Component {
 		template: null,
 		pageName: null,
 		showingModal: false,
+		importing: false,
+		importedPage: false,
 	};
 
 	setModalContent = template => {
@@ -234,39 +238,74 @@ class Templates extends React.Component {
 							maxWidth: '380px',
 						} }
 					>
-						<div>
-							<p>
-								{ __(
-									'Import this template to make it available in your Elementor ',
-									'ang'
-								) }
-								<a href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'ang' ) }</a>
-								{ __( ' list for future use.', 'ang' ) }
-							</p>
-							<p>
-								<Button isPrimary>{ __( 'Import Template', 'ang' ) }</Button>
-							</p>
-						</div>
-						<p className="or">{ __( 'or', 'ang' ) }</p>
+						{ this.state.importing &&
+							<Fragment>
+								<p>{ ! this.state.importedPage ? __( 'Importing:', 'ang' ) : __( 'Imported:', 'ang' ) } { decodeEntities( this.state.template.title ) }</p>
+							</Fragment>
+						}
+						{ ! this.state.importing &&
+							<Fragment>
+								<div>
+									<p>
+										{ __( 'Import this template to make it available in your Elementor ', 'ang' ) }
+										<a href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'ang' ) }</a>
+										{ __( ' list for future use.', 'ang' ) }
+									</p>
+									<p>
+										<Button
+											isPrimary
+											onClick={ () => {
+												this.setState( { importing: true } );
 
-						<div>
-							<p>
-								{ __(
-									'Create a new page from this template to make it available as a draft page in your Pages list.',
-									'ang'
-								) }
-							</p>
-							<p>
-								<TextControl
-									placeholder={ __( 'Enter a Page Name', 'ang' ) }
-									style={ { maxWidth: '60%' } }
-									onChange={ val => this.setState( { pageName: val } ) }
-								/>
-							</p>
-							<p>
-								<Button isDefault>{ __( 'Create New Page', 'ang' ) }</Button>
-							</p>
-						</div>
+												requestDirectImport( this.state.template ).then( response => {
+													this.setState( {
+														importedPage: response.page,
+													} );
+												} );
+											} }
+										>
+											{ __( 'Import Template', 'ang' ) }
+											{ ' ' }
+											{ this.state.importing && <Dashicon icon="update" /> }
+										</Button>
+									</p>
+								</div>
+								<p className="or">{ __( 'or', 'ang' ) }</p>
+
+								<div>
+									<p>
+										{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }
+									</p>
+									<p>
+										<TextControl
+											placeholder={ __( 'Enter a Page Name', 'ang' ) }
+											style={ { maxWidth: '60%' } }
+											onChange={ val => this.setState( { pageName: val } ) }
+										/>
+									</p>
+									<p>
+										<Button
+											isDefault
+											disabled={ ! this.state.pageName }
+											onClick={ () => {
+												this.setState( { importing: true } );
+												{/* Required, second arg represents page name */}
+												const result = requestDirectImport( this.state.template, this.state.pageName );
+												result.then( ( response ) => {
+													this.setState( {
+														importedPage: response.page,
+													} );
+												} );
+											} }
+										>
+											{ __( 'Create New Page', 'ang' ) }
+											{ ' ' }
+											{ this.state.importing && <Dashicon icon="update" /> }
+										</Button>
+									</p>
+								</div>
+							</Fragment>
+						}
 					</Modal>
 				) }
 
