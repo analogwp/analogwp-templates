@@ -150,6 +150,7 @@ class App extends React.Component {
 	refreshAPI() {
 		this.setState( {
 			templates: [],
+			archive: [],
 			count: null,
 			syncing: true,
 		} );
@@ -159,6 +160,7 @@ class App extends React.Component {
 		} ).then( data => {
 			this.setState( {
 				templates: data.templates,
+				archive: data.templates,
 				count: data.count,
 				timestamp: data.timestamp,
 				syncing: false,
