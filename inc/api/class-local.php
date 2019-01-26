@@ -22,11 +22,17 @@ class Local extends Base {
 			'/import/elementor' => [
 				\WP_REST_Server::CREATABLE => 'handle_import',
 			],
+			'/import/elementor/direct' => [
+				\WP_REST_Server::CREATABLE => 'handle_direct_import',
+			],
 			'/templates'        => [
 				\WP_REST_Server::READABLE => 'templates_list',
 			],
 			'/mark_favorite/'        => [
 				\WP_REST_Server::CREATABLE => 'mark_as_favorite',
+			],
+			'/import_status/'        => [
+				\WP_REST_Server::READABLE => 'import_status',
 			],
 		];
 
@@ -36,7 +42,7 @@ class Local extends Base {
 					'agwp/v1', $endpoint, [
 						'methods'             => $method,
 						'callback'            => [ $this, $callback ],
-						'permission_callback' => [ $this, 'rest_permission_check' ],
+						// 'permission_callback' => [ $this, 'rest_permission_check' ], // TODO: Enable permissions.
 						'args'                => [],
 					]
 				);
@@ -54,7 +60,7 @@ class Local extends Base {
 		return current_user_can( 'edit_posts' );
 	}
 
-	public function handle_import( $request ) {
+	public function handle_import( \WP_REST_Request $request ) {
 		$template_id = $request->get_param( 'template_id' );
 		$editor_id   = $request->get_param( 'editor_post_id' );
 
@@ -103,6 +109,96 @@ class Local extends Base {
 		$data['favorites']           = get_user_meta( get_current_user_id(), \Analog\Analog_Templates::$user_meta_prefix, true );
 
 		return new \WP_REST_Response( $data, 200 );
+	}
+
+	private function create_page( $template, $with_page = false ) {
+		if ( ! $template ) {
+			return new \WP_Error( 'import_error', 'Invalid Template ID.' );
+		}
+
+		$args = [
+			'post_type'    => $with_page ? 'page' : 'elementor_library',
+			'post_status'  => $with_page ? 'draft' : 'publish',
+			'post_title'   => $with_page ? $with_page : 'AnalogWP: ' . $template['title'],
+			'post_content' => '',
+		];
+
+		$new_post_id = wp_insert_post( $args );
+		update_post_meta( $new_post_id, '_elementor_data', $template['content'] );
+		update_post_meta( $new_post_id, '_elementor_template_type', $template['type'] );
+		update_post_meta( $new_post_id, '_elementor_edit_mode', 'builder' );
+
+		if ( $new_post_id && ! is_wp_error( $new_post_id ) ) {
+			update_post_meta( $new_post_id, '_ang_import_type', 'library' );
+			update_post_meta( $new_post_id, '_ang_template_id', $template['id'] );
+			update_post_meta( $new_post_id, '_wp_page_template', ! empty( $template['page_template'] ) ? $template['page_template'] : 'elementor_canvas' );
+
+			if ( ! $with_page ) {
+				wp_set_object_terms( $new_post_id, ! empty( $template['elementor_library_type'] ) ? $template['elementor_library_type'] : 'page', 'elementor_library_type' );
+			}
+
+			return $new_post_id;
+		}
+
+		return new \WP_Error( 'import_error', 'Unable to create page.' );
+	}
+
+	public function handle_direct_import( \WP_REST_Request $request ) {
+		$template  = $request->get_param( 'template' );
+		$with_page = $request->get_param( 'with_page' );
+
+		if ( $template['is_pro'] ) {
+			// TODO: Validate license here.
+			return new \WP_Error( 'import_error', 'Invalid license provided.' );
+		}
+
+		// Initiate template import.
+		$obj = new \Elementor\TemplateLibrary\Analog_Importer();
+
+		$data = $obj->get_data([
+			'template_id'    => $template['id'],
+			'editor_post_id' => false,
+		]);
+
+		if ( ! is_array( $data ) ) {
+			return new \WP_Error( 'import_error', 'Error fetching template content.', $data );
+		}
+
+		// Attach template content to template array for later use.
+		$template['content'] = $data['content'];
+
+		// Finally create the page.
+		$page = $this->create_page( $template, $with_page );
+
+		$data = [
+			'page' => $page,
+		];
+
+		return new \WP_REST_Response( $data, 200 );
+	}
+
+	public function import_status() {
+		header( 'Cache-Control: no-cache' );
+		header( "Content-Type: text/event-stream\n\n" );
+
+		$counter = wp_rand( 1, 10 );
+
+		while ( 1 ) {
+			echo "event: ping\n";
+			$curDate = date(DATE_ISO8601);
+			echo 'data: {"time": "' . $curDate . '"}';
+			echo "\n\n";
+
+			$counter--;
+			if ( ! $counter ) {
+				echo 'data: This is a message at time ' . $curDate . "\n\n";
+				$counter = rand(1, 10);
+			}
+
+			ob_end_flush();
+			flush();
+			usleep( 100 );
+		}
 	}
 }
 
