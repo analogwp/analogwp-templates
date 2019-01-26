@@ -1,4 +1,5 @@
 const { apiFetch } = wp;
+const { decodeEntities } = wp.htmlEntities;
 
 export async function markFavorite( id, favorite = true ) {
 	return await apiFetch( {
@@ -15,6 +16,20 @@ export async function requestTemplateList() {
 	return await apiFetch( { path: '/agwp/v1/templates' } ).then(
 		response => response
 	);
+}
+
+export async function requestDirectImport( template, withPage = false ) {
+	return await apiFetch( {
+		path: '/agwp/v1/import/elementor/direct',
+		method: 'post',
+		data: {
+			template,
+			with_page: withPage,
+		},
+	} ).then( response => {
+		console.log( response.page );
+		return response;
+	} );
 }
 
 export async function requestImportLayout( template ) {
