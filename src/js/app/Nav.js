@@ -11,17 +11,22 @@ const List = styled.ul`
 	font-size: 17px;
 	color: #23282C;
 
-	button.active {
+	li.active {
 		color: #B2B2B2;
 	}
 
-	button.button-plain + button.button-plain {
+	li.button-plain + li.button-plain {
 		margin-left: 60px;
 		&:before {
 			height: 35px;
 			top: -5px;
 			left: -30px;
 		}
+	}
+
+	a {
+		text-decoration: none;
+		color: inherit;
 	}
 `;
 
@@ -36,15 +41,14 @@ const Nav = () => (
 		<AnalogContext.Consumer>
 			{ ( { state, dispatch } ) => (
 				ITEMS.map( ( item ) => (
-					<button
+					<li
 						key={ item.key }
 						className={ classnames( 'button-plain', {
 							active: item.key === state.tab,
 						} ) }
-						onClick={ () => dispatch( { tab: item.key } ) }
 					>
-						{ item.label }
-					</button>
+						<a href={ `#${ item.key }` } onClick={ () => dispatch( { tab: item.key } ) }>{ item.label }</a>
+					</li>
 				) )
 			) }
 		</AnalogContext.Consumer>

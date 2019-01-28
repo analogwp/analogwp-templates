@@ -57,7 +57,7 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			filters: [],
-			tab: 'settings',
+			tab: 'library',
 		};
 
 		this.refreshAPI = this.refreshAPI.bind( this );
@@ -86,6 +86,15 @@ class App extends React.Component {
 				templates: this.state.archive,
 			} );
 		} );
+
+		const currentURL = new URL( window.location.href );
+		const hash = currentURL.hash.slice( 1 );
+
+		if ( hash ) {
+			this.setState( {
+				tab: hash,
+			} );
+		}
 	}
 
 	handleFilter( type ) {
