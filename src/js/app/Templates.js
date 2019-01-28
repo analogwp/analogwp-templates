@@ -277,6 +277,12 @@ class Templates extends React.Component {
 													this.setState( {
 														importedPage: response.page,
 													} );
+												} ).catch( error => {
+													console.log( error );
+													this.setState( {
+														importing: false,
+														showingModal: false,
+													} );
 												} );
 											} }
 										>
