@@ -119,7 +119,7 @@ final class Analog_Templates {
 		wp_enqueue_style( 'wp-components' );
 		wp_enqueue_script( 'analogwp-app', ANG_PLUGIN_URL . 'assets/js/app.js', [ 'react', 'react-dom', 'wp-components', 'wp-i18n' ], ANG_VERSION, true );
 		wp_set_script_translations( 'analogwp-app', 'ang' );
-		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,700', [], '20190128' );
+		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700', [], '20190128' );
 
 		$favorites = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
 
@@ -132,6 +132,7 @@ final class Analog_Templates {
 				'favorites'        => $favorites,
 				'elementorURL'     => admin_url( 'edit.php?post_type=elementor_library' ),
 				'debugMode'        => defined( 'ANALOG_DEV_DEBUG' ),
+				'isPro'            => false,
 			]
 		);
 	}

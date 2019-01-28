@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { markFavorite, requestTemplateList } from './api';
-import Filters from './filters';
-import Footer from './Footer';
 import Header from './Header';
-import Templates from './Templates';
+import { getPageComponents } from './utils';
+
 const { apiFetch } = wp;
 
 const Analog = styled.div`
@@ -58,7 +57,7 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			filters: [],
-			tab: 'library',
+			tab: 'settings',
 		};
 
 		this.refreshAPI = this.refreshAPI.bind( this );
@@ -202,9 +201,7 @@ class App extends React.Component {
 					<Header />
 
 					<Content>
-						{ ! this.state.isOpen && <Filters /> }
-						<Templates />
-						<Footer />
+						{ getPageComponents( this.state ) }
 					</Content>
 				</AnalogContext.Provider>
 			</Analog>

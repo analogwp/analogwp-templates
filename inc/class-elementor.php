@@ -33,7 +33,7 @@ class Elementor {
 		wp_enqueue_script( 'analogwp-app', ANG_PLUGIN_URL . 'assets/js/app.js', [ 'react', 'react-dom', 'wp-components', 'wp-i18n' ], ANG_VERSION, true );
 		wp_set_script_translations( 'analogwp-app', 'ang' );
 
-		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,700', [], '20190128' );
+		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700', [], '20190128' );
 
 		$favorites = get_user_meta( get_current_user_id(), \Analog\Analog_Templates::$user_meta_prefix, true );
 
@@ -44,6 +44,7 @@ class Elementor {
 				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 				'is_settings_page' => false,
 				'favorites'        => $favorites,
+				'isPro'            => false,
 			]
 		);
 	}
