@@ -38,9 +38,9 @@ export default class Notifications extends React.Component {
 
 		this.state = {
 			notices: [
-				{ key: 'one', label: 'This is notice.', type: 'notice', dismissable: true },
-				{ key: 'two', label: 'This is success', type: 'success', dismissable: true },
-				{ key: 'three', label: 'This is error', type: 'error', dismissable: true },
+				{ key: 'one', label: 'This is notice.', type: 'notice', autoDismiss: false },
+				{ key: 'two', label: 'This is success', type: 'success', autoDismiss: false },
+				{ key: 'three', label: 'This is error', type: 'error', autoDismiss: false },
 			],
 		};
 	}
@@ -50,11 +50,9 @@ export default class Notifications extends React.Component {
 			<Notification key={ notification.key } className={ `type-${ notification.type }` }>
 				<Icon>{ getIcon( notification.type ) }</Icon>
 				<p>{ notification.label }</p>
-				{ notification.dismissable && (
-					<Button>
-						<Close />
-					</Button>
-				) }
+				<Button>
+					<Close />
+				</Button>
 			</Notification>
 		) );
 	}
