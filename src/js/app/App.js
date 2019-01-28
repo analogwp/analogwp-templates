@@ -58,6 +58,7 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			filters: [],
+			tab: 'library',
 		};
 
 		this.refreshAPI = this.refreshAPI.bind( this );

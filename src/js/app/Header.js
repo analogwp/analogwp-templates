@@ -4,6 +4,7 @@ import AnalogContext from './AnalogContext';
 import Close from './icons/close';
 import Logo from './icons/logo';
 import Refresh from './icons/refresh';
+import Nav from './Nav';
 const { __ } = wp.i18n;
 
 const rotate = keyframes`
@@ -68,6 +69,7 @@ const Container = styled.div`
 const Header = () => (
 	<Container>
 		<Logo />
+		<Nav />
 		<AnalogContext.Consumer>
 			{ context => (
 				<button
