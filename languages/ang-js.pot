@@ -19,50 +19,205 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: src/js/app/Modal.js:74
-msgid "Open Preview in New Tab"
+#: src/js/app/Nav.js:34
+msgid "Library"
 msgstr ""
 
-#: src/js/app/Modal.js:80
-msgid "Insert Layout"
+#: src/js/app/Nav.js:35
+msgid "Settings"
 msgstr ""
 
-#: src/js/app/Templates.js:195
+#: src/js/app/Nav.js:36
+#: src/js/app/Nav.js:35
+#: src/js/app/Nav.js:31
+#: src/js/app/feedback/Feedback.js:85
+msgid "Feedback"
+msgstr ""
+
+#: src/js/app/Sidebar.js:42
+msgid "Docs"
+msgstr ""
+
+#: src/js/app/Sidebar.js:43
+msgid "Need help setting up? We have a number of handy articles to get you started."
+msgstr ""
+
+#: src/js/app/Sidebar.js:44
+msgid "Read Documentation"
+msgstr ""
+
+#: src/js/app/Sidebar.js:49
+msgid "Elevate to Analog Pro"
+msgstr ""
+
+#: src/js/app/Sidebar.js:50
+msgid ""
+"Do more with Analog Pro, the design library for complete Elementor-powered "
+"sites."
+msgstr ""
+
+#: src/js/app/Sidebar.js:52
+msgid "Access to all templates"
+msgstr ""
+
+#: src/js/app/Sidebar.js:53
+msgid "New designs every week"
+msgstr ""
+
+#: src/js/app/Sidebar.js:54
+msgid "Flexible Licensing"
+msgstr ""
+
+#: src/js/app/Sidebar.js:55
+msgid "Pro Elements, theme builder layouts"
+msgstr ""
+
+#: src/js/app/Sidebar.js:56
+msgid "Requires Elementor Pro"
+msgstr ""
+
+#: src/js/app/Sidebar.js:58
+msgid "More Details"
+msgstr ""
+
+#: src/js/app/Templates.js:243
+msgid "Importing:"
+msgstr ""
+
+#: src/js/app/Templates.js:243
+msgid "Imported:"
+msgstr ""
+
+#: src/js/app/Templates.js:247
+msgid "Blimey! Your template has been imported."
+msgstr ""
+
+#: src/js/app/Templates.js:252
+msgid "Edit Template"
+msgstr ""
+
+#: src/js/app/Templates.js:263
+msgid "Import this template to make it available in your Elementor "
+msgstr ""
+
+#: src/js/app/Templates.js:264
+msgid "Saved Templates"
+msgstr ""
+
+#: src/js/app/Templates.js:265
+msgid " list for future use."
+msgstr ""
+
+#: src/js/app/Templates.js:286
+msgid "Import Template"
+msgstr ""
+
+#: src/js/app/Templates.js:292
+msgid "or"
+msgstr ""
+
+#: src/js/app/Templates.js:296
+msgid ""
+"Create a new page from this template to make it available as a draft page "
+"in your Pages list."
+msgstr ""
+
+#: src/js/app/Templates.js:300
+msgid "Enter a Page Name"
+msgstr ""
+
+#: src/js/app/Templates.js:320
+msgid "Create New Page"
+msgstr ""
+
+#: src/js/app/Templates.js:339
+msgid "Pro"
+msgstr ""
+
+#: src/js/app/Templates.js:347
 msgid "Preview"
 msgstr ""
 
-#: src/js/app/Templates.js:198
+#: src/js/app/Templates.js:350
 msgid "Import"
 msgstr ""
 
-#: src/js/app/filters.js:103
-msgid "Back to all"
+#: src/js/app/feedback/Feedback.js:80
+msgid "Send your feedback through this form"
 msgstr ""
 
-#: src/js/app/filters.js:104
-msgid "My Favorites"
+#: src/js/app/feedback/Feedback.js:81
+msgid ""
+"Feel free to submit your feedback on the plugin through this form. All "
+"messages are going through our support system, your feedback matters."
+msgstr ""
+
+#: src/js/app/feedback/Feedback.js:83
+msgid "Email Address"
+msgstr ""
+
+#: src/js/app/feedback/Feedback.js:88
+msgid "Sign me up to newsletter, I want to know when new layouts are added!"
+msgstr ""
+
+#: src/js/app/feedback/Feedback.js:90
+msgid "Send Feedback"
+msgstr ""
+
+#: src/js/app/feedback/Feedback.js:93
+msgid "By using this form you agree to our"
+msgstr ""
+
+#: src/js/app/feedback/Feedback.js:94
+msgid "privacy policy"
 msgstr ""
 
 #: src/js/app/filters.js:111
+msgid "Back to all"
+msgstr ""
+
+#: src/js/app/filters.js:112
+msgid "My Favorites"
+msgstr ""
+
+#: src/js/app/filters.js:116
 msgid "Filter"
 msgstr ""
 
-#: src/js/app/filters.js:121
+#: src/js/app/filters.js:128
 msgid "Sort By"
 msgstr ""
 
-#: src/js/app/filters.js:84
+#: src/js/app/filters.js:93
 msgid "Show All"
 msgstr ""
 
-#: src/js/app/filters.js:85
-msgid "Only Packs"
-msgstr ""
-
-#: src/js/app/filters.js:89
+#: src/js/app/filters.js:98
 msgid "Latest"
 msgstr ""
 
-#: src/js/app/filters.js:90
+#: src/js/app/filters.js:99
 msgid "Popular"
+msgstr ""
+
+#: src/js/app/modal.js:72
+msgid "Open Preview in New Tab"
+msgstr ""
+
+#: src/js/app/modal.js:78
+msgid "Insert Layout"
+msgstr ""
+
+#: src/js/app/settings/Settings.js:56
+msgid "Your License"
+msgstr ""
+
+#: src/js/app/settings/Settings.js:57
+msgid "If you own an AnalogPro License, then please enter your license key here."
+msgstr ""
+
+#: src/js/app/settings/Settings.js:60
+msgid ""
+"Opt-in to our anonymous plugin data collection and to updates. We guarantee "
+"no sensitive data is collected."
 msgstr ""
