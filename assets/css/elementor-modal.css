@@ -7,7 +7,7 @@
     width: 95vw;
     max-width: 1275px;
     height: 800px;
-    max-height: 95vh;
+    height: 95vh;
     overflow-y: auto;
     overflow-x: hidden;
 }
