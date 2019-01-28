@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-const { Tooltip } = wp.components;
+const { Tooltip, FocusableIframe } = wp.components;
 const { __ } = wp.i18n;
 
 const Container = styled.div`
@@ -78,7 +78,7 @@ const Modal = props => (
 				{ __( 'Insert Layout', 'ang' ) }
 			</button>
 		</div>
-		<iframe src={ props.template.url } frameBorder="0" title={ __( 'Preview', 'ang' ) } />
+		<FocusableIframe src={ props.template.url } />
 	</Container>
 );
 
