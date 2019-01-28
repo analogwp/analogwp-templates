@@ -8,8 +8,7 @@ const { __ } = wp.i18n;
 const FiltersContainer = styled.div`
 	margin: 0 0 40px 0;
 	display: flex;
-	text-transform: uppercase;
-	font-weight: 600;
+	font-weight: 500;
 	align-items: center;
 	color: #060606;
 
@@ -22,7 +21,6 @@ const FiltersContainer = styled.div`
 	}
 	input[type="search"] {
 		margin-left: auto;
-		text-transform: uppercase;
 		padding: 12px;
 		border: none;
 		outline: none;
@@ -33,7 +31,6 @@ const FiltersContainer = styled.div`
 
 		&::placeholder {
 			color: #b9b9b9;
-			letter-spacing: 1px;
 		}
 	}
 	p {

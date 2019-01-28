@@ -11,8 +11,8 @@ const Analog = styled.div`
 	margin: 0 0 0 -20px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	font-family: "Roboto", sans-serif;
-	letter-spacing: 1px;
+	font-family: "Poppins", sans-serif;
+	font-size: 13px;
 
 	a {
 		outline: 0;
@@ -30,11 +30,13 @@ const Analog = styled.div`
 		appearance: none;
 		outline: 0;
 		background: transparent;
-		font-size: 12px;
+		font-size: inherit;
 		font-weight: bold;
-		text-transform: uppercase;
 		color: #060606;
-		letter-spacing: 1px;
+	}
+
+	button {
+		font-family: inherit;
 	}
 `;
 

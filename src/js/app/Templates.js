@@ -18,7 +18,6 @@ const TemplatesList = styled.ul`
 	/* grid-template-columns: repeat(4, 1fr); */
 	grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
 	grid-gap: 25px;
-	text-transform: uppercase;
 	color: #000;
 
 	li {
@@ -66,7 +65,8 @@ const TemplatesList = styled.ul`
 	}
 
 	h3 {
-		font-size: 12px;
+		font-size: inherit;
+		text-transform: capitalize;
 		margin: 0;
 		font-weight: bold;
 	}
@@ -110,14 +110,12 @@ const TemplatesList = styled.ul`
 		border: none;
 		outline: 0;
 		font-size: 12px;
-		text-transform: uppercase;
 		padding: 10px;
 		font-weight: bold;
 		background: #ff7865;
 		width: 100px;
 		color: #fff;
 		cursor: pointer;
-		letter-spacing: 1px;
 		transition: all 200ms ease-in;
 		opacity: 0;
 
@@ -141,7 +139,7 @@ const TemplatesList = styled.ul`
 		color: #999999;
 		text-transform: capitalize;
 		padding: 0 20px 15px 20px;
-		letter-spacing: 0;
+		font-size: 12px;
 
 		span + span:before {
 			content: " / ";
@@ -150,7 +148,6 @@ const TemplatesList = styled.ul`
 `;
 
 const StyledButton = styled.button`
-	text-transform: uppercase;
 	padding: 5px 10px;
 `;
 

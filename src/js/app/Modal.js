@@ -40,7 +40,6 @@ const Container = styled.div`
 		-moz-appearance: none;
 		padding: 0;
 		margin: 0;
-		text-transform: uppercase;
 		font-size: 12px;
 		font-weight: bold;
 		color: #060606;
@@ -52,7 +51,6 @@ const Container = styled.div`
 
 	.button--accent {
 		font-size: 12px;
-		text-transform: uppercase;
 		font-weight: bold;
 		color: #fff;
 		border-radius: 0;

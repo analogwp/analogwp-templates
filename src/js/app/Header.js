@@ -29,8 +29,6 @@ const Container = styled.div`
 
 	.button-plain {
 		color: #060606;
-		text-transform: uppercase;
-		font-size: 12px;
 		font-weight: bold;
 		text-decoration: none;
 		display: inline-flex;
