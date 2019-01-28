@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { markFavorite, requestTemplateList } from './api';
 import Header from './Header';
+import Notifications from './Notifications';
 import { getPageComponents } from './utils';
 
 const { apiFetch } = wp;
@@ -12,6 +13,15 @@ const Analog = styled.div`
 	-moz-osx-font-smoothing: grayscale;
 	font-family: "Poppins", sans-serif;
 	font-size: 13px;
+	position: relative;
+
+	.ang-notices {
+		position: absolute;
+		right: 0;
+		top: 70px;
+		padding: 8px;
+		z-index: 100000;
+	}
 
 	a {
 		outline: 0;
@@ -208,6 +218,7 @@ class App extends React.Component {
 					} }
 				>
 					<Header />
+					<Notifications />
 
 					<Content>
 						{ getPageComponents( this.state ) }
