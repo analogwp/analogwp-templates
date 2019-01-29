@@ -205,25 +205,26 @@ class App extends React.Component {
 	render() {
 		return (
 			<Analog>
-				<AnalogContext.Provider
-					value={ {
-						state: this.state,
-						forceRefresh: this.refreshAPI,
-						markFavorite: markFavorite,
-						toggleFavorites: this.toggleFavorites,
-						handleSearch: this.handleSearch,
-						handleSort: this.handleSort,
-						handleFilter: this.handleFilter,
-						dispatch: action => this.setState( action ),
-					} }
-				>
-					<Header />
-					<Notifications />
+				<Notifications>
+					<AnalogContext.Provider
+						value={ {
+							state: this.state,
+							forceRefresh: this.refreshAPI,
+							markFavorite: markFavorite,
+							toggleFavorites: this.toggleFavorites,
+							handleSearch: this.handleSearch,
+							handleSort: this.handleSort,
+							handleFilter: this.handleFilter,
+							dispatch: action => this.setState( action ),
+						} }
+					>
+						<Header />
 
-					<Content>
-						{ getPageComponents( this.state ) }
-					</Content>
-				</AnalogContext.Provider>
+						<Content>
+							{ getPageComponents( this.state ) }
+						</Content>
+					</AnalogContext.Provider>
+				</Notifications>
 			</Analog>
 		);
 	}

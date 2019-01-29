@@ -3,9 +3,11 @@ import Close from './icons/close';
 import Error from './icons/error';
 import Notice from './icons/notice';
 import Success from './icons/success';
-
-const { Button } = wp.components;
+import { generateUEID } from './utils';
 const NotificationsContext = React.createContext();
+
+export const NotificationProvider = NotificationsContext.Provider;
+export const NotificationConsumer = NotificationsContext.Consumer;
 
 const Notification = styled.div`
     box-shadow: rgba(0, 0, 0, 0.176) 0px 3px 8px;
@@ -51,9 +53,15 @@ const Notification = styled.div`
 		color: currentColor;
 		opacity: .5;
 		transition: opacity 150ms ease 0s;
+		cursor: pointer;
+		background: transparent;
+		border: none;
+		color: currentColor;
+		outline: 0;
 		&:hover {
 			opacity: 1;
 		}
+
 	}
 	button svg,
 	button path {
@@ -93,6 +101,8 @@ export default class Notifications extends React.Component {
 				{ key: 'three', label: 'This is error', type: 'error', autoDismiss: false },
 			],
 		};
+
+		this.add = this.add.bind( this );
 	}
 
 	getNotices() {
@@ -100,23 +110,50 @@ export default class Notifications extends React.Component {
 			<Notification key={ notification.key } className={ `type-${ notification.type }` }>
 				<Icon>{ getIcon( notification.type ) }</Icon>
 				<p>{ notification.label }</p>
-				<Button>
+				<button onClick={ () => this.remove( notification.key ) }>
 					<Close />
-				</Button>
+				</button>
 			</Notification>
 		) );
 	}
 
-	render() {
-		return <div className="ang-notices">{ this.getNotices() }</div>;
+	add(
+		label,
+		type = 'success',
+		key = generateUEID(),
+		autoDismiss = false,
+	) {
+		const oldNotices = [ ...this.state.notices ];
+
+		const newNotices = [
+			...oldNotices,
+			{
+				label,
+				key,
+				type,
+				autoDismiss,
+			},
+		];
+
+		this.setState( { notices: newNotices } );
 	}
-}
 
-export class addNotice extends React.Component {
-	static contextType = NotificationsContext;
+	remove( key ) {
+		const notices = this.state.notices.filter( notice => notice.key !== key );
+
+		this.setState( { notices } );
+	}
 
 	render() {
-		const { state, actions } = this.context;
+		const { add } = this;
+		const { children } = this.props;
+
+		return (
+			<NotificationsContext.Provider value={ { add } }>
+				<div className="ang-notices">{ this.getNotices() }</div>
+				{ children }
+			</NotificationsContext.Provider>
+		);
 	}
 }
 
