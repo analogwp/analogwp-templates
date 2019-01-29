@@ -119,7 +119,7 @@ export default class Notifications extends React.Component {
 		label,
 		type = 'success',
 		key = generateUEID(),
-		autoDismiss = false,
+		autoDismiss = true,
 	) {
 		const oldNotices = [ ...this.state.notices ];
 

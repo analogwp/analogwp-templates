@@ -168,7 +168,7 @@ class App extends React.Component {
 		} );
 	}
 
-	refreshAPI() {
+	async refreshAPI() {
 		this.setState( {
 			templates: [],
 			archive: [],
@@ -176,7 +176,7 @@ class App extends React.Component {
 			syncing: true,
 		} );
 
-		apiFetch( {
+		return await apiFetch( {
 			path: '/agwp/v1/templates/?force_update=true',
 		} ).then( data => {
 			this.setState( {

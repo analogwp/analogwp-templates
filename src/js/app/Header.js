@@ -5,6 +5,7 @@ import Close from './icons/close';
 import Logo from './icons/logo';
 import Refresh from './icons/refresh';
 import Nav from './Nav';
+import { NotificationConsumer } from './Notifications';
 const { __ } = wp.i18n;
 
 const rotate = keyframes`
@@ -72,20 +73,26 @@ const Header = () => (
 		<Nav />
 		<AnalogContext.Consumer>
 			{ context => (
-				<button
-					className={ classNames( 'button-plain', {
-						'is-active': context.state.syncing,
-					} ) }
-					onClick={ e => {
-						e.preventDefault();
-						context.forceRefresh();
-					} }
-				>
-					{ context.state.syncing ?
-						__( 'Syncing...', 'ang' ) :
-						__( 'Sync Library', 'ang' ) }
-					<Refresh />
-				</button>
+				<NotificationConsumer>
+					{ ( { add } ) => (
+						<button
+							className={ classNames( 'button-plain', {
+								'is-active': context.state.syncing,
+							} ) }
+							onClick={ e => {
+								e.preventDefault();
+								context.forceRefresh()
+									.then( () => add( __( 'Templates library refreshed', 'ang' ) ) )
+									.catch( () => add( __( 'Error refreshing templates library, please try again.', 'ang' ) ) );
+							} }
+						>
+							{ context.state.syncing ?
+								__( 'Syncing...', 'ang' ) :
+								__( 'Sync Library', 'ang' ) }
+							<Refresh />
+						</button>
+					) }
+				</NotificationConsumer>
 			) }
 		</AnalogContext.Consumer>
 		{ ! AGWP.is_settings_page && (
