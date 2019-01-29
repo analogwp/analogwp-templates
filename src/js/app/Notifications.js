@@ -9,7 +9,7 @@ const NotificationsContext = React.createContext();
 export const NotificationProvider = NotificationsContext.Provider;
 export const NotificationConsumer = NotificationsContext.Consumer;
 
-const Notification = styled.div`
+const NotificationContainer = styled.div`
     box-shadow: rgba(0, 0, 0, 0.176) 0px 3px 8px;
 	display: flex;
 	margin-bottom: 8px;
@@ -95,25 +95,23 @@ export default class Notifications extends React.Component {
 		super( ...arguments );
 
 		this.state = {
-			notices: [
-				{ key: 'one', label: 'This is notice.', type: 'notice', autoDismiss: false },
-				{ key: 'two', label: 'This is success', type: 'success', autoDismiss: false },
-				{ key: 'three', label: 'This is error', type: 'error', autoDismiss: false },
-			],
+			notices: [],
 		};
 
+		this.autoDismissTimeout = 5000;
 		this.add = this.add.bind( this );
 	}
 
 	getNotices() {
 		return this.state.notices.map( notification => (
-			<Notification key={ notification.key } className={ `type-${ notification.type }` }>
-				<Icon>{ getIcon( notification.type ) }</Icon>
-				<p>{ notification.label }</p>
-				<button onClick={ () => this.remove( notification.key ) }>
-					<Close />
-				</button>
-			</Notification>
+			<Notification
+				key={ notification.key }
+				type={ notification.type }
+				label={ notification.label }
+				onDismiss={ () => this.remove( notification.key ) }
+				autoDismiss={ notification.autoDismiss ? notification.autoDismiss : false }
+				autoDismissTimeout={ notification.autoDismissTimeout ? notification.autoDismissTimeout : this.autoDismissTimeout }
+			/>
 		) );
 	}
 
@@ -144,6 +142,8 @@ export default class Notifications extends React.Component {
 		this.setState( { notices } );
 	}
 
+	onDismiss = ( key ) => () => this.remove( key );
+
 	render() {
 		const { add } = this;
 		const { children } = this.props;
@@ -166,3 +166,51 @@ const getIcon = ( icon ) => {
 	}
 	return <Notice />;
 };
+
+class Notification extends React.Component {
+	timeout = 0
+	state = {
+		autoDismissTimeout: this.props.autoDismissTimeout,
+	}
+
+	static defaultProps = {
+		autoDismiss: false,
+	};
+
+	static getDerivedStateFromProps( { autoDismiss, autoDismissTimeout } ) {
+		if ( ! autoDismiss ) {
+			return null;
+		}
+
+		const timeout = typeof autoDismiss === 'number' ? autoDismiss : autoDismissTimeout;
+		return { autoDismissTimeout: timeout };
+	}
+
+	componentDidMount() {
+		const { autoDismiss, onDismiss } = this.props;
+		const { autoDismissTimeout } = this.state;
+
+		if ( autoDismiss ) {
+			this.timeout = setTimeout( onDismiss, autoDismissTimeout );
+		}
+	}
+	componentWillUnmount() {
+		if ( this.timeout ) {
+			clearTimeout( this.timeout );
+		}
+	}
+
+	render() {
+		const { onDismiss, label, key, type } = this.props;
+
+		return (
+			<NotificationContainer key={ key } className={ `type-${ type }` }>
+				<Icon>{ getIcon( type ) }</Icon>
+				<p>{ label }</p>
+				<button onClick={ () => onDismiss() }>
+					<Close />
+				</button>
+			</NotificationContainer>
+		);
+	}
+}
