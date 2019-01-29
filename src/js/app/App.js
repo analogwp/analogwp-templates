@@ -16,9 +16,9 @@ const Analog = styled.div`
 	position: relative;
 
 	.ang-notices {
-		position: absolute;
+		position: fixed;
 		right: 0;
-		top: 70px;
+		top: 75px;
 		padding: 8px;
 		z-index: 100000;
 	}
