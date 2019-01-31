@@ -9,6 +9,7 @@ namespace Analog\API;
 
 use \Analog\Base;
 use \Analog\API\Remote;
+use \Analog\Options;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,8 +32,11 @@ class Local extends Base {
 			'/mark_favorite/'        => [
 				\WP_REST_Server::CREATABLE => 'mark_as_favorite',
 			],
-			'/import_status/'        => [
-				\WP_REST_Server::READABLE => 'import_status',
+			'/settings/'        => [
+				\WP_REST_Server::READABLE => 'get_settings',
+			],
+			'/settings/'        => [
+				\WP_REST_Server::CREATABLE => 'update_setting',
 			],
 		];
 
@@ -42,7 +46,7 @@ class Local extends Base {
 					'agwp/v1', $endpoint, [
 						'methods'             => $method,
 						'callback'            => [ $this, $callback ],
-						// 'permission_callback' => [ $this, 'rest_permission_check' ], // TODO: Enable permissions.
+						'permission_callback' => [ $this, 'rest_permission_check' ],
 						'args'                => [],
 					]
 				);
@@ -106,7 +110,7 @@ class Local extends Base {
 		$data['template_id']   = $template_id;
 		$data['action']        = $favorite;
 		$data['update_status'] = update_user_meta( get_current_user_id(), \Analog\Analog_Templates::$user_meta_prefix, $favorites_templates );
-		$data['favorites']           = get_user_meta( get_current_user_id(), \Analog\Analog_Templates::$user_meta_prefix, true );
+		$data['favorites']     = get_user_meta( get_current_user_id(), \Analog\Analog_Templates::$user_meta_prefix, true );
 
 		return new \WP_REST_Response( $data, 200 );
 	}
@@ -177,28 +181,23 @@ class Local extends Base {
 		return new \WP_REST_Response( $data, 200 );
 	}
 
-	public function import_status() {
-		header( 'Cache-Control: no-cache' );
-		header( "Content-Type: text/event-stream\n\n" );
+	public function get_settings( \WP_REST_Request $request ) {
+		$options = Options::get_instance()->get();
 
-		$counter = wp_rand( 1, 10 );
+		return new \WP_REST_Response( $options, 200 );
+	}
 
-		while ( 1 ) {
-			echo "event: ping\n";
-			$curDate = date(DATE_ISO8601);
-			echo 'data: {"time": "' . $curDate . '"}';
-			echo "\n\n";
+	public function update_setting( \WP_REST_Request $request ) {
+		$key   = $request->get_param( 'key' );
+		$value = $request->get_param( 'value' );
 
-			$counter--;
-			if ( ! $counter ) {
-				echo 'data: This is a message at time ' . $curDate . "\n\n";
-				$counter = rand(1, 10);
-			}
-
-			ob_end_flush();
-			flush();
-			usleep( 100 );
+		if ( ! $key || ! $value ) {
+			return new \WP_Error( 'settings_error', 'No options key provided.' );
 		}
+
+		$options = Options::get_instance()->set( $key, $value );
+
+		return new \WP_REST_Response( $options, 200 );
 	}
 }
 
