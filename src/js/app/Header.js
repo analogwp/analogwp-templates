@@ -83,7 +83,7 @@ const Header = () => (
 								e.preventDefault();
 								context.forceRefresh()
 									.then( () => add( __( 'Templates library refreshed', 'ang' ) ) )
-									.catch( () => add( __( 'Error refreshing templates library, please try again.', 'ang' ) ) );
+									.catch( () => add( __( 'Error refreshing templates library, please try again.', 'ang' ), 'error' ) );
 							} }
 						>
 							{ context.state.syncing ?
