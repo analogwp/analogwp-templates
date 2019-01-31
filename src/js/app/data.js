@@ -2,7 +2,7 @@ const { apiFetch, data } = wp;
 const { registerStore, dispatch, select } = data;
 
 const DEFAULT_STATE = {
-	importCount: '5',
+	importCount: '',
 	importedTemplates: [],
 };
 
