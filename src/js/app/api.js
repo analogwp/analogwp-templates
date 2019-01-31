@@ -61,3 +61,9 @@ export async function requestImportLayout( template ) {
 		}
 	} );
 }
+
+export async function getSettings() {
+	return await apiFetch( { path: '/agwp/v1/settings/' } ).then(
+		response => response
+	);
+}

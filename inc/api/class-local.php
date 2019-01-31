@@ -20,22 +20,22 @@ class Local extends Base {
 
 	public function register_endpoints() {
 		$endpoints = [
-			'/import/elementor' => [
+			'/import/elementor'        => [
 				\WP_REST_Server::CREATABLE => 'handle_import',
 			],
 			'/import/elementor/direct' => [
 				\WP_REST_Server::CREATABLE => 'handle_direct_import',
 			],
-			'/templates'        => [
+			'/templates'               => [
 				\WP_REST_Server::READABLE => 'templates_list',
 			],
-			'/mark_favorite/'        => [
+			'/mark_favorite/'          => [
 				\WP_REST_Server::CREATABLE => 'mark_as_favorite',
 			],
-			'/settings/'        => [
+			'/settings/'               => [
 				\WP_REST_Server::READABLE => 'get_settings',
 			],
-			'/settings/'        => [
+			'/settings/(?P<key>\d+)'   => [
 				\WP_REST_Server::CREATABLE => 'update_setting',
 			],
 		];

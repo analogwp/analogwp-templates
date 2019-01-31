@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { AnalogContext } from './../AnalogContext';
+import { getSettings } from './../api';
 import Sidebar from './../Sidebar';
 const { TextControl, CheckboxControl } = wp.components;
 const { __ } = wp.i18n;
@@ -48,6 +49,30 @@ const ChildContainer = styled.div`
 export default class Settings extends React.Component {
 	static contextType = AnalogContext;
 
+	constructor() {
+		super( ...arguments );
+
+		this.state = {
+			settings: [],
+		};
+	}
+
+	componentDidMount() {
+		getSettings().then( settings => this.setState( { settings } ) );
+	}
+
+	updateSetting( key, val ) {
+		const settings = this.state.settings;
+		const updatedSetting = {
+			...settings,
+			[ key ]: val,
+		};
+
+		this.setState( {
+			settings: updatedSetting,
+		} );
+	}
+
 	render() {
 		return (
 			<Container>
@@ -55,9 +80,12 @@ export default class Settings extends React.Component {
 					<TextControl
 						label={ __( 'Your License', 'ang' ) }
 						help={ __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ) }
+						onChange={ ( value ) => this.updateSetting( 'ang_license', value ) }
 					/>
 					<CheckboxControl
 						label={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
+						isChecked={ this.state.settings.ang_data_collection ? this.state.settings.ang_data_collection : false }
+						onChange={ ( value ) => this.updateSetting( 'ang_data_collection', value ) }
 					/>
 				</ChildContainer>
 
