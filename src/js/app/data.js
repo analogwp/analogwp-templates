@@ -11,7 +11,7 @@ registerStore( 'ang/settings', {
 		if ( action.type === 'SET_IMPORT_COUNT' ) {
 			return {
 				...state,
-				importedCount: action.importedCount,
+				importCount: action.importCount,
 			};
 		}
 
@@ -94,7 +94,7 @@ registerStore( 'ang/settings', {
 		},
 	},
 
-	resolves: {
+	resolvers: {
 		async getImportCount() {
 			const settings = await apiFetch( { path: '/wp/v2/settings' } );
 			const { ang_import_count } = settings; // eslint-disable-line
