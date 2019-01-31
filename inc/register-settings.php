@@ -28,3 +28,35 @@ function settings_page() {
 	<div id="analogwp-templates"></div>
 	<?php
 }
+
+/**
+ * Register plugin settings.
+ *
+ * @return void
+ */
+function register_settings() {
+	register_setting(
+		'ang',
+		'ang_import_count',
+		[
+			'type'              => 'string',
+			'description'       => esc_html__( 'Imported Count', 'ang' ),
+			'sanitize_callback' => 'absint',
+			'show_in_rest'      => true,
+			'default'           => '',
+		]
+	);
+
+	register_setting(
+		'ang',
+		'ang_imported_templates',
+		[
+			'type'         => 'string',
+			'description'  => esc_html__( 'Imported templates', 'ang' ),
+			'show_in_rest' => true,
+			'default'      => [],
+		]
+	);
+}
+
+add_action( 'init', __NAMESPACE__ . '\register_settings' );

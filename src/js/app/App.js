@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { markFavorite, requestTemplateList } from './api';
+import './data';
 import Header from './Header';
 import Notifications from './Notifications';
 import { getPageComponents } from './utils';
