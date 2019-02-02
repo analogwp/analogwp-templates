@@ -84,7 +84,7 @@ export default class Settings extends React.Component {
 					/>
 					<CheckboxControl
 						label={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
-						isChecked={ this.state.settings.ang_data_collection ? this.state.settings.ang_data_collection : false }
+						checked={ this.state.settings.ang_data_collection ? this.state.settings.ang_data_collection : false }
 						onChange={ ( value ) => this.updateSetting( 'ang_data_collection', value ) }
 					/>
 				</ChildContainer>
