@@ -65,12 +65,17 @@ const Container = styled.div`
 			}
 		}
 	}
+	.close-modal svg {
+		fill: #000;
+	}
 `;
 
 const Header = () => (
 	<Container>
 		<Logo />
-		<Nav />
+		{ AGWP.is_settings_page && (
+			<Nav />
+		) }
 		<AnalogContext.Consumer>
 			{ context => (
 				<NotificationConsumer>
