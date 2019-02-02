@@ -63,7 +63,23 @@ export async function requestImportLayout( template ) {
 }
 
 export async function getSettings() {
-	return await apiFetch( { path: '/agwp/v1/settings/' } ).then(
+	return await apiFetch( { path: '/agwp/v1/get/settings' } ).then(
 		response => response
 	);
+}
+
+export async function requestSettingUpdate( key, value ) {
+	if ( ! key || ! value ) {
+		console.warn('No key/value pair found to update settings.'); // eslint-disable-line
+		return false;
+	}
+
+	return await apiFetch( {
+		path: '/agwp/v1/update/settings',
+		method: 'POST',
+		data: {
+			key,
+			value,
+		},
+	} ).then( response => response );
 }

@@ -32,10 +32,10 @@ class Local extends Base {
 			'/mark_favorite/'          => [
 				\WP_REST_Server::CREATABLE => 'mark_as_favorite',
 			],
-			'/settings/'               => [
+			'/get/settings/'               => [
 				\WP_REST_Server::READABLE => 'get_settings',
 			],
-			'/settings/(?P<key>\d+)'   => [
+			'/update/settings/'   => [
 				\WP_REST_Server::CREATABLE => 'update_setting',
 			],
 		];
@@ -195,7 +195,7 @@ class Local extends Base {
 			return new \WP_Error( 'settings_error', 'No options key provided.' );
 		}
 
-		$options = Options::get_instance()->set( $key, $value );
+		Options::get_instance()->set( $key, $value );
 
 		return new \WP_REST_Response( $options, 200 );
 	}
