@@ -79,6 +79,7 @@ const TemplatesList = styled.ul`
 	figure {
 		margin: 0;
 		position: relative;
+		min-height: 100px;
 
 		&:hover .actions {
 			opacity: 1;

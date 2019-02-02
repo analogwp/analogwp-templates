@@ -88,6 +88,7 @@ const List = styled.div`
 	.dropdown {
 		width: 140px;
 		z-index: 1000;
+		text-transform: capitalize;
 	}
 `;
 
