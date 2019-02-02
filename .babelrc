@@ -1,9 +1,9 @@
 {
-    "presets": [
-        "env",
-        "react"
-    ],
-    "plugins": [
+	"presets": [
+		"env",
+		"react"
+	],
+	"plugins": [
 		"transform-object-rest-spread",
 		"transform-class-properties",
 		[
@@ -12,5 +12,5 @@
 				"output": "languages/ang-js.pot"
 			}
 		]
-    ]
+	]
 }
