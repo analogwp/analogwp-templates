@@ -23,6 +23,11 @@ const Analog = styled.div`
 		z-index: 100000;
 	}
 
+	.components-base-control {
+		font-family: inherit;
+		font-size: inherit;
+	}
+
 	a {
 		outline: 0;
 		box-shadow: none;
@@ -67,6 +72,7 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			filters: [],
+			showFree: true,
 			tab: 'library',
 		};
 

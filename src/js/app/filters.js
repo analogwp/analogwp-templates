@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import Star from './icons/star';
 const { __ } = wp.i18n;
+const { CheckboxControl } = wp.components;
 
 const FiltersContainer = styled.div`
 	margin: 0 0 40px 0;
@@ -48,6 +49,18 @@ const FiltersContainer = styled.div`
 	.is-active {
 		svg {
 			fill: #ff7865;
+		}
+	}
+
+	.checkbox {
+		label {
+			color: #000;
+		}
+
+		.components-base-control__field {
+			display: flex;
+			margin: 0;
+			flex-direction: row-reverse;
 		}
 	}
 `;
@@ -133,6 +146,18 @@ class Filters extends React.Component {
 						isSearchable={ false }
 						options={ sortOptions }
 						onChange={ e => this.context.handleSort( e.value ) }
+					/>
+				</List>
+				<List>
+					<CheckboxControl
+						label={ __( 'Show Only Free', 'ang' ) }
+						checked={ this.context.state.showFree }
+						className="checkbox"
+						onChange={ () => {
+							this.context.dispatch( {
+								showFree: ! this.context.state.showFree,
+							} );
+						} }
 					/>
 				</List>
 				<input

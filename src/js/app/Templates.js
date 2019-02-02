@@ -275,7 +275,6 @@ class Templates extends React.Component {
 														importedPage: response.page,
 													} );
 												} ).catch( error => {
-													console.log( error );
 													this.setState( {
 														importing: false,
 														showingModal: false,
@@ -333,8 +332,12 @@ class Templates extends React.Component {
 						{ context =>
 							! context.state.isOpen &&
 							context.state.count >= 1 &&
-							context.state.templates.map( template => (
-								<li key={ template.id }>
+							context.state.templates.map( template => {
+								if ( context.state.showFree && Boolean( template.is_pro ) ) {
+									return;
+								}
+
+								return <li key={ template.id }>
 									{ template.is_pro && (
 										<span className="pro">{ __( 'Pro', 'ang' ) }</span>
 									) }
@@ -354,13 +357,10 @@ class Templates extends React.Component {
 									<div className="content">
 										<h3>{ decodeEntities( template.title ) }</h3>
 										<button
-											href="#"
 											className={ classNames( 'button-plain', {
 												'is-active': template.id in this.context.state.favorites,
 											} ) }
-											onClick={ e => {
-												e.preventDefault();
-
+											onClick={ () => {
 												const favorites = this.context.state.favorites;
 
 												this.context.markFavorite(
@@ -396,8 +396,8 @@ class Templates extends React.Component {
 											) ) }
 										</div>
 									) }
-								</li>
-							) )
+								</li>;
+							} )
 						}
 					</AnalogContext.Consumer>
 				</TemplatesList>
