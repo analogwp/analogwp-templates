@@ -18,6 +18,7 @@ class LicenseManager extends Base {
 	protected $item_id        = 495;
 	protected $download_id    = 495;
 	protected $strings        = null;
+	protected $renew_url      = null;
 
 	public function __construct() {
 		$strings = [
@@ -50,7 +51,48 @@ class LicenseManager extends Base {
 			'update-notice'             => __( "Updating this theme will lose any customizations you have made. 'Cancel' to stop, 'OK' to update.", 'ang' ),
 			'update-available'          => __( '<strong>%1$s %2$s</strong> is available. <a href="%3$s" class="thickbox" title="%4s">Check out what\'s new</a> or <a href="%5$s"%6$s>update now</a>.', 'ang' ),
 		];
+
 		$this->strings = $strings;
+
+		add_action( 'rest_api_init', [ $this, 'register_endpoints' ] );
+		add_action( 'admin_init', [ $this, 'get_license_message' ], 10, 2 );
+	}
+
+	public function register_endpoints() {
+		register_rest_route( 'agwp/v1', '/license', [
+			'methods'             => \WP_REST_Server::CREATABLE,
+			'callback'            => [ $this, 'handle_license_request' ],
+			'permission_callback' => function() {
+				return current_user_can( 'manage_options' );
+			},
+		]);
+		register_rest_route( 'agwp/v1', '/license/status', [
+			'methods'             => \WP_REST_Server::READABLE,
+			'callback'            => [ $this, 'get_license_message' ],
+			'permission_callback' => function() {
+				return current_user_can( 'manage_options' );
+			},
+		]);
+	}
+
+	public function handle_license_request( \WP_REST_Request $request ) {
+		$action = $request->get_param( 'action' );
+
+		if ( ! $action ) {
+			return new \WP_Error( 'license_error', 'No license action defined.' );
+		}
+
+		$data = '';
+
+		if ( 'check' === $action ) {
+			$data = $this->check_license();
+		} elseif ( 'activate' === $action ) {
+			$data = $this->activate_license();
+		} elseif ( 'deactivate' === $action ) {
+			$data = $this->deactivate_license();
+		}
+
+		return new \WP_REST_Response( $data, 200 );
 	}
 
 	/**
@@ -65,7 +107,7 @@ class LicenseManager extends Base {
 
 		$response = wp_remote_post(
 			$this->remote_api_url, array(
-				'timeout'   => 40,
+				'timeout'   => 15,
 				'sslverify' => false,
 				'body'      => $api_params,
 			)
@@ -108,6 +150,8 @@ class LicenseManager extends Base {
 	public function check_license() {
 		$license = trim( Options::get_instance()->get( $this->license_slug ) );
 		$strings = $this->strings;
+
+		$this->check_memory_limit();
 
 		$api_params = array(
 			'edd_action' => 'check_license',
@@ -197,8 +241,10 @@ class LicenseManager extends Base {
 	 *
 	 * @return void
 	 */
-	public function active_license() {
+	public function activate_license() {
 		$license = trim( Options::get_instance()->get( $this->license_slug ) );
+
+		$this->check_memory_limit();
 
 		// Data to send in our API request.
 		$api_params = array(
@@ -254,6 +300,12 @@ class LicenseManager extends Base {
 						$message = __( 'An error occurred, please try again.' );
 						break;
 				}
+
+				$message = 'poop 💩';
+
+				if ( ! empty( $message ) ) {
+					return new \WP_Error( 'activation_error', $message );
+				}
 			}
 		}
 
@@ -262,6 +314,20 @@ class LicenseManager extends Base {
 			Options::get_instance()->set( 'ang_license_key_status', $license_data->license );
 			delete_transient( 'ang_license_message' );
 		}
+
+		return [
+			'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
+			'message' => $this->get_license_message(),
+			'action'  => 'activate',
+		];
+	}
+
+	public function get_license_message() {
+		if ( ! get_transient( 'ang_license_message' ) ) {
+			set_transient( 'ang_license_message', $this->check_license(), DAY_IN_SECONDS );
+		}
+
+		return get_transient( 'ang_license_message' );
 	}
 
 	/**
@@ -269,6 +335,8 @@ class LicenseManager extends Base {
 	 */
 	function deactivate_license() {
 		$license = trim( Options::get_instance()->get( $this->license_slug ) );
+
+		$this->check_memory_limit();
 
 		// Data to send in our API request.
 		$api_params = array(
@@ -296,5 +364,17 @@ class LicenseManager extends Base {
 				delete_transient( 'ang_license_message' );
 			}
 		}
+
+		if ( ! empty( $message ) ) {
+			return new \WP_Error( 'deactivation_error', $message );
+		}
+
+		return [
+			'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
+			'message' => $this->get_license_message(),
+			'action'  => 'deactivate',
+		];
 	}
 }
+
+new LicenseManager();

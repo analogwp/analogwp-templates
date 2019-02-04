@@ -83,3 +83,21 @@ export async function requestSettingUpdate( key, value ) {
 		},
 	} ).then( response => response );
 }
+
+export async function requestLicenseInfo( action = 'check' ) {
+	return await apiFetch( {
+		path: '/agwp/v1/license',
+		method: 'post',
+		data: {
+			action,
+		},
+	} ).then( response => {
+		return response;
+	} );
+}
+
+export async function getLicenseStatus() {
+	return await apiFetch( { path: '/agwp/v1/license/status' } ).then(
+		response => response
+	);
+}

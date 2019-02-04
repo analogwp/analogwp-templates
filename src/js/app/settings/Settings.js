@@ -1,9 +1,11 @@
+import classnames from 'classnames';
 import styled from 'styled-components';
 import { AnalogContext } from './../AnalogContext';
-import { getSettings, requestSettingUpdate } from './../api';
+import { getSettings, requestLicenseInfo, requestSettingUpdate } from './../api';
 import Sidebar from './../Sidebar';
-const { TextControl, CheckboxControl } = wp.components;
+const { TextControl, CheckboxControl, Button } = wp.components;
 const { __ } = wp.i18n;
+const { Fragment } = React;
 
 const Container = styled.div`
 	display: grid;
@@ -39,6 +41,11 @@ const Container = styled.div`
 		font-weight: 500;
 		color: #999;
 	}
+
+	.license-action {
+		margin-bottom: 30px;
+		margin-top: -10px;
+	}
 `;
 
 const ChildContainer = styled.div`
@@ -54,6 +61,9 @@ export default class Settings extends React.Component {
 
 		this.state = {
 			settings: [],
+			licenseStatus: AGWP.license.status,
+			licenseMessage: AGWP.license.message || null,
+			requesting: false,
 		};
 	}
 
@@ -89,6 +99,37 @@ export default class Settings extends React.Component {
 						value={ this.state.settings.ang_license_key || '' }
 						onChange={ ( value ) => this.updateSetting( 'ang_license_key', value ) }
 					/>
+					{ this.state.settings.ang_license_key && (
+						<Fragment>
+							{ this.state.licenseMessage &&
+								<p
+									className={ classnames( 'license-status', this.state.licenseStatus ) }
+								>{ this.state.licenseMessage }</p>
+							}
+							<Button
+								isDefault
+								isLarge
+								isBusy={ this.state.requesting }
+								className="license-action"
+								onClick={ async() => {
+									this.setState( { requesting: true } );
+									const action = this.state.licenseStatus === 'valid' ? 'deactivate' : 'activate';
+									await requestLicenseInfo( action ).then( response => {
+										this.setState( {
+											licenseStatus: response.status,
+											licenseMessage: response.message,
+										} );
+									} ).catch( error => {
+										console.error( error, action ); // eslint-disable-line
+									} );
+
+									this.setState( { requesting: false } );
+								} }
+							>
+								{ ( this.state.licenseStatus === 'valid' ) ? __( 'Deactivate License', 'ang' ) : __( 'Activate License', 'ang' ) }
+							</Button>
+						</Fragment>
+					) }
 					<CheckboxControl
 						label={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
 						checked={ this.state.settings.ang_data_collection ? this.state.settings.ang_data_collection : false }

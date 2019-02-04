@@ -15,6 +15,8 @@
 
 namespace Analog;
 
+use \Analog\Options;
+
 defined( 'ABSPATH' ) || exit;
 
 final class Analog_Templates {
@@ -106,6 +108,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/register-settings.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-options.php';
+		require_once ANG_PLUGIN_DIR . 'inc/class-licensemanager.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-remote.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-local.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-analog-importer.php';
@@ -146,6 +149,11 @@ final class Analog_Templates {
 				'elementorURL'     => admin_url( 'edit.php?post_type=elementor_library' ),
 				'debugMode'        => defined( 'ANALOG_DEV_DEBUG' ),
 				'isPro'            => false,
+				'permission'       => (bool) current_user_can( 'manage_options' ),
+				'license'          => [
+					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
+					'message' => get_transient( 'ang_license_message' ),
+				],
 			]
 		);
 	}
