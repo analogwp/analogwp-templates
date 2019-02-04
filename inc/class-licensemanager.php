@@ -13,13 +13,52 @@ use \Analog\Options;
  * Class for License management.
  */
 class LicenseManager extends Base {
+	/**
+	 * Remote API URL to send requests against.
+	 *
+	 * @var string
+	 */
 	protected $remote_api_url = 'https://analogwp.com/';
-	protected $license_slug   = 'ang_license_key';
-	protected $item_id        = 495;
-	protected $download_id    = 495;
-	protected $strings        = null;
-	protected $renew_url      = null;
 
+	/**
+	 * Settings slug to save license key.
+	 *
+	 * @var string
+	 */
+	protected $license_slug = 'ang_license_key';
+
+	/**
+	 * AnalogWP Pro download id from AnalogWP.com
+	 *
+	 * @var integer
+	 */
+	protected $item_id = 495;
+
+	/**
+	 * AnalogWP Pro download id from AnalogWP.com
+	 *
+	 * @var integer
+	 */
+	protected $download_id = 495;
+
+	/**
+	 * Holds translatable strings throughout the class.
+	 * Used for error displays in API calls.
+	 *
+	 * @var integer
+	 */
+	protected $strings = null;
+
+	/**
+	 * Hold license renewal link.
+	 *
+	 * @var string|bool
+	 */
+	protected $renew_url = null;
+
+	/**
+	 * Initialize the class.
+	 */
 	public function __construct() {
 		$strings = [
 			'theme-license'             => __( 'Theme License', 'ang' ),
@@ -58,6 +97,11 @@ class LicenseManager extends Base {
 		add_action( 'admin_init', [ $this, 'get_license_message' ], 10, 2 );
 	}
 
+	/**
+	 * Register license management endpoints.
+	 *
+	 * @return void
+	 */
 	public function register_endpoints() {
 		register_rest_route( 'agwp/v1', '/license', [
 			'methods'             => \WP_REST_Server::CREATABLE,
@@ -75,6 +119,15 @@ class LicenseManager extends Base {
 		]);
 	}
 
+	/**
+	 * Handles licenses requests:
+	 * - check_license
+	 * - activate_license
+	 * - deactivate_license
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 * @return array
+	 */
 	public function handle_license_request( \WP_REST_Request $request ) {
 		$action = $request->get_param( 'action' );
 
@@ -201,10 +254,10 @@ class LicenseManager extends Base {
 
 			if ( 'valid' === $license_data->license ) {
 				$message = $strings['license-key-is-active'] . ' ';
-				if ( isset( $expires ) && 'lifetime' != $expires ) {
+				if ( isset( $expires ) && 'lifetime' !== $expires ) {
 					$message .= sprintf( $strings['expires%s'], $expires ) . ' ';
 				}
-				if ( isset( $expires ) && 'lifetime' == $expires ) {
+				if ( isset( $expires ) && 'lifetime' === $expires ) {
 					$message .= $strings['expires-never'];
 				}
 				if ( $site_count && $license_limit ) {
@@ -239,7 +292,7 @@ class LicenseManager extends Base {
 	/**
 	 * Activates the license key.
 	 *
-	 * @return void
+	 * @return array
 	 */
 	public function activate_license() {
 		$license = trim( Options::get_instance()->get( $this->license_slug ) );
@@ -322,6 +375,11 @@ class LicenseManager extends Base {
 		];
 	}
 
+	/**
+	 * Get displayable license status message.
+	 *
+	 * @return string|mixed
+	 */
 	public function get_license_message() {
 		if ( ! get_transient( 'ang_license_message' ) ) {
 			set_transient( 'ang_license_message', $this->check_license(), DAY_IN_SECONDS );
@@ -333,7 +391,7 @@ class LicenseManager extends Base {
 	/**
 	 * Deactivates the license key.
 	 */
-	function deactivate_license() {
+	public function deactivate_license() {
 		$license = trim( Options::get_instance()->get( $this->license_slug ) );
 
 		$this->check_memory_limit();
