@@ -20,7 +20,7 @@ class Analog_Importer extends Source_Remote {
 		}
 	}
 	public function get_data( array $args, $context = 'display' ) {
-		$data = Remote::get_instance()->get_template_content( $args['template_id'] );
+		$data = Remote::get_instance()->get_template_content( $args['template_id'], $args['license'] );
 
 		if ( is_wp_error( $data ) ) {
 			return $data;

@@ -150,10 +150,14 @@ class Local extends Base {
 	public function handle_direct_import( \WP_REST_Request $request ) {
 		$template  = $request->get_param( 'template' );
 		$with_page = $request->get_param( 'with_page' );
+		$license   = false;
 
 		if ( $template['is_pro'] ) {
-			// TODO: Validate license here.
-			return new \WP_Error( 'import_error', 'Invalid license provided.' );
+			// Fetch license only when necessary, throw error if not found.
+			$license = Options::get_instance()->get( 'ang_license_key' );
+			if ( empty( $license ) ) {
+				return new \WP_Error( 'import_error', 'Invalid license provided.' );
+			}
 		}
 
 		// Initiate template import.
@@ -162,6 +166,7 @@ class Local extends Base {
 		$data = $obj->get_data([
 			'template_id'    => $template['id'],
 			'editor_post_id' => false,
+			'license'        => $license,
 		]);
 
 		if ( ! is_array( $data ) ) {
