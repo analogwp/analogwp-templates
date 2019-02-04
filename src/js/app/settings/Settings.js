@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { AnalogContext } from './../AnalogContext';
 import { getSettings, requestLicenseInfo, requestSettingUpdate } from './../api';
 import Sidebar from './../Sidebar';
+import { NotificationConsumer } from './Notifications';
+
 const { TextControl, CheckboxControl, Button } = wp.components;
 const { __ } = wp.i18n;
 const { Fragment } = React;
@@ -106,28 +108,32 @@ export default class Settings extends React.Component {
 									className={ classnames( 'license-status', this.state.licenseStatus ) }
 								>{ this.state.licenseMessage }</p>
 							}
-							<Button
-								isDefault
-								isLarge
-								isBusy={ this.state.requesting }
-								className="license-action"
-								onClick={ async() => {
-									this.setState( { requesting: true } );
-									const action = this.state.licenseStatus === 'valid' ? 'deactivate' : 'activate';
-									await requestLicenseInfo( action ).then( response => {
-										this.setState( {
-											licenseStatus: response.status,
-											licenseMessage: response.message,
-										} );
-									} ).catch( error => {
-										console.error( error, action ); // eslint-disable-line
-									} );
+							<NotificationConsumer>
+								{ ( { add } ) => (
+									<Button
+										isDefault
+										isLarge
+										isBusy={ this.state.requesting }
+										className="license-action"
+										onClick={ async() => {
+											this.setState( { requesting: true } );
 
-									this.setState( { requesting: false } );
-								} }
-							>
-								{ ( this.state.licenseStatus === 'valid' ) ? __( 'Deactivate License', 'ang' ) : __( 'Activate License', 'ang' ) }
-							</Button>
+											const action = this.state.licenseStatus === 'valid' ? 'deactivate' : 'activate';
+
+											await requestLicenseInfo( action ).then( response => {
+												this.setState( {
+													licenseStatus: response.status,
+													licenseMessage: response.message,
+												} );
+											} ).catch( () => add( __( 'Connection timeout, please try again.', 'ang' ), 'error' ) );
+
+											this.setState( { requesting: false } );
+										} }
+									>
+										{ ( this.state.licenseStatus === 'valid' ) ? __( 'Deactivate License', 'ang' ) : __( 'Activate License', 'ang' ) }
+									</Button>
+								) }
+							</NotificationConsumer>
 						</Fragment>
 					) }
 					<CheckboxControl
