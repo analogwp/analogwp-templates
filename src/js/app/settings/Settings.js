@@ -2,8 +2,8 @@ import classnames from 'classnames';
 import styled from 'styled-components';
 import { AnalogContext } from './../AnalogContext';
 import { getSettings, requestLicenseInfo, requestSettingUpdate } from './../api';
+import { NotificationConsumer } from './../Notifications';
 import Sidebar from './../Sidebar';
-import { NotificationConsumer } from './Notifications';
 
 const { TextControl, CheckboxControl, Button } = wp.components;
 const { __ } = wp.i18n;
