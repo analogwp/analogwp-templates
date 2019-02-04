@@ -152,14 +152,20 @@ const StyledButton = styled.button`
 	padding: 5px 10px;
 `;
 
+const initialState = {
+	template: null,
+	pageName: null,
+	showingModal: false,
+	importing: false,
+	importedPage: false,
+};
+
 class Templates extends React.Component {
-	state = {
-		template: null,
-		pageName: null,
-		showingModal: false,
-		importing: false,
-		importedPage: false,
-	};
+	state = initialState;
+
+	resetState() {
+		this.setState( initialState );
+	}
 
 	setModalContent = template => {
 		window.scrollTo( 0, 0 );
@@ -278,10 +284,7 @@ class Templates extends React.Component {
 																importedPage: response.page,
 															} );
 														} ).catch( error => {
-															this.setState( {
-																importing: false,
-																showingModal: false,
-															} );
+															this.resetState();
 															add( error.message, 'error' );
 														} );
 													} }
@@ -320,10 +323,7 @@ class Templates extends React.Component {
 																importedPage: response.page,
 															} );
 														} ).catch( error => {
-															this.setState( {
-																importing: false,
-																showingModal: false,
-															} );
+															this.resetState();
 															add( error.message, 'error' );
 														} );
 													} }
