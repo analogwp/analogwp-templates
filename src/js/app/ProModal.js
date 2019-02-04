@@ -66,11 +66,19 @@ const Container = styled.div`
 		margin-top: 30px;
 		margin-bottom: 0;
 	}
+	.button-plain.button-plain {
+		font-size: 13px;
+		margin-bottom: 10px;
+	}
 `;
 
-const ProModal = () => (
+const ProModal = ( { onDimiss } ) => (
 	<Container>
 		<div>
+			<p><button className="button-plain" onClick={ () => {
+				window.scrollTo( 0, 0 );
+				onDimiss();
+			} }>{ __( 'Back to library', 'ang' ) }</button></p>
 			<AnalogPro />
 			<h3>{ __( 'Elevate your Elementor design with Analog Pro', 'ang' ) }</h3>
 			<p>{ __( 'Step up your workflow with unlimited design resources for your Elementor-powered projects.', 'ang' ) }</p>

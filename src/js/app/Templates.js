@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classnames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { requestDirectImport } from './api';
@@ -6,6 +6,7 @@ import Loader from './icons/loader';
 import Star from './icons/star';
 import CustomModal from './modal';
 import { NotificationConsumer } from './Notifications';
+import ProModal from './ProModal';
 const { decodeEntities } = wp.htmlEntities;
 const { apiFetch } = wp;
 const { __ } = wp.i18n;
@@ -19,6 +20,10 @@ const TemplatesList = styled.ul`
 	grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
 	grid-gap: 25px;
 	color: #000;
+
+	&.hide {
+		display: none;
+	}
 
 	li {
 		background: #fff;
@@ -196,6 +201,29 @@ class Templates extends React.Component {
 		} );
 	}
 
+	/**
+	 * Determine if current user can import template.
+	 * Mainly to check pro template capabilities.
+	 *
+	 * @param {object} template Template data.
+	 * @return {bool} True if Pro and license is valid, else false.
+	 */
+	canImportTemplate = ( template ) => {
+		if ( ! template ) {
+			template = this.state.template;
+		}
+
+		if ( ! template.is_pro ) {
+			return true;
+		}
+
+		if ( template.is_pro ) {
+			return false;
+		}
+
+		return false;
+	}
+
 	importLayout = template => {
 		if ( ! template ) {
 			template = this.state.template;
@@ -255,7 +283,7 @@ class Templates extends React.Component {
 					/>
 				) }
 
-				{ this.state.showingModal && (
+				{ ( ( this.state.template !== null ) && this.canImportTemplate() && this.state.showingModal ) && (
 					<Modal
 						title={ decodeEntities( this.state.template.title ) }
 						onRequestClose={ () => this.resetState() }
@@ -333,7 +361,15 @@ class Templates extends React.Component {
 					</Modal>
 				) }
 
-				<TemplatesList>
+				{ ( this.state.template !== null ) && ! this.canImportTemplate() && this.state.showingModal &&
+					<ProModal onDimiss={ () => this.resetState() } />
+				}
+
+				<TemplatesList
+					className={ classnames( {
+						hide: ( this.state.template && this.state.showingModal && ! this.canImportTemplate() ),
+					} ) }
+				>
 					<AnalogContext.Consumer>
 						{ context =>
 							! context.state.isOpen &&
@@ -363,7 +399,7 @@ class Templates extends React.Component {
 									<div className="content">
 										<h3>{ decodeEntities( template.title ) }</h3>
 										<button
-											className={ classNames( 'button-plain', {
+											className={ classnames( 'button-plain', {
 												'is-active': template.id in this.context.state.favorites,
 											} ) }
 											onClick={ () => {
