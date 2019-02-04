@@ -84,6 +84,15 @@ class App extends React.Component {
 	}
 
 	async componentDidMount() {
+		const currentURL = new URL( window.location.href );
+		const hash = currentURL.hash.slice( 1 );
+
+		if ( hash ) {
+			this.setState( {
+				tab: hash,
+			} );
+		}
+
 		const templates = await requestTemplateList();
 
 		this.setState( {
@@ -102,15 +111,6 @@ class App extends React.Component {
 				templates: this.state.archive,
 			} );
 		} );
-
-		const currentURL = new URL( window.location.href );
-		const hash = currentURL.hash.slice( 1 );
-
-		if ( hash ) {
-			this.setState( {
-				tab: hash,
-			} );
-		}
 	}
 
 	handleFilter( type ) {
