@@ -217,8 +217,8 @@ class Templates extends React.Component {
 			return true;
 		}
 
-		if ( template.is_pro ) {
-			return false;
+		if ( template.is_pro && AGWP.license.status === 'valid' ) {
+			return true;
 		}
 
 		return false;
