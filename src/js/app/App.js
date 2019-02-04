@@ -87,7 +87,7 @@ class App extends React.Component {
 		const currentURL = new URL( window.location.href );
 		const hash = currentURL.hash.slice( 1 );
 
-		if ( hash ) {
+		if ( hash && Boolean( AGWP.is_settings_page ) ) {
 			this.setState( {
 				tab: hash,
 			} );
