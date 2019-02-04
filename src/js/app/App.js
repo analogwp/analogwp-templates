@@ -3,8 +3,7 @@ import AnalogContext from './AnalogContext';
 import { markFavorite, requestTemplateList } from './api';
 import Header from './Header';
 import Notifications from './Notifications';
-import { getPageComponents } from './utils';
-
+import { getPageComponents, hasProTemplates } from './utils';
 const { apiFetch } = wp;
 
 const Analog = styled.div`
@@ -100,6 +99,7 @@ class App extends React.Component {
 			filters: [],
 			showFree: true,
 			tab: 'library',
+			hasPro: false,
 		};
 
 		this.refreshAPI = this.refreshAPI.bind( this );
@@ -126,6 +126,7 @@ class App extends React.Component {
 			archive: templates.templates,
 			count: templates.count,
 			timestamp: templates.timestamp,
+			hasPro: hasProTemplates( templates.templates ),
 			filters: [ ...new Set( templates.templates.map( f => f.type ) ) ],
 		} );
 

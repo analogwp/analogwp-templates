@@ -46,3 +46,9 @@ export function generateUEID() {
 	second = ( '000' + second.toString( 36 ) ).slice( -3 );
 	return first + second;
 }
+
+export function hasProTemplates( templates ) {
+	const filtered = templates.some( ( template ) => template.is_pro === true );
+
+	return filtered;
+}

@@ -149,18 +149,22 @@ class Filters extends React.Component {
 						onChange={ e => this.context.handleSort( e.value ) }
 					/>
 				</List>
-				<List>
-					<CheckboxControl
-						label={ __( 'Show Only Free', 'ang' ) }
-						checked={ this.context.state.showFree }
-						className="checkbox"
-						onChange={ () => {
-							this.context.dispatch( {
-								showFree: ! this.context.state.showFree,
-							} );
-						} }
-					/>
-				</List>
+
+				{ this.context.state.hasPro && (
+					<List>
+						<CheckboxControl
+							label={ __( 'Show Only Free', 'ang' ) }
+							checked={ this.context.state.showFree }
+							className="checkbox"
+							onChange={ () => {
+								this.context.dispatch( {
+									showFree: ! this.context.state.showFree,
+								} );
+							} }
+						/>
+					</List>
+				) }
+
 				<input
 					type="search"
 					placeholder="Search"
