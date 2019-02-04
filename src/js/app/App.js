@@ -218,6 +218,10 @@ class App extends React.Component {
 				timestamp: data.timestamp,
 				syncing: false,
 			} );
+		} ).catch( () => {
+			this.setState( {
+				syncing: false,
+			} );
 		} );
 	}
 
