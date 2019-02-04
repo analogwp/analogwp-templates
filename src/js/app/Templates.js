@@ -9,7 +9,7 @@ import { NotificationConsumer } from './Notifications';
 const { decodeEntities } = wp.htmlEntities;
 const { apiFetch } = wp;
 const { __ } = wp.i18n;
-const { Modal, TextControl, Button, Dashicon } = wp.components;
+const { Modal, TextControl, Button } = wp.components;
 const { Fragment } = React;
 const { addQueryArgs } = wp.url;
 
@@ -186,7 +186,7 @@ class Templates extends React.Component {
 	handleImport = async( add, withPage = false ) => {
 		this.setState( { importing: true } );
 
-		requestDirectImport( this.state.template, withPage ).then( response => {
+		await requestDirectImport( this.state.template, withPage ).then( response => {
 			this.setState( {
 				importedPage: response.page,
 			} );
@@ -258,7 +258,7 @@ class Templates extends React.Component {
 				{ this.state.showingModal && (
 					<Modal
 						title={ decodeEntities( this.state.template.title ) }
-						onRequestClose={ () => this.setState( { showingModal: false } ) }
+						onRequestClose={ () => this.resetState() }
 						style={ {
 							textAlign: 'center',
 							width: '380px',
