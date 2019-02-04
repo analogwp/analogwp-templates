@@ -109,7 +109,7 @@ export default class Notifications extends React.Component {
 				id={ notification.id }
 				type={ notification.type }
 				label={ notification.label }
-				onDismiss={ () => this.remove( notification.key ) }
+				onDismiss={ () => this.remove( notification.id ) }
 				autoDismiss={ notification.autoDismiss ? notification.autoDismiss : false }
 				autoDismissTimeout={ notification.autoDismissTimeout ? notification.autoDismissTimeout : this.autoDismissTimeout }
 			/>
