@@ -52,6 +52,32 @@ const Analog = styled.div`
 	button {
 		font-family: inherit;
 	}
+
+	.button-accent {
+		background: #FF7865;
+		border: 0;
+		border-radius: 0;
+		text-transform: uppercase;
+		font-size: 12px;
+		letter-spacing: 1px;
+		font-weight: bold;
+		box-shadow: none;
+		text-shadow: none;
+		color: #fff;
+		padding: 15px 24px;
+		height: auto;
+		&:focus,
+		&:active {
+			border: none;
+			background: rgb(255, 120, 101, 0.9);
+			box-shadow: none;
+			color: #fff;
+		}
+		&:hover {
+			color: #fff;
+			background: rgb(255, 120, 101, 0.9);
+		}
+	}
 `;
 
 const Content = styled.div`

@@ -6,11 +6,13 @@ import Loader from './icons/loader';
 import Star from './icons/star';
 import CustomModal from './modal';
 import { NotificationConsumer } from './Notifications';
+import Popup from './popup';
 import ProModal from './ProModal';
+
 const { decodeEntities } = wp.htmlEntities;
 const { apiFetch } = wp;
 const { __ } = wp.i18n;
-const { Modal, TextControl, Button } = wp.components;
+const { TextControl, Button } = wp.components;
 const { Fragment } = React;
 const { addQueryArgs } = wp.url;
 
@@ -284,37 +286,32 @@ class Templates extends React.Component {
 				) }
 
 				{ ( ( this.state.template !== null ) && this.canImportTemplate() && this.state.showingModal ) && (
-					<Modal
+					<Popup
 						title={ decodeEntities( this.state.template.title ) }
 						onRequestClose={ () => this.resetState() }
-						style={ {
-							textAlign: 'center',
-							width: '380px',
-						} }
 					>
 						{ this.state.importing &&
-							<Fragment>
-								<p>{ ! this.state.importedPage ? __( 'Importing:', 'ang' ) : __( 'Imported:', 'ang' ) } { decodeEntities( this.state.template.title ) }</p>
-
+							<div style={ { textAlign: 'center' } }>
 								{ this.state.importedPage ?
 									( <Fragment>
 										<p>{ __( 'Blimey! Your template has been imported.', 'ang' ) }</p>
 										<p>
 											<a
-												className="button button-primary"
+												className="button button-accent"
 												href={ addQueryArgs( 'post.php', { post: this.state.importedPage, action: 'elementor' } ) }
 											>{ __( 'Edit Template' ) }</a>
 										</p>
 									</Fragment> ) :
-									<Loader width={ 100 } />
+									<Loader width={ 280 } />
 								}
-							</Fragment>
+								<p>{ ! this.state.importedPage ? __( 'Importing ', 'ang' ) : __( 'Imported ', 'ang' ) } { decodeEntities( this.state.template.title ) }</p>
+							</div>
 						}
 						{ ! this.state.importing &&
 							<Fragment>
 								<div>
 									<p>
-										{ __( 'Import this template to make it available in your Elementor ', 'ang' ) }
+										{ __( 'Import this template to your library to make it available in your Elementor ', 'ang' ) }
 										<a href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'ang' ) }</a>
 										{ __( ' list for future use.', 'ang' ) }
 									</p>
@@ -322,43 +319,44 @@ class Templates extends React.Component {
 										<NotificationConsumer>
 											{ ( { add } ) => (
 												<Button
-													isPrimary
+													className="button-accent"
 													onClick={ () => this.handleImport( add ) }
 												>
-													{ __( 'Import Template', 'ang' ) }
+													{ __( 'Import to Library', 'ang' ) }
 												</Button>
 											) }
 										</NotificationConsumer>
 									</p>
 								</div>
-								<p className="or">{ __( 'or', 'ang' ) }</p>
+
+								<hr />
 
 								<div>
 									<p>
 										{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }
 									</p>
-									<TextControl
-										placeholder={ __( 'Enter a Page Name', 'ang' ) }
-										style={ { maxWidth: '60%' } }
-										onChange={ val => this.setState( { pageName: val } ) }
-									/>
-									<p>
+									<div className="form-row">
+										<TextControl
+											placeholder={ __( 'Enter a Page Name', 'ang' ) }
+											style={ { maxWidth: '60%' } }
+											onChange={ val => this.setState( { pageName: val } ) }
+										/>
 										<NotificationConsumer>
 											{ ( { add } ) => (
 												<Button
-													isDefault
+													className="button-accent"
 													disabled={ ! this.state.pageName }
 													onClick={ () => this.handleImport( add, this.state.pageName ) }
 												>
-													{ __( 'Create New Page', 'ang' ) }
+													{ __( 'Import to page', 'ang' ) }
 												</Button>
 											) }
 										</NotificationConsumer>
-									</p>
+									</div>
 								</div>
 							</Fragment>
 						}
-					</Modal>
+					</Popup>
 				) }
 
 				{ ( this.state.template !== null ) && ! this.canImportTemplate() && this.state.showingModal &&
