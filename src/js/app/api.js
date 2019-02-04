@@ -101,3 +101,34 @@ export async function getLicenseStatus() {
 		response => response
 	);
 }
+
+export async function requestElementorImport( template ) {
+	const editorId =
+				'undefined' !== typeof ElementorConfig ?
+					ElementorConfig.post_id :
+					false;
+
+	return await apiFetch( {
+		path: '/agwp/v1/import/elementor',
+		method: 'post',
+		data: {
+			template_id: template.id,
+			editor_post_id: editorId,
+		},
+	} ).then( data => {
+		const parsedTemplate = JSON.parse( data );
+
+		const model = new Backbone.Model( {
+			getTitle: function getTitle() {
+				return 'Test';
+			},
+		} );
+
+		elementor.channels.data.trigger( 'template:before:insert', model );
+		for ( let i = 0; i < parsedTemplate.content.length; i++ ) {
+			elementor.getPreviewView().addChildElement( parsedTemplate.content[ i ] );
+		}
+		elementor.channels.data.trigger( 'template:after:insert', {} );
+		window.analogModal.hide();
+	} );
+}

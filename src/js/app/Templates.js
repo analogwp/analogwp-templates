@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
-import { requestDirectImport } from './api';
+import { requestDirectImport, requestElementorImport } from './api';
 import Loader from './icons/loader';
 import Star from './icons/star';
 import CustomModal from './modal';
@@ -165,6 +165,7 @@ const initialState = {
 	showingModal: false,
 	importing: false,
 	importedPage: false,
+	importingElementor: false,
 };
 
 class Templates extends React.Component {
@@ -226,7 +227,7 @@ class Templates extends React.Component {
 		return false;
 	}
 
-	importLayout = template => {
+	importLayout = ( template ) => {
 		if ( ! template ) {
 			template = this.state.template;
 		} else {
@@ -234,33 +235,9 @@ class Templates extends React.Component {
 		}
 
 		if ( typeof elementor !== 'undefined' ) {
-			const editorId =
-				'undefined' !== typeof ElementorConfig ?
-					ElementorConfig.post_id :
-					false;
-
-			apiFetch( {
-				path: '/agwp/v1/import/elementor',
-				method: 'post',
-				data: {
-					template_id: template.id,
-					editor_post_id: editorId,
-				},
-			} ).then( data => {
-				const parsedTemplate = JSON.parse( data );
-
-				const model = new Backbone.Model( {
-					getTitle: function getTitle() {
-						return 'Test';
-					},
-				} );
-
-				elementor.channels.data.trigger( 'template:before:insert', model );
-				for ( let i = 0; i < parsedTemplate.content.length; i++ ) {
-					elementor.getPreviewView().addChildElement( parsedTemplate.content[ i ] );
-				}
-				elementor.channels.data.trigger( 'template:after:insert', {} );
-				window.analogModal.hide();
+			this.setState( { showingModal: true, importing: true } );
+			requestElementorImport( template ).then( () => {
+				this.setState( { showingModal: false, importing: false } );
 			} );
 		} else {
 			this.setState( {
