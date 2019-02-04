@@ -5,6 +5,7 @@ import { requestDirectImport } from './api';
 import Loader from './icons/loader';
 import Star from './icons/star';
 import CustomModal from './modal';
+import { NotificationConsumer } from './Notifications';
 const { decodeEntities } = wp.htmlEntities;
 const { apiFetch } = wp;
 const { __ } = wp.i18n;
@@ -15,7 +16,6 @@ const { addQueryArgs } = wp.url;
 const TemplatesList = styled.ul`
 	margin: 0;
 	display: grid;
-	/* grid-template-columns: repeat(4, 1fr); */
 	grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
 	grid-gap: 25px;
 	color: #000;
@@ -266,27 +266,32 @@ class Templates extends React.Component {
 										{ __( ' list for future use.', 'ang' ) }
 									</p>
 									<p>
-										<Button
-											isPrimary
-											onClick={ () => {
-												this.setState( { importing: true } );
+										<NotificationConsumer>
+											{ ( { add } ) => (
+												<Button
+													isPrimary
+													onClick={ () => {
+														this.setState( { importing: true } );
 
-												requestDirectImport( this.state.template ).then( response => {
-													this.setState( {
-														importedPage: response.page,
-													} );
-												} ).catch( error => {
-													this.setState( {
-														importing: false,
-														showingModal: false,
-													} );
-												} );
-											} }
-										>
-											{ __( 'Import Template', 'ang' ) }
-											{ ' ' }
-											{ this.state.importing && <Dashicon icon="update" /> }
-										</Button>
+														requestDirectImport( this.state.template ).then( response => {
+															this.setState( {
+																importedPage: response.page,
+															} );
+														} ).catch( error => {
+															this.setState( {
+																importing: false,
+																showingModal: false,
+															} );
+															add( error.message, 'error' );
+														} );
+													} }
+												>
+													{ __( 'Import Template', 'ang' ) }
+													{ ' ' }
+													{ this.state.importing && <Dashicon icon="update" /> }
+												</Button>
+											) }
+										</NotificationConsumer>
 									</p>
 								</div>
 								<p className="or">{ __( 'or', 'ang' ) }</p>
@@ -295,32 +300,40 @@ class Templates extends React.Component {
 									<p>
 										{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }
 									</p>
+									<TextControl
+										placeholder={ __( 'Enter a Page Name', 'ang' ) }
+										style={ { maxWidth: '60%' } }
+										onChange={ val => this.setState( { pageName: val } ) }
+									/>
 									<p>
-										<TextControl
-											placeholder={ __( 'Enter a Page Name', 'ang' ) }
-											style={ { maxWidth: '60%' } }
-											onChange={ val => this.setState( { pageName: val } ) }
-										/>
-									</p>
-									<p>
-										<Button
-											isDefault
-											disabled={ ! this.state.pageName }
-											onClick={ () => {
-												this.setState( { importing: true } );
-												{/* Required, second arg represents page name */}
-												const result = requestDirectImport( this.state.template, this.state.pageName );
-												result.then( ( response ) => {
-													this.setState( {
-														importedPage: response.page,
-													} );
-												} );
-											} }
-										>
-											{ __( 'Create New Page', 'ang' ) }
-											{ ' ' }
-											{ this.state.importing && <Dashicon icon="update" /> }
-										</Button>
+										<NotificationConsumer>
+											{ ( { add } ) => (
+												<Button
+													isDefault
+													disabled={ ! this.state.pageName }
+													onClick={ () => {
+														this.setState( { importing: true } );
+														{/* Required, second arg represents page name */}
+														const result = requestDirectImport( this.state.template, this.state.pageName );
+														result.then( ( response ) => {
+															this.setState( {
+																importedPage: response.page,
+															} );
+														} ).catch( error => {
+															this.setState( {
+																importing: false,
+																showingModal: false,
+															} );
+															add( error.message, 'error' );
+														} );
+													} }
+												>
+													{ __( 'Create New Page', 'ang' ) }
+													{ ' ' }
+													{ this.state.importing && <Dashicon icon="update" /> }
+												</Button>
+											) }
+										</NotificationConsumer>
 									</p>
 								</div>
 							</Fragment>
