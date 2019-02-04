@@ -105,7 +105,8 @@ export default class Notifications extends React.Component {
 	getNotices() {
 		return this.state.notices.map( notification => (
 			<Notification
-				key={ notification.key }
+				key={ notification.id }
+				id={ notification.id }
 				type={ notification.type }
 				label={ notification.label }
 				onDismiss={ () => this.remove( notification.key ) }
@@ -118,7 +119,7 @@ export default class Notifications extends React.Component {
 	add(
 		label,
 		type = 'success',
-		key = generateUEID(),
+		id = generateUEID(),
 		autoDismiss = true,
 	) {
 		const oldNotices = [ ...this.state.notices ];
@@ -127,7 +128,7 @@ export default class Notifications extends React.Component {
 			...oldNotices,
 			{
 				label,
-				key,
+				id,
 				type,
 				autoDismiss,
 			},
@@ -136,13 +137,13 @@ export default class Notifications extends React.Component {
 		this.setState( { notices: newNotices } );
 	}
 
-	remove( key ) {
-		const notices = this.state.notices.filter( notice => notice.key !== key );
+	remove( id ) {
+		const notices = this.state.notices.filter( notice => notice.id !== id );
 
 		this.setState( { notices } );
 	}
 
-	onDismiss = ( key ) => () => this.remove( key );
+	onDismiss = ( id ) => () => this.remove( id );
 
 	render() {
 		const { add } = this;
@@ -201,10 +202,10 @@ class Notification extends React.Component {
 	}
 
 	render() {
-		const { onDismiss, label, key, type } = this.props;
+		const { onDismiss, label, id, type } = this.props;
 
 		return (
-			<NotificationContainer key={ key } className={ `type-${ type }` }>
+			<NotificationContainer id={ id } className={ `type-${ type }` }>
 				<Icon>{ getIcon( type ) }</Icon>
 				<p>{ label }</p>
 				<button onClick={ () => onDismiss() }>
