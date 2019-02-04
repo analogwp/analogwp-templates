@@ -175,7 +175,26 @@ class Templates extends React.Component {
 		this.setState( {
 			template: template,
 		} );
-	};
+	}
+
+	/**
+	 * Handle different states for Importing direct layout.
+	 *
+	 * @param {function} add Adds a notification.
+	 * @param {boolean} withPage Determine if import needs a page.
+	 */
+	handleImport = async( add, withPage = false ) => {
+		this.setState( { importing: true } );
+
+		requestDirectImport( this.state.template, withPage ).then( response => {
+			this.setState( {
+				importedPage: response.page,
+			} );
+		} ).catch( error => {
+			this.resetState();
+			add( error.message, 'error' );
+		} );
+	}
 
 	importLayout = template => {
 		if ( ! template ) {
@@ -276,22 +295,9 @@ class Templates extends React.Component {
 											{ ( { add } ) => (
 												<Button
 													isPrimary
-													onClick={ () => {
-														this.setState( { importing: true } );
-
-														requestDirectImport( this.state.template ).then( response => {
-															this.setState( {
-																importedPage: response.page,
-															} );
-														} ).catch( error => {
-															this.resetState();
-															add( error.message, 'error' );
-														} );
-													} }
+													onClick={ () => this.handleImport( add ) }
 												>
 													{ __( 'Import Template', 'ang' ) }
-													{ ' ' }
-													{ this.state.importing && <Dashicon icon="update" /> }
 												</Button>
 											) }
 										</NotificationConsumer>
@@ -314,23 +320,9 @@ class Templates extends React.Component {
 												<Button
 													isDefault
 													disabled={ ! this.state.pageName }
-													onClick={ () => {
-														this.setState( { importing: true } );
-														{/* Required, second arg represents page name */}
-														const result = requestDirectImport( this.state.template, this.state.pageName );
-														result.then( ( response ) => {
-															this.setState( {
-																importedPage: response.page,
-															} );
-														} ).catch( error => {
-															this.resetState();
-															add( error.message, 'error' );
-														} );
-													} }
+													onClick={ () => this.handleImport( add, this.state.pageName ) }
 												>
 													{ __( 'Create New Page', 'ang' ) }
-													{ ' ' }
-													{ this.state.importing && <Dashicon icon="update" /> }
 												</Button>
 											) }
 										</NotificationConsumer>
