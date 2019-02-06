@@ -39,7 +39,6 @@ class Remote extends Base {
 		self::$api_call_args = [
 			'plugin_version' => ANG_VERSION,
 			'url'            => home_url(),
-			'site_lang'      => get_bloginfo( 'language' ),
 		];
 	}
 
@@ -101,11 +100,15 @@ class Remote extends Base {
 	 * @param int $template_id Template ID.
 	 * @return mixed|void
 	 */
-	public function get_template_content( $template_id, $license ) {
+	public function get_template_content( $template_id, $license, $method = 'elementor' ) {
 		$url = sprintf( self::$template_url, $template_id );
 
 		$body_args = apply_filters( 'analog/api/get_template_content/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
-		$body_args = array_merge( $body_args, [ 'license' => $license ] );
+		$body_args = array_merge( $body_args, [
+			'license' => $license,
+			'url'     => home_url(),
+			'method'  => $method,
+		] );
 
 		$response = wp_remote_get( $url, [
 			'timeout' => 40,

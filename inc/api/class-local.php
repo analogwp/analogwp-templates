@@ -72,10 +72,22 @@ class Local extends Base {
 			return new \WP_REST_Response( [ 'error' => 'Invalid Template ID.' ], 500 );
 		}
 
+		$license = false;
+
+		if ( $template['is_pro'] ) {
+			// Fetch license only when necessary, throw error if not found.
+			$license = Options::get_instance()->get( 'ang_license_key' );
+			if ( empty( $license ) ) {
+				return new \WP_Error( 'import_error', 'Invalid license provided.' );
+			}
+		}
+
 		$obj  = new \Elementor\TemplateLibrary\Analog_Importer();
 		$data = $obj->get_data([
 			'template_id'    => $template_id,
 			'editor_post_id' => $editor_id,
+			'license'        => $license,
+			'method'         => 'elementor',
 		]);
 
 		return new \WP_REST_Response( json_encode( maybe_unserialize( $data ) ), 200 );
@@ -167,6 +179,7 @@ class Local extends Base {
 			'template_id'    => $template['id'],
 			'editor_post_id' => false,
 			'license'        => $license,
+			'method'         => 'settings',
 		]);
 
 		if ( ! is_array( $data ) ) {
