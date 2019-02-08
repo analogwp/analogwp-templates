@@ -179,7 +179,7 @@ class Local extends Base {
 			'template_id'    => $template['id'],
 			'editor_post_id' => false,
 			'license'        => $license,
-			'method'         => 'settings',
+			'method'         => $with_page ? 'page' : 'library',
 		]);
 
 		if ( ! is_array( $data ) ) {
