@@ -44,7 +44,7 @@ const Sidebar = () => (
 			<p><ExternalLink href="https://analogwp.com/docs/">{ __( 'Read Documentation', 'ang' ) }</ExternalLink></p>
 		</div>
 
-		{ ! Boolean( AGWP.isPro ) && (
+		{ false && (
 			<div>
 				<h3>{ __( 'Elevate to Analog Pro', 'ang' ) }</h3>
 				<p>{ __( 'Do more with Analog Pro, the design library for complete Elementor-powered sites.', 'ang' ) }</p>
