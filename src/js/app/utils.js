@@ -1,11 +1,11 @@
+import Feedback from './feedback/Feedback';
 import Filters from './filters';
-import Settings from './settings/Settings';
 import Templates from './Templates';
 const { Fragment } = React;
 
 export const getPageComponents = ( state ) => {
-	if ( state.tab === 'settings' ) {
-		return <Settings />;
+	if ( state.tab === 'feedback' ) {
+		return <Feedback />;
 	}
 
 	return (

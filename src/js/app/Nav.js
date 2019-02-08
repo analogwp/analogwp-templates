@@ -32,7 +32,7 @@ const List = styled.ul`
 
 const ITEMS = [
 	{ key: 'library', label: __( 'Library', 'ang' ) },
-	{ key: 'settings', label: __( 'Settings', 'ang' ) },
+	{ key: 'feedback', label: __( 'Feedack', 'ang' ) },
 ];
 
 const Nav = () => (
