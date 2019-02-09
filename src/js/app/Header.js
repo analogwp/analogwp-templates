@@ -4,7 +4,6 @@ import AnalogContext from './AnalogContext';
 import Close from './icons/close';
 import Logo from './icons/logo';
 import Refresh from './icons/refresh';
-import Nav from './Nav';
 import { NotificationConsumer } from './Notifications';
 const { __ } = wp.i18n;
 
@@ -73,9 +72,6 @@ const Container = styled.div`
 const Header = () => (
 	<Container>
 		<Logo />
-		{ AGWP.is_settings_page && (
-			<Nav />
-		) }
 		<AnalogContext.Consumer>
 			{ context => (
 				<NotificationConsumer>

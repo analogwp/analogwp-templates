@@ -1,13 +1,8 @@
-import Feedback from './feedback/Feedback';
 import Filters from './filters';
 import Templates from './Templates';
 const { Fragment } = React;
 
 export const getPageComponents = ( state ) => {
-	if ( state.tab === 'feedback' ) {
-		return <Feedback />;
-	}
-
 	return (
 		<Fragment>
 			{ ! state.isOpen && <Filters /> }
