@@ -1,4 +1,5 @@
 /* global elementor, elementorCommon */
+/* eslint-disable */
 "undefined" != typeof jQuery &&
 	!(function($) {
 		$(function() {
@@ -54,7 +55,7 @@
 
 				(text = text.replace(
 					'<div class="elementor-add-section-drag-title',
-					'<div class="elementor-add-section-area-button elementor-add-analogwp-button" title="AnalogWP Templates"> <i class="fa fa-circle-o"></i></div> <div class="elementor-add-section-drag-title'
+					'<div class="elementor-add-section-area-button elementor-add-analogwp-button" title="AnalogWP Templates">&nbsp;</div> <div class="elementor-add-section-drag-title'
 				)),
 					template.text(text),
 					elementor.on("preview:loaded", function() {

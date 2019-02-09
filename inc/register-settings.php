@@ -14,7 +14,7 @@ function register_menu() {
 		'manage_options',
 		'analogwp_templates',
 		'Analog\settings\settings_page',
-		'dashicons-marker',
+		ANG_PLUGIN_URL . 'assets/img/triangle.svg',
 		'58.6'
 	);
 }
