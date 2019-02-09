@@ -268,7 +268,7 @@ class Templates extends React.Component {
 						onRequestClose={ () => this.resetState() }
 					>
 						{ this.state.importing &&
-							<div style={ { textAlign: 'center' } }>
+							<div style={ { textAlign: 'center', fontSize: '15px' } }>
 								{ this.state.importedPage ?
 									( <Fragment>
 										<p>{ __( 'Blimey! Your template has been imported.', 'ang' ) }</p>
@@ -279,7 +279,7 @@ class Templates extends React.Component {
 											>{ __( 'Edit Template' ) }</a>
 										</p>
 									</Fragment> ) :
-									<Loader width={ 280 } />
+									<Loader />
 								}
 								<p>{ ! this.state.importedPage ? __( 'Importing ', 'ang' ) : __( 'Imported ', 'ang' ) } { decodeEntities( this.state.template.title ) }</p>
 							</div>
