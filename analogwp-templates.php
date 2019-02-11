@@ -200,7 +200,51 @@ function ANG() {
 	return Analog_Templates::instance();
 }
 
+function analog_fail_load() {
+	if ( ! function_exists( 'get_current_screen' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/screen.php';
+	}
+	$screen = get_current_screen();
+	if ( isset( $screen->parent_file ) && 'plugins.php' === $screen->parent_file && 'update' === $screen->id ) {
+		return;
+	}
+
+	if ( ! function_exists( 'get_plugins' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+	}
+	$file_path         = 'elementor/elementor.php';
+	$installed_plugins = get_plugins();
+	$elementor         = isset( $installed_plugins[ $file_path ] );
+
+	if ( $elementor ) {
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+
+		$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $file_path . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $file_path );
+		$message        = '<p>' . __( 'Analog Templates is not working because you need to activate the Elementor plugin.', 'ang' ) . '</p>';
+		$message       .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $activation_url, __( 'Activate Elementor Now', 'ang' ) ) . '</p>';
+	} else {
+		if ( ! current_user_can( 'install_plugins' ) ) {
+			return;
+		}
+
+		$install_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=elementor' ), 'install-plugin_elementor' );
+		$message     = '<p>' . __( 'Analog Templates is not working because you need to install the Elementor plugin.', 'ang' ) . '</p>';
+		$message    .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $install_url, __( 'Install Elementor Now', 'ang' ) ) . '</p>';
+	}
+
+	echo '<div class="error"><p>' . $message . '</p></div>';
+}
+
 // Fire up plugin instance.
 add_action( 'plugins_loaded', function() {
-	ANG();
+	if ( ! function_exists( 'is_plugin_active' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+	}
+	if ( ! is_plugin_active( 'elementor/elementor.php' ) ) {
+		add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
+	} else {
+		ANG();
+	}
 } );
