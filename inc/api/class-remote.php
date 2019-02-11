@@ -34,7 +34,7 @@ class Remote extends Base {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'ang_loaded', [ $this, 'set_templates_info' ] );
+		add_action( 'ang_loaded_templates', [ $this, 'set_templates_info' ] );
 
 		self::$api_call_args = [
 			'plugin_version' => ANG_VERSION,
