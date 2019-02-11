@@ -112,11 +112,6 @@ const Content = styled.div`
 		max-width: 100% !important;
 		border-right: 0;
 	}
-
-	.loader {
-		display: block;
-		margin: auto;
-	}
 `;
 
 const Popup = ( props ) => {
