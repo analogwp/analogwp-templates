@@ -153,7 +153,7 @@ class Filters extends React.Component {
 				{ this.context.state.hasPro && (
 					<List>
 						<CheckboxControl
-							label={ __( 'Show Only Free', 'ang' ) }
+							label={ __( 'Only Show Free Templates', 'ang' ) }
 							checked={ this.context.state.showFree }
 							className="checkbox"
 							onChange={ () => {
