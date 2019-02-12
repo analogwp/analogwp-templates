@@ -78,7 +78,7 @@ final class Analog_Templates {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'ANG_VERSION' ) ) {
-			define( 'ANG_VERSION', '1.0.0' );
+			define( 'ANG_VERSION', '0.0.1' );
 		}
 
 		// Plugin Folder Path.
@@ -239,12 +239,11 @@ function analog_fail_load() {
 
 // Fire up plugin instance.
 add_action( 'plugins_loaded', function() {
-	if ( ! function_exists( 'is_plugin_active' ) ) {
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-	}
-	if ( ! is_plugin_active( 'elementor/elementor.php' ) ) {
+	if ( ! did_action( 'elementor/loaded' ) ) {
 		add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
-	} else {
-		ANG();
+
+		return;
 	}
+
+	ANG();
 } );
