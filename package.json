@@ -1,6 +1,6 @@
 {
-  "name": "analogwp-templates",
-  "version": "0.0.1",
+  "name": "analog-templates",
+  "version": "1.0.0",
   "description": "Handfully crafted Elementor templates packs.",
   "main": "/src/js/app/index.js",
   "private": true,
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mauryaratan/analogwp-templates.git"
+    "url": "git+https://github.com/mauryaratan/analog-templates.git"
   },
   "author": "Ram Ratan Maurya",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mauryaratan/analogwp-templates/issues"
+    "url": "https://github.com/mauryaratan/analog-templates/issues"
   },
-  "homepage": "https://github.com/mauryaratan/analogwp-templates#readme",
+  "homepage": "https://github.com/mauryaratan/analog-templates#readme",
   "dependencies": {
     "classnames": "^2.2.6",
     "react-select": "^2.3.0",

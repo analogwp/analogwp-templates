@@ -9,10 +9,10 @@ namespace Analog\settings;
 
 function register_menu() {
 	add_menu_page(
-		esc_html__( 'AnalogWP Templates', 'ang' ),
+		esc_html__( 'Analog Templates', 'ang' ),
 		esc_html__( 'AnalogWP', 'ang' ),
 		'manage_options',
-		'analogwp_templates',
+		'analog_templates',
 		'Analog\settings\settings_page',
 		ANG_PLUGIN_URL . 'assets/img/triangle.svg',
 		'58.6'

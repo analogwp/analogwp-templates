@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: AnalogWP Templates
+ * Plugin Name: Analog Templates
  * Plugin URI:  https://analogwp.com/
  * Description: Handfully crafted Elementor templates packs.
- * Version:     0.0.1
+ * Version:     1.0.0
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -78,7 +78,7 @@ final class Analog_Templates {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'ANG_VERSION' ) ) {
-			define( 'ANG_VERSION', '0.0.1' );
+			define( 'ANG_VERSION', '1.0.0' );
 		}
 
 		// Plugin Folder Path.
@@ -116,7 +116,7 @@ final class Analog_Templates {
 	}
 
 	public function scripts( $hook ) {
-		if ( 'toplevel_page_analogwp_templates' !== $hook ) {
+		if ( 'toplevel_page_analog_templates' !== $hook ) {
 			return;
 		}
 
@@ -144,7 +144,7 @@ final class Analog_Templates {
 		wp_localize_script(
 			'analogwp-app', 'AGWP', [
 				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
-				'is_settings_page' => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
+				'is_settings_page' => ( 'toplevel_page_analog_templates' === $hook ) ? true : false,
 				'favorites'        => $favorites,
 				'elementorURL'     => admin_url( 'edit.php?post_type=elementor_library' ),
 				'debugMode'        => defined( 'ANALOG_DEV_DEBUG' ),
