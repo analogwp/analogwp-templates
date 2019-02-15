@@ -63,8 +63,7 @@ class LicenseManager extends Base {
 		$strings = [
 			'theme-license'             => __( 'Theme License', 'ang' ),
 			'enter-key'                 => __(
-				'Enter your theme license key received upon purchase from <a target="_blank" href="https://codestag.com/account/">Codestag</a>.<br><br>
-												If you\'re coming from ThemeForest, please download <a href="https://envato.com/market-plugin/" target="_blank">Envato Market</a> plugin instead to receive automatic updates.', 'ang'
+				'Enter your theme license key received upon purchase from <a target="_blank" href="https://analogwp.com/account/">AnalogWP</a>.', 'ang'
 			),
 			'license-key'               => __( 'License Key', 'ang' ),
 			'license-action'            => __( 'License Action', 'ang' ),
@@ -80,8 +79,7 @@ class LicenseManager extends Base {
 			'license-key-expired-%s'    => __( 'License key expired %s.', 'ang' ),
 			'license-key-expired'       => __( 'License key has expired.', 'ang' ),
 			'license-keys-do-not-match' => __(
-				'License keys do not match. <br><br> Enter your theme license key received upon purchase from <a target="_blank" href="https://codestag.com/account/">Codestag</a>.<br>
-			If you\'re coming from ThemeForest, please download <a href="https://envato.com/market-plugin/" target="_blank">Envato Market</a> plugin instead to receive automatic updates.', 'ang'
+				'License keys do not match. <br><br> Enter your theme license key received upon purchase from <a target="_blank" href="https://analogwp.com/account/">AnalogWP</a>.', 'ang'
 			),
 			'license-is-inactive'       => __( 'License is inactive.', 'ang' ),
 			'license-key-is-disabled'   => __( 'License key is disabled.', 'ang' ),
