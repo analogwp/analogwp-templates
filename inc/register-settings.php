@@ -12,7 +12,7 @@ function register_menu() {
 		esc_html__( 'Analog Templates', 'ang' ),
 		esc_html__( 'AnalogWP', 'ang' ),
 		'manage_options',
-		'analog_templates',
+		'analogwp_templates',
 		'Analog\settings\settings_page',
 		ANG_PLUGIN_URL . 'assets/img/triangle.svg',
 		'58.6'

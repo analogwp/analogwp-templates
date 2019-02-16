@@ -4,7 +4,7 @@ const zip = require( 'gulp-zip' );
 const del = require( 'del' );
 const run = require( 'gulp-run-command' ).default;
 
-const project = 'analog-templates';
+const project = 'analogwp-templates';
 const buildFiles = [
 	'./**',
 	'!build',
