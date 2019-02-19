@@ -8,16 +8,28 @@
 namespace Analog\API;
 
 use \Analog\Base;
-use \Analog\API\Remote;
 use \Analog\Options;
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Local APIs.
+ *
+ * @package Analog\API
+ */
 class Local extends Base {
+	/**
+	 * Local constructor.
+	 */
 	public function __construct() {
 		add_action( 'rest_api_init', [ $this, 'register_endpoints' ] );
 	}
 
+	/**
+	 * Register API endpoints.
+	 *
+	 * @return void
+	 */
 	public function register_endpoints() {
 		$endpoints = [
 			'/import/elementor'        => [
@@ -32,10 +44,10 @@ class Local extends Base {
 			'/mark_favorite/'          => [
 				\WP_REST_Server::CREATABLE => 'mark_as_favorite',
 			],
-			'/get/settings/'               => [
+			'/get/settings/'           => [
 				\WP_REST_Server::READABLE => 'get_settings',
 			],
-			'/update/settings/'   => [
+			'/update/settings/'        => [
 				\WP_REST_Server::CREATABLE => 'update_setting',
 			],
 		];
@@ -43,7 +55,9 @@ class Local extends Base {
 		foreach ( $endpoints as $endpoint => $details ) {
 			foreach ( $details as $method => $callback ) {
 				register_rest_route(
-					'agwp/v1', $endpoint, [
+					'agwp/v1',
+					$endpoint,
+					[
 						'methods'             => $method,
 						'callback'            => [ $this, $callback ],
 						'permission_callback' => [ $this, 'rest_permission_check' ],
@@ -64,9 +78,17 @@ class Local extends Base {
 		return current_user_can( 'edit_posts' );
 	}
 
+	/**
+	 * Handle template import.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @return \WP_Error|\WP_REST_Response
+	 */
 	public function handle_import( \WP_REST_Request $request ) {
 		$template_id = $request->get_param( 'template_id' );
 		$editor_id   = $request->get_param( 'editor_post_id' );
+		$is_pro      = (bool) $request->get_param( 'is_pro' );
 
 		if ( ! $template_id ) {
 			return new \WP_REST_Response( [ 'error' => 'Invalid Template ID.' ], 500 );
@@ -74,7 +96,7 @@ class Local extends Base {
 
 		$license = false;
 
-		if ( $template['is_pro'] ) {
+		if ( $is_pro ) {
 			// Fetch license only when necessary, throw error if not found.
 			$license = Options::get_instance()->get( 'ang_license_key' );
 			if ( empty( $license ) ) {
@@ -83,17 +105,26 @@ class Local extends Base {
 		}
 
 		$obj  = new \Elementor\TemplateLibrary\Analog_Importer();
-		$data = $obj->get_data([
-			'template_id'    => $template_id,
-			'editor_post_id' => $editor_id,
-			'license'        => $license,
-			'method'         => 'elementor',
-		]);
+		$data = $obj->get_data(
+			[
+				'template_id'    => $template_id,
+				'editor_post_id' => $editor_id,
+				'license'        => $license,
+				'method'         => 'elementor',
+			]
+		);
 
-		return new \WP_REST_Response( json_encode( maybe_unserialize( $data ) ), 200 );
+		return new \WP_REST_Response( wp_json_encode( maybe_unserialize( $data ) ), 200 );
 	}
 
-	public function templates_list( $request ) {
+	/**
+	 * Get all templates.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @return array
+	 */
+	public function templates_list( \WP_REST_Request $request ) {
 		$force_update = $request->get_param( 'force_update' );
 
 		if ( $force_update ) {
@@ -103,6 +134,13 @@ class Local extends Base {
 		return Remote::get_instance()->get_templates_info();
 	}
 
+	/**
+	 * Mark a template as favorite.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @return \WP_REST_Response
+	 */
 	public function mark_as_favorite( \WP_REST_Request $request ) {
 		$template_id         = $request->get_param( 'template_id' );
 		$favorite            = $request->get_param( 'favorite' );
@@ -127,6 +165,14 @@ class Local extends Base {
 		return new \WP_REST_Response( $data, 200 );
 	}
 
+	/**
+	 * Create page during import if opted.
+	 *
+	 * @param array $template Template data object.
+	 * @param bool  $with_page Whether to install in Elementor library or Page CPT.
+	 *
+	 * @return int|\WP_Error
+	 */
 	private function create_page( $template, $with_page = false ) {
 		if ( ! $template ) {
 			return new \WP_Error( 'import_error', 'Invalid Template ID.' );
@@ -159,6 +205,13 @@ class Local extends Base {
 		return new \WP_Error( 'import_error', 'Unable to create page.' );
 	}
 
+	/**
+	 * Handle template imports from settings page.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @return \WP_Error|\WP_REST_Response
+	 */
 	public function handle_direct_import( \WP_REST_Request $request ) {
 		$template  = $request->get_param( 'template' );
 		$with_page = $request->get_param( 'with_page' );
@@ -175,12 +228,14 @@ class Local extends Base {
 		// Initiate template import.
 		$obj = new \Elementor\TemplateLibrary\Analog_Importer();
 
-		$data = $obj->get_data([
-			'template_id'    => $template['id'],
-			'editor_post_id' => false,
-			'license'        => $license,
-			'method'         => $with_page ? 'page' : 'library',
-		]);
+		$data = $obj->get_data(
+			[
+				'template_id'    => $template['id'],
+				'editor_post_id' => false,
+				'license'        => $license,
+				'method'         => $with_page ? 'page' : 'library',
+			]
+		);
 
 		if ( ! is_array( $data ) ) {
 			return new \WP_Error( 'import_error', 'Error fetching template content.', $data );
@@ -199,12 +254,26 @@ class Local extends Base {
 		return new \WP_REST_Response( $data, 200 );
 	}
 
+	/**
+	 * Get plugin settings.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @return \WP_REST_Response
+	 */
 	public function get_settings( \WP_REST_Request $request ) {
 		$options = Options::get_instance()->get();
 
 		return new \WP_REST_Response( $options, 200 );
 	}
 
+	/**
+	 * Update plugin settings.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @return \WP_Error|\WP_REST_Response
+	 */
 	public function update_setting( \WP_REST_Request $request ) {
 		$key   = $request->get_param( 'key' );
 		$value = $request->get_param( 'value' );
@@ -215,8 +284,11 @@ class Local extends Base {
 
 		Options::get_instance()->set( $key, $value );
 
-		return new \WP_REST_Response( $options, 200 );
+		return new \WP_REST_Response(
+			[ 'message' => __( 'Setting updated.', 'ang' ) ],
+			200
+		);
 	}
 }
 
-new \Analog\API\Local();
+new Local();

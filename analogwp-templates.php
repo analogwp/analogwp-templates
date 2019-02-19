@@ -15,12 +15,15 @@
 
 namespace Analog;
 
-use \Analog\Options;
-
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Main Plugin Analog_Templates class.
+ */
 final class Analog_Templates {
 	/**
+	 * Plugin instance.
+	 *
 	 * @var Analog_Templates The one true Analog_Templates
 	 */
 	private static $instance;
@@ -35,7 +38,7 @@ final class Analog_Templates {
 	/**
 	 * Main Analog_Templates instance.
 	 *
-	 * @return object|Analog_Templates The one true Analog_Templates.
+	 * @return void
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Analog_Templates ) ) {
@@ -101,7 +104,6 @@ final class Analog_Templates {
 	 * Include required files.
 	 *
 	 * @access private
-	 * @since 1.4
 	 * @return void
 	 */
 	private function includes() {
@@ -115,6 +117,11 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/class-elementor.php';
 	}
 
+	/**
+	 * Enqueue plugin assets.
+	 *
+	 * @param string $hook Current page hook.
+	 */
 	public function scripts( $hook ) {
 		if ( 'toplevel_page_analogwp_templates' !== $hook ) {
 			return;
@@ -142,7 +149,9 @@ final class Analog_Templates {
 		if ( ! $favorites )  $favorites = [];
 
 		wp_localize_script(
-			'analogwp-app', 'AGWP', [
+			'analogwp-app',
+			'AGWP',
+			[
 				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 				'is_settings_page' => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
 				'favorites'        => $favorites,
@@ -200,6 +209,11 @@ function ANG() {
 	return Analog_Templates::instance();
 }
 
+/**
+ * Fail plugin initiialization if requirements are not met.
+ *
+ * @return mixed|bool
+ */
 function analog_fail_load() {
 	if ( ! function_exists( 'get_current_screen' ) ) {
 		require_once ABSPATH . 'wp-admin/includes/screen.php';
@@ -234,16 +248,19 @@ function analog_fail_load() {
 		$message    .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $install_url, __( 'Install Elementor Now', 'ang' ) ) . '</p>';
 	}
 
-	echo '<div class="error"><p>' . $message . '</p></div>';
+	echo '<div class="error"><p>' . $message . '</p></div>'; // @codingStandardsIgnoreLine
 }
 
 // Fire up plugin instance.
-add_action( 'plugins_loaded', function() {
-	if ( ! did_action( 'elementor/loaded' ) ) {
-		add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
+add_action(
+	'plugins_loaded',
+	function() {
+		if ( ! did_action( 'elementor/loaded' ) ) {
+				add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
 
-		return;
+				return;
+		}
+
+		ANG();
 	}
-
-	ANG();
-} );
+);

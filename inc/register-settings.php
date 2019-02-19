@@ -7,6 +7,11 @@
 
 namespace Analog\settings;
 
+/**
+ * Register plugin menu.
+ *
+ * @return void
+ */
 function register_menu() {
 	add_menu_page(
 		esc_html__( 'Analog Templates', 'ang' ),
@@ -21,6 +26,11 @@ function register_menu() {
 
 add_action( 'admin_menu', 'Analog\settings\register_menu' );
 
+/**
+ * Add settings page.
+ *
+ * @return void
+ */
 function settings_page() {
 	do_action( 'ang_loaded_templates' );
 	?>

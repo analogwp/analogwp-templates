@@ -48,12 +48,14 @@ class Elementor {
 
 		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700', [], '20190128' );
 
-		$favorites = get_user_meta( get_current_user_id(), \Analog\Analog_Templates::$user_meta_prefix, true );
+		$favorites = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
 
 		if ( ! $favorites )  $favorites = [];
 
 		wp_localize_script(
-			'analogwp-app', 'AGWP', [
+			'analogwp-app',
+			'AGWP',
+			[
 				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 				'is_settings_page' => false,
 				'favorites'        => $favorites,
@@ -67,4 +69,4 @@ class Elementor {
 	}
 }
 
-new \Analog\Elementor();
+new Elementor();

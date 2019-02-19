@@ -114,6 +114,7 @@ export async function requestElementorImport( template ) {
 		data: {
 			template_id: template.id,
 			editor_post_id: editorId,
+			is_pro: template.is_pro,
 		},
 	} ).then( data => {
 		const parsedTemplate = JSON.parse( data );

@@ -11,6 +11,11 @@ use \Analog\Base;
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Handle Remote API requests.
+ *
+ * @package Analog\API
+ */
 class Remote extends Base {
 	const TRANSIENT_KEY = 'analogwp_template_info';
 	const ENDPOINT      = 'https://analogwp.com/wp-json/analogwp/v1/templates/';
@@ -83,9 +88,11 @@ class Remote extends Base {
 		$body_args = apply_filters( 'analog/api/get_templates/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
 
 		$request = wp_remote_get(
-			self::ENDPOINT, [
-				'timeout'    => $force_update ? 25 : 8,
+			self::ENDPOINT,
+			[
+				'timeout'    => $force_update ? 25 : 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
+				'body'       => $body_args,
 			]
 		);
 
@@ -97,23 +104,31 @@ class Remote extends Base {
 	/**
 	 * Get a single template content.
 	 *
-	 * @param int $template_id Template ID.
-	 * @return mixed|void
+	 * @param int    $template_id Template ID.
+	 * @param string $license Customer license.
+	 * @param string $method Whether being imported from Elementor, library, or page.
+	 * @return mixed|\WP_Error
 	 */
 	public function get_template_content( $template_id, $license, $method = 'elementor' ) {
 		$url = sprintf( self::$template_url, $template_id );
 
 		$body_args = apply_filters( 'analog/api/get_template_content/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
-		$body_args = array_merge( $body_args, [
-			'license' => $license,
-			'url'     => home_url(),
-			'method'  => $method,
-		] );
+		$body_args = array_merge(
+			$body_args,
+			[
+				'license' => $license,
+				'url'     => home_url(),
+				'method'  => $method,
+			]
+		);
 
-		$response = wp_remote_get( $url, [
-			'timeout' => 40,
-			'body'    => $body_args,
-		] );
+		$response = wp_remote_get(
+			$url,
+			[
+				'timeout' => 40,
+				'body'    => $body_args,
+			]
+		);
 
 		if ( is_wp_error( $response ) ) {
 			return $response;
@@ -138,4 +153,4 @@ class Remote extends Base {
 	}
 }
 
-new \Analog\API\Remote();
+new Remote();

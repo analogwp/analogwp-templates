@@ -7,8 +7,6 @@
 
 namespace Analog;
 
-use \Analog\Options;
-
 /**
  * Class for License management.
  */
@@ -63,7 +61,8 @@ class LicenseManager extends Base {
 		$strings = [
 			'theme-license'             => __( 'Theme License', 'ang' ),
 			'enter-key'                 => __(
-				'Enter your theme license key received upon purchase from <a target="_blank" href="https://analogwp.com/account/">AnalogWP</a>.', 'ang'
+				'Enter your theme license key received upon purchase from <a target="_blank" href="https://analogwp.com/account/">AnalogWP</a>.',
+				'ang'
 			),
 			'license-key'               => __( 'License Key', 'ang' ),
 			'license-action'            => __( 'License Action', 'ang' ),
@@ -73,20 +72,27 @@ class LicenseManager extends Base {
 			'renew'                     => __( 'Renew?', 'ang' ),
 			'unlimited'                 => __( 'unlimited', 'ang' ),
 			'license-key-is-active'     => __( 'License key is active.', 'ang' ),
+			/* translators: %s: expiration date */
 			'expires%s'                 => __( 'Expires %s.', 'ang' ),
 			'expires-never'             => __( 'Lifetime License.', 'ang' ),
+			/* translators: %1$s: active sites, %2$s: sites limit */
 			'%1$s/%2$-sites'            => __( 'You have %1$s / %2$s sites activated.', 'ang' ),
+			/* translators: %s: product name */
 			'license-key-expired-%s'    => __( 'License key expired %s.', 'ang' ),
 			'license-key-expired'       => __( 'License key has expired.', 'ang' ),
 			'license-keys-do-not-match' => __(
-				'License keys do not match. <br><br> Enter your theme license key received upon purchase from <a target="_blank" href="https://analogwp.com/account/">AnalogWP</a>.', 'ang'
+				'License keys do not match. <br><br> Enter your theme license key received upon purchase from <a target="_blank" href="https://analogwp.com/account/">AnalogWP</a>.',
+				'ang'
 			),
 			'license-is-inactive'       => __( 'License is inactive.', 'ang' ),
 			'license-key-is-disabled'   => __( 'License key is disabled.', 'ang' ),
 			'site-is-inactive'          => __( 'Site is inactive.', 'ang' ),
 			'license-status-unknown'    => __( 'License status is unknown.', 'ang' ),
 			'update-notice'             => __( "Updating this theme will lose any customizations you have made. 'Cancel' to stop, 'OK' to update.", 'ang' ),
-			'update-available'          => __( '<strong>%1$s %2$s</strong> is available. <a href="%3$s" class="thickbox" title="%4s">Check out what\'s new</a> or <a href="%5$s"%6$s>update now</a>.', 'ang' ),
+			'update-available'          => __(
+				'<strong>%1$s %2$s</strong> is available. <a href="%3$s" class="thickbox" title="%4$s">Check out what\'s new</a> or <a href="%5$s" %6$s>update now</a>.',
+				'ang'
+			),
 		];
 
 		$this->strings = $strings;
@@ -101,20 +107,29 @@ class LicenseManager extends Base {
 	 * @return void
 	 */
 	public function register_endpoints() {
-		register_rest_route( 'agwp/v1', '/license', [
-			'methods'             => \WP_REST_Server::CREATABLE,
-			'callback'            => [ $this, 'handle_license_request' ],
-			'permission_callback' => function() {
-				return current_user_can( 'manage_options' );
-			},
-		]);
-		register_rest_route( 'agwp/v1', '/license/status', [
-			'methods'             => \WP_REST_Server::READABLE,
-			'callback'            => [ $this, 'get_license_message' ],
-			'permission_callback' => function() {
-				return current_user_can( 'manage_options' );
-			},
-		]);
+		register_rest_route(
+			'agwp/v1',
+			'/license',
+			[
+				'methods'             => \WP_REST_Server::CREATABLE,
+				'callback'            => [ $this, 'handle_license_request' ],
+				'permission_callback' => function() {
+					return current_user_can( 'manage_options' );
+				},
+			]
+		);
+
+		register_rest_route(
+			'agwp/v1',
+			'/license/status',
+			[
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => [ $this, 'get_license_message' ],
+				'permission_callback' => function() {
+					return current_user_can( 'manage_options' );
+				},
+			]
+		);
 	}
 
 	/**
@@ -124,7 +139,7 @@ class LicenseManager extends Base {
 	 * - deactivate_license
 	 *
 	 * @param \WP_REST_Request $request Request object.
-	 * @return array
+	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function handle_license_request( \WP_REST_Request $request ) {
 		$action = $request->get_param( 'action' );
@@ -157,7 +172,8 @@ class LicenseManager extends Base {
 	public function get_api_response( $api_params ) {
 
 		$response = wp_remote_post(
-			$this->remote_api_url, array(
+			$this->remote_api_url,
+			array(
 				'timeout'   => 15,
 				'sslverify' => false,
 				'body'      => $api_params,
@@ -290,10 +306,11 @@ class LicenseManager extends Base {
 	/**
 	 * Activates the license key.
 	 *
-	 * @return array
+	 * @return array|\WP_Error
 	 */
 	public function activate_license() {
 		$license = trim( Options::get_instance()->get( $this->license_slug ) );
+		$message = '';
 
 		$this->check_memory_limit();
 
@@ -305,7 +322,8 @@ class LicenseManager extends Base {
 			'url'        => home_url(),
 		);
 
-		$response = $this->get_api_response( $api_params );
+		$response     = $this->get_api_response( $api_params );
+		$license_data = '';
 
 		// make sure the response came back okay.
 		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
@@ -321,6 +339,7 @@ class LicenseManager extends Base {
 				switch ( $license_data->error ) {
 					case 'expired':
 						$message = sprintf(
+							/* translators: %s: expiration date */
 							__( 'Your license key expired on %s.' ),
 							date_i18n( get_option( 'date_format' ), strtotime( $license_data->expires, current_time( 'timestamp' ) ) )
 						);
@@ -340,6 +359,7 @@ class LicenseManager extends Base {
 						break;
 
 					case 'item_name_mismatch':
+						/* translators: %s: site name/email */
 						$message = sprintf( __( 'This appears to be an invalid license key for %s.' ), $args['name'] );
 						break;
 
@@ -351,8 +371,6 @@ class LicenseManager extends Base {
 						$message = __( 'An error occurred, please try again.' );
 						break;
 				}
-
-				$message = 'poop 💩';
 
 				if ( ! empty( $message ) ) {
 					return new \WP_Error( 'activation_error', $message );
