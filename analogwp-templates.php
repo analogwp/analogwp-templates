@@ -109,6 +109,7 @@ final class Analog_Templates {
 	private function includes() {
 		require_once ANG_PLUGIN_DIR . 'inc/register-settings.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
+		require_once ANG_PLUGIN_DIR . 'inc/class-utils.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-options.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-licensemanager.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-remote.php';
