@@ -2,7 +2,7 @@
 /**
  * Plugin Name: AnalogWP Templates
  * Plugin URI:  https://analogwp.com/
- * Description: Handfully crafted Elementor templates packs.
+ * Description: A handcrafted design library for Elementor templates.
  * Version:     1.0.0
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
