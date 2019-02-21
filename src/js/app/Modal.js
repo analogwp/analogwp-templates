@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Loader from './icons/loader';
 const { Tooltip, FocusableIframe } = wp.components;
 const { __ } = wp.i18n;
 
@@ -12,10 +13,12 @@ const Container = styled.div`
 	overflow: -moz-scrollbars-none;
 	background: #e3e3e3;
 	z-index: 999;
-
+	text-align: center;
+	
 	iframe {
 		width: 100%;
 		height: 100%;
+		display: ${ props => props.loading ? 'none' : 'block' };
 	}
 
 	.frame-header {
@@ -64,23 +67,31 @@ const Container = styled.div`
 	}
 `;
 
-const Modal = props => (
-	<Container>
-		<div className="frame-header">
-			<button className="button--plain" onClick={ props.onRequestClose }>
-				Back to Library
-			</button>
-			<Tooltip text={ __( 'Open Preview in New Tab', 'ang' ) }>
-				<a href={ props.template.url } rel="noopener noreferrer" target="_blank">
-					<span className="dashicons dashicons-external" />
-				</a>
-			</Tooltip>
-			<button className="button--accent" onClick={ props.onRequestImport }>
-				{ __( 'Insert Layout', 'ang' ) }
-			</button>
-		</div>
-		<FocusableIframe src={ props.template.url } />
-	</Container>
-);
+const Modal = props => {
+	const [ loading, setLoading ] = React.useState( true );
+
+	return (
+		<Container loading={ loading }>
+			<div className="frame-header">
+				<button className="button--plain" onClick={ props.onRequestClose }>
+					{ __( 'Back to Library', 'ang' ) }
+				</button>
+
+				<Tooltip text={ __( 'Open Preview in New Tab', 'ang' ) }>
+					<a href={ props.template.url } rel="noopener noreferrer" target="_blank">
+						<span className="dashicons dashicons-external" />
+					</a>
+				</Tooltip>
+				<button className="button--accent" onClick={ props.onRequestImport }>
+					{ __( 'Insert Layout', 'ang' ) }
+				</button>
+			</div>
+
+			{ loading && <Loader /> }
+
+			<FocusableIframe src={ props.template.url } onLoad={ () => setLoading( false ) } />
+		</Container>
+	);
+};
 
 export default Modal;
