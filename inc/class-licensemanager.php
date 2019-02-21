@@ -216,6 +216,9 @@ class LicenseManager extends Base {
 	 */
 	public function check_license() {
 		$license = trim( Options::get_instance()->get( $this->license_slug ) );
+
+		if ( ! $license ) return;
+
 		$strings = $this->strings;
 
 		$this->check_memory_limit();
