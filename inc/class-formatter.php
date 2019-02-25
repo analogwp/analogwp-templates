@@ -18,28 +18,45 @@ class Formatter {
 	 * @return array
 	 */
 	private static function get_reset_keys() {
-		return [
+		$resetters = [
+			'', // important as original list removes data as well.
+			'content',
+			'name',
+			'title',
+			'job',
+			'description',
+		];
+
+		$list = [
 			'typography_typography',
 			'typography_font_family',
-
 			'typography_font_size',
 			'typography_font_size_mobile',
 			'typography_font_size_tablet',
-
 			'typography_font_style',
 			'typography_font_weight',
-
 			'typography_line_height',
 			'typography_line_height_mobile',
 			'typography_line_height_tablet',
-
 			'typography_letter_spacing',
 			'typography_letter_spacing_mobile',
 			'typography_letter_spacing_tablet',
-
 			'typography_text_decoration',
 			'typography_text_transform',
 		];
+
+		$keys = [];
+		foreach ( $resetters as $reset ) {
+			foreach ( $list as $item ) {
+				if ( '' === $reset ) {
+					$keys[] = $item;
+				} else {
+					$keys[] = $reset . '_' . $item;
+				}
+			}
+		}
+
+		return $keys;
 	}
 
 	/**
