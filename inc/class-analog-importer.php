@@ -32,7 +32,7 @@ class Analog_Importer extends Source_Remote {
 		// Remove Typography options if opted in.
 		if ( isset( $args['options']['remove_typography'] ) && true === $args['options']['remove_typography'] ) {
 			require_once ANG_PLUGIN_DIR . 'inc/class-formatter.php';
-			$data['content'] = \Analog\Formatter::remove_typography_data( $data['content'] );
+			$data['content'] = \Analog\Formatter::remove_typography_data_recursive( $data['content'] );
 		}
 
 		$data['content'] = $this->replace_elements_ids( $data['content'] );

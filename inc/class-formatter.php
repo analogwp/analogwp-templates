@@ -45,43 +45,21 @@ class Formatter {
 	/**
 	 * Strip off Typography specific data.
 	 *
-	 * @param array $fields Elementor import data.
-	 * @return array
+	 * @param mixed $haystack Elementor import data.
+	 * @return mixed
 	 */
-	public static function remove_typography_data( array $fields ) : array {
-		array_walk(
-			$fields,
-			function ( &$field, $field_name ) {
-				$elements = $field->elements;
-				foreach ( $elements as $element ) {
-					foreach ( $element->elements as $el ) {
-						if ( 'widget' === $el->elType ) {
-							$settings = $el->settings;
-							foreach ( self::get_reset_keys() as $key ) {
-								unset( $settings->{$key} );
-							}
-						} else {
-							foreach ( $el->elements as $el1 ) {
-								foreach ( $el1 as $el1_child ) {
-									if ( \is_object( $el1_child ) || \is_array( $el1_child ) ) {
-										foreach ( $el1_child as $el2_child ) {
-											if ( isset( $el2_child->elType ) && 'widget' === $el2_child->elType ) {
-												$settings = $el2_child->settings;
-												foreach ( self::get_reset_keys() as $key ) {
-													unset( $settings->{$key} );
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
+	public static function remove_typography_data_recursive( $haystack ) {
+		if ( is_array( $haystack ) ) {
+			foreach ( self::get_reset_keys() as $key ) {
+				unset( $haystack[ $key ] );
+			}
+			foreach ( $haystack as $k => $value ) {
+				if ( is_array( $haystack ) ) {
+					$haystack[ $k ] = self::remove_typography_data_recursive( $value );
 				}
 			}
-		);
-
-		return $fields;
+		}
+		return $haystack;
 	}
 }
 
