@@ -69,7 +69,7 @@ export async function getSettings() {
 }
 
 export async function requestSettingUpdate( key, value ) {
-	if ( ! key || ! value ) {
+	if ( ! key ) {
 		console.warn('No key/value pair found to update settings.'); // eslint-disable-line
 		return false;
 	}

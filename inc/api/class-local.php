@@ -284,7 +284,7 @@ class Local extends Base {
 		$key   = $request->get_param( 'key' );
 		$value = $request->get_param( 'value' );
 
-		if ( ! $key || ! $value ) {
+		if ( ! $key ) {
 			return new \WP_Error( 'settings_error', 'No options key provided.' );
 		}
 
