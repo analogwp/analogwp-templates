@@ -272,13 +272,28 @@ function analog_fail_load() {
 	echo '<div class="error"><p>' . $message . '</p></div>'; // @codingStandardsIgnoreLine
 }
 
+/**
+ * Fail loading, if WordPress version requirements not met.
+ *
+ * @since 1.1
+ * @return void
+ */
+function analog_fail_wp_version() {
+	/* translators: %s: WordPress version */
+	$message      = sprintf( esc_html__( 'Analog Templates requires WordPress version %s+. Because you are using an earlier version, the plugin is currently NOT RUNNING.', 'ang' ), '5.0' );
+	$html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
+	echo wp_kses_post( $html_message );
+}
+
 // Fire up plugin instance.
 add_action(
 	'plugins_loaded',
 	function() {
 		if ( ! did_action( 'elementor/loaded' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
-
+			return;
+		} elseif ( ! version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) ) {
+			add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_wp_version' );
 			return;
 		}
 
