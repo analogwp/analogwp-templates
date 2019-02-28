@@ -9,6 +9,8 @@ namespace Analog;
 
 /**
  * Elementor Formatter.
+ *
+ * @since 1.1
  */
 class Formatter {
 

@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { requestDirectImport, requestElementorImport } from './api';
+import Image from './helpers/Image';
 import Loader from './icons/loader';
 import Star from './icons/star';
 import CustomModal from './modal';
@@ -359,7 +360,7 @@ class Templates extends React.Component {
 										<span className="pro">{ __( 'Pro', 'ang' ) }</span>
 									) }
 									<figure>
-										{ template.thumbnail && <img alt={ template.title } src={ template.thumbnail } /> }
+										{ template.thumbnail && <Image template={ template } /> }
 										<div className="actions">
 											<StyledButton
 												onClick={ () => this.setModalContent( template ) }

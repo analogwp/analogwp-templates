@@ -179,6 +179,7 @@ final class Analog_Templates {
 				'elementorURL'     => admin_url( 'edit.php?post_type=elementor_library' ),
 				'debugMode'        => defined( 'ANALOG_DEV_DEBUG' ),
 				'isPro'            => false,
+				'pluginURL'        => plugin_dir_url( __FILE__ ),
 				'permission'       => (bool) current_user_can( 'manage_options' ),
 				'license'          => [
 					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
