@@ -25,6 +25,16 @@ class Formatter {
 			'title',
 			'job',
 			'description',
+			'heading',
+			'message',
+			'caption',
+			'tab',
+			'view_cart',
+			'price',
+			'old_price',
+			'label',
+			'field',
+			'button',
 		];
 
 		$list = [
