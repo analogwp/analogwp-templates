@@ -112,7 +112,7 @@ class Local extends Base {
 				'license'        => $license,
 				'method'         => 'elementor',
 				'options'        => [
-					'remove_typography' => false,
+					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
 				],
 			]
 		);
@@ -238,7 +238,7 @@ class Local extends Base {
 				'license'        => $license,
 				'method'         => $with_page ? 'page' : 'library',
 				'options'        => [
-					'remove_typography' => true,
+					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
 				],
 			]
 		);
