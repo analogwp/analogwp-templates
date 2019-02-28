@@ -111,6 +111,9 @@ class Local extends Base {
 				'editor_post_id' => $editor_id,
 				'license'        => $license,
 				'method'         => 'elementor',
+				'options'        => [
+					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
+				],
 			]
 		);
 
@@ -191,7 +194,7 @@ class Local extends Base {
 		update_post_meta( $new_post_id, '_elementor_edit_mode', 'builder' );
 
 		if ( $new_post_id && ! is_wp_error( $new_post_id ) ) {
-			update_post_meta( $new_post_id, '_ang_import_type', 'library' );
+			update_post_meta( $new_post_id, '_ang_import_type', $with_page ? 'page' : 'library' );
 			update_post_meta( $new_post_id, '_ang_template_id', $template['id'] );
 			update_post_meta( $new_post_id, '_wp_page_template', ! empty( $template['page_template'] ) ? $template['page_template'] : 'elementor_canvas' );
 
@@ -234,6 +237,9 @@ class Local extends Base {
 				'editor_post_id' => false,
 				'license'        => $license,
 				'method'         => $with_page ? 'page' : 'library',
+				'options'        => [
+					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
+				],
 			]
 		);
 
@@ -278,7 +284,7 @@ class Local extends Base {
 		$key   = $request->get_param( 'key' );
 		$value = $request->get_param( 'value' );
 
-		if ( ! $key || ! $value ) {
+		if ( ! $key ) {
 			return new \WP_Error( 'settings_error', 'No options key provided.' );
 		}
 

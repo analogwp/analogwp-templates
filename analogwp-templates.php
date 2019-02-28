@@ -277,9 +277,9 @@ add_action(
 	'plugins_loaded',
 	function() {
 		if ( ! did_action( 'elementor/loaded' ) ) {
-				add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
+			add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
 
-				return;
+			return;
 		}
 
 		ANG();
