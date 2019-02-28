@@ -1,11 +1,9 @@
-import classnames from 'classnames';
 import styled from 'styled-components';
-import { AnalogContext } from './../AnalogContext';
-import { getSettings, requestLicenseInfo, requestSettingUpdate } from './../api';
-import { NotificationConsumer } from './../Notifications';
+import AnalogContext from './../AnalogContext';
+import { requestSettingUpdate } from './../api';
 import Sidebar from './../Sidebar';
 
-const { TextControl, CheckboxControl, Button } = wp.components;
+const { TextControl, CheckboxControl, Button, ExternalLink } = wp.components;
 const { __ } = wp.i18n;
 const { Fragment } = React;
 
@@ -53,6 +51,33 @@ const Container = styled.div`
 const ChildContainer = styled.div`
 	background: #fff;
 	padding: 50px 70px;
+
+	.instructions {
+		color: #6D6D6D;
+		font-size: 15px;
+		font-weight: 500;
+		margin-bottom: 20px;
+	}
+
+	.checkbox {
+		label {
+			color: #060606;
+			font-weight: 600;
+			margin-left: 10px;
+		}
+
+		.components-base-control__help {
+			padding-left: 30px;
+			margin-top: 5px;
+			color: #6D6D6D;
+		}
+	}
+
+	.components-external-link {
+		padding-left: 30px;
+		transform: translateY(-20px);
+		display: block;
+	}
 `;
 
 export default class Settings extends React.Component {
@@ -62,51 +87,62 @@ export default class Settings extends React.Component {
 		super( ...arguments );
 
 		this.state = {
-			settings: [],
 			licenseStatus: AGWP.license.status,
 			licenseMessage: AGWP.license.message || null,
 			requesting: false,
 		};
 	}
 
-	componentDidMount() {
-		getSettings().then( settings => this.setState( { settings } ) );
-	}
-
 	updateSetting( key, val ) {
-		const settings = this.state.settings;
+		const settings = this.context.state.settings;
 		const updatedSetting = {
 			...settings,
 			[ key ]: val,
 		};
 
-		this.setState( {
-			settings: updatedSetting,
-		} );
+		// Update <App /> settings.
+		this.context.dispatch( { settings: updatedSetting } );
 
 		setTimeout( () => {
-			requestSettingUpdate( key, val ).catch( () => {
-				console.error( 'An error occured updating settings' ); // eslint-disable-line
+			requestSettingUpdate( key, val ).catch( ( e ) => {
+				console.error( 'An error occured updating settings', e ); // eslint-disable-line
 			} );
 		}, 1000 );
 	}
 
 	render() {
+		const settings = this.context.state.settings;
 		return (
 			<Container>
 				<ChildContainer>
+					<h2 style={ { fontSize: '25px' } }>{ __( 'Settings', 'ang' ) }</h2>
+					<div className="global-settings">
+						<p className="instructions">{ __( 'These settings affect the way you import Analog templates on this site, and they apply globally.', 'ang' ) }</p>
+
+						<CheckboxControl
+							label={ __( 'Remove Styling from typographic elements', 'ang' ) }
+							help={ __( 'This setting will remove any values that have been manually added in the templates. Existing templates are not affected.', 'ang' ) }
+							checked={ settings.ang_remove_typography || false }
+							className="checkbox"
+							onChange={ ( isChecked ) => this.updateSetting( 'ang_remove_typography', isChecked ) }
+						/>
+
+						<ExternalLink href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements">{ __( 'More Info', 'ang' ) }</ExternalLink>
+					</div>
+					{ /*
 					<TextControl
 						label={ __( 'Your License', 'ang' ) }
 						help={ __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ) }
-						value={ this.state.settings.ang_license_key || '' }
+						value={ settings.ang_license_key || '' }
 						onChange={ ( value ) => this.updateSetting( 'ang_license_key', value ) }
 					/>
-					{ this.state.settings.ang_license_key && (
+					{ settings.ang_license_key && (
 						<Fragment>
 							{ this.state.licenseMessage &&
 								<p
 									className={ classnames( 'license-status', this.state.licenseStatus ) }
-								>{ this.state.licenseMessage }</p>
+									dangerouslySetInnerHTML={ { __html: this.state.licenseMessage } }
+								/>
 							}
 							<NotificationConsumer>
 								{ ( { add } ) => (
@@ -138,9 +174,10 @@ export default class Settings extends React.Component {
 					) }
 					<CheckboxControl
 						label={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
-						checked={ this.state.settings.ang_data_collection ? this.state.settings.ang_data_collection : false }
+						checked={ settings.ang_data_collection ? settings.ang_data_collection : false }
 						onChange={ ( value ) => this.updateSetting( 'ang_data_collection', value ) }
 					/>
+					*/ }
 				</ChildContainer>
 
 				<Sidebar />
