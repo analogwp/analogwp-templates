@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
-import { markFavorite, requestTemplateList } from './api';
+import { getSettings, markFavorite, requestTemplateList } from './api';
 import Header from './Header';
 import Notifications from './Notifications';
 import { getPageComponents, hasProTemplates } from './utils';
@@ -77,6 +77,12 @@ const Analog = styled.div`
 			background: rgb(255, 120, 101, 0.9);
 		}
 	}
+
+	.components-external-link {
+		color: #FF7865;
+		text-decoration: none;
+		font-weight: 500;
+	}
 `;
 
 const Content = styled.div`
@@ -100,6 +106,7 @@ class App extends React.Component {
 			showFree: true,
 			tab: 'library',
 			hasPro: false,
+			settings: [],
 		};
 
 		this.refreshAPI = this.refreshAPI.bind( this );
@@ -138,6 +145,8 @@ class App extends React.Component {
 				templates: this.state.archive,
 			} );
 		} );
+
+		getSettings().then( settings => this.setState( { settings } ) );
 	}
 
 	handleFilter( type ) {
