@@ -47,7 +47,7 @@ No, you do not need Elementor Pro at this point. All the templates that are prov
 All font pairs in our templates are Google web fonts, we love typography and are always in the look-out for great font combinations.
 
 = Can I use the templates for client projects as well? =
-Yes, you can. You can use the templates in any number of personal or client projects.
+Yes, you can. You can use the templates in any number of personal or client projects. However you cannot re-distribute the templates without our prior consent. You can view the full terms and template licensing here: https://analogwp.com/terms-of-use/.
 
 = How frequently do you add new designs? =
 We try to follow a consistent release cycle of two templates per week.
