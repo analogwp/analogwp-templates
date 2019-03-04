@@ -1,5 +1,6 @@
 import classnames from 'classnames';
 import styled from 'styled-components';
+import { isObject } from 'util';
 import { NotificationConsumer } from '../Notifications';
 import AnalogContext from './../AnalogContext';
 import { requestLicenseInfo, requestSettingUpdate } from './../api';
@@ -137,6 +138,8 @@ export default class Settings extends React.Component {
 
 	render() {
 		const settings = this.context.state.settings;
+		const ButtonText = ( this.state.licenseStatus === 'valid' ) ? __( 'Deactivate', 'ang' ) : __( 'Activate', 'ang' );
+
 		return (
 			<Container>
 				<ChildContainer>
@@ -148,7 +151,7 @@ export default class Settings extends React.Component {
 								label={ __( 'Your License', 'ang' ) }
 								help={ __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ) }
 								value={ settings.ang_license_key || '' }
-								onChange={ ( value ) => this.updateSetting( 'ang_license_key', value, true ) }
+								onChange={ ( value ) => this.updateSetting( 'ang_license_key', value ) }
 							/>
 
 							{ ! settings.ang_license_key && (
@@ -171,7 +174,6 @@ export default class Settings extends React.Component {
 											<Button
 												isDefault
 												isLarge
-												isBusy={ this.state.requesting }
 												className="button-accent license-action"
 												onClick={ async() => {
 													this.setState( { requesting: true } );
@@ -179,16 +181,24 @@ export default class Settings extends React.Component {
 													const action = this.state.licenseStatus === 'valid' ? 'deactivate' : 'activate';
 
 													await requestLicenseInfo( action ).then( response => {
-														this.setState( {
-															licenseStatus: response.status,
-															licenseMessage: response.message,
-														} );
-													} ).catch( () => add( __( 'Connection timeout, please try again.', 'ang' ), 'error' ) );
+														if ( isObject( response.errors ) ) {
+															Object.entries( response.errors ).map( ( err ) => {
+																add( err[ 1 ], 'error' );
+															} );
+														} else {
+															this.setState( {
+																licenseStatus: response.status,
+																licenseMessage: response.message,
+															} );
+														}
+													} ).catch( () => {
+														add( __( 'Connection timeout, please try again.', 'ang' ), 'error' );
+													} );
 
 													this.setState( { requesting: false } );
 												} }
 											>
-												{ ( this.state.licenseStatus === 'valid' ) ? __( 'Deactivate', 'ang' ) : __( 'Activate', 'ang' ) }
+												{ this.state.requesting ? __( 'Processing...' ) : ButtonText }
 											</Button>
 										) }
 									</NotificationConsumer>
