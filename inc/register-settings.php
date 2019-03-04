@@ -49,11 +49,11 @@ function register_settings() {
 		'ang',
 		'ang_import_count',
 		[
-			'type'              => 'string',
+			'type'              => 'number',
 			'description'       => esc_html__( 'Imported Count', 'ang' ),
 			'sanitize_callback' => 'absint',
 			'show_in_rest'      => true,
-			'default'           => '',
+			'default'           => 0,
 		]
 	);
 
@@ -64,7 +64,7 @@ function register_settings() {
 			'type'         => 'string',
 			'description'  => esc_html__( 'Imported templates', 'ang' ),
 			'show_in_rest' => true,
-			'default'      => [],
+			'default'      => '',
 		]
 	);
 }
