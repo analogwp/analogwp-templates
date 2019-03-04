@@ -82,7 +82,7 @@ const ProModal = ( { onDimiss } ) => (
 			<AnalogPro />
 			<h3>{ __( 'Elevate your Elementor design with Analog Pro', 'ang' ) }</h3>
 			<p>{ __( 'Step up your workflow with unlimited design resources for your Elementor-powered projects.', 'ang' ) }</p>
-			<a href="https://analogwp.com/pro/" className="button" target="_blank" rel="external noopener noreferrer">{ __( 'Learn More', 'ang' ) }</a>
+			<a href="https://analogwp.com/" className="button" target="_blank" rel="external noopener noreferrer">{ __( 'Learn More', 'ang' ) }</a>
 		</div>
 		<div>
 			<h3>{ __( 'Why Pro', 'ang' ) }</h3>
