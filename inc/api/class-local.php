@@ -107,6 +107,9 @@ class Local extends Base {
 		update_post_meta( $new_post_id, '_ang_import_type', 'elementor' );
 		update_post_meta( $new_post_id, '_ang_template_id', $template_id );
 
+		// Add import history.
+		\Analog\Utils::add_import_log( $template_id, $editor_id, 'elementor' );
+
 		$obj  = new \Elementor\TemplateLibrary\Analog_Importer();
 		$data = $obj->get_data(
 			[
@@ -221,6 +224,7 @@ class Local extends Base {
 	public function handle_direct_import( \WP_REST_Request $request ) {
 		$template  = $request->get_param( 'template' );
 		$with_page = $request->get_param( 'with_page' );
+		$method    = $with_page ? 'page' : 'library';
 		$license   = false;
 
 		if ( $template['is_pro'] ) {
@@ -239,7 +243,7 @@ class Local extends Base {
 				'template_id'    => $template['id'],
 				'editor_post_id' => false,
 				'license'        => $license,
-				'method'         => $with_page ? 'page' : 'library',
+				'method'         => $method,
 				'options'        => [
 					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
 				],
@@ -255,6 +259,9 @@ class Local extends Base {
 
 		// Finally create the page.
 		$page = $this->create_page( $template, $with_page );
+
+		// Add import history.
+		\Analog\Utils::add_import_log( $template['id'], $page, $method );
 
 		$data = [
 			'page' => $page,
