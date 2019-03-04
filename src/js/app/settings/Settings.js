@@ -1,6 +1,8 @@
+import classnames from 'classnames';
 import styled from 'styled-components';
+import { NotificationConsumer } from '../Notifications';
 import AnalogContext from './../AnalogContext';
-import { requestSettingUpdate } from './../api';
+import { requestLicenseInfo, requestSettingUpdate } from './../api';
 import Sidebar from './../Sidebar';
 
 const { TextControl, CheckboxControl, Button, ExternalLink } = wp.components;
@@ -45,6 +47,25 @@ const Container = styled.div`
 	.license-action {
 		margin-bottom: 30px;
 		margin-top: -10px;
+	}
+
+	.license-container {
+		position: relative;
+		.license-action {
+			position: absolute;
+			top: 39px;
+			right: -1px;
+			padding: 13px 24px;
+			height: 53px;
+		}
+	}
+
+	.license-status {
+		margin-bottom: 30px;
+		font-weight: 500;
+		&.valid {
+			color: green;
+		}
 	}
 `;
 
@@ -93,7 +114,7 @@ export default class Settings extends React.Component {
 		};
 	}
 
-	updateSetting( key, val ) {
+	updateSetting( key, val, avoidRequest = false ) {
 		const settings = this.context.state.settings;
 		const updatedSetting = {
 			...settings,
@@ -103,11 +124,12 @@ export default class Settings extends React.Component {
 		// Update <App /> settings.
 		this.context.dispatch( { settings: updatedSetting } );
 
-		setTimeout( () => {
+		// Avoid API request for saving data, instead save it in App state only.
+		if ( ! avoidRequest ) {
 			requestSettingUpdate( key, val ).catch( ( e ) => {
 				console.error( 'An error occured updating settings', e ); // eslint-disable-line
 			} );
-		}, 1000 );
+		}
 	}
 
 	render() {
@@ -115,7 +137,60 @@ export default class Settings extends React.Component {
 		return (
 			<Container>
 				<ChildContainer>
-					<h2 style={ { fontSize: '25px' } }>{ __( 'Settings', 'ang' ) }</h2>
+					<h2 style={ { fontSize: '25px', marginBottom: '50px' } }>{ __( 'Settings', 'ang' ) }</h2>
+
+					<div className="license-container">
+						<TextControl
+							label={ __( 'Your License', 'ang' ) }
+							help={ __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ) }
+							value={ settings.ang_license_key || '' }
+							onChange={ ( value ) => this.updateSetting( 'ang_license_key', value, true ) }
+						/>
+						{ settings.ang_license_key && (
+							<Fragment>
+								{ this.state.licenseMessage &&
+									<p
+										className={ classnames( 'license-status', this.state.licenseStatus ) }
+										dangerouslySetInnerHTML={ { __html: this.state.licenseMessage } }
+									/>
+								}
+								<NotificationConsumer>
+									{ ( { add } ) => (
+										<Button
+											isDefault
+											isLarge
+											isBusy={ this.state.requesting }
+											className="button-accent license-action"
+											onClick={ async() => {
+												this.setState( { requesting: true } );
+
+												const action = this.state.licenseStatus === 'valid' ? 'deactivate' : 'activate';
+
+												await requestLicenseInfo( action ).then( response => {
+													this.setState( {
+														licenseStatus: response.status,
+														licenseMessage: response.message,
+													} );
+												} ).catch( () => add( __( 'Connection timeout, please try again.', 'ang' ), 'error' ) );
+
+												this.setState( { requesting: false } );
+											} }
+										>
+											{ ( this.state.licenseStatus === 'valid' ) ? __( 'Deactivate', 'ang' ) : __( 'Activate', 'ang' ) }
+										</Button>
+									) }
+								</NotificationConsumer>
+							</Fragment>
+						) }
+					</div>
+					<CheckboxControl
+						label={ __( 'Usage Data Tracking', 'ang' ) }
+						help={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
+						checked={ settings.ang_data_collection ? settings.ang_data_collection : false }
+						className="checkbox"
+						onChange={ ( value ) => this.updateSetting( 'ang_data_collection', value ) }
+					/>
+
 					<div className="global-settings">
 						<p className="instructions">{ __( 'These settings affect the way you import Analog templates on this site, and they apply globally.', 'ang' ) }</p>
 
@@ -129,55 +204,6 @@ export default class Settings extends React.Component {
 
 						<ExternalLink href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements">{ __( 'More Info', 'ang' ) }</ExternalLink>
 					</div>
-					{ /*
-					<TextControl
-						label={ __( 'Your License', 'ang' ) }
-						help={ __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ) }
-						value={ settings.ang_license_key || '' }
-						onChange={ ( value ) => this.updateSetting( 'ang_license_key', value ) }
-					/>
-					{ settings.ang_license_key && (
-						<Fragment>
-							{ this.state.licenseMessage &&
-								<p
-									className={ classnames( 'license-status', this.state.licenseStatus ) }
-									dangerouslySetInnerHTML={ { __html: this.state.licenseMessage } }
-								/>
-							}
-							<NotificationConsumer>
-								{ ( { add } ) => (
-									<Button
-										isDefault
-										isLarge
-										isBusy={ this.state.requesting }
-										className="license-action"
-										onClick={ async() => {
-											this.setState( { requesting: true } );
-
-											const action = this.state.licenseStatus === 'valid' ? 'deactivate' : 'activate';
-
-											await requestLicenseInfo( action ).then( response => {
-												this.setState( {
-													licenseStatus: response.status,
-													licenseMessage: response.message,
-												} );
-											} ).catch( () => add( __( 'Connection timeout, please try again.', 'ang' ), 'error' ) );
-
-											this.setState( { requesting: false } );
-										} }
-									>
-										{ ( this.state.licenseStatus === 'valid' ) ? __( 'Deactivate License', 'ang' ) : __( 'Activate License', 'ang' ) }
-									</Button>
-								) }
-							</NotificationConsumer>
-						</Fragment>
-					) }
-					<CheckboxControl
-						label={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
-						checked={ settings.ang_data_collection ? settings.ang_data_collection : false }
-						onChange={ ( value ) => this.updateSetting( 'ang_data_collection', value ) }
-					/>
-					*/ }
 				</ChildContainer>
 
 				<Sidebar />

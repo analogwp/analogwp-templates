@@ -67,14 +67,15 @@ const Analog = styled.div`
 		height: auto;
 		&:focus,
 		&:active {
-			border: none;
-			background: rgb(255, 120, 101, 0.9);
-			box-shadow: none;
-			color: #fff;
+			border: none !important;
+			background: rgb(255, 120, 101, 0.9) !important;
+			box-shadow: none !important;
+			color: #fff !important;
 		}
 		&:hover {
 			color: #fff;
 			background: rgb(255, 120, 101, 0.9);
+			border: none;
 		}
 	}
 
