@@ -34,12 +34,24 @@ class Utils extends Base {
 	/**
 	 * Get import logo data.
 	 *
+	 * @since  1.1
 	 * @return array
 	 */
 	public static function get_import_log() {
 		return get_option( '_ang_import_history' );
 	}
 
+	/**
+	 * Recording import details on import.
+	 *
+	 * @since 1.1
+	 *
+	 * @param int    $id Template ID.
+	 * @param int    $post_id Post ID, in which this template was imported to.
+	 * @param string $method How was this template imported.
+	 *
+	 * @return void
+	 */
 	public static function add_import_log( $id, $post_id, $method ) {
 		$imports = self::get_import_log();
 		if ( ! $imports ) {
