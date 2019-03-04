@@ -1,3 +1,4 @@
+import { requestSettingUpdate } from './api';
 import Filters from './filters';
 import Settings from './settings/Settings';
 import Templates from './Templates';
@@ -46,4 +47,17 @@ export function hasProTemplates( templates ) {
 	const filtered = templates.some( ( template ) => template.is_pro === true );
 
 	return filtered;
+}
+
+export function increaseInstallCount( settings, dispatch ) {
+	const installCount = parseInt( settings.install_count ) || 0;
+
+	dispatch( {
+		settings: {
+			...settings,
+			install_count: installCount + 1,
+		},
+	} );
+
+	requestSettingUpdate( 'install_count', installCount + 1 );
 }

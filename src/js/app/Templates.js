@@ -9,6 +9,7 @@ import CustomModal from './modal';
 import { NotificationConsumer } from './Notifications';
 import Popup from './popup';
 import ProModal from './ProModal';
+import { increaseInstallCount } from './utils';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
@@ -194,6 +195,8 @@ class Templates extends React.Component {
 	handleImport = async( add, withPage = false ) => {
 		this.setState( { importing: true } );
 
+		increaseInstallCount( this.context.state.settings, this.context.dispatch );
+
 		await requestDirectImport( this.state.template, withPage ).then( response => {
 			this.setState( {
 				importedPage: response.page,
@@ -233,6 +236,8 @@ class Templates extends React.Component {
 		} else {
 			this.setState( { template } );
 		}
+
+		increaseInstallCount( this.context.state.settings, this.context.dispatch );
 
 		if ( typeof elementor !== 'undefined' ) {
 			this.setState( { showingModal: true, importing: true } );
