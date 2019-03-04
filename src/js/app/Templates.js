@@ -11,7 +11,6 @@ import Popup from './popup';
 import ProModal from './ProModal';
 
 const { decodeEntities } = wp.htmlEntities;
-const { apiFetch } = wp;
 const { __ } = wp.i18n;
 const { TextControl, Button } = wp.components;
 const { Fragment } = React;
