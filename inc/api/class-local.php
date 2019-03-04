@@ -104,6 +104,9 @@ class Local extends Base {
 			}
 		}
 
+		update_post_meta( $new_post_id, '_ang_import_type', 'elementor' );
+		update_post_meta( $new_post_id, '_ang_template_id', $template_id );
+
 		$obj  = new \Elementor\TemplateLibrary\Analog_Importer();
 		$data = $obj->get_data(
 			[
