@@ -69,4 +69,4 @@ function register_settings() {
 	);
 }
 
-add_action( 'init', __NAMESPACE__ . '\register_settings' );
+// add_action( 'init', __NAMESPACE__ . '\register_settings' );
