@@ -4,6 +4,7 @@ import { NotificationConsumer } from '../Notifications';
 import AnalogContext from './../AnalogContext';
 import { requestLicenseInfo, requestSettingUpdate } from './../api';
 import Sidebar from './../Sidebar';
+import { hasProTemplates } from './../utils';
 
 const { TextControl, CheckboxControl, Button, ExternalLink } = wp.components;
 const { __ } = wp.i18n;
@@ -94,10 +95,12 @@ const ChildContainer = styled.div`
 		}
 	}
 
-	.components-external-link {
-		padding-left: 30px;
-		transform: translateY(-20px);
-		display: block;
+	.global-settings {
+		.components-external-link {
+			padding-left: 30px;
+			transform: translateY(-20px);
+			display: block;
+		}
 	}
 `;
 
@@ -139,50 +142,61 @@ export default class Settings extends React.Component {
 				<ChildContainer>
 					<h2 style={ { fontSize: '25px', marginBottom: '50px' } }>{ __( 'Settings', 'ang' ) }</h2>
 
-					<div className="license-container">
-						<TextControl
-							label={ __( 'Your License', 'ang' ) }
-							help={ __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ) }
-							value={ settings.ang_license_key || '' }
-							onChange={ ( value ) => this.updateSetting( 'ang_license_key', value, true ) }
-						/>
-						{ settings.ang_license_key && (
-							<Fragment>
-								{ this.state.licenseMessage &&
+					{ hasProTemplates( this.context.state.templates ) && (
+						<div className="license-container">
+							<TextControl
+								label={ __( 'Your License', 'ang' ) }
+								help={ __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ) }
+								value={ settings.ang_license_key || '' }
+								onChange={ ( value ) => this.updateSetting( 'ang_license_key', value, true ) }
+							/>
+
+							{ ! settings.ang_license_key && (
+								<p>
+									{ __( 'If you do not have a license key, you can get one from' ) }
+									{ ' ' } <ExternalLink href="https://analogwp.com/">AnalogWP</ExternalLink>
+								</p>
+							) }
+
+							{ settings.ang_license_key && (
+								<Fragment>
+									{ this.state.licenseMessage &&
 									<p
 										className={ classnames( 'license-status', this.state.licenseStatus ) }
 										dangerouslySetInnerHTML={ { __html: this.state.licenseMessage } }
 									/>
-								}
-								<NotificationConsumer>
-									{ ( { add } ) => (
-										<Button
-											isDefault
-											isLarge
-											isBusy={ this.state.requesting }
-											className="button-accent license-action"
-											onClick={ async() => {
-												this.setState( { requesting: true } );
+									}
+									<NotificationConsumer>
+										{ ( { add } ) => (
+											<Button
+												isDefault
+												isLarge
+												isBusy={ this.state.requesting }
+												className="button-accent license-action"
+												onClick={ async() => {
+													this.setState( { requesting: true } );
 
-												const action = this.state.licenseStatus === 'valid' ? 'deactivate' : 'activate';
+													const action = this.state.licenseStatus === 'valid' ? 'deactivate' : 'activate';
 
-												await requestLicenseInfo( action ).then( response => {
-													this.setState( {
-														licenseStatus: response.status,
-														licenseMessage: response.message,
-													} );
-												} ).catch( () => add( __( 'Connection timeout, please try again.', 'ang' ), 'error' ) );
+													await requestLicenseInfo( action ).then( response => {
+														this.setState( {
+															licenseStatus: response.status,
+															licenseMessage: response.message,
+														} );
+													} ).catch( () => add( __( 'Connection timeout, please try again.', 'ang' ), 'error' ) );
 
-												this.setState( { requesting: false } );
-											} }
-										>
-											{ ( this.state.licenseStatus === 'valid' ) ? __( 'Deactivate', 'ang' ) : __( 'Activate', 'ang' ) }
-										</Button>
-									) }
-								</NotificationConsumer>
-							</Fragment>
-						) }
-					</div>
+													this.setState( { requesting: false } );
+												} }
+											>
+												{ ( this.state.licenseStatus === 'valid' ) ? __( 'Deactivate', 'ang' ) : __( 'Activate', 'ang' ) }
+											</Button>
+										) }
+									</NotificationConsumer>
+								</Fragment>
+							) }
+						</div>
+					) }
+
 					<CheckboxControl
 						label={ __( 'Usage Data Tracking', 'ang' ) }
 						help={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
