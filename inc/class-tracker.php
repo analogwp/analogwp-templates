@@ -1,0 +1,105 @@
+<?php
+/**
+ * Track user data if opted in.
+ *
+ * @package Analog
+ */
+
+namespace Analog;
+
+use Analog\Options;
+use Analog\Utils;
+
+defined( 'ABSPATH' ) || exit();
+
+/**
+ * User data tracker.
+ *
+ * @package Analog
+ * @since   1.1
+ */
+class Tracker {
+	/**
+	 * API URL.
+	 *
+	 * Holds the URL of the Tracker API.
+	 *
+	 * @access private
+	 * @var string API URL.
+	 */
+	private static $api_url = 'https://analogwp.com/wp-json/analogwp/v1/tracker';
+
+	/**
+	 * AnalogWP installation time.
+	 *
+	 * @var bool|int
+	 */
+	private static $intalled_time = false;
+
+	/**
+	 * Tracker constructor.
+	 */
+	public function __construct() {
+		self::$intalled_time = self::get_installed_time();
+
+		add_action( 'analog/tracker/send_event', [ __CLASS__, 'send_tracking_data' ] );
+	}
+
+	/**
+	 * Get installed time.
+	 *
+	 * Retrieve the time when AnalogWP was installed.
+	 *
+	 * @access private
+	 * @static
+	 *
+	 * @return int Unix timestamp when AnalogWP was installed.
+	 */
+	private static function get_installed_time() {
+		$installed_time = get_option( '_ang_installed_time' );
+		if ( ! $installed_time ) {
+			update_option( '_ang_installed_time', time() );
+		}
+		return $installed_time;
+	}
+
+	/**
+	 * Send tracking data.
+	 *
+	 * Determines where to send data or not.
+	 *
+	 * @param bool $override Whether to override data.
+	 */
+	public static function send_tracking_data( $override = false ) {
+		$allow_track = Options::get_instance()->get( 'ang_data_collection' );
+		if ( ! $allow_track ) {
+			return;
+		}
+
+		// Tracking Data.
+		$data = [
+			'site_lang'      => get_bloginfo( 'language' ),
+			'email'          => get_option( 'admin_email' ),
+			'wp_version'     => get_bloginfo( 'version' ),
+			'site_url'       => home_url(),
+			'plugin_version' => ANG_VERSION,
+			'usages'         => Utils::get_import_log(),
+		];
+
+		$data = apply_filters( 'analog/tracker/send_tracking_data_params', $data );
+
+		wp_remote_post(
+			self::$api_url,
+			[
+				'timeout'   => 25,
+				'blocking'  => false,
+				'sslverify' => false,
+				'body'      => [
+					'data' => wp_json_encode( $data ),
+				],
+			]
+		);
+	}
+}
+
+new Tracker();

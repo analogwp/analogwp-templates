@@ -25,9 +25,9 @@ class Utils extends Base {
 		}
 
 		if ( is_array( $log ) || is_object( $log ) ) {
-			error_log( print_r( $log, true ) );
+			error_log( print_r( $log, true ) ); // @codingStandardsIgnoreLine
 		} else {
-			error_log( $log );
+			error_log( $log ); // @codingStandardsIgnoreLine
 		}
 	}
 
