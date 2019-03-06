@@ -172,6 +172,7 @@ class Templates extends React.Component {
 	state = initialState;
 
 	resetState() {
+		this.context.dispatch( { isOpen: false } );
 		this.setState( initialState );
 	}
 
