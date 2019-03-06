@@ -3,3 +3,7 @@
 /assets/js/app.js.map
 /build
 /assets/js/app.js
+
+
+/.idea/**
+/.idea/workspace.xml
