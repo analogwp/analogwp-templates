@@ -82,7 +82,7 @@ const Modal = props => {
 						<span className="dashicons dashicons-external" />
 					</a>
 				</Tooltip>
-				<button className="button--accent" onClick={ props.onRequestImport }>
+				<button className="ang-button" onClick={ props.onRequestImport }>
 					{ __( 'Insert Layout', 'ang' ) }
 				</button>
 			</div>
