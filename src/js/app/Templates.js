@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { requestDirectImport, requestElementorImport } from './api';
+import { Theme } from './contexts/ThemeContext';
 import Image from './helpers/Image';
 import Loader from './icons/loader';
 import Star from './icons/star';
@@ -9,6 +10,7 @@ import CustomModal from './modal';
 import { NotificationConsumer } from './Notifications';
 import Popup from './popup';
 import ProModal from './ProModal';
+import { isNewTheme } from './utils';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
@@ -33,9 +35,10 @@ const TemplatesList = styled.ul`
 		border-radius: 4px;
 	}
 
+	.new,
 	.pro {
 		position: absolute;
-		top: 8px;
+		top: -8px;
 		right: -8px;
 		background: #ff7865;
 		color: #fff;
@@ -44,6 +47,14 @@ const TemplatesList = styled.ul`
 		font-size: 12px;
 		padding: 8px 10px;
 		line-height: 1;
+		border-radius: 4px;
+		text-transform: uppercase;
+		font-size: 14.22px;
+		letter-spacing: .5px;
+	}
+
+	.new {
+		background: ${ Theme.accent };
 	}
 
 	p {
@@ -345,6 +356,11 @@ class Templates extends React.Component {
 									{ template.is_pro && (
 										<span className="pro">{ __( 'Pro', 'ang' ) }</span>
 									) }
+
+									{ ( isNewTheme( template.published ) > -7 ) && (
+										<span className="new">{ __( 'New', 'ang' ) }</span>
+									) }
+
 									<figure>
 										{ template.thumbnail && <Image template={ template } /> }
 										<div className="actions">

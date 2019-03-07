@@ -61,3 +61,11 @@ export function increaseInstallCount( settings, dispatch ) {
 
 	requestSettingUpdate( 'install_count', installCount + 1 );
 }
+
+export function isNewTheme( date ) {
+	const start = moment.unix( date );
+	const end = moment.now();
+	const diff = Math.ceil( moment.duration( start.diff( end ) ).asDays() );
+
+	return diff;
+}
