@@ -3,12 +3,12 @@ import AnalogContext from './AnalogContext';
 import { hasProTemplates } from './utils';
 
 const { __ } = wp.i18n;
-const { ExternalLink, Dashicon } = wp.components;
+const { ExternalLink, Dashicon, TextControl, Button } = wp.components;
 
 const Container = styled.div`
-	font-weight: 500;
-	color: #6D6D6D;
-	font-size: 15px;
+	color: #060606;
+	padding-top: 80px;
+	font-size: 16px;
 
 	p, li {
 		font-size: inherit;
@@ -23,21 +23,14 @@ const Container = styled.div`
 		list-style: disc;
 		list-style-position: inside;
 	}
-	h4 {
-		color: #23282C;
-	}
 	h3 {
-		color: #23282C;
-		font-size: 25px;
-		font-weight: 600;
+		color: #060606;
+		font-size: 20.25px;
+		font-weight: 700;
 		line-height: 1.4;
 	}
-	div {
-		background: #fff;
+	> div {
 		padding: 50px 70px;
-		+ div {
-			margin-top: 30px;
-		}
 	}
 
 	.social-links {
@@ -45,12 +38,12 @@ const Container = styled.div`
 		margin-top: 50px;
 		a {
 			background: #3F4346;
-			width: 36px;
-			height: 36px;
+			width: 44px;
+			height: 44px;
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
-			border-radius: 50%;
+			border-radius: 4px;
 			color: #fff;
 			font-size: 20px;
 
@@ -59,24 +52,69 @@ const Container = styled.div`
 			}
 		}
 	}
+
+	.ang-button {
+		width: 100%;
+	}
+
+	label {
+		color: #060606;
+		font-weight: bold;
+		font-size: 14.22px;
+	}
+
+	.sub {
+		margin-top: 30px;
+	}
 `;
 
 const Sidebar = () => {
 	const { state } = React.useContext( AnalogContext );
+	const [ email, setEmail ] = React.useState( '' );
 
 	return (
 		<Container>
 			<div>
+				<h3>{ __( 'Sign up for updates', 'ang' ) }</h3>
+				<p>{ __( 'Sign up to Analog Newsletter and get notified about product updates, freebies and more.', 'ang' ) }</p>
+
+				<div className="sub">
+					<TextControl
+						type="email"
+						value={ email }
+						onChange={ ( value ) => setEmail( value ) }
+						placeholder={ __( 'Enter your email', 'ang' ) }
+					/>
+
+					<Button
+						className="ang-button"
+						onClick={ () => console.log( 'clicked' ) }
+					>{ __( 'Sign up to newsletter' ) }</Button>
+				</div>
+			</div>
+
+			<div>
 				<h3>{ __( 'Docs', 'ang' ) }</h3>
 				<p>{ __( 'Need help setting up? We have a number of handy articles to get you started.', 'ang' ) }</p>
-				<p><ExternalLink href="https://docs.codestag.com/">{ __( 'Read Documentation', 'ang' ) }</ExternalLink></p>
+				<p><ExternalLink className="ang-link" href="https://docs.codestag.com/">{ __( 'Read Documentation', 'ang' ) }</ExternalLink></p>
 
 				<div className="social-links">
-					<h4>{ __( 'Find us elsewhere' ) }</h4>
-					<a href="https://facebook.com/analogwp" target="_blank" rel="external noreferrer noopener">
+					<h3>{ __( 'Follow on Social' ) }</h3>
+					<a
+						href="https://facebook.com/analogwp"
+						target="_blank" rel="external noreferrer noopener"
+						style={ {
+							background: '#3C5B96',
+						} }
+					>
 						<Dashicon icon="facebook-alt" />
 					</a>
-					<a href="https://twitter.com/analogwp" target="_blank" rel="external noreferrer noopener">
+					<a
+						href="https://twitter.com/analogwp"
+						style={ {
+							background: '#29A3EF',
+						} }
+						target="_blank" rel="external noreferrer noopener">
 						<Dashicon icon="twitter" />
 					</a>
 					<a href="https://analogwp.com/" target="_blank" rel="external noreferrer noopener">
