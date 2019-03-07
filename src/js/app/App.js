@@ -48,6 +48,15 @@ const Analog = styled.div`
 		color: #060606;
 	}
 
+	input[type="text"],
+	input[type="search"],
+	input[type="email"] {
+		border: 2px solid #C7C7C7;
+		border-radius: 4px;
+		color: #888888;
+		font-weight: normal;
+	}
+
 	button {
 		font-family: inherit;
 	}
