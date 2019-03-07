@@ -141,9 +141,17 @@ const Analog = styled.div`
 	}
 
 	.components-external-link {
-		color: #FF7865;
-		text-decoration: none;
 		font-weight: 500;
+	}
+
+	.ang-link {
+		color: #3152FF;
+		text-transform: uppercase;
+		border-bottom: 2px solid #3152FF;
+		font-size: 12.64px;
+		letter-spacing: 1px;
+		text-decoration: none;
+		font-weight: bold;
 	}
 `;
 

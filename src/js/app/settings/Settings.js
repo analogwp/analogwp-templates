@@ -18,7 +18,6 @@ const Container = styled.div`
 
 	.components-base-control {
 		font-family: inherit;
-		margin-bottom: 30px;
 	}
 
 	.components-checkbox-control__label {
@@ -34,10 +33,8 @@ const Container = styled.div`
 	}
 
 	.components-base-control .components-base-control__help {
-		margin-top: -4px;
+		margin-top: 0px;
 		font-style: normal;
-		font-weight: 500;
-		color: #999;
 	}
 
 	.license-status {
@@ -60,22 +57,21 @@ const ChildContainer = styled.div`
 	.checkbox {
 		label {
 			color: #060606;
-			font-weight: 600;
-			margin-left: 10px;
 		}
 
 		.components-base-control__help {
-			padding-left: 30px;
+			padding-left: 37px;
 			margin-top: 5px;
-			color: #6D6D6D;
+			color: #888;
+			font-size: 14.22px;
 		}
 	}
 
 	.global-settings {
 		.components-external-link {
-			padding-left: 30px;
-			transform: translateY(-20px);
-			display: block;
+			transform: translateX(37px);
+			margin-top: 20px;
+			display: inline-block;
 		}
 	}
 `;
@@ -126,6 +122,24 @@ const Field = styled.section`
 			margin-left: 2%;
 			flex-basis: 38%;
 		}
+	}
+
+	.checkbox {
+		.components-base-control__field {
+			display: flex;
+			align-items: top;
+		}
+		input[type="checkbox"] {
+			min-width: 22px;
+			margin-right: 15px;
+			transform: translateY(6px);
+		}
+	}
+
+	.components-checkbox-control__label {
+		font-size: 16px;
+		font-weight: normal;
+		line-height: 1.7;
 	}
 `;
 
@@ -235,7 +249,7 @@ export default class Settings extends React.Component {
 								{ ! settings.ang_license_key && (
 									<p>
 										{ __( 'If you do not have a license key, you can get one from' ) }
-										{ ' ' } <ExternalLink href="https://analogwp.com/">AnalogWP</ExternalLink>
+										{ ' ' } <ExternalLink className="ang-link" href="https://analogwp.com/">AnalogWP</ExternalLink>
 									</p>
 								) }
 							</div>
@@ -243,9 +257,10 @@ export default class Settings extends React.Component {
 					) }
 
 					<Field>
+						<h3 className="heading">{ __( 'Usage Data Tracking', 'ang' ) }</h3>
+
 						<CheckboxControl
-							label={ __( 'Usage Data Tracking', 'ang' ) }
-							help={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
+							label={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
 							checked={ settings.ang_data_collection ? settings.ang_data_collection : false }
 							className="checkbox"
 							onChange={ ( value ) => this.updateSetting( 'ang_data_collection', value ) }
@@ -253,8 +268,7 @@ export default class Settings extends React.Component {
 					</Field>
 
 					<Field className="global-settings">
-						<p className="instructions">{ __( 'These settings affect the way you import Analog templates on this site, and they apply globally.', 'ang' ) }</p>
-
+						<h3 className="heading">{ __( 'Template Settings', 'ang' ) }</h3>
 						<CheckboxControl
 							label={ __( 'Remove Styling from typographic elements', 'ang' ) }
 							help={ __( 'This setting will remove any values that have been manually added in the templates. Existing templates are not affected.', 'ang' ) }
@@ -263,7 +277,7 @@ export default class Settings extends React.Component {
 							onChange={ ( isChecked ) => this.updateSetting( 'ang_remove_typography', isChecked ) }
 						/>
 
-						<ExternalLink href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements">{ __( 'More Info', 'ang' ) }</ExternalLink>
+						<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements">{ __( 'More Info', 'ang' ) }</ExternalLink>
 					</Field>
 				</ChildContainer>
 

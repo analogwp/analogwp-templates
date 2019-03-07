@@ -35,10 +35,7 @@ const Container = styled.div`
 	}
 
 	.components-base-control .components-base-control__help {
-		margin-top: -4px;
 		font-style: normal;
-		font-weight: 500;
-		color: #999;
 	}
 `;
 
