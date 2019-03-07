@@ -44,7 +44,6 @@ const Analog = styled.div`
 		appearance: none;
 		outline: 0;
 		background: transparent;
-		font-size: inherit;
 		font-weight: bold;
 		color: #060606;
 	}
