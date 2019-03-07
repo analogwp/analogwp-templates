@@ -67,7 +67,7 @@ const TemplatesList = styled.ul`
 		button:hover,
 		button.is-active {
 			svg {
-				fill: #ff7865;
+				fill: #FFB443;
 			}
 		}
 	}
@@ -134,7 +134,7 @@ const TemplatesList = styled.ul`
 	}
 
 	.tags {
-		color: #999999;
+		color: #888;
 		text-transform: capitalize;
 		padding: 0 20px 15px 20px;
 		font-size: 12px;

@@ -39,6 +39,10 @@ const Analog = styled.div`
 		min-width: 100px;
 	}
 
+	h1,h2,h3,h4,h5,h6 {
+		color: ${ props => props.theme.textDark };
+	}
+
 	.components-base-control {
 		font-family: inherit;
 		font-size: inherit;
