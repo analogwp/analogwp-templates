@@ -4,6 +4,7 @@ import { isObject } from 'util';
 import { NotificationConsumer } from '../Notifications';
 import AnalogContext from './../AnalogContext';
 import { requestLicenseInfo, requestSettingUpdate } from './../api';
+import { Theme } from './../contexts/ThemeContext';
 import Sidebar from './../Sidebar';
 import { hasProTemplates } from './../utils';
 
@@ -40,8 +41,10 @@ const Container = styled.div`
 	.license-status {
 		margin-bottom: 0;
 		font-weight: 500;
+		font-size: 14.22px;
+		margin-top: 25px;
 		&.valid {
-			color: green;
+			color: #61A670;
 		}
 	}
 `;
@@ -102,7 +105,8 @@ const Field = styled.section`
 		box-shadow: none !important;
 		outline: 0 !important;
 		&:hover {
-			background: inherit;
+			background: ${ Theme.accent };
+			color: #fff;
 		}
 	}
 

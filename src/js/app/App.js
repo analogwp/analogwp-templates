@@ -79,6 +79,11 @@ const Analog = styled.div`
 		background: #fff;
 		font-size: 14.22px;
 		font-family: inherit;
+		&:focus {
+			outline: 0;
+			box-shadow: none;
+			border-color: #888888;
+		}
 	}
 
 	input[type=checkbox] {

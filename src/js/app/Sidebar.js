@@ -30,12 +30,10 @@ const Container = styled.div`
 		line-height: 1.4;
 	}
 	> div {
-		padding: 50px 70px;
+		padding: 30px 70px;
 	}
 
 	.social-links {
-		padding: 0;
-		margin-top: 50px;
 		a {
 			background: #3F4346;
 			width: 44px;
@@ -97,30 +95,30 @@ const Sidebar = () => {
 				<h3>{ __( 'Docs', 'ang' ) }</h3>
 				<p>{ __( 'Need help setting up? We have a number of handy articles to get you started.', 'ang' ) }</p>
 				<p><ExternalLink className="ang-link" href="https://docs.codestag.com/">{ __( 'Read Documentation', 'ang' ) }</ExternalLink></p>
+			</div>
 
-				<div className="social-links">
-					<h3>{ __( 'Follow on Social' ) }</h3>
-					<a
-						href="https://facebook.com/analogwp"
-						target="_blank" rel="external noreferrer noopener"
-						style={ {
-							background: '#3C5B96',
-						} }
-					>
-						<Dashicon icon="facebook-alt" />
-					</a>
-					<a
-						href="https://twitter.com/analogwp"
-						style={ {
-							background: '#29A3EF',
-						} }
-						target="_blank" rel="external noreferrer noopener">
-						<Dashicon icon="twitter" />
-					</a>
-					<a href="https://analogwp.com/" target="_blank" rel="external noreferrer noopener">
-						<Dashicon icon="admin-site" />
-					</a>
-				</div>
+			<div className="social-links">
+				<h3>{ __( 'Follow on Social' ) }</h3>
+				<a
+					href="https://facebook.com/analogwp"
+					target="_blank" rel="external noreferrer noopener"
+					style={ {
+						background: '#3C5B96',
+					} }
+				>
+					<Dashicon icon="facebook-alt" />
+				</a>
+				<a
+					href="https://twitter.com/analogwp"
+					style={ {
+						background: '#29A3EF',
+					} }
+					target="_blank" rel="external noreferrer noopener">
+					<Dashicon icon="twitter" />
+				</a>
+				<a href="https://analogwp.com/" target="_blank" rel="external noreferrer noopener">
+					<Dashicon icon="admin-site" />
+				</a>
 			</div>
 
 			{ ( hasProTemplates( state.templates ) && AGWP.license.status !== 'valid' ) && (
