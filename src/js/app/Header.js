@@ -66,7 +66,7 @@ const Container = styled.div`
 	}
 	.sync {
 		text-transform: uppercase;
-		font-size: 12.64px;
+		font-size: 12.64px !important;
 		letter-spacing: 1px;
 	}
 `;

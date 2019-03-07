@@ -25,12 +25,6 @@ const Container = styled.div`
 		font-weight: 500;
 		color: #999;
 	}
-	.components-base-control__label {
-		color: #060606;
-		font-weight: 600;
-		font-size: 15px;
-		margin-bottom: 10px;
-	}
 
 	.components-text-control__input {
 		background: #F3F3F3;
@@ -46,24 +40,8 @@ const Container = styled.div`
 		color: #999;
 	}
 
-	.license-action {
-		margin-bottom: 30px;
-		margin-top: -10px;
-	}
-
-	.license-container {
-		position: relative;
-		.license-action {
-			position: absolute;
-			top: 39px;
-			right: -1px;
-			padding: 13px 24px;
-			height: 53px;
-		}
-	}
-
 	.license-status {
-		margin-bottom: 30px;
+		margin-bottom: 0;
 		font-weight: 500;
 		&.valid {
 			color: green;
@@ -72,9 +50,6 @@ const Container = styled.div`
 `;
 
 const ChildContainer = styled.div`
-	background: #fff;
-	padding: 50px 70px;
-
 	.instructions {
 		color: #6D6D6D;
 		font-size: 15px;
@@ -101,6 +76,55 @@ const ChildContainer = styled.div`
 			padding-left: 30px;
 			transform: translateY(-20px);
 			display: block;
+		}
+	}
+`;
+
+const Field = styled.section`
+	background: #fff;
+	padding: 75px 85px;
+	border-radius: 4px;
+	margin-bottom: 40px;
+
+	.heading,
+	.components-base-control__label {
+		color: #060606;
+		font-weight: 700;
+		font-size: 20.25px;
+		margin-top: 0;
+		margin-bottom: 30px;
+	}
+
+	.instruction {
+		font-size: 16px;
+		color: #060606;
+	}
+
+	.license-action {
+		height: auto;
+		width: 175px;
+		box-shadow: none !important;
+		outline: 0 !important;
+		&:hover {
+			background: inherit;
+		}
+	}
+
+	.fieldgroup {
+		display: flex;
+
+		> .components-base-control {
+			flex-basis: 60%;
+			margin: 0;
+
+			.components-text-control__input,
+			.components-base-control__field {
+				margin: 0;
+			}
+		}
+		> button {
+			margin-left: 2%;
+			flex-basis: 38%;
 		}
 	}
 `;
@@ -143,79 +167,92 @@ export default class Settings extends React.Component {
 		return (
 			<Container>
 				<ChildContainer>
-					<h2 style={ { fontSize: '25px', marginBottom: '50px' } }>{ __( 'Settings', 'ang' ) }</h2>
+					<h2 style={ { fontSize: '25px', marginBottom: '50px' } }>{ __( 'Plugin Settings', 'ang' ) }</h2>
 
 					{ hasProTemplates( this.context.state.templates ) && (
-						<div className="license-container">
-							<TextControl
-								label={ __( 'Your License', 'ang' ) }
-								help={ __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ) }
-								value={ settings.ang_license_key || '' }
-								onChange={ ( value ) => this.updateSetting( 'ang_license_key', value ) }
-							/>
-
-							{ ! settings.ang_license_key && (
-								<p>
-									{ __( 'If you do not have a license key, you can get one from' ) }
-									{ ' ' } <ExternalLink href="https://analogwp.com/">AnalogWP</ExternalLink>
+						<Field>
+							<div className="license-container">
+								<h3 className="heading">{ __( 'Pro License', 'ang' ) }</h3>
+								<p className="instruction">
+									{ __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ) }
 								</p>
-							) }
 
-							{ settings.ang_license_key && (
-								<Fragment>
-									{ this.state.licenseMessage &&
-									<p
-										className={ classnames( 'license-status', this.state.licenseStatus ) }
-										dangerouslySetInnerHTML={ { __html: this.state.licenseMessage } }
+								<div className="fieldgroup">
+									<TextControl
+										label={ '' }
+										value={ settings.ang_license_key || '' }
+										onChange={ ( value ) => this.updateSetting( 'ang_license_key', value ) }
 									/>
-									}
-									<NotificationConsumer>
-										{ ( { add } ) => (
-											<Button
-												isDefault
-												isLarge
-												className="button-accent license-action"
-												onClick={ async() => {
-													this.setState( { requesting: true } );
 
-													const action = this.state.licenseStatus === 'valid' ? 'deactivate' : 'activate';
+									{ settings.ang_license_key && (
+										<NotificationConsumer>
+											{ ( { add } ) => (
+												<Button
+													isDefault
+													isLarge
+													className="ang-button license-action"
+													onClick={ async() => {
+														this.setState( { requesting: true } );
 
-													await requestLicenseInfo( action ).then( response => {
-														if ( isObject( response.errors ) ) {
-															Object.entries( response.errors ).map( ( err ) => {
-																add( err[ 1 ], 'error' );
-															} );
-														} else {
-															this.setState( {
-																licenseStatus: response.status,
-																licenseMessage: response.message,
-															} );
-														}
-													} ).catch( () => {
-														add( __( 'Connection timeout, please try again.', 'ang' ), 'error' );
-													} );
+														const action = this.state.licenseStatus === 'valid' ? 'deactivate' : 'activate';
 
-													this.setState( { requesting: false } );
-												} }
-											>
-												{ this.state.requesting ? __( 'Processing...' ) : ButtonText }
-											</Button>
-										) }
-									</NotificationConsumer>
-								</Fragment>
-							) }
-						</div>
+														await requestLicenseInfo( action ).then( response => {
+															if ( isObject( response.errors ) ) {
+																Object.entries( response.errors ).map( ( err ) => {
+																	add( err[ 1 ], 'error' );
+																} );
+															} else {
+																this.setState( {
+																	licenseStatus: response.status,
+																	licenseMessage: response.message,
+																} );
+															}
+														} ).catch( () => {
+															add( __( 'Connection timeout, please try again.', 'ang' ), 'error' );
+														} );
+
+														this.setState( { requesting: false } );
+													} }
+												>
+													{ this.state.requesting ? __( 'Processing...' ) : ButtonText }
+												</Button>
+											) }
+										</NotificationConsumer>
+									) }
+								</div>
+
+								{ settings.ang_license_key && (
+									<Fragment>
+										{ this.state.licenseMessage &&
+										<p
+											className={ classnames( 'license-status', this.state.licenseStatus ) }
+											dangerouslySetInnerHTML={ { __html: this.state.licenseMessage } }
+										/>
+										}
+									</Fragment>
+								) }
+
+								{ ! settings.ang_license_key && (
+									<p>
+										{ __( 'If you do not have a license key, you can get one from' ) }
+										{ ' ' } <ExternalLink href="https://analogwp.com/">AnalogWP</ExternalLink>
+									</p>
+								) }
+							</div>
+						</Field>
 					) }
 
-					<CheckboxControl
-						label={ __( 'Usage Data Tracking', 'ang' ) }
-						help={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
-						checked={ settings.ang_data_collection ? settings.ang_data_collection : false }
-						className="checkbox"
-						onChange={ ( value ) => this.updateSetting( 'ang_data_collection', value ) }
-					/>
+					<Field>
+						<CheckboxControl
+							label={ __( 'Usage Data Tracking', 'ang' ) }
+							help={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
+							checked={ settings.ang_data_collection ? settings.ang_data_collection : false }
+							className="checkbox"
+							onChange={ ( value ) => this.updateSetting( 'ang_data_collection', value ) }
+						/>
+					</Field>
 
-					<div className="global-settings">
+					<Field className="global-settings">
 						<p className="instructions">{ __( 'These settings affect the way you import Analog templates on this site, and they apply globally.', 'ang' ) }</p>
 
 						<CheckboxControl
@@ -227,7 +264,7 @@ export default class Settings extends React.Component {
 						/>
 
 						<ExternalLink href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements">{ __( 'More Info', 'ang' ) }</ExternalLink>
-					</div>
+					</Field>
 				</ChildContainer>
 
 				<Sidebar />
