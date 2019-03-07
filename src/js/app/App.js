@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { getSettings, markFavorite, requestTemplateList } from './api';
+import ThemeContext, { Theme } from './contexts/ThemeContext';
 import Header from './Header';
 import Notifications from './Notifications';
 import { getPageComponents, hasProTemplates } from './utils';
@@ -253,24 +254,28 @@ class App extends React.Component {
 		return (
 			<Analog>
 				<Notifications>
-					<AnalogContext.Provider
-						value={ {
-							state: this.state,
-							forceRefresh: this.refreshAPI,
-							markFavorite: markFavorite,
-							toggleFavorites: this.toggleFavorites,
-							handleSearch: this.handleSearch,
-							handleSort: this.handleSort,
-							handleFilter: this.handleFilter,
-							dispatch: action => this.setState( action ),
-						} }
-					>
-						<Header />
+					<ThemeContext.Provider value={ {
+						theme: Theme,
+					} }>
+						<AnalogContext.Provider
+							value={ {
+								state: this.state,
+								forceRefresh: this.refreshAPI,
+								markFavorite: markFavorite,
+								toggleFavorites: this.toggleFavorites,
+								handleSearch: this.handleSearch,
+								handleSort: this.handleSort,
+								handleFilter: this.handleFilter,
+								dispatch: action => this.setState( action ),
+							} }
+						>
+							<Header />
 
-						<Content>
-							{ getPageComponents( this.state ) }
-						</Content>
-					</AnalogContext.Provider>
+							<Content>
+								{ getPageComponents( this.state ) }
+							</Content>
+						</AnalogContext.Provider>
+					</ThemeContext.Provider>
 				</Notifications>
 			</Analog>
 		);
