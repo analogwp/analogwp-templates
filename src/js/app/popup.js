@@ -43,7 +43,7 @@ const Container = styled.div`
 	}
 
 	a {
-		color: #FF7865;
+		color: #3152FF;
 		text-decoration: none;
 	}
 `;
@@ -79,6 +79,7 @@ const Header = styled.div`
 const Content = styled.div`
 	margin: 0;
 	padding: 20px 45px;
+	font-size: 14.22px;
 
 	h2 {
 		font-size: 25px;
@@ -108,7 +109,7 @@ const Content = styled.div`
 		background: #F3F3F3;
 		box-shadow: none;
 		outline: 0;
-		padding: 12px 20px;
+		padding: 10px 20px;
 		max-width: 100% !important;
 		border-right: 0;
 	}

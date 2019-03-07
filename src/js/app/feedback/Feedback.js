@@ -57,7 +57,7 @@ const ChildContainer = styled.div`
 
 	.components-button {
 		padding: 15px;
-		background: #FF7865;
+		background: #3152FF;
 		color: #fff;
 		font-weight: 600;
 	}
@@ -147,7 +147,7 @@ export default class Feedback extends React.Component {
 						onChange={ () => this.setState( { newsletter: ! this.state.newsletter } ) }
 						label={ __( 'Sign me up to newsletter, I want to know when new layouts are added!', 'ang' ) }
 					/>
-					<Button className="button-accent" onClick={ this.handleSubmission }>{ ! this.state.sending ? __( 'Send Feedback', 'ang' ) : __( 'Sending...', 'ang' ) }</Button>
+					<Button className="ang-button" onClick={ this.handleSubmission }>{ ! this.state.sending ? __( 'Send Feedback', 'ang' ) : __( 'Sending...', 'ang' ) }</Button>
 
 					{ this.state.sent && <p style={ { color: 'green', margin: '20px 0 10px' } }>Thanks for your feedback, we will be in touch soon.</p> }
 

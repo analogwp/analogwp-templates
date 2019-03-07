@@ -40,7 +40,7 @@ const TemplatesList = styled.ul`
 		position: absolute;
 		top: -8px;
 		right: -8px;
-		background: #ff7865;
+		background: #3152FF;
 		color: #fff;
 		z-index: 110;
 		font-weight: bold;
@@ -272,7 +272,7 @@ class Templates extends React.Component {
 										<p>{ __( 'Blimey! Your template has been imported.', 'ang' ) }</p>
 										<p>
 											<a
-												className="button button-accent"
+												className="ang-button"
 												href={ addQueryArgs( 'post.php', { post: this.state.importedPage, action: 'elementor' } ) }
 											>{ __( 'Edit Template' ) }</a>
 										</p>
@@ -294,7 +294,7 @@ class Templates extends React.Component {
 										<NotificationConsumer>
 											{ ( { add } ) => (
 												<Button
-													className="button-accent"
+													className="ang-button"
 													onClick={ () => this.handleImport( add ) }
 												>
 													{ __( 'Import to Library', 'ang' ) }
@@ -319,8 +319,11 @@ class Templates extends React.Component {
 										<NotificationConsumer>
 											{ ( { add } ) => (
 												<Button
-													className="button-accent"
+													className="ang-button"
 													disabled={ ! this.state.pageName }
+													style={ {
+														marginLeft: '15px',
+													} }
 													onClick={ () => this.handleImport( add, this.state.pageName ) }
 												>
 													{ __( 'Import to page', 'ang' ) }

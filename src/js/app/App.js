@@ -30,8 +30,8 @@ const Analog = styled.div`
 		border-radius: 4px;
 		color: #fff;
 		background: ${ props => props.theme.accent };
-		padding: 10px;
-		display: block;
+		padding: 12px;
+		display: inline-block;
 		border: none;
 		outline: 0;
 		cursor: pointer;
@@ -119,7 +119,7 @@ const Analog = styled.div`
 	}
 
 	.button-accent {
-		background: #FF7865;
+		background: #3152FF;
 		border: 0;
 		border-radius: 0;
 		text-transform: uppercase;

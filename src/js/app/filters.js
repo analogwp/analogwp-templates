@@ -56,7 +56,7 @@ const FiltersContainer = styled.div`
 
 	.is-active {
 		svg {
-			fill: #ff7865;
+			fill: #3152FF;
 		}
 	}
 

@@ -59,7 +59,7 @@ const Container = styled.div`
 		color: #fff;
 		border-radius: 0;
 		border: none;
-		background: #ff7865;
+		background: #3152FF;
 		outline: 0;
 		box-shadow: none;
 		padding: 15px 30px;

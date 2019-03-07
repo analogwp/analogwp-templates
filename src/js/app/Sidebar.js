@@ -15,7 +15,7 @@ const Container = styled.div`
 	}
 
 	a {
-		color: #FF7865;
+		color: #3152FF;
 		text-decoration: none;
 	}
 
