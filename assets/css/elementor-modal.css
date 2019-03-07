@@ -16,10 +16,12 @@
     text-align: left;
 }
 
-#analogwp-templates input[type=search] {
-    background: #fff;
-    border-radius: 0;
-    font-weight: bold;
+#analogwp-templates input[type=checkbox]:checked:before {
+	margin: -5px 0 0 -9px;
+}
+
+#analogwp-templates label {
+	cursor: pointer;
 }
 
 #analogwp-templates > div {

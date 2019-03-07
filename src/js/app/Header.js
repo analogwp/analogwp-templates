@@ -61,7 +61,8 @@ const Container = styled.div`
 		}
 	}
 	.close-modal svg {
-		fill: #000;
+		fill: #fff;
+		width: 15px;
 	}
 	.sync {
 		text-transform: uppercase;
@@ -104,7 +105,7 @@ const Header = () => {
 				) }
 			</AnalogContext.Consumer>
 			{ ! AGWP.is_settings_page && (
-				<button className="button-plain close-modal">
+				<button className="button-plain sync close-modal">
 					{ __( 'Close', 'ang' ) } <Close />
 				</button>
 			) }

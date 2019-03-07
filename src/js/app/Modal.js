@@ -14,7 +14,7 @@ const Container = styled.div`
 	background: #e3e3e3;
 	z-index: 999;
 	text-align: center;
-	
+
 	iframe {
 		width: 100%;
 		height: 100%;
@@ -44,7 +44,7 @@ const Container = styled.div`
 		-moz-appearance: none;
 		padding: 0;
 		margin: 0;
-		font-size: 12px;
+		font-size: 14.22px;
 		font-weight: bold;
 		color: #060606;
 		background: transparent;
