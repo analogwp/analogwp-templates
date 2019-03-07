@@ -30,6 +30,7 @@ const TemplatesList = styled.ul`
 	li {
 		background: #fff;
 		position: relative;
+		border-radius: 4px;
 	}
 
 	.pro {
@@ -81,6 +82,8 @@ const TemplatesList = styled.ul`
 	img {
 		width: 100%;
 		height: auto;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
 	}
 
 	figure {
@@ -111,20 +114,11 @@ const TemplatesList = styled.ul`
 		left: 0;
 		z-index: 100;
 		transition: all 200ms;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
 	}
 
 	.actions button {
-		display: block;
-		border: none;
-		outline: 0;
-		font-size: 12px;
-		padding: 10px;
-		font-weight: bold;
-		background: #ff7865;
-		width: 100px;
-		color: #fff;
-		cursor: pointer;
-		transition: all 200ms ease-in;
 		opacity: 0;
 
 		&:nth-child(1) {
@@ -132,10 +126,6 @@ const TemplatesList = styled.ul`
 		}
 		&:nth-child(2) {
 			transform: translateX(20px);
-		}
-
-		&:hover {
-			background: rgba(255, 120, 101, 0.9);
 		}
 
 		+ button {
@@ -153,10 +143,6 @@ const TemplatesList = styled.ul`
 			content: " / ";
 		}
 	}
-`;
-
-const StyledButton = styled.button`
-	padding: 5px 10px;
 `;
 
 const initialState = {
@@ -362,14 +348,14 @@ class Templates extends React.Component {
 									<figure>
 										{ template.thumbnail && <Image template={ template } /> }
 										<div className="actions">
-											<StyledButton
+											<button className="ang-button"
 												onClick={ () => this.setModalContent( template ) }
 											>
 												{ __( 'Preview', 'ang' ) }
-											</StyledButton>
-											<StyledButton onClick={ () => this.importLayout( template ) }>
+											</button>
+											<button className="ang-button" onClick={ () => this.importLayout( template ) }>
 												{ __( 'Import', 'ang' ) }
-											</StyledButton>
+											</button>
 										</div>
 									</figure>
 									<div className="content">

@@ -25,11 +25,12 @@ const FiltersContainer = styled.div`
 	}
 	input[type="search"] {
 		margin-left: auto;
-		padding: 12px;
+		padding: 8px;
 		border: none;
 		outline: none;
 		box-shadow: none;
 		width: 250px;
+		margin-right: 4px;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 

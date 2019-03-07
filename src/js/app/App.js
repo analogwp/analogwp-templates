@@ -23,6 +23,22 @@ const Analog = styled.div`
 		z-index: 100000;
 	}
 
+	.ang-button {
+		font-size: 14.22px;
+		font-weight: bold;
+		text-align: center;
+		border-radius: 4px;
+		color: #fff;
+		background: ${ props => props.theme.accent };
+		padding: 10px;
+		display: block;
+		border: none;
+		outline: 0;
+		cursor: pointer;
+		transition: all 200ms ease-in;
+		min-width: 100px;
+	}
+
 	.components-base-control {
 		font-family: inherit;
 		font-size: inherit;
@@ -260,32 +276,36 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<Analog>
-				<Notifications>
-					<ThemeContext.Provider value={ {
-						theme: Theme,
-					} }>
-						<AnalogContext.Provider
-							value={ {
-								state: this.state,
-								forceRefresh: this.refreshAPI,
-								markFavorite: markFavorite,
-								toggleFavorites: this.toggleFavorites,
-								handleSearch: this.handleSearch,
-								handleSort: this.handleSort,
-								handleFilter: this.handleFilter,
-								dispatch: action => this.setState( action ),
-							} }
-						>
-							<Header />
+			<ThemeContext.Provider value={ {
+				theme: Theme,
+			} }>
+				<ThemeContext.Consumer>
+					{ ( { theme } ) => (
+						<Analog theme={ theme }>
+							<Notifications>
+								<AnalogContext.Provider
+									value={ {
+										state: this.state,
+										forceRefresh: this.refreshAPI,
+										markFavorite: markFavorite,
+										toggleFavorites: this.toggleFavorites,
+										handleSearch: this.handleSearch,
+										handleSort: this.handleSort,
+										handleFilter: this.handleFilter,
+										dispatch: action => this.setState( action ),
+									} }
+								>
+									<Header />
 
-							<Content>
-								{ getPageComponents( this.state ) }
-							</Content>
-						</AnalogContext.Provider>
-					</ThemeContext.Provider>
-				</Notifications>
-			</Analog>
+									<Content>
+										{ getPageComponents( this.state ) }
+									</Content>
+								</AnalogContext.Provider>
+							</Notifications>
+						</Analog>
+					) }
+				</ThemeContext.Consumer>
+			</ThemeContext.Provider>
 		);
 	}
 }
