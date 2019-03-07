@@ -80,7 +80,7 @@ class Elementor {
 				'is_settings_page' => false,
 				'favorites'        => $favorites,
 				'isPro'            => false,
-				'pluginURL'        => plugin_dir_url( __FILE__ ),
+				'pluginURL'        => ANG_PLUGIN_URL,
 				'license'          => [
 					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 					'message' => get_transient( 'ang_license_message' ),

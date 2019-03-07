@@ -12,7 +12,7 @@ const List = styled.ul`
 	color: #23282C;
 
 	.button-plain {
-		font-size: 18px;
+		font-size: 18px !important;
 	}
 
 	li {
