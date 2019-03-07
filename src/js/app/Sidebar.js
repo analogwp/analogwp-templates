@@ -64,11 +64,41 @@ const Container = styled.div`
 	.sub {
 		margin-top: 30px;
 	}
+
+	.message {
+		color: #61A670;
+	}
 `;
 
 const Sidebar = () => {
 	const { state } = React.useContext( AnalogContext );
-	const [ email, setEmail ] = React.useState( '' );
+	const [ email, setEmail ] = React.useState( AGWP.user.email );
+	const [ loading, setLoading ] = React.useState( false );
+	const [ message, setMessage ] = React.useState( '' );
+
+	const subscribeUser = async() => {
+		setLoading( true );
+
+		jQuery.ajax( {
+			url: 'https://analogwp.com/?ang-api=asdf&request=subscribe_newsletter',
+			cache: ! 1,
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				email: email,
+				fname: AGWP.user.fname,
+				lname: AGWP.user.lname,
+			},
+			error: ( error ) => {
+				setLoading( false );
+				setMessage( __( 'An error occured', 'ang' ) );
+			},
+			success: ( response ) => {
+				setLoading( false );
+				setMessage( 'Successfully subscribed!!!' );
+			},
+		} );
+	};
 
 	return (
 		<Container>
@@ -86,8 +116,14 @@ const Sidebar = () => {
 
 					<Button
 						className="ang-button"
-						onClick={ () => console.log( 'clicked' ) }
-					>{ __( 'Sign up to newsletter' ) }</Button>
+						onClick={ subscribeUser }
+					>
+						{ loading ? __( 'Sending...', 'ang' ) : __( 'Sign up to newsletter', 'ang' ) }
+					</Button>
+
+					{ message && (
+						<p className="message">{ message }</p>
+					) }
 				</div>
 			</div>
 
@@ -132,7 +168,7 @@ const Sidebar = () => {
 						<li>{ __( 'Pro Elements, theme builder layouts', 'ang' ) }</li>
 						<li>{ __( 'Requires Elementor Pro', 'ang' ) }</li>
 					</ul>
-					<p><ExternalLink href="https://analogwp.com/">{ __( 'More Details', 'ang' ) }</ExternalLink></p>
+					<p><ExternalLink className="ang-link" href="https://analogwp.com/">{ __( 'More Details', 'ang' ) }</ExternalLink></p>
 				</div>
 			) }
 		</Container>

@@ -37,6 +37,7 @@ const Analog = styled.div`
 		cursor: pointer;
 		transition: all 200ms ease-in;
 		min-width: 100px;
+		text-decoration: none;
 	}
 
 	h1,h2,h3,h4,h5,h6 {

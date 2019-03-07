@@ -72,6 +72,8 @@ class Elementor {
 
 		if ( ! $favorites )  $favorites = [];
 
+		$current_user = wp_get_current_user();
+
 		wp_localize_script(
 			'analogwp-app',
 			'AGWP',
@@ -84,6 +86,11 @@ class Elementor {
 				'license'          => [
 					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 					'message' => get_transient( 'ang_license_message' ),
+				],
+				'user'             => [
+					'email' => $current_user->user_email,
+					'fname' => $current_user->user_firstname,
+					'lname' => $current_user->user_lastname,
 				],
 			]
 		);
