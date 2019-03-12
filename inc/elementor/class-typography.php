@@ -29,6 +29,7 @@ class Typography extends Module {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 10, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 10, 2 );
 
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_scripts' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ], 999 );
@@ -177,6 +178,59 @@ class Typography extends Module {
 					'responsive' => true,
 					'selectors'  => [
 						"body .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}" => 'font-size: {{SIZE}}{{UNIT}}',
+					],
+				]
+			);
+		}
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Register Columns gaps controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_columns_gap( Controls_Stack $element, $section_id ) {
+		if ( 'section_page_style' !== $section_id ) {
+			return;
+		}
+
+		$gaps = [
+			'narrow'   => __( 'Narrow Padding', 'ang' ),
+			'extended' => __( 'Extended Padding', 'ang' ),
+			'wide'     => __( 'Wide Padding', 'ang' ),
+			'wider'    => __( 'Wider Padding', 'ang' ),
+		];
+
+		$element->start_controls_section(
+			'ang_column_gaps',
+			[
+				'label' => __( 'Column Gaps', 'ang' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$element->add_control(
+			'ang_column_gaps_description',
+			[
+				'raw'             => __( 'Set the default values of the column gaps. Based on Elementor&apos;s default sizes.', 'ang' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			]
+		);
+
+		foreach ( $gaps as $key => $label ) {
+			$element->add_responsive_control(
+				'column_gap_' . $key,
+				[
+					'label'      => $label,
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => [ 'px', 'em', '%' ],
+					'selectors'  => [
+						"body .elementor-column-gap-{$key} > .elementor-row > .elementor-column > .elementor-element-populated"
+						=> 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					],
 				]
 			);
