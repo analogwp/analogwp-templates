@@ -28,6 +28,7 @@ class Typography extends Module {
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 10, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 10, 2 );
 
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_scripts' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ], 999 );
@@ -124,6 +125,62 @@ class Typography extends Module {
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 			]
 		);
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Register typography sizes controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_typography_sizes( Controls_Stack $element, $section_id ) {
+		if ( 'section_page_style' !== $section_id ) {
+			return;
+		}
+
+		$element->start_controls_section(
+			'typography_sizes',
+			[
+				'label' => __( 'Sizes', 'ang' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$settings = [
+			[ 'small', __( 'Small', 'ang' ), 15 ],
+			[ 'medium', __( 'Medium', 'ang' ), 19 ],
+			[ 'large', __( 'Large', 'ang' ), 29 ],
+			[ 'xl', __( 'XL', 'ang' ), 39 ],
+			[ 'xxl', __( 'XXL', 'ang' ), 59 ],
+		];
+
+		foreach ( $settings as $setting ) {
+			$element->add_control(
+				'ang_size_' . $setting[0],
+				[
+					'label'      => $setting[1],
+					'type'       => Controls_Manager::SLIDER,
+					'size_units' => [ 'px', 'em', 'rem', 'vw' ],
+					'range'      => [
+						'px' => [
+							'min' => 1,
+							'max' => 200,
+						],
+						'vw' => [
+							'min'  => 0.1,
+							'max'  => 10,
+							'step' => 0.1,
+						],
+					],
+					'responsive' => true,
+					'selectors'  => [
+						"body .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}" => 'font-size: {{SIZE}}{{UNIT}}',
+					],
+				]
+			);
+		}
 
 		$element->end_controls_section();
 	}
