@@ -279,7 +279,7 @@ class Typography extends Module {
 				'ang_typography_fonts',
 				'https://fonts.googleapis.com/css?family=' . implode( '|', $font_families ),
 				[],
-				get_the_modified_time( 'U' )
+				get_the_modified_time( 'U', $post_id )
 			);
 		}
 	}
