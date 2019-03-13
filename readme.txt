@@ -2,7 +2,7 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
-Tested up to: 5.1
+Tested up to: 5.1.1
 Stable tag: 1.1
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
