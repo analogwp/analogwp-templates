@@ -11,8 +11,28 @@ const List = styled.ul`
 	font-size: 17px;
 	color: #23282C;
 
+	.button-plain {
+		font-size: 18px !important;
+	}
+
+	li {
+		position: relative;
+	}
+
 	li.active {
 		color: #B2B2B2;
+		&:after {
+			content: '';
+			position: absolute;
+			height: 0;
+			width: 0;
+			bottom: -29px;
+			border-style: solid;
+			border-width: 0 10px 10px 10px;
+			border-color: transparent transparent #E3E3E3 transparent;
+			left: 50%;
+			transform: translateX(-50%);
+		}
 	}
 
 	li.button-plain + li.button-plain {

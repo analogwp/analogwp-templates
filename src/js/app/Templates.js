@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { requestDirectImport, requestElementorImport } from './api';
+import { Theme } from './contexts/ThemeContext';
 import Image from './helpers/Image';
 import Loader from './icons/loader';
 import Star from './icons/star';
@@ -9,6 +10,7 @@ import CustomModal from './modal';
 import { NotificationConsumer } from './Notifications';
 import Popup from './popup';
 import ProModal from './ProModal';
+import { isNewTheme } from './utils';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
@@ -30,19 +32,29 @@ const TemplatesList = styled.ul`
 	li {
 		background: #fff;
 		position: relative;
+		border-radius: 4px;
 	}
 
+	.new,
 	.pro {
 		position: absolute;
-		top: 8px;
+		top: -8px;
 		right: -8px;
-		background: #ff7865;
+		background: #3152FF;
 		color: #fff;
 		z-index: 110;
 		font-weight: bold;
 		font-size: 12px;
 		padding: 8px 10px;
 		line-height: 1;
+		border-radius: 4px;
+		text-transform: uppercase;
+		font-size: 14.22px;
+		letter-spacing: .5px;
+	}
+
+	.new {
+		background: ${ Theme.accent };
 	}
 
 	p {
@@ -66,7 +78,7 @@ const TemplatesList = styled.ul`
 		button:hover,
 		button.is-active {
 			svg {
-				fill: #ff7865;
+				fill: #FFB443;
 			}
 		}
 	}
@@ -81,6 +93,8 @@ const TemplatesList = styled.ul`
 	img {
 		width: 100%;
 		height: auto;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
 	}
 
 	figure {
@@ -111,20 +125,11 @@ const TemplatesList = styled.ul`
 		left: 0;
 		z-index: 100;
 		transition: all 200ms;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
 	}
 
 	.actions button {
-		display: block;
-		border: none;
-		outline: 0;
-		font-size: 12px;
-		padding: 10px;
-		font-weight: bold;
-		background: #ff7865;
-		width: 100px;
-		color: #fff;
-		cursor: pointer;
-		transition: all 200ms ease-in;
 		opacity: 0;
 
 		&:nth-child(1) {
@@ -134,17 +139,13 @@ const TemplatesList = styled.ul`
 			transform: translateX(20px);
 		}
 
-		&:hover {
-			background: rgba(255, 120, 101, 0.9);
-		}
-
 		+ button {
 			margin-top: 10px;
 		}
 	}
 
 	.tags {
-		color: #999999;
+		color: #888;
 		text-transform: capitalize;
 		padding: 0 20px 15px 20px;
 		font-size: 12px;
@@ -153,10 +154,6 @@ const TemplatesList = styled.ul`
 			content: " / ";
 		}
 	}
-`;
-
-const StyledButton = styled.button`
-	padding: 5px 10px;
 `;
 
 const initialState = {
@@ -275,7 +272,7 @@ class Templates extends React.Component {
 										<p>{ __( 'Blimey! Your template has been imported.', 'ang' ) }</p>
 										<p>
 											<a
-												className="button button-accent"
+												className="ang-button"
 												href={ addQueryArgs( 'post.php', { post: this.state.importedPage, action: 'elementor' } ) }
 											>{ __( 'Edit Template' ) }</a>
 										</p>
@@ -297,7 +294,7 @@ class Templates extends React.Component {
 										<NotificationConsumer>
 											{ ( { add } ) => (
 												<Button
-													className="button-accent"
+													className="ang-button"
 													onClick={ () => this.handleImport( add ) }
 												>
 													{ __( 'Import to Library', 'ang' ) }
@@ -322,8 +319,11 @@ class Templates extends React.Component {
 										<NotificationConsumer>
 											{ ( { add } ) => (
 												<Button
-													className="button-accent"
+													className="ang-button"
 													disabled={ ! this.state.pageName }
+													style={ {
+														marginLeft: '15px',
+													} }
 													onClick={ () => this.handleImport( add, this.state.pageName ) }
 												>
 													{ __( 'Import to page', 'ang' ) }
@@ -359,17 +359,22 @@ class Templates extends React.Component {
 									{ template.is_pro && (
 										<span className="pro">{ __( 'Pro', 'ang' ) }</span>
 									) }
+
+									{ ( isNewTheme( template.published ) > -7 ) && (
+										<span className="new">{ __( 'New', 'ang' ) }</span>
+									) }
+
 									<figure>
 										{ template.thumbnail && <Image template={ template } /> }
 										<div className="actions">
-											<StyledButton
+											<button className="ang-button"
 												onClick={ () => this.setModalContent( template ) }
 											>
 												{ __( 'Preview', 'ang' ) }
-											</StyledButton>
-											<StyledButton onClick={ () => this.importLayout( template ) }>
+											</button>
+											<button className="ang-button" onClick={ () => this.importLayout( template ) }>
 												{ __( 'Import', 'ang' ) }
-											</StyledButton>
+											</button>
 										</div>
 									</figure>
 									<div className="content">

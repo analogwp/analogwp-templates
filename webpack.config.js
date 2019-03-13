@@ -12,6 +12,7 @@ const inProduction = 'production' === process.env.NODE_ENV;
 // Externals
 const externals = {
 	react: 'React',
+	moment: 'moment',
 	'react-dom': 'ReactDOM',
 };
 
