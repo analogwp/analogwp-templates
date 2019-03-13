@@ -24,8 +24,12 @@
 	cursor: pointer;
 }
 
+#analogwp-templates-modal .dialog-message {
+    padding: 0;
+}
+
 #analogwp-templates > div {
-    margin: 0 -20px;
+	margin: 0;
 }
 
 .elementor-add-analogwp-button {
