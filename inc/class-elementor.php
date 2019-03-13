@@ -37,16 +37,16 @@ class Elementor {
 
 		wp_enqueue_script(
 			'react',
-			"https://cdn.jsdelivr.net/npm/react@16.8.2/umd/react.{$script_suffix}.min.js",
+			"https://cdn.jsdelivr.net/npm/react@16.8.4/umd/react.{$script_suffix}.min.js",
 			[],
-			'16.8.2',
+			'16.8.4',
 			true
 		);
 		wp_enqueue_script(
 			'react-dom',
-			"https://cdn.jsdelivr.net/npm/react-dom@16.8.2/umd/react-dom.{$script_suffix}.min.js",
+			"https://cdn.jsdelivr.net/npm/react-dom@16.8.4/umd/react-dom.{$script_suffix}.min.js",
 			[ 'react' ],
-			'16.8.2',
+			'16.8.4',
 			true
 		);
 
