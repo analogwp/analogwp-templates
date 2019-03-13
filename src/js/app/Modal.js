@@ -1,7 +1,26 @@
-import styled from 'styled-components';
-import Loader from './icons/loader';
+import styled, { keyframes } from 'styled-components';
 const { Tooltip, FocusableIframe } = wp.components;
 const { __ } = wp.i18n;
+
+const rotateOpacity = keyframes`
+  0% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+`;
+
+const Img = styled.img`
+	opacity: 0.5;
+	transition: all 200ms ease-in-out;
+	animation: ${ rotateOpacity } 2s linear infinite;
+`;
 
 const Container = styled.div`
 	position: absolute;
@@ -87,7 +106,10 @@ const Modal = props => {
 				</button>
 			</div>
 
-			{ loading && <Loader /> }
+			{ loading && <Img
+				src={ `${ AGWP.pluginURL }assets/img/placeholder.svg` }
+				alt="Loading icon"
+			/> }
 
 			<FocusableIframe src={ props.template.url } onLoad={ () => setLoading( false ) } />
 		</Container>
