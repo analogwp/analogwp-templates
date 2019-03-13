@@ -3,7 +3,7 @@
  * Plugin Name: AnalogWP Templates
  * Plugin URI:  https://analogwp.com/
  * Description: A handcrafted design library for Elementor templates.
- * Version:     1.0.0
+ * Version:     1.1
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -81,7 +81,7 @@ final class Analog_Templates {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'ANG_VERSION' ) ) {
-			define( 'ANG_VERSION', '1.0.0' );
+			define( 'ANG_VERSION', '1.1' );
 		}
 
 		// Plugin Folder Path.
@@ -140,16 +140,16 @@ final class Analog_Templates {
 
 		wp_enqueue_script(
 			'react',
-			"https://cdn.jsdelivr.net/npm/react@16.8.2/umd/react.{$script_suffix}.min.js",
+			"https://cdn.jsdelivr.net/npm/react@16.8.4/umd/react.{$script_suffix}.min.js",
 			[],
-			'16.8.2',
+			'16.8.4',
 			true
 		);
 		wp_enqueue_script(
 			'react-dom',
-			"https://cdn.jsdelivr.net/npm/react-dom@16.8.2/umd/react-dom.{$script_suffix}.min.js",
+			"https://cdn.jsdelivr.net/npm/react-dom@16.8.4/umd/react-dom.{$script_suffix}.min.js",
 			[ 'react' ],
-			'16.8.2',
+			'16.8.4',
 			true
 		);
 
