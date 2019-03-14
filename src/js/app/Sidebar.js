@@ -3,19 +3,19 @@ import AnalogContext from './AnalogContext';
 import { hasProTemplates } from './utils';
 
 const { __ } = wp.i18n;
-const { ExternalLink, Dashicon } = wp.components;
+const { ExternalLink, Dashicon, TextControl, Button } = wp.components;
 
 const Container = styled.div`
-	font-weight: 500;
-	color: #6D6D6D;
-	font-size: 15px;
+	color: #060606;
+	padding-top: 80px;
+	font-size: 16px;
 
 	p, li {
 		font-size: inherit;
 	}
 
 	a {
-		color: #FF7865;
+		color: #3152FF;
 		text-decoration: none;
 	}
 
@@ -23,34 +23,25 @@ const Container = styled.div`
 		list-style: disc;
 		list-style-position: inside;
 	}
-	h4 {
-		color: #23282C;
-	}
 	h3 {
-		color: #23282C;
-		font-size: 25px;
-		font-weight: 600;
+		color: #060606;
+		font-size: 20.25px;
+		font-weight: 700;
 		line-height: 1.4;
 	}
-	div {
-		background: #fff;
-		padding: 50px 70px;
-		+ div {
-			margin-top: 30px;
-		}
+	> div {
+		padding: 30px 70px;
 	}
 
 	.social-links {
-		padding: 0;
-		margin-top: 50px;
 		a {
 			background: #3F4346;
-			width: 36px;
-			height: 36px;
+			width: 44px;
+			height: 44px;
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
-			border-radius: 50%;
+			border-radius: 4px;
 			color: #fff;
 			font-size: 20px;
 
@@ -59,30 +50,111 @@ const Container = styled.div`
 			}
 		}
 	}
+
+	.ang-button {
+		width: 100%;
+	}
+
+	label {
+		color: #060606;
+		font-weight: bold;
+		font-size: 14.22px;
+	}
+
+	.sub {
+		margin-top: 30px;
+	}
+
+	.message {
+		color: #61A670;
+	}
 `;
 
 const Sidebar = () => {
 	const { state } = React.useContext( AnalogContext );
+	const [ email, setEmail ] = React.useState( AGWP.user.email );
+	const [ loading, setLoading ] = React.useState( false );
+	const [ message, setMessage ] = React.useState( '' );
+
+	const subscribeUser = async() => {
+		setLoading( true );
+
+		jQuery.ajax( {
+			url: 'https://analogwp.com/?ang-api=asdf&request=subscribe_newsletter',
+			cache: ! 1,
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				email: email,
+				fname: AGWP.user.fname,
+				lname: AGWP.user.lname,
+			},
+			error: ( error ) => {
+				setLoading( false );
+				setMessage( __( 'An error occured', 'ang' ) );
+			},
+			success: ( response ) => {
+				setLoading( false );
+				setMessage( 'Successfully subscribed!!!' );
+			},
+		} );
+	};
 
 	return (
 		<Container>
 			<div>
+				<h3>{ __( 'Sign up for updates', 'ang' ) }</h3>
+				<p>{ __( 'Sign up to Analog Newsletter and get notified about product updates, freebies and more.', 'ang' ) }</p>
+
+				<div className="sub">
+					<TextControl
+						type="email"
+						value={ email }
+						onChange={ ( value ) => setEmail( value ) }
+						placeholder={ __( 'Enter your email', 'ang' ) }
+					/>
+
+					<Button
+						className="ang-button"
+						onClick={ subscribeUser }
+					>
+						{ loading ? __( 'Sending...', 'ang' ) : __( 'Sign up to newsletter', 'ang' ) }
+					</Button>
+
+					{ message && (
+						<p className="message">{ message }</p>
+					) }
+				</div>
+			</div>
+
+			<div>
 				<h3>{ __( 'Docs', 'ang' ) }</h3>
 				<p>{ __( 'Need help setting up? We have a number of handy articles to get you started.', 'ang' ) }</p>
-				<p><ExternalLink href="https://docs.codestag.com/">{ __( 'Read Documentation', 'ang' ) }</ExternalLink></p>
+				<p><ExternalLink className="ang-link" href="https://docs.codestag.com/">{ __( 'Read Documentation', 'ang' ) }</ExternalLink></p>
+			</div>
 
-				<div className="social-links">
-					<h4>{ __( 'Find us elsewhere' ) }</h4>
-					<a href="https://facebook.com/analogwp" target="_blank" rel="external noreferrer noopener">
-						<Dashicon icon="facebook-alt" />
-					</a>
-					<a href="https://twitter.com/analogwp" target="_blank" rel="external noreferrer noopener">
-						<Dashicon icon="twitter" />
-					</a>
-					<a href="https://analogwp.com/" target="_blank" rel="external noreferrer noopener">
-						<Dashicon icon="admin-site" />
-					</a>
-				</div>
+			<div className="social-links">
+				<h3>{ __( 'Follow on Social' ) }</h3>
+				<a
+					href="https://facebook.com/analogwp"
+					target="_blank" rel="external noreferrer noopener"
+					style={ {
+						background: '#3C5B96',
+					} }
+				>
+					<Dashicon icon="facebook-alt" />
+				</a>
+				<a
+					href="https://twitter.com/analogwp"
+					style={ {
+						background: '#29A3EF',
+					} }
+					target="_blank" rel="external noreferrer noopener">
+					<Dashicon icon="twitter" />
+				</a>
+				<a href="https://analogwp.com/" target="_blank" rel="external noreferrer noopener">
+					<Dashicon icon="admin-site" />
+				</a>
 			</div>
 
 			{ ( hasProTemplates( state.templates ) && AGWP.license.status !== 'valid' ) && (
@@ -96,7 +168,7 @@ const Sidebar = () => {
 						<li>{ __( 'Pro Elements, theme builder layouts', 'ang' ) }</li>
 						<li>{ __( 'Requires Elementor Pro', 'ang' ) }</li>
 					</ul>
-					<p><ExternalLink href="https://analogwp.com/">{ __( 'More Details', 'ang' ) }</ExternalLink></p>
+					<p><ExternalLink className="ang-link" href="https://analogwp.com/">{ __( 'More Details', 'ang' ) }</ExternalLink></p>
 				</div>
 			) }
 		</Container>

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { default as styled, keyframes } from 'styled-components';
 import AnalogContext from './AnalogContext';
+import ThemeContext from './contexts/ThemeContext';
 import Close from './icons/close';
 import Logo from './icons/logo';
 import Refresh from './icons/refresh';
@@ -19,18 +20,22 @@ const rotate = keyframes`
 `;
 
 const Container = styled.div`
-	background: #fff;
+	background: ${ props => props.theme.accent };
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 12px 24px;
+
+	a {
+		color: #fff;
+	}
 
 	svg {
 		vertical-align: bottom;
 	}
 
 	.button-plain {
-		color: #060606;
+		color: #fff !important;
 		font-weight: bold;
 		text-decoration: none;
 		display: inline-flex;
@@ -53,59 +58,59 @@ const Container = styled.div`
 		+ .button-plain {
 			position: relative;
 			margin-left: 30px;
-			&:before {
-				content: "";
-				background: #d4d4d4;
-				width: 2px;
-				height: 25px;
-				position: absolute;
-				display: block;
-				left: -16px;
-				top: -4px;
-			}
 		}
 	}
 	.close-modal svg {
-		fill: #000;
+		fill: #fff;
+		width: 15px;
+	}
+	.sync {
+		text-transform: uppercase;
+		font-size: 12.64px !important;
+		letter-spacing: 1px;
 	}
 `;
 
-const Header = () => (
-	<Container>
-		<Logo />
-		{ AGWP.is_settings_page && (
-			<Nav />
-		) }
-		<AnalogContext.Consumer>
-			{ context => (
-				<NotificationConsumer>
-					{ ( { add } ) => (
-						<button
-							className={ classNames( 'button-plain', {
-								'is-active': context.state.syncing,
-							} ) }
-							onClick={ e => {
-								e.preventDefault();
-								context.forceRefresh()
-									.then( () => add( __( 'Templates library refreshed', 'ang' ) ) )
-									.catch( () => add( __( 'Error refreshing templates library, please try again.', 'ang' ), 'error' ) );
-							} }
-						>
-							{ context.state.syncing ?
-								__( 'Syncing...', 'ang' ) :
-								__( 'Sync Library', 'ang' ) }
-							<Refresh />
-						</button>
-					) }
-				</NotificationConsumer>
+const Header = () => {
+	const { theme } = React.useContext( ThemeContext );
+
+	return (
+		<Container theme={ theme }>
+			<Logo />
+			{ AGWP.is_settings_page && (
+				<Nav />
 			) }
-		</AnalogContext.Consumer>
-		{ ! AGWP.is_settings_page && (
-			<button className="button-plain close-modal">
-				{ __( 'Close', 'ang' ) } <Close />
-			</button>
-		) }
-	</Container>
-);
+			<AnalogContext.Consumer>
+				{ context => (
+					<NotificationConsumer>
+						{ ( { add } ) => (
+							<button
+								className={ classNames( 'button-plain', 'sync', {
+									'is-active': context.state.syncing,
+								} ) }
+								onClick={ e => {
+									e.preventDefault();
+									context.forceRefresh()
+										.then( () => add( __( 'Templates library refreshed', 'ang' ) ) )
+										.catch( () => add( __( 'Error refreshing templates library, please try again.', 'ang' ), 'error' ) );
+								} }
+							>
+								{ context.state.syncing ?
+									__( 'Syncing...', 'ang' ) :
+									__( 'Sync Library', 'ang' ) }
+								<Refresh />
+							</button>
+						) }
+					</NotificationConsumer>
+				) }
+			</AnalogContext.Consumer>
+			{ ! AGWP.is_settings_page && (
+				<button className="button-plain sync close-modal">
+					{ __( 'Close', 'ang' ) } <Close />
+				</button>
+			) }
+		</Container>
+	);
+};
 
 export default Header;

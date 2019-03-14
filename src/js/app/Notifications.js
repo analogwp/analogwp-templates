@@ -6,6 +6,8 @@ import Success from './icons/success';
 import { generateUEID } from './utils';
 const NotificationsContext = React.createContext();
 
+// https://github.com/jossmac/react-toast-notifications/blob/master/src/ToastElement.js
+
 export const NotificationProvider = NotificationsContext.Provider;
 export const NotificationConsumer = NotificationsContext.Consumer;
 

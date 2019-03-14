@@ -3,7 +3,7 @@
  * Plugin Name: AnalogWP Templates
  * Plugin URI:  https://analogwp.com/
  * Description: A handcrafted design library for Elementor templates.
- * Version:     1.0.0
+ * Version:     1.1.1
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -81,7 +81,7 @@ final class Analog_Templates {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'ANG_VERSION' ) ) {
-			define( 'ANG_VERSION', '1.0.0' );
+			define( 'ANG_VERSION', '1.1.1' );
 		}
 
 		// Plugin Folder Path.
@@ -142,16 +142,16 @@ final class Analog_Templates {
 
 		wp_enqueue_script(
 			'react',
-			"https://cdn.jsdelivr.net/npm/react@16.8.2/umd/react.{$script_suffix}.min.js",
+			"https://cdn.jsdelivr.net/npm/react@16.8.4/umd/react.{$script_suffix}.min.js",
 			[],
-			'16.8.2',
+			'16.8.4',
 			true
 		);
 		wp_enqueue_script(
 			'react-dom',
-			"https://cdn.jsdelivr.net/npm/react-dom@16.8.2/umd/react-dom.{$script_suffix}.min.js",
+			"https://cdn.jsdelivr.net/npm/react-dom@16.8.4/umd/react-dom.{$script_suffix}.min.js",
 			[ 'react' ],
-			'16.8.2',
+			'16.8.4',
 			true
 		);
 
@@ -173,6 +173,8 @@ final class Analog_Templates {
 
 		if ( ! $favorites )  $favorites = [];
 
+		$current_user = wp_get_current_user();
+
 		wp_localize_script(
 			'analogwp-app',
 			'AGWP',
@@ -181,10 +183,15 @@ final class Analog_Templates {
 				'is_settings_page' => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
 				'favorites'        => $favorites,
 				'elementorURL'     => admin_url( 'edit.php?post_type=elementor_library' ),
-				'debugMode'        => defined( 'ANALOG_DEV_DEBUG' ),
+				'debugMode'        => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
 				'isPro'            => false,
 				'pluginURL'        => plugin_dir_url( __FILE__ ),
 				'permission'       => (bool) current_user_can( 'manage_options' ),
+				'user'             => [
+					'email' => $current_user->user_email,
+					'fname' => $current_user->user_firstname,
+					'lname' => $current_user->user_lastname,
+				],
 				'license'          => [
 					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 					'message' => get_transient( 'ang_license_message' ),
@@ -196,10 +203,8 @@ final class Analog_Templates {
 		wp_add_inline_script( 'analogwp-app', $helpscout );
 		wp_add_inline_script( 'analogwp-app', "window.Beacon('init', 'a7572e82-da95-4f09-880e-5c1f071aaf07')" );
 
-		$current_user = wp_get_current_user();
-		$current_user = $current_user->data;
-		$version      = ANG_VERSION;
-		$url          = home_url();
+		$version = ANG_VERSION;
+		$url     = home_url();
 
 		$identify_customer = "Beacon('identify', {
 			name: '{$current_user->display_name}',

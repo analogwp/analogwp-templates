@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { getSettings, markFavorite, requestTemplateList } from './api';
+import ThemeContext, { Theme } from './contexts/ThemeContext';
 import Header from './Header';
 import Notifications from './Notifications';
 import { getPageComponents, hasProTemplates } from './utils';
@@ -20,6 +21,27 @@ const Analog = styled.div`
 		top: 75px;
 		padding: 8px;
 		z-index: 100000;
+	}
+
+	.ang-button {
+		font-size: 14.22px;
+		font-weight: bold;
+		text-align: center;
+		border-radius: 4px;
+		color: #fff;
+		background: ${ props => props.theme.accent };
+		padding: 12px;
+		display: inline-block;
+		border: none;
+		outline: 0;
+		cursor: pointer;
+		transition: all 200ms ease-in;
+		min-width: 100px;
+		text-decoration: none;
+	}
+
+	h1,h2,h3,h4,h5,h6 {
+		color: ${ props => props.theme.textDark };
 	}
 
 	.components-base-control {
@@ -43,9 +65,54 @@ const Analog = styled.div`
 		appearance: none;
 		outline: 0;
 		background: transparent;
-		font-size: inherit;
 		font-weight: bold;
 		color: #060606;
+		font-size: 14.22px;
+	}
+
+	input[type="text"],
+	input[type="search"],
+	input[type="email"] {
+		border: 2px solid #C7C7C7;
+		border-radius: 4px;
+		color: #888888;
+		font-weight: normal;
+		background: #fff;
+		font-size: 14.22px;
+		font-family: inherit;
+		&:focus {
+			outline: 0;
+			box-shadow: none;
+			border-color: #888888;
+		}
+	}
+
+	input[type=checkbox] {
+		appearance: none;
+		width: 22px;
+		height: 22px;
+		border: 1px solid #C7C7C7;
+		background: #fff;
+		border-radius: 0;
+
+		&:focus,
+		&:active {
+			box-shadow: none;
+			outline: 0;
+		}
+
+		&:checked:before {
+			content: "\f147";
+			display: inline-block;
+			vertical-align: middle;
+			width: 16px;
+			font: normal 21px/1 dashicons;
+			speak: none;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			color: #060606;
+			margin: 0px 0 0 -1px;
+		}
 	}
 
 	button {
@@ -53,7 +120,7 @@ const Analog = styled.div`
 	}
 
 	.button-accent {
-		background: #FF7865;
+		background: #3152FF;
 		border: 0;
 		border-radius: 0;
 		text-transform: uppercase;
@@ -80,9 +147,17 @@ const Analog = styled.div`
 	}
 
 	.components-external-link {
-		color: #FF7865;
-		text-decoration: none;
 		font-weight: 500;
+	}
+
+	.ang-link {
+		color: #3152FF;
+		text-transform: uppercase;
+		border-bottom: 2px solid #3152FF;
+		font-size: 12.64px;
+		letter-spacing: 1px;
+		text-decoration: none;
+		font-weight: bold;
 	}
 `;
 
@@ -251,28 +326,36 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<Analog>
-				<Notifications>
-					<AnalogContext.Provider
-						value={ {
-							state: this.state,
-							forceRefresh: this.refreshAPI,
-							markFavorite: markFavorite,
-							toggleFavorites: this.toggleFavorites,
-							handleSearch: this.handleSearch,
-							handleSort: this.handleSort,
-							handleFilter: this.handleFilter,
-							dispatch: action => this.setState( action ),
-						} }
-					>
-						<Header />
+			<ThemeContext.Provider value={ {
+				theme: Theme,
+			} }>
+				<ThemeContext.Consumer>
+					{ ( { theme } ) => (
+						<Analog theme={ theme }>
+							<Notifications>
+								<AnalogContext.Provider
+									value={ {
+										state: this.state,
+										forceRefresh: this.refreshAPI,
+										markFavorite: markFavorite,
+										toggleFavorites: this.toggleFavorites,
+										handleSearch: this.handleSearch,
+										handleSort: this.handleSort,
+										handleFilter: this.handleFilter,
+										dispatch: action => this.setState( action ),
+									} }
+								>
+									<Header />
 
-						<Content>
-							{ getPageComponents( this.state ) }
-						</Content>
-					</AnalogContext.Provider>
-				</Notifications>
-			</Analog>
+									<Content>
+										{ getPageComponents( this.state ) }
+									</Content>
+								</AnalogContext.Provider>
+							</Notifications>
+						</Analog>
+					) }
+				</ThemeContext.Consumer>
+			</ThemeContext.Provider>
 		);
 	}
 }

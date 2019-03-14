@@ -28,6 +28,7 @@
 		"Backbone": true,
 		"ElementorConfig": true,
 		"React": true,
+		"moment": true,
 		"ReactDOM": true,
 		"$": true,
 		"document": true

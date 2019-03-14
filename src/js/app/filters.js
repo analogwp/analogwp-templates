@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import Select from 'react-select';
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
+import { ThemeConsumer } from './contexts/ThemeContext';
 import Star from './icons/star';
 const { __ } = wp.i18n;
 const { CheckboxControl } = wp.components;
@@ -11,7 +12,9 @@ const FiltersContainer = styled.div`
 	display: flex;
 	font-weight: 500;
 	align-items: center;
-	color: #060606;
+	color: ${ props => props.theme.textDark };
+	font-size: 14.22px;
+	font-weight: bold;
 
 	a {
 		text-decoration: none;
@@ -22,11 +25,12 @@ const FiltersContainer = styled.div`
 	}
 	input[type="search"] {
 		margin-left: auto;
-		padding: 12px;
+		padding: 8px;
 		border: none;
 		outline: none;
 		box-shadow: none;
 		width: 250px;
+		margin-right: 4px;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 
@@ -39,16 +43,20 @@ const FiltersContainer = styled.div`
 		line-height: 1;
 	}
 
-	.favorites {
+	.favorites.favorites {
+		margin-right: 40px;
 		svg {
 			margin-right: 8px;
 			fill: #060606;
 		}
 	}
 
+	label {
+	}
+
 	.is-active {
 		svg {
-			fill: #ff7865;
+			fill: #3152FF;
 		}
 	}
 
@@ -71,24 +79,32 @@ const List = styled.div`
 	display: inline-flex;
 	align-items: center;
 	position: relative;
-	margin-left: 40px;
-	&:before {
-		content: "";
-		width: 2px;
-		height: 25px;
-		background: #d4d4d4;
-		transform: translateX(-21px);
-	}
+	margin-left: 30px;
 
 	label {
-		color: #969696;
 		margin-right: 15px;
+
 	}
 
 	.dropdown {
 		width: 140px;
 		z-index: 1000;
 		text-transform: capitalize;
+		font-weight: normal;
+
+		.css-xp4uvy {
+			color: #888;
+		}
+
+		.css-vj8t7z {
+			border: 2px solid #C7C7C7;
+			border-radius: 4px;
+		}
+
+		.css-2o5izw {
+			box-shadow: none !important;
+			border-width: 2px;
+		}
 	}
 `;
 
@@ -113,69 +129,73 @@ class Filters extends React.Component {
 			{ value: 'popular', label: __( 'Popular', 'ang' ) },
 		];
 		return (
-			<FiltersContainer>
-				<button
-					onClick={ this.context.toggleFavorites }
-					className={ classNames( 'favorites button-plain', {
-						'is-active': this.context.state.showing_favorites,
-					} ) }
-				>
-					<Star />{ ' ' }
-					{ this.context.state.showing_favorites ?
-						__( 'Back to all', 'ang' ) :
-						__( 'My Favorites', 'ang' ) }
-				</button>
-				{ this.context.state.filters.length > 1 && (
-					<List>
-						<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
-						<Select
-							inputId="filter"
-							className="dropdown"
-							defaultValue={ filterOptions[ 0 ] }
-							isSearchable={ false }
-							options={ filterOptions }
-							onChange={ e => this.context.handleFilter( e.value ) }
-						/>
-					</List>
-				) }
-				<List>
-					<label htmlFor="sort">{ __( 'Sort By', 'ang' ) }</label>
-					<Select
-						inputId="sort"
-						className="dropdown"
-						defaultValue={ sortOptions[ 0 ] }
-						isSearchable={ false }
-						options={ sortOptions }
-						onChange={ e => this.context.handleSort( e.value ) }
-					/>
-				</List>
+			<ThemeConsumer>
+				{ ( { theme } ) => (
+					<FiltersContainer theme={ theme }>
+						<button
+							onClick={ this.context.toggleFavorites }
+							className={ classNames( 'favorites button-plain', {
+								'is-active': this.context.state.showing_favorites,
+							} ) }
+						>
+							<Star />{ ' ' }
+							{ this.context.state.showing_favorites ?
+								__( 'Back to all', 'ang' ) :
+								__( 'My Favorites', 'ang' ) }
+						</button>
+						{ this.context.state.filters.length > 1 && (
+							<List>
+								<label htmlFor="filter">{ __( 'filter', 'ang' ) }</label>
+								<Select
+									inputId="filter"
+									className="dropdown"
+									defaultValue={ filterOptions[ 0 ] }
+									isSearchable={ false }
+									options={ filterOptions }
+									onChange={ e => this.context.handleFilter( e.value ) }
+								/>
+							</List>
+						) }
+						<List>
+							<label htmlFor="sort">{ __( 'sort by', 'ang' ) }</label>
+							<Select
+								inputId="sort"
+								className="dropdown"
+								defaultValue={ sortOptions[ 0 ] }
+								isSearchable={ false }
+								options={ sortOptions }
+								onChange={ e => this.context.handleSort( e.value ) }
+							/>
+						</List>
 
-				{ this.context.state.hasPro && (
-					<List>
-						<CheckboxControl
-							label={ __( 'Only Show Free Templates', 'ang' ) }
-							checked={ this.context.state.showFree }
-							className="checkbox"
-							onChange={ () => {
-								this.context.dispatch( {
-									showFree: ! this.context.state.showFree,
-								} );
-							} }
-						/>
-					</List>
-				) }
+						{ this.context.state.hasPro && (
+							<List>
+								<CheckboxControl
+									label={ __( 'show only free', 'ang' ) }
+									checked={ this.context.state.showFree }
+									className="checkbox"
+									onChange={ () => {
+										this.context.dispatch( {
+											showFree: ! this.context.state.showFree,
+										} );
+									} }
+								/>
+							</List>
+						) }
 
-				<input
-					type="search"
-					placeholder="Search"
-					ref={ this.searchInput }
-					onChange={ () =>
-						this.context.handleSearch(
-							this.searchInput.current.value.toLowerCase()
-						)
-					}
-				/>
-			</FiltersContainer>
+						<input
+							type="search"
+							placeholder={ __( 'Search templates', 'ang' ) }
+							ref={ this.searchInput }
+							onChange={ () =>
+								this.context.handleSearch(
+									this.searchInput.current.value.toLowerCase()
+								)
+							}
+						/>
+					</FiltersContainer>
+				) }
+			</ThemeConsumer>
 		);
 	}
 }

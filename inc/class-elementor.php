@@ -28,7 +28,7 @@ class Elementor {
 		do_action( 'ang_loaded_templates' );
 
 		wp_enqueue_script( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/js/elementor-modal.js', [ 'jquery' ], filemtime( ANG_PLUGIN_DIR . 'assets/js/elementor-modal.js' ), false );
-		wp_enqueue_style( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/css/elementor-modal.css', [], filemtime( ANG_PLUGIN_DIR . 'assets/css/elementor-modal.css' ) );
+		wp_enqueue_style( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/css/elementor-modal.css', [ 'dashicons' ], filemtime( ANG_PLUGIN_DIR . 'assets/css/elementor-modal.css' ) );
 
 		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? 'development' : 'production';
 
@@ -37,16 +37,16 @@ class Elementor {
 
 		wp_enqueue_script(
 			'react',
-			"https://cdn.jsdelivr.net/npm/react@16.8.2/umd/react.{$script_suffix}.min.js",
+			"https://cdn.jsdelivr.net/npm/react@16.8.4/umd/react.{$script_suffix}.min.js",
 			[],
-			'16.8.2',
+			'16.8.4',
 			true
 		);
 		wp_enqueue_script(
 			'react-dom',
-			"https://cdn.jsdelivr.net/npm/react-dom@16.8.2/umd/react-dom.{$script_suffix}.min.js",
+			"https://cdn.jsdelivr.net/npm/react-dom@16.8.4/umd/react-dom.{$script_suffix}.min.js",
 			[ 'react' ],
-			'16.8.2',
+			'16.8.4',
 			true
 		);
 
@@ -72,6 +72,8 @@ class Elementor {
 
 		if ( ! $favorites )  $favorites = [];
 
+		$current_user = wp_get_current_user();
+
 		wp_localize_script(
 			'analogwp-app',
 			'AGWP',
@@ -80,10 +82,15 @@ class Elementor {
 				'is_settings_page' => false,
 				'favorites'        => $favorites,
 				'isPro'            => false,
-				'pluginURL'        => plugin_dir_url( __FILE__ ),
+				'pluginURL'        => ANG_PLUGIN_URL,
 				'license'          => [
 					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 					'message' => get_transient( 'ang_license_message' ),
+				],
+				'user'             => [
+					'email' => $current_user->user_email,
+					'fname' => $current_user->user_firstname,
+					'lname' => $current_user->user_lastname,
 				],
 			]
 		);

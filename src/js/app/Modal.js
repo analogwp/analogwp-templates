@@ -1,7 +1,26 @@
-import styled from 'styled-components';
-import Loader from './icons/loader';
+import styled, { keyframes } from 'styled-components';
 const { Tooltip, FocusableIframe } = wp.components;
 const { __ } = wp.i18n;
+
+const rotateOpacity = keyframes`
+  0% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+`;
+
+const Img = styled.img`
+	opacity: 0.5;
+	transition: all 200ms ease-in-out;
+	animation: ${ rotateOpacity } 2s linear infinite;
+`;
 
 const Container = styled.div`
 	position: absolute;
@@ -14,7 +33,7 @@ const Container = styled.div`
 	background: #e3e3e3;
 	z-index: 999;
 	text-align: center;
-	
+
 	iframe {
 		width: 100%;
 		height: 100%;
@@ -44,7 +63,7 @@ const Container = styled.div`
 		-moz-appearance: none;
 		padding: 0;
 		margin: 0;
-		font-size: 12px;
+		font-size: 14.22px;
 		font-weight: bold;
 		color: #060606;
 		background: transparent;
@@ -59,7 +78,7 @@ const Container = styled.div`
 		color: #fff;
 		border-radius: 0;
 		border: none;
-		background: #ff7865;
+		background: #3152FF;
 		outline: 0;
 		box-shadow: none;
 		padding: 15px 30px;
@@ -82,12 +101,15 @@ const Modal = props => {
 						<span className="dashicons dashicons-external" />
 					</a>
 				</Tooltip>
-				<button className="button--accent" onClick={ props.onRequestImport }>
+				<button className="ang-button" onClick={ props.onRequestImport }>
 					{ __( 'Insert Layout', 'ang' ) }
 				</button>
 			</div>
 
-			{ loading && <Loader /> }
+			{ loading && <Img
+				src={ `${ AGWP.pluginURL }assets/img/placeholder.svg` }
+				alt="Loading icon"
+			/> }
 
 			<FocusableIframe src={ props.template.url } onLoad={ () => setLoading( false ) } />
 		</Container>
