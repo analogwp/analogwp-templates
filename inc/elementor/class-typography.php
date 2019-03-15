@@ -198,6 +198,7 @@ class Typography extends Module {
 		}
 
 		$gaps = [
+			'default'  => __( 'Default Padding', 'ang' ),
 			'narrow'   => __( 'Narrow Padding', 'ang' ),
 			'extended' => __( 'Extended Padding', 'ang' ),
 			'wide'     => __( 'Wide Padding', 'ang' ),
