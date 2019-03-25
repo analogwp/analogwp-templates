@@ -158,11 +158,20 @@ class Typography extends Module {
 		];
 
 		foreach ( $settings as $setting ) {
-			$element->add_control(
+			$element->add_responsive_control(
 				'ang_size_' . $setting[0],
 				[
 					'label'      => $setting[1],
 					'type'       => Controls_Manager::SLIDER,
+					'desktop_default' => [
+						'unit' => 'em',
+					],
+					'tablet_default' => [
+						'unit' => 'em',
+					],
+					'mobile_default' => [
+						'unit' => 'em',
+					],
 					'size_units' => [ 'px', 'em', 'rem', 'vw' ],
 					'range'      => [
 						'px' => [
