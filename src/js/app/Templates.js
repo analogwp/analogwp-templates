@@ -360,7 +360,7 @@ class Templates extends React.Component {
 										<span className="pro">{ __( 'Pro', 'ang' ) }</span>
 									) }
 
-									{ ( isNewTheme( template.published ) > -7 ) && (
+									{ ( isNewTheme( template.published ) > -14 ) && (
 										<span className="new">{ __( 'New', 'ang' ) }</span>
 									) }
 
