@@ -11,6 +11,7 @@ jQuery( document ).ready( function( $ ) {
 		'ang_heading_4',
 		'ang_heading_5',
 		'ang_heading_6',
+		'ang_default_heading',
 		'ang_body',
 		'ang_paragraph',
 	];

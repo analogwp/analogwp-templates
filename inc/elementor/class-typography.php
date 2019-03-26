@@ -72,6 +72,25 @@ class Typography extends Module {
 			]
 		);
 
+		$default_fonts = Manager::get_settings_managers( 'general' )->get_model()->get_settings( 'elementor_default_generic_fonts' );
+
+		if ( $default_fonts ) {
+			$default_fonts = ', ' . $default_fonts;
+		}
+
+		$element->add_control(
+			'ang_default_heading_font_family',
+			[
+				'label'     => __( 'Default Headings Font', 'ang' ),
+				'type'      => Controls_Manager::FONT,
+				'default'   => '',
+				'selectors' => [
+					'h1, h2, h3, h4, h5, h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
+				],
+				'type'      => Controls_Manager::FONT,
+			]
+		);
+
 		for ( $i = 1; $i < 7; $i++ ) {
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
@@ -270,6 +289,7 @@ class Typography extends Module {
 				'ang_heading_4',
 				'ang_heading_5',
 				'ang_heading_6',
+				'ang_default_heading',
 				'ang_body',
 				'ang_paragraph',
 			]
