@@ -56,7 +56,7 @@ class Typography extends Module {
 		}
 
 		$element->start_controls_section(
-			'headings_typography',
+			'ang_headings_typography',
 			[
 				'label' => __( 'Headings Typography', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -64,7 +64,7 @@ class Typography extends Module {
 		);
 
 		$element->add_control(
-			'headings_typography_description',
+			'ang_headings_typography_description',
 			[
 				'raw'             => __( 'These settings apply to all Headings in your layout. You can still override individual values at each element.', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
@@ -118,7 +118,7 @@ class Typography extends Module {
 		}
 
 		$element->start_controls_section(
-			'body_and_paragraph_typography',
+			'ang_body_and_paragraph_typography',
 			[
 				'label' => __( 'Body and Paragraph Typography', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -160,7 +160,7 @@ class Typography extends Module {
 		}
 
 		$element->start_controls_section(
-			'typography_sizes',
+			'ang_typography_sizes',
 			[
 				'label' => __( 'Sizes', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -251,7 +251,7 @@ class Typography extends Module {
 
 		foreach ( $gaps as $key => $label ) {
 			$element->add_responsive_control(
-				'column_gap_' . $key,
+				'ang_column_gap_' . $key,
 				[
 					'label'      => $label,
 					'type'       => Controls_Manager::DIMENSIONS,
