@@ -22,7 +22,7 @@ jQuery( document ).ready( function( $ ) {
 		elementor.settings.page.addChangeCallback( element, handleFonts );
 	}
 
-	elementor.hooks.addFilter( 'elements/widget/contextMenuGroups', function( groups ) {
+	function addPageStyleSettings( groups ) {
 		const PageStyles = {
 			name: 'ang_styles',
 			actions: [
@@ -38,7 +38,11 @@ jQuery( document ).ready( function( $ ) {
 		groups.join();
 
 		return groups;
-	} );
+	}
+
+	elementor.hooks.addFilter( 'elements/widget/contextMenuGroups', addPageStyleSettings );
+	elementor.hooks.addFilter( 'elements/section/contextMenuGroups', addPageStyleSettings );
+	elementor.hooks.addFilter( 'elements/column/contextMenuGroups', addPageStyleSettings );
 
 	function switchToStyleTab() {
 		const currentView = elementor.panel.currentView;
