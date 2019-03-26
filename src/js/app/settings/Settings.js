@@ -260,7 +260,7 @@ export default class Settings extends React.Component {
 						</Field>
 					) }
 
-					<Field>
+					<Field className="global-settings">
 						<h3 className="heading">{ __( 'Usage Data Tracking', 'ang' ) }</h3>
 
 						<CheckboxControl
@@ -269,6 +269,8 @@ export default class Settings extends React.Component {
 							className="checkbox"
 							onChange={ ( value ) => this.updateSetting( 'ang_data_collection', value ) }
 						/>
+
+						<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/547-what-data-is-tracked-by-the-plugin">{ __( 'More Info', 'ang' ) }</ExternalLink>
 					</Field>
 
 					<Field className="global-settings">
