@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.1.1
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -66,11 +66,18 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
+= 1.1.2 =
+* New: Added [Page style settings](https://analogwp.com/testing-global-page-styles-in-analog-templates). 🎉
+* New: Added option to enable beta features under AnalogWP > Settings.
+* Fix: Remove User First/Last name collection on newsletter signup, as it wasn't communicated.
+* Tweak: Added documentation links to settings with more instructions.
+* Tweak: Show 'New' badge for 14 days, to match new template publish timing.
+
 = 1.1.1 =
 * Fixed a styling issue with Elementor popup modal, caused with Elementor v2.5.5
 
 = 1.1 =
-* New: All new designed settings page.
+* New: All new designed settings page. 🎉
 * New: Added option to Strip Typography under settings tab. [More info](https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements).
 * New: Lazy load images on templates page to avoid unnecessary loading, making page load faster.
 * New: Keep a log of imported templates for user.
