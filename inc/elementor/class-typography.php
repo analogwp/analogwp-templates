@@ -26,8 +26,8 @@ class Typography extends Module {
 	 * Typography constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 10, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 10, 2 );
 
