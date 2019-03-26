@@ -283,6 +283,19 @@ export default class Settings extends React.Component {
 
 						<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements">{ __( 'More Info', 'ang' ) }</ExternalLink>
 					</Field>
+
+					<Field className="global-settings">
+						<h3 className="heading">{ __( 'Other Settings', 'ang' ) }</h3>
+						<CheckboxControl
+							label={ __( 'Enable Beta Feature', 'ang' ) }
+							help={ __( 'The beta feature we are working on now is Page Styling settings. Enable beta to try it out.', 'ang' ) }
+							checked={ settings.ang_beta_features || false }
+							className="checkbox"
+							onChange={ ( isChecked ) => this.updateSetting( 'ang_beta_features', isChecked ) }
+						/>
+
+						<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/548-beta-features">{ __( 'Learn More', 'ang' ) }</ExternalLink>
+					</Field>
 				</ChildContainer>
 
 				<Sidebar />
