@@ -87,7 +87,6 @@ class Typography extends Module {
 				'selectors' => [
 					'h1, h2, h3, h4, h5, h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
 				],
-				'type'      => Controls_Manager::FONT,
 			]
 		);
 
