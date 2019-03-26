@@ -86,14 +86,12 @@ const Sidebar = () => {
 			dataType: 'JSON',
 			data: {
 				email: email,
-				fname: AGWP.user.fname,
-				lname: AGWP.user.lname,
 			},
-			error: ( error ) => {
+			error: () => {
 				setLoading( false );
 				setMessage( __( 'An error occured', 'ang' ) );
 			},
-			success: ( response ) => {
+			success: () => {
 				setLoading( false );
 				setMessage( 'Successfully subscribed!!!' );
 			},

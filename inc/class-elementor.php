@@ -89,8 +89,6 @@ class Elementor {
 				],
 				'user'             => [
 					'email' => $current_user->user_email,
-					'fname' => $current_user->user_firstname,
-					'lname' => $current_user->user_lastname,
 				],
 			]
 		);

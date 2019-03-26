@@ -187,8 +187,6 @@ final class Analog_Templates {
 				'permission'       => (bool) current_user_can( 'manage_options' ),
 				'user'             => [
 					'email' => $current_user->user_email,
-					'fname' => $current_user->user_firstname,
-					'lname' => $current_user->user_lastname,
 				],
 				'license'          => [
 					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
