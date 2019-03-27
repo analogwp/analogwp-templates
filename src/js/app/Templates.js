@@ -173,6 +173,20 @@ class Templates extends React.Component {
 		this.setState( initialState );
 	}
 
+	closeOnEsc = ( event ) => {
+		if ( event.keyCode === 27 ) {
+			this.resetState();
+		}
+	}
+
+	componentDidMount() {
+		window.addEventListener( 'keyup', this.closeOnEsc );
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener( 'keyup', this.closeOnEsc );
+	}
+
 	setModalContent = template => {
 		window.scrollTo( 0, 0 );
 		this.context.dispatch( {
