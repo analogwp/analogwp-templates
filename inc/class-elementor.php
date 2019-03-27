@@ -17,6 +17,15 @@ class Elementor {
 	public function __construct() {
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_editor_scripts' ] );
+
+		add_action(
+			'elementor/finder/categories/init',
+			function( $categories_manager ) {
+				include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
+
+				$categories_manager->add_category( 'ang-shortcuts', new Finder_Shortcuts() );
+			}
+		);
 	}
 
 	/**
