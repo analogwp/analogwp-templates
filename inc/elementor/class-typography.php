@@ -292,6 +292,16 @@ class Typography extends Module {
 			]
 		);
 
+		$element->add_control(
+			'ang_action_export_css',
+			[
+				'label'        => __( 'Export the custom CSS', 'ang' ),
+				'type'         => 'ang_action',
+				'action'       => 'export_css',
+				'action_label' => __( 'Export CSS', 'ang' ),
+			]
+		);
+
 		$element->end_controls_section();
 	}
 

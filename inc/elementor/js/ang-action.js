@@ -39,6 +39,13 @@ jQuery( window ).on( 'elementor:init', function() {
 		handleCSSExport: function() {
 			/* TODO: Write code for exporting CSS */
 			console.log( 'handleCSSExport' );
+
+			// Get the whole Page CSS
+			const allStyles = elementor.settings.page.getControlsCSS().elements.$stylesheetElement[ 0 ];
+
+			// Then remove Page's custom CSS.
+			const pageCSS = elementor.settings.page.model.get( 'custom_css' );
+			const formattedCSS = allStyles.replace( pageCSS, '' );
 		},
 
 		handleCSSReset: function() {
