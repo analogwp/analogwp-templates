@@ -30,6 +30,7 @@ class Typography extends Module {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 10, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_styling_settings' ], 10, 2 );
 
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_scripts' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ], 999 );
@@ -263,6 +264,33 @@ class Typography extends Module {
 				]
 			);
 		}
+
+		$element->end_controls_section();
+	}
+
+	public function register_styling_settings( Controls_Stack $element, $section_id ) {
+		if ( 'section_page_style' !== $section_id ) {
+			return;
+		}
+
+		$element->start_controls_section(
+			'ang_style_settings',
+			[
+				'label' => __( 'Styling Settings', 'ang' ),
+				'tab'   => Controls_Manager::TAB_SETTINGS,
+			]
+		);
+
+		$element->add_control(
+			'ang_action_reset',
+			[
+				'label'        => __( 'Reset all styling', 'ang' ),
+				'type'         => 'ang_action',
+				'action'       => 'reset_css',
+				'action_label' => __( 'Reset all', 'ang' ),
+				'description'  => __( 'Resets only the CSS that is added at the Style panel.', 'ang' ),
+			]
+		);
 
 		$element->end_controls_section();
 	}
