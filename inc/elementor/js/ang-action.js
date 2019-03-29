@@ -1,4 +1,4 @@
-/* global elementor, elementorCommon, ANG_Action */
+/* global elementor, elementorCommon, ANG_Action, cssbeautify */
 jQuery( window ).on( 'elementor:init', function() {
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {
@@ -37,15 +37,55 @@ jQuery( window ).on( 'elementor:init', function() {
 		},
 
 		handleCSSExport: function() {
-			/* TODO: Write code for exporting CSS */
-			console.log( 'handleCSSExport' );
-
 			// Get the whole Page CSS
-			const allStyles = elementor.settings.page.getControlsCSS().elements.$stylesheetElement[ 0 ];
+			const allStyles = elementor.settings.page.getControlsCSS().elements.$stylesheetElement[ 0 ].textContent;
 
 			// Then remove Page's custom CSS.
 			const pageCSS = elementor.settings.page.model.get( 'custom_css' );
-			const formattedCSS = allStyles.replace( pageCSS, '' );
+			const strippedCSS = allStyles.replace( pageCSS, '' );
+			const formattedCSS = cssbeautify( strippedCSS, {
+				indent: '    ',
+				openbrace: 'end-of-line',
+				autosemicolon: true,
+			} );
+
+			const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
+				id: 'ang-modal-export-css',
+				headerMessage: 'Export CSS',
+				message: '',
+				position: {
+					my: 'center',
+					at: 'center',
+				},
+				onReady: function() {
+					this.addButton( {
+						name: 'cancel',
+						text: 'Cancel',
+						callback: function() {
+							modal.destroy();
+						},
+					} );
+
+					this.addButton( {
+						name: 'ok',
+						text: 'Copy CSS',
+						callback: function() {
+							const content = modal.getElements( 'content' );
+							$( content.find( 'textarea' ) ).select();
+							document.execCommand( 'copy' );
+						},
+					} );
+				},
+
+				onShow: function() {
+					const content = modal.getElements( 'content' );
+					content.append( '<textarea rows="10">' + formattedCSS + '</textarea>' );
+				},
+			} );
+
+			modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
+			modal.show();
+			jQuery( window ).resize();
 		},
 
 		handleCSSReset: function() {

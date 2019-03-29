@@ -40,10 +40,19 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 	 */
 	public function enqueue() {
 		wp_enqueue_script(
+			'cssbeautify',
+			ANG_PLUGIN_URL . 'inc/elementor/js/cssbeautify.js',
+			[],
+			'0.3.1',
+			false
+		);
+
+		wp_enqueue_script(
 			'ang_action',
 			ANG_PLUGIN_URL . 'inc/elementor/js/ang-action.js',
 			[
 				'jquery',
+				'cssbeautify',
 			],
 			ANG_VERSION,
 			false
