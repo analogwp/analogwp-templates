@@ -48,6 +48,17 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 			ANG_VERSION,
 			false
 		);
+
+		wp_localize_script(
+			'ang_action',
+			ANG_Action,
+			[
+				'translate' => [
+					'resetMessage' => __( 'This will reset all the settings you configured previously under Page Style Settings from Analog Templates.', 'ang' ),
+					'resetHeader'  => __( 'Are you sure?', 'ang' ),
+				],
+			]
+		);
 	}
 
 	/**

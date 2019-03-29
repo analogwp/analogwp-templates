@@ -1,4 +1,4 @@
-/* global elementor */
+/* global elementor, elementorCommon, ANG_Action */
 jQuery( window ).on( 'elementor:init', function() {
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {
@@ -22,11 +22,11 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		performAction: function( name ) {
 			const actions = {
-				export_css: this.handleCSSExport,
-				reset_css: this.handleCSSReset,
+				export_css: 'handleCSSExport',
+				reset_css: 'handleCSSReset',
 			};
 
-			return actions[ name ]();
+			return this[ actions[ name ] ]();
 		},
 
 		onChangeEvent: function( event ) {
@@ -42,10 +42,55 @@ jQuery( window ).on( 'elementor:init', function() {
 		},
 
 		handleCSSReset: function() {
-			/* TODO: Write code for exporting CSS */
-			console.log( 'handleCSSReset' );
+			/* TODO: reset all settings, right now its typography only */
+			elementorCommon.dialogsManager.createWidget( 'confirm', {
+				message: ANG_Action.translate.resetMessage,
+				headerMessage: ANG_Action.translate.resetHeader,
+				strings: {
+					confirm: elementor.translate( 'yes' ),
+					cancel: elementor.translate( 'cancel' ),
+				},
+				defaultOption: 'cancel',
+				onConfirm: function() {
+					const keys = [
+						'ang_heading_1',
+						'ang_heading_2',
+						'ang_heading_3',
+						'ang_heading_4',
+						'ang_heading_5',
+						'ang_heading_6',
+						'ang_default_heading',
+						'ang_body',
+						'ang_paragraph',
+					];
 
-			// elementor.settings.page.model.setExternalChange(key, value);
+					const patterns = [
+						'typography',
+						'font_family',
+						'font_size',
+						'font_size_mobile',
+						'font_size_tablet',
+						'font_style',
+						'font_weight',
+						'line_height',
+						'line_height_mobile',
+						'line_height_tablet',
+						'letter_spacing',
+						'letter_spacing_mobile',
+						'letter_spacing_tablet',
+						'text_decoration',
+						'text_transform',
+					];
+
+					_.each( keys, function( key ) {
+						_.each( patterns, function( pattern ) {
+							const settingKey = key + '_' + pattern;
+							elementor.settings.page.model.setExternalChange( settingKey, false );
+						} );
+					} );
+				},
+			} ).show();
+
 			// elementor.panel.currentView.getCurrentPageView().render();
 		},
 
