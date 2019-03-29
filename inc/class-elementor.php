@@ -26,6 +26,15 @@ class Elementor {
 				$categories_manager->add_category( 'ang-shortcuts', new Finder_Shortcuts() );
 			}
 		);
+
+		add_action( 'elementor/controls/controls_registered', [ $this, 'register_controls' ] );
+	}
+
+	public function register_controls() {
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-ang-action.php';
+
+		$controls_manager = \Elementor\Plugin::$instance->controls_manager;
+		$controls_manager->register_control( 'ang_action', new \Analog\Elementor\ANG_Action() );
 	}
 
 	/**
