@@ -66,7 +66,6 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 				<button
 					data-action="{{ data.action }}"
 					style="padding:7px 10px"
-					id="<?php echo esc_attr( $control_uid ); ?>"
 					class="elementor-button elementor-button-success"
 				>
 				{{{ data.action_label }}}</button>

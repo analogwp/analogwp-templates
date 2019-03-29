@@ -1,5 +1,4 @@
 /* global elementor */
-console.log( 'file loaded' );
 jQuery( window ).on( 'elementor:init', function() {
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {
