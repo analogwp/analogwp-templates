@@ -50,6 +50,9 @@ class Local extends Base {
 			'/update/settings/'        => [
 				\WP_REST_Server::CREATABLE => 'update_setting',
 			],
+			'/tokens'                  => [
+				\WP_REST_Server::READABLE => 'get_tokens',
+			],
 		];
 
 		foreach ( $endpoints as $endpoint => $details ) {
@@ -304,6 +307,41 @@ class Local extends Base {
 			[ 'message' => __( 'Setting updated.', 'ang' ) ],
 			200
 		);
+	}
+
+	/**
+	 * Get registered tokens.
+	 *
+	 * @since 1.2
+	 *
+	 * @return \WP_REST_Response|array
+	 */
+	public function get_tokens() {
+		$query = new \WP_Query(
+			[
+				'post_type'      => 'ang_tokens',
+				'posts_per_page' => -1,
+			]
+		);
+
+		if ( ! $query->have_posts() ) {
+			return [];
+		}
+
+		$tokens = [];
+
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			$post_id = get_the_ID();
+
+			$tokens[] = [
+				'id'           => $post_id,
+				'title'        => the_title(),
+				'_tokens_data' => \get_post_meta( $post_id, '_tokens_data', true ),
+			];
+		}
+
+		return new \WP_REST_Response( $tokens, 200 );
 	}
 }
 
