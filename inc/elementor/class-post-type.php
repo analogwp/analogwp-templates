@@ -55,15 +55,17 @@ class Post_Type {
 		$args = [
 			'labels'            => $this->labels(),
 			'hierarchical'      => false,
-			'show_ui'           => false,
+			'show_ui'           => true,
 			'show_in_nav_menus' => false,
 			'show_admin_column' => false,
 			'rewrite'           => false,
+			'show_in_rest'      => true,
 			'public'            => false,
 			'supports'          => [
 				'title',
 				'author',
 				'thumbnail',
+				'editor',
 				'custom-fields',
 			],
 		];

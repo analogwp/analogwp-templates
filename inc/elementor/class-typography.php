@@ -13,6 +13,7 @@ use Elementor\Controls_Stack;
 use Elementor\Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
+use Analog\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -278,6 +279,26 @@ class Typography extends Module {
 			[
 				'label' => __( 'Styling Settings', 'ang' ),
 				'tab'   => Controls_Manager::TAB_SETTINGS,
+			]
+		);
+
+		$element->add_control(
+			'ang_action_tokens',
+			[
+				'label'   => __( 'Token', 'ang' ),
+				'type'    => Controls_Manager::SELECT2,
+				'options' => Utils::get_tokens(),
+			]
+		);
+
+		$element->add_control(
+			'ang_action_save_token',
+			[
+				'label'        => __( 'Save as Token', 'ang' ),
+				'type'         => 'ang_action',
+				'action'       => 'save_token',
+				'action_label' => __( 'Save Token', 'ang' ),
+				'description'  => __( 'A token is a collection of the page styling settings.', 'ang' ),
 			]
 		);
 

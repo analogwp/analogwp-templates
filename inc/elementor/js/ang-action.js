@@ -24,6 +24,7 @@ jQuery( window ).on( 'elementor:init', function() {
 			const actions = {
 				export_css: 'handleCSSExport',
 				reset_css: 'handleCSSReset',
+				save_token: 'handleSaveToken',
 			};
 
 			return this[ actions[ name ] ]();
@@ -141,9 +142,53 @@ jQuery( window ).on( 'elementor:init', function() {
 			// elementor.panel.currentView.getCurrentPageView().render();
 		},
 
-		onReady: function() {},
-		saveValue: function() {},
-		onBeforeDestroy: function() {},
+		handleSaveToken: function() {
+			const settings = elementor.settings.page.getSettings().settings;
+			const angSettings = [];
+			_.map( settings, function( value, key ) {
+				if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
+					angSettings[ key ] = value;
+				}
+			} );
+
+			const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
+				id: 'ang-modal-save-token',
+				headerMessage: 'Save a Token',
+				message: '',
+				position: {
+					my: 'center',
+					at: 'center',
+				},
+				onReady: function() {
+					this.addButton( {
+						name: 'ok',
+						text: 'Cancel',
+						callback: function() {
+							modal.destroy();
+						},
+					} );
+				},
+
+				onShow: function() {
+					const content = modal.getElements( 'content' );
+					content.append( `
+						<input id="ang_token_title" type="text" value="" placeholder="Enter a title" />
+						<button style="padding:10px;margin-top:10px;" class="elementor-button elementor-button-success" id="ang_save_token">Save Token</button>
+					` );
+
+					$( '#ang-modal-save-token' ).on( 'click', '#ang_save_token', function( e ) {
+						e.preventDefault();
+						const title = $( '#ang_token_title' ).val();
+
+						console.log( ANG_Action.saveToken );
+					} );
+				},
+			} );
+
+			modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
+			modal.show();
+			jQuery( window ).resize();
+		},
 	} );
 	elementor.addControlView( 'ang_action', ControlANGAction );
 } );
