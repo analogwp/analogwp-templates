@@ -122,6 +122,7 @@ final class Analog_Templates {
 		$beta_enabled = Options::get_instance()->get( 'ang_beta_features' );
 		if ( $beta_enabled ) {
 			require_once ANG_PLUGIN_DIR . 'inc/elementor/class-typography.php';
+			require_once ANG_PLUGIN_DIR . 'inc/elementor/class-post-type.php';
 		}
 	}
 
