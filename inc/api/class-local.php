@@ -352,11 +352,14 @@ class Local extends Base {
 	 *
 	 * @param \WP_REST_Request $request Request object.
 	 *
+	 * @since 1.2.0
+	 *
 	 * @return \WP_Error|\WP_REST_Response
 	 */
 	public function save_tokens( \WP_REST_Request $request ) {
-		$title  = $request->get_param( 'title' );
-		$tokens = $request->get_param( 'tokens' );
+		$belongs_to = $request->get_param( 'id' );
+		$title      = $request->get_param( 'title' );
+		$tokens     = $request->get_param( 'tokens' );
 
 		if ( ! $tokens ) {
 			return new \WP_Error( 'tokens_error', 'No tokens data found.' );
@@ -365,10 +368,39 @@ class Local extends Base {
 			return new \WP_Error( 'tokens_error', 'Please provide a title.' );
 		}
 
-		return new \WP_REST_Response(
-			[ 'message' => __( 'Token saved.', 'ang' ) ],
-			200
-		);
+		$args = [
+			'post_type'   => 'ang_tokens',
+			'post_title'  => $title,
+			'post_status' => 'publish',
+			'meta_input'  => [
+				'belongs_to'   => $belongs_to,
+				'_tokens_data' => $tokens,
+			],
+		];
+
+		/**
+		 * Save token arguments. Filters the arguments for wp_insert_post().
+		 *
+		 * @param string $args Arguments.
+		 * @param string $title Post Title.
+		 * @param string $tokens Tokens data.
+		 * @param string $belongs_to Post/Page ID of the page tokens are being saved from.
+		 */
+		$args = apply_filters( 'analog/elementor/save/tokens/args', $args, $title, $tokens, $belongs_to );
+
+		$post_id = wp_insert_post( $args );
+
+		if ( is_wp_error( $post_id ) ) {
+			return new \WP_Error( 'tokens_error', __( 'Unable to create a post', 'ang' ) );
+		} else {
+			return new \WP_REST_Response(
+				[
+					'id'      => $post_id,
+					'message' => __( 'Token saved.', 'ang' ),
+				],
+				200
+			);
+		}
 	}
 }
 

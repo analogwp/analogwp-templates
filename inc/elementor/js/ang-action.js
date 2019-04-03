@@ -201,6 +201,7 @@ jQuery( window ).on( 'elementor:init', function() {
 								url: ANG_Action.saveToken,
 								method: 'post',
 								data: {
+									id: elementor.config.post_id,
 									title: title,
 									tokens: JSON.stringify( angSettings ),
 								},
