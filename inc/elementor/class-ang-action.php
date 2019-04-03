@@ -29,7 +29,7 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 	 *
 	 * @access public
 	 */
-	public function get_value() {
+	public function get_value( $control, $settings ) {
 		return false;
 	}
 
@@ -60,7 +60,7 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 
 		wp_localize_script(
 			'ang_action',
-			ANG_Action,
+			'ANG_Action',
 			[
 				'saveToken' => rest_url( 'agwp/v1/tokens/save' ),
 				'translate' => [
