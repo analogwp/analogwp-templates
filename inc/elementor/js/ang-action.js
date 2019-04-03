@@ -144,7 +144,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		handleSaveToken: function() {
 			const settings = elementor.settings.page.getSettings().settings;
-			const angSettings = [];
+			const angSettings = {};
 			_.map( settings, function( value, key ) {
 				if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
 					angSettings[ key ] = value;
@@ -173,14 +173,49 @@ jQuery( window ).on( 'elementor:init', function() {
 					const content = modal.getElements( 'content' );
 					content.append( `
 						<input id="ang_token_title" type="text" value="" placeholder="Enter a title" />
-						<button style="padding:10px;margin-top:10px;" class="elementor-button elementor-button-success" id="ang_save_token">Save Token</button>
+						<button style="padding:10px;margin-top:10px;" class="elementor-button elementor-button-success" id="ang_save_token">
+							<span class="elementor-state-icon"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i></span>
+							Save Token
+						</button>
 					` );
+
+					const $titleInput = $( '#ang_token_title' );
+
+					// This is required, to remove any error styling.
+					$titleInput.on( 'input', function() {
+						$( this ).css( 'border-color', '#d5dadf' );
+					} );
 
 					$( '#ang-modal-save-token' ).on( 'click', '#ang_save_token', function( e ) {
 						e.preventDefault();
-						const title = $( '#ang_token_title' ).val();
+						const title = $titleInput.val();
+						if ( ! title ) {
+							$titleInput.css( 'border-color', 'red' );
+						}
+						$( this ).addClass( 'elementor-button-state' );
 
-						console.log( ANG_Action.saveToken );
+						content.find( '.error' ).remove();
+
+						if ( title ) {
+							wp.apiFetch( {
+								url: ANG_Action.saveToken,
+								method: 'post',
+								data: {
+									title: title,
+									tokens: JSON.stringify( angSettings ),
+								},
+							} ).then( function( response ) {
+								content.html( '<p>' + response.message + '</p>' );
+								$( this ).removeClass( 'elementor-button-state' );
+
+								setTimeout( function() {
+									modal.destroy();
+								}, 2000 );
+							} ).catch( function( error ) {
+								$( this ).removeClass( 'elementor-button-state' );
+								content.append( '<p class="error" style="color:red;margin-top:10px;">' + error.message + '</p>' );
+							} );
+						}
 					} );
 				},
 			} );

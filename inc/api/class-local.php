@@ -53,6 +53,9 @@ class Local extends Base {
 			'/tokens'                  => [
 				\WP_REST_Server::READABLE => 'get_tokens',
 			],
+			'/tokens/save'             => [
+				\WP_REST_Server::CREATABLE => 'save_tokens',
+			],
 		];
 
 		foreach ( $endpoints as $endpoint => $details ) {
@@ -342,6 +345,30 @@ class Local extends Base {
 		}
 
 		return new \WP_REST_Response( $tokens, 200 );
+	}
+
+	/**
+	 * Save tokens.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @return \WP_Error|\WP_REST_Response
+	 */
+	public function save_tokens( \WP_REST_Request $request ) {
+		$title  = $request->get_param( 'title' );
+		$tokens = $request->get_param( 'tokens' );
+
+		if ( ! $tokens ) {
+			return new \WP_Error( 'tokens_error', 'No tokens data found.' );
+		}
+		if ( ! $title ) {
+			return new \WP_Error( 'tokens_error', 'Please provide a title.' );
+		}
+
+		return new \WP_REST_Response(
+			[ 'message' => __( 'Token saved.', 'ang' ) ],
+			200
+		);
 	}
 }
 
