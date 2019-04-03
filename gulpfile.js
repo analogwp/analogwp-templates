@@ -3,6 +3,9 @@ const copy = require( 'gulp-copy' );
 const zip = require( 'gulp-zip' );
 const del = require( 'del' );
 const run = require( 'gulp-run-command' ).default;
+const babel = require( 'gulp-babel' );
+const uglify = require( 'gulp-uglify' );
+const rename = require( 'gulp-rename' );
 
 const project = 'analogwp-templates';
 const buildFiles = [
@@ -62,7 +65,22 @@ gulp.task( 'zip', function( done ) {
 	done(); // eslint-disable-line
 } );
 
+gulp.task( 'scripts', function( done ) {
+	gulp.src( [ './inc/elementor/js/*.js', '!./inc/elementor/js/*.min.js' ] )
+		.pipe( babel( {
+			presets: [ 'babel-preset-env' ],
+		} ) )
+		.pipe( uglify() )
+		.pipe( rename( {
+			suffix: '.min',
+		} ) )
+		.pipe( gulp.dest( './inc/elementor/js/' ) );
+
+	done();
+} );
+
 gulp.task( 'build', gulp.series(
+	'scripts',
 	'yarnBuild',
 	'yarnMakePot',
 	'yarnMakePotPHP',
