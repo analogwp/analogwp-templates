@@ -143,7 +143,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		},
 
 		handleSaveToken: function() {
-			const settings = elementor.settings.page.getSettings().settings;
+			const settings = elementor.settings.page.model.attributes;
 			const angSettings = {};
 			_.map( settings, function( value, key ) {
 				if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
@@ -227,4 +227,46 @@ jQuery( window ).on( 'elementor:init', function() {
 		},
 	} );
 	elementor.addControlView( 'ang_action', ControlANGAction );
+
+	elementor.settings.page.addChangeCallback( 'ang_action_tokens', function( value ) {
+		const $select = $( 'select[data-setting="ang_action_tokens"]' );
+
+		if ( ! $( '#insert_token' ).length ) {
+			const $button = $( '<button id="insert_token" class="elementor-button elementor-button-success" style="padding:7px;margin-top:10px"><span class="elementor-state-icon"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i></span>Insert Token</button>' );
+			$button.insertAfter( $select.next() );
+		}
+
+		const button = $( '#insert_token' );
+		button.attr( 'data-post', value );
+		const id = button.attr( 'data-post' );
+
+		if ( id ) {
+			button.on( 'click', function() {
+				button.addClass( 'elementor-button-state' );
+
+				wp.apiFetch( {
+					method: 'post',
+					path: 'agwp/v1/tokens/get',
+					data: {
+						id: id,
+					},
+				} ).then( function( response ) {
+					const data = JSON.parse( response.data );
+					button.unbind();
+
+					if ( Object.keys( data ).length ) {
+						elementor.settings.page.model.set( data );
+					}
+
+					// Reset setting value so it doesn't gets saved.
+					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', '' );
+
+					// This needs to come after the change above since 'change' event triggers adding the button back.
+					button.remove();
+				} ).catch( function( error ) {
+					console.error( error );
+				} );
+			} );
+		}
+	} );
 } );

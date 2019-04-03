@@ -56,6 +56,9 @@ class Local extends Base {
 			'/tokens/save'             => [
 				\WP_REST_Server::CREATABLE => 'save_tokens',
 			],
+			'/tokens/get'              => [
+				\WP_REST_Server::CREATABLE => 'get_token',
+			],
 		];
 
 		foreach ( $endpoints as $endpoint => $details ) {
@@ -401,6 +404,34 @@ class Local extends Base {
 				200
 			);
 		}
+	}
+
+	/**
+	 * Get all templates.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @return array
+	 */
+	public function get_token( \WP_REST_Request $request ) {
+		$id = $request->get_param( 'id' );
+
+		if ( ! $id ) {
+			return new \WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'ang' ) );
+		}
+
+		if ( ! get_post( $id ) ) {
+			return new \WP_Error( 'tokens_error', __( 'Invalid Post ID', 'ang' ) );
+		}
+
+		$tokens_data = get_post_meta( $id, '_tokens_data', true );
+
+		return new \WP_REST_Response(
+			[
+				'data' => $tokens_data,
+			],
+			200
+		);
 	}
 }
 
