@@ -153,7 +153,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 			const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
 				id: 'ang-modal-save-token',
-				headerMessage: 'Save a Token',
+				headerMessage: ANG_Action.translate.saveToken,
 				message: '',
 				position: {
 					my: 'center',
@@ -162,7 +162,7 @@ jQuery( window ).on( 'elementor:init', function() {
 				onReady: function() {
 					this.addButton( {
 						name: 'ok',
-						text: 'Cancel',
+						text: ANG_Action.translate.cancel,
 						callback: function() {
 							modal.destroy();
 						},
@@ -172,10 +172,10 @@ jQuery( window ).on( 'elementor:init', function() {
 				onShow: function() {
 					const content = modal.getElements( 'content' );
 					content.append( `
-						<input id="ang_token_title" type="text" value="" placeholder="Enter a title" />
+						<input id="ang_token_title" type="text" value="" placeholder="${ ANG_Action.translate.enterTitle }" />
 						<button style="padding:10px;margin-top:10px;" class="elementor-button elementor-button-success" id="ang_save_token">
 							<span class="elementor-state-icon"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i></span>
-							Save Token
+							${ ANG_Action.translate.saveToken2 }
 						</button>
 					` );
 
@@ -232,7 +232,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		const $select = $( 'select[data-setting="ang_action_tokens"]' );
 
 		if ( ! $( '#insert_token' ).length ) {
-			const $button = $( '<button id="insert_token" class="elementor-button elementor-button-success" style="padding:7px;margin-top:10px"><span class="elementor-state-icon"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i></span>Insert Token</button>' );
+			const $button = $( '<button id="insert_token" class="elementor-button elementor-button-success" style="padding:7px;margin-top:10px"><span class="elementor-state-icon"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i></span>' + ANG_Action.translate.insertToken + '</button>' );
 			$button.insertAfter( $select.next() );
 		}
 
