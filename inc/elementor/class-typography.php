@@ -378,9 +378,11 @@ class Typography extends Module {
 	 * @return void
 	 */
 	public function enqueue_editor_scripts() {
+		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
 		wp_enqueue_script(
 			'ang_typography_script',
-			ANG_PLUGIN_URL . 'inc/elementor/js/ang-typography.js',
+			ANG_PLUGIN_URL . "inc/elementor/js/ang-typography{$script_suffix}.js",
 			[
 				'jquery',
 				'editor',

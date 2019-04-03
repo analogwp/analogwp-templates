@@ -39,9 +39,12 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 	 * @return void
 	 */
 	public function enqueue() {
+
+		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '.min';
+
 		wp_enqueue_script(
 			'cssbeautify',
-			ANG_PLUGIN_URL . 'inc/elementor/js/cssbeautify.js',
+			ANG_PLUGIN_URL . 'inc/elementor/js/cssbeautify.min.js',
 			[],
 			'0.3.1',
 			false
@@ -49,7 +52,7 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 
 		wp_enqueue_script(
 			'ang_action',
-			ANG_PLUGIN_URL . 'inc/elementor/js/ang-action.js',
+			ANG_PLUGIN_URL . "inc/elementor/js/ang-action{$script_suffix}.js",
 			[
 				'jquery',
 				'cssbeautify',
