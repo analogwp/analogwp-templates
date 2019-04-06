@@ -1,4 +1,4 @@
-/* global elementor, elementorCommon, ANG_Action, cssbeautify */
+/* global elementor, elementorCommon, ANG_Action, cssbeautify, elementorFrontend */
 jQuery( window ).on( 'elementor:init', function() {
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {
@@ -259,7 +259,7 @@ jQuery( window ).on( 'elementor:init', function() {
 					}
 
 					// Reset setting value so it doesn't gets saved.
-					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', '' );
+					// elementor.settings.page.model.setExternalChange( 'ang_action_tokens', '' );
 
 					// This needs to come after the change above since 'change' event triggers adding the button back.
 					button.remove();
@@ -268,5 +268,37 @@ jQuery( window ).on( 'elementor:init', function() {
 				} );
 			} );
 		}
+	} );
+
+	elementor.settings.page.addChangeCallback( 'ang_make_token_global', function( val ) {
+		const postId = elementor.settings.page.model.get( 'ang_action_tokens' );
+
+		if ( ! postId ) {
+			elementor.notifications.showToast( {
+				message: 'Please select a Token first.',
+			} );
+			return;
+		}
+
+		const ajaxurl = elementor.ajax.getSettings().url;
+		const perform = ( val === 'yes' ) ? 'set' : 'unset';
+
+		const data = {
+			id: postId,
+			action: 'ang_make_token_global',
+			perform: perform,
+		};
+
+		$.post( ajaxurl, data, function( response ) {
+			if ( response.success ) {
+				elementor.notifications.showToast( {
+					message: response.data.message,
+				} );
+
+				elementor.saver.doAutoSave();
+			} else {
+				console.error( response.data.message, response.data.id );
+			}
+		} );
 	} );
 } );

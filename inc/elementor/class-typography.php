@@ -13,6 +13,7 @@ use Elementor\Controls_Stack;
 use Elementor\Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
+use Analog\Options;
 use Analog\Utils;
 
 defined( 'ABSPATH' ) || exit;
@@ -35,6 +36,8 @@ class Typography extends Module {
 
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_scripts' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ], 999 );
+
+		add_action( 'wp_ajax_ang_make_token_global', [ $this, 'make_token_global' ] );
 	}
 
 	/**
@@ -181,19 +184,19 @@ class Typography extends Module {
 			$element->add_responsive_control(
 				'ang_size_' . $setting[0],
 				[
-					'label'      => $setting[1],
-					'type'       => Controls_Manager::SLIDER,
+					'label'           => $setting[1],
+					'type'            => Controls_Manager::SLIDER,
 					'desktop_default' => [
 						'unit' => 'em',
 					],
-					'tablet_default' => [
+					'tablet_default'  => [
 						'unit' => 'em',
 					],
-					'mobile_default' => [
+					'mobile_default'  => [
 						'unit' => 'em',
 					],
-					'size_units' => [ 'px', 'em', 'rem', 'vw' ],
-					'range'      => [
+					'size_units'      => [ 'px', 'em', 'rem', 'vw' ],
+					'range'           => [
 						'px' => [
 							'min' => 1,
 							'max' => 200,
@@ -204,8 +207,8 @@ class Typography extends Module {
 							'step' => 0.1,
 						],
 					],
-					'responsive' => true,
-					'selectors'  => [
+					'responsive'      => true,
+					'selectors'       => [
 						"body .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}" => 'font-size: {{SIZE}}{{UNIT}}',
 					],
 				]
@@ -288,6 +291,19 @@ class Typography extends Module {
 				'label'   => __( 'Token', 'ang' ),
 				'type'    => Controls_Manager::SELECT2,
 				'options' => Utils::get_tokens(),
+			]
+		);
+
+		$element->add_control(
+			'ang_make_token_global',
+			[
+				'label'              => __( 'Make this token global', 'ang' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'description'        => __( 'Applies to all pages of your WordPress site', 'ang' ),
+				'frontend_available' => true,
+				'condition'          => [
+					'ang_action_tokens!' => '',
+				],
 			]
 		);
 
@@ -389,6 +405,40 @@ class Typography extends Module {
 			],
 			ANG_VERSION,
 			true
+		);
+	}
+
+	public function make_token_global() {
+		$id   = (int) $_POST['id'];
+		$post = get_post( $id );
+
+		if ( empty( $post ) ) {
+			wp_send_json_error(
+				[
+					'message' => __( 'Unable to find the post', 'ang' ),
+					'id'      => $id,
+				]
+			);
+		}
+
+		$tokens_data = get_post_meta( $id, '_tokens_data', true );
+
+		$tokens = [
+			'id'   => $id,
+			'data' => $tokens_data,
+		];
+
+		if ( 'set' === $_POST['perform'] ) {
+			Options::get_instance()->set( 'global_token', $tokens );
+		} else {
+			Options::get_instance()->set( 'global_token', '' );
+		}
+
+		wp_send_json_success(
+			[
+				/* translators: %s: Post title. */
+				'message' => sprintf( __( '&ldquo;%s&rdquo; has been set as a global token.', 'ang' ), $post->post_title ),
+			]
 		);
 	}
 }

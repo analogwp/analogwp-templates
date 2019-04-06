@@ -40,7 +40,7 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 	 */
 	public function enqueue() {
 
-		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '.min';
+		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		wp_enqueue_script(
 			'cssbeautify',
@@ -74,6 +74,7 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 					'cancel'       => __( 'Cancel', 'ang' ),
 					'enterTitle'   => __( 'Enter a title', 'ang' ),
 					'insertToken'  => __( 'Insert Token', 'ang' ),
+					'tokenWarning' => __( 'Please select a Token first.', 'ang' ),
 				],
 			]
 		);
