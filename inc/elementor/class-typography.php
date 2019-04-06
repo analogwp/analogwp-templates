@@ -441,6 +441,69 @@ class Typography extends Module {
 			]
 		);
 	}
+
+	public function get_default_value( $key ) {
+		$global_token = Options::get_instance()->get( 'global_token' );
+		if ( $global_token && ! empty( $global_token ) ) {
+			$values = json_decode( $global_token['data'], true );
+
+			if ( isset( $values[ $key ] ) && '' !== $values[ $key ] ) {
+				return $values[ $key ];
+			}
+		}
+
+		return false;
+	}
+
+	public function get_default_typography_values( $key ) {
+		return [
+			'typography'            => [
+				'default' => $this->get_default_value( $key . '_typography' ),
+			],
+			'font_size'             => [
+				'default' => $this->get_default_value( $key . '_font_size' ),
+			],
+			'font_size_tablet'      => [
+				'default' => $this->get_default_value( $key . '_font_size_tablet' ),
+			],
+			'font_size_mobile'      => [
+				'default' => $this->get_default_value( $key . '_font_size_mobile' ),
+			],
+			'line_height'           => [
+				'default' => $this->get_default_value( $key . '_line_height' ),
+			],
+			'line_height_mobile'    => [
+				'default' => $this->get_default_value( $key . '_line_height_mobile' ),
+			],
+			'line_height_tablet'    => [
+				'default' => $this->get_default_value( $key . '_line_height_tablet' ),
+			],
+			'letter_spacing'        => [
+				'default' => $this->get_default_value( $key . '_letter_spacing' ),
+			],
+			'letter_spacing_mobile' => [
+				'default' => $this->get_default_value( $key . '_letter_spacing_mobile' ),
+			],
+			'letter_spacing_tablet' => [
+				'default' => $this->get_default_value( $key . '_letter_spacing_tablet' ),
+			],
+			'font_family'           => [
+				'default' => $this->get_default_value( $key . '_font_family' ),
+			],
+			'font_weight'           => [
+				'default' => $this->get_default_value( $key . '_font_weight' ),
+			],
+			'text_transform'        => [
+				'default' => $this->get_default_value( $key . '_text_transform' ),
+			],
+			'font_style'            => [
+				'default' => $this->get_default_value( $key . '_font_style' ),
+			],
+			'text_decoration'       => [
+				'default' => $this->get_default_value( $key . '_text_decoration' ),
+			],
+		];
+	}
 }
 
 new Typography();
