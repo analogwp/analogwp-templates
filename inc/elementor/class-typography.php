@@ -88,7 +88,7 @@ class Typography extends Module {
 			[
 				'label'     => __( 'Default Headings Font', 'ang' ),
 				'type'      => Controls_Manager::FONT,
-				'default'   => '',
+				'default'   => $this->get_default_value( 'ang_default_heading_font_family' ),
 				'selectors' => [
 					'h1, h2, h3, h4, h5, h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
 				],
@@ -99,11 +99,12 @@ class Typography extends Module {
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
 				[
-					'name'     => 'ang_heading_' . $i,
+					'name'           => 'ang_heading_' . $i,
 					/* translators: %s: Heading 1-6 type */
-					'label'    => sprintf( __( 'Heading %s', 'ang' ), $i ),
-					'selector' => "body h{$i}, body .elementor-widget-heading h{$i}.elementor-heading-title",
-					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'label'          => sprintf( __( 'Heading %s', 'ang' ), $i ),
+					'selector'       => "body h{$i}, body .elementor-widget-heading h{$i}.elementor-heading-title",
+					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
+					'fields_options' => $this->get_default_typography_values( 'ang_heading_' . $i ),
 				]
 			);
 		}
@@ -133,20 +134,22 @@ class Typography extends Module {
 		$element->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'     => 'ang_body',
-				'label'    => __( 'Body Typography', 'ang' ),
-				'selector' => 'body',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
+				'name'           => 'ang_body',
+				'label'          => __( 'Body Typography', 'ang' ),
+				'selector'       => 'body',
+				'scheme'         => Scheme_Typography::TYPOGRAPHY_3,
+				'fields_options' => $this->get_default_typography_values( 'ang_body' ),
 			]
 		);
 
 		$element->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'     => 'ang_paragraph',
-				'label'    => __( 'Paragraph (primary text)', 'ang' ),
-				'selector' => 'body p',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
+				'name'           => 'ang_paragraph',
+				'label'          => __( 'Paragraph (primary text)', 'ang' ),
+				'selector'       => 'body p',
+				'scheme'         => Scheme_Typography::TYPOGRAPHY_4,
+				'fields_options' => $this->get_default_typography_values( 'ang_paragraph' ),
 			]
 		);
 
@@ -186,15 +189,9 @@ class Typography extends Module {
 				[
 					'label'           => $setting[1],
 					'type'            => Controls_Manager::SLIDER,
-					'desktop_default' => [
-						'unit' => 'em',
-					],
-					'tablet_default'  => [
-						'unit' => 'em',
-					],
-					'mobile_default'  => [
-						'unit' => 'em',
-					],
+					'desktop_default' => $this->get_default_value( 'ang_size_' . $setting[0] ),
+					'tablet_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_tablet' ),
+					'mobile_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_mobile' ),
 					'size_units'      => [ 'px', 'em', 'rem', 'vw' ],
 					'range'           => [
 						'px' => [
@@ -258,10 +255,13 @@ class Typography extends Module {
 			$element->add_responsive_control(
 				'ang_column_gap_' . $key,
 				[
-					'label'      => $label,
-					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => [ 'px', 'em', '%' ],
-					'selectors'  => [
+					'label'           => $label,
+					'type'            => Controls_Manager::DIMENSIONS,
+					'desktop_default' => $this->get_default_value( 'ang_column_gap_' . $key ),
+					'tablet_default'  => $this->get_default_value( 'ang_column_gap_' . $key . '_tablet' ),
+					'mobile_default'  => $this->get_default_value( 'ang_column_gap_' . $key . '_mobile' ),
+					'size_units'      => [ 'px', 'em', '%' ],
+					'selectors'       => [
 						"body .elementor-column-gap-{$key} > .elementor-row > .elementor-column > .elementor-element-populated"
 						=> 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					],
