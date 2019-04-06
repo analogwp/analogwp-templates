@@ -22,6 +22,23 @@ function register_menu() {
 		ANG_PLUGIN_URL . 'assets/img/triangle.svg',
 		'58.6'
 	);
+
+	add_submenu_page(
+		'analogwp_templates',
+		__( 'Settings', 'ang' ),
+		__( 'Settings', 'ang' ),
+		'manage_options',
+		'analogwp_templates'
+	);
+
+	$menu_title = __( 'Tokens', 'ang' );
+	add_submenu_page(
+		'analogwp_templates',
+		$menu_title,
+		$menu_title,
+		'manage_options',
+		'edit.php?post_type=ang_tokens'
+	);
 }
 
 add_action( 'admin_menu', 'Analog\settings\register_menu' );

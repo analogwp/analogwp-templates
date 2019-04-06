@@ -56,7 +56,7 @@ class Post_Type {
 			'labels'            => $this->labels(),
 			'hierarchical'      => false,
 			'show_ui'           => apply_filters( 'analog_tokens_visibility', true ),
-			'show_in_menu'      => 'analogwp_templates',
+			'show_in_menu'      => false,
 			'show_in_nav_menus' => false,
 			'show_in_admin_bar' => false,
 			'show_admin_column' => false,
