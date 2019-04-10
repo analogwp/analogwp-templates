@@ -290,7 +290,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		};
 
 		$.post( ajaxurl, data, function( response ) {
-			if ( response.success ) {
+			if ( response.success && perform === 'set' ) {
 				elementor.notifications.showToast( {
 					message: response.data.message,
 				} );
