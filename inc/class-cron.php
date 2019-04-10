@@ -63,7 +63,6 @@ class Cron {
 	 */
 	private function weekly_events() {
 		if ( ! wp_next_scheduled( 'analog/tracker/send_event' ) ) {
-			do_action( 'logger', 'should log data' );
 			wp_schedule_event( current_time( 'timestamp', true ), 'weekly', 'analog/tracker/send_event' );
 		}
 	}
