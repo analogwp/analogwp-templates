@@ -205,6 +205,7 @@ class Local extends Base {
 
 		$new_post_id = wp_insert_post( $args );
 		update_post_meta( $new_post_id, '_elementor_data', $template['content'] );
+		update_post_meta( $new_post_id, '_elementor_page_settings', $template['tokens'] );
 		update_post_meta( $new_post_id, '_elementor_template_type', $template['type'] );
 		update_post_meta( $new_post_id, '_elementor_edit_mode', 'builder' );
 
@@ -265,6 +266,7 @@ class Local extends Base {
 
 		// Attach template content to template array for later use.
 		$template['content'] = $data['content'];
+		$template['tokens']  = $data['tokens'];
 
 		// Finally create the page.
 		$page = $this->create_page( $template, $with_page );
