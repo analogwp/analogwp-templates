@@ -297,11 +297,10 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_make_token_global',
 			[
-				'label'              => __( 'Make this token global', 'ang' ),
-				'type'               => Controls_Manager::SWITCHER,
-				'description'        => __( 'Applies to all pages of your WordPress site', 'ang' ),
-				'frontend_available' => true,
-				'condition'          => [
+				'label'       => __( 'Make this token global', 'ang' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Applies to all pages of your WordPress site', 'ang' ),
+				'condition'   => [
 					'ang_action_tokens!' => '',
 				],
 			]
@@ -381,7 +380,7 @@ class Typography extends Module {
 		if ( count( $font_families ) ) {
 			wp_enqueue_style(
 				'ang_typography_fonts',
-				'https://fonts.googleapis.com/css?family=' . implode( '|', $font_families ),
+				'https://fonts.googleapis.com/css?family=' . implode( ':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic|', $font_families ),
 				[],
 				get_the_modified_time( 'U', $post_id )
 			);
