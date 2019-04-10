@@ -262,12 +262,13 @@ jQuery( window ).on( 'elementor:init', function() {
 		};
 
 		$.post( ajaxurl, data, function( response ) {
-			if ( response.success && perform === 'set' ) {
-				elementor.notifications.showToast( {
-					message: response.data.message,
-				} );
-
+			if ( response.success ) {
 				elementor.saver.doAutoSave();
+				if ( perform === 'set' ) {
+					elementor.notifications.showToast( {
+						message: response.data.message,
+					} );
+				}
 			} else {
 				console.error( response.data.message, response.data.id );
 			}
