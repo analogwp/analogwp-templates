@@ -27,10 +27,26 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 	 * Get data control value.
 	 * Retrieve the value of the data control from a specific Controls_Stack settings.
 	 *
+	 * @param array $control  Control.
+	 * @param array $settings Element settings.
+	 *
 	 * @access public
 	 */
 	public function get_value( $control, $settings ) {
 		return false;
+	}
+
+	/**
+	 * Get data control default value.
+	 *
+	 * Retrieve the default value of the data control. Used to return the default
+	 * values while initializing the data control.
+	 *
+	 * @access public
+	 * @return string Control default value.
+	 */
+	public function get_default_value() {
+		return '';
 	}
 
 	/**

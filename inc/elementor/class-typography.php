@@ -189,9 +189,9 @@ class Typography extends Module {
 				[
 					'label'           => $setting[1],
 					'type'            => Controls_Manager::SLIDER,
-					'desktop_default' => $this->get_default_value( 'ang_size_' . $setting[0] ),
-					'tablet_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_tablet' ),
-					'mobile_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_mobile' ),
+					'desktop_default' => $this->get_default_value( 'ang_size_' . $setting[0], true ),
+					'tablet_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_tablet', true ),
+					'mobile_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_mobile', true ),
 					'size_units'      => [ 'px', 'em', 'rem', 'vw' ],
 					'range'           => [
 						'px' => [
@@ -257,9 +257,9 @@ class Typography extends Module {
 				[
 					'label'           => $label,
 					'type'            => Controls_Manager::DIMENSIONS,
-					'desktop_default' => $this->get_default_value( 'ang_column_gap_' . $key ),
-					'tablet_default'  => $this->get_default_value( 'ang_column_gap_' . $key . '_tablet' ),
-					'mobile_default'  => $this->get_default_value( 'ang_column_gap_' . $key . '_mobile' ),
+					'desktop_default' => $this->get_default_value( 'ang_column_gap_' . $key, true ),
+					'tablet_default'  => $this->get_default_value( 'ang_column_gap_' . $key . '_tablet', true ),
+					'mobile_default'  => $this->get_default_value( 'ang_column_gap_' . $key . '_mobile', true ),
 					'size_units'      => [ 'px', 'em', '%' ],
 					'selectors'       => [
 						"body .elementor-column-gap-{$key} > .elementor-row > .elementor-column > .elementor-element-populated"
@@ -441,7 +441,7 @@ class Typography extends Module {
 		);
 	}
 
-	public function get_default_value( $key ) {
+	public function get_default_value( $key, $is_array = false ) {
 		$global_token = Options::get_instance()->get( 'global_token' );
 		if ( $global_token && ! empty( $global_token ) ) {
 			$values = json_decode( $global_token['data'], true );
@@ -451,10 +451,16 @@ class Typography extends Module {
 			}
 		}
 
-		return false;
+		return ( $is_array ) ? [] : '';
 	}
 
 	public function get_default_typography_values( $key ) {
+		$global_token = Options::get_instance()->get( 'global_token' );
+
+		if ( empty( $global_token ) ) {
+			return [];
+		}
+
 		return [
 			'typography'            => [
 				'default' => $this->get_default_value( $key . '_typography' ),
