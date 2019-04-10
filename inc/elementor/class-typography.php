@@ -31,6 +31,7 @@ class Typography extends Module {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 10, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_text_sizes' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_styling_settings' ], 10, 2 );
 
@@ -170,7 +171,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_typography_sizes',
 			[
-				'label' => __( 'Sizes', 'ang' ),
+				'label' => __( 'Heading Sizes', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -206,7 +207,73 @@ class Typography extends Module {
 					],
 					'responsive'      => true,
 					'selectors'       => [
-						"body .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}" => 'font-size: {{SIZE}}{{UNIT}}',
+						"body .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"body .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"body .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"body .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"body .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"body .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}"
+						=> 'font-size: {{SIZE}}{{UNIT}}',
+					],
+				]
+			);
+		}
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Register text sizes controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_text_sizes( Controls_Stack $element, $section_id ) {
+		if ( 'section_page_style' !== $section_id ) {
+			return;
+		}
+
+		$element->start_controls_section(
+			'ang_text_sizes',
+			[
+				'label' => __( 'Text Sizes', 'ang' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$settings = [
+			[ 'small', __( 'Small', 'ang' ), 15 ],
+			[ 'medium', __( 'Medium', 'ang' ), 19 ],
+			[ 'large', __( 'Large', 'ang' ), 29 ],
+			[ 'xl', __( 'XL', 'ang' ), 39 ],
+			[ 'xxl', __( 'XXL', 'ang' ), 59 ],
+		];
+
+		foreach ( $settings as $setting ) {
+			$element->add_responsive_control(
+				'ang_text_size_' . $setting[0],
+				[
+					'label'           => $setting[1],
+					'type'            => Controls_Manager::SLIDER,
+					'desktop_default' => $this->get_default_value( 'ang_size_' . $setting[0], true ),
+					'tablet_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_tablet', true ),
+					'mobile_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_mobile', true ),
+					'size_units'      => [ 'px', 'em', 'rem', 'vw' ],
+					'range'           => [
+						'px' => [
+							'min' => 1,
+							'max' => 200,
+						],
+						'vw' => [
+							'min'  => 0.1,
+							'max'  => 10,
+							'step' => 0.1,
+						],
+					],
+					'responsive'      => true,
+					'selectors'       => [
+						"body .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)"
+						=> 'font-size: {{SIZE}}{{UNIT}}',
 					],
 				]
 			);
