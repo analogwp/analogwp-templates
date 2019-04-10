@@ -119,6 +119,10 @@ export async function requestElementorImport( template ) {
 	} ).then( data => {
 		const parsedTemplate = JSON.parse( data );
 
+		if ( parsedTemplate.tokens ) {
+			elementor.settings.page.model.set( parsedTemplate.tokens );
+		}
+
 		const model = new Backbone.Model( {
 			getTitle: function getTitle() {
 				return 'Test';
