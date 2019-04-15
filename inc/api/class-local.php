@@ -50,6 +50,18 @@ class Local extends Base {
 			'/update/settings/'        => [
 				\WP_REST_Server::CREATABLE => 'update_setting',
 			],
+			'/tokens'                  => [
+				\WP_REST_Server::READABLE => 'get_tokens',
+			],
+			'/tokens/save'             => [
+				\WP_REST_Server::CREATABLE => 'save_tokens',
+			],
+			'/tokens/get'              => [
+				\WP_REST_Server::CREATABLE => 'get_token',
+			],
+			'/tokens/update'           => [
+				\WP_REST_Server::CREATABLE => 'update_token',
+			],
 		];
 
 		foreach ( $endpoints as $endpoint => $details ) {
@@ -71,10 +83,9 @@ class Local extends Base {
 	/**
 	 * Check if a given request has access to update a setting
 	 *
-	 * @param object \WP_REST_Request $request Full data about the request.
 	 * @return \WP_Error|bool
 	 */
-	public function rest_permission_check( $request ) {
+	public function rest_permission_check() {
 		return current_user_can( 'edit_posts' );
 	}
 
@@ -104,8 +115,8 @@ class Local extends Base {
 			}
 		}
 
-		update_post_meta( $new_post_id, '_ang_import_type', 'elementor' );
-		update_post_meta( $new_post_id, '_ang_template_id', $template_id );
+		update_post_meta( $editor_id, '_ang_import_type', 'elementor' );
+		update_post_meta( $editor_id, '_ang_template_id', $template_id );
 
 		// Add import history.
 		\Analog\Utils::add_import_log( $template_id, $editor_id, 'elementor' );
@@ -196,6 +207,7 @@ class Local extends Base {
 
 		$new_post_id = wp_insert_post( $args );
 		update_post_meta( $new_post_id, '_elementor_data', $template['content'] );
+		update_post_meta( $new_post_id, '_elementor_page_settings', $template['tokens'] );
 		update_post_meta( $new_post_id, '_elementor_template_type', $template['type'] );
 		update_post_meta( $new_post_id, '_elementor_edit_mode', 'builder' );
 
@@ -256,6 +268,7 @@ class Local extends Base {
 
 		// Attach template content to template array for later use.
 		$template['content'] = $data['content'];
+		$template['tokens']  = $data['tokens'];
 
 		// Finally create the page.
 		$page = $this->create_page( $template, $with_page );
@@ -273,11 +286,9 @@ class Local extends Base {
 	/**
 	 * Get plugin settings.
 	 *
-	 * @param \WP_REST_Request $request Request object.
-	 *
 	 * @return \WP_REST_Response
 	 */
-	public function get_settings( \WP_REST_Request $request ) {
+	public function get_settings() {
 		$options = Options::get_instance()->get();
 
 		return new \WP_REST_Response( $options, 200 );
@@ -304,6 +315,151 @@ class Local extends Base {
 			[ 'message' => __( 'Setting updated.', 'ang' ) ],
 			200
 		);
+	}
+
+	/**
+	 * Get registered tokens.
+	 *
+	 * @since 1.2
+	 *
+	 * @return \WP_REST_Response|array
+	 */
+	public function get_tokens() {
+		$query = new \WP_Query(
+			[
+				'post_type'      => 'ang_tokens',
+				'posts_per_page' => -1,
+			]
+		);
+
+		if ( ! $query->have_posts() ) {
+			return [];
+		}
+
+		$tokens = [];
+
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			$post_id = get_the_ID();
+
+			$tokens[] = [
+				'id'    => $post_id,
+				'title' => get_the_title(),
+			];
+		}
+
+		wp_reset_postdata();
+
+		return new \WP_REST_Response(
+			[
+				'tokens' => $tokens,
+			],
+			200
+		);
+	}
+
+	/**
+	 * Save tokens.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return \WP_Error|\WP_REST_Response
+	 */
+	public function save_tokens( \WP_REST_Request $request ) {
+		$belongs_to = $request->get_param( 'id' );
+		$title      = $request->get_param( 'title' );
+		$tokens     = $request->get_param( 'tokens' );
+
+		if ( ! $tokens ) {
+			return new \WP_Error( 'tokens_error', 'No tokens data found.' );
+		}
+		if ( ! $title ) {
+			return new \WP_Error( 'tokens_error', 'Please provide a title.' );
+		}
+
+		$args = [
+			'post_type'   => 'ang_tokens',
+			'post_title'  => $title,
+			'post_status' => 'publish',
+			'meta_input'  => [
+				'belongs_to'   => $belongs_to,
+				'_tokens_data' => $tokens,
+			],
+		];
+
+		/**
+		 * Save token arguments. Filters the arguments for wp_insert_post().
+		 *
+		 * @param string $args Arguments.
+		 * @param string $title Post Title.
+		 * @param string $tokens Tokens data.
+		 * @param string $belongs_to Post/Page ID of the page tokens are being saved from.
+		 */
+		$args = apply_filters( 'analog/elementor/save/tokens/args', $args, $title, $tokens, $belongs_to );
+
+		$post_id = wp_insert_post( $args );
+
+		if ( is_wp_error( $post_id ) ) {
+			return new \WP_Error( 'tokens_error', __( 'Unable to create a post', 'ang' ) );
+		} else {
+			return new \WP_REST_Response(
+				[
+					'id'      => $post_id,
+					'message' => __( 'Token saved.', 'ang' ),
+				],
+				200
+			);
+		}
+	}
+
+	/**
+	 * Get all templates.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function get_token( \WP_REST_Request $request ) {
+		$id = $request->get_param( 'id' );
+
+		if ( ! $id ) {
+			return new \WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'ang' ) );
+		}
+
+		if ( ! get_post( $id ) ) {
+			return new \WP_Error( 'tokens_error', __( 'Invalid Post ID', 'ang' ) );
+		}
+
+		$tokens_data = get_post_meta( $id, '_tokens_data', true );
+
+		return new \WP_REST_Response(
+			[
+				'data' => $tokens_data,
+			],
+			200
+		);
+	}
+
+	/**
+	 * Update a token.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function update_token( \WP_REST_Request $request ) {
+		$id     = $request->get_param( 'id' );
+		$tokens = $request->get_param( 'tokens' );
+
+		if ( ! $id ) {
+			return new \WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'ang' ) );
+		}
+
+		$data = \update_post_meta( $id, '_tokens_data', $tokens );
+
+		return new \WP_REST_Response( $data, 200 );
 	}
 }
 

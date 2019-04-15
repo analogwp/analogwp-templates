@@ -16,7 +16,7 @@ class Options extends Base {
 	/**
 	 * Get a single option, or all if no key is provided.
 	 *
-	 * @param string|bool $key Option key.
+	 * @param string|array|bool $key Option key.
 	 * @return array|string|bool
 	 */
 	public function get( $key = false ) {
@@ -37,7 +37,7 @@ class Options extends Base {
 	 * Update a single option.
 	 *
 	 * @param string $key Option key.
-	 * @param string $value Option value.
+	 * @param mixed  $value Option value.
 	 * @return void
 	 */
 	public function set( $key, $value ) {

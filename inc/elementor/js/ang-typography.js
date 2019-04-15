@@ -4,23 +4,12 @@ jQuery( document ).ready( function( $ ) {
 		elementor.helpers.enqueueFont( font );
 	}
 
-	const keys = [
-		'ang_heading_1',
-		'ang_heading_2',
-		'ang_heading_3',
-		'ang_heading_4',
-		'ang_heading_5',
-		'ang_heading_6',
-		'ang_default_heading',
-		'ang_body',
-		'ang_paragraph',
-	];
-
-	for ( let index = 0; index < keys.length; index++ ) {
-		const element = keys[ index ] + '_font_family';
-
-		elementor.settings.page.addChangeCallback( element, handleFonts );
-	}
+	const pageSettings = elementor.settings.page.model.attributes;
+	_.map( pageSettings, function( value, key ) {
+		if ( key.startsWith( 'ang_' ) && key.endsWith( '_font_family' ) ) {
+			elementor.settings.page.addChangeCallback( key, handleFonts );
+		}
+	} );
 
 	function addPageStyleSettings( groups ) {
 		const PageStyles = {
@@ -49,6 +38,7 @@ jQuery( document ).ready( function( $ ) {
 
 		currentView.setPage( 'page_settings' );
 		currentView.getCurrentPageView().activateTab( 'style' );
+		currentView.getCurrentPageView().activateSection( 'ang_body_and_paragraph_typography' );
 		currentView.getCurrentPageView().render();
 	}
 } );

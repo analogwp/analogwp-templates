@@ -64,6 +64,36 @@ class Utils extends Base {
 
 		update_option( '_ang_import_history', $imports );
 	}
+
+	/**
+	 * Get registered tokens.
+	 *
+	 * @return array
+	 */
+	public static function get_tokens() {
+		$query = new \WP_Query(
+			[
+				'post_type'      => 'ang_tokens',
+				'posts_per_page' => -1,
+			]
+		);
+
+		if ( ! $query->have_posts() ) {
+			return [];
+		}
+
+		$tokens = [];
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			$post_id = \get_the_ID();
+
+			$tokens[ $post_id ] = \get_the_title();
+		}
+
+		wp_reset_postdata();
+
+		return $tokens;
+	}
 }
 
 new Utils();
