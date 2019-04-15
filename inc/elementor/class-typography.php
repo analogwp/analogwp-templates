@@ -355,7 +355,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_tokens',
 			[
-				'label'   => __( 'Token', 'ang' ),
+				'label'   => __( 'Style Kit', 'ang' ),
 				'type'    => Controls_Manager::SELECT2,
 				'options' => Utils::get_tokens(),
 			]
@@ -364,7 +364,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_make_token_global',
 			[
-				'label'       => __( 'Make this token global', 'ang' ),
+				'label'       => __( 'Make this Style Kit global', 'ang' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'description' => __( 'Applies to all pages of your WordPress site', 'ang' ),
 				'condition'   => [
@@ -376,11 +376,11 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_save_token',
 			[
-				'label'        => __( 'Save as Token', 'ang' ),
+				'label'        => __( 'Save styles as Style Kit', 'ang' ),
 				'type'         => 'ang_action',
 				'action'       => 'save_token',
-				'action_label' => __( 'Save Token', 'ang' ),
-				'description'  => __( 'A token is a collection of the page styling settings.', 'ang' ),
+				'action_label' => __( 'Save Style Kit', 'ang' ),
+				'description'  => __( 'A Style Kit is a collection of the page styling settings.', 'ang' ),
 			]
 		);
 
@@ -508,7 +508,7 @@ class Typography extends Module {
 		wp_send_json_success(
 			[
 				/* translators: %s: Post title. */
-				'message' => sprintf( __( '&ldquo;%s&rdquo; has been set as a global token.', 'ang' ), $post->post_title ),
+				'message' => sprintf( __( '&ldquo;%s&rdquo; has been set as a global Style Kit.', 'ang' ), $post->post_title ),
 			]
 		);
 	}
