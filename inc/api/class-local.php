@@ -284,11 +284,9 @@ class Local extends Base {
 	/**
 	 * Get plugin settings.
 	 *
-	 * @param \WP_REST_Request $request Request object.
-	 *
 	 * @return \WP_REST_Response
 	 */
-	public function get_settings( \WP_REST_Request $request ) {
+	public function get_settings() {
 		$options = Options::get_instance()->get();
 
 		return new \WP_REST_Response( $options, 200 );
@@ -413,7 +411,7 @@ class Local extends Base {
 	 *
 	 * @param \WP_REST_Request $request Request object.
 	 *
-	 * @return array
+	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function get_token( \WP_REST_Request $request ) {
 		$id = $request->get_param( 'id' );
