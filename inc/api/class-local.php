@@ -80,10 +80,9 @@ class Local extends Base {
 	/**
 	 * Check if a given request has access to update a setting
 	 *
-	 * @param object \WP_REST_Request $request Full data about the request.
 	 * @return \WP_Error|bool
 	 */
-	public function rest_permission_check( $request ) {
+	public function rest_permission_check() {
 		return current_user_can( 'edit_posts' );
 	}
 
