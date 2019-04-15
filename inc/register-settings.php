@@ -29,8 +29,8 @@ function register_menu() {
 	if ( $tokens ) {
 		add_submenu_page(
 			'analogwp_templates',
-			__( 'Settings', 'ang' ),
-			__( 'Settings', 'ang' ),
+			__( 'Library', 'ang' ),
+			__( 'Library', 'ang' ),
 			'manage_options',
 			'analogwp_templates'
 		);
