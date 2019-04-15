@@ -59,6 +59,9 @@ class Local extends Base {
 			'/tokens/get'              => [
 				\WP_REST_Server::CREATABLE => 'get_token',
 			],
+			'/tokens/update'           => [
+				\WP_REST_Server::CREATABLE => 'update_token',
+			],
 		];
 
 		foreach ( $endpoints as $endpoint => $details ) {
@@ -340,13 +343,19 @@ class Local extends Base {
 			$post_id = get_the_ID();
 
 			$tokens[] = [
-				'id'           => $post_id,
-				'title'        => the_title(),
-				'_tokens_data' => \get_post_meta( $post_id, '_tokens_data', true ),
+				'id'    => $post_id,
+				'title' => get_the_title(),
 			];
 		}
 
-		return new \WP_REST_Response( $tokens, 200 );
+		wp_reset_postdata();
+
+		return new \WP_REST_Response(
+			[
+				'tokens' => $tokens,
+			],
+			200
+		);
 	}
 
 	/**
@@ -431,6 +440,26 @@ class Local extends Base {
 			],
 			200
 		);
+	}
+
+	/**
+	 * Update a token.
+	 *
+	 * @param \WP_REST_Request $request Request object.
+	 *
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function update_token( \WP_REST_Request $request ) {
+		$id     = $request->get_param( 'id' );
+		$tokens = $request->get_param( 'tokens' );
+
+		if ( ! $id ) {
+			return new \WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'ang' ) );
+		}
+
+		$data = \update_post_meta( $id, '_tokens_data', $tokens );
+
+		return new \WP_REST_Response( $data, 200 );
 	}
 }
 

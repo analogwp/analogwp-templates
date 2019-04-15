@@ -25,6 +25,7 @@ jQuery( window ).on( 'elementor:init', function() {
 				export_css: 'handleCSSExport',
 				reset_css: 'handleCSSReset',
 				save_token: 'handleSaveToken',
+				update_token: 'handleTokenUpdate',
 			};
 
 			return this[ actions[ name ] ]();
@@ -108,6 +109,7 @@ jQuery( window ).on( 'elementor:init', function() {
 					} );
 
 					elementor.settings.page.model.set( angSettings );
+					elementor.settings.page.model.set( 'ang_action_tokens', '' );
 				},
 			} ).show();
 
@@ -197,6 +199,71 @@ jQuery( window ).on( 'elementor:init', function() {
 			modal.show();
 			jQuery( window ).resize();
 		},
+
+		handleTokenUpdate: function() {
+			let postID = '';
+			const settings = elementor.settings.page.model.attributes;
+			const angSettings = {};
+			_.map( settings, function( value, key ) {
+				if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
+					angSettings[ key ] = value;
+				}
+			} );
+
+			const modal = elementorCommon.dialogsManager.createWidget( 'confirm', {
+				message: '',
+				headerMessage: 'Update Style Kit',
+				strings: {
+					confirm: elementor.translate( 'yes' ),
+					cancel: elementor.translate( 'cancel' ),
+				},
+				defaultOption: 'cancel',
+				onConfirm: function() {
+					console.log('hello world', postID, angSettings);
+
+					wp.apiFetch( {
+						path: 'agwp/v1/tokens/update',
+						method: 'post',
+						data: {
+							id: postID,
+							tokens: JSON.stringify( angSettings ),
+						},
+					} ).then( ( response ) => {
+						elementor.notifications.showToast( {
+							message: ANG_Action.translate.tokenUpdated,
+						} );
+					} ).catch( error => console.error( error ) );
+				},
+				onShow: function() {
+					const content = modal.getElements( 'content' );
+					content.append( '<p><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></p>' );
+
+					wp.apiFetch( {
+						path: 'agwp/v1/tokens',
+						method: 'get',
+					} ).then( response => {
+						if ( response.tokens.length ) {
+							let html = `<select id="update-token-id"><option>${ ANG_Action.translate.selectKit }</option>`;
+
+							_.map( response.tokens, function( option ) {
+								html += `<option value="${ option.id }">${ option.title }</option>`;
+							} );
+
+							html += '</select>';
+
+							content.html( html );
+
+							$( content ).find( '#update-token-id' ).on( 'change', function() {
+								postID = $( this ).val();
+							} );
+						}
+					} );
+				},
+			} );
+
+			modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
+			modal.show();
+		},
 	} );
 	elementor.addControlView( 'ang_action', ControlANGAction );
 
@@ -247,7 +314,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		if ( ! postId ) {
 			elementor.notifications.showToast( {
-				message: 'Please select a Token first.',
+				message: ANG_Action.translate.selectToken,
 			} );
 			return;
 		}

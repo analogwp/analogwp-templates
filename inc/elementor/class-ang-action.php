@@ -93,6 +93,9 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 					'enterTitle'   => __( 'Enter a title', 'ang' ),
 					'insertToken'  => __( 'Insert Style Kit', 'ang' ),
 					'tokenWarning' => __( 'Please select a Style Kit first.', 'ang' ),
+					'selectKit'    => __( '— Select a Style Kit —', 'ang' ),
+					'tokenUpdated' => __( 'Token Updated.', 'ang' ),
+					'selectToken'  => __( 'Please select a Token first.', 'ang' ),
 				],
 			]
 		);

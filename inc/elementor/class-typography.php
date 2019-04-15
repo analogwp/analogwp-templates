@@ -373,11 +373,21 @@ class Typography extends Module {
 			]
 		);
 
+		$element->add_control(
+			'ang_action_update_token',
+			[
+				'label'        => __( 'Update your Style Kit', 'ang' ),
+				'type'         => 'ang_action',
+				'action'       => 'update_token',
+				'action_label' => __( 'Update', 'ang' ),
+			]
+		);
+
 		$label = __( 'Save all the styles as a Style Kit that you can apply on other pages or globally. Please note that only the custom styles added in the styles page are saved with the stylekit.', 'ang' );
 		$element->add_control(
 			'ang_action_save_token',
 			[
-				'label'        => __( 'Save styles as Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'label'        => __( 'Save Style Kit as...', 'ang' ) . $this->get_tooltip( $label ),
 				'type'         => 'ang_action',
 				'action'       => 'save_token',
 				'action_label' => __( 'Save Style Kit', 'ang' ),
@@ -399,7 +409,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_export_css',
 			[
-				'label'        => __( 'Export the custom CSS', 'ang' ) . $this->get_tooltip( $label ),
+				'label'        => __( 'Export Custom CSS', 'ang' ) . $this->get_tooltip( $label ),
 				'type'         => 'ang_action',
 				'action'       => 'export_css',
 				'action_label' => __( 'Export CSS', 'ang' ),
