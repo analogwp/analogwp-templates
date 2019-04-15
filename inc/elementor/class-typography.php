@@ -474,6 +474,11 @@ class Typography extends Module {
 		);
 	}
 
+	/**
+	 * Ajax action for making a token global.
+	 *
+	 * @return void
+	 */
 	public function make_token_global() {
 		$id   = (int) $_POST['id'];
 		$post = get_post( $id );
@@ -508,6 +513,14 @@ class Typography extends Module {
 		);
 	}
 
+	/**
+	 * Get default value for specific control.
+	 *
+	 * @param string $key Setting ID.
+	 * @param bool   $is_array Whether provided key includes set of array.
+	 *
+	 * @return array|string
+	 */
 	public function get_default_value( $key, $is_array = false ) {
 		$global_token = Options::get_instance()->get( 'global_token' );
 		if ( $global_token && ! empty( $global_token ) ) {
@@ -521,6 +534,13 @@ class Typography extends Module {
 		return ( $is_array ) ? [] : '';
 	}
 
+	/**
+	 * Get default values for Typography group control.
+	 *
+	 * @param string $key Setting ID.
+	 *
+	 * @return array
+	 */
 	public function get_default_typography_values( $key ) {
 		$global_token = Options::get_instance()->get( 'global_token' );
 

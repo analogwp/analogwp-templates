@@ -1,4 +1,4 @@
-/* global elementor, elementorCommon, ANG_Action, cssbeautify, elementorFrontend */
+/* global jQuery, elementor, elementorCommon, ANG_Action, cssbeautify */
 jQuery( window ).on( 'elementor:init', function() {
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {
