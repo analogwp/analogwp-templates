@@ -185,10 +185,21 @@ class Typography extends Module {
 		];
 
 		foreach ( $settings as $setting ) {
+			$element->add_control(
+				'popover_toggle_ang_' . $setting[0],
+				[
+					'label' => $setting[1],
+					'type' => Controls_Manager::POPOVER_TOGGLE,
+					'return_value' => 'yes',
+				]
+			);
+
+			$element->start_popover();
+
 			$element->add_responsive_control(
 				'ang_size_' . $setting[0],
 				[
-					'label'           => $setting[1],
+					'label'           => __( 'Font Size', 'ang' ),
 					'type'            => Controls_Manager::SLIDER,
 					'desktop_default' => $this->get_default_value( 'ang_size_' . $setting[0], true ),
 					'tablet_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_tablet', true ),
@@ -217,6 +228,27 @@ class Typography extends Module {
 					],
 				]
 			);
+
+			$element->add_responsive_control(
+				'ang_size_lh_' . $setting[0],
+				[
+					'label' => __( 'Line Height', 'ang' ),
+					'type'  => Controls_Manager::SLIDER,
+					'responsive' => true,
+					'size_units' => [ 'px', 'em' ],
+					'selectors'       => [
+						"body .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"body .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"body .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"body .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"body .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"body .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}"
+						=> 'line-height: {{SIZE}}{{UNIT}}',
+					],
+				]
+			);
+
+			$element->end_popover();
 		}
 
 		$element->end_controls_section();
