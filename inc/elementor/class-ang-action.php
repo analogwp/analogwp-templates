@@ -58,6 +58,8 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 
 		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
+		wp_enqueue_style( 'hint-css', ANG_PLUGIN_URL . 'inc/elementor/css/hint.min.css', [], '2.5.1' );
+
 		wp_enqueue_script(
 			'cssbeautify',
 			ANG_PLUGIN_URL . 'inc/elementor/js/cssbeautify.min.js',

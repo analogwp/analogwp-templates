@@ -352,10 +352,11 @@ class Typography extends Module {
 			]
 		);
 
+		$label = __( 'A style kit is a collection of all the custom styles added at page styling settings. Your style kit is saved every time you update your layout.', 'ang' );
 		$element->add_control(
 			'ang_action_tokens',
 			[
-				'label'   => __( 'Style Kit', 'ang' ),
+				'label'   => __( 'Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'    => Controls_Manager::SELECT2,
 				'options' => Utils::get_tokens(),
 			]
@@ -373,10 +374,11 @@ class Typography extends Module {
 			]
 		);
 
+		$label = __( 'Save all the styles as a Style Kit that you can apply on other pages or globally. Please note that only the custom styles added in the styles page are saved with the stylekit.', 'ang' );
 		$element->add_control(
 			'ang_action_save_token',
 			[
-				'label'        => __( 'Save styles as Style Kit', 'ang' ),
+				'label'        => __( 'Save styles as Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'         => 'ang_action',
 				'action'       => 'save_token',
 				'action_label' => __( 'Save Style Kit', 'ang' ),
@@ -384,10 +386,11 @@ class Typography extends Module {
 			]
 		);
 
+		$label = __( 'Resets only the Styles that have been added at the Style panel.', 'ang' );
 		$element->add_control(
 			'ang_action_reset',
 			[
-				'label'        => __( 'Reset all styling', 'ang' ),
+				'label'        => __( 'Reset all styling', 'ang' ) . $this->get_tooltip( $label ),
 				'type'         => 'ang_action',
 				'action'       => 'reset_css',
 				'action_label' => __( 'Reset all', 'ang' ),
@@ -395,10 +398,11 @@ class Typography extends Module {
 			]
 		);
 
+		$label = __( 'Export styles as custom CSS text.', 'ang' );
 		$element->add_control(
 			'ang_action_export_css',
 			[
-				'label'        => __( 'Export the custom CSS', 'ang' ),
+				'label'        => __( 'Export the custom CSS', 'ang' ) . $this->get_tooltip( $label ),
 				'type'         => 'ang_action',
 				'action'       => 'export_css',
 				'action_label' => __( 'Export CSS', 'ang' ),
@@ -595,6 +599,17 @@ class Typography extends Module {
 				'default' => $this->get_default_value( $key . '_text_decoration' ),
 			],
 		];
+	}
+
+	/**
+	 * Return text formatter for displaying tooltip.
+	 *
+	 * @param string $text Tooltip Text.
+	 *
+	 * @return string
+	 */
+	public function get_tooltip( $text ) {
+		return ' <span class="hint--top-right hint--medium" aria-label="' . $text . '"><i class="fa fa-info-circle"></i></span>';
 	}
 }
 
