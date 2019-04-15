@@ -365,10 +365,9 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_make_token_global',
 			[
-				'label'       => __( 'Make this Style Kit global', 'ang' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'Applies to all pages of your WordPress site', 'ang' ),
-				'condition'   => [
+				'label'     => __( 'Make this Style Kit global', 'ang' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'condition' => [
 					'ang_action_tokens!' => '',
 				],
 			]
@@ -382,7 +381,6 @@ class Typography extends Module {
 				'type'         => 'ang_action',
 				'action'       => 'save_token',
 				'action_label' => __( 'Save Style Kit', 'ang' ),
-				'description'  => __( 'A Style Kit is a collection of the page styling settings.', 'ang' ),
 			]
 		);
 
@@ -394,7 +392,6 @@ class Typography extends Module {
 				'type'         => 'ang_action',
 				'action'       => 'reset_css',
 				'action_label' => __( 'Reset all', 'ang' ),
-				'description'  => __( 'Resets only the CSS that is added at the Style panel.', 'ang' ),
 			]
 		);
 
