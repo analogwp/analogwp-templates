@@ -113,8 +113,8 @@ class Local extends Base {
 			}
 		}
 
-		update_post_meta( $new_post_id, '_ang_import_type', 'elementor' );
-		update_post_meta( $new_post_id, '_ang_template_id', $template_id );
+		update_post_meta( $editor_id, '_ang_import_type', 'elementor' );
+		update_post_meta( $editor_id, '_ang_template_id', $template_id );
 
 		// Add import history.
 		\Analog\Utils::add_import_log( $template_id, $editor_id, 'elementor' );
