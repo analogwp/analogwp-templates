@@ -38,6 +38,7 @@ jQuery( document ).ready( function( $ ) {
 
 		currentView.setPage( 'page_settings' );
 		currentView.getCurrentPageView().activateTab( 'style' );
+		currentView.getCurrentPageView().activateSection( 'ang_body_and_paragraph_typography' );
 		currentView.getCurrentPageView().render();
 	}
 } );
