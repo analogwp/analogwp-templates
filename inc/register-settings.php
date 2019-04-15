@@ -35,7 +35,7 @@ function register_menu() {
 			'analogwp_templates'
 		);
 
-		$menu_title = __( 'Tokens', 'ang' );
+		$menu_title = __( 'Style Kits', 'ang' );
 		add_submenu_page(
 			'analogwp_templates',
 			$menu_title,

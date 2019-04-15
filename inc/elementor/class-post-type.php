@@ -29,20 +29,20 @@ class Post_Type {
 	 */
 	public function labels() {
 		return [
-			'name'               => __( 'Tokens', 'ang' ),
-			'singular_name'      => __( 'Token', 'ang' ),
-			'menu_name'          => _x( 'Tokens', 'admin menu', 'ang' ),
-			'name_admin_bar'     => _x( 'Token', 'add new on admin bar', 'ang' ),
+			'name'               => __( 'Style Kits', 'ang' ),
+			'singular_name'      => __( 'Style Kit', 'ang' ),
+			'menu_name'          => _x( 'Style Kits', 'admin menu', 'ang' ),
+			'name_admin_bar'     => _x( 'Style Kit', 'add new on admin bar', 'ang' ),
 			'add_new'            => _x( 'Add New', 'book', 'ang' ),
-			'add_new_item'       => __( 'Add New Token', 'ang' ),
-			'new_item'           => __( 'New Token', 'ang' ),
-			'edit_item'          => __( 'Edit Token', 'ang' ),
-			'view_item'          => __( 'View Token', 'ang' ),
-			'all_items'          => __( 'Tokens', 'ang' ),
-			'search_items'       => __( 'Search Tokens', 'ang' ),
-			'parent_item_colon'  => __( 'Parent Tokens:', 'ang' ),
-			'not_found'          => __( 'No tokens found.', 'ang' ),
-			'not_found_in_trash' => __( 'No tokens found in Trash.', 'ang' ),
+			'add_new_item'       => __( 'Add New Style Kit', 'ang' ),
+			'new_item'           => __( 'New Style Kit', 'ang' ),
+			'edit_item'          => __( 'Edit Style Kit', 'ang' ),
+			'view_item'          => __( 'View Style Kit', 'ang' ),
+			'all_items'          => __( 'Style Kits', 'ang' ),
+			'search_items'       => __( 'Search Style Kits', 'ang' ),
+			'parent_item_colon'  => __( 'Parent Style Kits:', 'ang' ),
+			'not_found'          => __( 'No Style Kit found.', 'ang' ),
+			'not_found_in_trash' => __( 'No Style Kit found in Trash.', 'ang' ),
 		];
 	}
 
