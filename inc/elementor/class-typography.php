@@ -418,7 +418,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_style_settings',
 			[
-				'label' => __( 'Styling Settings', 'ang' ),
+				'label' => __( 'Style Kits', 'ang' ),
 				'tab'   => Controls_Manager::TAB_SETTINGS,
 			]
 		);
@@ -436,7 +436,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_make_token_global',
 			[
-				'label'     => __( 'Make this Style Kit global', 'ang' ),
+				'label'     => __( 'Style Kit is Global', 'ang' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'condition' => [
 					'ang_action_tokens!' => '',
