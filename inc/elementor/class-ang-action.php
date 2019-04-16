@@ -94,8 +94,8 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 					'insertToken'  => __( 'Insert Style Kit', 'ang' ),
 					'tokenWarning' => __( 'Please select a Style Kit first.', 'ang' ),
 					'selectKit'    => __( '— Select a Style Kit —', 'ang' ),
-					'tokenUpdated' => __( 'Token Updated.', 'ang' ),
-					'selectToken'  => __( 'Please select a Token first.', 'ang' ),
+					'tokenUpdated' => __( 'Style Kit Updated.', 'ang' ),
+					'selectToken'  => __( 'Please select a Style Kit first.', 'ang' ),
 				],
 			]
 		);
