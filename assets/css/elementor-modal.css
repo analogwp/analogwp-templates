@@ -38,3 +38,7 @@
 	background-size: 20px;
 	background-position: center;
 }
+
+button[data-action="save_token"] {
+	background-color: #8d62a0 !important;
+}

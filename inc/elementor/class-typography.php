@@ -464,7 +464,7 @@ class Typography extends Module {
 				'label'        => __( 'Save Style Kit as...', 'ang' ) . $this->get_tooltip( $label ),
 				'type'         => 'ang_action',
 				'action'       => 'save_token',
-				'action_label' => __( 'Save Style Kit', 'ang' ),
+				'action_label' => __( 'Save as...', 'ang' ),
 			]
 		);
 
