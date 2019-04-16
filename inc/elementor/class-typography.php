@@ -188,8 +188,8 @@ class Typography extends Module {
 			$element->add_control(
 				'toggle_heading_size_' . $setting[0],
 				[
-					'label' => $setting[1],
-					'type' => Controls_Manager::POPOVER_TOGGLE,
+					'label'        => $setting[1],
+					'type'         => Controls_Manager::POPOVER_TOGGLE,
 					'return_value' => 'yes',
 				]
 			);
@@ -451,6 +451,9 @@ class Typography extends Module {
 				'type'         => 'ang_action',
 				'action'       => 'update_token',
 				'action_label' => __( 'Update', 'ang' ),
+				'condition' => [
+					'ang_action_tokens!' => '',
+				],
 			]
 		);
 
