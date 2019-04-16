@@ -118,12 +118,8 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/class-elementor.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-tracker.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-cron.php';
-
-		$beta_enabled = Options::get_instance()->get( 'ang_beta_features' );
-		if ( $beta_enabled ) {
-			require_once ANG_PLUGIN_DIR . 'inc/elementor/class-typography.php';
-			require_once ANG_PLUGIN_DIR . 'inc/elementor/class-post-type.php';
-		}
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-typography.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-post-type.php';
 	}
 
 	/**
