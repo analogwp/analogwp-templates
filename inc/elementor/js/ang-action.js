@@ -2,23 +2,23 @@
 jQuery( window ).on( 'elementor:init', function() {
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {
-		initialize: function(options) {
+		initialize: function( options ) {
 			BaseData.prototype.initialize.apply( this, arguments );
 			this.elementSettingsModel = options.elementSettingsModel;
 
-			if (this.model.get( 'action' ) === 'update_token') {
+			if ( this.model.get( 'action' ) === 'update_token' ) {
 				this.listenTo( this.elementSettingsModel, 'change', this.toggleControlVisibility );
 			}
 		},
 
 		toggleControlVisibility: function toggleControlVisibility() {
-			if (this.model.get( 'action' ) !== 'update_token') {
+			if ( this.model.get( 'action' ) !== 'update_token' ) {
 				return;
 			}
 
 			this.$el.find( 'button' ).attr( 'disabled', true );
 
-			if (Object.keys( this.elementSettingsModel.changed ).length) {
+			if ( Object.keys( this.elementSettingsModel.changed ).length ) {
 				this.$el.find( 'button' ).attr( 'disabled', false );
 			}
 		},
@@ -125,16 +125,23 @@ jQuery( window ).on( 'elementor:init', function() {
 					const angSettings = {};
 					_.map( settings, function( value, key ) {
 						if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
-							angSettings[ key ] = '';
+							if ( elementor.settings.page.model.controls[ key ] !== undefined ) {
+								angSettings[ key ] = elementor.settings.page.model.controls[ key ].default;
+							}
 						}
 					} );
 
 					elementor.settings.page.model.set( angSettings );
 					elementor.settings.page.model.set( 'ang_action_tokens', '' );
+
+					const currentView = elementor.panel.currentView;
+
+					currentView.setPage( 'page_settings' );
+					currentView.getCurrentPageView().activateTab( 'settings' );
+					currentView.getCurrentPageView().activateSection( 'ang_style_settings' );
+					currentView.getCurrentPageView().render();
 				},
 			} ).show();
-
-			// elementor.panel.currentView.getCurrentPageView().render();
 		},
 
 		handleSaveToken: function() {
@@ -240,8 +247,6 @@ jQuery( window ).on( 'elementor:init', function() {
 				},
 				defaultOption: 'cancel',
 				onConfirm: function() {
-					console.log('hello world', postID, angSettings);
-
 					wp.apiFetch( {
 						path: 'agwp/v1/tokens/update',
 						method: 'post',
