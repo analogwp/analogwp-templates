@@ -2,6 +2,27 @@
 jQuery( window ).on( 'elementor:init', function() {
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {
+		initialize: function(options) {
+			BaseData.prototype.initialize.apply( this, arguments );
+			this.elementSettingsModel = options.elementSettingsModel;
+
+			if (this.model.get( 'action' ) === 'update_token') {
+				this.listenTo( this.elementSettingsModel, 'change', this.toggleControlVisibility );
+			}
+		},
+
+		toggleControlVisibility: function toggleControlVisibility() {
+			if (this.model.get( 'action' ) !== 'update_token') {
+				return;
+			}
+
+			this.$el.find( 'button' ).attr( 'disabled', true );
+
+			if (Object.keys( this.elementSettingsModel.changed ).length) {
+				this.$el.find( 'button' ).attr( 'disabled', false );
+			}
+		},
+
 		ui: function() {
 			const ui = BaseData.prototype.ui.apply( this, arguments );
 
