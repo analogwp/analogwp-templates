@@ -457,7 +457,7 @@ class Typography extends Module {
 			]
 		);
 
-		$label = __( 'Resets only the Styles that have been added at the Style panel.', 'ang' );
+		$label = __( 'This will reset all the custom style values added in the Style tab, and detach this page from any Style kits', 'ang' );
 		$element->add_control(
 			'ang_action_reset',
 			[
