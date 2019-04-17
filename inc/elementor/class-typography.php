@@ -39,6 +39,8 @@ class Typography extends Module {
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ], 999 );
 
 		add_action( 'wp_ajax_ang_make_token_global', [ $this, 'make_token_global' ] );
+
+		add_filter( 'display_post_states', [ $this, 'add_token_state' ], 10, 2 );
 	}
 
 	/**
@@ -440,7 +442,7 @@ class Typography extends Module {
 				'type'         => 'ang_action',
 				'action'       => 'update_token',
 				'action_label' => __( 'Update', 'ang' ),
-				'condition' => [
+				'condition'    => [
 					'ang_action_tokens!' => '',
 				],
 			]
@@ -680,6 +682,22 @@ class Typography extends Module {
 	 */
 	public function get_tooltip( $text ) {
 		return ' <span class="hint--top-right hint--medium" aria-label="' . $text . '"><i class="fa fa-info-circle"></i></span>';
+	}
+
+	/**
+	 * Add visual indicator for token CPT.
+	 *
+	 * @param array  $post_states Post states.
+	 * @param object $post Post Object.
+	 * @return array
+	 */
+	public function add_token_state( $post_states, $post ) {
+		$global_token = Options::get_instance()->get( 'global_token' );
+		if ( $global_token && ! empty( $global_token ) && $post->ID === $global_token['id'] ) {
+			$post_states[] = '<span style="color:#32b644;">&#9679; Global Style Kit</span>';
+		}
+
+		return $post_states;
 	}
 }
 
