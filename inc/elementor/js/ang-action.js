@@ -43,7 +43,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		}
 	} );
 
-	function redirectToSection( tab = 'settings', section = 'ang_style_settings', page = 'page_settings' ) {
+	function redirectToSection( tab = 'style', section = 'ang_style_settings', page = 'page_settings' ) {
 		const currentView = elementor.panel.currentView;
 
 		currentView.setPage( page );
