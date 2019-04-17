@@ -414,6 +414,18 @@ class Typography extends Module {
 			]
 		);
 
+		$global_token = Options::get_instance()->get( 'global_token' );
+		if ( $global_token && ! empty( $global_token ) ) {
+			$element->add_control(
+				'description_ang_global_stylekit',
+				[
+					'raw'             => __( '<strong>There is currently a global Style Kit in effect.</strong> If you insert another style kit here, it will affect this page only.', 'ang' ),
+					'type'            => Controls_Manager::RAW_HTML,
+					'content_classes' => 'ang-notice',
+				]
+			);
+		}
+
 		$label = __( 'A style kit is a collection of all the custom styles added at page styling settings. Your style kit is saved every time you update your layout.', 'ang' );
 		$element->add_control(
 			'ang_action_tokens',

@@ -42,3 +42,10 @@
 button[data-action="save_token"] {
 	background-color: #8d62a0 !important;
 }
+
+.elementor-panel .ang-notice {
+	background: #e6f6ff;
+	padding: 10px;
+	line-height: 1.4;
+	border-radius: 3px;
+}
