@@ -96,6 +96,14 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 					'selectKit'    => __( '— Select a Style Kit —', 'ang' ),
 					'tokenUpdated' => __( 'Style Kit Updated.', 'ang' ),
 					'selectToken'  => __( 'Please select a Style Kit first.', 'ang' ),
+					'sk_header'    => __( 'Meet Style Kits by AnalogWP', 'ang' ),
+					'sk_message'   => sprintf(
+						/* translators: %s: Link to Style Kits documentation. */
+						__( 'Take control of your design in the macro level, with local or global settings for typography and spacing. %s.', 'ang' ),
+						/* translators: %s: Link text */
+						sprintf( '<a href="https://docs.analogwp.com/article/554-what-are-style-kits" target="_blank">%s</a>', __( 'Learn more', 'ang' ) )
+					),
+					'sk_learn'     => __( 'View Styles', 'ang' ),
 				],
 			]
 		);

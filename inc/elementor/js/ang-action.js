@@ -1,5 +1,48 @@
-/* global jQuery, elementor, elementorCommon, ANG_Action, cssbeautify */
+/* global jQuery, elementor, elementorCommon, ANG_Action, cssbeautify, elementorModules */
 jQuery( window ).on( 'elementor:init', function() {
+	window.analog = window.analog || {};
+	const analog = window.analog;
+
+	analog.showStyleKitAttentionDialog = () => {
+		const introduction = new elementorModules.editor.utils.Introduction( {
+			introductionKey: 'angStylekit',
+			dialogType: 'confirm',
+			dialogOptions: {
+				id: 'ang-stylekit-attention-dialog',
+				headerMessage: ANG_Action.translate.sk_header,
+				message: ANG_Action.translate.sk_message,
+				position: {
+					my: 'center center',
+					at: 'center center',
+				},
+				strings: {
+					confirm: ANG_Action.translate.sk_learn,
+					cancel: elementor.translate( 'got_it' ),
+				},
+				hide: {
+					onButtonClick: false,
+				},
+				onCancel: () => {
+					introduction.setViewed();
+					introduction.getDialog().hide();
+				},
+				onConfirm: () => {
+					introduction.setViewed();
+					introduction.getDialog().hide();
+					redirectToSection();
+				},
+			},
+		} );
+
+		introduction.show();
+	};
+
+	elementor.on( 'preview:loaded', () => {
+		if ( ! elementor.config.user.introduction.angStylekit ) {
+			analog.showStyleKitAttentionDialog();
+		}
+	} );
+
 	function redirectToSection( tab = 'settings', section = 'ang_style_settings', page = 'page_settings' ) {
 		const currentView = elementor.panel.currentView;
 
