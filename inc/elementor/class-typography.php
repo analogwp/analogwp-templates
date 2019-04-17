@@ -143,17 +143,6 @@ class Typography extends Module {
 			]
 		);
 
-		$element->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'           => 'ang_paragraph',
-				'label'          => __( 'Paragraph (primary text)', 'ang' ),
-				'selector'       => 'body p',
-				'scheme'         => Scheme_Typography::TYPOGRAPHY_4,
-				'fields_options' => $this->get_default_typography_values( 'ang_paragraph' ),
-			]
-		);
-
 		$element->end_controls_section();
 	}
 
