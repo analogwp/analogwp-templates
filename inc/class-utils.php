@@ -87,7 +87,14 @@ class Utils extends Base {
 			$query->the_post();
 			$post_id = \get_the_ID();
 
-			$tokens[ $post_id ] = \get_the_title();
+			$global_token = Options::get_instance()->get( 'global_token' );
+			if ( $global_token && ! empty( $global_token ) && $post_id === $global_token['id'] ) {
+				$title = \get_the_title() . __( ' - Global', 'ang' );
+			} else {
+				$title = \get_the_title();
+			}
+
+			$tokens[ $post_id ] = $title;
 		}
 
 		wp_reset_postdata();
