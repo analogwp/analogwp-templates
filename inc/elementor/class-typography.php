@@ -33,7 +33,8 @@ class Typography extends Module {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_text_sizes' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_styling_settings' ], 10, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_styling_settings' ], -9999, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_tools' ], 10, 2 );
 
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_scripts' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ], 999 );
@@ -410,7 +411,7 @@ class Typography extends Module {
 			'ang_style_settings',
 			[
 				'label' => __( 'Style Kits', 'ang' ),
-				'tab'   => Controls_Manager::TAB_SETTINGS,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -468,6 +469,22 @@ class Typography extends Module {
 				'type'         => 'ang_action',
 				'action'       => 'save_token',
 				'action_label' => __( 'Save as...', 'ang' ),
+			]
+		);
+
+		$element->end_controls_section();
+	}
+
+	public function register_tools( Controls_Stack $element, $section_id ) {
+		if ( 'section_page_style' !== $section_id ) {
+			return;
+		}
+
+		$element->start_controls_section(
+			'ang_tools',
+			[
+				'label' => __( 'Tools', 'ang' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
