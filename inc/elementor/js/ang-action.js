@@ -1,5 +1,14 @@
 /* global jQuery, elementor, elementorCommon, ANG_Action, cssbeautify */
 jQuery( window ).on( 'elementor:init', function() {
+	function redirectToSection( tab = 'settings', section = 'ang_style_settings', page = 'page_settings' ) {
+		const currentView = elementor.panel.currentView;
+
+		currentView.setPage( page );
+		currentView.getCurrentPageView().activateTab( tab );
+		currentView.getCurrentPageView().activateSection( section );
+		currentView.getCurrentPageView().render();
+	}
+
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {
 		initialize: function( options ) {
@@ -134,12 +143,7 @@ jQuery( window ).on( 'elementor:init', function() {
 					elementor.settings.page.model.set( angSettings );
 					elementor.settings.page.model.set( 'ang_action_tokens', '' );
 
-					const currentView = elementor.panel.currentView;
-
-					currentView.setPage( 'page_settings' );
-					currentView.getCurrentPageView().activateTab( 'settings' );
-					currentView.getCurrentPageView().activateSection( 'ang_style_settings' );
-					currentView.getCurrentPageView().render();
+					redirectToSection();
 				},
 			} ).show();
 		},
@@ -211,8 +215,14 @@ jQuery( window ).on( 'elementor:init', function() {
 								content.html( '<p>' + response.message + '</p>' );
 								$( this ).removeClass( 'elementor-button-state' );
 
+								const options = elementor.settings.page.model.controls.ang_action_tokens.options;
+								options[ response.id ] = title;
+								elementor.reloadPreview();
+
 								setTimeout( function() {
 									modal.destroy();
+
+									redirectToSection();
 								}, 2000 );
 							} ).catch( function( error ) {
 								$( this ).removeClass( 'elementor-button-state' );
