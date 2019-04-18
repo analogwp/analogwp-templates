@@ -130,7 +130,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_body_and_paragraph_typography',
 			[
-				'label' => __( 'Body and Paragraph Typography', 'ang' ),
+				'label' => __( 'Body Typography', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
