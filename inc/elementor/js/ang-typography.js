@@ -1,5 +1,5 @@
-/* global elementor */
-jQuery( document ).ready( function( $ ) {
+/* global elementor, ANG_Action */
+jQuery( document ).ready( function() {
 	function handleFonts( font ) {
 		elementor.helpers.enqueueFont( font );
 	}
@@ -17,7 +17,7 @@ jQuery( document ).ready( function( $ ) {
 			actions: [
 				{
 					name: 'page_styles',
-					title: 'Page Style Settings',
+					title: ANG_Action.translate.pageStyles,
 					callback: switchToStyleTab,
 				},
 			],
@@ -38,7 +38,7 @@ jQuery( document ).ready( function( $ ) {
 
 		currentView.setPage( 'page_settings' );
 		currentView.getCurrentPageView().activateTab( 'style' );
-		currentView.getCurrentPageView().activateSection( 'ang_body_and_paragraph_typography' );
+		currentView.getCurrentPageView().activateSection( 'ang_style_settings' );
 		currentView.getCurrentPageView().render();
 	}
 } );
