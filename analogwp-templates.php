@@ -120,6 +120,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/class-cron.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-typography.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-post-type.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-analog-settings.php';
 	}
 
 	/**
