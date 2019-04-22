@@ -466,8 +466,8 @@ class Typography extends Module {
 			[
 				'raw'  => sprintf(
 					/* translators: Link to Style Kits */
-					__( 'You can manage your Style Kits <a href="%s" target="_blank">here</a>.', 'ang' ),
-					admin_url( 'edit.php?post_type=ang_tokens' )
+					__( 'You can set a Global Style Kit <a href="%s" target="_blank">here</a>.', 'ang' ),
+					admin_url( 'admin.php?page=elementor#tab-style' )
 				),
 				'type' => Controls_Manager::RAW_HTML,
 			]
