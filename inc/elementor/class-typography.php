@@ -432,7 +432,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_tokens',
 			[
-				'label'   => __( 'Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'label'   => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'    => Controls_Manager::SELECT2,
 				'options' => Utils::get_tokens(),
 				'default' => $global_token,
@@ -442,7 +442,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_update_token',
 			[
-				'label'        => __( 'Update your Style Kit', 'ang' ),
+				'label'        => __( 'Update Your Style Kit', 'ang' ),
 				'type'         => 'ang_action',
 				'action'       => 'update_token',
 				'action_label' => __( 'Update Style Kit', 'ang' ),
@@ -460,6 +460,18 @@ class Typography extends Module {
 				'type'         => 'ang_action',
 				'action'       => 'save_token',
 				'action_label' => __( 'Save as...', 'ang' ),
+			]
+		);
+
+		$element->add_control(
+			'description_ang_stylekit_docs',
+			[
+				'raw'  => sprintf(
+					/* translators: Link to Style Kits */
+					__( 'You can manage your Style Kits <a href="%s" target="_blank">here</a>.', 'ang' ),
+					admin_url( 'edit.php?post_type=ang_tokens' )
+				),
+				'type' => Controls_Manager::RAW_HTML,
 			]
 		);
 

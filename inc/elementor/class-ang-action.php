@@ -97,7 +97,7 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 					'tokenUpdated'  => __( 'Style Kit Updated.', 'ang' ),
 					'selectToken'   => __( 'Please select a Style Kit first.', 'ang' ),
 					'updateKit'     => __( 'Update Style Kit', 'ang' ),
-					'updateMessage' => __( 'This action will override the currently selected Style Kit, which might affect other pages it is used on. Do you wish to proceed?', 'ang' ),
+					'updateMessage' => __( 'This action will update the Style Kit with the latest changes, and will affect all the pages that the style kit is used on. Do you wish to proceed?', 'ang' ),
 					'sk_header'     => __( 'Meet Style Kits by AnalogWP', 'ang' ),
 					'sk_message'    => sprintf(
 						/* translators: %s: Link to Style Kits documentation. */
