@@ -178,7 +178,39 @@ jQuery( window ).on( 'elementor:init', function() {
 					_.map( settings, function( value, key ) {
 						if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
 							if ( elementor.settings.page.model.controls[ key ] !== undefined ) {
-								angSettings[ key ] = elementor.settings.page.model.controls[ key ].default;
+								switch ( typeof elementor.settings.page.model.controls[ key ].default ) {
+									case 'string':
+										angSettings[ key ] = '';
+										break;
+
+									case 'boolean':
+										angSettings[ key ] = false;
+										break;
+
+									case 'object':
+										const type = elementor.settings.page.model.controls[ key ].type;
+										let returnVal = '';
+										if ( type === 'slider' ) {
+											returnVal = { size: '', sizes: [], unit: 'em' };
+										}
+
+										if ( type === 'dimensions' ) {
+											returnVal = {
+												unit: 'px',
+												top: '',
+												right: '',
+												bottom: '',
+												left: '',
+												isLinked: true,
+											};
+										}
+
+										angSettings[ key ] = returnVal;
+										break;
+
+									default:
+										angSettings[ key ] = elementor.settings.page.model.controls[ key ].default;
+								}
 							}
 						}
 					} );
