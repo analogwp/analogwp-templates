@@ -102,6 +102,21 @@ class Utils extends Base {
 
 		return $tokens;
 	}
+
+	/**
+	 * Get global token post metadata.
+	 *
+	 * @return array|bool Tokens data.
+	 */
+	public static function get_global_token_data() {
+		$global_token = (int) \get_option( 'elementor_ang_global_kit' );
+
+		if ( $global_token ) {
+			return \get_post_meta( $global_token, '_tokens_data', true );
+		}
+
+		return false;
+	}
 }
 
 new Utils();

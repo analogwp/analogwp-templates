@@ -589,9 +589,10 @@ class Typography extends Module {
 	 * @return array|string
 	 */
 	public function get_default_value( $key, $is_array = false ) {
-		$global_token = Options::get_instance()->get( 'global_token' );
+		$global_token = Utils::get_global_token_data();
+
 		if ( $global_token && ! empty( $global_token ) ) {
-			$values = json_decode( $global_token['data'], true );
+			$values = json_decode( $global_token, true );
 
 			if ( isset( $values[ $key ] ) && '' !== $values[ $key ] ) {
 				return $values[ $key ];
@@ -609,7 +610,7 @@ class Typography extends Module {
 	 * @return array
 	 */
 	public function get_default_typography_values( $key ) {
-		$global_token = Options::get_instance()->get( 'global_token' );
+		$global_token = Utils::get_global_token_data();
 
 		if ( empty( $global_token ) ) {
 			return [];
