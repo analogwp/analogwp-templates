@@ -68,9 +68,10 @@ class Utils extends Base {
 	/**
 	 * Get registered tokens.
 	 *
+	 * @param boolean $prefix Where to prefix selected Global Style Kit with 'Global: '.
 	 * @return array
 	 */
-	public static function get_tokens() {
+	public static function get_tokens( $prefix = true ) {
 		$query = new \WP_Query(
 			[
 				'post_type'      => 'ang_tokens',
@@ -88,7 +89,7 @@ class Utils extends Base {
 			$post_id = \get_the_ID();
 
 			$global_token = Options::get_instance()->get( 'global_token' );
-			if ( $global_token && ! empty( $global_token ) && $post_id === $global_token['id'] ) {
+			if ( $global_token && ! empty( $global_token ) && $post_id === $global_token['id'] && $prefix ) {
 				$title = __( 'Global: ', 'ang' ) . \get_the_title();
 			} else {
 				$title = \get_the_title();

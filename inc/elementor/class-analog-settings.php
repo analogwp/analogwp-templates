@@ -34,7 +34,7 @@ class Analog_Settings {
 	 * @return void
 	 */
 	public function register_admin_fields( Settings $settings ) {
-		$tokens_dropdown = [ '' => __( '— Select a Style Kit —', 'ang' ) ] + Utils::get_tokens();
+		$tokens_dropdown = [ '' => __( '— Select a Style Kit —', 'ang' ) ] + Utils::get_tokens( false );
 
 		$settings->add_section(
 			Settings::TAB_STYLE,
