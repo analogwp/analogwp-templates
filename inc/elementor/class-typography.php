@@ -722,8 +722,8 @@ class Typography extends Module {
 	 * @return array
 	 */
 	public function add_token_state( $post_states, $post ) {
-		$global_token = Options::get_instance()->get( 'global_token' );
-		if ( $global_token && ! empty( $global_token ) && $post->ID === $global_token['id'] ) {
+		$global_token = (int) get_option( 'elementor_ang_global_kit' );
+		if ( $global_token && $post->ID === $global_token ) {
 			$post_states[] = '<span style="color:#32b644;">&#9679; Global Style Kit</span>';
 		}
 

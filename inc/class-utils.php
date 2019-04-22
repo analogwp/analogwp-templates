@@ -88,8 +88,8 @@ class Utils extends Base {
 			$query->the_post();
 			$post_id = \get_the_ID();
 
-			$global_token = Options::get_instance()->get( 'global_token' );
-			if ( $global_token && ! empty( $global_token ) && $post_id === $global_token['id'] && $prefix ) {
+			$global_token = (int) get_option( 'elementor_ang_global_kit' );
+			if ( $global_token && $post_id === $global_token && $prefix ) {
 				$title = __( 'Global: ', 'ang' ) . \get_the_title();
 			} else {
 				$title = \get_the_title();
