@@ -435,6 +435,7 @@ class Typography extends Module {
 				'label'   => __( 'Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'    => Controls_Manager::SELECT2,
 				'options' => Utils::get_tokens(),
+				'default' => $global_token,
 			]
 		);
 
