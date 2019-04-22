@@ -427,7 +427,7 @@ class Typography extends Module {
 			);
 		}
 
-		$label = __( 'A style kit is a collection of all the custom styles added at page styling settings. Your style kit is saved every time you update your layout.', 'ang' );
+		$label = __( 'A style kit is a collection of all the custom styles added at page styling settings. Your Style Kit is updated every time you click the Update Style Kit Button below.', 'ang' );
 		$element->add_control(
 			'ang_action_tokens',
 			[
@@ -454,7 +454,7 @@ class Typography extends Module {
 				'label'        => __( 'Update your Style Kit', 'ang' ),
 				'type'         => 'ang_action',
 				'action'       => 'update_token',
-				'action_label' => __( 'Update', 'ang' ),
+				'action_label' => __( 'Update Style Kit', 'ang' ),
 				'condition'    => [
 					'ang_action_tokens!' => '',
 				],
