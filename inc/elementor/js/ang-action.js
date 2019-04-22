@@ -135,7 +135,7 @@ jQuery( window ).on( 'elementor:init', function() {
 				onReady: function() {
 					this.addButton( {
 						name: 'cancel',
-						text: 'Cancel',
+						text: elementor.translate( 'cancel' ),
 						callback: function() {
 							modal.destroy();
 						},
@@ -210,10 +210,41 @@ jQuery( window ).on( 'elementor:init', function() {
 				},
 				onReady: function() {
 					this.addButton( {
-						name: 'ok',
+						name: 'cancel',
 						text: ANG_Action.translate.cancel,
 						callback: function() {
 							modal.destroy();
+						},
+					} );
+					this.addButton( {
+						name: 'ok',
+						text: ANG_Action.translate.saveToken2,
+						callback: function( widget ) {
+							const title = widget.getElements( 'content' ).find( '#ang_token_title' ).val();
+
+							if ( title ) {
+								wp.apiFetch( {
+									url: ANG_Action.saveToken,
+									method: 'post',
+									data: {
+										id: elementor.config.post_id,
+										title: title,
+										tokens: JSON.stringify( angSettings ),
+									},
+								} ).then( function( response ) {
+									const options = elementor.settings.page.model.controls.ang_action_tokens.options;
+									options[ response.id ] = title;
+									elementor.reloadPreview();
+
+									setTimeout( function() {
+										modal.destroy();
+
+										redirectToSection();
+									}, 2000 );
+								} ).catch( function( error ) {
+									console.error( error.message );
+								} );
+							}
 						},
 					} );
 				},
@@ -222,57 +253,7 @@ jQuery( window ).on( 'elementor:init', function() {
 					const content = modal.getElements( 'content' );
 					content.append( `
 						<input id="ang_token_title" type="text" value="" placeholder="${ ANG_Action.translate.enterTitle }" />
-						<button style="padding:10px;margin-top:10px;" class="elementor-button elementor-button-success" id="ang_save_token">
-							<span class="elementor-state-icon"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i></span>
-							${ ANG_Action.translate.saveToken2 }
-						</button>
 					` );
-
-					const $titleInput = $( '#ang_token_title' );
-
-					// This is required, to remove any error styling.
-					$titleInput.on( 'input', function() {
-						$( this ).css( 'border-color', '#d5dadf' );
-					} );
-
-					$( '#ang-modal-save-token' ).on( 'click', '#ang_save_token', function( e ) {
-						e.preventDefault();
-						const title = $titleInput.val();
-						if ( ! title ) {
-							$titleInput.css( 'border-color', 'red' );
-						}
-						$( this ).addClass( 'elementor-button-state' );
-
-						content.find( '.error' ).remove();
-
-						if ( title ) {
-							wp.apiFetch( {
-								url: ANG_Action.saveToken,
-								method: 'post',
-								data: {
-									id: elementor.config.post_id,
-									title: title,
-									tokens: JSON.stringify( angSettings ),
-								},
-							} ).then( function( response ) {
-								content.html( '<p>' + response.message + '</p>' );
-								$( this ).removeClass( 'elementor-button-state' );
-
-								const options = elementor.settings.page.model.controls.ang_action_tokens.options;
-								options[ response.id ] = title;
-								elementor.reloadPreview();
-
-								setTimeout( function() {
-									modal.destroy();
-
-									redirectToSection();
-								}, 2000 );
-							} ).catch( function( error ) {
-								$( this ).removeClass( 'elementor-button-state' );
-								content.append( '<p class="error" style="color:red;margin-top:10px;">' + error.message + '</p>' );
-							} );
-						}
-					} );
 				},
 			} );
 

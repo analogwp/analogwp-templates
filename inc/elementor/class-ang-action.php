@@ -87,7 +87,7 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 				'translate' => [
 					'resetMessage'  => __( 'This will reset all the settings you configured previously under Page Style Settings from Analog Templates.', 'ang' ),
 					'resetHeader'   => __( 'Are you sure?', 'ang' ),
-					'saveToken'     => __( 'Save Style Kit', 'ang' ),
+					'saveToken'     => __( 'Save Style Kit as', 'ang' ),
 					'saveToken2'    => __( 'Save', 'ang' ),
 					'cancel'        => __( 'Cancel', 'ang' ),
 					'enterTitle'    => __( 'Enter a title', 'ang' ),
