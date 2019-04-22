@@ -321,37 +321,4 @@ jQuery( window ).on( 'elementor:init', function() {
 			} );
 		}
 	} );
-
-	elementor.settings.page.addChangeCallback( 'ang_make_token_global', function( val ) {
-		const postId = elementor.settings.page.model.get( 'ang_action_tokens' );
-
-		if ( ! postId ) {
-			elementor.notifications.showToast( {
-				message: ANG_Action.translate.selectToken,
-			} );
-			return;
-		}
-
-		const ajaxurl = elementor.ajax.getSettings().url;
-		const perform = ( val === 'yes' ) ? 'set' : 'unset';
-
-		const data = {
-			id: postId,
-			action: 'ang_make_token_global',
-			perform: perform,
-		};
-
-		$.post( ajaxurl, data, function( response ) {
-			if ( response.success ) {
-				elementor.saver.doAutoSave();
-				if ( perform === 'set' ) {
-					elementor.notifications.showToast( {
-						message: response.data.message,
-					} );
-				}
-			} else {
-				console.error( response.data.message, response.data.id );
-			}
-		} );
-	} );
 } );
