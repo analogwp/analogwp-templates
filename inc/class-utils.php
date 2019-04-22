@@ -89,7 +89,7 @@ class Utils extends Base {
 
 			$global_token = Options::get_instance()->get( 'global_token' );
 			if ( $global_token && ! empty( $global_token ) && $post_id === $global_token['id'] ) {
-				$title = \get_the_title() . __( ' - Global', 'ang' );
+				$title = __( 'Global: ', 'ang' ) . \get_the_title();
 			} else {
 				$title = \get_the_title();
 			}
