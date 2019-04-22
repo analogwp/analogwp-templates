@@ -39,8 +39,6 @@ class Typography extends Module {
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_scripts' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ], 999 );
 
-		add_action( 'wp_ajax_ang_make_token_global', [ $this, 'make_token_global' ] );
-
 		add_filter( 'display_post_states', [ $this, 'add_token_state' ], 10, 2 );
 	}
 
@@ -579,45 +577,6 @@ class Typography extends Module {
 			],
 			ANG_VERSION,
 			true
-		);
-	}
-
-	/**
-	 * Ajax action for making a token global.
-	 *
-	 * @return void
-	 */
-	public function make_token_global() {
-		$id   = (int) $_POST['id'];
-		$post = get_post( $id );
-
-		if ( empty( $post ) ) {
-			wp_send_json_error(
-				[
-					'message' => __( 'Unable to find the post', 'ang' ),
-					'id'      => $id,
-				]
-			);
-		}
-
-		$tokens_data = get_post_meta( $id, '_tokens_data', true );
-
-		$tokens = [
-			'id'   => $id,
-			'data' => $tokens_data,
-		];
-
-		if ( 'set' === $_POST['perform'] ) {
-			Options::get_instance()->set( 'global_token', $tokens );
-		} else {
-			Options::get_instance()->set( 'global_token', '' );
-		}
-
-		wp_send_json_success(
-			[
-				/* translators: %s: Post title. */
-				'message' => sprintf( __( '&ldquo;%s&rdquo; has been set as a global Style Kit.', 'ang' ), $post->post_title ),
-			]
 		);
 	}
 
