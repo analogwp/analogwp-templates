@@ -282,7 +282,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		},
 
 		handleTokenUpdate: function() {
-			let postID = '';
+			const postID = elementor.settings.page.model.attributes.ang_action_tokens;
 			const settings = elementor.settings.page.model.attributes;
 			const angSettings = {};
 			_.map( settings, function( value, key ) {
@@ -292,8 +292,8 @@ jQuery( window ).on( 'elementor:init', function() {
 			} );
 
 			const modal = elementorCommon.dialogsManager.createWidget( 'confirm', {
-				message: '',
-				headerMessage: 'Update Style Kit',
+				message: ANG_Action.translate.updateMessage,
+				headerMessage: ANG_Action.translate.updateKit,
 				strings: {
 					confirm: elementor.translate( 'yes' ),
 					cancel: elementor.translate( 'cancel' ),
@@ -307,36 +307,11 @@ jQuery( window ).on( 'elementor:init', function() {
 							id: postID,
 							tokens: JSON.stringify( angSettings ),
 						},
-					} ).then( ( response ) => {
+					} ).then( () => {
 						elementor.notifications.showToast( {
 							message: ANG_Action.translate.tokenUpdated,
 						} );
 					} ).catch( error => console.error( error ) );
-				},
-				onShow: function() {
-					const content = modal.getElements( 'content' );
-					content.append( '<p><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></p>' );
-
-					wp.apiFetch( {
-						path: 'agwp/v1/tokens',
-						method: 'get',
-					} ).then( response => {
-						if ( response.tokens.length ) {
-							let html = `<select id="update-token-id"><option>${ ANG_Action.translate.selectKit }</option>`;
-
-							_.map( response.tokens, function( option ) {
-								html += `<option value="${ option.id }">${ option.title }</option>`;
-							} );
-
-							html += '</select>';
-
-							content.html( html );
-
-							$( content ).find( '#update-token-id' ).on( 'change', function() {
-								postID = $( this ).val();
-							} );
-						}
-					} );
 				},
 			} );
 

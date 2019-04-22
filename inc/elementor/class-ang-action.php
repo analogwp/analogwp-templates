@@ -85,25 +85,27 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 			[
 				'saveToken' => rest_url( 'agwp/v1/tokens/save' ),
 				'translate' => [
-					'resetMessage' => __( 'This will reset all the settings you configured previously under Page Style Settings from Analog Templates.', 'ang' ),
-					'resetHeader'  => __( 'Are you sure?', 'ang' ),
-					'saveToken'    => __( 'Save Style Kit', 'ang' ),
-					'saveToken2'   => __( 'Save', 'ang' ),
-					'cancel'       => __( 'Cancel', 'ang' ),
-					'enterTitle'   => __( 'Enter a title', 'ang' ),
-					'insertToken'  => __( 'Insert Style Kit', 'ang' ),
-					'tokenWarning' => __( 'Please select a Style Kit first.', 'ang' ),
-					'selectKit'    => __( '— Select a Style Kit —', 'ang' ),
-					'tokenUpdated' => __( 'Style Kit Updated.', 'ang' ),
-					'selectToken'  => __( 'Please select a Style Kit first.', 'ang' ),
-					'sk_header'    => __( 'Meet Style Kits by AnalogWP', 'ang' ),
-					'sk_message'   => sprintf(
+					'resetMessage'  => __( 'This will reset all the settings you configured previously under Page Style Settings from Analog Templates.', 'ang' ),
+					'resetHeader'   => __( 'Are you sure?', 'ang' ),
+					'saveToken'     => __( 'Save Style Kit', 'ang' ),
+					'saveToken2'    => __( 'Save', 'ang' ),
+					'cancel'        => __( 'Cancel', 'ang' ),
+					'enterTitle'    => __( 'Enter a title', 'ang' ),
+					'insertToken'   => __( 'Insert Style Kit', 'ang' ),
+					'tokenWarning'  => __( 'Please select a Style Kit first.', 'ang' ),
+					'selectKit'     => __( '— Select a Style Kit —', 'ang' ),
+					'tokenUpdated'  => __( 'Style Kit Updated.', 'ang' ),
+					'selectToken'   => __( 'Please select a Style Kit first.', 'ang' ),
+					'updateKit'     => __( 'Update Style Kit', 'ang' ),
+					'updateMessage' => __( 'This action will override the currently selected Style Kit, which might affect other pages it is used on. Do you wish to proceed?', 'ang' ),
+					'sk_header'     => __( 'Meet Style Kits by AnalogWP', 'ang' ),
+					'sk_message'    => sprintf(
 						/* translators: %s: Link to Style Kits documentation. */
 						__( 'Take control of your design in the macro level, with local or global settings for typography and spacing. %s.', 'ang' ),
 						/* translators: %s: Link text */
 						sprintf( '<a href="https://docs.analogwp.com/article/554-what-are-style-kits" target="_blank">%s</a>', __( 'Learn more', 'ang' ) )
 					),
-					'sk_learn'     => __( 'View Styles', 'ang' ),
+					'sk_learn'      => __( 'View Styles', 'ang' ),
 				],
 			]
 		);
