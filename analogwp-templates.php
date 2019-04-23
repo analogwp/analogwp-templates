@@ -186,6 +186,7 @@ final class Analog_Templates {
 				'elementorURL'     => admin_url( 'edit.php?post_type=elementor_library' ),
 				'debugMode'        => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
 				'isPro'            => false,
+				'version'          => ANG_VERSION,
 				'pluginURL'        => plugin_dir_url( __FILE__ ),
 				'permission'       => (bool) current_user_can( 'manage_options' ),
 				'user'             => [

@@ -104,6 +104,15 @@ export async function getLicenseStatus() {
 }
 
 export async function requestElementorImport( template ) {
+	if ( template.version ) {
+		if ( parseFloat( AGWP.version ) < parseFloat( template.version ) ) {
+			elementorCommon.dialogsManager.createWidget( 'alert', {
+				message: 'Please update Analog Template plugin to latest version.',
+			} ).show();
+			return;
+		}
+	}
+
 	const editorId =
 				'undefined' !== typeof ElementorConfig ?
 					ElementorConfig.post_id :

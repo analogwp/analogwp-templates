@@ -100,6 +100,7 @@ class Elementor {
 				'is_settings_page' => false,
 				'favorites'        => $favorites,
 				'isPro'            => false,
+				'version'          => ANG_VERSION,
 				'pluginURL'        => ANG_PLUGIN_URL,
 				'license'          => [
 					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),

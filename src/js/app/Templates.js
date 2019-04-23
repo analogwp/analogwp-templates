@@ -206,6 +206,21 @@ class Templates extends React.Component {
 	handleImport = async( add, withPage = false ) => {
 		this.setState( { importing: true } );
 
+		const version = this.state.template.version;
+
+		if ( version ) {
+			if ( parseFloat( AGWP.version ) < parseFloat( version ) ) {
+				this.resetState();
+				add(
+					__( 'Please update Analog Template plugin to latest version.', 'ang' ),
+					'error', 'ang',
+					'import-error',
+					false
+				);
+				return;
+			}
+		}
+
 		await requestDirectImport( this.state.template, withPage ).then( response => {
 			this.setState( {
 				importedPage: response.page,
