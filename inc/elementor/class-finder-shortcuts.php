@@ -7,10 +7,12 @@
 
 namespace Analog;
 
+use Elementor\Core\Common\Modules\Finder\Base_Category;
+
 /**
  * Finder_Shortcuts class.
  */
-class Finder_Shortcuts extends \Elementor\Core\Common\Modules\Finder\Base_Category {
+class Finder_Shortcuts extends Base_Category {
 	/**
 	 * Get title.
 	 *
@@ -30,17 +32,23 @@ class Finder_Shortcuts extends \Elementor\Core\Common\Modules\Finder\Base_Catego
 	 */
 	public function get_category_items( array $options = [] ) {
 		$items = [
-			'library'  => [
+			'library'    => [
 				'title'    => __( 'Templates Library', 'ang' ),
 				'url'      => admin_url( 'admin.php?page=analogwp_templates' ),
 				'icon'     => 'library-download',
 				'keywords' => [ 'analog', 'library', 'settings' ],
 			],
-			'settings' => [
+			'settings'   => [
 				'title'    => __( 'Settings', 'ang' ),
 				'url'      => admin_url( 'admin.php?page=analogwp_templates#settings' ),
 				'icon'     => 'settings',
 				'keywords' => [ 'analog', 'settings' ],
+			],
+			'style-kits' => [
+				'title'    => __( 'Style Kits', 'ang' ),
+				'url'      => admin_url( 'edit.php?post_type=ang_tokens' ),
+				'icon'     => 'settings',
+				'keywords' => [ 'analog', 'style', 'kits' ],
 			],
 		];
 
