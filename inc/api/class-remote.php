@@ -130,13 +130,15 @@ class Remote extends Base {
 			]
 		);
 
-		if ( is_wp_error( $response ) ) {
+		if ( is_wp_error( $body ) ) {
 			return $response;
 		}
 
 		$response_code = (int) wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $response_code ) {
-			return new \WP_Error( 'response_code_error', sprintf( 'The request returned with a status code of %s.', $response_code ) );
+			$error = json_decode( wp_remote_retrieve_body( $response ), true );
+
+			return new \WP_Error( $error['code'], $error['message'] );
 		}
 
 		$template_content = json_decode( wp_remote_retrieve_body( $response ), true );
