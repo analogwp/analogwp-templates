@@ -1,3 +1,4 @@
+/* global elementorCommon */
 const { apiFetch } = wp;
 const { decodeEntities } = wp.htmlEntities;
 
@@ -118,6 +119,16 @@ export async function requestElementorImport( template ) {
 		},
 	} ).then( data => {
 		const parsedTemplate = JSON.parse( data );
+
+		if ( parsedTemplate.errors ) {
+			const error = parsedTemplate.errors[ Object.keys( parsedTemplate.errors )[ 0 ] ];
+
+			elementorCommon.dialogsManager.createWidget( 'alert', {
+				message: error,
+			} ).show();
+
+			return;
+		}
 
 		if ( parsedTemplate.tokens ) {
 			elementor.settings.page.model.set( parsedTemplate.tokens );
