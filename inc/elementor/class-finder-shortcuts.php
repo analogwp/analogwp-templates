@@ -28,7 +28,7 @@ class Finder_Shortcuts extends \Elementor\Core\Common\Modules\Finder\Base_Catego
 	 * @param array $options Old options.
 	 * @return array
 	 */
-	public function get_category_items( $options = [] ) {
+	public function get_category_items( array $options = [] ) {
 		$items = [
 			'library'  => [
 				'title'    => __( 'Templates Library', 'ang' ),
