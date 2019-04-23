@@ -11,6 +11,17 @@ jQuery( document ).ready( function() {
 		}
 	} );
 
+	elementor.on( 'preview:loaded', () => {
+		const settings = elementor.settings.page.model.attributes;
+		_.map( settings, function( value, key ) {
+			if ( key.startsWith( 'ang_' ) && key.endsWith( '_font_family' ) ) {
+				if ( value ) {
+					elementor.helpers.enqueueFont( value );
+				}
+			}
+		} );
+	} );
+
 	function addPageStyleSettings( groups ) {
 		const PageStyles = {
 			name: 'ang_styles',
