@@ -271,6 +271,7 @@ jQuery( window ).on( 'elementor:init', function() {
 									setTimeout( function() {
 										modal.destroy();
 
+										elementor.settings.page.model.set( 'ang_action_tokens', response.id );
 										redirectToSection();
 									}, 2000 );
 								} ).catch( function( error ) {
