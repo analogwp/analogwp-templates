@@ -9,6 +9,7 @@ namespace Analog\API;
 
 use \Analog\Base;
 use \Analog\Options;
+use Elementor\Core\Settings\Manager;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -206,6 +207,11 @@ class Local extends Base {
 		];
 
 		$new_post_id = wp_insert_post( $args );
+
+		/**
+		 * Small hack to later avoid loading default values in Elementor.
+		 */
+		$template['tokens']['ang_recently_imported'] = 'yes';
 		update_post_meta( $new_post_id, '_elementor_data', $template['content'] );
 		update_post_meta( $new_post_id, '_elementor_page_settings', $template['tokens'] );
 		update_post_meta( $new_post_id, '_elementor_template_type', $template['type'] );

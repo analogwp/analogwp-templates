@@ -133,6 +133,15 @@ class Typography extends Module {
 			]
 		);
 
+		$element->add_control(
+			'ang_recently_imported',
+			[
+				'label'   => __( 'Recently Imported', 'ang' ),
+				'type'    => Controls_Manager::HIDDEN,
+				'default' => 'no',
+			]
+		);
+
 		$element->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
@@ -591,6 +600,11 @@ class Typography extends Module {
 	public function get_default_value( $key, $is_array = false ) {
 		$global_token = Utils::get_global_token_data();
 
+		$recently_imported = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
+		if ( isset( $recently_imported['ang_recently_imported'] ) && 'yes' === $recently_imported['ang_recently_imported'] ) {
+			return ( $is_array ) ? [] : '';
+		}
+
 		if ( $global_token && ! empty( $global_token ) ) {
 			$values = json_decode( $global_token, true );
 
@@ -612,7 +626,12 @@ class Typography extends Module {
 	public function get_default_typography_values( $key ) {
 		$global_token = Utils::get_global_token_data();
 
-		if ( empty( $global_token ) ) {
+		$recently_imported = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
+		if ( isset( $recently_imported['ang_recently_imported'] ) && 'yes' === $recently_imported['ang_recently_imported'] ) {
+			return [];
+		}
+
+		if ( empty( $global_token ) || 'yes' === $recently_imported ) {
 			return [];
 		}
 

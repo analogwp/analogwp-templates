@@ -130,7 +130,7 @@ class Remote extends Base {
 			]
 		);
 
-		if ( is_wp_error( $body ) ) {
+		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
 

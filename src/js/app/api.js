@@ -1,6 +1,5 @@
-/* global elementorCommon */
+/* global elementorCommon, analog */
 const { apiFetch } = wp;
-const { decodeEntities } = wp.htmlEntities;
 
 export async function markFavorite( id, favorite = true ) {
 	return await apiFetch( {
@@ -140,6 +139,7 @@ export async function requestElementorImport( template ) {
 		}
 
 		if ( parsedTemplate.tokens ) {
+			analog.resetStyles();
 			elementor.settings.page.model.set( parsedTemplate.tokens );
 		}
 

@@ -1,7 +1,6 @@
 /* global jQuery, elementor, elementorCommon, ANG_Action, cssbeautify, elementorModules */
 jQuery( window ).on( 'elementor:init', function() {
-	window.analog = window.analog || {};
-	const analog = window.analog;
+	const analog = window.analog = window.analog || {};
 
 	analog.showStyleKitAttentionDialog = () => {
 		const introduction = new elementorModules.editor.utils.Introduction( {
@@ -35,6 +34,55 @@ jQuery( window ).on( 'elementor:init', function() {
 		} );
 
 		introduction.show();
+	};
+
+	analog.resetStyles = () => {
+		const settings = elementor.settings.page.model.attributes;
+		const angSettings = {};
+		_.map( settings, function( value, key ) {
+			if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
+				if ( elementor.settings.page.model.controls[ key ] !== undefined ) {
+					switch ( typeof elementor.settings.page.model.controls[ key ].default ) {
+						case 'string':
+							angSettings[ key ] = '';
+							break;
+
+						case 'boolean':
+							angSettings[ key ] = false;
+							break;
+
+						case 'object':
+							const type = elementor.settings.page.model.controls[ key ].type;
+							let returnVal = '';
+							if ( type === 'slider' ) {
+								returnVal = { size: '', sizes: [], unit: 'em' };
+							}
+
+							if ( type === 'dimensions' ) {
+								returnVal = {
+									unit: 'px',
+									top: '',
+									right: '',
+									bottom: '',
+									left: '',
+									isLinked: true,
+								};
+							}
+
+							angSettings[ key ] = returnVal;
+							break;
+
+						default:
+							angSettings[ key ] = elementor.settings.page.model.controls[ key ].default;
+					}
+				}
+			}
+		} );
+
+		elementor.settings.page.model.set( angSettings );
+		elementor.settings.page.model.set( 'ang_action_tokens', '' );
+
+		redirectToSection();
 	};
 
 	elementor.on( 'preview:loaded', () => {
@@ -172,54 +220,7 @@ jQuery( window ).on( 'elementor:init', function() {
 					cancel: elementor.translate( 'cancel' ),
 				},
 				defaultOption: 'cancel',
-				onConfirm: function() {
-					const settings = elementor.settings.page.model.attributes;
-					const angSettings = {};
-					_.map( settings, function( value, key ) {
-						if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
-							if ( elementor.settings.page.model.controls[ key ] !== undefined ) {
-								switch ( typeof elementor.settings.page.model.controls[ key ].default ) {
-									case 'string':
-										angSettings[ key ] = '';
-										break;
-
-									case 'boolean':
-										angSettings[ key ] = false;
-										break;
-
-									case 'object':
-										const type = elementor.settings.page.model.controls[ key ].type;
-										let returnVal = '';
-										if ( type === 'slider' ) {
-											returnVal = { size: '', sizes: [], unit: 'em' };
-										}
-
-										if ( type === 'dimensions' ) {
-											returnVal = {
-												unit: 'px',
-												top: '',
-												right: '',
-												bottom: '',
-												left: '',
-												isLinked: true,
-											};
-										}
-
-										angSettings[ key ] = returnVal;
-										break;
-
-									default:
-										angSettings[ key ] = elementor.settings.page.model.controls[ key ].default;
-								}
-							}
-						}
-					} );
-
-					elementor.settings.page.model.set( angSettings );
-					elementor.settings.page.model.set( 'ang_action_tokens', '' );
-
-					redirectToSection();
-				},
+				onConfirm: analog.resetStyles,
 			} ).show();
 		},
 
@@ -348,6 +349,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 				if ( Object.keys( data ).length ) {
 					elementor.settings.page.model.set( data );
+					elementor.settings.page.model.set( 'ang_recently_imported', 'no' );
 				}
 			} ).catch( function( error ) {
 				console.error( error );
