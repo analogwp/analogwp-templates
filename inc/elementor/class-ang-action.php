@@ -107,6 +107,8 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 					),
 					'sk_learn'      => __( 'View Styles', 'ang' ),
 					'pageStyles'    => __( 'Page Styles', 'ang' ),
+					'exportCSS'     => __( 'Export CSS', 'ang' ),
+					'copyCSS'       => __( 'Copy CSS', 'ang' ),
 				],
 			]
 		);

@@ -119,14 +119,14 @@ jQuery( window ).on( 'elementor:init', function() {
 			const pageCSS = elementor.settings.page.model.get( 'custom_css' );
 			const strippedCSS = allStyles.replace( pageCSS, '' );
 			const formattedCSS = cssbeautify( strippedCSS, {
-				indent: '    ',
+				indent: '  ',
 				openbrace: 'end-of-line',
 				autosemicolon: true,
 			} );
 
 			const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
 				id: 'ang-modal-export-css',
-				headerMessage: 'Export CSS',
+				headerMessage: ANG_Action.translate.exportCSS,
 				message: '',
 				position: {
 					my: 'center',
@@ -143,7 +143,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 					this.addButton( {
 						name: 'ok',
-						text: 'Copy CSS',
+						text: ANG_Action.translate.copyCSS,
 						callback: function() {
 							const content = modal.getElements( 'content' );
 							$( content.find( 'textarea' ) ).select();
