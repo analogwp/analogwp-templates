@@ -31,6 +31,8 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 	 * @param array $settings Element settings.
 	 *
 	 * @access public
+	 *
+	 * @return bool
 	 */
 	public function get_value( $control, $settings ) {
 		return false;
