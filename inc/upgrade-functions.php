@@ -8,8 +8,31 @@
 
 namespace Analog\Upgrade;
 
+defined( 'ABSPATH' ) || exit;
+
 use Analog\Options;
 use Analog\Install_Stylekits as StyleKits;
+
+/**
+ * Perform automatic upgrades when necessary.
+ *
+ * @return void
+ */
+function do_automatic_upgrades() {
+	$did_upgrade       = false;
+	$installed_version = Options::get_instance()->get( 'version' );
+
+	if ( version_compare( $installed_version, ANG_VERSION, '<' ) ) {
+		// Let us know that an upgrade has happened.
+		$did_upgrade = true;
+	}
+
+	if ( $did_upgrade ) {
+		// Bump version.
+		Options::get_instance()->set( 'version', ANG_VERSION );
+	}
+}
+add_action( 'admin_init', __NAMESPACE__ . '\do_automatic_upgrades' );
 
 /**
  * Install Sample Stylekits.
