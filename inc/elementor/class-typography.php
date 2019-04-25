@@ -409,6 +409,14 @@ class Typography extends Module {
 		$element->end_controls_section();
 	}
 
+	/**
+	 * Register Style Kit section.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 *
+	 * @return void
+	 */
 	public function register_styling_settings( Controls_Stack $element, $section_id ) {
 		if ( 'section_page_style' !== $section_id ) {
 			return;
@@ -474,7 +482,7 @@ class Typography extends Module {
 			'description_ang_stylekit_docs',
 			[
 				'raw'  => sprintf(
-					/* translators: Link to Style Kits */
+					/* translators: %s: Link to Style Kits */
 					__( 'You can set a Global Style Kit <a href="%s" target="_blank">here</a>.', 'ang' ),
 					admin_url( 'admin.php?page=elementor#tab-style' )
 				),
@@ -485,6 +493,14 @@ class Typography extends Module {
 		$element->end_controls_section();
 	}
 
+	/**
+	 * Register Tools section.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 *
+	 * @return void
+	 */
 	public function register_tools( Controls_Stack $element, $section_id ) {
 		if ( 'section_page_style' !== $section_id ) {
 			return;
