@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
-Tested up to: 5.1.1
-Stable tag: 1.1.2
+Tested up to: 5.2
+Stable tag: 1.2
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -49,6 +49,9 @@ All font pairs in our templates are Google web fonts, we love typography and are
 = Can I use the templates for client projects as well? =
 Yes, you can. You can use the templates in any number of personal or client projects. However you cannot re-distribute the templates without our prior consent. You can view the full terms and template licensing here: https://analogwp.com/terms-of-use/.
 
+= What are Style Kits? =
+Style Kits (since v1.2) is a collection of the custom Typography and Spacing styles that you have added to your templates, which can be reused with other templates, making the process of creating new templates a lot easier.
+
 = How frequently do you add new designs? =
 We try to follow a consistent release cycle of two templates per week.
 
@@ -65,6 +68,16 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access AnalogWP templates directly under Elementor.
 
 == Changelog ==
+
+= 1.2 =
+* New: Introducing [Style Kits](https://analogwp.com/style-kits-for-elementor/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp). 🎉
+* New: Added Elementor Finder shortcuts to quickly navigate to AnalogWP setting/library.
+* New: Added a new settings to assign global style kit under Elementor > Settings > Styles > Global Style kit.
+* New: Added Contextual menu to Style Kit for quick access in Elementor.
+* New: Close Import modal via ESC key on settings screen.
+* Improve: Use minified versions of scripts
+* Improve: Added better and visible server side error handling.
+* Improve: Added notices if importing a template doesn't meet specified requirements.
 
 = 1.1.2 =
 * New: Added [Page style settings](https://analogwp.com/testing-global-page-styles-in-analog-templates). 🎉
@@ -90,3 +103,8 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 = 1.0.0 =
 * Initial Release
+
+== Upgrade Notice ==
+
+= 1.2 =
+Introducing Style Kits for Elementor, added a bunch of QoL improvements.
