@@ -431,6 +431,11 @@ class Typography extends Module {
 		);
 
 		$global_token = get_option( 'elementor_ang_global_kit' );
+
+		if ( ! $global_token ) {
+			$global_token = -1;
+		}
+
 		$element->add_control(
 			'description_ang_global_stylekit',
 			[
@@ -450,7 +455,7 @@ class Typography extends Module {
 				'label'   => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'    => Controls_Manager::SELECT2,
 				'options' => Utils::get_tokens(),
-				'default' => $global_token,
+				'default' => get_option( 'elementor_ang_global_kit' ),
 			]
 		);
 
