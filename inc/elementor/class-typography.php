@@ -33,7 +33,7 @@ class Typography extends Module {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_text_sizes' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_styling_settings' ], -9999, 2 );
+		add_action( 'elementor/element/before_section_start', [ $this, 'register_styling_settings' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_tools' ], 10, 2 );
 
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_scripts' ] );
