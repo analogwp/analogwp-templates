@@ -13,7 +13,6 @@ use Elementor\Controls_Stack;
 use Elementor\Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
-use Analog\Options;
 use Analog\Utils;
 
 defined( 'ABSPATH' ) || exit;
