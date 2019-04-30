@@ -18,20 +18,75 @@ class Colors extends Module {
 	}
 
 	public function add_dynamic_actions() {
-		/**
-		 * Elements data.
-		 *
-		 * Format:
-		 * Element Name => Section Name
-		 */
-		$elements = [
-			'icon'    => 'section_style_icon',
-			'heading' => 'section_title_style',
-		];
+		$elements = $this->get_elements_data();
 
-		foreach ( $elements as $element => $section ) {
-			add_action( "elementor/element/{$element}/{$section}/after_section_start", [ $this, 'register_colors' ], 10, 2 );
+		foreach ( $elements as $el_key => $element ) {
+			foreach ( $element as $section ) {
+				$this->register_control( $el_key, $section['section'], $section );
+			}
 		}
+	}
+
+	/**
+	 * Get Page setting by key.
+	 *
+	 * @param string $key Setting ID.
+	 * @return mixed
+	 */
+	public static function get_page_setting( $key ) {
+		$post_id = get_the_ID();
+
+		// Get the page settings manager.
+		$settings_manager    = Manager::get_settings_managers( 'page' );
+		$page_settings_model = $settings_manager->get_model( $post_id );
+
+		return $page_settings_model->get_settings( $key );
+	}
+
+	/**
+	 * Register a control section.
+	 *
+	 * @param string $element Element name.
+	 * @param string $section Section name.
+	 * @param array  $data Control arguments.
+	 *
+	 * @return void
+	 */
+	protected function register_control( $element, $section, $data ) {
+		add_action(
+			"elementor/element/{$element}/{$section}/after_section_start",
+			function( Element_Base $element ) use ( $data ) {
+				$section         = $data['section'];
+				$args            = $data['args'];
+				$key             = "{$element->get_name()}_{$section}_color";
+				$settings        = $element->get_settings_for_display();
+				$color_key       = $settings[ $key ];
+				$sanitized_value = self::get_page_setting( 'ang_color_' . $color_key );
+
+				$element->add_control(
+					$key,
+					[
+						'label'       => __( 'Global Color', 'elementor-pro' ),
+						'description' => __( 'Applied one of global colors defined in Page Styles tab.' ),
+						'type'        => Controls_Manager::SELECT2,
+						'options'     => [
+							'1' => self::get_page_setting( 'ang_color_label_1' ),
+							'2' => self::get_page_setting( 'ang_color_label_2' ),
+							'3' => self::get_page_setting( 'ang_color_label_3' ),
+							'4' => self::get_page_setting( 'ang_color_label_4' ),
+							'5' => self::get_page_setting( 'ang_color_label_5' ),
+							'6' => self::get_page_setting( 'ang_color_label_6' ),
+							'7' => self::get_page_setting( 'ang_color_label_7' ),
+							'8' => self::get_page_setting( 'ang_color_label_8' ),
+						],
+						'selectors'   => [
+							$args['selector'] => "color: {$sanitized_value}",
+						],
+					]
+				);
+			},
+			10
+		);
 	}
 
 	public function get_name() {
@@ -74,13 +129,10 @@ class Colors extends Module {
 			);
 
 			$element->add_control(
-				'ang-color-' . $i,
+				'ang_color_' . $i,
 				[
-					'label'     => __( 'Color', 'ang' ),
-					'type'      => Controls_Manager::COLOR,
-					'selectors' => [
-						".ang-color-{$i}, .ang-color-{$i} *" => 'color: {{VALUE}}',
-					],
+					'label' => __( 'Color', 'ang' ),
+					'type'  => Controls_Manager::COLOR,
 				]
 			);
 
@@ -90,32 +142,41 @@ class Colors extends Module {
 		$element->end_controls_section();
 	}
 
-	public function register_colors( Element_Base $element, $section_id ) {
-		$post_id = get_the_ID();
-
-		// Get the page settings manager.
-		$page_settings_manager = Manager::get_settings_managers( 'page' );
-		$page_settings_model   = $page_settings_manager->get_model( $post_id );
-
-		$element->add_control(
-			'ang_color',
-			[
-				'label'        => __( 'Global Color', 'elementor-pro' ),
-				'description'  => __( 'Applied one of global colors defined in Page Styles tab.' ),
-				'type'         => Controls_Manager::SELECT2,
-				'prefix_class' => 'ang-color-',
-				'options'      => [
-					'1' => $page_settings_model->get_settings( 'ang_color_label_1' ),
-					'2' => $page_settings_model->get_settings( 'ang_color_label_2' ),
-					'3' => $page_settings_model->get_settings( 'ang_color_label_3' ),
-					'4' => $page_settings_model->get_settings( 'ang_color_label_4' ),
-					'5' => $page_settings_model->get_settings( 'ang_color_label_5' ),
-					'6' => $page_settings_model->get_settings( 'ang_color_label_6' ),
-					'7' => $page_settings_model->get_settings( 'ang_color_label_7' ),
-					'8' => $page_settings_model->get_settings( 'ang_color_label_8' ),
+	public function get_elements_data() {
+		$elements = [
+			'icon'    => [
+				[
+					'section' => 'section_style_icon',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-icon',
+					],
 				],
-			]
-		);
+			],
+			'heading' => [
+				[
+					'section' => 'section_title_style',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-heading-title',
+					],
+				],
+			],
+			'alert'   => [
+				[
+					'section' => 'section_title',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-alert-title',
+					],
+				],
+				[
+					'section' => 'section_description',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-alert-description',
+					],
+				],
+			],
+		];
+
+		return $elements;
 	}
 }
 
