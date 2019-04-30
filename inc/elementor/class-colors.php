@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
+use Elementor\Core\Settings\Manager;
 use Elementor\Element_Base;
 use Elementor\Core\Base\Module;
 
@@ -64,7 +65,7 @@ class Colors extends Module {
 			$element->start_popover();
 
 			$element->add_control(
-				'ang_color_label' . $i,
+				'ang_color_label_' . $i,
 				[
 					'label'   => __( 'Label', 'ang' ),
 					'default' => 'Color ' . $i,
@@ -90,6 +91,12 @@ class Colors extends Module {
 	}
 
 	public function register_colors( Element_Base $element, $section_id ) {
+		$post_id = get_the_ID();
+
+		// Get the page settings manager.
+		$page_settings_manager = Manager::get_settings_managers( 'page' );
+		$page_settings_model   = $page_settings_manager->get_model( $post_id );
+
 		$element->add_control(
 			'ang_color',
 			[
@@ -98,16 +105,15 @@ class Colors extends Module {
 				'type'         => Controls_Manager::SELECT2,
 				'prefix_class' => 'ang-color-',
 				'options'      => [
-					'1' => 'Color 1',
-					'2' => 'Color 2',
-					'3' => 'Color 3',
-					'4' => 'Color 4',
-					'5' => 'Color 5',
-					'6' => 'Color 6',
-					'7' => 'Color 7',
-					'8' => 'Color 8',
+					'1' => $page_settings_model->get_settings( 'ang_color_label_1' ),
+					'2' => $page_settings_model->get_settings( 'ang_color_label_2' ),
+					'3' => $page_settings_model->get_settings( 'ang_color_label_3' ),
+					'4' => $page_settings_model->get_settings( 'ang_color_label_4' ),
+					'5' => $page_settings_model->get_settings( 'ang_color_label_5' ),
+					'6' => $page_settings_model->get_settings( 'ang_color_label_6' ),
+					'7' => $page_settings_model->get_settings( 'ang_color_label_7' ),
+					'8' => $page_settings_model->get_settings( 'ang_color_label_8' ),
 				],
-
 			]
 		);
 	}
