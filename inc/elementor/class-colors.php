@@ -56,20 +56,17 @@ class Colors extends Module {
 		add_action(
 			"elementor/element/{$element}/{$section}/after_section_start",
 			function( Element_Base $element ) use ( $data ) {
-				$section         = $data['section'];
-				$args            = $data['args'];
-				$key             = "{$element->get_name()}_{$section}_color";
-				$settings        = $element->get_settings_for_display();
-				$color_key       = $settings[ $key ];
-				$sanitized_value = self::get_page_setting( 'ang_color_' . $color_key );
+				$section = $data['section'];
+				$args    = $data['args'];
+				$key     = "{$element->get_id()}_{$section}_color";
 
 				$element->add_control(
 					$key,
 					[
-						'label'       => __( 'Global Color', 'elementor-pro' ),
-						'description' => __( 'Applied one of global colors defined in Page Styles tab.' ),
-						'type'        => Controls_Manager::SELECT2,
-						'options'     => [
+						'label'                => __( 'Global Color', 'elementor-pro' ),
+						'description'          => __( 'Applied one of global colors defined in Page Styles tab.' ),
+						'type'                 => Controls_Manager::SELECT2,
+						'options'              => [
 							'1' => self::get_page_setting( 'ang_color_label_1' ),
 							'2' => self::get_page_setting( 'ang_color_label_2' ),
 							'3' => self::get_page_setting( 'ang_color_label_3' ),
@@ -79,8 +76,18 @@ class Colors extends Module {
 							'7' => self::get_page_setting( 'ang_color_label_7' ),
 							'8' => self::get_page_setting( 'ang_color_label_8' ),
 						],
-						'selectors'   => [
-							$args['selector'] => "color: {$sanitized_value}",
+						'selectors'            => [
+							$args['selector'] => 'color: {{VALUE}}',
+						],
+						'selectors_dictionary' => [
+							'1' => self::get_page_setting( 'ang_color_1' ),
+							'2' => self::get_page_setting( 'ang_color_2' ),
+							'3' => self::get_page_setting( 'ang_color_3' ),
+							'4' => self::get_page_setting( 'ang_color_4' ),
+							'5' => self::get_page_setting( 'ang_color_5' ),
+							'6' => self::get_page_setting( 'ang_color_6' ),
+							'7' => self::get_page_setting( 'ang_color_7' ),
+							'8' => self::get_page_setting( 'ang_color_8' ),
 						],
 					]
 				);
