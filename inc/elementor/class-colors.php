@@ -151,7 +151,7 @@ class Colors extends Module {
 
 	public function get_elements_data() {
 		$elements = [
-			'icon'    => [
+			'icon'          => [
 				[
 					'section' => 'section_style_icon',
 					'args'    => [
@@ -159,7 +159,7 @@ class Colors extends Module {
 					],
 				],
 			],
-			'heading' => [
+			'heading'       => [
 				[
 					'section' => 'section_title_style',
 					'args'    => [
@@ -167,7 +167,7 @@ class Colors extends Module {
 					],
 				],
 			],
-			'alert'   => [
+			'alert'         => [
 				[
 					'section' => 'section_title',
 					'args'    => [
@@ -178,6 +178,118 @@ class Colors extends Module {
 					'section' => 'section_description',
 					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-alert-description',
+					],
+				],
+			],
+			'inner-section' => [
+				[
+					'section' => 'section_typo',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-inner-section',
+					],
+				],
+			],
+			'text-editor'   => [
+				[
+					'section' => 'section_style',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-text-editor',
+					],
+				],
+			],
+			'button'        => [
+				[
+					'section' => 'section_style',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-button',
+					],
+				],
+			],
+			'posts'         => [
+				[
+					'section' => 'classic_section_design_content',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-post__title a, {{WRAPPER}} .elementor-post__meta-data, {{WRAPPER}} .elementor-post__excerpt p, {{WRAPPER}} .elementor-post__read-more',
+					],
+				],
+			],
+			'portfolio' => [
+				[
+					'section' => 'section_design_overlay',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-portfolio-item__title',
+					],
+				],
+			],
+			'slides' => [
+				[
+					'section' => 'section_style_title',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-slide-heading',
+					],
+				],
+				[
+					'section' => 'section_style_description',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-slide-description',
+					],
+				],
+				[
+					'section' => 'section_style_button',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-slide-button',
+					],
+				],
+				[
+					'section' => 'section_style_navigation',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-slides-wrapper .slick-slider .slick-next:before, {{WRAPPER}} .elementor-slides-wrapper .slick-slider .slick-prev:before, {{WRAPPER}} .elementor-slides-wrapper .elementor-slides .slick-dots li button:before',
+					],
+				],
+			],
+			'form' => [
+				[
+					'section' => 'section_form_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-field-subgroup label, {{WRAPPER}} .elementor-field-group > label',
+					],
+				],
+				[
+					'section' => 'section_field_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-field-group .elementor-field',
+					],
+				],
+				[
+					'section' => 'section_button_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-button',
+					],
+				],
+				[
+					'section' => 'section_messages_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-message.elementor-message-success, {{WRAPPER}} .elementor-message.elementor-message-danger, {{WRAPPER}} .elementor-message.elementor-help-inline',
+					],
+				],
+			],
+			'login' => [
+				[
+					'section' => 'section_style_labels',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-form-fields-wrapper label',
+					],
+				],
+				[
+					'section' => 'section_field_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-field-group .elementor-field',
+					],
+				],
+				[
+					'section' => 'section_button_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-button',
 					],
 				],
 			],
