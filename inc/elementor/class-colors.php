@@ -151,7 +151,7 @@ class Colors extends Module {
 
 	public function get_elements_data() {
 		$elements = [
-			'icon'          => [
+			'icon'              => [
 				[
 					'section' => 'section_style_icon',
 					'args'    => [
@@ -159,7 +159,7 @@ class Colors extends Module {
 					],
 				],
 			],
-			'heading'       => [
+			'heading'           => [
 				[
 					'section' => 'section_title_style',
 					'args'    => [
@@ -167,7 +167,7 @@ class Colors extends Module {
 					],
 				],
 			],
-			'alert'         => [
+			'alert'             => [
 				[
 					'section' => 'section_title',
 					'args'    => [
@@ -181,7 +181,7 @@ class Colors extends Module {
 					],
 				],
 			],
-			'inner-section' => [
+			'inner-section'     => [
 				[
 					'section' => 'section_typo',
 					'args'    => [
@@ -189,7 +189,7 @@ class Colors extends Module {
 					],
 				],
 			],
-			'text-editor'   => [
+			'text-editor'       => [
 				[
 					'section' => 'section_style',
 					'args'    => [
@@ -197,171 +197,171 @@ class Colors extends Module {
 					],
 				],
 			],
-			'button'        => [
+			'button'            => [
 				[
-					'section' => 'section_style',
-					'args'    => [
+					'section'   => 'section_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-button',
 					],
 					'injection' => 'button_color',
 				],
 				[
-					'section' => 'section_style',
-					'args'    => [
+					'section'   => 'section_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-button',
 					],
 					'injection' => 'button_text_color',
 				],
 			],
-			'posts'         => [
+			'posts'             => [
 				[
-					'section' => 'classic_section_design_content',
-					'args'    => [
+					'section'   => 'classic_section_design_content',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-post__title a',
 					],
 					'injection' => 'title_color',
 				],
 				[
-					'section' => 'classic_section_design_content',
-					'args'    => [
+					'section'   => 'classic_section_design_content',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-post__meta-data',
 					],
 					'injection' => 'meta_color',
 				],
 				[
-					'section' => 'classic_section_design_content',
-					'args'    => [
+					'section'   => 'classic_section_design_content',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-post__excerpt p',
 					],
 					'injection' => 'excerpt_color',
 				],
 				[
-					'section' => 'classic_section_design_content',
-					'args'    => [
+					'section'   => 'classic_section_design_content',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-post__excerpt p, {{WRAPPER}} .elementor-post__read-more',
 					],
 					'injection' => 'readmore_color',
 				],
 			],
-			'portfolio' => [
+			'portfolio'         => [
 				[
 					'section' => 'section_design_overlay',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-portfolio-item__title',
 					],
 				],
 			],
-			'slides' => [
+			'slides'            => [
 				[
 					'section' => 'section_style_title',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-slide-heading',
 					],
 				],
 				[
 					'section' => 'section_style_description',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-slide-description',
 					],
 				],
 				[
 					'section' => 'section_style_button',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-slide-button',
 					],
 				],
 				[
-					'section' => 'section_style_navigation',
-					'args' => [
+					'section'   => 'section_style_navigation',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-slides-wrapper .slick-slider .slick-next:before, {{WRAPPER}} .elementor-slides-wrapper .slick-slider .slick-prev:before',
 					],
 					'injection' => 'arrows_color',
 				],
 				[
-					'section' => 'section_style_navigation',
-					'args' => [
+					'section'   => 'section_style_navigation',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-slides-wrapper .elementor-slides .slick-dots li button:before',
 					],
 					'injection' => 'dots_color',
 				],
 			],
-			'form' => [
+			'form'              => [
 				[
 					'section' => 'section_form_style',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-field-subgroup label, {{WRAPPER}} .elementor-field-group > label',
 					],
 				],
 				[
 					'section' => 'section_field_style',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-field-group .elementor-field',
 					],
 				],
 				[
 					'section' => 'section_button_style',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-button',
 					],
 				],
 				[
-					'section' => 'section_messages_style',
-					'args' => [
+					'section'   => 'section_messages_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-message.elementor-message-success',
 					],
 					'injection' => 'success_color',
 				],
 				[
-					'section' => 'section_messages_style',
-					'args' => [
+					'section'   => 'section_messages_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-message.elementor-message-danger',
 					],
 					'injection' => 'danger_color',
 				],
 				[
-					'section' => 'section_messages_style',
-					'args' => [
+					'section'   => 'section_messages_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-message.elementor-help-inline',
 					],
 					'injection' => 'help_inline_color',
 				],
 			],
-			'login' => [
+			'login'             => [
 				[
 					'section' => 'section_style_labels',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-form-fields-wrapper label',
 					],
 				],
 				[
 					'section' => 'section_field_style',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-field-group .elementor-field',
 					],
 				],
 				[
 					'section' => 'section_button_style',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-button',
 					],
 				],
 			],
-			'nav-menu' => [
+			'nav-menu'          => [
 				[
 					'section' => 'section_style_main-menu',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-nav-menu--main .elementor-item',
 					],
 				],
 				[
 					'section' => 'section_style_dropdown',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-nav-menu--dropdown a, {{WRAPPER}} .elementor-menu-toggle',
 					],
 				],
 				[
 					'section' => 'style_toggle',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} div.elementor-menu-toggle',
 					],
 				],
@@ -369,93 +369,93 @@ class Colors extends Module {
 			'animated-headline' => [
 				[
 					'section' => 'section_style_marker',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-headline-dynamic-wrapper path',
 					],
 				],
 				[
-					'section' => 'section_style_text',
-					'args' => [
+					'section'   => 'section_style_text',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-headline-plain-text',
 					],
 					'injection' => 'headline_color',
 				],
 				[
-					'section' => 'section_style_text',
-					'args' => [
+					'section'   => 'section_style_text',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-headline-dynamic-text',
 					],
 					'injection' => 'animated_text_color',
 				],
 			],
-			'price-list' => [
+			'price-list'        => [
 				[
-					'section' => 'section_list_style',
-					'args' => [
+					'section'   => 'section_list_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-price-list-header',
 					],
 					'injection' => 'title_price_color',
 				],
 				[
-					'section' => 'section_list_style',
-					'args' => [
+					'section'   => 'section_list_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-price-list-description',
 					],
 					'injection' => 'description_color',
 				],
 			],
-			'price-table' => [
+			'price-table'       => [
 				[
-					'section' => 'section_header_style',
-					'args' => [
+					'section'   => 'section_header_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-price-table__heading',
 					],
 					'injection' => 'title_color',
 				],
 				[
-					'section' => 'section_header_style',
-					'args' => [
+					'section'   => 'section_header_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-price-table__subheading',
 					],
 					'injection' => 'subtitle_color',
 				],
 				[
-					'section' => 'section_pricing_element_style',
-					'args' => [
+					'section'   => 'section_pricing_element_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-price-table__currency, {{WRAPPER}} .elementor-price-table__integer-part, {{WRAPPER}} .elementor-price-table__fractional-part',
 					],
 					'injection' => 'pricing_color',
 				],
 				[
-					'section' => 'section_pricing_element_style',
-					'args' => [
+					'section'   => 'section_pricing_element_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-price-table__period',
 					],
 					'injection' => 'pricing_period_color',
 				],
 				[
 					'section' => 'section_features_list_style',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-price-table__features-list',
 					],
 				],
 				[
-					'section' => 'section_footer_style',
-					'args' => [
+					'section'   => 'section_footer_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-price-table__button',
 					],
 					'injection' => 'button_text_color',
 				],
 				[
-					'section' => 'section_footer_style',
-					'args' => [
+					'section'   => 'section_footer_style',
+					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-price-table__additional_info',
 					],
 					'injection' => 'additional_text_color',
 				],
 				[
 					'section' => 'section_ribbon_style',
-					'args' => [
+					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-price-table__ribbon-inner',
 					],
 				],
