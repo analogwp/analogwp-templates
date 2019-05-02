@@ -54,11 +54,25 @@ class Colors extends Module {
 	 */
 	protected function register_control( $element, $section, $data ) {
 		add_action(
-			"elementor/element/{$element}/{$section}/after_section_start",
+			"elementor/element/{$element}/{$section}/before_section_end",
 			function( Element_Base $element ) use ( $data ) {
 				$section = $data['section'];
 				$args    = $data['args'];
-				$key     = "{$element->get_id()}_{$section}_color";
+
+				if ( isset( $data['injection'] ) ) {
+					$section .= '_' . $data['injection'];
+				}
+
+				$key = "{$element->get_id()}_{$section}_color";
+
+				if ( isset( $data['injection'] ) ) {
+					$element->start_injection(
+						[
+							'of' => $data['injection'],
+							'at' => 'before',
+						]
+					);
+				}
 
 				$element->add_control(
 					$key,
@@ -91,6 +105,10 @@ class Colors extends Module {
 						],
 					]
 				);
+
+				if ( isset( $data['injection'] ) ) {
+					$element->end_injection();
+				}
 			},
 			10
 		);
@@ -203,7 +221,7 @@ class Colors extends Module {
 					'args'      => [
 						'selector' => '{{WRAPPER}} .elementor-button',
 					],
-					'injection' => 'button_color',
+					'injection' => 'background_color',
 				],
 				[
 					'section'   => 'section_style',
