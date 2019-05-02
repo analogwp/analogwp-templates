@@ -203,14 +203,44 @@ class Colors extends Module {
 					'args'    => [
 						'selector' => '{{WRAPPER}} .elementor-button',
 					],
+					'injection' => 'button_color',
+				],
+				[
+					'section' => 'section_style',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-button',
+					],
+					'injection' => 'button_text_color',
 				],
 			],
 			'posts'         => [
 				[
 					'section' => 'classic_section_design_content',
 					'args'    => [
-						'selector' => '{{WRAPPER}} .elementor-post__title a, {{WRAPPER}} .elementor-post__meta-data, {{WRAPPER}} .elementor-post__excerpt p, {{WRAPPER}} .elementor-post__read-more',
+						'selector' => '{{WRAPPER}} .elementor-post__title a',
 					],
+					'injection' => 'title_color',
+				],
+				[
+					'section' => 'classic_section_design_content',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-post__meta-data',
+					],
+					'injection' => 'meta_color',
+				],
+				[
+					'section' => 'classic_section_design_content',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-post__excerpt p',
+					],
+					'injection' => 'excerpt_color',
+				],
+				[
+					'section' => 'classic_section_design_content',
+					'args'    => [
+						'selector' => '{{WRAPPER}} .elementor-post__excerpt p, {{WRAPPER}} .elementor-post__read-more',
+					],
+					'injection' => 'readmore_color',
 				],
 			],
 			'portfolio' => [
@@ -243,8 +273,16 @@ class Colors extends Module {
 				[
 					'section' => 'section_style_navigation',
 					'args' => [
-						'selector' => '{{WRAPPER}} .elementor-slides-wrapper .slick-slider .slick-next:before, {{WRAPPER}} .elementor-slides-wrapper .slick-slider .slick-prev:before, {{WRAPPER}} .elementor-slides-wrapper .elementor-slides .slick-dots li button:before',
+						'selector' => '{{WRAPPER}} .elementor-slides-wrapper .slick-slider .slick-next:before, {{WRAPPER}} .elementor-slides-wrapper .slick-slider .slick-prev:before',
 					],
+					'injection' => 'arrows_color',
+				],
+				[
+					'section' => 'section_style_navigation',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-slides-wrapper .elementor-slides .slick-dots li button:before',
+					],
+					'injection' => 'dots_color',
 				],
 			],
 			'form' => [
@@ -269,8 +307,23 @@ class Colors extends Module {
 				[
 					'section' => 'section_messages_style',
 					'args' => [
-						'selector' => '{{WRAPPER}} .elementor-message.elementor-message-success, {{WRAPPER}} .elementor-message.elementor-message-danger, {{WRAPPER}} .elementor-message.elementor-help-inline',
+						'selector' => '{{WRAPPER}} .elementor-message.elementor-message-success',
 					],
+					'injection' => 'success_color',
+				],
+				[
+					'section' => 'section_messages_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-message.elementor-message-danger',
+					],
+					'injection' => 'danger_color',
+				],
+				[
+					'section' => 'section_messages_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-message.elementor-help-inline',
+					],
+					'injection' => 'help_inline_color',
 				],
 			],
 			'login' => [
@@ -290,6 +343,120 @@ class Colors extends Module {
 					'section' => 'section_button_style',
 					'args' => [
 						'selector' => '{{WRAPPER}} .elementor-button',
+					],
+				],
+			],
+			'nav-menu' => [
+				[
+					'section' => 'section_style_main-menu',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-nav-menu--main .elementor-item',
+					],
+				],
+				[
+					'section' => 'section_style_dropdown',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-nav-menu--dropdown a, {{WRAPPER}} .elementor-menu-toggle',
+					],
+				],
+				[
+					'section' => 'style_toggle',
+					'args' => [
+						'selector' => '{{WRAPPER}} div.elementor-menu-toggle',
+					],
+				],
+			],
+			'animated-headline' => [
+				[
+					'section' => 'section_style_marker',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-headline-dynamic-wrapper path',
+					],
+				],
+				[
+					'section' => 'section_style_text',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-headline-plain-text',
+					],
+					'injection' => 'headline_color',
+				],
+				[
+					'section' => 'section_style_text',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-headline-dynamic-text',
+					],
+					'injection' => 'animated_text_color',
+				],
+			],
+			'price-list' => [
+				[
+					'section' => 'section_list_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-price-list-header',
+					],
+					'injection' => 'title_price_color',
+				],
+				[
+					'section' => 'section_list_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-price-list-description',
+					],
+					'injection' => 'description_color',
+				],
+			],
+			'price-table' => [
+				[
+					'section' => 'section_header_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-price-table__heading',
+					],
+					'injection' => 'title_color',
+				],
+				[
+					'section' => 'section_header_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-price-table__subheading',
+					],
+					'injection' => 'subtitle_color',
+				],
+				[
+					'section' => 'section_pricing_element_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-price-table__currency, {{WRAPPER}} .elementor-price-table__integer-part, {{WRAPPER}} .elementor-price-table__fractional-part',
+					],
+					'injection' => 'pricing_color',
+				],
+				[
+					'section' => 'section_pricing_element_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-price-table__period',
+					],
+					'injection' => 'pricing_period_color',
+				],
+				[
+					'section' => 'section_features_list_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-price-table__features-list',
+					],
+				],
+				[
+					'section' => 'section_footer_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-price-table__button',
+					],
+					'injection' => 'button_text_color',
+				],
+				[
+					'section' => 'section_footer_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-price-table__additional_info',
+					],
+					'injection' => 'additional_text_color',
+				],
+				[
+					'section' => 'section_ribbon_style',
+					'args' => [
+						'selector' => '{{WRAPPER}} .elementor-price-table__ribbon-inner',
 					],
 				],
 			],
