@@ -29,6 +29,9 @@ class Tools extends Base {
 		$this->add_actions();
 	}
 
+	/**
+	 * Add all actions and filters.
+	 */
 	private function add_actions() {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 
@@ -55,6 +58,11 @@ class Tools extends Base {
 		_default_wp_die_handler( $message, 'Analog Templates' );
 	}
 
+	/**
+	 * Checks if current screen is Style Kits CPT screen.
+	 *
+	 * @return bool
+	 */
 	public static function is_tokens_screen() {
 		global $current_screen;
 
@@ -65,6 +73,9 @@ class Tools extends Base {
 		return 'edit' === $current_screen->base && 'ang_tokens' === $current_screen->post_type;
 	}
 
+	/**
+	 * Enqueue Style Kit import/export related scripts and styles.
+	 */
 	public function enqueue_scripts() {
 		if ( ! self::is_tokens_screen() ) {
 			return;
@@ -395,7 +406,7 @@ CSS;
 
 		if ( 'zip' === $file_extension ) {
 			if ( ! class_exists( '\ZipArchive' ) ) {
-				return new \WP_Error( 'zip_error', 'PHP Zip extension not loaded' );
+				return new WP_Error( 'zip_error', 'PHP Zip extension not loaded' );
 			}
 
 			$zip = new \ZipArchive();
@@ -480,7 +491,11 @@ CSS;
 		return $new_kit;
 	}
 
+	/**
+	 * Handle Style Kit import ajax action.
+	 */
 	public function handle_style_kit_import() {
+		// @codingStandardsIgnoreLine
 		if ( empty( $_REQUEST['_nonce'] ) || ! wp_verify_nonce( $_REQUEST['_nonce'], 'analog-import' ) ) {
 			wp_send_json_error( [ 'message' => 'Access Denied.' ] );
 		}
