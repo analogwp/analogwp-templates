@@ -20,6 +20,8 @@ use WP_Error;
 class Tools extends Base {
 	const BULK_EXPORT_ACTION = 'analog_export_multiple_kits';
 
+	const TEMP_FILES_DIR = 'elementor/tmp';
+
 	/**
 	 * Tools constructor.
 	 */
@@ -147,6 +149,79 @@ class Tools extends Base {
 			// If you reach this line, the export failed.
 			wp_die( $result->get_error_message() );
 		}
+	}
+
+	/**
+	 * Export multiple local templates.
+	 *
+	 * Export multiple template to a ZIP file.
+	 *
+	 * @access public
+	 *
+	 * @param array $kit_ids An array of template IDs.
+	 *
+	 * @return \WP_Error|void WordPress error if export failed.
+	 */
+	public function export_multiple_templates( array $kit_ids ) {
+		$files         = [];
+		$wp_upload_dir = wp_upload_dir();
+		$temp_path     = $wp_upload_dir['basedir'] . '/' . self::TEMP_FILES_DIR;
+
+		// Create temp path if it doesn't exist.
+		wp_mkdir_p( $temp_path );
+
+		// Create all json files.
+		foreach ( $kit_ids as $kit_id ) {
+			$file_data = $this->prepare_kit_export( $kit_id );
+
+			if ( is_wp_error( $file_data ) ) {
+				continue;
+			}
+
+			$complete_path = $temp_path . '/' . $file_data['name'];
+
+			$put_contents = file_put_contents( $complete_path, $file_data['content'] ); // @codingStandardsIgnoreLine
+
+			if ( ! $put_contents ) {
+				return new WP_Error( '404', sprintf( 'Cannot create file "%s".', $file_data['name'] ) );
+			}
+
+			$files[] = [
+				'path' => $complete_path,
+				'name' => $file_data['name'],
+			];
+		}
+
+		if ( ! $files ) {
+			return new WP_Error( 'empty_files', 'There is no files to export (probably all the requested Style Kits are empty).' );
+		}
+
+		// Create temporary .zip file.
+		$zip_archive_filename = 'analog-style-kits-' . date( 'Y-m-d' ) . '.zip';
+		$zip_archive          = new \ZipArchive();
+		$zip_complete_path    = $temp_path . '/' . $zip_archive_filename;
+
+		$zip_archive->open( $zip_complete_path, \ZipArchive::CREATE );
+
+		foreach ( $files as $file ) {
+			$zip_archive->addFile( $file['path'], $file['name'] );
+		}
+
+		$zip_archive->close();
+
+		foreach ( $files as $file ) {
+			unlink( $file['path'] );
+		}
+
+		$this->send_file_headers( $zip_archive_filename, filesize( $zip_complete_path ) );
+
+		@ob_end_flush();
+
+		@readfile( $zip_complete_path );
+
+		unlink( $zip_complete_path );
+
+		die;
 	}
 
 	/**
