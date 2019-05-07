@@ -37,11 +37,22 @@ class Tools extends Base {
 			add_filter( 'post_row_actions', [ $this, 'post_row_actions' ], 10, 2 );
 
 			add_action( 'wp_ajax_analog_style_kit_export', [ $this, 'handle_style_kit_export' ] );
+			add_action( 'wp_ajax_analog_style_kit_import', [ $this, 'handle_style_kit_import' ] );
 
 			// Template library bulk actions.
 			add_filter( 'bulk_actions-edit-ang_tokens', [ $this, 'admin_add_bulk_export_action' ] );
 			add_filter( 'handle_bulk_actions-edit-ang_tokens', [ $this, 'admin_export_multiple_templates' ], 10, 3 );
 		}
+	}
+
+	/**
+	 * Handle WP_Error message.
+	 *
+	 * @access private
+	 * @param string $message Error message.
+	 */
+	private function handle_wp_error( $message ) {
+		_default_wp_die_handler( $message, 'Analog Templates' );
 	}
 
 	public static function is_tokens_screen() {
@@ -66,6 +77,26 @@ class Tools extends Base {
 			ANG_VERSION,
 			true
 		);
+
+		$admin_css = <<<CSS
+		#analog-import-template-area {
+			margin: 50px 0 30px;
+    		text-align: center;
+		}
+		#analog-import-template-title {
+			font-size: 18px;
+    		color: #555d66;
+		}
+		#analog-import-template-form {
+		    display: inline-block;
+		    margin-top: 30px;
+		    padding: 30px 50px;
+		    background-color: #FFFFFF;
+		    border: 1px solid #e5e5e5;
+		}
+CSS;
+
+		wp_add_inline_style( 'forms', $admin_css );
 	}
 
 	/**
@@ -326,10 +357,10 @@ class Tools extends Base {
 		?>
 		<div id="analog-hidden-area" hidden aria-hidden="true">
 			<a id="analog-import-template-trigger" class="page-title-action"><?php esc_html_e( 'Import Style Kits', 'ang' ); ?></a>
-			<div id="analog-import-template-area">
+			<div id="analog-import-template-area" style="display:none;">
 				<div id="analog-import-template-title"><?php esc_html_e( 'Choose an Analog template JSON file or a .zip archive of Analog Style Kits, and add them to the list of Style Kits available in your library.', 'ang' ); ?></div>
 				<form id="analog-import-template-form" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" enctype="multipart/form-data">
-					<input type="hidden" name="action" value="analog_style_kit_export">
+					<input type="hidden" name="action" value="analog_style_kit_import">
 					<input type="hidden" name="_nonce" value="<?php echo esc_attr( wp_create_nonce( 'analog-import' ) ); ?>">
 					<fieldset id="elementor-import-template-form-inputs">
 						<input type="file" name="file" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" required>
@@ -339,6 +370,131 @@ class Tools extends Base {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Import local template.
+	 *
+	 * Import template from a file.
+	 *
+	 * @access public
+	 *
+	 * @param string $name - The file name.
+	 * @param string $path - The file path.
+	 *
+	 * @return WP_Error|array An array of items on success, 'WP_Error' on failure.
+	 */
+	public function import_style_kit( $name, $path ) {
+		if ( empty( $path ) ) {
+			return new WP_Error( 'file_error', 'Please upload a file to import' );
+		}
+
+		$items = [];
+
+		$file_extension = pathinfo( $name, PATHINFO_EXTENSION );
+
+		if ( 'zip' === $file_extension ) {
+			if ( ! class_exists( '\ZipArchive' ) ) {
+				return new \WP_Error( 'zip_error', 'PHP Zip extension not loaded' );
+			}
+
+			$zip = new \ZipArchive();
+
+			$wp_upload_dir = wp_upload_dir();
+
+			$temp_path = $wp_upload_dir['basedir'] . '/' . self::TEMP_FILES_DIR . '/' . uniqid();
+
+			$zip->open( $path );
+
+			$zip->extractTo( $temp_path );
+
+			$zip->close();
+
+			$file_names = array_diff( scandir( $temp_path ), [ '.', '..' ] );
+
+			foreach ( $file_names as $file_name ) {
+				$full_file_name = $temp_path . '/' . $file_name;
+				$import_result  = $this->import_single_style_kit( $full_file_name );
+
+				unlink( $full_file_name );
+
+				if ( is_wp_error( $import_result ) ) {
+					return $import_result;
+				}
+
+				$items[] = $import_result;
+			}
+
+			rmdir( $temp_path );
+		} else {
+			$import_result = $this->import_single_style_kit( $path );
+
+			if ( is_wp_error( $import_result ) ) {
+				return $import_result;
+			}
+
+			$items[] = $import_result;
+		}
+
+		return $items;
+	}
+
+	/**
+	 * Import single template.
+	 *
+	 * Import template from a file to the database.
+	 *
+	 * @access private
+	 *
+	 * @param string $file_name File name.
+	 * @return WP_Error|int|array Local style kit array, or style kit ID, or `WP_Error`.
+	 */
+	private function import_single_style_kit( $file_name ) {
+		$data = json_decode( file_get_contents( $file_name ), true ); // @codingStandardsIgnoreLine
+
+		if ( empty( $data ) ) {
+			return new WP_Error( 'file_error', 'Invalid File' );
+		}
+
+		$content = $data['content'];
+
+		if ( empty( $content ) ) {
+			return new WP_Error( 'file_error', 'Invalid data' );
+		}
+
+		$new_kit = wp_insert_post(
+			[
+				'post_type'   => 'ang_tokens',
+				'post_title'  => $data['title'],
+				'post_status' => 'publish',
+				'meta_input'  => [
+					'_tokens_data' => $content,
+				],
+			]
+		);
+
+		if ( is_wp_error( $new_kit ) ) {
+			return $new_kit;
+		}
+
+		return $new_kit;
+	}
+
+	public function handle_style_kit_import() {
+		if ( empty( $_REQUEST['_nonce'] ) || ! wp_verify_nonce( $_REQUEST['_nonce'], 'analog-import' ) ) {
+			wp_send_json_error( [ 'message' => 'Access Denied.' ] );
+		}
+
+		$imports = $this->import_style_kit( $_FILES['file']['name'], $_FILES['file']['tmp_name'] ); // @codingStandardsIgnoreLine
+
+		if ( is_wp_error( $imports ) ) {
+			$this->handle_wp_error( $imports->get_error_message() . '.' );
+		}
+
+		if ( is_array( $imports ) ) {
+			wp_safe_redirect( admin_url( 'edit.php?post_type=ang_tokens' ) );
+			die;
+		}
 	}
 }
 
