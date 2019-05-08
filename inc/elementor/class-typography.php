@@ -13,7 +13,6 @@ use Elementor\Controls_Stack;
 use Elementor\Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
-use Analog\Options;
 use Analog\Utils;
 
 defined( 'ABSPATH' ) || exit;
@@ -39,7 +38,34 @@ class Typography extends Module {
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_scripts' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ], 999 );
 
+		add_action( 'elementor/element/before_section_end', [ $this, 'update_padding_control_selector' ], 10, 2 );
+
 		add_filter( 'display_post_states', [ $this, 'add_token_state' ], 10, 2 );
+	}
+
+	/**
+	 * Update selector for padding, so it doesn't conflict with column gaps.
+	 *
+	 * @param Controls_Stack $control_stack Control Stack.
+	 * @param array          $args Arguments.
+	 */
+	public function update_padding_control_selector( Controls_Stack $control_stack, $args ) {
+		$control = $control_stack->get_controls( 'padding' );
+
+		// Exit early if $control_stack dont have the image_size control.
+		if ( empty( $control ) || ! is_array( $control ) ) {
+			return;
+		}
+
+		if ( 'section_advanced' === $control['section'] ) {
+			if ( isset( $control['selectors']['{{WRAPPER}} > .elementor-element-populated'] ) ) {
+				$control['selectors'] = [
+					'{{WRAPPER}} > .elementor-element-populated.elementor-element-populated' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				];
+
+				$control_stack->update_control( 'padding', $control );
+			}
+		}
 	}
 
 	/**

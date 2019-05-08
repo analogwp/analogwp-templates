@@ -14,12 +14,31 @@ use Elementor\TemplateLibrary\Classes\Images;
 use Elementor\Api;
 use Elementor\Plugin;
 
+/**
+ * Class Analog_Importer.
+ *
+ * @package Elementor\TemplateLibrary
+ */
 class Analog_Importer extends Source_Remote {
+	/**
+	 * Analog_Importer constructor.
+	 */
 	public function __construct() {
 		if ( ! function_exists( 'wp_crop_image' ) ) {
 			include ABSPATH . 'wp-admin/includes/image.php';
 		}
 	}
+
+	/**
+	 * Get template data.
+	 *
+	 * @inheritDoc
+	 *
+	 * @param array  $args    Custom template arguments.
+	 * @param string $context Optional. The context. Default is `display`.
+	 *
+	 * @return array Remote Template data.
+	 */
 	public function get_data( array $args, $context = 'display' ) {
 		$data = Remote::get_instance()->get_template_content( $args['template_id'], $args['license'], $args['method'] );
 
