@@ -147,7 +147,7 @@ CSS;
 	 */
 	public function post_row_actions( $actions, WP_Post $post ) {
 		if ( self::is_tokens_screen() ) {
-			$actions['export-template'] = sprintf( '<a href="%1$s">%2$s</a>', $this->get_export_link( $post->ID ), __( 'Export Template', 'ang' ) );
+			$actions['export-template'] = sprintf( '<a href="%1$s">%2$s</a>', $this->get_export_link( $post->ID ), __( 'Export Style Kit', 'ang' ) );
 		}
 		return $actions;
 	}
