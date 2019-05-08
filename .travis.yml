@@ -30,3 +30,7 @@ branches:
     - master
     - develop
     - /^feature\/.*$/
+
+script:
+  - php -v
+  - phpunit --version
