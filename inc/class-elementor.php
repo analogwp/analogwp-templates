@@ -30,6 +30,9 @@ class Elementor {
 		add_action( 'elementor/controls/controls_registered', [ $this, 'register_controls' ] );
 	}
 
+	/**
+	 * Register custom Elementor control.
+	 */
 	public function register_controls() {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-ang-action.php';
 
@@ -88,7 +91,9 @@ class Elementor {
 
 		$favorites = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
 
-		if ( ! $favorites )  $favorites = [];
+		if ( ! $favorites ) {
+			$favorites = [];
+		}
 
 		$current_user = wp_get_current_user();
 

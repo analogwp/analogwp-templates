@@ -89,7 +89,7 @@ class LicenseManager extends Base {
 			'site-is-inactive'          => __( 'Site is inactive.', 'ang' ),
 			'license-status-unknown'    => __( 'License status is unknown.', 'ang' ),
 			'update-notice'             => __( "Updating this theme will lose any customizations you have made. 'Cancel' to stop, 'OK' to update.", 'ang' ),
-			'update-available'          => __(
+			'update-available'          => __( // @codingStandardsIgnoreLine
 				'<strong>%1$s %2$s</strong> is available. <a href="%3$s" class="thickbox" title="%4$s">Check out what\'s new</a> or <a href="%5$s" %6$s>update now</a>.',
 				'ang'
 			),
@@ -217,7 +217,9 @@ class LicenseManager extends Base {
 	public function check_license() {
 		$license = trim( Options::get_instance()->get( $this->license_slug ) );
 
-		if ( ! $license ) return;
+		if ( ! $license ) {
+			return;
+		}
 
 		$strings = $this->strings;
 
@@ -333,7 +335,7 @@ class LicenseManager extends Base {
 			if ( is_wp_error( $response ) ) {
 				$message = $response->get_error_message();
 			} else {
-				$message = __( 'An error occurred, please try again.' );
+				$message = __( 'An error occurred, please try again.', 'ang' );
 			}
 		} else {
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
@@ -343,35 +345,35 @@ class LicenseManager extends Base {
 					case 'expired':
 						$message = sprintf(
 							/* translators: %s: expiration date */
-							__( 'Your license key expired on %s.' ),
+							__( 'Your license key expired on %s.', 'ang' ),
 							date_i18n( get_option( 'date_format' ), strtotime( $license_data->expires, current_time( 'timestamp' ) ) )
 						);
 						break;
 
 					case 'revoked':
-						$message = __( 'Your license key has been disabled.' );
+						$message = __( 'Your license key has been disabled.', 'ang' );
 						break;
 
 					case 'missing':
-						$message = __( 'Invalid license.' );
+						$message = __( 'Invalid license.', 'ang' );
 						break;
 
 					case 'invalid':
 					case 'site_inactive':
-						$message = __( 'Your license is not active for this URL.' );
+						$message = __( 'Your license is not active for this URL.', 'ang' );
 						break;
 
 					case 'item_name_mismatch':
 						/* translators: %s: site name/email */
-						$message = sprintf( __( 'This appears to be an invalid license key for %s.' ), $args['name'] );
+						$message = sprintf( __( 'This appears to be an invalid license key for %s.', 'ang' ), $args['name'] );
 						break;
 
 					case 'no_activations_left':
-						$message = __( 'Your license key has reached its activation limit.' );
+						$message = __( 'Your license key has reached its activation limit.', 'ang' );
 						break;
 
 					default:
-						$message = __( 'An error occurred, please try again.' );
+						$message = __( 'An error occurred, please try again.', 'ang' );
 						break;
 				}
 
@@ -430,7 +432,7 @@ class LicenseManager extends Base {
 			if ( is_wp_error( $response ) ) {
 				$message = $response->get_error_message();
 			} else {
-				$message = __( 'An error occurred, please try again.' );
+				$message = __( 'An error occurred, please try again.', 'ang' );
 			}
 		} else {
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );

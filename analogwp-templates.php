@@ -173,7 +173,9 @@ final class Analog_Templates {
 
 		$favorites = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
 
-		if ( ! $favorites )  $favorites = [];
+		if ( ! $favorites ) {
+			$favorites = [];
+		}
 
 		$current_user = wp_get_current_user();
 
@@ -235,9 +237,9 @@ final class Analog_Templates {
 /**
  * The main function for that returns Analog_Templates.
  *
- * @return object|Analog_Templates The one true Analog_Templates Instance.
+ * @return void|Analog_Templates The one true Analog_Templates Instance.
  */
-function ANG() {
+function ANG() { // @codingStandardsIgnoreLine
 	return Analog_Templates::instance();
 }
 
