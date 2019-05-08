@@ -28,4 +28,5 @@ matrix:
 branches:
   only:
     - master
+    - develop
     - /^feature\/.*$/
