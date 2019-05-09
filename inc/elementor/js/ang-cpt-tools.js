@@ -1,4 +1,4 @@
-jQuery( document ).ready( function($) {
+jQuery( document ).ready( function( $ ) {
 	const ANGTools = function() {
 		/**
 		 * Hold reusable elements.
@@ -15,7 +15,7 @@ jQuery( document ).ready( function($) {
 
 		function cacheElements() {
 			cache.$body = $( 'body' );
-			cache.$importButton =  $( '#analog-import-template-trigger' );
+			cache.$importButton = $( '#analog-import-template-trigger' );
 			cache.$importArea = $( '#analog-import-template-area' );
 		}
 
@@ -29,13 +29,13 @@ jQuery( document ).ready( function($) {
 			cache.$formAnchor = $( 'h1.wp-heading-inline' );
 			cache.$formAnchor.after( cache.$importArea );
 
-			cache.$importButton.on('click', () => cache.$importArea.toggle() );
+			cache.$importButton.on( 'click', () => cache.$importArea.toggle() );
 
-			cache.$importArea.find('input[type=submit]').attr('disabled', true);
+			cache.$importArea.find( 'input[type=submit]' ).attr( 'disabled', true );
 
-			cache.$importArea.find('input[type=file]').on('change', function() {
-				cache.$importArea.find('input[type=submit]').removeAttr('disabled');
-			});
+			cache.$importArea.find( 'input[type=file]' ).on( 'change', function() {
+				cache.$importArea.find( 'input[type=submit]' ).removeAttr( 'disabled' );
+			} );
 		}
 
 		init();
