@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.2
-Stable tag: 1.2
+Stable tag: 1.2.1
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -69,6 +69,14 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
+= 1.2.1 =
+* New: Added ability to import/export Style Kits 🎉.
+* Fix: Issue with page style column gap not being overridden with advanced section padding.
+* Fix: Incorrect documentation link.
+* Improve: Include page background as part of style kits.
+* Improve: Add visual notification when a setting is changed on Settings page.
+* Improve: Add a visual indicator in notification based on notification timeout duration on Settings page.
+
 = 1.2 =
 * New: Introducing [Style Kits](https://analogwp.com/style-kits-for-elementor/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp). 🎉
 * New: Added Elementor Finder shortcuts to quickly navigate to AnalogWP setting/library.
@@ -105,6 +113,9 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Initial Release
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+Added Style kit import/export feature. Fixed an issue with column gaps.
 
 = 1.2 =
 Introducing Style Kits for Elementor, added a bunch of QoL improvements.
