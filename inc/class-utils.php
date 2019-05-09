@@ -7,6 +7,8 @@
 
 namespace Analog;
 
+use Elementor\Plugin;
+
 /**
  * Helper functions.
  *
@@ -116,6 +118,19 @@ class Utils extends Base {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Clear cache.
+	 *
+	 * Delete all meta containing files data. And delete the actual
+	 * files from the upload directory.
+	 *
+	 * @since 1.2.1
+	 * @access public
+	 */
+	public static function clear_elementor_cache() {
+		Plugin::instance()->files_manager->clear_cache();
 	}
 }
 

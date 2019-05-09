@@ -8,6 +8,8 @@
 
 namespace Analog\Upgrade;
 
+use Analog\Utils;
+
 defined( 'ABSPATH' ) || exit;
 
 use Analog\Options;
@@ -25,6 +27,10 @@ function do_automatic_upgrades() {
 	if ( version_compare( $installed_version, ANG_VERSION, '<' ) ) {
 		// Let us know that an upgrade has happened.
 		$did_upgrade = true;
+	}
+
+	if ( version_compare( $installed_version, '1.2', '<' ) ) {
+		Utils::clear_elementor_cache();
 	}
 
 	if ( $did_upgrade ) {
