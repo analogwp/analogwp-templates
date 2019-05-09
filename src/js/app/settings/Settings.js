@@ -160,7 +160,7 @@ export default class Settings extends React.Component {
 		};
 	}
 
-	updateSetting( key, val, avoidRequest = false ) {
+	updateSetting( key, val, avoidRequest = false, add ) {
 		const settings = this.context.state.settings;
 		const updatedSetting = {
 			...settings,
@@ -169,6 +169,8 @@ export default class Settings extends React.Component {
 
 		// Update <App /> settings.
 		this.context.dispatch( { settings: updatedSetting } );
+
+		add( __( 'Settings updated.', 'ang' ), 'success' );
 
 		// Avoid API request for saving data, instead save it in App state only.
 		if ( ! avoidRequest ) {
@@ -260,46 +262,52 @@ export default class Settings extends React.Component {
 						</Field>
 					) }
 
-					<Field className="global-settings">
-						<h3 className="heading">{ __( 'Usage Data Tracking', 'ang' ) }</h3>
+					<NotificationConsumer>
+						{ ( { add } ) => (
+							<Fragment>
+								<Field className="global-settings">
+									<h3 className="heading">{ __( 'Usage Data Tracking', 'ang' ) }</h3>
 
-						<CheckboxControl
-							label={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
-							checked={ settings.ang_data_collection ? settings.ang_data_collection : false }
-							className="checkbox"
-							onChange={ ( value ) => this.updateSetting( 'ang_data_collection', value ) }
-						/>
+									<CheckboxControl
+										label={ __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ) }
+										checked={ settings.ang_data_collection ? settings.ang_data_collection : false }
+										className="checkbox"
+										onChange={ ( value ) => this.updateSetting( 'ang_data_collection', value, false, add ) }
+									/>
 
-						<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/547-what-data-is-tracked-by-the-plugin">{ __( 'More Info', 'ang' ) }</ExternalLink>
-					</Field>
+									<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/547-what-data-is-tracked-by-the-plugin">{ __( 'More Info', 'ang' ) }</ExternalLink>
+								</Field>
 
-					<Field className="global-settings">
-						<h3 className="heading">{ __( 'Template Settings', 'ang' ) }</h3>
-						<CheckboxControl
-							label={ __( 'Remove Styling from typographic elements', 'ang' ) }
-							help={ __( 'This setting will remove any values that have been manually added in the templates. Existing templates are not affected.', 'ang' ) }
-							checked={ settings.ang_remove_typography || false }
-							className="checkbox"
-							onChange={ ( isChecked ) => this.updateSetting( 'ang_remove_typography', isChecked ) }
-						/>
+								<Field className="global-settings">
+									<h3 className="heading">{ __( 'Template Settings', 'ang' ) }</h3>
+									<CheckboxControl
+										label={ __( 'Remove Styling from typographic elements', 'ang' ) }
+										help={ __( 'This setting will remove any values that have been manually added in the templates. Existing templates are not affected.', 'ang' ) }
+										checked={ settings.ang_remove_typography || false }
+										className="checkbox"
+										onChange={ ( isChecked ) => this.updateSetting( 'ang_remove_typography', isChecked, false, add ) }
+									/>
 
-						<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements">{ __( 'More Info', 'ang' ) }</ExternalLink>
-					</Field>
+									<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements">{ __( 'More Info', 'ang' ) }</ExternalLink>
+								</Field>
 
-					{
-						/* <Field className="global-settings">
-							<h3 className="heading">{ __( 'Other Settings', 'ang' ) }</h3>
-							<CheckboxControl
-								label={ __( 'Enable Beta Feature', 'ang' ) }
-								help={ __( 'The beta feature we are working on now is Page Styling settings. Enable beta to try it out.', 'ang' ) }
-								checked={ settings.ang_beta_features || false }
-								className="checkbox"
-								onChange={ ( isChecked ) => this.updateSetting( 'ang_beta_features', isChecked ) }
-							/>
+								{
+									/* <Field className="global-settings">
+										<h3 className="heading">{ __( 'Other Settings', 'ang' ) }</h3>
+										<CheckboxControl
+											label={ __( 'Enable Beta Feature', 'ang' ) }
+											help={ __( 'The beta feature we are working on now is Page Styling settings. Enable beta to try it out.', 'ang' ) }
+											checked={ settings.ang_beta_features || false }
+											className="checkbox"
+											onChange={ ( isChecked ) => this.updateSetting( 'ang_beta_features', isChecked, false, add ) }
+										/>
 
-							<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/548-beta-features">{ __( 'Learn More', 'ang' ) }</ExternalLink>
-						</Field> */
-					}
+										<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/548-beta-features">{ __( 'Learn More', 'ang' ) }</ExternalLink>
+									</Field> */
+								}
+							</Fragment>
+						) }
+					</NotificationConsumer>
 				</ChildContainer>
 
 				<Sidebar />
