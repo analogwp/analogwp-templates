@@ -160,7 +160,7 @@ export default class Settings extends React.Component {
 		};
 	}
 
-	updateSetting( key, val, avoidRequest = false, add ) {
+	updateSetting( key, val, avoidRequest = false, add = false ) {
 		const settings = this.context.state.settings;
 		const updatedSetting = {
 			...settings,
@@ -170,7 +170,9 @@ export default class Settings extends React.Component {
 		// Update <App /> settings.
 		this.context.dispatch( { settings: updatedSetting } );
 
-		add( __( 'Settings updated.', 'ang' ), 'success' );
+		if ( add ) {
+			add( __( 'Settings updated.', 'ang' ) );
+		}
 
 		// Avoid API request for saving data, instead save it in App state only.
 		if ( ! avoidRequest ) {
