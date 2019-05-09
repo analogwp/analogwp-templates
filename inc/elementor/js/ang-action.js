@@ -2,6 +2,20 @@
 jQuery( window ).on( 'elementor:init', function() {
 	const analog = window.analog = window.analog || {};
 
+	/**
+	 * Determines if given key should be exported/imported into Style Kit.
+	 *
+	 * @param {string} key Setting ID.
+	 * @return {bool} True, or false.
+	 */
+	const eligibleKey = ( key ) => {
+		if ( key.startsWith( 'ang_action' ) ) {
+			return false;
+		}
+
+		return ( key.startsWith( 'ang_' ) || key.startsWith( 'background' ) );
+	};
+
 	analog.showStyleKitAttentionDialog = () => {
 		const introduction = new elementorModules.editor.utils.Introduction( {
 			introductionKey: 'angStylekit',
@@ -40,7 +54,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		const settings = elementor.settings.page.model.attributes;
 		const angSettings = {};
 		_.map( settings, function( value, key ) {
-			if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
+			if ( eligibleKey( key ) ) {
 				if ( elementor.settings.page.model.controls[ key ] !== undefined ) {
 					switch ( typeof elementor.settings.page.model.controls[ key ].default ) {
 						case 'string':
@@ -228,7 +242,7 @@ jQuery( window ).on( 'elementor:init', function() {
 			const settings = elementor.settings.page.model.attributes;
 			const angSettings = {};
 			_.map( settings, function( value, key ) {
-				if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
+				if ( eligibleKey( key ) ) {
 					angSettings[ key ] = value;
 				}
 			} );
@@ -301,7 +315,7 @@ jQuery( window ).on( 'elementor:init', function() {
 			const settings = elementor.settings.page.model.attributes;
 			const angSettings = {};
 			_.map( settings, function( value, key ) {
-				if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
+				if ( eligibleKey( key ) ) {
 					angSettings[ key ] = value;
 				}
 			} );
