@@ -69,6 +69,10 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
+= 1.2.2 =
+* Fixed an issue with padding section media queries
+* Fix broken dependency on Settings page ahead of new Gutenberg version
+
 = 1.2.1 =
 * New: Added ability to import/export Style Kits 🎉.
 * Fix: Issue with page style column gap not being overridden with advanced section padding.
