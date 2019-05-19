@@ -166,6 +166,7 @@ final class Analog_Templates {
 				'react-dom',
 				'wp-components',
 				'wp-i18n',
+				'wp-html-entities',
 			],
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/app.js' ),
 			true
