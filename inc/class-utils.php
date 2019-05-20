@@ -140,6 +140,7 @@ class Utils extends Base {
 	/**
 	 * Display admin notices.
 	 *
+	 * @since 1.2.3
 	 * @return void
 	 */
 	public function display_flash_notices() {
@@ -167,6 +168,8 @@ class Utils extends Base {
 	 * @param string $notice Notice text.
 	 * @param string $type Notice type.
 	 * @param bool   $dismissible Is notification dismissable.
+	 *
+	 * @since 1.2.3
 	 *
 	 * @return void
 	 */
