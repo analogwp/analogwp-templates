@@ -291,7 +291,7 @@ export default class Settings extends React.Component {
 									<h3 className="heading">{ __( 'Rollback Version' ) }</h3>
 									<Button
 										href={ AGWP.rollback_url }
-										isLarge
+										className="ang-button"
 									>{ sprintf( __( 'Reinstall version %s', 'ang' ), AGWP.rollback_version ) }</Button>
 									<p className="description">{ __( 'If you are having issues with current version of Analog Templates, you can rollback to a previous stable version.', 'ang' ) }</p>
 								</Field>

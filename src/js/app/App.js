@@ -30,7 +30,7 @@ const Analog = styled.div`
 		border-radius: 4px;
 		color: #fff;
 		background: ${ props => props.theme.accent };
-		padding: 12px;
+		padding: 12px 24px;
 		display: inline-block;
 		border: none;
 		outline: 0;
