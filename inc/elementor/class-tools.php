@@ -8,7 +8,10 @@
 namespace Analog\Elementor;
 
 use Analog\Base;
+use Analog\Elementor;
 use Elementor\Rollback;
+use Elementor\User;
+use Elementor\Plugin;
 use WP_Post;
 use WP_Error;
 
@@ -37,6 +40,7 @@ class Tools extends Base {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 
 		add_action( 'admin_post_ang_rollback', [ $this, 'post_ang_rollback' ] );
+		add_filter( 'display_post_states', [ $this, 'stylekit_post_state' ], 20, 2 );
 
 		if ( is_admin() ) {
 			add_action( 'admin_footer', [ $this, 'import_stylekit_template' ] );
@@ -566,6 +570,36 @@ CSS;
 				'response' => 200,
 			]
 		);
+	}
+
+	/**
+	 * Add Style Kit post state.
+	 *
+	 * Adds a new "Style Kit: %s" post state to the post table.
+	 *
+	 * Fired by `display_post_states` filter.
+	 *
+	 * @since 1.2.3
+	 * @access public
+	 *
+	 * @param array   $post_states An array of post display states.
+	 * @param WP_Post $post        The current post object.
+	 *
+	 * @return array A filtered array of post display states.
+	 */
+	public function stylekit_post_state( $post_states, $post ) {
+		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::$instance->db->is_built_with_elementor( $post->ID ) ) {
+			$settings = get_post_meta( $post->ID, '_elementor_page_settings', true );
+
+			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
+				$kit_id = (int) $settings['ang_action_tokens'];
+
+				/* translators: %s: Style kit title. */
+				$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#3152FF;">&#9679;</span>', 'ang' ), get_the_title( $kit_id ) );
+			}
+		}
+
+		return $post_states;
 	}
 }
 
