@@ -8,6 +8,7 @@
 namespace Analog\Elementor;
 
 use Analog\Base;
+use Elementor\Rollback;
 use WP_Post;
 use WP_Error;
 
@@ -34,6 +35,8 @@ class Tools extends Base {
 	 */
 	private function add_actions() {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+
+		add_action( 'admin_post_ang_rollback', [ $this, 'post_ang_rollback' ] );
 
 		if ( is_admin() ) {
 			add_action( 'admin_footer', [ $this, 'import_stylekit_template' ] );
@@ -510,6 +513,39 @@ CSS;
 			wp_safe_redirect( admin_url( 'edit.php?post_type=ang_tokens' ) );
 			die;
 		}
+	}
+
+	/**
+	 * Rollback AnalogWP version.
+	 *
+	 * @since 1.2.3
+	 * @return void
+	 */
+	public function post_ang_rollback() {
+		check_admin_referer( 'ang_rollback' );
+
+		$plugin_slug    = 'analogwp-templates';
+		$plugin_name    = 'analogwp-templates/analogwp-templates.php';
+		$stable_version = ANG_LAST_STABLE_VERSION;
+
+		$rollback = new Rollback(
+			[
+				'version'     => $stable_version,
+				'plugin_name' => $plugin_name,
+				'plugin_slug' => $plugin_slug,
+				'package_url' => sprintf( 'https://downloads.wordpress.org/plugin/%s.%s.zip', $plugin_slug, $stable_version ),
+			]
+		);
+
+		$rollback->run();
+
+		wp_die(
+			'',
+			esc_html__( 'Rollback to Previous Version', 'ang' ),
+			[
+				'response' => 200,
+			]
+		);
 	}
 }
 

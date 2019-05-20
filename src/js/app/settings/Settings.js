@@ -8,8 +8,8 @@ import { Theme } from './../contexts/ThemeContext';
 import Sidebar from './../Sidebar';
 import { hasProTemplates } from './../utils';
 
-const { TextControl, CheckboxControl, Button, ExternalLink } = wp.components;
-const { __ } = wp.i18n;
+const { TextControl, CheckboxControl, Button, ExternalLink, IconButton } = wp.components;
+const { __, sprintf } = wp.i18n;
 const { Fragment } = React;
 
 const Container = styled.div`
@@ -68,6 +68,13 @@ const ChildContainer = styled.div`
 			color: #888;
 			font-size: 14.22px;
 		}
+	}
+
+	.description {
+		margin-top: 10px;
+		color: #888;
+		font-size: 14.22px;
+		font-style: normal;
 	}
 
 	.global-settings {
@@ -278,6 +285,15 @@ export default class Settings extends React.Component {
 									/>
 
 									<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/547-what-data-is-tracked-by-the-plugin">{ __( 'More Info', 'ang' ) }</ExternalLink>
+								</Field>
+
+								<Field className="global-settings">
+									<h3 className="heading">{ __( 'Rollback Version' ) }</h3>
+									<Button
+										href={ AGWP.rollback_url }
+										isLarge
+									>{ sprintf( __( 'Reinstall version %s', 'ang' ), AGWP.rollback_version ) }</Button>
+									<p className="description">{ __( 'If you are having issues with current version of Analog Templates, you can rollback to a previous stable version.', 'ang' ) }</p>
 								</Field>
 
 								<Field className="global-settings">
