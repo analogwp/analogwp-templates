@@ -15,6 +15,10 @@ use Elementor\Plugin;
  * @package Analog
  */
 class Utils extends Base {
+	public function __construct() {
+		add_action( 'admin_notices', [ $this, 'display_flash_notices' ] );
+	}
+
 	/**
 	 * Debugging log.
 	 *
@@ -131,6 +135,59 @@ class Utils extends Base {
 	 */
 	public static function clear_elementor_cache() {
 		Plugin::instance()->files_manager->clear_cache();
+	}
+
+	/**
+	 * Display admin notices.
+	 *
+	 * @return void
+	 */
+	public function display_flash_notices() {
+		$notices = get_option( 'ang_notices', [] );
+
+		// Iterate through our notices to be displayed and print them.
+		foreach ( $notices as $notice ) {
+			printf(
+				'<div class="notice notice-%1$s %2$s"><p>%3$s</p></div>',
+				$notice['type'],
+				$notice['dismissible'],
+				$notice['notice']
+			);
+		}
+
+		// Now we reset our options to prevent notices being displayed forever.
+		if ( ! empty( $notices ) ) {
+			delete_option( 'ang_notices' );
+		}
+	}
+
+	/**
+	 * Add an admin notice.
+	 *
+	 * @param string $notice Notice text.
+	 * @param string $type Notice type.
+	 * @param bool   $dismissible Is notification dismissable.
+	 *
+	 * @return void
+	 */
+	public static function add_notice( $notice = '', $type = 'warning', $dismissible = true ) {
+		// Here we return the notices saved on our option, if there are not notices, then an empty array is returned.
+		$notices = get_option( 'ang_notices', [] );
+
+		$dismissible_text = ( $dismissible ) ? 'is-dismissible' : '';
+
+		// We add our new notice.
+		array_push(
+			$notices,
+			array(
+				'notice'      => $notice,
+				'type'        => $type,
+				'dismissible' => $dismissible_text,
+			)
+		);
+
+		// Then we update the option with our notices array.
+		update_option( 'ang_notices', $notices );
 	}
 }
 
