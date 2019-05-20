@@ -84,6 +84,8 @@ final class Analog_Templates {
 			define( 'ANG_VERSION', '1.2.2' );
 		}
 
+		define( 'ANG_LAST_STABLE_VERSION', '1.2.2' );
+
 		// Plugin Folder Path.
 		if ( ! defined( 'ANG_PLUGIN_DIR' ) ) {
 			define( 'ANG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -201,6 +203,8 @@ final class Analog_Templates {
 					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 					'message' => get_transient( 'ang_license_message' ),
 				],
+				'rollback_version' => ANG_LAST_STABLE_VERSION,
+				'rollback_url'     => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback' ), 'ang_rollback' ),
 			]
 		);
 
