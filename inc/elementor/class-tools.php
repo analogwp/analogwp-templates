@@ -9,9 +9,11 @@ namespace Analog\Elementor;
 
 use Analog\Base;
 use Analog\Elementor;
+use Analog\Utils;
 use Elementor\Rollback;
 use Elementor\User;
 use Elementor\Plugin;
+use ParagonIE\Sodium\Core\Util;
 use WP_Post;
 use WP_Error;
 
@@ -41,6 +43,11 @@ class Tools extends Base {
 
 		add_action( 'admin_post_ang_rollback', [ $this, 'post_ang_rollback' ] );
 		add_filter( 'display_post_states', [ $this, 'stylekit_post_state' ], 20, 2 );
+
+		add_filter( 'post_row_actions', [ $this, 'filter_post_row_actions' ], 15, 2 );
+		add_filter( 'page_row_actions', [ $this, 'filter_post_row_actions' ], 15, 2 );
+
+		add_action( 'wp_ajax_ang_make_global', [ $this, 'post_global_stylekit' ] );
 
 		if ( is_admin() ) {
 			add_action( 'admin_footer', [ $this, 'import_stylekit_template' ] );
@@ -133,6 +140,16 @@ CSS;
 				'action' => 'analog_style_kit_export',
 				'_nonce' => wp_create_nonce( 'analog_ajax' ),
 				'kit_id' => $kit_id,
+			],
+			admin_url( 'admin-ajax.php' )
+		);
+	}
+
+	private function get_stylekit_global_link() {
+		return add_query_arg(
+			[
+				'action'  => 'ang_make_global',
+				'post_id' => get_the_ID(),
 			],
 			admin_url( 'admin-ajax.php' )
 		);
@@ -592,15 +609,65 @@ CSS;
 			$settings = get_post_meta( $post->ID, '_elementor_page_settings', true );
 
 			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
-				$kit_id = (int) $settings['ang_action_tokens'];
+				$kit_id = $settings['ang_action_tokens'];
 
-				/* translators: %s: Style kit title. */
-				$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#3152FF;">&#9679;</span>', 'ang' ), get_the_title( $kit_id ) );
+				if ( get_option( 'elementor_ang_global_kit' ) !== $kit_id ) {
+					/* translators: %s: Style kit title. */
+					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#3152FF;">&#9679;</span>', 'ang' ), get_the_title( $kit_id ) );
+				}
 			}
 		}
 
 		return $post_states;
 	}
+
+	/**
+	 * Add custom post action.
+	 *
+	 * @param array  $actions Existing actions.
+	 * @param object $post Post object.
+	 *
+	 * @return mixed
+	 */
+	public function filter_post_row_actions( $actions, $post ) {
+		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::$instance->db->is_built_with_elementor( $post->ID ) ) {
+			$settings = get_post_meta( $post->ID, '_elementor_page_settings', true );
+
+			if ( isset( $settings['ang_action_tokens'] ) && get_option( 'elementor_ang_global_kit' ) !== $settings['ang_action_tokens'] ) {
+				$actions['apply_global_kit'] = sprintf(
+					'<a href="%1$s">%2$s</a>',
+					wp_nonce_url( $this->get_stylekit_global_link(), 'ang_make_global' ),
+					__( 'Apply Global Style Kit', 'ang' )
+				);
+			}
+		}
+
+		return $actions;
+	}
+
+	/**
+	 * Ajax action for applying Global stylekit to specific post.
+	 *
+	 * @since 1.2.3
+	 * @return void
+	 */
+	public function post_global_stylekit() {
+		check_admin_referer( 'ang_make_global' );
+
+		if ( ! isset( $_REQUEST['post_id'] ) ) {
+			exit;
+		}
+
+		$post_id = $_REQUEST['post_id'];
+		$token   = get_post_meta( get_option( 'elementor_ang_global_kit' ), '_tokens_data', true );
+
+		update_post_meta( $post_id, '_elementor_page_settings', json_decode( $token, ARRAY_A ) );
+		Utils::clear_elementor_cache();
+
+		wp_safe_redirect( wp_get_referer() );
+		exit;
+	}
 }
+
 
 new Tools();
