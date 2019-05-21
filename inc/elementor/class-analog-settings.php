@@ -33,6 +33,8 @@ class Analog_Settings {
 					__( 'Global Stylekit Settings Saved. It\'s recommended to close any open elementor tabs in your browser, and re-open them, for the effect to apply.', 'ang' ),
 					'info'
 				);
+
+				Utils::clear_elementor_cache();
 			}
 		);
 	}
