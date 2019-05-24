@@ -282,7 +282,7 @@ class Utils extends Base {
 		return $query->posts;
 	}
 
-	public static function refresh_posts_using_stylekit( $kit_id = false, $token ) {
+	public static function refresh_posts_using_stylekit( $token, $kit_id = false, $current_id = false ) {
 		$posts = false;
 
 		if ( (int) $kit_id === self::get_global_kit_id() ) {
@@ -297,9 +297,14 @@ class Utils extends Base {
 		}
 
 		foreach ( $posts as $post_id ) {
-			do_action( 'logger', $token );
+			if ( (int) $current_id === $post_id ) {
+				continue;
+			}
 
-			update_post_meta( $post_id, '_elementor_page_settings', json_decode( $token, ARRAY_A ) );
+			$tokens = json_decode( $token, ARRAY_A );
+			$tokens['ang_action_tokens'] = $kit_id;
+
+			update_post_meta( $post_id, '_elementor_page_settings', $tokens );
 		}
 
 		return true;

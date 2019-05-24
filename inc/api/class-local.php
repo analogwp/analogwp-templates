@@ -459,6 +459,7 @@ class Local extends Base {
 	public function update_token( \WP_REST_Request $request ) {
 		$id     = $request->get_param( 'id' );
 		$tokens = $request->get_param( 'tokens' );
+		$current_id = $request->get_param( 'current_id' );
 
 		if ( ! $id ) {
 			return new \WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'ang' ) );
@@ -466,7 +467,8 @@ class Local extends Base {
 
 		$data = \update_post_meta( $id, '_tokens_data', $tokens );
 
-		Utils::refresh_posts_using_stylekit( $id, $tokens );
+		Utils::refresh_posts_using_stylekit( $tokens, $id, $current_id );
+		Utils::clear_elementor_cache();
 
 		return new \WP_REST_Response( $data, 200 );
 	}

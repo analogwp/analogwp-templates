@@ -312,6 +312,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		handleTokenUpdate: function() {
 			const postID = elementor.settings.page.model.attributes.ang_action_tokens;
+			const currentID = elementor.config.post_id;
 			const settings = elementor.settings.page.model.attributes;
 			const angSettings = {};
 			_.map( settings, function( value, key ) {
@@ -334,6 +335,7 @@ jQuery( window ).on( 'elementor:init', function() {
 						method: 'post',
 						data: {
 							id: postID,
+							current_id: currentID,
 							tokens: JSON.stringify( angSettings ),
 						},
 					} ).then( () => {
