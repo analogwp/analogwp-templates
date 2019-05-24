@@ -8,6 +8,11 @@
 namespace Analog;
 
 use Elementor\Plugin;
+use function get_option;
+use function get_post_meta;
+use function get_the_ID;
+use function get_the_title;
+use WP_Query;
 
 /**
  * Helper functions.
@@ -78,7 +83,7 @@ class Utils extends Base {
 	 * @return array
 	 */
 	public static function get_tokens( $prefix = true ) {
-		$query = new \WP_Query(
+		$query = new WP_Query(
 			[
 				'post_type'      => 'ang_tokens',
 				'posts_per_page' => -1,
@@ -92,13 +97,13 @@ class Utils extends Base {
 		$tokens = [];
 		while ( $query->have_posts() ) {
 			$query->the_post();
-			$post_id = \get_the_ID();
+			$post_id = get_the_ID();
 
 			$global_token = (int) get_option( 'elementor_ang_global_kit' );
 			if ( $global_token && $post_id === $global_token && $prefix ) {
-				$title = __( 'Global: ', 'ang' ) . \get_the_title();
+				$title = __( 'Global: ', 'ang' ) . get_the_title();
 			} else {
-				$title = \get_the_title();
+				$title = get_the_title();
 			}
 
 			$tokens[ $post_id ] = $title;
@@ -110,15 +115,24 @@ class Utils extends Base {
 	}
 
 	/**
+	 * Return the Post ID for Global Style Kit.
+	 *
+	 * @return int Post ID.
+	 */
+	public static function get_global_kit_id() {
+		return (int) get_option( 'elementor_ang_global_kit' );
+	}
+
+	/**
 	 * Get global token post metadata.
 	 *
 	 * @return array|bool Tokens data.
 	 */
 	public static function get_global_token_data() {
-		$global_token = (int) \get_option( 'elementor_ang_global_kit' );
+		$global_token = self::get_global_kit_id();
 
 		if ( $global_token ) {
-			return \get_post_meta( $global_token, '_tokens_data', true );
+			return get_post_meta( $global_token, '_tokens_data', true );
 		}
 
 		return false;
@@ -191,6 +205,104 @@ class Utils extends Base {
 
 		// Then we update the option with our notices array.
 		update_option( 'ang_notices', $notices );
+	}
+
+	public static function get_public_post_types( $args = [] ) {
+		$post_type_args = [
+			// Default is the value $public.
+			'show_in_nav_menus' => true,
+		];
+
+		// Keep for backwards compatibility.
+		if ( ! empty( $args['post_type'] ) ) {
+			$post_type_args['name'] = $args['post_type'];
+			unset( $args['post_type'] );
+		}
+
+		$post_type_args = wp_parse_args( $post_type_args, $args );
+
+		$_post_types = get_post_types( $post_type_args, 'objects' );
+
+		$post_types = [];
+
+		foreach ( $_post_types as $post_type => $object ) {
+			$post_types[ $post_type ] = $object->label;
+		}
+
+		/**
+		 * Public Post types
+		 *
+		 * Allow 3rd party plugins to filters the public post types elementor should work on
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param array $post_types Elementor supported public post types.
+		 */
+		return apply_filters( 'analog/utils/get_public_post_types', $post_types );
+	}
+
+	/**
+	 * Returns an array of Post IDs using global kit.
+	 *
+	 * Pass Style kit ID to find posts/pages using specific style kit.
+	 *
+	 * @param int|bool $kit_id Style Kit ID to search for.
+	 * @return array
+	 */
+	public static function posts_using_stylekit( $kit_id = false ) {
+		$query_args = [
+			'post_type'      => 'any',
+			'post_status'    => 'any',
+			'meta_key'       => '_elementor_page_settings',
+			'meta_values'    => [ 'ang_action_tokens' ],
+			'meta_compare'   => 'IN',
+			'fields'         => 'ids',
+			'posts_per_page' => -1,
+		];
+
+		$query = new WP_Query( $query_args );
+
+		if ( $kit_id ) {
+			$posts = [];
+			foreach ( $query->posts as $post_id ) {
+				$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+
+				if ( ! $settings || ! array_key_exists( 'ang_action_tokens', $settings ) ) {
+					continue;
+				}
+
+				if ( (int) $settings['ang_action_tokens'] === (int) $kit_id ) {
+					$posts[] = $post_id;
+				}
+			}
+
+			return $posts;
+		}
+
+		return $query->posts;
+	}
+
+	public static function refresh_posts_using_stylekit( $kit_id = false, $token ) {
+		$posts = false;
+
+		if ( (int) $kit_id === self::get_global_kit_id() ) {
+			$posts = self::posts_using_stylekit();
+		} else {
+			$posts = self::posts_using_stylekit( $kit_id );
+		}
+
+		// Return early if there aren't any posts.
+		if ( ! $posts ) {
+			return false;
+		}
+
+		foreach ( $posts as $post_id ) {
+			do_action( 'logger', $token );
+
+			update_post_meta( $post_id, '_elementor_page_settings', json_decode( $token, ARRAY_A ) );
+		}
+
+		return true;
 	}
 }
 

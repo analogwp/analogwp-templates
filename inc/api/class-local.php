@@ -9,6 +9,7 @@ namespace Analog\API;
 
 use \Analog\Base;
 use \Analog\Options;
+use Analog\Utils;
 use Elementor\Core\Settings\Manager;
 
 defined( 'ABSPATH' ) || exit;
@@ -464,6 +465,8 @@ class Local extends Base {
 		}
 
 		$data = \update_post_meta( $id, '_tokens_data', $tokens );
+
+		Utils::refresh_posts_using_stylekit( $id, $tokens );
 
 		return new \WP_REST_Response( $data, 200 );
 	}
