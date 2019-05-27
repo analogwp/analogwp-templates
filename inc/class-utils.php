@@ -250,8 +250,12 @@ class Utils extends Base {
 	 * @return array
 	 */
 	public static function posts_using_stylekit( $kit_id = false ) {
+		$post_types  = get_post_types( [ 'public' => true ] );
+		$post_types += [ 'elementor_library' ];
+		unset( $post_types['attachment'] );
+
 		$query_args = [
-			'post_type'      => 'any',
+			'post_type'      => apply_filters( 'analog/stylekit/posttypes', $post_types ),
 			'post_status'    => 'any',
 			'meta_key'       => '_elementor_page_settings',
 			'meta_values'    => [ 'ang_action_tokens' ],
