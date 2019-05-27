@@ -262,24 +262,34 @@ class Utils extends Base {
 
 		$query = new WP_Query( $query_args );
 
-		if ( $kit_id ) {
-			$posts = [];
-			foreach ( $query->posts as $post_id ) {
-				$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+		$posts = [];
+		foreach ( $query->posts as $post_id ) {
+			$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
 
-				if ( ! $settings || ! array_key_exists( 'ang_action_tokens', $settings ) ) {
-					continue;
-				}
+			if ( ! $settings || ! array_key_exists( 'ang_action_tokens', $settings ) ) {
+				continue;
+			}
 
+			/**
+			 * This conditional divides results in for two conditions:
+			 *
+			 * 1. When a kit ID is provided to check against.
+			 * 2. When there is a global style kit active or either blank. We return all Elementor posts.
+			 */
+			if ( $kit_id ) {
 				if ( (int) $settings['ang_action_tokens'] === (int) $kit_id ) {
 					$posts[] = $post_id;
 				}
+			} elseif ( ! $kit_id && '' !== self::get_global_kit_id() ) {
+				if ( '' === $settings['ang_action_tokens'] || (int) self::get_global_kit_id() === (int) $settings['ang_action_tokens'] ) {
+					$posts[] = $post_id;
+				}
 			}
-
-			return $posts;
 		}
 
-		return $query->posts;
+		wp_reset_postdata();
+
+		return $posts;
 	}
 
 	public static function refresh_posts_using_stylekit( $token, $kit_id = false, $current_id = false ) {
