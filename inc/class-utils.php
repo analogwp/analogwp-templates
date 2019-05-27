@@ -283,9 +283,7 @@ class Utils extends Base {
 	}
 
 	public static function refresh_posts_using_stylekit( $token, $kit_id = false, $current_id = false ) {
-		$posts = false;
-
-		if ( (int) $kit_id === self::get_global_kit_id() ) {
+		if ( self::get_global_kit_id() === (int) $kit_id ) {
 			$posts = self::posts_using_stylekit();
 		} else {
 			$posts = self::posts_using_stylekit( $kit_id );
@@ -302,6 +300,7 @@ class Utils extends Base {
 			}
 
 			$tokens = json_decode( $token, ARRAY_A );
+
 			$tokens['ang_action_tokens'] = $kit_id;
 
 			update_post_meta( $post_id, '_elementor_page_settings', $tokens );
