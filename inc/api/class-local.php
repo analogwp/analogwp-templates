@@ -475,8 +475,11 @@ class Local extends Base {
 
 		$data = update_post_meta( $id, '_tokens_data', $tokens );
 
-		Utils::refresh_posts_using_stylekit( $tokens, $id, $current_id );
-		Utils::clear_elementor_cache();
+		// Update other posts using Style kit. Avoid updating Style kit itself when being edited.
+		if ( $id !== $current_id ) {
+			Utils::refresh_posts_using_stylekit( $tokens, $id, $current_id );
+			Utils::clear_elementor_cache();
+		}
 
 		return new WP_REST_Response( $data, 200 );
 	}
