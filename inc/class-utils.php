@@ -292,6 +292,17 @@ class Utils extends Base {
 		return $posts;
 	}
 
+	/**
+	 * Refresh all posts using a specific Style Kit.
+	 *
+	 * @param array $token Token/Style Kit data.
+	 * @param bool  $kit_id Style Kit ID.
+	 * @param bool  $current_id ID of post being edited.
+	 *
+	 * @since 1.2.3
+	 *
+	 * @return bool
+	 */
 	public static function refresh_posts_using_stylekit( $token, $kit_id = false, $current_id = false ) {
 		if ( self::get_global_kit_id() === (int) $kit_id ) {
 			$posts = self::posts_using_stylekit();
