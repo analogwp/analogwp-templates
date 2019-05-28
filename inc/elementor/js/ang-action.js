@@ -99,9 +99,39 @@ jQuery( window ).on( 'elementor:init', function() {
 		redirectToSection();
 	};
 
+	analog.applyStyleKit = ( value ) => {
+		if ( ! value ) {
+			console.warn( 'No value provided.' );
+			return;
+		}
+
+		wp.apiFetch( {
+			method: 'post',
+			path: 'agwp/v1/tokens/get',
+			data: {
+				id: value,
+			},
+		} ).then( function( response ) {
+			const data = JSON.parse( response.data );
+
+			if ( Object.keys( data ).length ) {
+				elementor.settings.page.model.set( data );
+				elementor.settings.page.model.set( 'ang_recently_imported', 'no' );
+			}
+		} ).catch( function( error ) {
+			console.error( error );
+		} );
+	};
+
 	elementor.on( 'preview:loaded', () => {
 		if ( ! elementor.config.user.introduction.angStylekit ) {
 			analog.showStyleKitAttentionDialog();
+		}
+
+		const settings = elementor.settings.page.model.attributes;
+
+		if ( settings.ang_action_tokens ) {
+			analog.applyStyleKit( settings.ang_action_tokens );
 		}
 	} );
 
@@ -361,23 +391,6 @@ jQuery( window ).on( 'elementor:init', function() {
 	elementor.addControlView( 'ang_action', ControlANGAction );
 
 	elementor.settings.page.addChangeCallback( 'ang_action_tokens', function( value ) {
-		if ( value ) {
-			wp.apiFetch( {
-				method: 'post',
-				path: 'agwp/v1/tokens/get',
-				data: {
-					id: value,
-				},
-			} ).then( function( response ) {
-				const data = JSON.parse( response.data );
-
-				if ( Object.keys( data ).length ) {
-					elementor.settings.page.model.set( data );
-					elementor.settings.page.model.set( 'ang_recently_imported', 'no' );
-				}
-			} ).catch( function( error ) {
-				console.error( error );
-			} );
-		}
+		analog.applyStyleKit( value );
 	} );
 } );
