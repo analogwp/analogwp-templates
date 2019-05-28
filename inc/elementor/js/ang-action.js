@@ -241,6 +241,10 @@ jQuery( window ).on( 'elementor:init', function() {
 		handleSaveToken: function() {
 			const settings = elementor.settings.page.model.attributes;
 			const angSettings = {};
+
+			// Save settings before saving the token.
+			elementor.saver.defaultSave();
+
 			_.map( settings, function( value, key ) {
 				if ( eligibleKey( key ) ) {
 					angSettings[ key ] = value;
@@ -315,6 +319,10 @@ jQuery( window ).on( 'elementor:init', function() {
 			const currentID = elementor.config.post_id;
 			const settings = elementor.settings.page.model.attributes;
 			const angSettings = {};
+
+			// Save settings before saving the token.
+			elementor.saver.defaultSave();
+
 			_.map( settings, function( value, key ) {
 				if ( eligibleKey( key ) ) {
 					angSettings[ key ] = value;
