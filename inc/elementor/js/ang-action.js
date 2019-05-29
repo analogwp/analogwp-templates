@@ -50,6 +50,34 @@ jQuery( window ).on( 'elementor:init', function() {
 		introduction.show();
 	};
 
+	analog.styleKitUpdateDialog = () => {
+		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
+			id: 'ang-stylekit-update',
+			headerMessage: ANG_Action.translate.skUpdate,
+			message: ANG_Action.translate.skUpdateDesc,
+		} );
+
+		modal.addButton( {
+			name: 'ang_discard',
+			text: ANG_Action.translate.discard,
+			callback() {
+				console.log( 'This should detach' );
+			},
+		} );
+
+		modal.addButton( {
+			name: 'ang_apply',
+			text: ANG_Action.translate.apply,
+			callback() {
+				console.log('This should override');
+			},
+		} );
+
+		return modal;
+	};
+
+	analog.StyleKitUpdateModal = analog.styleKitUpdateDialog();
+
 	analog.resetStyles = () => {
 		const settings = elementor.settings.page.model.attributes;
 		const angSettings = {};
@@ -132,6 +160,11 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		if ( settings.ang_action_tokens ) {
 			analog.applyStyleKit( settings.ang_action_tokens );
+		}
+
+		const needsRefresh = AGWP.stylekit_queue.find( el => el === elementor.config.document.id );
+		if ( needsRefresh && ! analog.StyleKitUpdateModal.isVisible() ) {
+			analog.StyleKitUpdateModal.show();
 		}
 	} );
 
@@ -392,5 +425,14 @@ jQuery( window ).on( 'elementor:init', function() {
 
 	elementor.settings.page.addChangeCallback( 'ang_action_tokens', function( value ) {
 		analog.applyStyleKit( value );
+	} );
+
+	jQuery( document ).on( 'heartbeat-tick', function( event, response ) {
+		if ( response.stylekit_queue ) {
+			const needsRefresh = response.stylekit_queue.find( el => el === elementor.config.document.id );
+			if ( needsRefresh && ! analog.StyleKitUpdateModal.isVisible() ) {
+				analog.StyleKitUpdateModal.show();
+			}
+		}
 	} );
 } );
