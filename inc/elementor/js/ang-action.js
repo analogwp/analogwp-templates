@@ -186,7 +186,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		const settings = elementor.settings.page.model.attributes;
 
-		if ( settings.ang_action_tokens ) {
+		if ( settings.ang_action_tokens && settings.ang_action_tokens !== '-1' ) {
 			analog.applyStyleKit( settings.ang_action_tokens );
 		}
 
