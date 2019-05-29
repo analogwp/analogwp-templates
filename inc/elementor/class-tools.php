@@ -58,6 +58,8 @@ class Tools extends Base {
 			add_filter( 'bulk_actions-edit-ang_tokens', [ $this, 'admin_add_bulk_export_action' ] );
 			add_filter( 'handle_bulk_actions-edit-ang_tokens', [ $this, 'admin_export_multiple_templates' ], 10, 3 );
 		}
+
+		add_action( 'heartbeat_send', [ $this, 'heartbeat_send' ], 10, 2 );
 	}
 
 	/**
@@ -664,6 +666,24 @@ CSS;
 
 		wp_safe_redirect( wp_get_referer() );
 		exit;
+	}
+
+	/**
+	 * Send style kit queue data to heartbeat.
+	 *
+	 * @param array $response Response data.
+	 *
+	 * @since 1.2.3
+	 * @return mixed|array
+	 */
+	public function heartbeat_send( $response ) {
+		$queue = Utils::get_stylekit_queue();
+
+		if ( $queue ) {
+			$response['stylekit_queue'] = $queue;
+		}
+
+		return $response;
 	}
 }
 
