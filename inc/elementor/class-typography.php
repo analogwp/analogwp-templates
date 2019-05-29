@@ -213,7 +213,7 @@ class Typography extends Module {
 
 		foreach ( $settings as $setting ) {
 			$element->add_control(
-				'toggle_heading_size_' . $setting[0],
+				'ang_toggle_heading_size_' . $setting[0],
 				[
 					'label'        => $setting[1],
 					'type'         => Controls_Manager::POPOVER_TOGGLE,
@@ -316,7 +316,7 @@ class Typography extends Module {
 
 		foreach ( $settings as $setting ) {
 			$element->add_control(
-				'toggle_text_size' . $setting[0],
+				'ang_toggle_text_size' . $setting[0],
 				[
 					'label'        => $setting[1],
 					'type'         => Controls_Manager::POPOVER_TOGGLE,
