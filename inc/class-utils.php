@@ -369,7 +369,7 @@ class Utils extends Base {
 	 */
 	public static function remove_from_stylekit_queue( $item ) {
 		$queue = Options::get_instance()->get( 'stylekit_refresh_queue' );
-		$key   = array_search( $item, $queue, true );
+		$key   = array_search( (int) $item, $queue, true );
 
 		if ( false !== $key ) {
 			unset( $queue[ $key ] );

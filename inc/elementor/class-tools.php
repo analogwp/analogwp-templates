@@ -46,6 +46,7 @@ class Tools extends Base {
 		add_filter( 'page_row_actions', [ $this, 'filter_post_row_actions' ], 15, 2 );
 
 		add_action( 'wp_ajax_ang_make_global', [ $this, 'post_global_stylekit' ] );
+		add_action( 'wp_ajax_ang_remove_kit_queue', [ $this, 'ang_remove_kit_queue' ] );
 
 		if ( is_admin() ) {
 			add_action( 'admin_footer', [ $this, 'import_stylekit_template' ] );
@@ -668,6 +669,20 @@ CSS;
 		exit;
 	}
 
+	public function ang_remove_kit_queue() {
+		if ( ! isset( $_REQUEST['id'] ) ) {
+			wp_send_json_error(
+				[
+					'message' => __( 'Invalid/empty Post ID.', 'ang' ),
+				]
+			);
+		}
+
+		Utils::remove_from_stylekit_queue( $_REQUEST['id'] );
+
+		wp_send_json_success();
+	}
+
 	/**
 	 * Send style kit queue data to heartbeat.
 	 *
@@ -680,7 +695,7 @@ CSS;
 		$queue = Utils::get_stylekit_queue();
 
 		if ( $queue ) {
-			$response['stylekit_queue'] = $queue;
+			$response['stylekit_queue'] = array_values( $queue );
 		}
 
 		return $response;

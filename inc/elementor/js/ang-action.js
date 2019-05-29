@@ -1,6 +1,7 @@
 /* global jQuery, elementor, elementorCommon, ANG_Action, cssbeautify, elementorModules */
 jQuery( window ).on( 'elementor:init', function() {
 	const analog = window.analog = window.analog || {};
+	const elementorSettings = elementor.settings.page.model.attributes;
 
 	/**
 	 * Determines if given key should be exported/imported into Style Kit.
@@ -66,7 +67,9 @@ jQuery( window ).on( 'elementor:init', function() {
 			name: 'ang_discard',
 			text: ANG_Action.translate.discard,
 			callback() {
-				console.log( 'This should detach' );
+				analog.removeFromQueue();
+				// Set to negative value to avoid queue of Global Style Kit.
+				elementor.settings.page.model.set( 'ang_action_tokens', '-1' );
 			},
 		} );
 
@@ -74,7 +77,8 @@ jQuery( window ).on( 'elementor:init', function() {
 			name: 'ang_apply',
 			text: ANG_Action.translate.apply,
 			callback() {
-				console.log('This should override');
+				analog.removeFromQueue();
+				analog.applyStyleKit( elementorSettings.ang_action_tokens );
 			},
 		} );
 
@@ -153,6 +157,25 @@ jQuery( window ).on( 'elementor:init', function() {
 			}
 		} ).catch( function( error ) {
 			console.error( error );
+		} );
+	};
+
+	analog.removeFromQueue = ( id = elementor.config.document.id ) => {
+		$.ajax( {
+			type: 'POST',
+			url: AGWP.ajaxurl,
+			data: {
+				action: 'ang_remove_kit_queue',
+				id: id,
+			},
+			success: ( response ) => {
+				if ( ! response.success ) {
+					elementorCommon.dialogsManager.createWidget( 'alert', {
+						message: response.data.message,
+					} ).show();
+				}
+			},
+			dataType: 'JSON',
 		} );
 	};
 
