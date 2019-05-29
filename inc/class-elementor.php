@@ -115,6 +115,7 @@ class Elementor {
 				'user'             => [
 					'email' => $current_user->user_email,
 				],
+				'stylekit_queue'   => Utils::get_stylekit_queue(),
 			]
 		);
 	}

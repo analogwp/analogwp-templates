@@ -267,12 +267,9 @@ class Utils extends Base {
 		$query = new WP_Query( $query_args );
 
 		$posts = [];
+
 		foreach ( $query->posts as $post_id ) {
 			$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
-
-			if ( ! $settings || ! array_key_exists( 'ang_action_tokens', $settings ) ) {
-				continue;
-			}
 
 			/**
 			 * This conditional divides results in for two conditions:
@@ -285,7 +282,11 @@ class Utils extends Base {
 					$posts[] = $post_id;
 				}
 			} elseif ( ! $kit_id && '' !== self::get_global_kit_id() ) {
-				if ( '' === $settings['ang_action_tokens'] || (int) self::get_global_kit_id() === (int) $settings['ang_action_tokens'] ) {
+				if (
+					'' === $settings['ang_action_tokens']
+					|| ! isset( $settings['ang_action_tokens'] )
+					|| (int) self::get_global_kit_id() === (int) $settings['ang_action_tokens']
+				) {
 					$posts[] = $post_id;
 				}
 			}
@@ -324,6 +325,8 @@ class Utils extends Base {
 				continue;
 			}
 
+			self::add_to_stylekit_queue( $post_id );
+
 			$tokens = json_decode( $token, ARRAY_A );
 
 			$tokens['ang_action_tokens'] = $kit_id;
@@ -332,6 +335,57 @@ class Utils extends Base {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Add a post to Stylekit queue.
+	 *
+	 * A style kit queue holds an array of posts
+	 * that needs their style kit data refreshed.
+	 *
+	 * @since 1.2.3
+	 * @param int $posts Post ID.
+	 *
+	 * @return void
+	 */
+	public static function add_to_stylekit_queue( $posts ) {
+		$queue = Options::get_instance()->get( 'stylekit_refresh_queue' );
+
+		if ( ! $queue ) {
+			$queue = [];
+		}
+
+		$queue[] = $posts;
+
+		Options::get_instance()->set( 'stylekit_refresh_queue', array_unique( $queue ) );
+	}
+
+	/**
+	 * Remove a post from Stylekit.
+	 *
+	 * @param int $item Post ID.
+	 * @since 1.2.3
+	 * @return void
+	 */
+	public static function remove_from_stylekit_queue( $item ) {
+		$queue = Options::get_instance()->get( 'stylekit_refresh_queue' );
+		$key   = array_search( $item, $queue, true );
+
+		if ( false !== $key ) {
+			unset( $queue[ $key ] );
+		}
+
+		Options::get_instance()->set( 'stylekit_refresh_queue', $queue );
+	}
+
+	/**
+	 * Get a list of posts in style kit queue.
+	 *
+	 * @since 1.2.3
+	 * @return array|bool
+	 */
+	public static function get_stylekit_queue() {
+		return Options::get_instance()->get( 'stylekit_refresh_queue' );
 	}
 }
 
