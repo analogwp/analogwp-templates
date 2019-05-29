@@ -115,7 +115,7 @@ class Elementor {
 				'user'             => [
 					'email' => $current_user->user_email,
 				],
-				'stylekit_queue'   => array_values( Utils::get_stylekit_queue() ),
+				'stylekit_queue'   => ( count( Utils::get_stylekit_queue() ) ? array_values( Utils::get_stylekit_queue() ) : [] ),
 			]
 		);
 	}

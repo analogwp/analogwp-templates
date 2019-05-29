@@ -190,9 +190,11 @@ jQuery( window ).on( 'elementor:init', function() {
 			analog.applyStyleKit( settings.ang_action_tokens );
 		}
 
-		const needsRefresh = AGWP.stylekit_queue.find( el => el === elementor.config.document.id );
-		if ( needsRefresh && ! analog.StyleKitUpdateModal.isVisible() ) {
-			analog.StyleKitUpdateModal.show();
+		if ( AGWP.stylekit_queue ) {
+			const needsRefresh = AGWP.stylekit_queue.find( el => el === elementor.config.document.id );
+			if ( needsRefresh && ! analog.StyleKitUpdateModal.isVisible() ) {
+				analog.StyleKitUpdateModal.show();
+			}
 		}
 	} );
 
