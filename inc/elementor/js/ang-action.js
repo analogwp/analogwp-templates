@@ -55,6 +55,11 @@ jQuery( window ).on( 'elementor:init', function() {
 			id: 'ang-stylekit-update',
 			headerMessage: ANG_Action.translate.skUpdate,
 			message: ANG_Action.translate.skUpdateDesc,
+			hide: {
+				onOutsideClick: false,
+				onBackgroundClick: false,
+				onEscKeyPress: false,
+			},
 		} );
 
 		modal.addButton( {
