@@ -68,6 +68,10 @@ class Post_Type {
 				'thumbnail',
 				'custom-fields',
 			],
+			'capabilities'      => [
+				'create_posts' => 'do_not_allow',
+			],
+			'map_meta_cap'      => true,
 		];
 
 		$args = apply_filters( 'analog/elementor/cpt/tokens/args', $args, $this->labels() );
