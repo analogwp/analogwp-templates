@@ -24,10 +24,8 @@ jQuery( document ).ready( function( $ ) {
 				return;
 			}
 
-			$( '#wpbody-content' ).find( '.page-title-action:last' ).after( cache.$importButton );
-
 			cache.$formAnchor = $( 'h1.wp-heading-inline' );
-			cache.$formAnchor.after( cache.$importArea );
+			cache.$formAnchor.after( cache.$importArea ).after( cache.$importButton );
 
 			cache.$importButton.on( 'click', () => cache.$importArea.toggle() );
 
