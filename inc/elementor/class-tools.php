@@ -372,7 +372,10 @@ CSS;
 
 		$kit_id = $_REQUEST['kit_id'];
 
-		$this->export_stylekit( $kit_id );
+		$export = $this->export_stylekit( $kit_id );
+		if ( is_wp_error( $export ) ) {
+			wp_send_json_error( [ 'message' => $export->get_error_message() ] );
+		}
 
 		wp_send_json_success();
 	}
