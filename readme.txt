@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
-Tested up to: 5.2
-Stable tag: 1.2.1
+Tested up to: 5.2.1
+Stable tag: 1.2.3
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -68,6 +68,16 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access AnalogWP templates directly under Elementor.
 
 == Changelog ==
+
+= 1.2.3 =
+* New: Added a [notice](https://github.com/mauryaratan/analogwp-templates/issues/92) to reopen tabs when setting a global Style Kit.
+* New: [Updating](https://github.com/mauryaratan/analogwp-templates/issues/107) an existing Style Kit now shows a modal window on pages using the same kit, to choose whether to pull latest changes or keep old.
+* New: Added option to [rollback](https://github.com/mauryaratan/analogwp-templates/issues/99) to a previous stable version under AnalogWP > Settings.
+* New: Added a visual [indicator](https://github.com/mauryaratan/analogwp-templates/issues/101) on posts list to display which Style Kit is active.
+* New: Added a quick post action to "Apply Global Style Kit"
+* Fix: Clear Elementor cache when a Style Kit is [updated](https://github.com/mauryaratan/analogwp-templates/issues/103), so other posts sharing same kit can take effect.
+* Fix: [Extend](https://github.com/mauryaratan/analogwp-templates/issues/106) heading selector to include `a` tags inside to match styles.
+* Improve: Stop users from creating a new style kit directly from CPT [page](https://github.com/mauryaratan/analogwp-templates/issues/97), as it results in empty style kit.
 
 = 1.2.2 =
 * Fixed an issue with padding section media queries
