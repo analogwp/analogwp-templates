@@ -67,6 +67,7 @@ class Tools extends Base {
 	 * Handle WP_Error message.
 	 *
 	 * @access private
+	 *
 	 * @param string $message Error message.
 	 */
 	private function handle_wp_error( $message ) {
@@ -132,7 +133,9 @@ CSS;
 	 * ID.
 	 *
 	 * @access private
+	 *
 	 * @param int $kit_id The template ID.
+	 *
 	 * @return string Template export URL.
 	 */
 	private function get_export_link( $kit_id ) {
@@ -166,7 +169,7 @@ CSS;
 	 * @access public
 	 *
 	 * @param array   $actions An array of row action links.
-	 * @param WP_Post $post    The post object.
+	 * @param WP_Post $post The post object.
 	 *
 	 * @return array An updated array of row action links.
 	 */
@@ -174,6 +177,7 @@ CSS;
 		if ( self::is_tokens_screen() ) {
 			$actions['export-template'] = sprintf( '<a href="%1$s">%2$s</a>', $this->get_export_link( $post->ID ), __( 'Export Style Kit', 'ang' ) );
 		}
+
 		return $actions;
 	}
 
@@ -188,6 +192,7 @@ CSS;
 	 * @access public
 	 *
 	 * @param array $actions An array of the available bulk actions.
+	 *
 	 * @return array An array of the available bulk actions.
 	 */
 	public function admin_add_bulk_export_action( $actions ) {
@@ -206,8 +211,8 @@ CSS;
 	 * @access public
 	 *
 	 * @param string $redirect_to The redirect URL.
-	 * @param string $action      The action being taken.
-	 * @param array  $post_ids    The items to take the action on.
+	 * @param string $action The action being taken.
+	 * @param array  $post_ids The items to take the action on.
 	 */
 	public function admin_export_multiple_templates( $redirect_to, $action, $post_ids ) {
 		if ( self::BULK_EXPORT_ACTION === $action ) {
@@ -299,6 +304,7 @@ CSS;
 	 * @access private
 	 *
 	 * @param int $kit_id The template ID.
+	 *
 	 * @return WP_Error|array Exported template data.
 	 */
 	private function prepare_kit_export( $kit_id ) {
@@ -327,6 +333,7 @@ CSS;
 	 * @access public
 	 *
 	 * @param int $kit_id The Style Kit ID.
+	 *
 	 * @return WP_Error WordPress error if template export failed.
 	 */
 	public function export_stylekit( $kit_id ) {
@@ -392,14 +399,21 @@ CSS;
 
 		?>
 		<div id="analog-hidden-area" hidden aria-hidden="true">
-			<a id="analog-import-template-trigger" class="page-title-action"><?php esc_html_e( 'Import Style Kits', 'ang' ); ?></a>
+			<a id="analog-import-template-trigger"
+			   class="page-title-action"><?php esc_html_e( 'Import Style Kits', 'ang' ); ?></a>
 			<div id="analog-import-template-area" style="display:none;">
-				<div id="analog-import-template-title"><?php esc_html_e( 'Choose an Analog template JSON file or a .zip archive of Analog Style Kits, and add them to the list of Style Kits available in your library.', 'ang' ); ?></div>
-				<form id="analog-import-template-form" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" enctype="multipart/form-data">
+				<div id="analog-import-template-title">
+					<?php esc_html_e( 'Choose an Analog template JSON file or a .zip archive of Analog Style Kits, and add them to the list of Style Kits available in your library.', 'ang' ); ?>
+				</div>
+				<form id="analog-import-template-form" method="post"
+				      action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" enctype="multipart/form-data">
 					<input type="hidden" name="action" value="analog_style_kit_import">
-					<input type="hidden" name="_nonce" value="<?php echo esc_attr( wp_create_nonce( 'analog-import' ) ); ?>">
+					<input type="hidden" name="_nonce"
+					       value="<?php echo esc_attr( wp_create_nonce( 'analog-import' ) ); ?>">
 					<fieldset id="elementor-import-template-form-inputs">
-						<input type="file" name="file" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" required>
+						<input type="file" name="file"
+						       accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
+						       required>
 						<input type="submit" class="button" value="<?php esc_attr_e( 'Import Now', 'ang' ); ?>">
 					</fieldset>
 				</form>
@@ -483,6 +497,7 @@ CSS;
 	 * @access private
 	 *
 	 * @param string $file_name File name.
+	 *
 	 * @return WP_Error|int|array Local style kit array, or style kit ID, or `WP_Error`.
 	 */
 	private function import_single_style_kit( $file_name ) {
@@ -540,15 +555,19 @@ CSS;
 	/**
 	 * Rollback AnalogWP version.
 	 *
-	 * @since 1.2.3
 	 * @return void
+	 * @since 1.2.3
 	 */
 	public function post_ang_rollback() {
 		check_admin_referer( 'ang_rollback' );
 
 		?>
 		<style>
-			.wrap h1 { position: relative; padding-top: 140px !important; }
+			.wrap h1 {
+				position: relative;
+				padding-top: 140px !important;
+			}
+
 			.wrap h1:before {
 				content: '';
 				position: absolute;
@@ -560,6 +579,7 @@ CSS;
 				background-repeat: no-repeat;
 				transform: translate(50%);
 			}
+
 			.wrap img {
 				display: none;
 			}
@@ -597,13 +617,12 @@ CSS;
 	 *
 	 * Fired by `display_post_states` filter.
 	 *
-	 * @since 1.2.3
-	 * @access public
-	 *
 	 * @param array   $post_states An array of post display states.
-	 * @param WP_Post $post        The current post object.
+	 * @param WP_Post $post The current post object.
 	 *
 	 * @return array A filtered array of post display states.
+	 * @since 1.2.3
+	 * @access public
 	 */
 	public function stylekit_post_state( $post_states, $post ) {
 		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::$instance->db->is_built_with_elementor( $post->ID ) ) {
@@ -649,8 +668,8 @@ CSS;
 	/**
 	 * Ajax action for applying Global stylekit to specific post.
 	 *
-	 * @since 1.2.3
 	 * @return void
+	 * @since 1.2.3
 	 */
 	public function post_global_stylekit() {
 		check_admin_referer( 'ang_make_global' );
@@ -669,6 +688,12 @@ CSS;
 		exit;
 	}
 
+	/**
+	 * Ajax action to remove a stylekit from refresh queue.
+	 *
+	 * @return void
+	 * @since  1.2.3
+	 */
 	public function ang_remove_kit_queue() {
 		if ( ! isset( $_REQUEST['id'] ) ) {
 			wp_send_json_error(
@@ -688,8 +713,8 @@ CSS;
 	 *
 	 * @param array $response Response data.
 	 *
-	 * @since 1.2.3
 	 * @return mixed|array
+	 * @since 1.2.3
 	 */
 	public function heartbeat_send( $response ) {
 		$queue = Utils::get_stylekit_queue();

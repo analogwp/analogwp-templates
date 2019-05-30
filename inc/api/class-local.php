@@ -335,15 +335,14 @@ class Local extends Base {
 	/**
 	 * Get registered tokens.
 	 *
-	 * @since 1.2
-	 *
 	 * @return WP_REST_Response|array
+	 * @since 1.2
 	 */
 	public function get_tokens() {
 		$query = new WP_Query(
 			[
 				'post_type'      => 'ang_tokens',
-				'posts_per_page' => -1,
+				'posts_per_page' => - 1,
 			]
 		);
 
@@ -379,8 +378,7 @@ class Local extends Base {
 	 * @param WP_REST_Request $request Request object.
 	 *
 	 * @return WP_Error|WP_REST_Response
-	 *@since 1.2.0
-	 *
+	 * @since 1.2.0
 	 */
 	public function save_tokens( WP_REST_Request $request ) {
 		$belongs_to = $request->get_param( 'id' );
