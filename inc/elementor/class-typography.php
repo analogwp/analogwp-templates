@@ -132,7 +132,7 @@ class Typography extends Module {
 					'name'           => 'ang_heading_' . $i,
 					/* translators: %s: Heading 1-6 type */
 					'label'          => sprintf( __( 'Heading %s', 'ang' ), $i ),
-					'selector'       => "body h{$i}, body .elementor-widget-heading h{$i}.elementor-heading-title",
+					'selector'       => "body h{$i}, body .elementor-widget-heading h{$i}.elementor-heading-title, body h{$i} a, body .elementor-widget-heading h{$i}.elementor-heading-title a",
 					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
 					'fields_options' => $this->get_default_typography_values( 'ang_heading_' . $i ),
 				]
