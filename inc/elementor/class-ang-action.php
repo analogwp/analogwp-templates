@@ -111,6 +111,10 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 					'pageStyles'    => __( 'Page Styles', 'ang' ),
 					'exportCSS'     => __( 'Export CSS', 'ang' ),
 					'copyCSS'       => __( 'Copy CSS', 'ang' ),
+					'skUpdate'      => __( 'Style Kit Update Detected', 'ang' ),
+					'skUpdateDesc'  => __( '<p>The Style kit used by this page has been updated, click ‘Apply Changes’ to apply the latest changes.</p><p>Click Discard to keep your current page styles and detach the page from the Style Kit</p>', 'ang' ),
+					'discard'       => __( 'Discard', 'ang' ),
+					'apply'         => __( 'Apply Changes', 'ang' ),
 				],
 			]
 		);

@@ -49,3 +49,13 @@ button[data-action="save_token"] {
 	line-height: 1.4;
 	border-radius: 3px;
 }
+
+
+#ang-stylekit-update .dialog-message p + p {
+	margin-top: 20px;
+}
+
+#ang-stylekit-update .dialog-lightbox-ang_apply {
+	color: #3ab54b;
+	border-left: 1px solid #e6e9ec;
+}

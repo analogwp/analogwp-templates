@@ -20,7 +20,7 @@ class Elementor {
 
 		add_action(
 			'elementor/finder/categories/init',
-			function( $categories_manager ) {
+			function ( $categories_manager ) {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
 
 				$categories_manager->add_category( 'ang-shortcuts', new Finder_Shortcuts() );
@@ -115,6 +115,7 @@ class Elementor {
 				'user'             => [
 					'email' => $current_user->user_email,
 				],
+				'stylekit_queue'   => ( count( Utils::get_stylekit_queue() ) ? array_values( Utils::get_stylekit_queue() ) : [] ),
 			]
 		);
 	}
