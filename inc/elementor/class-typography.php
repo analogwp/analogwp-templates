@@ -120,7 +120,7 @@ class Typography extends Module {
 				'type'      => Controls_Manager::FONT,
 				'default'   => $this->get_default_value( 'ang_default_heading_font_family' ),
 				'selectors' => [
-					'h1, h2, h3, h4, h5, h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
+					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
 				],
 			]
 		);
@@ -132,7 +132,7 @@ class Typography extends Module {
 					'name'           => 'ang_heading_' . $i,
 					/* translators: %s: Heading 1-6 type */
 					'label'          => sprintf( __( 'Heading %s', 'ang' ), $i ),
-					'selector'       => "body h{$i}, body .elementor-widget-heading h{$i}.elementor-heading-title, body h{$i} a, body .elementor-widget-heading h{$i}.elementor-heading-title a",
+					'selector'       => "{{WRAPPER}} h{$i}, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title, {{WRAPPER}} h{$i} a, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title a",
 					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
 					'fields_options' => $this->get_default_typography_values( 'ang_heading_' . $i ),
 				]
@@ -175,7 +175,7 @@ class Typography extends Module {
 			[
 				'name'           => 'ang_body',
 				'label'          => __( 'Body Typography', 'ang' ),
-				'selector'       => 'body',
+				'selector'       => '{{WRAPPER}}',
 				'scheme'         => Scheme_Typography::TYPOGRAPHY_3,
 				'fields_options' => $this->get_default_typography_values( 'ang_body' ),
 			]
@@ -245,12 +245,12 @@ class Typography extends Module {
 					],
 					'responsive'      => true,
 					'selectors'       => [
-						"body .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"body .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"body .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"body .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"body .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"body .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}"
+						"{{WRAPPER}} .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"{{WRAPPER}} .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"{{WRAPPER}} .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"{{WRAPPER}} .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"{{WRAPPER}} .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"{{WRAPPER}} .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}"
 						=> 'font-size: {{SIZE}}{{UNIT}}',
 					],
 				]
@@ -270,12 +270,12 @@ class Typography extends Module {
 						],
 					],
 					'selectors'  => [
-						"body .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"body .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"body .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"body .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"body .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"body .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}"
+						"{{WRAPPER}} .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"{{WRAPPER}} .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"{{WRAPPER}} .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"{{WRAPPER}} .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"{{WRAPPER}} .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]}," .
+						"{{WRAPPER}} .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}"
 						=> 'line-height: {{SIZE}}{{UNIT}}',
 					],
 				]
@@ -348,7 +348,7 @@ class Typography extends Module {
 					],
 					'responsive'      => true,
 					'selectors'       => [
-						"body .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)"
+						"{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)"
 						=> 'font-size: {{SIZE}}{{UNIT}}',
 					],
 				]
@@ -368,7 +368,7 @@ class Typography extends Module {
 						],
 					],
 					'selectors'  => [
-						"body .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)"
+						"{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)"
 						=> 'line-height: {{SIZE}}{{UNIT}}',
 					],
 				]
@@ -427,7 +427,7 @@ class Typography extends Module {
 					'mobile_default'  => $this->get_default_value( 'ang_column_gap_' . $key . '_mobile', true ),
 					'size_units'      => [ 'px', 'em', '%' ],
 					'selectors'       => [
-						"body .elementor-column-gap-{$key} > .elementor-row > .elementor-column > .elementor-element-populated"
+						"{{WRAPPER}} .elementor-column-gap-{$key} > .elementor-row > .elementor-column > .elementor-element-populated"
 						=> 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					],
 				]
