@@ -204,11 +204,11 @@ class Typography extends Module {
 		);
 
 		$settings = [
-			[ 'small', __( 'Small', 'ang' ), 15 ],
-			[ 'medium', __( 'Medium', 'ang' ), 19 ],
-			[ 'large', __( 'Large', 'ang' ), 29 ],
-			[ 'xl', __( 'XL', 'ang' ), 39 ],
 			[ 'xxl', __( 'XXL', 'ang' ), 59 ],
+			[ 'xl', __( 'XL', 'ang' ), 39 ],
+			[ 'large', __( 'Large', 'ang' ), 29 ],
+			[ 'medium', __( 'Medium', 'ang' ), 19 ],
+			[ 'small', __( 'Small', 'ang' ), 15 ],
 		];
 
 		foreach ( $settings as $setting ) {
@@ -307,11 +307,11 @@ class Typography extends Module {
 		);
 
 		$settings = [
-			[ 'small', __( 'Small', 'ang' ), 15 ],
-			[ 'medium', __( 'Medium', 'ang' ), 19 ],
-			[ 'large', __( 'Large', 'ang' ), 29 ],
-			[ 'xl', __( 'XL', 'ang' ), 39 ],
 			[ 'xxl', __( 'XXL', 'ang' ), 59 ],
+			[ 'xl', __( 'XL', 'ang' ), 39 ],
+			[ 'large', __( 'Large', 'ang' ), 29 ],
+			[ 'medium', __( 'Medium', 'ang' ), 19 ],
+			[ 'small', __( 'Small', 'ang' ), 15 ],
 		];
 
 		foreach ( $settings as $setting ) {
