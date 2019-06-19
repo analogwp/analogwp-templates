@@ -220,7 +220,9 @@ class Local extends Base {
 		/**
 		 * Small hack to later avoid loading default values in Elementor.
 		 */
-		$template['tokens']['ang_recently_imported'] = 'yes';
+		if ( is_array( $template['tokens'] ) ) {
+			$template['tokens']['ang_recently_imported'] = 'yes';
+		}
 		update_post_meta( $new_post_id, '_elementor_data', $template['content'] );
 		update_post_meta( $new_post_id, '_elementor_page_settings', $template['tokens'] );
 		update_post_meta( $new_post_id, '_elementor_template_type', $template['type'] );
