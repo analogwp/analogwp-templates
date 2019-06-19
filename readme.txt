@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
-Tested up to: 5.2.1
-Stable tag: 1.2.3
+Tested up to: 5.2.2
+Stable tag: 1.2.4
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -68,6 +68,11 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access AnalogWP templates directly under Elementor.
 
 == Changelog ==
+
+= 1.2.4 =
+* Fix: A critical error where templates won't import due to internal error
+* Improve: Replace `body` selectors with `{{WRAPPER}}` to scope it to specific template
+* Improve: Reorganize settings in Heading and Text sizes sections
 
 = 1.2.3 =
 * New: Added a [notice](https://github.com/mauryaratan/analogwp-templates/issues/92) to reopen tabs when setting a global Style Kit.
