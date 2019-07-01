@@ -59,3 +59,11 @@ button[data-action="save_token"] {
 	color: #3ab54b;
 	border-left: 1px solid #e6e9ec;
 }
+
+#ang-has-globalkit .dialog-header {
+	line-height: 1.4;
+}
+
+#ang-has-globalkit .dialog-ang_apply {
+	color: #39b54a;
+}
