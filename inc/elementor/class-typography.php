@@ -10,6 +10,8 @@ namespace Analog\Elementor;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
+use Elementor\Group_Control_Border;
+use Elementor\Group_Control_Box_Shadow;
 use Elementor\Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
@@ -32,6 +34,7 @@ class Typography extends Module {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_text_sizes' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 10, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_buttons' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_styling_settings' ], -9999, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_tools' ], 10, 2 );
 
@@ -433,6 +436,161 @@ class Typography extends Module {
 				]
 			);
 		}
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Register Buttons controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 * @since 1.3
+	 */
+	public function register_buttons( Controls_Stack $element, $section_id ) {
+		if ( 'section_page_style' !== $section_id ) {
+			return;
+		}
+
+		$element->start_controls_section(
+			'ang_buttons',
+			[
+				'label' => __( 'Buttons', 'ang' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$element->add_control(
+			'ang_buttons_description',
+			[
+				'raw'             => __( 'Create the styles for each button size', 'ang' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			]
+		);
+
+		$sizes = [
+			'xs' => __( 'XS', 'ang' ),
+			'sm' => __( 'S', 'ang' ),
+			'md' => __( 'M', 'ang' ),
+			'lg' => __( 'L', 'ang' ),
+			'xl' => __( 'XL', 'ang' ),
+		];
+
+		$element->start_controls_tabs( 'ang_button_sizes' );
+
+		foreach ( $sizes as $size => $label ) {
+			$element->start_controls_tab( 'ang_button_' . $size, [ 'label' => $label ] );
+
+			$element->add_group_control(
+				Group_Control_Typography::get_type(),
+				[
+					'name'           => 'ang_button_' . $size,
+					'label'          => __( 'Typography', 'ang' ),
+					'selector'       => "{{WRAPPER}} .elementor-button.elementor-size-{$size}",
+					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
+					'fields_options' => $this->get_default_typography_values( 'ang_button_' . $size ),
+				]
+			);
+
+			$element->add_control(
+				'ang_button_text_color_' . $size,
+				[
+					'label'     => __( 'Text Color', 'ang' ),
+					'type'      => Controls_Manager::COLOR,
+					'default'   => $this->get_default_value( 'ang_button_text_color_' . $size ),
+					'selectors' => [
+						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'color: {{VALUE}};',
+					],
+				]
+			);
+
+			$element->add_control(
+				'ang_button_text_hover_color_' . $size,
+				[
+					'label'     => __( 'Text Hover Color', 'ang' ),
+					'type'      => Controls_Manager::COLOR,
+					'default'   => $this->get_default_value( 'ang_button_text_hover_color_' . $size ),
+					'selectors' => [
+						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} a.elementor-button.elementor-size-{$size}:focus, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus" => 'color: {{VALUE}};',
+					],
+				]
+			);
+
+			$element->add_control(
+				'ang_button_background_color_' . $size,
+				[
+					'label'     => __( 'Background Color', 'ang' ),
+					'type'      => Controls_Manager::COLOR,
+					'default'   => $this->get_default_value( 'ang_button_background_color_' . $size ),
+					'selectors' => [
+						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'background-color: {{VALUE}};',
+					],
+				]
+			);
+
+			$element->add_control(
+				'ang_button_background_hover_color_' . $size,
+				[
+					'label'     => __( 'Background Hover Color', 'ang' ),
+					'type'      => Controls_Manager::COLOR,
+					'default'   => $this->get_default_value( 'ang_button_background_hover_color_' . $size ),
+					'selectors' => [
+						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} a.elementor-button.elementor-size-{$size}:focus, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus" => 'background-color: {{VALUE}};',
+					],
+				]
+			);
+
+			$element->add_group_control(
+				Group_Control_Border::get_type(),
+				[
+					'name'      => 'ang_button_border_' . $size,
+					'selector'  => "{{WRAPPER}} .elementor-button.elementor-size-{$size}",
+					'separator' => 'before',
+					'default'   => $this->get_default_value( 'ang_button_border_' . $size ),
+				]
+			);
+
+			$element->add_control(
+				'ang_button_border_radius_' . $size,
+				[
+					'label'      => __( 'Border Radius', 'ang' ),
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => [ 'px', '%' ],
+					'selectors'  => [
+						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					],
+					'default'    => $this->get_default_value( 'ang_button_border_radius_' . $size ),
+				]
+			);
+
+			$element->add_group_control(
+				Group_Control_Box_Shadow::get_type(),
+				[
+					'name'     => 'ang_button_box_shadow_' . $size,
+					'selector' => "{{WRAPPER}} .elementor-button.elementor-size-{$size}",
+					'default'  => $this->get_default_value( 'ang_button_box_shadow_' . $size ),
+				]
+			);
+
+			$element->add_responsive_control(
+				'ang_button_padding_' . $size,
+				[
+					'label'      => __( 'Padding', 'elementor' ),
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => [ 'px', 'em', '%' ],
+					'selectors'  => [
+						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					],
+					'separator'  => 'before',
+					'default'    => $this->get_default_value( 'ang_button_padding_' . $size ),
+				]
+			);
+
+			$element->end_controls_tab();
+		}
+
+		$element->end_controls_tabs();
 
 		$element->end_controls_section();
 	}
