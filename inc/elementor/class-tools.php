@@ -634,7 +634,7 @@ CSS;
 			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
 				$kit_id = $settings['ang_action_tokens'];
 
-				if ( get_option( 'elementor_ang_global_kit' ) !== $kit_id ) {
+				if ( get_option( 'elementor_ang_global_kit' ) !== $kit_id && '' !== get_option( 'elementor_ang_global_kit' ) ) {
 					/* translators: %s: Style kit title. */
 					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#3152FF;">&#9679;</span>', 'ang' ), get_the_title( $kit_id ) );
 				}
