@@ -85,6 +85,45 @@ jQuery( window ).on( 'elementor:init', function() {
 		return modal;
 	};
 
+	analog.hasGlobalKit = () => {
+		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
+			id: 'ang-has-globalkit',
+			headerMessage: ANG_Action.translate.pageStyleHeader,
+			message: ANG_Action.translate.pageStyleDesc,
+			hide: {
+				onOutsideClick: false,
+				onBackgroundClick: false,
+				onEscKeyPress: false,
+			},
+		} );
+
+		modal.addButton( {
+			name: 'ang_discard',
+			text: ANG_Action.translate.discard,
+			callback() {
+				elementor.settings.page.model.set( 'uses_style_kit', false );
+				elementor.saver.defaultSave();
+			},
+		} );
+
+		modal.addButton( {
+			name: 'ang_apply',
+			text: ANG_Action.translate.gotoPageStyle,
+			callback() {
+				elementor.settings.page.model.set( 'uses_style_kit', false );
+				redirectToSection();
+				elementor.saver.defaultSave();
+			},
+		} );
+
+		modal.show();
+	};
+
+	if ( elementor.settings.page.getSettings().settings.uses_style_kit ) {
+		console.log('should show');
+		analog.hasGlobalKit();
+	}
+
 	analog.StyleKitUpdateModal = analog.styleKitUpdateDialog();
 
 	analog.resetStyles = () => {
