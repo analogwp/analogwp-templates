@@ -485,11 +485,11 @@ class Typography extends Module {
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
 				[
-					'name'           => 'ang_button_' . $size,
-					'label'          => __( 'Typography', 'ang' ),
-					'selector'       => "{{WRAPPER}} .elementor-button.elementor-size-{$size}",
-					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
-					'fields_options' => $this->get_default_typography_values( 'ang_button_' . $size ),
+					'name'     => 'ang_button_' . $size,
+					'label'    => __( 'Typography', 'ang' ),
+					'selector' => "{{WRAPPER}} .elementor-button.elementor-size-{$size}",
+					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'default'  => $this->get_default_typography_values( 'ang_button_' . $size ),
 				]
 			);
 
@@ -560,7 +560,7 @@ class Typography extends Module {
 					'selectors'  => [
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 					],
-					'default'    => $this->get_default_value( 'ang_button_border_radius_' . $size ),
+					'default'    => $this->get_default_value( 'ang_button_border_radius_' . $size, true ),
 				]
 			);
 
@@ -583,7 +583,7 @@ class Typography extends Module {
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 					],
 					'separator'  => 'before',
-					'default'    => $this->get_default_value( 'ang_button_padding_' . $size ),
+					'default'    => $this->get_default_value( 'ang_button_padding_' . $size, true ),
 				]
 			);
 
