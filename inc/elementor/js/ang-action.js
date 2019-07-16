@@ -120,7 +120,6 @@ jQuery( window ).on( 'elementor:init', function() {
 	};
 
 	if ( elementor.settings.page.getSettings().settings.uses_style_kit ) {
-		console.log('should show');
 		analog.hasGlobalKit();
 	}
 
