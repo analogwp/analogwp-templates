@@ -53,7 +53,7 @@ class Analog_Settings {
 			'analogwp',
 			[
 				'callback' => function() {
-					echo '<hr><h2>' . esc_html__( 'AnalogWP Settings', 'ang' ) . '</h2>';
+					echo '<hr><h2>' . esc_html__( 'Style Kits for Elementor Settings', 'ang' ) . '</h2>';
 				},
 				'fields'   => [
 					self::ANG_GLOBAL_KIT_OPTION_NAME => [

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: AnalogWP Templates
+ * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: A handcrafted design library for Elementor templates.
  * Version:     1.2.4
@@ -138,7 +138,7 @@ final class Analog_Templates {
 		}
 
 		wp_enqueue_style( 'wp-components' );
-		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700', [], '20190128' );
+		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', [], '20190716' );
 
 		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? 'development' : 'production';
 

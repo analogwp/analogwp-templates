@@ -20,7 +20,7 @@ class Finder_Shortcuts extends Base_Category {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'AnalogWP Shortcuts', 'ang' );
+		return __( 'Style Kits for Elementor Shortcuts', 'ang' );
 	}
 
 	/**

@@ -293,7 +293,7 @@ export default class Settings extends React.Component {
 										href={ AGWP.rollback_url }
 										className="ang-button"
 									>{ sprintf( __( 'Reinstall version %s', 'ang' ), AGWP.rollback_version ) }</Button>
-									<p className="description">{ __( 'If you are having issues with current version of Analog Templates, you can rollback to a previous stable version.', 'ang' ) }</p>
+									<p className="description">{ __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ) }</p>
 								</Field>
 
 								<Field className="global-settings">

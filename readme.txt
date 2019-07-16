@@ -1,4 +1,4 @@
-=== Analog Templates for Elementor ===
+=== Style Kits for Elementor ===
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
@@ -36,7 +36,7 @@ This section describes how to install the plugin and get it working. e.g.
 
 1. Upload the plugin files to the `/wp-content/plugins/analogwp-templates` directory, or install the plugin through the WordPress plugins screen directly..
 2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Head to 'AnalogWP' page from WordPress sidebar menu.
+3. Head to 'Style Kits' page from WordPress sidebar menu.
 
 == Frequently Asked Questions ==
 
@@ -63,9 +63,9 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Screenshots ==
 
-1. AnalogWP Settings page.
+1. Style Kits Settings page.
 2. Import screen: import to Elementor library or create a new page.
-3. Access AnalogWP templates directly under Elementor.
+3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
 
@@ -98,7 +98,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 = 1.2 =
 * New: Introducing [Style Kits](https://analogwp.com/style-kits-for-elementor/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp). 🎉
-* New: Added Elementor Finder shortcuts to quickly navigate to AnalogWP setting/library.
+* New: Added Elementor Finder shortcuts to quickly navigate to Style Kits settings/library.
 * New: Added a new settings to assign global style kit under Elementor > Settings > Styles > Global Style kit.
 * New: Added Contextual menu to Style Kit for quick access in Elementor.
 * New: Close Import modal via ESC key on settings screen.
@@ -108,7 +108,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 = 1.1.2 =
 * New: Added [Page style settings](https://analogwp.com/testing-global-page-styles-in-analog-templates). 🎉
-* New: Added option to enable beta features under AnalogWP > Settings.
+* New: Added option to enable beta features under Style Kits > Settings.
 * Fix: Remove User First/Last name collection on newsletter signup, as it wasn't communicated.
 * Tweak: Added documentation links to settings with more instructions.
 * Tweak: Show 'New' badge for 14 days, to match new template publish timing.
