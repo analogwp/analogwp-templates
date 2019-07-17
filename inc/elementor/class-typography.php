@@ -215,76 +215,24 @@ class Typography extends Module {
 		];
 
 		foreach ( $settings as $setting ) {
-			$element->add_control(
-				'ang_toggle_heading_size_' . $setting[0],
+			$element->add_group_control(
+				Group_Control_Typography::get_type(),
 				[
-					'label'        => $setting[1],
-					'type'         => Controls_Manager::POPOVER_TOGGLE,
-					'return_value' => 'yes',
+					'name'           => 'ang_size_' . $setting[0],
+					'label'          => $setting[1],
+					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
+					'selector'       => "
+						{{WRAPPER}} .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}
+					",
+					'exclude'        => [ 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ],
+					'fields_options' => $this->get_default_typography_values( 'ang_size_' . $setting[0] ),
 				]
 			);
-
-			$element->start_popover();
-
-			$element->add_responsive_control(
-				'ang_size_' . $setting[0],
-				[
-					'label'           => __( 'Font Size', 'ang' ),
-					'type'            => Controls_Manager::SLIDER,
-					'desktop_default' => $this->get_default_value( 'ang_size_' . $setting[0], true ),
-					'tablet_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_tablet', true ),
-					'mobile_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_mobile', true ),
-					'size_units'      => [ 'px', 'em', 'rem', 'vw' ],
-					'range'           => [
-						'px' => [
-							'min' => 1,
-							'max' => 200,
-						],
-						'vw' => [
-							'min'  => 0.1,
-							'max'  => 10,
-							'step' => 0.1,
-						],
-					],
-					'responsive'      => true,
-					'selectors'       => [
-						"{{WRAPPER}} .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"{{WRAPPER}} .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"{{WRAPPER}} .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"{{WRAPPER}} .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"{{WRAPPER}} .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"{{WRAPPER}} .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}"
-						=> 'font-size: {{SIZE}}{{UNIT}}',
-					],
-				]
-			);
-
-			$element->add_responsive_control(
-				'ang_heading_size_lh_' . $setting[0],
-				[
-					'label'      => __( 'Line Height', 'ang' ),
-					'type'       => Controls_Manager::SLIDER,
-					'responsive' => true,
-					'size_units' => [ 'px', 'em' ],
-					'range'      => [
-						'px' => [
-							'min' => 1,
-							'max' => 200,
-						],
-					],
-					'selectors'  => [
-						"{{WRAPPER}} .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"{{WRAPPER}} .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"{{WRAPPER}} .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"{{WRAPPER}} .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"{{WRAPPER}} .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]}," .
-						"{{WRAPPER}} .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}"
-						=> 'line-height: {{SIZE}}{{UNIT}}',
-					],
-				]
-			);
-
-			$element->end_popover();
 		}
 
 		$element->end_controls_section();
@@ -318,66 +266,17 @@ class Typography extends Module {
 		];
 
 		foreach ( $settings as $setting ) {
-			$element->add_control(
-				'ang_toggle_text_size' . $setting[0],
+			$element->add_group_control(
+				Group_Control_Typography::get_type(),
 				[
-					'label'        => $setting[1],
-					'type'         => Controls_Manager::POPOVER_TOGGLE,
-					'return_value' => 'yes',
+					'name'           => 'ang_text_size_' . $setting[0],
+					'label'          => $setting[1],
+					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
+					'selector'       => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
+					'exclude'        => [ 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ],
+					'fields_options' => $this->get_default_typography_values( 'ang_text_size_' . $setting[0] ),
 				]
 			);
-
-			$element->start_popover();
-
-			$element->add_responsive_control(
-				'ang_text_size_' . $setting[0],
-				[
-					'label'           => __( 'Font Size', 'ang' ),
-					'type'            => Controls_Manager::SLIDER,
-					'desktop_default' => $this->get_default_value( 'ang_size_' . $setting[0], true ),
-					'tablet_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_tablet', true ),
-					'mobile_default'  => $this->get_default_value( 'ang_size_' . $setting[0] . '_mobile', true ),
-					'size_units'      => [ 'px', 'em', 'rem', 'vw' ],
-					'range'           => [
-						'px' => [
-							'min' => 1,
-							'max' => 200,
-						],
-						'vw' => [
-							'min'  => 0.1,
-							'max'  => 10,
-							'step' => 0.1,
-						],
-					],
-					'responsive'      => true,
-					'selectors'       => [
-						"{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)"
-						=> 'font-size: {{SIZE}}{{UNIT}}',
-					],
-				]
-			);
-
-			$element->add_responsive_control(
-				'ang_text_size_lh_' . $setting[0],
-				[
-					'label'      => __( 'Line Height', 'ang' ),
-					'type'       => Controls_Manager::SLIDER,
-					'responsive' => true,
-					'size_units' => [ 'px', 'em' ],
-					'range'      => [
-						'px' => [
-							'min' => 1,
-							'max' => 200,
-						],
-					],
-					'selectors'  => [
-						"{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)"
-						=> 'line-height: {{SIZE}}{{UNIT}}',
-					],
-				]
-			);
-
-			$element->end_popover();
 		}
 
 		$element->end_controls_section();
