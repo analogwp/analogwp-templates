@@ -283,8 +283,8 @@ class Utils extends Base {
 				}
 			} elseif ( ! $kit_id && '' !== self::get_global_kit_id() ) {
 				if (
-					'' === $settings['ang_action_tokens']
-					|| ! isset( $settings['ang_action_tokens'] )
+					! isset( $settings['ang_action_tokens'] )
+					|| '' === $settings['ang_action_tokens']
 					|| (int) self::get_global_kit_id() === (int) $settings['ang_action_tokens']
 				) {
 					$posts[] = $post_id;
