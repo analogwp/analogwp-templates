@@ -38,7 +38,6 @@ function do_automatic_upgrades() {
 	}
 
 	if ( version_compare( $installed_version, '1.3', '<' ) ) {
-		ang_v13_upgrades();
 		Utils::clear_elementor_cache();
 	}
 
@@ -177,11 +176,12 @@ function ang_v13_upgrades() {
 			$tokens     = json_decode( $tokens_raw, true );
 
 			foreach ( $keys as $old => $new ) {
-				if ( isset( $tokens[ $old ] ) && count( $tokens[ $old ] ) ) {
+				if ( isset( $tokens[ $old ] ) && is_array( $tokens[ $old ] ) && count( $tokens[ $old ] ) ) {
 					$tokens[ $new ] = $tokens[ $old ];
 
 					if ( \array_key_exists( $old, $must_haves ) ) {
-						$tokens[ $must_haves[ $old ] ] = 'custom';
+						$key = $must_haves[ $old ];
+						$tokens[ $key ] = 'custom';
 					}
 				}
 			}
@@ -197,11 +197,12 @@ function ang_v13_upgrades() {
 			$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
 
 			foreach ( $keys as $old => $new ) {
-				if ( isset( $settings[ $old ] ) && count( $settings[ $old ] ) ) {
+				if ( isset( $settings[ $old ] ) && is_array( $settings[ $old ] ) && count( $settings[ $old ] ) ) {
 					$settings[ $new ] = $settings[ $old ];
 
 					if ( \array_key_exists( $old, $must_haves ) ) {
-						$settings[ $must_haves[ $old ] ] = 'custom';
+						$key = $must_haves[ $old ];
+						$settings[ $key ] = 'custom';
 					}
 				}
 			}
