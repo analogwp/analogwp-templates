@@ -309,6 +309,17 @@ export default class Settings extends React.Component {
 									<ExternalLink className="ang-link" href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements">{ __( 'More Info', 'ang' ) }</ExternalLink>
 								</Field>
 
+								<Field className="global-settings">
+									<h3 className="heading">{ __( 'Remove Data on Uninstall', 'ang' ) }</h3>
+
+									<CheckboxControl
+										label={ __( 'Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed.', 'ang' ) }
+										checked={ settings.remove_on_uninstall ? settings.remove_on_uninstall : false }
+										className="checkbox"
+										onChange={ ( value ) => this.updateSetting( 'remove_on_uninstall', value, false, add ) }
+									/>
+								</Field>
+
 								{
 									/* <Field className="global-settings">
 										<h3 className="heading">{ __( 'Other Settings', 'ang' ) }</h3>
