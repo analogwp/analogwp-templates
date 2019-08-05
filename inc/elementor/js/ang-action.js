@@ -175,8 +175,8 @@ jQuery( window ).on( 'elementor:init', function() {
 	};
 
 	analog.applyStyleKit = ( value ) => {
-		if ( ! value ) {
-			console.warn( 'No value provided.' );
+		if ( ! value || value === '' ) {
+			console.warn( 'No value provided.', value );
 			return;
 		}
 
@@ -481,6 +481,8 @@ jQuery( window ).on( 'elementor:init', function() {
 						elementor.notifications.showToast( {
 							message: ANG_Action.translate.tokenUpdated,
 						} );
+
+						analog.removeFromQueue();
 					} ).catch( error => console.error( error ) );
 				},
 			} );
