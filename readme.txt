@@ -3,27 +3,55 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.2.2
-Stable tag: 1.2.4
+Stable tag: 1.3
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A handcrafted design library for Elementor templates
+Style Kits adds intuitive styling controls in the Elementor editor that power-up your design workflow with unparalleled flexibility.
 
 == Description ==
 
-[AnalogWP](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) follows a design-first approach on template design for Elementor. We create niche-aware templates with scalable layouts that bring consistency and fine aesthetics into your Elementor compositions.
+[Style Kits for Elementor](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) (formerly Analog Templates for Elementor) adds a number of intuitive styling controls in the Elementor editor that allow you to apply styles globally or per page.
 
-- 100% Free for personal and client projects
-- Sync your library with the latest templates, on a consistent release cycle
-- Preview and import templates right from your Elementor Editor
-- Multi-niche professional design that makes sense, is scalable and consistent.
+Stop manually adding / copying / pasting styles across layouts and experience macro control of the most essential aspects of your layout system:
 
-#### Insert templates with a single click
-Import any of our fine-tuned Elementor templates with a single click, directly into your Elementor page, your Elementor Library, or even create a new page to plug your template into. All media files associated with the template are imported automatically.
+- Body text
+- Headings
+- Headings and text sizes
+- Column Gaps
+- Buttons
+- Colors and more are coming soon
 
-#### Save your favorite templates
-Save your favorite layouts and filter them for easy access later. Favorites are saved on a per-user basis, so all your editors/administrators can have their own.
+#### Typography
+
+Edit the styles for Body and Headings and see the effect taking place in your design immediately, right from within the Editor.
+
+#### Column Gap controls
+
+Achieve site-wide spacing consistency through the column gap controls.
+
+Apply the native column gaps on your outer and inner sections and manage the spacing of your layout system from a single place.
+
+#### Save your page Styles as a Style Kit and apply on any page, or globally
+
+All your custom page styles can be saved as a Stylekit and then apply it on any page.
+
+You can also make a Global Stylekit, and it will apply on your entire site.
+
+#### Button Styles
+
+Now you have a single source of control for your different button sizes. Set the button styles on your Style kit and enjoy consistent, site-wide button control.
+
+#### A collection of fine-tuned, Style-kit powered templates. For free.
+
+Trigger the template gallery popup, preview and import any of the templates in our collection.
+
+In most of the templates, styles are managed from the Style Kit panel, so you can experience design-macro control right away.
+
+#### The perfect addition to Elementor Hello Theme
+
+Hello Elementor is a great, lightweight theme but it lacks basic typography controls. Now with Style Kits, you can set the rules for your Typography save them as a global Style Kit and enjoy site-wide typographic control.
 
 **Find us**:
 - [Visit the AnalogWP Website](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp)
@@ -68,6 +96,15 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3 =
+* New: Added Button Controls under Page Styles 🎉
+* New: Plugin rebranded as "Style Kits for Elementor"
+* Fix: Text/Heading size controls not being persistent on style kit change
+* Fix: Column gap individual controls not taking place
+* Fix: Style Kit update modal displaying on page where it was updated from
+* Fix: Dependency error with Gutenberg 6.2
+* Improve: Added a modal window to indicate if page has Global Style Kit
 
 = 1.2.4 =
 * Fix: A critical error where templates won't import due to internal error

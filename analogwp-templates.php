@@ -3,7 +3,7 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: A handcrafted design library for Elementor templates.
- * Version:     1.2.4
+ * Version:     1.3
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -81,7 +81,7 @@ final class Analog_Templates {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'ANG_VERSION' ) ) {
-			define( 'ANG_VERSION', '1.2.4' );
+			define( 'ANG_VERSION', '1.3' );
 		}
 
 		define( 'ANG_LAST_STABLE_VERSION', '1.2.2' );
