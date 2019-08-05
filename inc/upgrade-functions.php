@@ -66,7 +66,7 @@ function install_stylekits() {
 		}
 	}
 }
-add_action( 'admin_init', __NAMESPACE__ . '\install_stylekits' );
+// add_action( 'admin_init', __NAMESPACE__ . '\install_stylekits' );
 
 function ends_with( $string, $end_string ) {
 	$len = strlen( $end_string );
