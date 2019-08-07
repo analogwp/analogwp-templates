@@ -124,6 +124,7 @@ class Elementor {
 				'isPro'            => false,
 				'version'          => ANG_VERSION,
 				'pluginURL'        => ANG_PLUGIN_URL,
+				'syncColors'       => ( '' !== Options::get_instance()->get( 'ang_sync_colors' ) ? Options::get_instance()->get( 'ang_sync_colors' ) : true ),
 				'license'          => [
 					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 					'message' => get_transient( 'ang_license_message' ),

@@ -396,10 +396,6 @@ jQuery( window ).on( 'elementor:init', function() {
 		};
 	};
 
-	elementor.on( 'preview:loaded', () => {
-		analog.insertColors();
-	} );
-
 	analog.updateColorPicker = () => {
 		const container = jQuery( '.iris-palette-container' );
 		container.empty();
@@ -431,11 +427,17 @@ jQuery( window ).on( 'elementor:init', function() {
 		} );
 	};
 
-	elementor.settings.page.addChangeCallback( 'ang_color_accent_primary', analog.updateColorPicker );
-	elementor.settings.page.addChangeCallback( 'ang_color_accent_secondary', analog.updateColorPicker );
-	elementor.settings.page.addChangeCallback( 'ang_color_text_light', analog.updateColorPicker );
-	elementor.settings.page.addChangeCallback( 'ang_color_text_dark', analog.updateColorPicker );
-	elementor.settings.page.addChangeCallback( 'ang_color_background_light', analog.updateColorPicker );
-	elementor.settings.page.addChangeCallback( 'ang_color_background_dark', analog.updateColorPicker );
+	if ( Boolean( AGWP.syncColors ) === true ) {
+		elementor.on( 'preview:loaded', () => {
+			analog.insertColors();
+		} );
+
+		elementor.settings.page.addChangeCallback( 'ang_color_accent_primary', analog.updateColorPicker );
+		elementor.settings.page.addChangeCallback( 'ang_color_accent_secondary', analog.updateColorPicker );
+		elementor.settings.page.addChangeCallback( 'ang_color_text_light', analog.updateColorPicker );
+		elementor.settings.page.addChangeCallback( 'ang_color_text_dark', analog.updateColorPicker );
+		elementor.settings.page.addChangeCallback( 'ang_color_background_light', analog.updateColorPicker );
+		elementor.settings.page.addChangeCallback( 'ang_color_background_dark', analog.updateColorPicker );
+	}
 } );
 

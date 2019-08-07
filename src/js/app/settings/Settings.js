@@ -261,6 +261,18 @@ export default class Settings extends React.Component {
 					) }
 
 					<Field className="global-settings">
+						<h3 className="heading">{ __( 'Elementor Settings', 'ang' ) }</h3>
+
+						<CheckboxControl
+							label={ __( 'Sync Color Palettes and Style Kit colors by default', 'ang' ) }
+							help={ __( 'The Elementor color palette will be populated with the Style Kit’s global colors', 'ang' ) }
+							checked={ settings.ang_sync_colors ? settings.ang_sync_colors : false }
+							className="checkbox"
+							onChange={ ( value ) => this.updateSetting( 'ang_sync_colors', value ) }
+						/>
+					</Field>
+
+					<Field className="global-settings">
 						<h3 className="heading">{ __( 'Usage Data Tracking', 'ang' ) }</h3>
 
 						<CheckboxControl
