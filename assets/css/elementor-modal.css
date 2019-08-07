@@ -49,3 +49,7 @@ button[data-action="save_token"] {
 	line-height: 1.4;
 	border-radius: 3px;
 }
+
+.ang-description-wide .elementor-control-field-description {
+	display: block;
+}
