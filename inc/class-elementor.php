@@ -7,6 +7,8 @@
 
 namespace Analog;
 
+use Elementor\Plugin;
+
 /**
  * Intializes scripts/styles needed for AnalogWP modal on Elementor editing page.
  */
@@ -28,6 +30,26 @@ class Elementor {
 		);
 
 		add_action( 'elementor/controls/controls_registered', [ $this, 'register_controls' ] );
+
+		add_action(
+			'elementor/dynamic_tags/register_tags',
+			function( $dynamic_tags ) {
+				$module = \Elementor\Plugin::$instance->dynamic_tags;
+
+				$module->register_group(
+					'ang_classes',
+					[
+						'title' => __( 'AnalogWP Classes', 'ang' ),
+					]
+				);
+
+				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-dark-background.php';
+				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-light-background.php';
+
+				$module->register_tag( 'Analog\Elementor\Tags\Light_Background' );
+				$module->register_tag( 'Analog\Elementor\Tags\Dark_Background' );
+			}
+		);
 	}
 
 	public function register_controls() {
