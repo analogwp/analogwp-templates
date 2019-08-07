@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
 use Elementor\Core\Settings\Manager;
-use Elementor\Element_Base;
 use Elementor\Core\Base\Module;
 
 class Colors extends Module {
