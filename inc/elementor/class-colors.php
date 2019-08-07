@@ -37,9 +37,9 @@ class Colors extends Module {
 			[
 				'label'       => __( 'Primary Accent', 'ang' ),
 				'type'        => Controls_Manager::COLOR,
-				'description' => __( 'Applies to all links by default', 'ang' ),
+				'description' => __( 'Sets the primary brand color, applies on Links.', 'ang' ),
 				'selectors'   => [
-					'{{WRAPPER}} a:not(.button):not(.elementor-button)' => 'color: {{VALUE}}',
+					'{{WRAPPER}} a:not(.button):not(.elementor-button), {{WRAPPER}} .sk-accent-1' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -49,45 +49,34 @@ class Colors extends Module {
 			[
 				'label'       => __( 'Secondary Accent', 'ang' ),
 				'type'        => Controls_Manager::COLOR,
-				'description' => __( 'Adds a background color to all buttons on page.', 'ang' ),
+				'description' => __( 'Sets the default color for Buttons. You can also apply button colors in the Global buttons tab.', 'ang' ),
 				'selectors'   => [
-					'{{WRAPPER}} .elementor-button, {{WRAPPER}} .button, {{WRAPPER}} button' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-button, {{WRAPPER}} .button, {{WRAPPER}} button, {{WRAPPER}} .sk-accent-2' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
 
 		$element->add_control(
-			'ang_color_text_headings_dark',
+			'ang_color_text_light',
 			[
-				'label'       => __( 'Text and Headings (Dark)', 'ang' ),
+				'label'       => __( 'Text over light background', 'ang' ),
 				'type'        => Controls_Manager::COLOR,
-				'description' => __( 'Applies on the text and titles over light bg', 'ang' ),
+				'description' => __( 'Applies on the text and titles over a section or column with light bg', 'ang' ),
 				'selectors'   => [
 					'{{WRAPPER}},{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
-					':root' => '--ang_color_text_headings_dark: {{VALUE}}',
+					':root, {{WRAPPER}} .sk-text-light' => '--ang_color_text_light: {{VALUE}}',
 				],
 			]
 		);
 
 		$element->add_control(
-			'ang_color_text_headings_light',
+			'ang_color_text_dark',
 			[
-				'label'       => __( 'Text and Headings (Light)', 'ang' ),
+				'label'       => __( 'Text over dark background', 'ang' ),
 				'type'        => Controls_Manager::COLOR,
-				'description' => __( 'Applies on the text and titles over dark bg', 'ang' ),
+				'description' => __( 'Applies on the text and titles over a section or column with dark bg', 'ang' ),
 				'selectors'   => [
-					':root' => '--ang_color_text_headings_light: {{VALUE}}',
-				],
-			]
-		);
-
-		$element->add_control(
-			'ang_color_background_dark',
-			[
-				'label'     => __( 'Dark Background', 'ang' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .dark-bg' => 'background-color: {{VALUE}}; color: var(--ang_color_text_headings_light)',
+					':root, {{WRAPPER}} .sk-text-dark' => '--ang_color_text_dark: {{VALUE}}',
 				],
 			]
 		);
@@ -95,10 +84,29 @@ class Colors extends Module {
 		$element->add_control(
 			'ang_color_background_light',
 			[
-				'label'     => __( 'Light Background', 'ang' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .light-bg' => 'background-color: {{VALUE}}; color: var(--ang_color_text_headings_dark)',
+				'label'       => __( 'Light Background', 'ang' ),
+				'type'        => Controls_Manager::COLOR,
+				'description' => __( 'Apply the class <strong>sk-light-bg</strong> to a section or column to apply this color as a background. Text will inherit the <strong>Text over Light bg</strong> color.', 'ang' ),
+				'selectors'   => [
+					'{{WRAPPER}} .sk-light-bg' => 'background-color: {{VALUE}}; color: var(--ang_color_text_light)',
+				],
+			]
+		);
+
+		$element->add_control(
+			'ang_color_background_dark',
+			[
+				'label'       => __( 'Dark Background', 'ang' ),
+				'type'        => Controls_Manager::COLOR,
+				'description' => __( 'Apply the class <strong>sk-dark-bg</strong> to a section or column to apply this color as a background. Text will inherit the <strong>Text over Dark bg</strong> color.', 'ang' ),
+				'selectors'   => [
+					'{{WRAPPER}} .sk-dark-bg'   => 'background-color: {{VALUE}}; color: var(--ang_color_text_dark)',
+					'{{WRAPPER}} .sk-dark-bg h1,
+					{{WRAPPER}} .sk-dark-bg h2,
+					{{WRAPPER}} .sk-dark-bg h3,
+					{{WRAPPER}} .sk-dark-bg h4,
+					{{WRAPPER}} .sk-dark-bg h5,
+					{{WRAPPER}} .sk-dark-bg h6' => 'color: var(--ang_color_text_dark)',
 				],
 			]
 		);
