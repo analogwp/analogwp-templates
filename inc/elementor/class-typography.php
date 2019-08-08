@@ -10,6 +10,7 @@ namespace Analog\Elementor;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
+use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Scheme_Typography;
@@ -44,6 +45,8 @@ class Typography extends Module {
 		add_action( 'elementor/element/before_section_end', [ $this, 'update_padding_control_selector' ], 10, 2 );
 
 		add_filter( 'display_post_states', [ $this, 'add_token_state' ], 10, 2 );
+
+		add_action( 'elementor/element/section/section_layout/before_section_end', [ $this, 'tweak_section_widget' ] );
 	}
 
 	/**
@@ -627,6 +630,87 @@ class Typography extends Module {
 		);
 
 		$element->end_controls_section();
+	}
+
+	/**
+	 * Tweak default Section widget.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_section_widget( Element_Base $element ) {
+		$element->start_injection(
+			[
+				'of' => 'height',
+				'at' => 'before',
+			]
+		);
+
+		$element->add_control(
+			'ang_outer_gap',
+			[
+				'label'                => __( 'Outer Section Gap', 'ang' ),
+				'description'          => __( 'Set the padding <strong>only for the outer section</strong>, does not apply on inner section widgets, in case you have any. You can tweak the section gap here.', 'ang' ),
+				'type'                 => Controls_Manager::SELECT,
+				'default'              => 'no',
+				'options'              => [
+					'default'  => __( 'Default', 'ang' ),
+					'no'       => __( 'No Gap', 'ang' ),
+					'narrow'   => __( 'Narrow', 'ang' ),
+					'extended' => __( 'Extended', 'ang' ),
+					'wide'     => __( 'Wide', 'ang' ),
+					'wider'    => __( 'Wider', 'ang' ),
+				],
+				'selectors'            => [
+					'{{WRAPPER}} .elementor-row' => 'padding: {{VALUE}};',
+				],
+				'selectors_dictionary' => [
+					'default'  => self::get_column_gaps_css( 'default' ),
+					'no'       => self::get_column_gaps_css( 'no' ),
+					'narrow'   => self::get_column_gaps_css( 'narrow' ),
+					'extended' => self::get_column_gaps_css( 'extended' ),
+					'wide'     => self::get_column_gaps_css( 'wide' ),
+					'wider'    => self::get_column_gaps_css( 'wider' ),
+				],
+			]
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Get formatted CSS output for Column gap values.
+	 *
+	 * @param string $key Setting ID.
+	 *
+	 * @return mixed|string CSS value for padding.
+	 */
+	public static function get_column_gaps_css( $key ) {
+		$post_id = get_the_ID();
+
+		// Get the page settings manager.
+		$settings_manager    = Manager::get_settings_managers( 'page' );
+		$page_settings_model = $settings_manager->get_model( $post_id );
+
+		$defaults = [
+			'default'  => '10px',
+			'no'       => '0px',
+			'narrow'   => '5px',
+			'extended' => '15px',
+			'wide'     => '20px',
+			'wider'    => '30px',
+		];
+
+		$value = $page_settings_model->get_settings_for_display( 'ang_column_gap_' . $key );
+
+		if ( is_array( $value ) ) {
+			if ( true === $value['isLinked'] ) {
+				return $value['top'] . $value['unit'];
+			} else {
+				return "{$value['top']}{$value['unit']} {$value['right']}{$value['unit']} {$value['bottom']}{$value['unit']} {$value['left']}{$value['unit']} ";
+			}
+		}
+
+		return $defaults[ $key ];
 	}
 
 	/**
