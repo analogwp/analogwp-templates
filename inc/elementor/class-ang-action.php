@@ -108,7 +108,7 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 						sprintf( '<a href = "https://analogwp.com/style-kits-for-elementor/?utm_medium=plugin&utm_source=elementor&utm_campaign=style+kits" target="_blank">%s</a>', __( 'Learn more', 'ang' ) )
 					),
 					'sk_learn'        => __( 'View Styles', 'ang' ),
-					'pageStyles'      => __( 'Page Styles', 'ang' ),
+					'pageStyles'      => __( 'Style Kits', 'ang' ),
 					'exportCSS'       => __( 'Export CSS', 'ang' ),
 					'copyCSS'         => __( 'Copy CSS', 'ang' ),
 					'skUpdate'        => __( 'Style Kit Update Detected', 'ang' ),
