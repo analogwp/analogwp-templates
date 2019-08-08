@@ -339,6 +339,18 @@ class Typography extends Module {
 			);
 		}
 
+		$element->add_responsive_control(
+			'ang_widget_spacing',
+			[
+				'label'       => __( 'Space Between Widgets', 'ang' ),
+				'description' => __( 'Sets the default space between widgets, overrides the default value set in Elementor > Style > Space Between Widgets.', 'ang' ),
+				'type'        => Controls_Manager::NUMBER,
+				'selectors'   => [
+					'{{WRAPPER}} .elementor-widget:not(:last-child)' => 'margin-bottom: {{VALUE}}px',
+				],
+			]
+		);
+
 		$element->end_controls_section();
 	}
 
