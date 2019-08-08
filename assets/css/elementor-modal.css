@@ -51,6 +51,10 @@ button[data-action="save_token"] {
 }
 
 
+.ang-description-wide .elementor-control-field-description {
+	display: block;
+}
+
 #ang-stylekit-update .dialog-message p + p {
 	margin-top: 20px;
 }
