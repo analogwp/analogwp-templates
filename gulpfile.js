@@ -6,6 +6,7 @@ const run = require( 'gulp-run-command' ).default;
 const babel = require( 'gulp-babel' );
 const uglify = require( 'gulp-uglify' );
 const rename = require( 'gulp-rename' );
+const checktextdomain = require( 'gulp-checktextdomain' );
 
 const project = 'analogwp-templates';
 const buildFiles = [
@@ -79,8 +80,35 @@ gulp.task( 'scripts', function( done ) {
 	done();
 } );
 
+gulp.task( 'checktextdomain', ( done ) => {
+	gulp
+		.src( [ '**/*.php', '!build/**', '!languages/**', '!./inc/class-licensemanager.php' ] )
+		.pipe( checktextdomain( {
+			text_domain: 'ang',
+			keywords: [
+				'__:1,2d',
+				'_e:1,2d',
+				'_x:1,2c,3d',
+				'esc_html__:1,2d',
+				'esc_html_e:1,2d',
+				'esc_html_x:1,2c,3d',
+				'esc_attr__:1,2d',
+				'esc_attr_e:1,2d',
+				'esc_attr_x:1,2c,3d',
+				'_ex:1,2c,3d',
+				'_n:1,2,4d',
+				'_nx:1,2,4c,5d',
+				'_n_noop:1,2,3d',
+				'_nx_noop:1,2,3c,4d',
+			],
+		} ) );
+
+	done();
+} );
+
 gulp.task( 'build', gulp.series(
 	'scripts',
+	'checktextdomain',
 	'yarnBuild',
 	'yarnMakePot',
 	'yarnMakePotPHP',

@@ -83,8 +83,10 @@ class Base {
 			switch ( strtolower( $last ) ) {
 				case 'g':
 					$val *= 1024;
+					// no break.
 				case 'm':
 					$val *= 1024;
+					// no break.
 				case 'k':
 					$val *= 1024;
 			}
@@ -105,5 +107,30 @@ class Base {
 			$post_css = new \Elementor\Core\Files\CSS\Post( $post_id );
 			$post_css->update();
 		}
+	}
+
+	/**
+	 * Ensure arguments exist.
+	 *
+	 * Checks whether the required arguments exist in the specified arguments.
+	 *
+	 * @since 1.2.1
+	 * @access private
+	 *
+	 * @param array $required_args  Required arguments to check whether they
+	 *                              exist.
+	 * @param array $specified_args The list of all the specified arguments to
+	 *                              check against.
+	 *
+	 * @return \WP_Error|true True on success, 'WP_Error' otherwise.
+	 */
+	private function ensure_args( array $required_args, array $specified_args ) {
+		$not_specified_args = array_diff( $required_args, array_keys( array_filter( $specified_args ) ) );
+
+		if ( $not_specified_args ) {
+			return new \WP_Error( 'arguments_not_specified', sprintf( 'The required argument(s) "%s" not specified.', implode( ', ', $not_specified_args ) ) );
+		}
+
+		return true;
 	}
 }

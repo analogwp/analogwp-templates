@@ -128,7 +128,7 @@ const Sidebar = () => {
 			<div>
 				<h3>{ __( 'Docs', 'ang' ) }</h3>
 				<p>{ __( 'Need help setting up? We have a number of handy articles to get you started.', 'ang' ) }</p>
-				<p><ExternalLink className="ang-link" href="https://docs.codestag.com/">{ __( 'Read Documentation', 'ang' ) }</ExternalLink></p>
+				<p><ExternalLink className="ang-link" href="https://docs.analogwp.com/">{ __( 'Read Documentation', 'ang' ) }</ExternalLink></p>
 			</div>
 
 			<div className="social-links">

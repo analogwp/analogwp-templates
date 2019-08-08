@@ -8,8 +8,15 @@
 // Exit if accessed directly.
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
-delete_transient( 'ang_license_message' );
-delete_transient( 'analogwp_template_info' );
-delete_option( 'ang_options' );
+$options = get_option( 'ang_options' );
 
-wp_clear_scheduled_hook( 'analog/tracker/send_event' );
+if ( is_array( $options ) ) {
+	if ( isset( $options['remove_on_uninstall'] ) && true === $options['remove_on_uninstall'] ) {
+		delete_transient( 'ang_license_message' );
+		delete_transient( 'analogwp_template_info' );
+		delete_option( 'ang_options' );
+
+		wp_clear_scheduled_hook( 'analog/tracker/send_event' );
+	}
+}
+

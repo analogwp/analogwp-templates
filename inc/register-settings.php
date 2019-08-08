@@ -14,8 +14,8 @@ namespace Analog\settings;
  */
 function register_menu() {
 	add_menu_page(
-		esc_html__( 'Analog Templates', 'ang' ),
-		esc_html__( 'AnalogWP', 'ang' ),
+		esc_html__( 'Style Kits for Elementor', 'ang' ),
+		esc_html__( 'Style Kits', 'ang' ),
 		'manage_options',
 		'analogwp_templates',
 		'Analog\settings\settings_page',
@@ -29,13 +29,13 @@ function register_menu() {
 	if ( $tokens ) {
 		add_submenu_page(
 			'analogwp_templates',
-			__( 'Library', 'ang' ),
+			__( 'Style Kits Library', 'ang' ),
 			__( 'Library', 'ang' ),
 			'manage_options',
 			'analogwp_templates'
 		);
 
-		$menu_title = __( 'Style Kits', 'ang' );
+		$menu_title = __( 'Kits', 'ang' );
 		add_submenu_page(
 			'analogwp_templates',
 			$menu_title,
@@ -91,5 +91,3 @@ function register_settings() {
 		]
 	);
 }
-
-// add_action( 'init', __NAMESPACE__ . '\register_settings' );

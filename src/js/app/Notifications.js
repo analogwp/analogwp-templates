@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import Close from './icons/close';
 import Error from './icons/error';
 import Notice from './icons/notice';
@@ -19,6 +19,7 @@ const NotificationContainer = styled.div`
 	transform: translate3d(0px, 0px, 0px);
 	border-radius: 4px;
 	font-weight: 500;
+	position: relative;
 	transition: transform 220ms cubic-bezier(0.2, 0, 0, 1) 0s;
 
 	> div {
@@ -92,6 +93,27 @@ const Icon = styled.div`
 	}
 `;
 
+const shrink = keyframes`from { height: 100%; } to { height: 0% }`;
+
+const animation = ( props ) =>
+	css`
+		${ shrink } ${ props.autoDismissTimeout }ms linear;
+`;
+
+const Countdown = styled.div`
+	position: absolute;
+	bottom: 0%;
+	left: 0;
+	height: 0;
+	width: 30px;
+	z-index: 10;
+	background: rgba(0,0,0,0.1) !important;
+	opacity: ${ props => props.opacity };
+	animation-play-state: ${ props => props.isRunning ? 'running' : 'paused' }
+	animation: ${ animation };
+	border-radius: 0 !important;
+`;
+
 export default class Notifications extends React.Component {
 	constructor() {
 		super( ...arguments );
@@ -100,7 +122,7 @@ export default class Notifications extends React.Component {
 			notices: [],
 		};
 
-		this.autoDismissTimeout = 5000;
+		this.autoDismissTimeout = 3000;
 		this.add = this.add.bind( this );
 	}
 
@@ -123,6 +145,7 @@ export default class Notifications extends React.Component {
 		type = 'success',
 		id = generateUEID(),
 		autoDismiss = true,
+		autoDismissTimeout = 3000,
 	) {
 		const oldNotices = [ ...this.state.notices ];
 
@@ -133,6 +156,7 @@ export default class Notifications extends React.Component {
 				id,
 				type,
 				autoDismiss,
+				autoDismissTimeout,
 			},
 		];
 
@@ -174,6 +198,7 @@ class Notification extends React.Component {
 	timeout = 0
 	state = {
 		autoDismissTimeout: this.props.autoDismissTimeout,
+		autoDismiss: this.props.autoDismiss,
 	}
 
 	static defaultProps = {
@@ -208,6 +233,11 @@ class Notification extends React.Component {
 
 		return (
 			<NotificationContainer id={ id } className={ `type-${ type }` }>
+				<Countdown
+					opacity={ this.state.autoDismiss ? 1 : 0 }
+					autoDismissTimeout={ this.state.autoDismissTimeout }
+					isRunning={ true }
+				/>
 				<Icon>{ getIcon( type ) }</Icon>
 				<p>{ label }</p>
 				<button onClick={ () => onDismiss() }>

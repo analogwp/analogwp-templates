@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: AnalogWP Templates
+ * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: A handcrafted design library for Elementor templates.
- * Version:     1.2
+ * Version:     1.3
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -81,8 +81,10 @@ final class Analog_Templates {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'ANG_VERSION' ) ) {
-			define( 'ANG_VERSION', '1.2' );
+			define( 'ANG_VERSION', '1.3' );
 		}
+
+		define( 'ANG_LAST_STABLE_VERSION', '1.2.2' );
 
 		// Plugin Folder Path.
 		if ( ! defined( 'ANG_PLUGIN_DIR' ) ) {
@@ -121,6 +123,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-typography.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-colors.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-post-type.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-tools.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-analog-settings.php';
 		require_once ANG_PLUGIN_DIR . 'inc/upgrade-functions.php';
 	}
@@ -136,7 +139,7 @@ final class Analog_Templates {
 		}
 
 		wp_enqueue_style( 'wp-components' );
-		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700', [], '20190128' );
+		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', [], '20190716' );
 
 		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? 'development' : 'production';
 
@@ -166,6 +169,8 @@ final class Analog_Templates {
 				'react-dom',
 				'wp-components',
 				'wp-i18n',
+				'wp-api-fetch',
+				'wp-html-entities',
 			],
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/app.js' ),
 			true
@@ -174,7 +179,9 @@ final class Analog_Templates {
 
 		$favorites = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
 
-		if ( ! $favorites )  $favorites = [];
+		if ( ! $favorites ) {
+			$favorites = [];
+		}
 
 		$current_user = wp_get_current_user();
 
@@ -198,6 +205,8 @@ final class Analog_Templates {
 					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 					'message' => get_transient( 'ang_license_message' ),
 				],
+				'rollback_version' => ANG_LAST_STABLE_VERSION,
+				'rollback_url'     => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback' ), 'ang_rollback' ),
 			]
 		);
 
@@ -236,9 +245,9 @@ final class Analog_Templates {
 /**
  * The main function for that returns Analog_Templates.
  *
- * @return object|Analog_Templates The one true Analog_Templates Instance.
+ * @return void|Analog_Templates The one true Analog_Templates Instance.
  */
-function ANG() {
+function ANG() { // @codingStandardsIgnoreLine
 	return Analog_Templates::instance();
 }
 

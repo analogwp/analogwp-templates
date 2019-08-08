@@ -25,6 +25,18 @@ class Analog_Settings {
 	 */
 	public function __construct() {
 		add_action( 'elementor/admin/after_create_settings/' . Settings::PAGE_ID, [ $this, 'register_admin_fields' ], 100 );
+
+		add_action(
+			'update_option_elementor_ang_global_kit',
+			function() {
+				Utils::add_notice(
+					__( 'Global Stylekit Settings Saved. It\'s recommended to close any open elementor tabs in your browser, and re-open them, for the effect to apply.', 'ang' ),
+					'info'
+				);
+
+				Utils::clear_elementor_cache();
+			}
+		);
 	}
 
 	/**
@@ -41,7 +53,7 @@ class Analog_Settings {
 			'analogwp',
 			[
 				'callback' => function() {
-					echo '<hr><h2>' . esc_html__( 'AnalogWP Settings', 'ang' ) . '</h2>';
+					echo '<hr><h2>' . esc_html__( 'Style Kits for Elementor Settings', 'ang' ) . '</h2>';
 				},
 				'fields'   => [
 					self::ANG_GLOBAL_KIT_OPTION_NAME => [

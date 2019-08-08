@@ -1,6 +1,21 @@
 /* global jQuery, elementor, elementorCommon, ANG_Action, cssbeautify, elementorModules */
 jQuery( window ).on( 'elementor:init', function() {
 	const analog = window.analog = window.analog || {};
+	const elementorSettings = elementor.settings.page.model.attributes;
+
+	/**
+	 * Determines if given key should be exported/imported into Style Kit.
+	 *
+	 * @param {string} key Setting ID.
+	 * @return {bool} True, or false.
+	 */
+	const eligibleKey = ( key ) => {
+		if ( key.startsWith( 'ang_action' ) ) {
+			return false;
+		}
+
+		return ( key.startsWith( 'ang_' ) || key.startsWith( 'background' ) );
+	};
 
 	analog.showStyleKitAttentionDialog = () => {
 		const introduction = new elementorModules.editor.utils.Introduction( {
@@ -36,11 +51,85 @@ jQuery( window ).on( 'elementor:init', function() {
 		introduction.show();
 	};
 
+	analog.styleKitUpdateDialog = () => {
+		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
+			id: 'ang-stylekit-update',
+			headerMessage: ANG_Action.translate.skUpdate,
+			message: ANG_Action.translate.skUpdateDesc,
+			hide: {
+				onOutsideClick: false,
+				onBackgroundClick: false,
+				onEscKeyPress: false,
+			},
+		} );
+
+		modal.addButton( {
+			name: 'ang_discard',
+			text: ANG_Action.translate.discard,
+			callback() {
+				analog.removeFromQueue();
+				// Set to negative value to avoid queue of Global Style Kit.
+				elementor.settings.page.model.set( 'ang_action_tokens', '-1' );
+			},
+		} );
+
+		modal.addButton( {
+			name: 'ang_apply',
+			text: ANG_Action.translate.apply,
+			callback() {
+				analog.removeFromQueue();
+				analog.applyStyleKit( elementorSettings.ang_action_tokens );
+			},
+		} );
+
+		return modal;
+	};
+
+	analog.hasGlobalKit = () => {
+		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
+			id: 'ang-has-globalkit',
+			headerMessage: ANG_Action.translate.pageStyleHeader,
+			message: ANG_Action.translate.pageStyleDesc,
+			hide: {
+				onOutsideClick: false,
+				onBackgroundClick: false,
+				onEscKeyPress: false,
+			},
+		} );
+
+		modal.addButton( {
+			name: 'ang_discard',
+			text: ANG_Action.translate.discard,
+			callback() {
+				elementor.settings.page.model.set( 'uses_style_kit', false );
+				elementor.saver.defaultSave();
+			},
+		} );
+
+		modal.addButton( {
+			name: 'ang_apply',
+			text: ANG_Action.translate.gotoPageStyle,
+			callback() {
+				elementor.settings.page.model.set( 'uses_style_kit', false );
+				redirectToSection();
+				elementor.saver.defaultSave();
+			},
+		} );
+
+		modal.show();
+	};
+
+	if ( elementor.settings.page.getSettings().settings.uses_style_kit ) {
+		analog.hasGlobalKit();
+	}
+
+	analog.StyleKitUpdateModal = analog.styleKitUpdateDialog();
+
 	analog.resetStyles = () => {
 		const settings = elementor.settings.page.model.attributes;
 		const angSettings = {};
 		_.map( settings, function( value, key ) {
-			if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
+			if ( eligibleKey( key ) ) {
 				if ( elementor.settings.page.model.controls[ key ] !== undefined ) {
 					switch ( typeof elementor.settings.page.model.controls[ key ].default ) {
 						case 'string':
@@ -85,9 +174,65 @@ jQuery( window ).on( 'elementor:init', function() {
 		redirectToSection();
 	};
 
+	analog.applyStyleKit = ( value ) => {
+		if ( ! value || value === '' ) {
+			console.warn( 'No value provided.', value );
+			return;
+		}
+
+		wp.apiFetch( {
+			method: 'post',
+			path: 'agwp/v1/tokens/get',
+			data: {
+				id: value,
+			},
+		} ).then( function( response ) {
+			const data = JSON.parse( response.data );
+
+			if ( Object.keys( data ).length ) {
+				elementor.settings.page.model.set( data );
+				elementor.settings.page.model.set( 'ang_recently_imported', 'no' );
+			}
+		} ).catch( function( error ) {
+			console.error( error );
+		} );
+	};
+
+	analog.removeFromQueue = ( id = elementor.config.document.id ) => {
+		$.ajax( {
+			type: 'POST',
+			url: AGWP.ajaxurl,
+			data: {
+				action: 'ang_remove_kit_queue',
+				id: id,
+			},
+			success: ( response ) => {
+				if ( ! response.success ) {
+					elementorCommon.dialogsManager.createWidget( 'alert', {
+						message: response.data.message,
+					} ).show();
+				}
+			},
+			dataType: 'JSON',
+		} );
+	};
+
 	elementor.on( 'preview:loaded', () => {
 		if ( ! elementor.config.user.introduction.angStylekit ) {
 			analog.showStyleKitAttentionDialog();
+		}
+
+		const settings = elementor.settings.page.model.attributes;
+
+		if ( settings.ang_action_tokens && settings.ang_action_tokens !== '-1' ) {
+			analog.applyStyleKit( settings.ang_action_tokens );
+		}
+
+		if ( AGWP.stylekit_queue ) {
+			const needsRefresh = AGWP.stylekit_queue.find( el => el === elementor.config.document.id );
+			if ( needsRefresh && ! analog.StyleKitUpdateModal.isVisible() ) {
+				analog.StyleKitUpdateModal.show();
+			}
 		}
 	} );
 
@@ -227,8 +372,12 @@ jQuery( window ).on( 'elementor:init', function() {
 		handleSaveToken: function() {
 			const settings = elementor.settings.page.model.attributes;
 			const angSettings = {};
+
+			// Save settings before saving the token.
+			elementor.saver.defaultSave();
+
 			_.map( settings, function( value, key ) {
-				if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
+				if ( eligibleKey( key ) ) {
 					angSettings[ key ] = value;
 				}
 			} );
@@ -298,10 +447,15 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		handleTokenUpdate: function() {
 			const postID = elementor.settings.page.model.attributes.ang_action_tokens;
+			const currentID = elementor.config.post_id;
 			const settings = elementor.settings.page.model.attributes;
 			const angSettings = {};
+
+			// Save settings before saving the token.
+			elementor.saver.defaultSave();
+
 			_.map( settings, function( value, key ) {
-				if ( key.startsWith( 'ang_' ) && ! key.startsWith( 'ang_action' ) ) {
+				if ( eligibleKey( key ) ) {
 					angSettings[ key ] = value;
 				}
 			} );
@@ -320,12 +474,15 @@ jQuery( window ).on( 'elementor:init', function() {
 						method: 'post',
 						data: {
 							id: postID,
+							current_id: currentID,
 							tokens: JSON.stringify( angSettings ),
 						},
 					} ).then( () => {
 						elementor.notifications.showToast( {
 							message: ANG_Action.translate.tokenUpdated,
 						} );
+
+						analog.removeFromQueue();
 					} ).catch( error => console.error( error ) );
 				},
 			} );
@@ -337,23 +494,15 @@ jQuery( window ).on( 'elementor:init', function() {
 	elementor.addControlView( 'ang_action', ControlANGAction );
 
 	elementor.settings.page.addChangeCallback( 'ang_action_tokens', function( value ) {
-		if ( value ) {
-			wp.apiFetch( {
-				method: 'post',
-				path: 'agwp/v1/tokens/get',
-				data: {
-					id: value,
-				},
-			} ).then( function( response ) {
-				const data = JSON.parse( response.data );
+		analog.applyStyleKit( value );
+	} );
 
-				if ( Object.keys( data ).length ) {
-					elementor.settings.page.model.set( data );
-					elementor.settings.page.model.set( 'ang_recently_imported', 'no' );
-				}
-			} ).catch( function( error ) {
-				console.error( error );
-			} );
+	jQuery( document ).on( 'heartbeat-tick', function( event, response ) {
+		if ( response.stylekit_queue ) {
+			const needsRefresh = response.stylekit_queue.find( el => el === elementor.config.document.id );
+			if ( needsRefresh && ! analog.StyleKitUpdateModal.isVisible() ) {
+				analog.StyleKitUpdateModal.show();
+			}
 		}
 	} );
 

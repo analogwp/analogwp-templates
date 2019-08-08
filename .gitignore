@@ -9,3 +9,4 @@
 /.idea/workspace.xml
 /inc/elementor/js/ang-action.min.js
 /inc/elementor/js/ang-typography.min.js
+/inc/elementor/js/*.min.js

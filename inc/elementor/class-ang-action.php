@@ -87,30 +87,39 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 			[
 				'saveToken' => rest_url( 'agwp/v1/tokens/save' ),
 				'translate' => [
-					'resetMessage'  => __( 'This will reset all the settings you configured previously under Page Style Settings from Analog Templates.', 'ang' ),
-					'resetHeader'   => __( 'Are you sure?', 'ang' ),
-					'saveToken'     => __( 'Save Style Kit as', 'ang' ),
-					'saveToken2'    => __( 'Save', 'ang' ),
-					'cancel'        => __( 'Cancel', 'ang' ),
-					'enterTitle'    => __( 'Enter a title', 'ang' ),
-					'insertToken'   => __( 'Insert Style Kit', 'ang' ),
-					'tokenWarning'  => __( 'Please select a Style Kit first.', 'ang' ),
-					'selectKit'     => __( '— Select a Style Kit —', 'ang' ),
-					'tokenUpdated'  => __( 'Style Kit Updated.', 'ang' ),
-					'selectToken'   => __( 'Please select a Style Kit first.', 'ang' ),
-					'updateKit'     => __( 'Update Style Kit', 'ang' ),
-					'updateMessage' => __( 'This action will update the Style Kit with the latest changes, and will affect all the pages that the style kit is used on. Do you wish to proceed?', 'ang' ),
-					'sk_header'     => __( 'Meet Style Kits by AnalogWP', 'ang' ),
-					'sk_message'    => sprintf(
+					'resetMessage'    => __( 'This will reset all the settings you configured previously under Page Style Settings from Analog Templates.', 'ang' ),
+					'resetHeader'     => __( 'Are you sure?', 'ang' ),
+					'saveToken'       => __( 'Save Style Kit as', 'ang' ),
+					'saveToken2'      => __( 'Save', 'ang' ),
+					'cancel'          => __( 'Cancel', 'ang' ),
+					'enterTitle'      => __( 'Enter a title', 'ang' ),
+					'insertToken'     => __( 'Insert Style Kit', 'ang' ),
+					'tokenWarning'    => __( 'Please select a Style Kit first.', 'ang' ),
+					'selectKit'       => __( '— Select a Style Kit —', 'ang' ),
+					'tokenUpdated'    => __( 'Style Kit Updated.', 'ang' ),
+					'selectToken'     => __( 'Please select a Style Kit first.', 'ang' ),
+					'updateKit'       => __( 'Update Style Kit', 'ang' ),
+					'updateMessage'   => __( 'This action will update the Style Kit with the latest changes, and will affect all the pages that the style kit is used on. Do you wish to proceed?', 'ang' ),
+					'sk_header'       => __( 'Meet Style Kits by Style Kits for Elementor', 'ang' ),
+					'sk_message'      => sprintf(
 						/* translators: %s: Link to Style Kits documentation. */
 						__( 'Take control of your design in the macro level, with local or global settings for typography and spacing. %s.', 'ang' ),
 						/* translators: %s: Link text */
 						sprintf( '<a href = "https://analogwp.com/style-kits-for-elementor/?utm_medium=plugin&utm_source=elementor&utm_campaign=style+kits" target="_blank">%s</a>', __( 'Learn more', 'ang' ) )
 					),
-					'sk_learn'      => __( 'View Styles', 'ang' ),
-					'pageStyles'    => __( 'Page Styles', 'ang' ),
-					'exportCSS'     => __( 'Export CSS', 'ang' ),
-					'copyCSS'       => __( 'Copy CSS', 'ang' ),
+					'sk_learn'        => __( 'View Styles', 'ang' ),
+					'pageStyles'      => __( 'Page Styles', 'ang' ),
+					'exportCSS'       => __( 'Export CSS', 'ang' ),
+					'copyCSS'         => __( 'Copy CSS', 'ang' ),
+					'skUpdate'        => __( 'Style Kit Update Detected', 'ang' ),
+					'skUpdateDesc'    => __( '<p>The Style kit used by this page has been updated, click ‘Apply Changes’ to apply the latest changes.</p><p>Click Discard to keep your current page styles and detach the page from the Style Kit</p>', 'ang' ),
+					'discard'         => __( 'Discard', 'ang' ),
+					'apply'           => __( 'Apply Changes', 'ang' ),
+					'got_it'          => __( 'Ok, got it.', 'ang' ),
+					'gotoPageStyle'   => __( 'Go to Page Style', 'ang' ),
+					'pageStyleHeader' => __( 'This template offers global typography and spacing control, through the Page Style tab.', 'ang' ),
+					/* todo: Add the correct link. */
+					'pageStyleDesc'   => __( 'Typography, column gaps and more, are controlled layout-wide at Page Styles Panel, giving you the flexibility you need over the design of this template. You can save the styles and apply them to any other page. <a href="#" target="_blank">Learn More.</a>', 'ang' ),
 				],
 			]
 		);

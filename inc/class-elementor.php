@@ -22,7 +22,7 @@ class Elementor {
 
 		add_action(
 			'elementor/finder/categories/init',
-			function( $categories_manager ) {
+			function ( $categories_manager ) {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
 
 				$categories_manager->add_category( 'ang-shortcuts', new Finder_Shortcuts() );
@@ -52,6 +52,9 @@ class Elementor {
 		);
 	}
 
+	/**
+	 * Register custom Elementor control.
+	 */
 	public function register_controls() {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-ang-action.php';
 
@@ -98,6 +101,7 @@ class Elementor {
 				'react-dom',
 				'wp-components',
 				'wp-i18n',
+				'wp-html-entities',
 			],
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/app.js' ),
 			true
@@ -106,11 +110,13 @@ class Elementor {
 
 		wp_enqueue_style( 'wp-components' );
 
-		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700', [], '20190128' );
+		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', [], '20190716' );
 
 		$favorites = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
 
-		if ( ! $favorites )  $favorites = [];
+		if ( ! $favorites ) {
+			$favorites = [];
+		}
 
 		$current_user = wp_get_current_user();
 
@@ -132,6 +138,7 @@ class Elementor {
 				'user'             => [
 					'email' => $current_user->user_email,
 				],
+				'stylekit_queue'   => Utils::get_stylekit_queue() ? array_values( Utils::get_stylekit_queue() ) : [],
 			]
 		);
 	}
