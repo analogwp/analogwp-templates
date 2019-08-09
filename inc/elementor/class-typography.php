@@ -30,15 +30,17 @@ class Typography extends Module {
 	 * Typography constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_text_sizes' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_outer_section_padding' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_buttons' ], 10, 2 );
-		add_action( 'elementor/element/before_section_start', [ $this, 'register_styling_settings' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_tools' ], 10, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 100, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 120, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 140, 2 );
+
+		// Color section is hooked at 170 Priority.
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_text_sizes' ], 160, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_buttons' ], 180, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_outer_section_padding' ], 200, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 220, 2 );
+		add_action( 'elementor/element/before_section_start', [ $this, 'register_styling_settings' ], 240, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_tools' ], 260, 2 );
 
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_scripts' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ], 999 );
@@ -721,8 +723,8 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_outer_gap',
 			[
-				'label'        => __( 'Outer Section Gap', 'ang' ),
-				'description'  => __( 'Set the padding <strong>only for the outer section</strong>, does not apply on inner section widgets, in case you have any. You can tweak the section gap', 'ang' ) . sprintf( '<a onClick="%1$s">%2$s</a>', "analog.redirectToSection( 'style', 'ang_section_padding', 'page_settings' )", ' here.' ),
+				'label'        => __( 'Outer Section Gaps', 'ang' ),
+				'description'  => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToSection( 'style', 'ang_section_padding', 'page_settings' )", ' here.' ),
 				'type'         => Controls_Manager::SELECT,
 				'options'      => [
 					'default'  => __( 'Default', 'ang' ),

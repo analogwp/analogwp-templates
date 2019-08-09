@@ -11,7 +11,7 @@ use Elementor\Core\Base\Module;
 
 class Colors extends Module {
 	public function __construct() {
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_color_settings' ], 10, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_color_settings' ], 170, 2 );
 	}
 
 	public function get_name() {
