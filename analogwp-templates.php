@@ -47,6 +47,7 @@ final class Analog_Templates {
 
 			add_action( 'plugins_loaded', [ self::$instance, 'load_textdomain' ] );
 			add_action( 'admin_enqueue_scripts', [ self::$instance, 'scripts' ] );
+			add_filter( 'plugin_action_links_' . plugin_basename( ANG_PLUGIN_FILE ), [ self::$instance, 'plugin_action_links' ] );
 
 			self::$instance->includes();
 		}
@@ -239,6 +240,28 @@ final class Analog_Templates {
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'ang', false, dirname( plugin_basename( ANG_PLUGIN_DIR ) ) . '/languages/' );
+	}
+
+	/**
+	 * Plugin action links.
+	 *
+	 * Adds action links to the plugin list table
+	 *
+	 * Fired by `plugin_action_links` filter.
+	 *
+	 * @since 1.3.1
+	 * @access public
+	 *
+	 * @param array $links An array of plugin action links.
+	 *
+	 * @return array An array of plugin action links.
+	 */
+	public function plugin_action_links( $links ) {
+		$settings_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=analogwp_templates' ), __( 'Settings', 'ang' ) );
+
+		array_unshift( $links, $settings_link );
+
+		return $links;
 	}
 }
 
