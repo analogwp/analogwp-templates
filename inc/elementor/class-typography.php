@@ -34,6 +34,7 @@ class Typography extends Module {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_text_sizes' ], 10, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_outer_section_padding' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 10, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_buttons' ], 10, 2 );
 		add_action( 'elementor/element/before_section_start', [ $this, 'register_styling_settings' ], 10, 2 );
@@ -286,6 +287,57 @@ class Typography extends Module {
 	}
 
 	/**
+	 * Register Outer Section padding controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_outer_section_padding( Controls_Stack $element, $section_id ) {
+		if ( 'section_page_style' !== $section_id ) {
+			return;
+		}
+
+		$gaps = [
+			'default'  => __( 'Default Padding', 'ang' ),
+			'narrow'   => __( 'Narrow Padding', 'ang' ),
+			'extended' => __( 'Extended Padding', 'ang' ),
+			'wide'     => __( 'Wide Padding', 'ang' ),
+			'wider'    => __( 'Wider Padding', 'ang' ),
+		];
+
+		$element->start_controls_section(
+			'ang_section_padding',
+			[
+				'label' => __( 'Outer Section Padding', 'ang' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		foreach ( $gaps as $key => $label ) {
+			$element->add_responsive_control(
+				'ang_section_padding_' . $key,
+				[
+					'label'           => $label,
+					'type'            => Controls_Manager::DIMENSIONS,
+					'default'         => [
+						'unit' => 'em',
+					],
+					'desktop_default' => $this->get_default_value( 'ang_section_padding_' . $key, true ),
+					'tablet_default'  => $this->get_default_value( 'ang_section_padding_' . $key . '_tablet', true ),
+					'mobile_default'  => $this->get_default_value( 'ang_section_padding_' . $key . '_mobile', true ),
+					'size_units'      => [ 'px', 'em', '%' ],
+					'selectors'       => [
+						".ang-section-padding-{$key} .elementor-row" =>
+						'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					],
+				]
+			);
+		}
+
+		$element->end_controls_section();
+	}
+
+	/**
 	 * Register Columns gaps controls.
 	 *
 	 * @param Controls_Stack $element Controls object.
@@ -490,7 +542,7 @@ class Typography extends Module {
 			$element->add_responsive_control(
 				'ang_button_padding_' . $size,
 				[
-					'label'      => __( 'Padding', 'elementor' ),
+					'label'      => __( 'Padding', 'ang' ),
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em', '%' ],
 					'selectors'  => [
@@ -663,7 +715,6 @@ class Typography extends Module {
 				'label'                => __( 'Outer Section Gap', 'ang' ),
 				'description'          => __( 'Set the padding <strong>only for the outer section</strong>, does not apply on inner section widgets, in case you have any. You can tweak the section gap here.', 'ang' ),
 				'type'                 => Controls_Manager::SELECT,
-				'default'              => 'no',
 				'options'              => [
 					'default'  => __( 'Default', 'ang' ),
 					'no'       => __( 'No Gap', 'ang' ),
@@ -672,57 +723,11 @@ class Typography extends Module {
 					'wide'     => __( 'Wide', 'ang' ),
 					'wider'    => __( 'Wider', 'ang' ),
 				],
-				'selectors'            => [
-					'{{WRAPPER}} .elementor-row' => 'padding: {{VALUE}};',
-				],
-				'selectors_dictionary' => [
-					'default'  => self::get_column_gaps_css( 'default' ),
-					'no'       => self::get_column_gaps_css( 'no' ),
-					'narrow'   => self::get_column_gaps_css( 'narrow' ),
-					'extended' => self::get_column_gaps_css( 'extended' ),
-					'wide'     => self::get_column_gaps_css( 'wide' ),
-					'wider'    => self::get_column_gaps_css( 'wider' ),
-				],
+				'prefix_class' => 'ang-section-padding-',
 			]
 		);
 
 		$element->end_injection();
-	}
-
-	/**
-	 * Get formatted CSS output for Column gap values.
-	 *
-	 * @param string $key Setting ID.
-	 *
-	 * @return mixed|string CSS value for padding.
-	 */
-	public static function get_column_gaps_css( $key ) {
-		$post_id = get_the_ID();
-
-		// Get the page settings manager.
-		$settings_manager    = Manager::get_settings_managers( 'page' );
-		$page_settings_model = $settings_manager->get_model( $post_id );
-
-		$defaults = [
-			'default'  => '10px',
-			'no'       => '0px',
-			'narrow'   => '5px',
-			'extended' => '15px',
-			'wide'     => '20px',
-			'wider'    => '30px',
-		];
-
-		$value = $page_settings_model->get_settings_for_display( 'ang_column_gap_' . $key );
-
-		if ( is_array( $value ) ) {
-			if ( true === $value['isLinked'] ) {
-				return $value['top'] . $value['unit'];
-			} else {
-				return "{$value['top']}{$value['unit']} {$value['right']}{$value['unit']} {$value['bottom']}{$value['unit']} {$value['left']}{$value['unit']} ";
-			}
-		}
-
-		return $defaults[ $key ];
 	}
 
 	/**
