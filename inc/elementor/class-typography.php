@@ -313,6 +313,15 @@ class Typography extends Module {
 			]
 		);
 
+		$element->add_control(
+			'ang_section_padding_description',
+			[
+				'raw'             => __( 'This padding applies <strong>only on the Outer Sections</strong> of your layout, and not on Inner Section widgets.', 'ang' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			]
+		);
+
 		foreach ( $gaps as $key => $label ) {
 			$element->add_responsive_control(
 				'ang_section_padding_' . $key,
