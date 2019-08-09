@@ -236,14 +236,14 @@ jQuery( window ).on( 'elementor:init', function() {
 		}
 	} );
 
-	function redirectToSection( tab = 'style', section = 'ang_style_settings', page = 'page_settings' ) {
+	analog.redirectToSection = function redirectToSection( tab = 'style', section = 'ang_style_settings', page = 'page_settings' ) {
 		const currentView = elementor.panel.currentView;
 
 		currentView.setPage( page );
 		currentView.getCurrentPageView().activateTab( tab );
 		currentView.getCurrentPageView().activateSection( section );
 		currentView.getCurrentPageView().render();
-	}
+	};
 
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {

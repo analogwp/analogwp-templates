@@ -712,10 +712,10 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_outer_gap',
 			[
-				'label'                => __( 'Outer Section Gap', 'ang' ),
-				'description'          => __( 'Set the padding <strong>only for the outer section</strong>, does not apply on inner section widgets, in case you have any. You can tweak the section gap here.', 'ang' ),
-				'type'                 => Controls_Manager::SELECT,
-				'options'              => [
+				'label'        => __( 'Outer Section Gap', 'ang' ),
+				'description'  => __( 'Set the padding <strong>only for the outer section</strong>, does not apply on inner section widgets, in case you have any. You can tweak the section gap', 'ang' ) . sprintf( '<a onClick="%1$s">%2$s</a>', "analog.redirectToSection( 'style', 'ang_section_padding', 'page_settings' )", ' here.' ),
+				'type'         => Controls_Manager::SELECT,
+				'options'      => [
 					'default'  => __( 'Default', 'ang' ),
 					'no'       => __( 'No Gap', 'ang' ),
 					'narrow'   => __( 'Narrow', 'ang' ),
