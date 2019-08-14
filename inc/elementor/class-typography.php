@@ -723,10 +723,11 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_outer_gap',
 			[
-				'label'        => __( 'Outer Section Gaps', 'ang' ),
-				'description'  => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToSection( 'style', 'ang_section_padding', 'page_settings' )", ' here.' ),
-				'type'         => Controls_Manager::SELECT,
-				'options'      => [
+				'label'         => __( 'Outer Section Gaps', 'ang' ),
+				'description'   => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToSection( 'style', 'ang_section_padding', 'page_settings' )", ' here.' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'options'       => [
 					'default'  => __( 'Default', 'ang' ),
 					'no'       => __( 'No Gap', 'ang' ),
 					'narrow'   => __( 'Narrow', 'ang' ),
@@ -734,7 +735,7 @@ class Typography extends Module {
 					'wide'     => __( 'Wide', 'ang' ),
 					'wider'    => __( 'Wider', 'ang' ),
 				],
-				'prefix_class' => 'ang-section-padding-',
+				'prefix_class'  => 'ang-section-padding-',
 			]
 		);
 
