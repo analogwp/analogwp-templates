@@ -13,7 +13,6 @@ use \Analog\Options;
 use Analog\Utils;
 use Elementor\Core\Settings\Manager;
 use Elementor\TemplateLibrary\Analog_Importer;
-use function update_post_meta;
 use WP_Error;
 use WP_Query;
 use WP_REST_Request;
@@ -125,8 +124,8 @@ class Local extends Base {
 			}
 		}
 
-		update_post_meta( $editor_id, '_ang_import_type', 'elementor' );
-		update_post_meta( $editor_id, '_ang_template_id', $template_id );
+		\update_post_meta( $editor_id, '_ang_import_type', 'elementor' );
+		\update_post_meta( $editor_id, '_ang_template_id', $template_id );
 
 		// Add import history.
 		Utils::add_import_log( $template_id, $editor_id, 'elementor' );
@@ -223,15 +222,15 @@ class Local extends Base {
 		if ( is_array( $template['tokens'] ) ) {
 			$template['tokens']['ang_recently_imported'] = 'yes';
 		}
-		update_post_meta( $new_post_id, '_elementor_data', $template['content'] );
-		update_post_meta( $new_post_id, '_elementor_page_settings', $template['tokens'] );
-		update_post_meta( $new_post_id, '_elementor_template_type', $template['type'] );
-		update_post_meta( $new_post_id, '_elementor_edit_mode', 'builder' );
+		\update_post_meta( $new_post_id, '_elementor_data', $template['content'] );
+		\update_post_meta( $new_post_id, '_elementor_page_settings', $template['tokens'] );
+		\update_post_meta( $new_post_id, '_elementor_template_type', $template['type'] );
+		\update_post_meta( $new_post_id, '_elementor_edit_mode', 'builder' );
 
 		if ( $new_post_id && ! is_wp_error( $new_post_id ) ) {
-			update_post_meta( $new_post_id, '_ang_import_type', $with_page ? 'page' : 'library' );
-			update_post_meta( $new_post_id, '_ang_template_id', $template['id'] );
-			update_post_meta( $new_post_id, '_wp_page_template', ! empty( $template['page_template'] ) ? $template['page_template'] : 'elementor_canvas' );
+			\update_post_meta( $new_post_id, '_ang_import_type', $with_page ? 'page' : 'library' );
+			\update_post_meta( $new_post_id, '_ang_template_id', $template['id'] );
+			\update_post_meta( $new_post_id, '_wp_page_template', ! empty( $template['page_template'] ) ? $template['page_template'] : 'elementor_canvas' );
 
 			if ( ! $with_page ) {
 				wp_set_object_terms( $new_post_id, ! empty( $template['elementor_library_type'] ) ? $template['elementor_library_type'] : 'page', 'elementor_library_type' );
@@ -473,7 +472,7 @@ class Local extends Base {
 			return new WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'ang' ) );
 		}
 
-		$data = update_post_meta( $id, '_tokens_data', $tokens );
+		$data = \update_post_meta( $id, '_tokens_data', $tokens );
 
 		// Update other posts using Style kit. Avoid updating Style kit itself when being edited.
 		if ( $id !== $current_id ) {
