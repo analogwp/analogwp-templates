@@ -338,7 +338,7 @@ class Typography extends Module {
 					'mobile_default'  => $this->get_default_value( 'ang_section_padding_' . $key . '_mobile', true ),
 					'size_units'      => [ 'px', 'em', '%' ],
 					'selectors'       => [
-						".ang-section-padding-{$key}:not(.elementor-inner-section) > .elementor-container > .elementor-row" =>
+						".ang-section-padding-{$key}:not(.elementor-inner-section)" =>
 						'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					],
 				]
@@ -723,7 +723,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_outer_gap',
 			[
-				'label'         => __( 'Outer Section Gaps', 'ang' ),
+				'label'         => __( 'Outer Section Padding', 'ang' ),
 				'description'   => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToSection( 'style', 'ang_section_padding', 'page_settings' )", ' here.' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
