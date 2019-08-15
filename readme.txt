@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.2.2
-Stable tag: 1.3
+Stable tag: 1.3.1
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,18 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.1 =
+* New: Added Color Controls in page settings
+* New: Added Plugin setting to sync Color controls output colors with Elementor color picker
+* New: Added Control for spacing between widgets under Style Kits > Column Gaps
+* New: Added "Outer Section Padding" control to tweak Section padding
+* New: Added plugin action link to settings page on plugins screen
+* Improve: Reorganized setting sections
+* Improve: Renamed 'Page Styles' to 'Style Kit' in Elementor contextual menu
+* Fix: Issue with plugin page app crash on switching tabs while a preview is open
+* Fix: Fatal error with `use function` usage in PHP 5.5.x
+* Fix: Issue with Style kit post state showing empty title
 
 = 1.3 =
 * New: Added Button Controls under Page Styles 🎉
