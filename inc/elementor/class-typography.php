@@ -300,11 +300,11 @@ class Typography extends Module {
 		}
 
 		$gaps = [
-			'default'  => __( 'Default Padding', 'ang' ),
-			'narrow'   => __( 'Narrow Padding', 'ang' ),
-			'extended' => __( 'Extended Padding', 'ang' ),
-			'wide'     => __( 'Wide Padding', 'ang' ),
-			'wider'    => __( 'Wider Padding', 'ang' ),
+			'default'  => __( 'Normal Padding', 'ang' ),
+			'narrow'   => __( 'Small Padding', 'ang' ),
+			'extended' => __( 'Medium Padding', 'ang' ),
+			'wide'     => __( 'Large Padding', 'ang' ),
+			'wider'    => __( 'Extra Large Padding', 'ang' ),
 		];
 
 		$element->start_controls_section(
@@ -727,13 +727,14 @@ class Typography extends Module {
 				'description'   => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToSection( 'style', 'ang_section_padding', 'page_settings' )", ' here.' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
+				'default'       => 'no',
 				'options'       => [
-					'default'  => __( 'Default', 'ang' ),
 					'no'       => __( 'No Gap', 'ang' ),
-					'narrow'   => __( 'Narrow', 'ang' ),
-					'extended' => __( 'Extended', 'ang' ),
-					'wide'     => __( 'Wide', 'ang' ),
-					'wider'    => __( 'Wider', 'ang' ),
+					'default'  => __( 'Normal', 'ang' ),
+					'narrow'   => __( 'Small', 'ang' ),
+					'extended' => __( 'Medium', 'ang' ),
+					'wide'     => __( 'Large', 'ang' ),
+					'wider'    => __( 'Extra Large', 'ang' ),
 				],
 				'prefix_class'  => 'ang-section-padding-',
 			]
