@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.2.2
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,11 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.2 =
+* Improve: Rename and reorder Global Color setting labels
+* Improve: Rename Outer Section Padding labels to avoid confusions
+* Improve: Extend Primary Accent colors to Icon + Progress bar widgets. Feel it should extend to more? [Sound off](https://github.com/mauryaratan/analogwp-templates/issues/new).
 
 = 1.3.1 =
 * New: Added Color Controls in page settings
