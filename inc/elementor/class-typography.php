@@ -300,11 +300,11 @@ class Typography extends Module {
 		}
 
 		$gaps = [
-			'default'  => __( 'Normal Padding', 'ang' ),
-			'narrow'   => __( 'Small Padding', 'ang' ),
-			'extended' => __( 'Medium Padding', 'ang' ),
-			'wide'     => __( 'Large Padding', 'ang' ),
-			'wider'    => __( 'Extra Large Padding', 'ang' ),
+			'default'  => __( 'Normal', 'ang' ),
+			'narrow'   => __( 'Small', 'ang' ),
+			'extended' => __( 'Medium', 'ang' ),
+			'wide'     => __( 'Large', 'ang' ),
+			'wider'    => __( 'Extra Large', 'ang' ),
 		];
 
 		$element->start_controls_section(
@@ -729,7 +729,7 @@ class Typography extends Module {
 				'hide_in_inner' => true,
 				'default'       => 'no',
 				'options'       => [
-					'no'       => __( 'No Gap', 'ang' ),
+					'no'       => __( 'No Padding', 'ang' ),
 					'default'  => __( 'Normal', 'ang' ),
 					'narrow'   => __( 'Small', 'ang' ),
 					'extended' => __( 'Medium', 'ang' ),
