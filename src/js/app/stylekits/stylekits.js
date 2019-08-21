@@ -4,6 +4,7 @@ import AnalogContext from '../AnalogContext';
 import { requestStyleKitsList, requestStyleKitData } from '../api';
 import Popup from '../popup';
 import Loader from '../icons/loader';
+import { NotificationConsumer } from '../Notifications';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __, sprintf } = wp.i18n;
@@ -85,13 +86,21 @@ export default class StyleKits extends React.Component {
 		} );
 	}
 
-	handleImport( kit ) {
+	handleImport( kit, add ) {
 		this.setState( {
 			activeKit: kit,
 			modalActive: true,
 		} );
 
-		requestStyleKitData( kit ).then( response => console.log(response) );
+		requestStyleKitData( kit )
+			.then( response => {
+				this.setState( { importedKit: true } );
+				add( response.message );
+			} )
+			.catch( error => {
+				add( error.message, 'error', 'kit-error', false );
+				this.resetState();
+			} );
 	}
 
 	render() {
@@ -110,11 +119,15 @@ export default class StyleKits extends React.Component {
 								<img src={ kit.image } alt={ kit.title } />
 								<div className="title">
 									<h3>{ kit.title }</h3>
-									<button
-										onClick={ () => this.handleImport( kit ) }
-										className="ang-button"
-										disabled={ kitExists }
-									>{ kitExists ? __( 'Imported', 'ang' ) : __( 'Import', 'ang' ) }</button>
+									<NotificationConsumer>
+										{ ( { add } ) => (
+											<button
+												onClick={ () => this.handleImport( kit, add ) }
+												className="ang-button"
+												disabled={ kitExists }
+											>{ kitExists ? __( 'Imported', 'ang' ) : __( 'Import', 'ang' ) }</button>
+										) }
+									</NotificationConsumer>
 								</div>
 							</li>
 						);
