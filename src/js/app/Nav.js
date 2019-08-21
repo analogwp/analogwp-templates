@@ -52,6 +52,7 @@ const List = styled.ul`
 
 const ITEMS = [
 	{ key: 'library', label: __( 'Library', 'ang' ) },
+	{ key: 'stylekits', label: __( 'Style Kits', 'ang' ) },
 	{ key: 'settings', label: __( 'Settings', 'ang' ) },
 ];
 

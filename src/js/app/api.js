@@ -18,6 +18,12 @@ export async function requestTemplateList() {
 	);
 }
 
+export async function requestStyleKitsList() {
+	return await apiFetch( { path: '/agwp/v1/stylekits' } ).then(
+		response => response
+	);
+}
+
 export async function requestDirectImport( template, withPage = false ) {
 	return await apiFetch( {
 		path: '/agwp/v1/import/elementor/direct',
