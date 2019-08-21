@@ -19,7 +19,7 @@ export async function requestTemplateList() {
 }
 
 export async function requestStyleKitsList() {
-	return await apiFetch( { path: '/agwp/v1/stylekits' } ).then(
+	return await apiFetch( { path: '/agwp/v1/kits' } ).then(
 		response => response
 	);
 }

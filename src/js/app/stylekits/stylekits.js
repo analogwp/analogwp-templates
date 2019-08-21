@@ -2,23 +2,60 @@ import classnames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
 import { requestStyleKitsList } from '../api';
-const { decodeEntities } = wp.htmlEntities;
+import Popup from '../popup';
+import Loader from '../icons/loader';
 
+const { decodeEntities } = wp.htmlEntities;
 const { __, sprintf } = wp.i18n;
+const { addQueryArgs } = wp.url;
 
 const Container = styled.section`
-	
+	> p {
+		font-size: 16px;
+		line-height: 24px;
+	}
+	.title {
+		padding: 15px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	h3 {
+		margin: 0;
+	}
+	.inner {
+    	text-align: center;
+    }
 `;
 
 const ChildContainer = styled.ul`
 	display: grid;
     grid-template-columns: repeat(auto-fit,minmax(280px,280px));
     grid-gap: 25px;
-    margin: 0;
+    margin: 40px 0 0;
     padding: 0;
+    
+    > li {
+    	border-radius: 4px;
+    	overflow: hidden;
+    	background: #fff;
+		.ang-button {
+			font-size: 12px;
+			line-height: 18px;
+			padding: 6px 12px;
+			text-transform: uppercase;
+		}
+    }
 `;
 
-export default class Settings extends React.Component {
+const initialState = {
+	modalActive: false,
+	importing: false,
+	activeKit: [],
+	importedKit: false,
+};
+
+export default class StyleKits extends React.Component {
 	static contextType = AnalogContext;
 
 	constructor() {
@@ -26,7 +63,12 @@ export default class Settings extends React.Component {
 
 		this.state = {
 			kits: [],
+			...initialState,
 		};
+	}
+
+	resetState() {
+		this.setState( initialState );
 	}
 
 	async componentDidMount() {
@@ -37,20 +79,57 @@ export default class Settings extends React.Component {
 		} );
 	}
 
+	handleImport( kit ) {
+		this.setState( {
+			activeKit: kit,
+			modalActive: true,
+		} );
+	}
+
 	render() {
 		return (
 			<Container>
 				<p>
-					{ __( 'Below are the available Style Kits. When you choose to import a Style Kit, it will be added to your available', 'ang' ) } <a href="/wp-admin/edit.php?post_type=ang_tokens">{ __( 'Style Kits list', 'ang' ) }</a>.
+					{ __( 'Below are the available Style Kits. When you choose to import a Style Kit, it will be added to your available', 'ang' ) } <a href={ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }>{ __( 'Style Kits list', 'ang' ) }</a>.
 				</p>
 				<ChildContainer>
 					{ this.state.kits.length > 0 && this.state.kits.map( ( kit ) => (
 						<li key={ kit.id }>
-							<h3>{ kit.title }</h3>
-							<img src="{ kit.image }" alt="{ kit.title }" />
+							<img src={ kit.image } alt={ kit.title } />
+							<div className="title">
+								<h3>{ kit.title }</h3>
+								<button onClick={ () => this.handleImport( kit ) } className="ang-button">{ __( 'Import', 'ang' ) }</button>
+							</div>
 						</li>
 					) ) }
 				</ChildContainer>
+
+				{ this.state.modalActive && (
+					<Popup
+						title={ decodeEntities( this.state.activeKit.title ) }
+						onRequestClose={ () => this.resetState() }
+					>
+						{ ! this.state.importedKit && <Loader /> }
+
+						{ this.state.importedKit && (
+							<React.Fragment>
+								<p>{ __( 'Blimey! Your Style Kit has been imported to library.', 'ang' ) }</p>
+								<p>
+									<a
+										className="ang-button"
+										target="_blank"
+										rel="noopener noreferrer"
+										href={ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }
+									>{ __( 'View Library', 'ang' ) }</a>
+								</p>
+							</React.Fragment>
+						) }
+
+						{ ! this.state.importedKit && (
+							<p>{ __( 'Importing Style Kit ', 'ang' ) } { decodeEntities( this.state.activeKit.title ) }</p>
+						) }
+					</Popup>
+				) }
 			</Container>
 		);
 	}
