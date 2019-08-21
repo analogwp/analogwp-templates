@@ -29,6 +29,14 @@ class Remote extends Base {
 	private static $template_url = 'https://analogwp.com/wp-json/analogwp/v1/templates/%d';
 
 	/**
+	 * Style kits API endpoint.
+	 *
+	 * @since 1.3.4
+	 * @var string API endpoint for style kits.
+	 */
+	private static $kits_endpoint = 'https://analogwp.com/wp-json/analogwp/v1/stylekits';
+
+	/**
 	 * Common API call args.
 	 *
 	 * @var array
@@ -99,6 +107,36 @@ class Remote extends Base {
 		$response = json_decode( wp_remote_retrieve_body( $request ), true );
 
 		return $response;
+	}
+
+	/**
+	 * Retrieve remote Style Kits.
+	 *
+	 * @param bool $force_update Whether to force the request.
+	 * @since 1.3.4
+	 * @return mixed
+	 */
+	public function get_stylekits( $force_update = false ) {
+		$transient_key = 'analog_stylekits';
+
+		if ( ! get_transient( $transient_key ) || $force_update ) {
+			global $wp_version;
+			$body_args = apply_filters( 'analog/api/get_stylekits/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
+
+			$request = wp_remote_get(
+				self::$kits_endpoint,
+				[
+					'timeout'    => $force_update ? 25 : 10,
+					'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
+					'body'       => $body_args,
+				]
+			);
+
+			$response = json_decode( wp_remote_retrieve_body( $request ), true );
+
+			set_transient( $transient_key, $response, DAY_IN_SECONDS * 2 );
+		}
+		return get_transient( $transient_key );
 	}
 
 	/**
