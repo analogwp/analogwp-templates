@@ -17,6 +17,15 @@ jQuery( window ).on( 'elementor:init', function() {
 		return ( key.startsWith( 'ang_' ) || key.startsWith( 'background' ) );
 	};
 
+	analog.redirectToSection = function redirectToSection( tab = 'style', section = 'ang_style_settings', page = 'page_settings' ) {
+		const currentView = elementor.panel.currentView;
+
+		currentView.setPage( page );
+		currentView.getCurrentPageView().activateTab( tab );
+		currentView.getCurrentPageView().activateSection( section );
+		currentView.getCurrentPageView().render();
+	};
+
 	analog.showStyleKitAttentionDialog = () => {
 		const introduction = new elementorModules.editor.utils.Introduction( {
 			introductionKey: 'angStylekit',
@@ -43,7 +52,7 @@ jQuery( window ).on( 'elementor:init', function() {
 				onConfirm: () => {
 					introduction.setViewed();
 					introduction.getDialog().hide();
-					redirectToSection();
+					analog.redirectToSection();
 				},
 			},
 		} );
@@ -111,7 +120,7 @@ jQuery( window ).on( 'elementor:init', function() {
 			text: ANG_Action.translate.gotoPageStyle,
 			callback() {
 				elementor.settings.page.model.set( 'uses_style_kit', false );
-				redirectToSection();
+				analog.redirectToSection();
 				elementor.saver.defaultSave();
 			},
 		} );
@@ -171,7 +180,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		elementor.settings.page.model.set( angSettings );
 		elementor.settings.page.model.set( 'ang_action_tokens', '' );
 
-		redirectToSection();
+		analog.redirectToSection();
 	};
 
 	analog.applyStyleKit = ( value ) => {
@@ -235,15 +244,6 @@ jQuery( window ).on( 'elementor:init', function() {
 			}
 		}
 	} );
-
-	analog.redirectToSection = function redirectToSection( tab = 'style', section = 'ang_style_settings', page = 'page_settings' ) {
-		const currentView = elementor.panel.currentView;
-
-		currentView.setPage( page );
-		currentView.getCurrentPageView().activateTab( tab );
-		currentView.getCurrentPageView().activateSection( section );
-		currentView.getCurrentPageView().render();
-	};
 
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {
@@ -422,7 +422,7 @@ jQuery( window ).on( 'elementor:init', function() {
 										modal.destroy();
 
 										elementor.settings.page.model.set( 'ang_action_tokens', response.id );
-										redirectToSection();
+										analog.redirectToSection();
 									}, 2000 );
 								} ).catch( function( error ) {
 									console.error( error.message );
