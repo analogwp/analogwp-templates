@@ -45,6 +45,11 @@ const ChildContainer = styled.ul`
 			line-height: 18px;
 			padding: 6px 12px;
 			text-transform: uppercase;
+			&[disabled] {
+				cursor: not-allowed;
+				background: #e3e3e3;
+				color: #747474;
+			}
 		}
     }
 `;
@@ -96,15 +101,24 @@ export default class StyleKits extends React.Component {
 					{ __( 'Below are the available Style Kits. When you choose to import a Style Kit, it will be added to your available', 'ang' ) } <a href={ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }>{ __( 'Style Kits list', 'ang' ) }</a>.
 				</p>
 				<ChildContainer>
-					{ this.state.kits.length > 0 && this.state.kits.map( ( kit ) => (
-						<li key={ kit.id }>
-							<img src={ kit.image } alt={ kit.title } />
-							<div className="title">
-								<h3>{ kit.title }</h3>
-								<button onClick={ () => this.handleImport( kit ) } className="ang-button">{ __( 'Import', 'ang' ) }</button>
-							</div>
-						</li>
-					) ) }
+					{ this.state.kits.length > 0 && this.state.kits.map( ( kit ) => {
+						const slug = 'sk-' + kit.slug;
+						const kitExists = AGWP.imported_kits.indexOf( slug ) > -1;
+
+						return (
+							<li key={ kit.id }>
+								<img src={ kit.image } alt={ kit.title } />
+								<div className="title">
+									<h3>{ kit.title }</h3>
+									<button
+										onClick={ () => this.handleImport( kit ) }
+										className="ang-button"
+										disabled={ kitExists }
+									>{ kitExists ? __( 'Imported', 'ang' ) : __( 'Import', 'ang' ) }</button>
+								</div>
+							</li>
+						);
+					} ) }
 				</ChildContainer>
 
 				{ this.state.modalActive && (

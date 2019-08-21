@@ -383,6 +383,35 @@ class Utils extends Base {
 	public static function get_stylekit_queue() {
 		return Options::get_instance()->get( 'stylekit_refresh_queue' );
 	}
+
+	public static function imported_remote_kits() {
+		$kits = [];
+
+		$query = new WP_Query(
+			[
+				'post_type'              => 'ang_tokens',
+				'post_status'            => 'publish',
+				'posts_per_page'         => -1,
+				'no_found_rows'          => true,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+				'meta_key'               => '_import_type',
+				'meta_value'             => 'remote',
+			]
+		);
+
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+
+				$kits[] = get_post_field( 'post_name' );
+			}
+		}
+
+		wp_reset_postdata();
+
+		return $kits;
+	}
 }
 
 new Utils();

@@ -208,6 +208,7 @@ final class Analog_Templates {
 				],
 				'rollback_version' => ANG_LAST_STABLE_VERSION,
 				'rollback_url'     => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback' ), 'ang_rollback' ),
+				'imported_kits'    => Utils::imported_remote_kits(),
 			]
 		);
 
