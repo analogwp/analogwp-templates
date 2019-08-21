@@ -384,6 +384,12 @@ class Utils extends Base {
 		return Options::get_instance()->get( 'stylekit_refresh_queue' );
 	}
 
+	/**
+	 * Get a list of Style Kits that were imported from library.
+	 *
+	 * @since 1.3.4
+	 * @return array
+	 */
 	public static function imported_remote_kits() {
 		$kits = [];
 
