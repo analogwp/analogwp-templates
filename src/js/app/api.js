@@ -37,6 +37,16 @@ export async function requestDirectImport( template, withPage = false ) {
 	} );
 }
 
+export async function requestStyleKitData( kit ) {
+	return await apiFetch( {
+		path: '/agwp/v1/import/kit',
+		method: 'post',
+		data: {
+			kit,
+		},
+	} ).then( response => response );
+}
+
 export async function requestImportLayout( template ) {
 	const editorId =
 		'undefined' !== typeof ElementorConfig ? ElementorConfig.post_id : false;

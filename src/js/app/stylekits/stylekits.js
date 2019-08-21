@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
-import { requestStyleKitsList } from '../api';
+import { requestStyleKitsList, requestStyleKitData } from '../api';
 import Popup from '../popup';
 import Loader from '../icons/loader';
 
@@ -22,6 +22,7 @@ const Container = styled.section`
 	}
 	h3 {
 		margin: 0;
+		font-size: 14.2px;
 	}
 	.inner {
     	text-align: center;
@@ -84,6 +85,8 @@ export default class StyleKits extends React.Component {
 			activeKit: kit,
 			modalActive: true,
 		} );
+
+		requestStyleKitData( kit ).then( response => console.log(response) );
 	}
 
 	render() {

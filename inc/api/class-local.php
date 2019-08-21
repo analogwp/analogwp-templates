@@ -74,6 +74,9 @@ class Local extends Base {
 			'/kits'                    => [
 				WP_REST_Server::READABLE => 'get_kits',
 			],
+			'import/kit'               => [
+				WP_REST_Server::CREATABLE => 'handle_kit_import',
+			],
 		];
 
 		foreach ( $endpoints as $endpoint => $details ) {
@@ -502,6 +505,59 @@ class Local extends Base {
 		}
 
 		return Remote::get_instance()->get_stylekits();
+	}
+
+	/**
+	 * Handle remote Style Kit import.
+	 *
+	 * @since 1.3.4
+	 * @param WP_REST_Request $request Request object.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function handle_kit_import( WP_REST_Request $request ) {
+		$kit = $request->get_param( 'kit' );
+
+		if ( ! $kit ) {
+			return new WP_Error( 'kit_import_error', __( 'Invalid Style Kit ID.', 'ang' ) );
+		}
+
+		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit['id'] );
+
+		if ( is_wp_error( $remote_kit ) ) {
+			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'ang' ) );
+		}
+
+		$tokens_data = $remote_kit['data'];
+		$slug        = 'sk-' . $kit['slug'];
+
+		// Check if post already exists.
+		$post_exists = get_page_by_path( $slug, OBJECT, 'ang_tokens' );
+		if ( $post_exists ) {
+			return new WP_Error( 'kit_post_exists', __( 'This kit is already imported.', 'ang' ) );
+		}
+
+		$post_args = [
+			'post_type'   => 'ang_tokens',
+			'post_title'  => $kit['title'],
+			'post_name'   => $slug,
+			'post_status' => 'publish',
+			'meta_input'  => [
+				'_tokens_data' => $tokens_data,
+				'_import_type' => 'remote',
+			],
+		];
+
+		$post = wp_insert_post( apply_filters( 'analog/kits/remote/create', $post_args ) );
+
+		if ( is_wp_error( $post ) ) {
+			return new WP_Error( 'kit_post_error', $post->get_error_message() );
+		} else {
+			$data = [
+				'message' => __( 'Style Kit imported', 'ang' ),
+			];
+
+			return new WP_REST_Response( $data, 200 );
+		}
 	}
 }
 
