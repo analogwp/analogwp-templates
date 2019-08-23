@@ -529,12 +529,10 @@ class Local extends Base {
 		}
 
 		$tokens_data = $remote_kit['data'];
-		$slug        = 'sk-' . $kit['slug'];
 
 		$post_args = [
 			'post_type'   => 'ang_tokens',
 			'post_title'  => $kit['title'],
-			'post_name'   => $slug,
 			'post_status' => 'publish',
 			'meta_input'  => [
 				'_tokens_data' => $tokens_data,
