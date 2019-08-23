@@ -171,8 +171,10 @@ class Import_Image extends Base {
 			return $attachment;
 		}
 
-		$post_id = \wp_insert_attachment( $post, $upload['file'] );
-		\wp_update_attachment_metadata( $post_id, \wp_generate_attachment_metadata( $post_id, $upload['file'] ) );
+		$post_id  = \wp_insert_attachment( $post, $upload['file'] );
+		$metadata = \wp_generate_attachment_metadata( $post_id, $upload['file'] );
+
+		\wp_update_attachment_metadata( $post_id, $metadata );
 		\update_post_meta( $post_id, '_analog_image_hash', $this->get_hash_image( $attachment['url'] ) );
 
 		$new_attachment = array(
