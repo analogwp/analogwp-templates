@@ -30,6 +30,10 @@ const Container = styled.section`
 	.inner {
     	text-align: center;
     }
+    .error {
+    	color: indianred;
+    	text-align: left;
+    }
 `;
 
 const ChildContainer = styled.ul`
@@ -156,17 +160,22 @@ export default class StyleKits extends React.Component {
 								<p style={ { textAlign: 'left' } }>
 									{ __( 'A Style Kit already exists with the same name. To import it again please enter a new name below:', 'ang' ) }
 								</p>
+
+								{ this.state.installedKits.indexOf( this.state.kitname ) > -1 && (
+									<p className="error">{ __( 'Please try a different as a Style Kit with same name already exists.', 'ang' ) }</p>
+								) }
 								<div className="form-row">
 									<TextControl
 										placeholder={ __( 'Enter a Page Name', 'ang' ) }
 										style={ { maxWidth: '60%' } }
 										onChange={ val => this.setState( { kitname: val } ) }
 									/>
+
 									<NotificationConsumer>
 										{ ( { add } ) => (
 											<Button
 												className="ang-button"
-												disabled={ ! this.state.kitname }
+												disabled={ ! this.state.kitname || this.state.installedKits.indexOf( this.state.kitname ) > -1 }
 												style={ {
 													marginLeft: '15px',
 												} }
