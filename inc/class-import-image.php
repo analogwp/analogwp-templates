@@ -104,7 +104,7 @@ class Import_Image extends Base {
 		if ( $post_id ) {
 			$new_attachment = [
 				'id'  => $post_id,
-				'url' => wp_get_attachment_url( $post_id ),
+				'url' => \wp_get_attachment_url( $post_id ),
 			];
 
 			$this->already_imported_ids[ $attachment['id'] ] = $new_attachment;
@@ -134,8 +134,8 @@ class Import_Image extends Base {
 			return $saved_image;
 		}
 
-		$file_content = wp_remote_retrieve_body(
-			wp_safe_remote_get(
+		$file_content = \wp_remote_retrieve_body(
+			\wp_safe_remote_get(
 				$attachment['url'],
 				array(
 					'timeout'   => '60',
@@ -151,7 +151,7 @@ class Import_Image extends Base {
 		// Extract the file name and extension from the url.
 		$filename = basename( $attachment['url'] );
 
-		$upload = wp_upload_bits(
+		$upload = \wp_upload_bits(
 			$filename,
 			null,
 			$file_content
@@ -162,7 +162,7 @@ class Import_Image extends Base {
 			'guid'       => $upload['url'],
 		);
 
-		$info = wp_check_filetype( $upload['file'] );
+		$info = \wp_check_filetype( $upload['file'] );
 
 		if ( $info ) {
 			$post['post_mime_type'] = $info['type'];
@@ -171,9 +171,9 @@ class Import_Image extends Base {
 			return $attachment;
 		}
 
-		$post_id = wp_insert_attachment( $post, $upload['file'] );
-		wp_update_attachment_metadata( $post_id, wp_generate_attachment_metadata( $post_id, $upload['file'] ) );
-		update_post_meta( $post_id, '_analog_image_hash', $this->get_hash_image( $attachment['url'] ) );
+		$post_id = \wp_insert_attachment( $post, $upload['file'] );
+		\wp_update_attachment_metadata( $post_id, \wp_generate_attachment_metadata( $post_id, $upload['file'] ) );
+		\update_post_meta( $post_id, '_analog_image_hash', $this->get_hash_image( $attachment['url'] ) );
 
 		$new_attachment = array(
 			'id'  => $post_id,
