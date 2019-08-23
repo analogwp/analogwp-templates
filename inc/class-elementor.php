@@ -112,35 +112,16 @@ class Elementor {
 
 		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', [], '20190716' );
 
-		$favorites = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
-
-		if ( ! $favorites ) {
-			$favorites = [];
-		}
-
-		$current_user = wp_get_current_user();
-
-		wp_localize_script(
-			'analogwp-app',
-			'AGWP',
+		$i10n = apply_filters( // phpcs:ignore
+			'analog/app/strings',
 			[
-				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 				'is_settings_page' => false,
-				'favorites'        => $favorites,
-				'isPro'            => false,
-				'version'          => ANG_VERSION,
-				'pluginURL'        => ANG_PLUGIN_URL,
 				'syncColors'       => ( '' !== Options::get_instance()->get( 'ang_sync_colors' ) ? Options::get_instance()->get( 'ang_sync_colors' ) : true ),
-				'license'          => [
-					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
-					'message' => get_transient( 'ang_license_message' ),
-				],
-				'user'             => [
-					'email' => $current_user->user_email,
-				],
 				'stylekit_queue'   => Utils::get_stylekit_queue() ? array_values( Utils::get_stylekit_queue() ) : [],
 			]
 		);
+
+		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
 	}
 }
 

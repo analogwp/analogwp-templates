@@ -48,6 +48,7 @@ final class Analog_Templates {
 			add_action( 'plugins_loaded', [ self::$instance, 'load_textdomain' ] );
 			add_action( 'admin_enqueue_scripts', [ self::$instance, 'scripts' ] );
 			add_filter( 'plugin_action_links_' . plugin_basename( ANG_PLUGIN_FILE ), [ self::$instance, 'plugin_action_links' ] );
+			add_filter( 'analog/app/strings', [ self::$instance, 'send_strings_to_app' ] );
 
 			self::$instance->includes();
 		}
@@ -179,38 +180,16 @@ final class Analog_Templates {
 		);
 		wp_set_script_translations( 'analogwp-app', 'ang' );
 
-		$favorites = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
-
-		if ( ! $favorites ) {
-			$favorites = [];
-		}
-
-		$current_user = wp_get_current_user();
-
-		wp_localize_script(
-			'analogwp-app',
-			'AGWP',
+		$i10n = apply_filters( // phpcs:ignore
+			'analog/app/strings',
 			[
-				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 				'is_settings_page' => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
-				'favorites'        => $favorites,
-				'elementorURL'     => admin_url( 'edit.php?post_type=elementor_library' ),
-				'debugMode'        => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
-				'isPro'            => false,
-				'version'          => ANG_VERSION,
-				'pluginURL'        => plugin_dir_url( __FILE__ ),
-				'permission'       => (bool) current_user_can( 'manage_options' ),
-				'user'             => [
-					'email' => $current_user->user_email,
-				],
-				'license'          => [
-					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
-					'message' => get_transient( 'ang_license_message' ),
-				],
 				'rollback_version' => ANG_LAST_STABLE_VERSION,
 				'rollback_url'     => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback' ), 'ang_rollback' ),
 			]
 		);
+
+		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
 
 		$helpscout = '!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});';
 		wp_add_inline_script( 'analogwp-app', $helpscout );
@@ -218,6 +197,8 @@ final class Analog_Templates {
 
 		$version = ANG_VERSION;
 		$url     = home_url();
+
+		$current_user = wp_get_current_user();
 
 		$identify_customer = "Beacon('identify', {
 			name: '{$current_user->display_name}',
@@ -231,6 +212,48 @@ final class Analog_Templates {
 		});";
 
 		wp_add_inline_script( 'analogwp-app', $identify_customer );
+	}
+
+	/**
+	 * Prepare text strings to be sent to app.
+	 *
+	 * @param array $domains List of translatable strings.
+	 *
+	 * @since 1.3.4
+	 * @return array
+	 */
+	public function send_strings_to_app( $domains ) {
+		if ( ! is_array( $domains ) ) {
+			$domains = [];
+		}
+
+		$favorites    = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
+		$current_user = wp_get_current_user();
+
+		if ( ! $favorites ) {
+			$favorites = [];
+		}
+
+		$new_domains = [
+			'ajaxurl'      => admin_url( 'admin-ajax.php' ),
+			'favorites'    => $favorites,
+			'isPro'        => false,
+			'version'      => ANG_VERSION,
+			'elementorURL' => admin_url( 'edit.php?post_type=elementor_library' ),
+			'debugMode'    => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
+			'pluginURL'    => plugin_dir_url( __FILE__ ),
+			'license'      => [
+				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
+				'message' => get_transient( 'ang_license_message' ),
+			],
+			'user'         => [
+				'email' => $current_user->user_email,
+			],
+		];
+
+		$domains += $new_domains;
+
+		return $domains;
 	}
 
 	/**
