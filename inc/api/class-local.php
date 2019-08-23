@@ -530,12 +530,6 @@ class Local extends Base {
 		$tokens_data = $remote_kit['data'];
 		$slug        = 'sk-' . $kit['slug'];
 
-		// Check if post already exists.
-		$post_exists = get_page_by_path( $slug, OBJECT, 'ang_tokens' );
-		if ( $post_exists ) {
-			return new WP_Error( 'kit_post_exists', __( 'This kit is already imported.', 'ang' ) );
-		}
-
 		$post_args = [
 			'post_type'   => 'ang_tokens',
 			'post_title'  => $kit['title'],

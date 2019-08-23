@@ -94,7 +94,9 @@ export default class StyleKits extends React.Component {
 
 		requestStyleKitData( kit )
 			.then( response => {
-				this.setState( { importedKit: true } );
+				this.setState( {
+					importedKit: true,
+				} );
 				add( response.message );
 			} )
 			.catch( error => {
@@ -111,9 +113,6 @@ export default class StyleKits extends React.Component {
 				</p>
 				<ChildContainer>
 					{ this.state.kits.length > 0 && this.state.kits.map( ( kit ) => {
-						const slug = 'sk-' + kit.slug;
-						const kitExists = AGWP.imported_kits.indexOf( slug ) > -1;
-
 						return (
 							<li key={ kit.id }>
 								<img src={ kit.image } alt={ kit.title } />
@@ -124,8 +123,7 @@ export default class StyleKits extends React.Component {
 											<button
 												onClick={ () => this.handleImport( kit, add ) }
 												className="ang-button"
-												disabled={ kitExists }
-											>{ kitExists ? __( 'Imported', 'ang' ) : __( 'Import', 'ang' ) }</button>
+											>{ __( 'Import', 'ang' ) }</button>
 										) }
 									</NotificationConsumer>
 								</div>
