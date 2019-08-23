@@ -410,7 +410,7 @@ class Utils extends Base {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 
-				$kits[] = get_post_field( 'post_name' );
+				$kits[] = get_post_field( 'post_title' );
 			}
 		}
 

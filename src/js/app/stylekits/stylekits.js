@@ -6,6 +6,8 @@ import Popup from '../popup';
 import Loader from '../icons/loader';
 import { NotificationConsumer } from '../Notifications';
 
+const { TextControl, Button } = wp.components;
+
 const { decodeEntities } = wp.htmlEntities;
 const { __, sprintf } = wp.i18n;
 const { addQueryArgs } = wp.url;
@@ -60,6 +62,8 @@ const initialState = {
 	importing: false,
 	activeKit: [],
 	importedKit: false,
+	hasError: false,
+	kitname: '',
 };
 
 export default class StyleKits extends React.Component {
@@ -70,6 +74,7 @@ export default class StyleKits extends React.Component {
 
 		this.state = {
 			kits: [],
+			installedKits: AGWP.installed_kits,
 			...initialState,
 		};
 	}
@@ -86,23 +91,32 @@ export default class StyleKits extends React.Component {
 		} );
 	}
 
-	handleImport( kit, add ) {
+	handleImport( kit, add, checkKitStatus = false ) {
 		this.setState( {
 			activeKit: kit,
 			modalActive: true,
 		} );
 
-		requestStyleKitData( kit )
-			.then( response => {
-				this.setState( {
-					importedKit: true,
+		if ( checkKitStatus ) {
+			const kitExists = this.state.installedKits.indexOf( this.state.kitname || kit.title ) > -1;
+			if ( kitExists ) {
+				this.setState( { hasError: true } );
+			}
+		} else {
+			requestStyleKitData( kit )
+				.then( response => {
+					const kits = [ ...this.state.installedKits ];
+					kits.push( kit.title );
+					this.setState( {
+						importedKit: true,
+						installedKits: kits,
+					} );
+					add( response.message );
+				} )
+				.catch( error => {
+					add( error.message, 'error', 'kit-error', false );
 				} );
-				add( response.message );
-			} )
-			.catch( error => {
-				add( error.message, 'error', 'kit-error', false );
-				this.resetState();
-			} );
+		}
 	}
 
 	render() {
@@ -121,7 +135,7 @@ export default class StyleKits extends React.Component {
 									<NotificationConsumer>
 										{ ( { add } ) => (
 											<button
-												onClick={ () => this.handleImport( kit, add ) }
+												onClick={ () => this.handleImport( kit, add, true ) }
 												className="ang-button"
 											>{ __( 'Import', 'ang' ) }</button>
 										) }
@@ -137,9 +151,46 @@ export default class StyleKits extends React.Component {
 						title={ decodeEntities( this.state.activeKit.title ) }
 						onRequestClose={ () => this.resetState() }
 					>
-						{ ! this.state.importedKit && <Loader /> }
+						{ this.state.hasError && (
+							<div>
+								<p style={ { textAlign: 'left' } }>
+									{ __( 'A Style Kit already exists with the same name. To import it again please enter a new name below:', 'ang' ) }
+								</p>
+								<div className="form-row">
+									<TextControl
+										placeholder={ __( 'Enter a Page Name', 'ang' ) }
+										style={ { maxWidth: '60%' } }
+										onChange={ val => this.setState( { kitname: val } ) }
+									/>
+									<NotificationConsumer>
+										{ ( { add } ) => (
+											<Button
+												className="ang-button"
+												disabled={ ! this.state.kitname }
+												style={ {
+													marginLeft: '15px',
+												} }
+												onClick={ () => {
+													this.setState( { hasError: false } );
 
-						{ this.state.importedKit && (
+													const kit = {
+														...this.state.activeKit,
+														title: this.state.kitname,
+													};
+													this.handleImport( kit, add );
+												} }
+											>
+												{ __( 'Import', 'ang' ) }
+											</Button>
+										) }
+									</NotificationConsumer>
+								</div>
+							</div>
+						) }
+
+						{ ! this.state.hasError && ! this.state.importedKit && <Loader /> }
+
+						{ ! this.state.hasError && this.state.importedKit && (
 							<React.Fragment>
 								<p>{ __( 'Blimey! Your Style Kit has been imported to library.', 'ang' ) }</p>
 								<p>
@@ -153,7 +204,7 @@ export default class StyleKits extends React.Component {
 							</React.Fragment>
 						) }
 
-						{ ! this.state.importedKit && (
+						{ ! this.state.hasError && ! this.state.importedKit && (
 							<p>{ __( 'Importing Style Kit ', 'ang' ) } { decodeEntities( this.state.activeKit.title ) }</p>
 						) }
 					</Popup>

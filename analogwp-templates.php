@@ -235,20 +235,21 @@ final class Analog_Templates {
 		}
 
 		$new_domains = [
-			'ajaxurl'      => admin_url( 'admin-ajax.php' ),
-			'favorites'    => $favorites,
-			'isPro'        => false,
-			'version'      => ANG_VERSION,
-			'elementorURL' => admin_url( 'edit.php?post_type=elementor_library' ),
-			'debugMode'    => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
-			'pluginURL'    => plugin_dir_url( __FILE__ ),
-			'license'      => [
+			'ajaxurl'        => admin_url( 'admin-ajax.php' ),
+			'favorites'      => $favorites,
+			'isPro'          => false,
+			'version'        => ANG_VERSION,
+			'elementorURL'   => admin_url( 'edit.php?post_type=elementor_library' ),
+			'debugMode'      => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
+			'pluginURL'      => plugin_dir_url( __FILE__ ),
+			'license'        => [
 				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 				'message' => get_transient( 'ang_license_message' ),
 			],
-			'user'         => [
+			'user'           => [
 				'email' => $current_user->user_email,
 			],
+			'installed_kits' => Utils::imported_remote_kits(),
 		];
 
 		$domains += $new_domains;
