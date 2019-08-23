@@ -9,6 +9,7 @@ namespace Analog\API;
 
 use Analog\Analog_Templates;
 use \Analog\Base;
+use Analog\Classes\Import_Image;
 use \Analog\Options;
 use Analog\Utils;
 use Elementor\Core\Settings\Manager;
@@ -546,6 +547,15 @@ class Local extends Base {
 		if ( is_wp_error( $post ) ) {
 			return new WP_Error( 'kit_post_error', $post->get_error_message() );
 		} else {
+			$attachment = Import_Image::get_instance()->import(
+				[
+					'id'  => wp_rand( 000, 999 ),
+					'url' => $kit['image'],
+				]
+			);
+
+			update_post_meta( $post, '_thumbnail_id', $attachment['id'] );
+
 			$data = [
 				'message' => __( 'Style Kit imported', 'ang' ),
 			];
