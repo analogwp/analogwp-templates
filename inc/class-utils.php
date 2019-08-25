@@ -8,10 +8,6 @@
 namespace Analog;
 
 use Elementor\Plugin;
-use function get_option;
-use function get_post_meta;
-use function get_the_ID;
-use function get_the_title;
 use WP_Query;
 
 /**
@@ -49,7 +45,7 @@ class Utils extends Base {
 	 * @return array
 	 */
 	public static function get_import_log() {
-		return get_option( '_ang_import_history' );
+		return \get_option( '_ang_import_history' );
 	}
 
 	/**
@@ -97,13 +93,13 @@ class Utils extends Base {
 		$tokens = [];
 		while ( $query->have_posts() ) {
 			$query->the_post();
-			$post_id = get_the_ID();
+			$post_id = \get_the_ID();
 
-			$global_token = (int) get_option( 'elementor_ang_global_kit' );
+			$global_token = (int) \get_option( 'elementor_ang_global_kit' );
 			if ( $global_token && $post_id === $global_token && $prefix ) {
-				$title = __( 'Global: ', 'ang' ) . get_the_title();
+				$title = __( 'Global: ', 'ang' ) . \get_the_title();
 			} else {
-				$title = get_the_title();
+				$title = \get_the_title();
 			}
 
 			$tokens[ $post_id ] = $title;
@@ -120,7 +116,7 @@ class Utils extends Base {
 	 * @return int Post ID.
 	 */
 	public static function get_global_kit_id() {
-		return (int) get_option( 'elementor_ang_global_kit' );
+		return (int) \get_option( 'elementor_ang_global_kit' );
 	}
 
 	/**
@@ -132,7 +128,7 @@ class Utils extends Base {
 		$global_token = self::get_global_kit_id();
 
 		if ( $global_token ) {
-			return get_post_meta( $global_token, '_tokens_data', true );
+			return \get_post_meta( $global_token, '_tokens_data', true );
 		}
 
 		return false;
@@ -158,7 +154,7 @@ class Utils extends Base {
 	 * @return void
 	 */
 	public function display_flash_notices() {
-		$notices = get_option( 'ang_notices', [] );
+		$notices = \get_option( 'ang_notices', [] );
 
 		// Iterate through our notices to be displayed and print them.
 		foreach ( $notices as $notice ) {
@@ -189,7 +185,7 @@ class Utils extends Base {
 	 */
 	public static function add_notice( $notice = '', $type = 'warning', $dismissible = true ) {
 		// Here we return the notices saved on our option, if there are not notices, then an empty array is returned.
-		$notices = get_option( 'ang_notices', [] );
+		$notices = \get_option( 'ang_notices', [] );
 
 		$dismissible_text = ( $dismissible ) ? 'is-dismissible' : '';
 
@@ -269,7 +265,7 @@ class Utils extends Base {
 		$posts = [];
 
 		foreach ( $query->posts as $post_id ) {
-			$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+			$settings = \get_post_meta( $post_id, '_elementor_page_settings', true );
 
 			/**
 			 * This conditional divides results in for two conditions:
@@ -386,6 +382,41 @@ class Utils extends Base {
 	 */
 	public static function get_stylekit_queue() {
 		return Options::get_instance()->get( 'stylekit_refresh_queue' );
+	}
+
+	/**
+	 * Get a list of Style Kits that were imported from library.
+	 *
+	 * @since 1.3.4
+	 * @return array
+	 */
+	public static function imported_remote_kits() {
+		$kits = [];
+
+		$query = new WP_Query(
+			[
+				'post_type'              => 'ang_tokens',
+				'post_status'            => 'publish',
+				'posts_per_page'         => -1,
+				'no_found_rows'          => true,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+				'meta_key'               => '_import_type',
+				'meta_value'             => 'remote',
+			]
+		);
+
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+
+				$kits[] = get_post_field( 'post_title' );
+			}
+		}
+
+		wp_reset_postdata();
+
+		return $kits;
 	}
 }
 

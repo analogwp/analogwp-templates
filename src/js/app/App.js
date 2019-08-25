@@ -182,7 +182,9 @@ class App extends React.Component {
 			showFree: true,
 			tab: 'library',
 			hasPro: false,
-			settings: [],
+			settings: {
+				ang_sync_colors: true,
+			},
 		};
 
 		this.refreshAPI = this.refreshAPI.bind( this );

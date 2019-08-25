@@ -10,6 +10,7 @@ namespace Analog\Elementor;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
+use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Scheme_Typography;
@@ -29,14 +30,17 @@ class Typography extends Module {
 	 * Typography constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_text_sizes' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_buttons' ], 10, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_styling_settings' ], -9999, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_tools' ], 10, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 100, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 120, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 140, 2 );
+
+		// Color section is hooked at 170 Priority.
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_text_sizes' ], 160, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_buttons' ], 180, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_outer_section_padding' ], 200, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 220, 2 );
+		add_action( 'elementor/element/before_section_start', [ $this, 'register_styling_settings' ], 240, 2 );
+		add_action( 'elementor/element/after_section_end', [ $this, 'register_tools' ], 260, 2 );
 
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_scripts' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ], 999 );
@@ -44,6 +48,8 @@ class Typography extends Module {
 		add_action( 'elementor/element/before_section_end', [ $this, 'update_padding_control_selector' ], 10, 2 );
 
 		add_filter( 'display_post_states', [ $this, 'add_token_state' ], 10, 2 );
+
+		add_action( 'elementor/element/section/section_layout/before_section_end', [ $this, 'tweak_section_widget' ] );
 	}
 
 	/**
@@ -283,6 +289,66 @@ class Typography extends Module {
 	}
 
 	/**
+	 * Register Outer Section padding controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_outer_section_padding( Controls_Stack $element, $section_id ) {
+		if ( 'section_page_style' !== $section_id ) {
+			return;
+		}
+
+		$gaps = [
+			'default'  => __( 'Normal', 'ang' ),
+			'narrow'   => __( 'Small', 'ang' ),
+			'extended' => __( 'Medium', 'ang' ),
+			'wide'     => __( 'Large', 'ang' ),
+			'wider'    => __( 'Extra Large', 'ang' ),
+		];
+
+		$element->start_controls_section(
+			'ang_section_padding',
+			[
+				'label' => __( 'Outer Section Padding', 'ang' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$element->add_control(
+			'ang_section_padding_description',
+			[
+				'raw'             => __( 'This padding applies <strong>only on the Outer Sections</strong> of your layout, and not on Inner Section widgets.', 'ang' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			]
+		);
+
+		foreach ( $gaps as $key => $label ) {
+			$element->add_responsive_control(
+				'ang_section_padding_' . $key,
+				[
+					'label'           => $label,
+					'type'            => Controls_Manager::DIMENSIONS,
+					'default'         => [
+						'unit' => 'em',
+					],
+					'desktop_default' => $this->get_default_value( 'ang_section_padding_' . $key, true ),
+					'tablet_default'  => $this->get_default_value( 'ang_section_padding_' . $key . '_tablet', true ),
+					'mobile_default'  => $this->get_default_value( 'ang_section_padding_' . $key . '_mobile', true ),
+					'size_units'      => [ 'px', 'em', '%' ],
+					'selectors'       => [
+						".ang-section-padding-{$key}:not(.elementor-inner-section)" =>
+						'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					],
+				]
+			);
+		}
+
+		$element->end_controls_section();
+	}
+
+	/**
 	 * Register Columns gaps controls.
 	 *
 	 * @param Controls_Stack $element Controls object.
@@ -335,6 +401,18 @@ class Typography extends Module {
 				]
 			);
 		}
+
+		$element->add_responsive_control(
+			'ang_widget_spacing',
+			[
+				'label'       => __( 'Space Between Widgets', 'ang' ),
+				'description' => __( 'Sets the default space between widgets, overrides the default value set in Elementor > Style > Space Between Widgets.', 'ang' ),
+				'type'        => Controls_Manager::NUMBER,
+				'selectors'   => [
+					'{{WRAPPER}} .elementor-widget:not(:last-child)' => 'margin-bottom: {{VALUE}}px',
+				],
+			]
+		);
 
 		$element->end_controls_section();
 	}
@@ -475,7 +553,7 @@ class Typography extends Module {
 			$element->add_responsive_control(
 				'ang_button_padding_' . $size,
 				[
-					'label'      => __( 'Padding', 'elementor' ),
+					'label'      => __( 'Padding', 'ang' ),
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em', '%' ],
 					'selectors'  => [
@@ -627,6 +705,42 @@ class Typography extends Module {
 		);
 
 		$element->end_controls_section();
+	}
+
+	/**
+	 * Tweak default Section widget.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_section_widget( Element_Base $element ) {
+		$element->start_injection(
+			[
+				'of' => 'height',
+				'at' => 'before',
+			]
+		);
+
+		$element->add_control(
+			'ang_outer_gap',
+			[
+				'label'         => __( 'Outer Section Padding', 'ang' ),
+				'description'   => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToSection( 'style', 'ang_section_padding', 'page_settings' )", ' here.' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'no',
+				'options'       => [
+					'no'       => __( 'No Padding', 'ang' ),
+					'default'  => __( 'Normal', 'ang' ),
+					'narrow'   => __( 'Small', 'ang' ),
+					'extended' => __( 'Medium', 'ang' ),
+					'wide'     => __( 'Large', 'ang' ),
+					'wider'    => __( 'Extra Large', 'ang' ),
+				],
+				'prefix_class'  => 'ang-section-padding-',
+			]
+		);
+
+		$element->end_injection();
 	}
 
 	/**

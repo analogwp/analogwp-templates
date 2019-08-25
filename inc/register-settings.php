@@ -23,27 +23,22 @@ function register_menu() {
 		'58.6'
 	);
 
-	// Display Tokens submenu only when there is atleast one post.
-	$tokens = get_posts( 'post_type=ang_tokens&post_status=publish' );
+	add_submenu_page(
+		'analogwp_templates',
+		__( 'Style Kits Library', 'ang' ),
+		__( 'Library', 'ang' ),
+		'manage_options',
+		'analogwp_templates'
+	);
 
-	if ( $tokens ) {
-		add_submenu_page(
-			'analogwp_templates',
-			__( 'Style Kits Library', 'ang' ),
-			__( 'Library', 'ang' ),
-			'manage_options',
-			'analogwp_templates'
-		);
-
-		$menu_title = __( 'Kits', 'ang' );
-		add_submenu_page(
-			'analogwp_templates',
-			$menu_title,
-			$menu_title,
-			'manage_options',
-			'edit.php?post_type=ang_tokens'
-		);
-	}
+	$menu_title = __( 'Kits', 'ang' );
+	add_submenu_page(
+		'analogwp_templates',
+		$menu_title,
+		$menu_title,
+		'manage_options',
+		'edit.php?post_type=ang_tokens'
+	);
 
 }
 

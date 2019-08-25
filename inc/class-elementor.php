@@ -7,6 +7,8 @@
 
 namespace Analog;
 
+use Elementor\Plugin;
+
 /**
  * Intializes scripts/styles needed for AnalogWP modal on Elementor editing page.
  */
@@ -28,6 +30,26 @@ class Elementor {
 		);
 
 		add_action( 'elementor/controls/controls_registered', [ $this, 'register_controls' ] );
+
+		add_action(
+			'elementor/dynamic_tags/register_tags',
+			function( $dynamic_tags ) {
+				$module = \Elementor\Plugin::$instance->dynamic_tags;
+
+				$module->register_group(
+					'ang_classes',
+					[
+						'title' => __( 'AnalogWP Classes', 'ang' ),
+					]
+				);
+
+				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-dark-background.php';
+				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-light-background.php';
+
+				$module->register_tag( 'Analog\Elementor\Tags\Light_Background' );
+				$module->register_tag( 'Analog\Elementor\Tags\Dark_Background' );
+			}
+		);
 	}
 
 	/**
@@ -90,34 +112,16 @@ class Elementor {
 
 		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', [], '20190716' );
 
-		$favorites = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
-
-		if ( ! $favorites ) {
-			$favorites = [];
-		}
-
-		$current_user = wp_get_current_user();
-
-		wp_localize_script(
-			'analogwp-app',
-			'AGWP',
+		$i10n = apply_filters( // phpcs:ignore
+			'analog/app/strings',
 			[
-				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 				'is_settings_page' => false,
-				'favorites'        => $favorites,
-				'isPro'            => false,
-				'version'          => ANG_VERSION,
-				'pluginURL'        => ANG_PLUGIN_URL,
-				'license'          => [
-					'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
-					'message' => get_transient( 'ang_license_message' ),
-				],
-				'user'             => [
-					'email' => $current_user->user_email,
-				],
+				'syncColors'       => ( '' !== Options::get_instance()->get( 'ang_sync_colors' ) ? Options::get_instance()->get( 'ang_sync_colors' ) : true ),
 				'stylekit_queue'   => Utils::get_stylekit_queue() ? array_values( Utils::get_stylekit_queue() ) : [],
 			]
 		);
+
+		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
 	}
 }
 

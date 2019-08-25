@@ -184,6 +184,7 @@ class Templates extends React.Component {
 	}
 
 	componentWillUnmount() {
+		this.resetState();
 		window.removeEventListener( 'keyup', this.closeOnEsc );
 	}
 
