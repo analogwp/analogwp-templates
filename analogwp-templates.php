@@ -129,6 +129,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-tools.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-analog-settings.php';
 		require_once ANG_PLUGIN_DIR . 'inc/upgrade-functions.php';
+		require_once ANG_PLUGIN_DIR . 'inc/class-quick-edit.php';
 	}
 
 	/**
