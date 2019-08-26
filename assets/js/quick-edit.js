@@ -27,7 +27,7 @@
 			var $style_kit = $( '.column-ang_stylekit', $post_row ).text();
 
 			// Hide Style Kit dropdown for posts without Stylekit.
-			if ( $style_kit === '' ) {
+			if ( $style_kit === '' && ! $post_row.hasClass('type-elementor_library') ) {
 				$('#ang-stylekit-fieldset').hide();
 			}
 

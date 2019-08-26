@@ -13,7 +13,12 @@ class Quick_Edit extends Base {
 	 */
 	public function __construct() {
 		add_filter( 'manage_post_posts_columns', [ $this, 'add_sk_column' ], 10, 2 );
-		add_filter( 'manage_posts_custom_column', [ $this, 'populate_columns' ], 10, 2 );
+		add_filter( 'manage_page_posts_columns', [ $this, 'add_sk_column' ], 10, 2 );
+		add_filter( 'manage_elementor_library_posts_columns', [ $this, 'add_sk_column' ], 10, 2 );
+
+		add_action( 'manage_posts_custom_column', [ $this, 'populate_columns' ], 10, 2 );
+		add_action( 'manage_page_posts_custom_column', [ $this, 'populate_columns' ], 10, 2 );
+
 		add_action( 'quick_edit_custom_box', [ $this, 'display_custom_quickedit_book' ], 10, 2 );
 		add_action( 'bulk_edit_custom_box', [ $this, 'display_custom_quickedit_book' ], 10, 2 );
 		add_action( 'save_post', [ $this, 'quick_edit_save' ] );
@@ -82,20 +87,16 @@ class Quick_Edit extends Base {
 	 *
 	 * @return array|bool Style Kit IDs, false if empty.
 	 */
-	private function get_stylekits() {
-		$query = new \WP_Query(
+	public function get_stylekits() {
+		$posts = get_posts(
 			[
-				'post_type'      => 'ang_tokens',
-				'posts_per_page' => -1,
-				'fields'         => 'ids',
+				'post_type'   => 'ang_tokens',
+				'numberposts' => -1,
+				'fields'      => 'ids',
 			]
 		);
 
-		if ( ! $query->posts ) {
-			return false;
-		}
-
-		return $query->posts;
+		return $posts;
 	}
 
 	/**
@@ -117,7 +118,7 @@ class Quick_Edit extends Base {
 		?>
 		<?php if ( self::FIELD_SLUG === $column_name && $this->get_stylekits() ) : ?>
 			<fieldset id="ang-stylekit-fieldset" class="inline-edit-col-left" style="clear:both">
-<!--				<style>.column-ang_stylekit{display: none;}</style>-->
+				<style>.column-ang_stylekit{display: none;}</style>
 				<div class="inline-edit-col">
 					<div class="inline-edit-group wp-clearfix">
 						<label class="inline-edit-group">
@@ -163,7 +164,7 @@ class Quick_Edit extends Base {
 	 */
 	public function quick_edit_scripts( $hook ) {
 		if ( 'edit.php' === $hook ) {
-			wp_enqueue_script( 'ang-quick-edit', ANG_PLUGIN_URL . 'assets/js/quick-edit.js', false, ANG_VERSION, true );
+			wp_enqueue_script( 'ang-quick-edit', ANG_PLUGIN_URL . 'assets/js/quick-edit.js', [ 'jquery' ], ANG_VERSION, true );
 		}
 	}
 
