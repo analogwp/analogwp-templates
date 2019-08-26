@@ -51,7 +51,15 @@ class Quick_Edit extends Base {
 		return $columns;
 	}
 
-	function populate_columns( $column_name, $id ) {
+	/**
+	 * Populate column values of Style Kits.
+	 *
+	 * @param string $column_name Column name.
+	 * @param int    $id Post ID.
+	 *
+	 * @return void
+	 */
+	public function populate_columns( $column_name, $id ) {
 		switch ( $column_name ) :
 			case self::FIELD_SLUG:
 				$settings     = get_post_meta( $id, '_elementor_page_settings', true );
@@ -127,6 +135,13 @@ class Quick_Edit extends Base {
 		endif;
 	}
 
+	/**
+	 * Quick edit save action for Style Kit.
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @return void
+	 */
 	public function quick_edit_save( $post_id ) {
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
@@ -141,12 +156,22 @@ class Quick_Edit extends Base {
 		}
 	}
 
+	/**
+	 * Enqueue scripts.
+	 *
+	 * @param string $hook Screen ID.
+	 */
 	public function quick_edit_scripts( $hook ) {
 		if ( 'edit.php' === $hook ) {
 			wp_enqueue_script( 'ang-quick-edit', ANG_PLUGIN_URL . 'assets/js/quick-edit.js', false, ANG_VERSION, true );
 		}
 	}
 
+	/**
+	 * Bulk edit AJAX action.
+	 *
+	 * @return void
+	 */
 	public function save_bulk_edit_stylekit() {
 		$post_ids = ( isset( $_POST['post_ids'] ) && ! empty( $_POST['post_ids'] ) ) ? $_POST['post_ids'] : []; // phpcs:ignore
 		$kit_id   = ( isset( $_POST['kit_id'] ) && ! empty( $_POST['kit_id'] ) ) ? $_POST['kit_id'] : false; // phpcs:ignore
