@@ -15,9 +15,11 @@ class Quick_Edit extends Base {
 		add_filter( 'manage_post_posts_columns', [ $this, 'add_sk_column' ], 10, 2 );
 		add_filter( 'manage_posts_custom_column', [ $this, 'populate_columns' ], 10, 2 );
 		add_action( 'quick_edit_custom_box', [ $this, 'display_custom_quickedit_book' ], 10, 2 );
+		add_action( 'bulk_edit_custom_box', [ $this, 'display_custom_quickedit_book' ], 10, 2 );
 		add_action( 'save_post', [ $this, 'quick_edit_save' ] );
 
 		add_action( 'admin_enqueue_scripts', [ $this, 'quick_edit_scripts' ] );
+		add_action( 'wp_ajax_save_bulk_edit_stylekit', [ $this, 'save_bulk_edit_stylekit' ] );
 	}
 
 	/**
@@ -130,7 +132,7 @@ class Quick_Edit extends Base {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( $_POST['ang_sk_update_nonce'], plugin_basename( __FILE__ ) ) ) { // phpcs:ignore
+		if ( isset( $_POST['ang_sk_update_nonce'] ) && ! wp_verify_nonce( $_POST['ang_sk_update_nonce'], plugin_basename( __FILE__ ) ) ) { // phpcs:ignore
 			return;
 		}
 
@@ -143,6 +145,21 @@ class Quick_Edit extends Base {
 		if ( 'edit.php' === $hook ) {
 			wp_enqueue_script( 'ang-quick-edit', ANG_PLUGIN_URL . 'assets/js/quick-edit.js', false, ANG_VERSION, true );
 		}
+	}
+
+	public function save_bulk_edit_stylekit() {
+		$post_ids = ( isset( $_POST['post_ids'] ) && ! empty( $_POST['post_ids'] ) ) ? $_POST['post_ids'] : []; // phpcs:ignore
+		$kit_id   = ( isset( $_POST['kit_id'] ) && ! empty( $_POST['kit_id'] ) ) ? $_POST['kit_id'] : false; // phpcs:ignore
+
+		if ( ! empty( $post_ids ) && is_array( $post_ids ) && $kit_id ) {
+			foreach ( $post_ids as $post_id ) {
+				if ( User::is_current_user_can_edit( $post_id ) && Plugin::$instance->db->is_built_with_elementor( $post_id ) ) {
+					$this->update_posts_stylekit( $post_id, $kit_id );
+				}
+			}
+		}
+
+		die;
 	}
 }
 

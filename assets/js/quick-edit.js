@@ -37,4 +37,31 @@
 		}
 	};
 
+	$( document ).on( 'click', '#bulk_edit', function() {
+		// define the bulk edit row
+		var $bulk_row = $( '#bulk-edit' );
+
+		// get the selected post ids that are being edited
+		var $post_ids = new Array();
+		$bulk_row.find( '#bulk-titles' ).children().each( function() {
+			$post_ids.push( $( this ).attr( 'id' ).replace( /^(ttle)/i, '' ) );
+		});
+
+		// get the data
+		var $style_kit = $bulk_row.find( 'select[name="ang_stylekit"]' ).val();
+
+		// save the data
+		$.ajax({
+			url: ajaxurl, // this is a variable that WordPress has already defined for us
+			type: 'POST',
+			async: false,
+			cache: false,
+			data: {
+				action: 'save_bulk_edit_stylekit',
+				post_ids: $post_ids,
+				kit_id: $style_kit
+			}
+		});
+	});
+
 })(jQuery);
