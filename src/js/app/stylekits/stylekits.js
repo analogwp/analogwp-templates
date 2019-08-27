@@ -116,6 +116,13 @@ export default class StyleKits extends React.Component {
 						installedKits: kits,
 					} );
 					add( response.message );
+
+					if ( ! AGWP.is_settings_page && elementor ) {
+						const options = elementor.settings.page.model.controls.ang_action_tokens.options;
+						options[ response.id ] = kit.title;
+						elementor.reloadPreview();
+					}
+
 				} )
 				.catch( error => {
 					add( error.message, 'error', 'kit-error', false );

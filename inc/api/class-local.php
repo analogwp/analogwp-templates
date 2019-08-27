@@ -556,6 +556,7 @@ class Local extends Base {
 
 			$data = [
 				'message' => __( 'Style Kit imported', 'ang' ),
+				'id'      => $post,
 			];
 
 			return new WP_REST_Response( $data, 200 );
