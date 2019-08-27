@@ -201,7 +201,8 @@ export default class StyleKits extends React.Component {
 
 						{ ! this.state.hasError && this.state.importedKit && (
 							<React.Fragment>
-								<p>{ __( 'Blimey! Your Style Kit has been imported to library.', 'ang' ) }</p>
+								<p>{ __( 'The Style Kit has been imported to your library.', 'ang' ) }</p>
+								<p>{ sprintf( __( '%s has been imported and is now available in the Style Kits dropdown', 'ang' ), this.state.activeKit.title ) }</p>
 								<p>
 									<a
 										className="ang-button"
