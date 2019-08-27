@@ -39,7 +39,7 @@ class Colors extends Module {
 				'description' => __( 'The primary accent color applies on Links.', 'ang' ),
 				'classes'     => 'ang-description-wide',
 				'selectors'   => [
-					'{{WRAPPER}} a:not(.button):not(.elementor-button), {{WRAPPER}} .sk-accent-1' => 'color: {{VALUE}}',
+					'{{WRAPPER}} a, {{WRAPPER}} .sk-accent-1' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-progress-bar' => 'background-color: {{VALUE}}',
 				],
