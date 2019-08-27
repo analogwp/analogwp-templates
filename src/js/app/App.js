@@ -164,6 +164,7 @@ const Analog = styled.div`
 const Content = styled.div`
 	background: #e3e3e3;
 	padding: 40px;
+	min-height: calc(100% - 51px);
 `;
 
 class App extends React.Component {

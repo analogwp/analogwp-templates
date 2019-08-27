@@ -77,9 +77,8 @@ const Header = () => {
 	return (
 		<Container theme={ theme }>
 			<Logo />
-			{ AGWP.is_settings_page && (
-				<Nav />
-			) }
+			<Nav />
+
 			<AnalogContext.Consumer>
 				{ context => (
 					<NotificationConsumer>

@@ -50,7 +50,6 @@ button[data-action="save_token"] {
 	border-radius: 3px;
 }
 
-
 .ang-description-wide .elementor-control-field-description {
 	display: block;
 }
@@ -70,4 +69,11 @@ button[data-action="save_token"] {
 
 #ang-has-globalkit .dialog-ang_apply {
 	color: #39b54a;
+}
+
+#analogwp-templates,
+#analogwp-templates > div,
+#analogwp-templates-modal .dialog-message,
+#analogwp-templates-modal .dialog-content {
+	height: 100%;
 }

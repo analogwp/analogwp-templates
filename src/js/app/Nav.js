@@ -32,6 +32,10 @@ const List = styled.ul`
 			border-color: transparent transparent #E3E3E3 transparent;
 			left: 50%;
 			transform: translateX(-50%);
+			
+			#analogwp-templates-modal & {
+				bottom: -14px;
+			}
 		}
 	}
 
@@ -47,20 +51,26 @@ const List = styled.ul`
 	a {
 		text-decoration: none;
 		color: inherit;
+		&:hover {
+			color: currentColor;
+		}
 	}
 `;
 
 const ITEMS = [
-	{ key: 'library', label: __( 'Library', 'ang' ) },
-	{ key: 'stylekits', label: __( 'Style Kits', 'ang' ) },
-	{ key: 'settings', label: __( 'Settings', 'ang' ) },
+	{ key: 'library', label: __( 'Library', 'ang' ), show: true },
+	{ key: 'stylekits', label: __( 'Style Kits', 'ang' ), show: true },
+	{ key: 'settings', label: __( 'Settings', 'ang' ), show: AGWP.is_settings_page },
 ];
+
+// Filter nav items to show/hide between App and Elementor page.
+const filteredItems = ITEMS.filter( item => Boolean( item.show ) === true );
 
 const Nav = () => (
 	<List>
 		<AnalogContext.Consumer>
 			{ ( { state, dispatch } ) => (
-				ITEMS.map( ( item ) => (
+				filteredItems.map( ( item ) => (
 					<li
 						key={ item.key }
 						className={ classnames( 'button-plain', {
