@@ -22,6 +22,6 @@ class Dark_Background extends Tag {
 	}
 
 	public function render() {
-		echo 'dark-bg';
+		echo 'sk-dark-bg';
 	}
 }

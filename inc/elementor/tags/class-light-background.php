@@ -22,6 +22,6 @@ class Light_Background extends Tag {
 	}
 
 	public function render() {
-		echo 'light-bg';
+		echo 'sk-light-bg';
 	}
 }
