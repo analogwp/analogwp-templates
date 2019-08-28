@@ -188,7 +188,7 @@ export default class StyleKits extends React.Component {
 								) }
 								<div className="form-row">
 									<TextControl
-										placeholder={ __( 'Enter a Page Name', 'ang' ) }
+										placeholder={ __( 'Enter a Style Kit Name', 'ang' ) }
 										style={ { maxWidth: '60%' } }
 										onChange={ val => this.setState( { kitname: val } ) }
 									/>
