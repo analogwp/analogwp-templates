@@ -229,7 +229,7 @@ export default class StyleKits extends React.Component {
 										target="_blank"
 										rel="noopener noreferrer"
 										href={ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }
-									>{ __( 'View Library', 'ang' ) }</a>
+									>{ __( 'Manage Style Kits', 'ang' ) }</a>
 								</p>
 							</React.Fragment>
 						) }
