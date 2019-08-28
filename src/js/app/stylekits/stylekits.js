@@ -134,7 +134,9 @@ export default class StyleKits extends React.Component {
 		return (
 			<Container>
 				<p>
-					{ __( 'Below are the available Style Kits. When you choose to import a Style Kit, it will be added to your available', 'ang' ) } <a href={ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }>{ __( 'Style Kits list', 'ang' ) }</a>.
+					{ __( 'These are some Style Kit presets that you can use as a starting point. Once you import a Style Kit, it will be added to your', 'ang' ) } <a href={ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }>{ __( 'Style Kits list', 'ang' ) }</a>.
+					&nbsp;{ __( 'You will then be able to apply on any page.', 'ang' ) }
+					&nbsp;<a href="https://docs.analogwp.com/article/590-style-kit-library" target="_blank" rel="noopener noreferrer">{ __( 'Learn more', 'ang' ) }</a>.
 				</p>
 				<ChildContainer>
 					{ this.state.kits.length > 0 && this.state.kits.map( ( kit ) => {
