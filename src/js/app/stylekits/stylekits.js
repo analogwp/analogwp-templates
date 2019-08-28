@@ -81,10 +81,6 @@ export default class StyleKits extends React.Component {
 			installedKits: AGWP.installed_kits,
 			...initialState,
 		};
-
-		wp.hooks.addAction( 'refreshLibrary', 'analog/stylekits/library', () => {
-			this.refreshLibrary( true );
-		} );
 	}
 
 	resetState() {
@@ -93,6 +89,14 @@ export default class StyleKits extends React.Component {
 
 	componentDidMount() {
 		this.refreshLibrary();
+
+		wp.hooks.addAction( 'refreshLibrary', 'analog/stylekits/library', () => {
+			this.refreshLibrary( true );
+		} );
+	}
+
+	componentWillUnmount() {
+		wp.hooks.removeAction( 'refreshLibrary', 'analog/stylekits/library' );
 	}
 
 	async refreshLibrary( $force = false ) {
