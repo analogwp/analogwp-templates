@@ -20,24 +20,6 @@ class Post_Type {
 	 */
 	public function __construct() {
 		add_action( 'init', [ $this, 'register' ] );
-		add_filter( 'display_post_states', [ $this, 'post_state' ], 20, 2 );
-	}
-
-	/**
-	 * Add Style Kit post state on Kits CPT page.
-	 *
-	 * @param array  $post_states An array of post display states.
-	 * @param object $post The current post object.
-	 *
-	 * @return array A filtered array of post display states.
-	 * @since 1.3.4
-	 * @access public
-	 */
-	public function post_state( $post_states, $post ) {
-		if ( 'ang_tokens' === get_post_type( $post ) && 'remote' === get_post_meta( $post->ID, '_import_type', true ) ) {
-			$post_states['kit_type'] = '<em style="background:#3152FF;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;"><img width="10" src="' . ANG_PLUGIN_URL . 'assets/img/triangle.svg"></em>';
-		}
-		return $post_states;
 	}
 
 	/**
