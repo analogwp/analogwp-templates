@@ -81,14 +81,22 @@ export default class StyleKits extends React.Component {
 			installedKits: AGWP.installed_kits,
 			...initialState,
 		};
+
+		wp.hooks.addAction( 'refreshLibrary', 'analog/stylekits/library', () => {
+			this.refreshLibrary( true );
+		} );
 	}
 
 	resetState() {
 		this.setState( initialState );
 	}
 
-	async componentDidMount() {
-		const kits = await requestStyleKitsList();
+	componentDidMount() {
+		this.refreshLibrary();
+	}
+
+	async refreshLibrary( $force = false ) {
+		const kits = await requestStyleKitsList( $force );
 
 		this.setState( {
 			kits,

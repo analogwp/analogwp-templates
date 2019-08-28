@@ -300,6 +300,8 @@ class App extends React.Component {
 			syncing: true,
 		} );
 
+		wp.hooks.doAction( 'refreshLibrary' );
+
 		return await apiFetch( {
 			path: '/agwp/v1/templates/?force_update=true',
 		} ).then( data => {

@@ -18,8 +18,14 @@ export async function requestTemplateList() {
 	);
 }
 
-export async function requestStyleKitsList() {
-	return await apiFetch( { path: '/agwp/v1/kits' } ).then(
+export async function requestStyleKitsList( $force ) {
+	let path = '/agwp/v1/kits/';
+
+	if ( $force ) {
+		path += '?force_update=true';
+	}
+
+	return await apiFetch( { path: path } ).then(
 		response => response
 	);
 }
