@@ -31,13 +31,16 @@ const Analog = styled.div`
 		color: #fff;
 		background: ${ props => props.theme.accent };
 		padding: 12px 24px;
-		display: inline-block;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
 		border: none;
 		outline: 0;
 		cursor: pointer;
 		transition: all 200ms ease-in;
 		min-width: 100px;
 		text-decoration: none;
+		box-sizing: border-box;
 	}
 
 	h1,h2,h3,h4,h5,h6 {

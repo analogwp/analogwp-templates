@@ -126,6 +126,19 @@ const Sidebar = () => {
 			</div>
 
 			<div>
+				<h3>{ __( 'Join our Facebook group', 'ang' ) }</h3>
+				<p>{ __( 'Get insights, tips and updates in our facebook community. Let\'s take Elementor design to a whole new level.', 'ang' ) }</p>
+				<Button
+					className="ang-button"
+					target="_blank"
+					rel="noopener noreferrer"
+					href="https://www.facebook.com/groups/analogwp/"
+				>
+					{ __( 'Join the AnalogWP community', 'ang' ) }{ ' ' }<Dashicon icon="external" />
+				</Button>
+			</div>
+
+			<div>
 				<h3>{ __( 'Docs', 'ang' ) }</h3>
 				<p>{ __( 'Need help setting up? We have a number of handy articles to get you started.', 'ang' ) }</p>
 				<p><ExternalLink className="ang-link" href="https://docs.analogwp.com/">{ __( 'Read Documentation', 'ang' ) }</ExternalLink></p>
