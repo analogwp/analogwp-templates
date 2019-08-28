@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.2.2
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,18 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.4 =
+* New: All new *[Style Kits](https://github.com/mauryaratan/analogwp-templates/issues/135)* library page to import pre-build Style Kits.
+* New: Added Quick Edit and Bulk edit actions on posts list, to assign a Style Kit to multiple posts/pages at once.
+* New: Reorganized nav menu and settings tab for better access to different pages.
+* Fix: Section colors not being able to override Style Kit colors. [#138](https://github.com/mauryaratan/analogwp-templates/issues/138)
+* Fix: Rename Dynamic tag classes to be in line with generated classes
+* Fix: Elementor's + button taking accent color from Style Kits.
+* Improve: Added docs link in description of controls to official documentation. [#140](https://github.com/mauryaratan/analogwp-templates/issues/140)
+* Improve: Added link to AnalogWP facebook group on Settings page.
+* Improve: Style kit can be imported from Elementor screen as well
+* Improve: Loading of data sent to app
 
 = 1.3.3 =
 * Fix: An undefined function error when importing a template inside Elementor editor
