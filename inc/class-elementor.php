@@ -98,8 +98,10 @@ class Elementor {
 			ANG_PLUGIN_URL . 'assets/js/app.js',
 			[
 				'react',
+				'jquery',
 				'react-dom',
 				'wp-components',
+				'wp-hooks',
 				'wp-i18n',
 				'wp-html-entities',
 			],

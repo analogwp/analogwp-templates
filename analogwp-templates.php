@@ -169,10 +169,12 @@ final class Analog_Templates {
 			'analogwp-app',
 			ANG_PLUGIN_URL . 'assets/js/app.js',
 			[
+				'jquery',
 				'react',
 				'react-dom',
 				'wp-components',
 				'wp-i18n',
+				'wp-hooks',
 				'wp-api-fetch',
 				'wp-html-entities',
 			],
