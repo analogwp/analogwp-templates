@@ -214,9 +214,22 @@ class App extends React.Component {
 		window.addEventListener( 'hashchange', this.switchTabs, false );
 		window.addEventListener( 'DOMContentLoaded', this.switchTabs, false );
 
-		$( '#toplevel_page_analogwp_templates' ).on( 'click', 'a', function( ) {
-			$( '#toplevel_page_analogwp_templates' ).find( 'li' ).removeClass( 'current' );
-			$( this ).parent().addClass( 'current' );
+		const parentMenu = document.querySelector( '#toplevel_page_analogwp_templates .wp-submenu' );
+		const menuItems = parentMenu.querySelectorAll( 'a' );
+
+		const removeClasses = () => {
+			const listItems = parentMenu.querySelectorAll( 'li' );
+			listItems.forEach( item => {
+				item.classList.remove( 'current' );
+			} );
+		};
+
+		menuItems.forEach( ( menu ) => {
+			menu.addEventListener( 'click', () => {
+				removeClasses();
+
+				menu.parentNode.classList.add( 'current' );
+			} );
 		} );
 
 		const templates = await requestTemplateList();
