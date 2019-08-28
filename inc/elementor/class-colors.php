@@ -32,6 +32,15 @@ class Colors extends Module {
 		);
 
 		$element->add_control(
+			'ang_colors_description',
+			[
+				'raw'             => __( 'Set the colors for Typography, accents and more.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/574-working-with-colours', __( 'Learn more.', 'ang' ) ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			]
+		);
+
+		$element->add_control(
 			'ang_color_accent_primary',
 			[
 				'label'       => __( 'Primary Accent', 'ang' ),

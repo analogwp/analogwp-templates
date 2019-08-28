@@ -212,6 +212,15 @@ class Typography extends Module {
 			]
 		);
 
+		$element->add_control(
+			'ang_typography_sizes_description',
+			[
+				'raw'             => __( 'Tweak the size of your Heading elements using these presets.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			]
+		);
+
 		$settings = [
 			[ 'xxl', __( 'XXL', 'ang' ), 59 ],
 			[ 'xl', __( 'XL', 'ang' ), 39 ],
@@ -260,6 +269,15 @@ class Typography extends Module {
 			[
 				'label' => __( 'Text Sizes', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$element->add_control(
+			'ang_text_sizes_description',
+			[
+				'raw'             => __( 'Tweak the size of text elements using these presets.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
 			]
 		);
 
@@ -312,6 +330,15 @@ class Typography extends Module {
 			[
 				'label' => __( 'Outer Section Padding', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$element->add_control(
+			'ang_section_padding_description',
+			[
+				'raw'             => __( 'Add padding to the outer sections of your layouts by using these controls.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/587-outer-section-padding', __( 'Learn more.', 'ang' ) ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
 			]
 		);
 
@@ -378,6 +405,15 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_column_gaps_description',
 			[
+				'raw'             => __( 'Column Gap presets add padding to the columns of a section.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/588-working-with-column-gaps', __( 'Learn more.', 'ang' ) ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			]
+		);
+
+		$element->add_control(
+			'ang_column_gaps_description',
+			[
 				'raw'             => __( 'Set the default values of the column gaps. Based on Elementor&apos;s default sizes.', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -434,6 +470,15 @@ class Typography extends Module {
 			[
 				'label' => __( 'Buttons', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$element->add_control(
+			'ang_buttons_description',
+			[
+				'raw'             => __( 'Define the default styles for every button size.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/586-button-styles-and-sizes', __( 'Learn more.', 'ang' ) ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
 			]
 		);
 
