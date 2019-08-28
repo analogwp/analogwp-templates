@@ -224,7 +224,7 @@ export default class StyleKits extends React.Component {
 						) }
 
 						{ ! this.state.hasError && ! this.state.importedKit && (
-							<p>{ __( 'Importing Style Kit ', 'ang' ) } { decodeEntities( this.state.activeKit.title ) }</p>
+							<p>{ __( 'Importing ', 'ang' ) } { decodeEntities( this.state.activeKit.title ) }</p>
 						) }
 					</Popup>
 				) }
