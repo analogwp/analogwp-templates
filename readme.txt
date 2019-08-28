@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.2.2
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,9 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.5 =
+* Fix: An issue with Analog modal not launching in Elementor screen
 
 = 1.3.4 =
 * New: All new *[Style Kits](https://github.com/mauryaratan/analogwp-templates/issues/135)* library page to import pre-build Style Kits.

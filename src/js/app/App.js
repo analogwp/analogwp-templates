@@ -214,23 +214,25 @@ class App extends React.Component {
 		window.addEventListener( 'hashchange', this.switchTabs, false );
 		window.addEventListener( 'DOMContentLoaded', this.switchTabs, false );
 
-		const parentMenu = document.querySelector( '#toplevel_page_analogwp_templates .wp-submenu' );
-		const menuItems = parentMenu.querySelectorAll( 'a' );
+		if ( AGWP.is_settings_page ) {
+			const parentMenu = document.querySelector( '#toplevel_page_analogwp_templates .wp-submenu' );
+			const menuItems = parentMenu.querySelectorAll( 'a' );
 
-		const removeClasses = () => {
-			const listItems = parentMenu.querySelectorAll( 'li' );
-			listItems.forEach( item => {
-				item.classList.remove( 'current' );
+			const removeClasses = () => {
+				const listItems = parentMenu.querySelectorAll( 'li' );
+				listItems.forEach( item => {
+					item.classList.remove( 'current' );
+				} );
+			};
+
+			menuItems.forEach( ( menu ) => {
+				menu.addEventListener( 'click', () => {
+					removeClasses();
+
+					menu.parentNode.classList.add( 'current' );
+				} );
 			} );
-		};
-
-		menuItems.forEach( ( menu ) => {
-			menu.addEventListener( 'click', () => {
-				removeClasses();
-
-				menu.parentNode.classList.add( 'current' );
-			} );
-		} );
+		}
 
 		const templates = await requestTemplateList();
 
