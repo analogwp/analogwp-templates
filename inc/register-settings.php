@@ -26,16 +26,31 @@ function register_menu() {
 	add_submenu_page(
 		'analogwp_templates',
 		__( 'Style Kits Library', 'ang' ),
-		__( 'Library', 'ang' ),
+		__( 'Templates', 'ang' ),
 		'manage_options',
 		'analogwp_templates'
 	);
 
-	$menu_title = __( 'Kits', 'ang' );
 	add_submenu_page(
 		'analogwp_templates',
-		$menu_title,
-		$menu_title,
+		__( 'Style Kits', 'ang' ),
+		__( 'Library', 'ang' ),
+		'manage_options',
+		admin_url( 'admin.php?page=analogwp_templates#stylekits' )
+	);
+
+	add_submenu_page(
+		'analogwp_templates',
+		__( 'Style Kits', 'ang' ),
+		__( 'Settings', 'ang' ),
+		'manage_options',
+		admin_url( 'admin.php?page=analogwp_templates#settings' )
+	);
+
+	add_submenu_page(
+		'analogwp_templates',
+		__( 'Style Kits', 'ang' ),
+		__( 'Manage Style Kits', 'ang' ),
 		'manage_options',
 		'edit.php?post_type=ang_tokens'
 	);

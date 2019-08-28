@@ -32,7 +32,7 @@ const List = styled.ul`
 			border-color: transparent transparent #E3E3E3 transparent;
 			left: 50%;
 			transform: translateX(-50%);
-			
+
 			#analogwp-templates-modal & {
 				bottom: -14px;
 			}
@@ -58,7 +58,7 @@ const List = styled.ul`
 `;
 
 const ITEMS = [
-	{ key: 'library', label: __( 'Library', 'ang' ), show: true },
+	{ key: 'templates', label: __( 'Templates', 'ang' ), show: true },
 	{ key: 'stylekits', label: __( 'Style Kits', 'ang' ), show: true },
 	{ key: 'settings', label: __( 'Settings', 'ang' ), show: AGWP.is_settings_page },
 ];

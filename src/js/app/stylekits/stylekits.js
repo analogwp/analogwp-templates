@@ -1,10 +1,9 @@
-import classnames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
-import { requestStyleKitsList, requestStyleKitData } from '../api';
-import Popup from '../popup';
+import { requestStyleKitData, requestStyleKitsList } from '../api';
 import Loader from '../icons/loader';
 import { NotificationConsumer } from '../Notifications';
+import Popup from '../popup';
 
 const { TextControl, Button } = wp.components;
 
@@ -42,7 +41,7 @@ const ChildContainer = styled.ul`
     grid-gap: 25px;
     margin: 40px 0 0;
     padding: 0;
-    
+
     > li {
     	border-radius: 4px;
     	overflow: hidden;
@@ -136,7 +135,6 @@ export default class StyleKits extends React.Component {
 					options[ response.id ] = kit.title;
 					elementor.reloadPreview();
 				}
-
 			} )
 			.catch( error => {
 				add( error.message, 'error', 'kit-error', false );

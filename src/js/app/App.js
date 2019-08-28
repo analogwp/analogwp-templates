@@ -184,7 +184,7 @@ class App extends React.Component {
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			filters: [],
 			showFree: true,
-			tab: 'library',
+			tab: 'templates',
 			hasPro: false,
 			settings: {
 				ang_sync_colors: true,
@@ -196,17 +196,28 @@ class App extends React.Component {
 		this.handleSearch = this.handleSearch.bind( this );
 		this.handleSort = this.handleSort.bind( this );
 		this.handleFilter = this.handleFilter.bind( this );
+		this.switchTabs = this.switchTabs.bind( this );
+	}
+
+	switchTabs() {
+		const hash = location.hash;
+		const validHashes = [ '#templates', '#stylekits', '#settings' ];
+
+		if ( validHashes.indexOf( hash ) > -1 && AGWP.is_settings_page ) {
+			this.setState( {
+				tab: hash.substr( 1 ),
+			} );
+		}
 	}
 
 	async componentDidMount() {
-		const currentURL = new URL( window.location.href );
-		const hash = currentURL.hash.slice( 1 );
+		window.addEventListener( 'hashchange', this.switchTabs, false );
+		window.addEventListener( 'DOMContentLoaded', this.switchTabs, false );
 
-		if ( hash && Boolean( AGWP.is_settings_page ) ) {
-			this.setState( {
-				tab: hash,
-			} );
-		}
+		$( '#toplevel_page_analogwp_templates' ).on( 'click', 'a', function( ) {
+			$( '#toplevel_page_analogwp_templates' ).find( 'li' ).removeClass( 'current' );
+			$( this ).parent().addClass( 'current' );
+		} );
 
 		const templates = await requestTemplateList();
 
