@@ -202,12 +202,14 @@ final class Analog_Templates {
 		$url     = home_url();
 
 		$current_user = wp_get_current_user();
+		global $wp_version;
 
 		$identify_customer = "Beacon('identify', {
 			name: '{$current_user->display_name}',
 			email: '{$current_user->user_email}',
-			'Plugin Version': '{$version}',
 			'Website': '{$url}',
+			'Plugin Version': '{$version}',
+			'WP Version': '{$wp_version}',
 		});
 		Beacon('prefill', {
 			name: '{$current_user->display_name}',
