@@ -342,15 +342,6 @@ class Typography extends Module {
 			]
 		);
 
-		$element->add_control(
-			'ang_section_padding_description',
-			[
-				'raw'             => __( 'This padding applies <strong>only on the Outer Sections</strong> of your layout, and not on Inner Section widgets.', 'ang' ),
-				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-descriptor',
-			]
-		);
-
 		foreach ( $gaps as $key => $label ) {
 			$element->add_responsive_control(
 				'ang_section_padding_' . $key,
@@ -406,15 +397,6 @@ class Typography extends Module {
 			'ang_column_gaps_description',
 			[
 				'raw'             => __( 'Column Gap presets add padding to the columns of a section.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/588-working-with-column-gaps', __( 'Learn more.', 'ang' ) ),
-				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-descriptor',
-			]
-		);
-
-		$element->add_control(
-			'ang_column_gaps_description',
-			[
-				'raw'             => __( 'Set the default values of the column gaps. Based on Elementor&apos;s default sizes.', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			]
@@ -477,15 +459,6 @@ class Typography extends Module {
 			'ang_buttons_description',
 			[
 				'raw'             => __( 'Define the default styles for every button size.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/586-button-styles-and-sizes', __( 'Learn more.', 'ang' ) ),
-				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-descriptor',
-			]
-		);
-
-		$element->add_control(
-			'ang_buttons_description',
-			[
-				'raw'             => __( 'Create the styles for each button size', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			]
