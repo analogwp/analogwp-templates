@@ -878,31 +878,31 @@ class Typography extends Module {
 				'default' => $this->get_default_value( $key . '_typography' ),
 			],
 			'font_size'             => [
-				'default' => $this->get_default_value( $key . '_font_size' ),
+				'default' => $this->get_default_value( $key . '_font_size', true ),
 			],
 			'font_size_tablet'      => [
-				'default' => $this->get_default_value( $key . '_font_size_tablet' ),
+				'default' => $this->get_default_value( $key . '_font_size_tablet', true ),
 			],
 			'font_size_mobile'      => [
-				'default' => $this->get_default_value( $key . '_font_size_mobile' ),
+				'default' => $this->get_default_value( $key . '_font_size_mobile', true ),
 			],
 			'line_height'           => [
-				'default' => $this->get_default_value( $key . '_line_height' ),
+				'default' => $this->get_default_value( $key . '_line_height', true ),
 			],
 			'line_height_mobile'    => [
-				'default' => $this->get_default_value( $key . '_line_height_mobile' ),
+				'default' => $this->get_default_value( $key . '_line_height_mobile', true ),
 			],
 			'line_height_tablet'    => [
-				'default' => $this->get_default_value( $key . '_line_height_tablet' ),
+				'default' => $this->get_default_value( $key . '_line_height_tablet', true ),
 			],
 			'letter_spacing'        => [
-				'default' => $this->get_default_value( $key . '_letter_spacing' ),
+				'default' => $this->get_default_value( $key . '_letter_spacing', true ),
 			],
 			'letter_spacing_mobile' => [
-				'default' => $this->get_default_value( $key . '_letter_spacing_mobile' ),
+				'default' => $this->get_default_value( $key . '_letter_spacing_mobile', true ),
 			],
 			'letter_spacing_tablet' => [
-				'default' => $this->get_default_value( $key . '_letter_spacing_tablet' ),
+				'default' => $this->get_default_value( $key . '_letter_spacing_tablet', true ),
 			],
 			'font_family'           => [
 				'default' => $this->get_default_value( $key . '_font_family' ),
