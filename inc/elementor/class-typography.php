@@ -147,23 +147,23 @@ class Typography extends Module {
 				]
 			);
 
-//			$margin_settings = [
-//				'label'      => __( 'Margin', 'ang' ),
-//				'type'       => Controls_Manager::DIMENSIONS,
-//				'size_units' => [ 'px', '%', 'em' ],
-//				'selectors'  => [
-//					"{{WRAPPER}} h{$i}, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title" => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-//				],
-//			];
+// $margin_settings = [
+// 'label'      => __( 'Margin', 'ang' ),
+// 'type'       => Controls_Manager::DIMENSIONS,
+// 'size_units' => [ 'px', '%', 'em' ],
+// 'selectors'  => [
+// "{{WRAPPER}} h{$i}, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title" => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+// ],
+// ];
 //
-//			if ( 6 !== $i ) {
-//				$margin_settings['separator'] = 'after';
-//			}
+// if ( 6 !== $i ) {
+// $margin_settings['separator'] = 'after';
+// }
 //
-//			$element->add_responsive_control(
-//				'ang_heading_' . $i . '_margin',
-//				$margin_settings
-//			);
+// $element->add_responsive_control(
+// 'ang_heading_' . $i . '_margin',
+// $margin_settings
+// );
 		}
 
 		$element->end_controls_section();
@@ -737,6 +737,17 @@ class Typography extends Module {
 				'type'         => 'ang_action',
 				'action'       => 'export_css',
 				'action_label' => __( 'Export CSS', 'ang' ),
+			]
+		);
+
+		$element->add_control(
+			'ang_remove_title_link_color',
+			[
+				'label'     => __( 'Do not apply link color on active titles', 'ang' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'selectors' => [
+					'{{WRAPPER}} .elementor-post__title.elementor-post__title a' => 'color: currentColor;',
+				],
 			]
 		);
 
