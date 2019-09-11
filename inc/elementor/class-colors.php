@@ -52,6 +52,14 @@ class Colors extends Module {
 					'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-progress-bar' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .sk-primary-accent'      => 'color: {{VALUE}}',
+
+					'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1,
+					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h2,
+					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h3,
+					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h4,
+					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5,
+					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6' => 'color: {{VALUE}}',
+
 					'{{WRAPPER}} .sk-primary-bg'          => 'background-color: {{VALUE}}',
 				],
 			]
@@ -67,6 +75,14 @@ class Colors extends Module {
 				'selectors'   => [
 					'{{WRAPPER}} .elementor-button, {{WRAPPER}} .button, {{WRAPPER}} button, {{WRAPPER}} .sk-accent-2' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .sk-secondary-accent' => 'color: {{VALUE}}',
+
+					'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h1,
+					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h2,
+					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h3,
+					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h4,
+					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h5,
+					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h6' => 'color: {{VALUE}}',
+
 					'{{WRAPPER}} .sk-secondary-bg'     => 'background-color: {{VALUE}}',
 				],
 			]
