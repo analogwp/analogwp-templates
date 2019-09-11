@@ -133,7 +133,9 @@ export default class StyleKits extends React.Component {
 				if ( ! AGWP.is_settings_page && elementor ) {
 					const options = elementor.settings.page.model.controls.ang_action_tokens.options;
 					options[ response.id ] = kit.title;
+
 					elementor.reloadPreview();
+					analog.redirectToSection();
 				}
 			} )
 			.catch( error => {
