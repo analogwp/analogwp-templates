@@ -45,11 +45,15 @@ jQuery( document ).ready( function() {
 	elementor.hooks.addFilter( 'elements/column/contextMenuGroups', addPageStyleSettings );
 
 	function switchToStyleTab() {
-		const currentView = elementor.panel.currentView;
+		if ( elementor.helpers.compareVersions( ElementorConfig.document.version, '2.7.0', '<' ) ) {
+			const currentView = elementor.panel.currentView;
 
-		currentView.setPage( 'page_settings' );
-		currentView.getCurrentPageView().activateTab( 'style' );
-		currentView.getCurrentPageView().activateSection( 'ang_style_settings' );
-		currentView.getCurrentPageView().render();
+			currentView.setPage( 'page_settings' );
+			currentView.getCurrentPageView().activateTab( 'style' );
+			currentView.getCurrentPageView().activateSection( 'ang_style_settings' );
+			currentView.getCurrentPageView().render();
+		} else {
+			$e.route( 'panel/page-settings/style' );
+		}
 	}
 } );

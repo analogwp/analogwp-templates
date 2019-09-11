@@ -18,12 +18,17 @@ jQuery( window ).on( 'elementor:init', function() {
 	};
 
 	analog.redirectToSection = function redirectToSection( tab = 'style', section = 'ang_style_settings', page = 'page_settings' ) {
-		const currentView = elementor.panel.currentView;
+		if ( elementor.helpers.compareVersions( ElementorConfig.document.version, '2.7.0', '<' ) ) {
+			const currentView = elementor.panel.currentView;
 
-		currentView.setPage( page );
-		currentView.getCurrentPageView().activateTab( tab );
-		currentView.getCurrentPageView().activateSection( section );
-		currentView.getCurrentPageView().render();
+			currentView.setPage( page );
+			currentView.getCurrentPageView().activateTab( tab );
+			currentView.getCurrentPageView().activateSection( section );
+			currentView.getCurrentPageView().render();
+		} else {
+			$e.route( `panel/page-settings/${ tab }` );
+			elementor.getPanelView().getCurrentPageView().activateSection( section )._renderChildren();
+		}
 	};
 
 	analog.showStyleKitAttentionDialog = () => {
