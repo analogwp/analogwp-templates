@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
-Tested up to: 5.2.2
-Stable tag: 1.3.5
+Tested up to: 5.2.3
+Stable tag: 1.3.6
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,25 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.6 =
+* New: Added an option to disable accent color on titles under Style Kits > Tools
+* New: Add more helper classes for color controls
+  * `sk-primary-accent`
+  * `sk-primary-bg`
+  * `sk-secondary-accent`
+  * `sk-secondary-bg`
+  * `sk-text-light`
+  * `sk-text-dark`
+  * `sk-light-bg`
+  * `sk-dark-bg`
+* Tweak: Compatibility with Elementor v2.7.x
+* Tweak: Comaptibility with Central Color Palette plugin
+* Tweak: Background color inheritence for Global colors
+* Fix: Issue with duplicate settings throwing notice
+* Fix: Global Color control button selector
+* Fix: Issue with invalid default value type causing `array_merge` errors
+* Fix: Style Kits not refreshing in Elementor editor upon importing
 
 = 1.3.5 =
 * Fix: An issue with Analog modal not launching in Elementor screen
