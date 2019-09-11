@@ -521,6 +521,7 @@ jQuery( window ).on( 'elementor:init', function() {
 			settings.ang_color_text_dark,
 			settings.ang_color_background_light,
 			settings.ang_color_background_dark,
+			...ANG_Action.palette,
 		];
 
 		// Remove null values.
@@ -563,6 +564,7 @@ jQuery( window ).on( 'elementor:init', function() {
 			settings.ang_color_text_dark,
 			settings.ang_color_background_light,
 			settings.ang_color_background_dark,
+			...ANG_Action.palette,
 		];
 
 		// Remove null values.
