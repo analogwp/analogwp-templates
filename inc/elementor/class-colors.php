@@ -91,6 +91,12 @@ class Colors extends Module {
 				'classes'     => 'ang-description-wide',
 				'selectors'   => [
 					'{{WRAPPER}} .sk-light-bg' => 'background-color: {{VALUE}}; color: var(--ang_color_text_light)',
+					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h1,
+					{{WRAPPER}} .sk-dark-bg .sk-light-bg h2,
+					{{WRAPPER}} .sk-dark-bg .sk-light-bg h3,
+					{{WRAPPER}} .sk-dark-bg .sk-light-bg h4,
+					{{WRAPPER}} .sk-dark-bg .sk-light-bg h5,
+					{{WRAPPER}} .sk-dark-bg .sk-light-bg h6' => 'color: var(--ang_color_text_light)',
 				],
 			]
 		);
@@ -110,6 +116,12 @@ class Colors extends Module {
 					{{WRAPPER}} .sk-dark-bg h4,
 					{{WRAPPER}} .sk-dark-bg h5,
 					{{WRAPPER}} .sk-dark-bg h6' => 'color: var(--ang_color_text_dark)',
+					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h1,
+					{{WRAPPER}} .sk-light-bg .sk-dark-bg h2,
+					{{WRAPPER}} .sk-light-bg .sk-dark-bg h3,
+					{{WRAPPER}} .sk-light-bg .sk-dark-bg h4,
+					{{WRAPPER}} .sk-light-bg .sk-dark-bg h5,
+					{{WRAPPER}} .sk-light-bg .sk-dark-bg h6' => 'color: var(--ang_color_text_dark)',
 				],
 			]
 		);
