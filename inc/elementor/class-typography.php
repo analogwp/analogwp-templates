@@ -128,6 +128,7 @@ class Typography extends Module {
 				'label'     => __( 'Default Headings Font', 'ang' ),
 				'type'      => Controls_Manager::FONT,
 				'default'   => $this->get_default_value( 'ang_default_heading_font_family' ),
+				'separator' => 'after',
 				'selectors' => [
 					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
 				],
@@ -145,6 +146,24 @@ class Typography extends Module {
 					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
 					'fields_options' => $this->get_default_typography_values( 'ang_heading_' . $i ),
 				]
+			);
+
+			$margin_settings = [
+				'label'      => __( 'Margin', 'ang' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em' ],
+				'selectors'  => [
+					"{{WRAPPER}} h{$i}, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title" => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			];
+
+			if ( 6 !== $i ) {
+				$margin_settings['separator'] = 'after';
+			}
+
+			$element->add_responsive_control(
+				'ang_heading_' . $i . '_margin',
+				$margin_settings
 			);
 		}
 
