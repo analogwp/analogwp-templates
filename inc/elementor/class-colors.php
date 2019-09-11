@@ -51,6 +51,8 @@ class Colors extends Module {
 					'{{WRAPPER}} a:not([role=button]), {{WRAPPER}} .sk-accent-1' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-progress-bar' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .sk-primary-accent'      => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sk-primary-bg'          => 'background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -64,6 +66,8 @@ class Colors extends Module {
 				'classes'     => 'ang-description-wide',
 				'selectors'   => [
 					'{{WRAPPER}} .elementor-button, {{WRAPPER}} .button, {{WRAPPER}} button, {{WRAPPER}} .sk-accent-2' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .sk-secondary-accent' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sk-secondary-bg'     => 'background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -78,6 +82,7 @@ class Colors extends Module {
 				'selectors'   => [
 					'{{WRAPPER}},{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
 					':root, {{WRAPPER}} .sk-text-light' => '--ang_color_text_light: {{VALUE}}',
+					'{{WRAPPER}} .sk-text-light'        => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -135,6 +140,7 @@ class Colors extends Module {
 				'classes'     => 'ang-description-wide',
 				'selectors'   => [
 					':root, {{WRAPPER}} .sk-text-dark' => '--ang_color_text_dark: {{VALUE}}',
+					'{{WRAPPER}} .sk-text-dark'        => 'color: {{VALUE}}',
 				],
 			]
 		);
