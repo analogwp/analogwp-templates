@@ -296,7 +296,7 @@ class App extends React.Component {
 	}
 
 	handleSearch( value ) {
-		const templates = this.state.templates;
+		const templates = this.state.archive;
 		let filtered = [];
 		let searchTags = [];
 
@@ -311,10 +311,18 @@ class App extends React.Component {
 					template.title.toLowerCase().includes( value ) || searchTags.length >= 1
 				);
 			} );
+
+			if ( filtered.length > 0 ) {
+				this.setState( {
+					templates: filtered,
+				} );
+
+				return;
+			}
 		}
 
 		this.setState( {
-			templates: filtered.length ? filtered : this.state.archive,
+			templates: value ? [] : this.state.archive,
 		} );
 	}
 
