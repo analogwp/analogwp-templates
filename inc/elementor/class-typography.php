@@ -747,6 +747,7 @@ class Typography extends Module {
 				'type'      => Controls_Manager::SWITCHER,
 				'selectors' => [
 					'{{WRAPPER}} .elementor-post__title.elementor-post__title a' => 'color: currentColor;',
+					'{{WRAPPER}} .elementor-tab-title a' => 'color: currentColor;',
 				],
 			]
 		);
