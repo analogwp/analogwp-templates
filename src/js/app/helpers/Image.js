@@ -8,7 +8,7 @@ const Image = ( { template, ...other } ) => {
 		<Waypoint onEnter={ () => {
 			setImage( thumbnail );
 		} }>
-			<img src={ image } alt={ title } { ...other } />
+			<img src={ image } loading="lazy" width="280" height="390" alt={ title } { ...other } />
 		</Waypoint>
 	);
 };
