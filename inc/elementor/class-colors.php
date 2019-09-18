@@ -99,6 +99,7 @@ class Colors extends Module {
 					'{{WRAPPER}},{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
 					':root, {{WRAPPER}} .sk-text-light' => '--ang_color_text_light: {{VALUE}}',
 					'{{WRAPPER}} .sk-text-light'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sk-text-light .elementor-heading-title' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -159,6 +160,7 @@ class Colors extends Module {
 				'selectors'   => [
 					':root, {{WRAPPER}} .sk-text-dark' => '--ang_color_text_dark: {{VALUE}}',
 					'{{WRAPPER}} .sk-text-dark'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sk-text-dark .elementor-heading-title' => 'color: {{VALUE}}',
 				],
 			]
 		);
