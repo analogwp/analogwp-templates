@@ -8,8 +8,9 @@ import { Theme } from './../contexts/ThemeContext';
 import Sidebar from './../Sidebar';
 import { hasProTemplates } from './../utils';
 
-const { TextControl, CheckboxControl, Button, ExternalLink, IconButton } = wp.components;
+const { TextControl, CheckboxControl, Button, ExternalLink, SelectControl } = wp.components;
 const { __, sprintf } = wp.i18n;
+const { addQueryArgs } = wp.url;
 const { Fragment } = React;
 
 const Container = styled.div`
@@ -164,7 +165,14 @@ export default class Settings extends React.Component {
 			licenseStatus: AGWP.license.status,
 			licenseMessage: AGWP.license.message || null,
 			requesting: false,
+			rollbackVersion: null,
 		};
+	}
+
+	componentDidMount() {
+		if ( AGWP.rollback_versions ) {
+			this.setState( { rollbackVersion: AGWP.rollback_versions[ 0 ] } );
+		}
 	}
 
 	updateSetting( key, val, avoidRequest = false, add = false ) {
@@ -300,11 +308,20 @@ export default class Settings extends React.Component {
 								</Field>
 
 								<Field className="global-settings">
-									<h3 className="heading">{ __( 'Rollback Version' ) }</h3>
+									{ AGWP.rollback_versions && (
+										<SelectControl
+											value={ this.state.rollbackVersion || AGWP.rollback_versions[ 0 ] }
+											options={ AGWP.rollback_versions.map( ( version ) => ( { value: version, label: version } ) ) }
+											onChange={ ( version ) => this.setState( { rollbackVersion: version } ) }
+										/>
+									) }
+
 									<Button
-										href={ AGWP.rollback_url }
+										href={ addQueryArgs( AGWP.rollback_url, { version: this.state.rollbackVersion } ) }
 										className="ang-button"
-									>{ sprintf( __( 'Reinstall version %s', 'ang' ), AGWP.rollback_version ) }</Button>
+									>
+										{ sprintf( __( 'Reinstall version %s', 'ang' ), this.state.rollbackVersion ) }
+									</Button>
 									<p className="description">{ __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ) }</p>
 								</Field>
 

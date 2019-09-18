@@ -564,6 +564,12 @@ CSS;
 	public function post_ang_rollback() {
 		check_admin_referer( 'ang_rollback' );
 
+		$rollback_versions = Utils::get_rollback_versions();
+
+		if ( empty( $_GET['version'] ) || ! in_array( $_GET['version'], $rollback_versions, true ) ) {
+			wp_die( __( 'Error occurred, the version selected is invalid. Try selecting different version.', 'ang' ) );
+		}
+
 		?>
 		<style>
 			.wrap h1 {
@@ -591,7 +597,7 @@ CSS;
 
 		$plugin_slug    = 'analogwp-templates';
 		$plugin_name    = 'analogwp-templates/analogwp-templates.php';
-		$stable_version = ANG_LAST_STABLE_VERSION;
+		$stable_version = $_GET['version'];
 
 		$rollback = new Rollback(
 			[

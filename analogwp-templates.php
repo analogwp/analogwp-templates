@@ -186,9 +186,9 @@ final class Analog_Templates {
 		$i10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
 			[
-				'is_settings_page' => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
-				'rollback_version' => ANG_LAST_STABLE_VERSION,
-				'rollback_url'     => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback' ), 'ang_rollback' ),
+				'is_settings_page'  => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
+				'rollback_url'      => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
+				'rollback_versions' => Utils::get_rollback_versions(),
 			]
 		);
 

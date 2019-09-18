@@ -418,6 +418,58 @@ class Utils extends Base {
 
 		return $kits;
 	}
+
+	/**
+	 * Get valid rollback versions.
+	 *
+	 * @since 1.3.7
+	 * @return array|mixed
+	 */
+	public static function get_rollback_versions() {
+		$rollback_versions = get_transient( 'ang_rollback_versions_' . ANG_VERSION );
+
+		if ( false === $rollback_versions ) {
+			$max_versions = 30;
+
+			require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+
+			$plugin_information = plugins_api(
+				'plugin_information',
+				[ 'slug' => 'analogwp-templates' ]
+			);
+
+			if ( empty( $plugin_information->versions ) || ! is_array( $plugin_information->versions ) ) {
+				return [];
+			}
+
+			krsort( $plugin_information->versions );
+
+			$rollback_versions = [];
+
+			$current_index = 0;
+
+			foreach ( $plugin_information->versions as $version => $download_link ) {
+				if ( $max_versions <= $current_index ) {
+					break;
+				}
+
+				if ( preg_match( '/(trunk|beta|rc)/i', strtolower( $version ) ) ) {
+					continue;
+				}
+
+				if ( version_compare( $version, ANG_VERSION, '>=' ) ) {
+					continue;
+				}
+
+				$current_index++;
+				$rollback_versions[] = $version;
+			}
+
+			set_transient( 'ang_rollback_versions_' . ANG_VERSION, $rollback_versions, WEEK_IN_SECONDS );
+		}
+
+		return $rollback_versions;
+	}
 }
 
 new Utils();
