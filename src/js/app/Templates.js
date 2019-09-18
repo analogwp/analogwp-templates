@@ -11,6 +11,7 @@ import { NotificationConsumer } from './Notifications';
 import Popup from './popup';
 import ProModal from './ProModal';
 import { isNewTheme } from './utils';
+import Empty from './helpers/Empty';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
@@ -374,6 +375,12 @@ class Templates extends React.Component {
 				{ ( this.state.template !== null ) && ! this.canImportTemplate() && this.state.showingModal &&
 					<ProModal onDimiss={ () => this.resetState() } />
 				}
+
+				<AnalogContext.Consumer>
+					{ context => ! context.state.isOpen && context.state.templates.length < 1 && (
+						<Empty />
+					) }
+				</AnalogContext.Consumer>
 
 				<TemplatesList
 					className={ classnames( {
