@@ -60,7 +60,9 @@ class Colors extends Module {
 					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5,
 					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6' => 'color: {{VALUE}}',
 
-					'{{WRAPPER}} .sk-primary-bg'          => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
+
+					'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -83,7 +85,9 @@ class Colors extends Module {
 					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h5,
 					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h6' => 'color: {{VALUE}}',
 
-					'{{WRAPPER}} .sk-secondary-bg'     => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .sk-secondary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
+
+					'{{WRAPPER}} .sk-secondary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -112,7 +116,7 @@ class Colors extends Module {
 				'description' => __( 'Apply this color to sections or columns, using the <code>sk-light-bg</code>. The text inside will inherit the Text and titles color.', 'ang' ),
 				'classes'     => 'ang-description-wide',
 				'selectors'   => [
-					'{{WRAPPER}} .sk-light-bg' => 'background-color: {{VALUE}}; color: var(--ang_color_text_light)',
+					'{{WRAPPER}} .sk-light-bg:not(.elementor-column)' => 'background-color: {{VALUE}}; color: var(--ang_color_text_light)',
 					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h1,
 					{{WRAPPER}} .sk-dark-bg .sk-light-bg h2,
 					{{WRAPPER}} .sk-dark-bg .sk-light-bg h3,
@@ -120,6 +124,8 @@ class Colors extends Module {
 					{{WRAPPER}} .sk-dark-bg .sk-light-bg h5,
 					{{WRAPPER}} .sk-dark-bg .sk-light-bg h6' => 'color: var(--ang_color_text_light)',
 					'{{WRAPPER}} .sk-dark-bg .elementor-counter .elementor-counter-title, {{WRAPPER}} .sk-dark-bg .elementor-counter .elementor-counter-number-wrapper' => 'color: currentColor',
+
+					'{{WRAPPER}} .sk-light-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -132,7 +138,7 @@ class Colors extends Module {
 				'description' => __( 'Apply this color to sections or columns, using the <code>sk-dark-bg</code>. The text inside will inherit the <em>Text over Dark Background</em> color that can be set below.', 'ang' ),
 				'classes'     => 'ang-description-wide',
 				'selectors'   => [
-					'{{WRAPPER}} .sk-dark-bg'   => 'background-color: {{VALUE}}; color: var(--ang_color_text_dark)',
+					'{{WRAPPER}} .sk-dark-bg:not(.elementor-column)' => 'background-color: {{VALUE}}; color: var(--ang_color_text_dark)',
 					'{{WRAPPER}} .sk-dark-bg h1,
 					{{WRAPPER}} .sk-dark-bg h2,
 					{{WRAPPER}} .sk-dark-bg h3,
@@ -146,6 +152,8 @@ class Colors extends Module {
 					{{WRAPPER}} .sk-light-bg .sk-dark-bg h5,
 					{{WRAPPER}} .sk-light-bg .sk-dark-bg h6' => 'color: var(--ang_color_text_dark)',
 					'{{WRAPPER}} .sk-light-bg .elementor-counter .elementor-counter-title, {{WRAPPER}} .sk-light-bg .elementor-counter .elementor-counter-number-wrapper' => 'color: currentColor',
+
+					'{{WRAPPER}} .sk-dark-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
