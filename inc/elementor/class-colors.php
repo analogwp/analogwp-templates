@@ -125,7 +125,7 @@ class Colors extends Module {
 					{{WRAPPER}} .sk-dark-bg .sk-light-bg h6' => 'color: var(--ang_color_text_light)',
 					'{{WRAPPER}} .sk-dark-bg .elementor-counter .elementor-counter-title, {{WRAPPER}} .sk-dark-bg .elementor-counter .elementor-counter-number-wrapper' => 'color: currentColor',
 
-					'{{WRAPPER}} .sk-light-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .sk-light-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}}; color: var(--ang_color_text_light)',
 				],
 			]
 		);
@@ -153,7 +153,7 @@ class Colors extends Module {
 					{{WRAPPER}} .sk-light-bg .sk-dark-bg h6' => 'color: var(--ang_color_text_dark)',
 					'{{WRAPPER}} .sk-light-bg .elementor-counter .elementor-counter-title, {{WRAPPER}} .sk-light-bg .elementor-counter .elementor-counter-number-wrapper' => 'color: currentColor',
 
-					'{{WRAPPER}} .sk-dark-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .sk-dark-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}}; color: var(--ang_color_text_dark)',
 				],
 			]
 		);
