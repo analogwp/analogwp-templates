@@ -310,6 +310,7 @@ export default class Settings extends React.Component {
 								<Field className="global-settings">
 									{ AGWP.rollback_versions && (
 										<SelectControl
+											label={ __( 'Rollback Version', 'ang' ) }
 											value={ this.state.rollbackVersion || AGWP.rollback_versions[ 0 ] }
 											options={ AGWP.rollback_versions.map( ( version ) => ( { value: version, label: version } ) ) }
 											onChange={ ( version ) => this.setState( { rollbackVersion: version } ) }
