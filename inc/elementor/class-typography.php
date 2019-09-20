@@ -191,9 +191,12 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_recently_imported',
 			[
-				'label'   => __( 'Recently Imported', 'ang' ),
-				'type'    => Controls_Manager::HIDDEN,
-				'default' => 'no',
+				'label'     => __( 'Recently Imported', 'ang' ),
+				'type'      => Controls_Manager::HIDDEN,
+				'default'   => 'no',
+				'selectors' => [
+					'{{WRAPPER}} .elementor-heading-title' => 'line-height: inherit;',
+				],
 			]
 		);
 

@@ -44,7 +44,7 @@ class Quick_Edit extends Base {
 		if ( ! is_array( $settings ) ) {
 			$settings = [];
 		}
-		
+
 		$settings = array_merge( $settings, $token );
 
 		update_post_meta( $post_id, '_elementor_page_settings', $settings );
