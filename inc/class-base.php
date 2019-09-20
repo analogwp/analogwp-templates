@@ -105,7 +105,10 @@ class Base {
 	public function regenerate_elementor_css( $post_id ) {
 		if ( class_exists( '\Elementor\Core\Files\CSS\Post' ) ) {
 			$post_css = new \Elementor\Core\Files\CSS\Post( $post_id );
+			$post_css->enqueue();
 			$post_css->update();
+
+			\Elementor\Plugin::$instance->frontend->enqueue_styles();
 		}
 	}
 
