@@ -14,7 +14,7 @@ jQuery( window ).on( 'elementor:init', function() {
 			return false;
 		}
 
-		return ( key.startsWith( 'ang_' ) || key.startsWith( 'background' ) );
+		return ( key.startsWith( 'ang_' ) || key.startsWith( 'background' ) || key.startsWith( 'hide' ) );
 	};
 
 	analog.redirectToSection = function redirectToSection( tab = 'style', section = 'ang_style_settings', page = 'page_settings' ) {

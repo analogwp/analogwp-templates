@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.2.3
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,15 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.7 =
+* New: Added a settings Style Kit > Settings to be able to rollback to any older version of plugin
+* Fix: Bug where Quick edit mode would accidentally break Elementor page settings
+* Fix: Hide title setting being overridden on applying a Style Kit.
+* Fix: Counter widget not inheriting Style Kit classes
+* Fix: SK classes overriding inline Toggle widget title
+* Fix: Style Kit library search results listing everything if no matches are found
+* Fix: SK classes not working properly with Columns because of tags nesting
 
 = 1.3.6 =
 * New: Added an option to disable accent color on titles under Style Kits > Tools
