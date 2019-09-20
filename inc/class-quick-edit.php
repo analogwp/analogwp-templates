@@ -41,6 +41,10 @@ class Quick_Edit extends Base {
 		$token = array_merge( $token, [ 'ang_action_tokens' => $kit_id ] );
 
 		$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+		if ( ! is_array( $settings ) ) {
+			$settings = [];
+		}
+		
 		$settings = array_merge( $settings, $token );
 
 		update_post_meta( $post_id, '_elementor_page_settings', $settings );
@@ -157,7 +161,7 @@ class Quick_Edit extends Base {
 			return;
 		}
 
-		if ( isset( $_POST['ang_stylekit'] ) ) {
+		if ( isset( $_POST['ang_stylekit'] ) && '-1' !== $_POST['ang_stylekit'] ) {
 			$this->update_posts_stylekit( $post_id, $_POST['ang_stylekit'] ); // phpcs:ignore
 		}
 	}
