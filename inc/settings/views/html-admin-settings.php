@@ -19,7 +19,7 @@ if ( ! $tab_exists ) {
 ?>
 <div class="wrap ang">
 	<h1><?php esc_html_e( 'Style Kits Settings', 'pulse' ); ?></h1>
-	<div>
+	<div class="ang-wrapper">
 		<form method="<?php echo esc_attr( apply_filters( 'ang_settings_form_method_tab_' . $current_tab, 'post' ) ); ?>" id="mainform" action="" enctype="multipart/form-data">
 			<nav class="nav-tab-wrapper ang-nav-tab-wrapper">
 				<?php
@@ -48,5 +48,23 @@ if ( ! $tab_exists ) {
 				<?php wp_nonce_field( 'ang-settings' ); ?>
 			</p>
 		</form>
+		<div class="sidebar">
+			<div class="docs">
+				<h1><?php esc_html_e( 'Documentation', 'ang' ); ?></h1>
+				<p><?php esc_html_e( 'Style Kits come with easy-to-follow docs to get you started.', 'ang' ); ?></p>
+				<a href="#"><?php esc_html_e( 'Go to Docs', 'ang' ); ?></a>
+			</div>
+			<div class="social-group">
+				<h1><?php esc_html_e( 'Facebook group', 'ang' ); ?></h1>
+				<p><?php esc_html_e( 'Join our Facebook community and share workflows, get ideas and support.', 'ang' ); ?></p>
+				<a href="#"><?php esc_html_e( 'Join Facebook Group', 'ang' ); ?></a>
+			</div>
+			<div class="newsletter-list">
+				<h1><?php esc_html_e( 'Sign up to the mailing list', 'ang' ); ?></h1>
+				<input id="newsletter" type="text" placeholder="Add your email and hit enter" />
+				<p><?php esc_html_e( 'By signing up you agree to our ', 'ang' ); ?><a href="#"><?php esc_html_e( 'privacy and terms' ); ?></a></p>
+			</div>
+			<div class="social"></div>
+		</div>
 	</div>
 </div>
