@@ -44,11 +44,11 @@ class Settings_General extends Settings_Page {
 					'id'    => 'color_palette',
 				),
 				array(
-					'title'    => __( 'Sync Elementor Color Palette and Style Kit colors', 'ang' ),
-					'desc'     => __( 'If this is checked, the Elementor color picker will be populated with the Style Kit’s global colors', 'ang' ),
-					'id'       => 'sync_el_color_palette_style_kits',
-					'default'  => 'no',
-					'type'     => 'checkbox',
+					'title'   => __( 'Sync Elementor Color Palette and Style Kit colors', 'ang' ),
+					'desc'    => __( 'If this is checked, the Elementor color picker will be populated with the Style Kit’s global colors', 'ang' ),
+					'id'      => 'sync_el_color_palette_style_kits',
+					'default' => 'no',
+					'type'    => 'checkbox',
 				),
 				array(
 					'type' => 'sectionend',
@@ -65,8 +65,8 @@ class Settings_General extends Settings_Page {
 					'default'         => 'manual-import',
 					'type'            => 'radio',
 					'options'         => array(
-						'manual-import'     => __( 'Let me choose the import method while importing', 'ang' ),
-						'apply-default-style-kit'      => __( 'Always apply the template’s default Style Kit', 'ang' ),
+						'manual-import'           => __( 'Let me choose the import method while importing', 'ang' ),
+						'apply-default-style-kit' => __( 'Always apply the template’s default Style Kit', 'ang' ),
 						'apply-current-style-kit' => __( 'Always apply the Style Kit you are working with to the imported templates', 'ang' ),
 					),
 					'autoload'        => false,
