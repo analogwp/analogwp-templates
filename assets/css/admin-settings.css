@@ -5,3 +5,23 @@
 		column-gap: 50px;
 	}
 }
+
+.nav-tab-wrapper {
+	background: #f1f1f1;
+}
+.ang-wrapper form,
+.nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-active:hover  {
+	background: #fff;
+}
+.nav-tab {
+	margin-left: 0;
+	border: 0;
+	padding: 12px 30px;
+}
+
+.nav-tab-wrapper, .wrap h2.nav-tab-wrapper, h1.nav-tab-wrapper {
+	border-bottom: 0;
+}
+.tab-content {
+	padding: 10px 25px;
+}

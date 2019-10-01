@@ -32,21 +32,23 @@ if ( ! $tab_exists ) {
 
 				?>
 			</nav>
-			<h1 class="screen-reader-text"><?php echo esc_html( $current_tab_label ); ?></h1>
-			<?php
-				do_action( 'ang_sections_' . $current_tab );
+			<div class="tab-content">
+				<h1 class="screen-reader-text"><?php echo esc_html( $current_tab_label ); ?></h1>
+				<?php
+					do_action( 'ang_sections_' . $current_tab );
 
-				self::show_messages();
+					self::show_messages();
 
-				do_action( 'ang_settings_' . $current_tab );
-				do_action( 'ang_settings_tabs_' . $current_tab ); // @deprecated hook. @todo remove in 4.0.
-			?>
-			<p class="submit">
-				<?php if ( empty( $GLOBALS['hide_save_button'] ) ) : ?>
-					<button name="save" class="button-primary ang-save-button" type="submit" value="<?php esc_attr_e( 'Save changes', 'ang' ); ?>"><?php esc_html_e( 'Save changes', 'ang' ); ?></button>
-				<?php endif; ?>
-				<?php wp_nonce_field( 'ang-settings' ); ?>
-			</p>
+					do_action( 'ang_settings_' . $current_tab );
+					do_action( 'ang_settings_tabs_' . $current_tab ); // @deprecated hook. @todo remove in 4.0.
+				?>
+				<p class="submit">
+					<?php if ( empty( $GLOBALS['hide_save_button'] ) ) : ?>
+						<button name="save" class="button-primary ang-save-button" type="submit" value="<?php esc_attr_e( 'Save changes', 'ang' ); ?>"><?php esc_html_e( 'Save changes', 'ang' ); ?></button>
+					<?php endif; ?>
+					<?php wp_nonce_field( 'ang-settings' ); ?>
+				</p>
+			</div>
 		</form>
 		<div class="sidebar">
 			<div class="docs">
