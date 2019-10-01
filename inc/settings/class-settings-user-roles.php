@@ -96,20 +96,6 @@ class Settings_User_Roles extends Settings_Page {
 	}
 
 	/**
-	 * Output a color picker input box.
-	 *
-	 * @param mixed  $name Name of input.
-	 * @param string $id ID of input.
-	 * @param mixed  $value Value of input.
-	 * @param string $desc (default: '') Description for input.
-	 */
-	public function color_picker( $name, $id, $value, $desc = '' ) {
-		echo '<div class="color_box">' . wp_kses( $desc ) . '
-			<input name="' . esc_attr( $id ) . '" id="' . esc_attr( $id ) . '" type="text" value="' . esc_attr( $value ) . '" class="colorpick" /> <div id="colorPickerDiv_' . esc_attr( $id ) . '" class="colorpickdiv"></div>
-		</div>';
-	}
-
-	/**
 	 * Output the settings.
 	 */
 	public function output() {
