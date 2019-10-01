@@ -49,6 +49,17 @@ function register_menu() {
 
 	add_submenu_page(
 		'analogwp_templates',
+		__( 'Style Kits Settings Page', 'ang' ),
+		__( 'Settings Page', 'ang' ),
+		'manage_options',
+		'ang-settings',
+		'Analog\settings\new_settings_page'
+	);
+
+	add_action( 'load-style-kits_page_settings', 'Analog\settings\settings_page_init' );
+
+	add_submenu_page(
+		'analogwp_templates',
 		__( 'Style Kits', 'ang' ),
 		__( 'Manage Style Kits', 'ang' ),
 		'manage_options',
@@ -58,6 +69,67 @@ function register_menu() {
 }
 
 add_action( 'admin_menu', 'Analog\settings\register_menu' );
+
+/**
+ * Loads methods into memory for use within settings.
+ */
+function settings_page_init() {
+
+	// Include settings pages.
+	Admin_Settings::get_settings_pages();
+
+	// Add any posted messages.
+	if ( ! empty( $_GET['ang_error'] ) ) { // WPCS: input var okay, CSRF ok.
+		Admin_Settings::add_error( wp_kses_post( wp_unslash( $_GET['ang_error'] ) ) ); // WPCS: input var okay, CSRF ok.
+	}
+
+	if ( ! empty( $_GET['ang_message'] ) ) { // WPCS: input var okay, CSRF ok.
+		Admin_Settings::add_message( wp_kses_post( wp_unslash( $_GET['ang_message'] ) ) ); // WPCS: input var okay, CSRF ok.
+	}
+
+	do_action( 'ang_settings_page_init' );
+}
+
+/**
+ * Handle saving of settings.
+ *
+ * @return void
+ */
+ function save_settings() {
+		global $current_tab, $current_section;
+
+		// We should only save on the settings page.
+		if ( ! is_admin() || ! isset( $_GET['page'] ) || 'ang-settings' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+			return;
+		}
+
+		// Include settings pages.
+		Admin_Settings::get_settings_pages();
+
+		// Get current tab/section.
+		$current_tab     = empty( $_GET['tab'] ) ? 'general' : sanitize_title( wp_unslash( $_GET['tab'] ) ); // WPCS: input var okay, CSRF ok.
+		$current_section = empty( $_REQUEST['section'] ) ? '' : sanitize_title( wp_unslash( $_REQUEST['section'] ) ); // WPCS: input var okay, CSRF ok.
+
+		// Save settings if data has been posted.
+		if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
+			Admin_Settings::save();
+		} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
+			Admin_Settings::save();
+		}
+	}
+
+
+// Handle saving settings earlier than load-{page} hook to avoid race conditions in conditional menus.
+add_action( 'wp_loaded', 'Analog\settings\save_settings' );
+
+/**
+ * Add settings page.
+ *
+ * @return void
+ */
+function new_settings_page() {
+	Admin_Settings::output();
+}
 
 /**
  * Add settings page.
@@ -71,6 +143,35 @@ function settings_page() {
 	<div id="analogwp-templates"></div>
 	<?php
 }
+
+/**
+ * Default options.
+ *
+ * Sets up the default options used on the settings page.
+ */
+function create_options() {
+	// Include settings so that we can run through defaults.
+	include_once dirname( __FILE__ ) . '/class-admin-settings.php';
+
+	$settings = Admin_Settings::get_settings_pages();
+
+	foreach ( $settings as $section ) {
+		if ( ! method_exists( $section, 'get_settings' ) ) {
+			continue;
+		}
+		$subsections = array_unique( array_merge( array( '' ), array_keys( $section->get_sections() ) ) );
+
+		foreach ( $subsections as $subsection ) {
+			foreach ( $section->get_settings( $subsection ) as $value ) {
+				if ( isset( $value['default'] ) && isset( $value['id'] ) ) {
+					$autoload = isset( $value['autoload'] ) ? (bool) $value['autoload'] : true;
+					add_option( $value['id'], $value['default'], '', ( $autoload ? 'yes' : 'no' ) );
+				}
+			}
+		}
+	}
+}
+add_action( 'init', 'Analog\settings\create_options' );
 
 /**
  * Register plugin settings.
