@@ -49,6 +49,7 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 				include_once dirname( __FILE__ ) . '/settings/class-settings-page.php';
 
 				$settings[] = include 'settings/class-settings-general.php';
+				$settings[] = include 'settings/class-settings-user-roles.php';
 
 				self::$settings = apply_filters( 'ang_get_settings_pages', $settings );
 			}
@@ -121,7 +122,7 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			do_action( 'ang_settings_start' );
-
+			wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings' . $suffix . '.css', [], ANG_VERSION );
 			wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings' . $suffix . '.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'selectWoo' ), ANG_VERSION, true );
 
 			wp_localize_script(
