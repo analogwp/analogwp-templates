@@ -103,6 +103,7 @@ class Elementor {
 				'wp-components',
 				'wp-hooks',
 				'wp-i18n',
+				'wp-api-fetch',
 				'wp-html-entities',
 			],
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/app.js' ),
