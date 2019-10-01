@@ -121,11 +121,9 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 		public static function output() {
 			global $current_section, $current_tab;
 
-			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
 			do_action( 'ang_settings_start' );
-			wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings' . $suffix . '.css', [], ANG_VERSION );
-			wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings' . $suffix . '.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'selectWoo' ), ANG_VERSION, true );
+			wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', [], ANG_VERSION );
+			wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'selectWoo' ), ANG_VERSION, true );
 
 			wp_localize_script(
 				'ang_settings',

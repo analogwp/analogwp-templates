@@ -1,0 +1,7 @@
+@media screen and (min-width: 768px) {
+	.ang-wrapper {
+		display:grid;
+		grid-template-columns: 8fr 4fr;
+		column-gap: 50px;
+	}
+}
