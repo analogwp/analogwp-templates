@@ -50,6 +50,8 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 
 				$settings[] = include 'settings/class-settings-general.php';
 				$settings[] = include 'settings/class-settings-user-roles.php';
+				$settings[] = include 'settings/class-settings-license.php';
+				$settings[] = include 'settings/class-settings-misc.php';
 
 				self::$settings = apply_filters( 'ang_get_settings_pages', $settings );
 			}
@@ -546,7 +548,7 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 			if ( $tooltip_html && in_array( $value['type'], array( 'checkbox' ), true ) ) {
 				$tooltip_html = '<p class="description">' . $tooltip_html . '</p>';
 			} elseif ( $tooltip_html ) {
-				$tooltip_html = wp_kses( $tooltip_html );
+				$tooltip_html = wp_kses_post( $tooltip_html );
 			}
 
 			return array(
