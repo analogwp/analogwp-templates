@@ -39,6 +39,22 @@ class Settings_Misc extends Settings_Page {
 			'ang_misc_settings',
 			array(
 				array(
+					'title' => __( 'Opt-in for usage Data Tracking', 'ang' ),
+					'type'  => 'title',
+					'id'    => 'usage_tracking',
+				),
+				array(
+					'title'   => __( 'Data Tracking', 'ang' ),
+					'desc'    => __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ),
+					'id'      => 'usage_tracking_option',
+					'default' => 'no',
+					'type'    => 'checkbox',
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'usage_tracking',
+				),
+				array(
 					'title' => __( 'Rollback Version', 'ang' ),
 					'type'  => 'title',
 					'id'    => 'plugin_rollback_version',
@@ -60,6 +76,22 @@ class Settings_Misc extends Settings_Page {
 				array(
 					'type' => 'sectionend',
 					'id'   => 'plugin_rollback',
+				),
+				array(
+					'title' => __( 'Remove Data on Uninstall', 'ang' ),
+					'type'  => 'title',
+					'id'    => 'remove_data_uninstall',
+				),
+				array(
+					'title'   => __( 'Data Removal', 'ang' ),
+					'desc'    => __( 'Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed.', 'ang' ),
+					'id'      => 'remove_data_uninstall_option',
+					'default' => 'no',
+					'type'    => 'checkbox',
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'remove_data_uninstall',
 				),
 			)
 		);
