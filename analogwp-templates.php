@@ -36,6 +36,13 @@ final class Analog_Templates {
 	public static $user_meta_prefix = 'analog_library_favorites';
 
 	/**
+	 * Current plugin version.
+	 *
+	 * @var string
+	 */
+	public static $version = '1.3.7';
+
+	/**
 	 * Main Analog_Templates instance.
 	 *
 	 * @return void
@@ -83,7 +90,7 @@ final class Analog_Templates {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'ANG_VERSION' ) ) {
-			define( 'ANG_VERSION', '1.3.7' );
+			define( 'ANG_VERSION', self::$version );
 		}
 
 		define( 'ANG_LAST_STABLE_VERSION', '1.2.2' );
@@ -169,12 +176,12 @@ final class Analog_Templates {
 			'analogwp-app',
 			ANG_PLUGIN_URL . 'assets/js/app.js',
 			[
-				'jquery',
 				'react',
+				'jquery',
 				'react-dom',
 				'wp-components',
-				'wp-i18n',
 				'wp-hooks',
+				'wp-i18n',
 				'wp-api-fetch',
 				'wp-html-entities',
 			],
