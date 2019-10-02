@@ -68,8 +68,6 @@ class Settings_General extends Settings_Page {
 						'apply-default-style-kit' => __( 'Always apply the template’s default Style Kit', 'ang' ),
 						'apply-current-style-kit' => __( 'Always apply the Style Kit you are working with to the imported templates', 'ang' ),
 					),
-					'autoload'        => false,
-					'desc_tip'        => true,
 					'show_if_checked' => 'option',
 				),
 				array(

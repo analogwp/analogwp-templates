@@ -56,12 +56,12 @@ if ( ! $tab_exists ) {
 			<div class="docs">
 				<h1><?php esc_html_e( 'Documentation', 'ang' ); ?></h1>
 				<p><?php esc_html_e( 'Style Kits come with easy-to-follow docs to get you started.', 'ang' ); ?></p>
-				<a href="#"><?php esc_html_e( 'Go to Docs', 'ang' ); ?></a>
+				<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>"><?php esc_html_e( 'Go to Docs', 'ang' ); ?></a>
 			</div>
 			<div class="social-group">
 				<h1><?php esc_html_e( 'Facebook group', 'ang' ); ?></h1>
 				<p><?php esc_html_e( 'Join our Facebook community and share workflows, get ideas and support.', 'ang' ); ?></p>
-				<a href="#"><?php esc_html_e( 'Join Facebook Group', 'ang' ); ?></a>
+				<a href="<?php echo esc_url( 'https://www.facebook.com/groups/analogwp/' ); ?>"><?php esc_html_e( 'Join Facebook Group', 'ang' ); ?></a>
 			</div>
 			<div class="newsletter-list">
 				<h1><?php esc_html_e( 'Sign up to the mailing list', 'ang' ); ?></h1>
