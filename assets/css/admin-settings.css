@@ -6,6 +6,12 @@
 	}
 }
 
+h1.menu-title {
+	margin-top: 20px;
+	margin-bottom: 25px;
+	font-weight: 700;
+}
+
 .nav-tab-wrapper {
 	background: #f1f1f1;
 }
@@ -17,6 +23,7 @@
 	margin-left: 0;
 	border: 0;
 	padding: 12px 30px;
+	font-weight: 700;
 }
 
 .nav-tab-wrapper, .wrap h2.nav-tab-wrapper, h1.nav-tab-wrapper {

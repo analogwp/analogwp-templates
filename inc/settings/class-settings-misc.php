@@ -41,28 +41,28 @@ class Settings_Misc extends Settings_Page {
 				array(
 					'title' => __( 'Opt-in for usage Data Tracking', 'ang' ),
 					'type'  => 'title',
-					'id'    => 'usage_tracking',
+					'id'    => 'ang_usage_tracking',
 				),
 				array(
 					'title'   => __( 'Data Tracking', 'ang' ),
 					'desc'    => __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ),
-					'id'      => 'usage_tracking_option',
+					'id'      => 'ang_data_collection',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
 				array(
 					'type' => 'sectionend',
-					'id'   => 'usage_tracking',
+					'id'   => 'ang_usage_tracking',
 				),
 				array(
 					'title' => __( 'Rollback Version', 'ang' ),
 					'type'  => 'title',
-					'id'    => 'plugin_rollback_version',
+					'id'    => 'ang_plugin_rollback_version',
 					'desc'     => __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ),
 				),
 				array(
 					'desc'     => __( 'Select version number to which rollback should happen.', 'ang' ),
-					'id'       => 'plugin_rollback_version_select',
+					'id'       => 'ang_plugin_rollback_version_select',
 					'default'  => '',
 					'type'     => 'select',
 					'class'    => 'ang-enhanced-select',
@@ -75,23 +75,39 @@ class Settings_Misc extends Settings_Page {
 				),
 				array(
 					'type' => 'sectionend',
-					'id'   => 'plugin_rollback',
+					'id'   => 'ang_plugin_rollback',
 				),
 				array(
-					'title' => __( 'Remove Data on Uninstall', 'ang' ),
+					'title' => __( 'Template Settings', 'ang' ),
 					'type'  => 'title',
-					'id'    => 'remove_data_uninstall',
+					'id'    => 'ang_temp_settings',
 				),
 				array(
-					'title'   => __( 'Data Removal', 'ang' ),
-					'desc'    => __( 'Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed.', 'ang' ),
-					'id'      => 'remove_data_uninstall_option',
+					'title'   => __( 'Remove Styling from typographic elements', 'ang' ),
+					'desc'    => __( 'This setting will remove any values that have been manually added in the templates. Existing templates are not affected.', 'ang' ),
+					'id'      => 'ang_remove_typography',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
 				array(
 					'type' => 'sectionend',
-					'id'   => 'remove_data_uninstall',
+					'id'   => 'ang_temp_settings',
+				),
+				array(
+					'title' => __( 'Remove Data on Uninstall', 'ang' ),
+					'type'  => 'title',
+					'id'    => 'ang_remove_data_uninstall',
+				),
+				array(
+					'title'   => __( 'Data Removal', 'ang' ),
+					'desc'    => __( 'Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed.', 'ang' ),
+					'id'      => 'remove_on_uninstall',
+					'default' => 'no',
+					'type'    => 'checkbox',
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'ang_remove_data_uninstall',
 				),
 			)
 		);

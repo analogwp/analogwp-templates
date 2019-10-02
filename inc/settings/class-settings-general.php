@@ -41,27 +41,27 @@ class Settings_General extends Settings_Page {
 				array(
 					'title' => __( 'Color Palette', 'ang' ),
 					'type'  => 'title',
-					'id'    => 'color_palette',
+					'id'    => 'ang_color_palette',
 				),
 				array(
 					'title'   => __( 'Sync Elementor Color Palette and Style Kit colors', 'ang' ),
 					'desc'    => __( 'If this is checked, the Elementor color picker will be populated with the Style Kit’s global colors', 'ang' ),
-					'id'      => 'sync_el_color_palette_style_kits',
+					'id'      => 'ang_sync_colors',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
 				array(
 					'type' => 'sectionend',
-					'id'   => 'color_palette',
+					'id'   => 'ang_color_palette',
 				),
 				array(
 					'title' => __( 'Template Import method', 'ang' ),
 					'type'  => 'title',
-					'id'    => 'tmp_import_method',
+					'id'    => 'ang_tmp_import_method',
 				),
 				array(
 					'title'           => __( 'Template Import method', 'ang' ),
-					'id'              => 'temp_import_method',
+					'id'              => 'ang_temp_import_method',
 					'default'         => 'manual-import',
 					'type'            => 'radio',
 					'options'         => array(
@@ -75,7 +75,7 @@ class Settings_General extends Settings_Page {
 				),
 				array(
 					'type' => 'sectionend',
-					'id'   => 'temp_import',
+					'id'   => 'ang_temp_import',
 				),
 			)
 		);
