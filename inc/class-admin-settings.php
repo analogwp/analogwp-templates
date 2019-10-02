@@ -17,7 +17,7 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 	 * Admin_Settings Class.
 	 */
 	class Admin_Settings {
-
+		const OPTION_KEY = 'ang_options';
 		/**
 		 * Setting pages.
 		 *
@@ -128,7 +128,7 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 				'ang_settings',
 				'ang_settings_params',
 				array(
-					'i18n_nav_warning'                    => __( 'The changes you made will be lost if you navigate away from this page.', 'ang' ),
+					'i18n_nav_warning' => __( 'The changes you made will be lost if you navigate away from this page.', 'ang' ),
 				)
 			);
 
@@ -145,9 +145,11 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 		 * @param mixed  $default     Default value.
 		 * @return mixed
 		 */
-		public static function get_option( $option_name, $default = '' ) {
+		public static function get_option( $option_name = false, $default = '' ) {
+			$options = get_option( self::OPTION_KEY );
+
 			if ( ! $option_name ) {
-				return $default;
+				return $options;
 			}
 
 			// Array value.
@@ -159,7 +161,10 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 				$option_name = current( array_keys( $option_array ) );
 
 				// Get value.
-				$option_values = get_option( $option_name, '' );
+				if ( empty( $options[ $option_name ] ) ) {
+					$options[ $option_name ] = '';
+				}
+				$option_values = $options[ $option_name ];
 
 				$key = key( $option_array[ $option_name ] );
 
@@ -170,7 +175,10 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 				}
 			} else {
 				// Single value.
-				$option_value = get_option( $option_name, null );
+				if ( empty( $options[ $option_name ] ) ) {
+					$options[ $option_name ] = null;
+				}
+				$option_value = $options[ $option_name ];
 			}
 
 			if ( is_array( $option_value ) ) {
@@ -503,8 +511,6 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 						}
 						break;
 
-
-
 					// Default: run an action.
 					default:
 						do_action( 'ang_admin_field_' . $value['type'], $value );
@@ -683,9 +689,7 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 			}
 
 			// Save all options in our array.
-			foreach ( $update_options as $name => $value ) {
-				update_option( $name, $value, $autoload_options[ $name ] ? 'yes' : 'no' );
-			}
+			update_option( self::OPTION_KEY, $update_options );
 
 			return true;
 		}
