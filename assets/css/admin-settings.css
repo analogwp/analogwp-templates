@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap');
+body {
+	background: #E3E3E3;
+}
+
 @media screen and (min-width: 768px) {
 	.ang-wrapper {
 		display:grid;
@@ -18,11 +22,13 @@ h1.menu-title {
 }
 
 .nav-tab-wrapper {
-	background: #f1f1f1;
+	background: #E3E3E3;
 }
 .ang-wrapper form,
 .nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-active:hover  {
 	background: #fff;
+	transition: none;
+	border-bottom: 0;
 }
 .nav-tab {
 	margin-left: 0;
@@ -61,4 +67,39 @@ h1.menu-title {
 .form-table input.tog, input[type="checkbox"] {
 	margin-top: -55px;
 	margin-right: 10px;
+}
+
+.form-table:not(:last-of-type) {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sidebar > div:not(:last-of-type) {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.sidebar > div {
+	padding: 20px 0;
+}
+
+.sidebar h1 {
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
+}
+.sidebar {
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 170%;
+	color: #6A6A6A;
+}
+
+.sidebar .newsletter-list input {
+	width: 80%;
+	padding: 5px 10px;
+	font-weight: normal;
+	font-size: 14.22px;
+	line-height: 21px;
+	color: #888888;
+	background: #F2F2F2;
+	border: 1px solid #DBDBDB;
+	margin: 15px 0;
 }
