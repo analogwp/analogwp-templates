@@ -46,7 +46,7 @@ class Settings_Misc extends Settings_Page {
 				array(
 					'title'   => __( 'Data Tracking', 'ang' ),
 					'desc'    => __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ),
-					'id'      => 'ang_data_collection',
+					'id'      => 'ang_data_collection_option',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
@@ -58,19 +58,19 @@ class Settings_Misc extends Settings_Page {
 					'title' => __( 'Rollback Version', 'ang' ),
 					'type'  => 'title',
 					'id'    => 'ang_plugin_rollback_version',
-					'desc'     => __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ),
+					'desc'  => __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ),
 				),
 				array(
 					'desc'     => __( 'Select version number to which rollback should happen.', 'ang' ),
-					'id'       => 'ang_plugin_rollback_version_select',
+					'id'       => 'ang_rollback_version_select_option',
 					'default'  => '',
 					'type'     => 'select',
 					'class'    => 'ang-enhanced-select',
 					'desc_tip' => true,
 					'options'  => array(
-						'1.3.6'         => __( '1.3.6', 'ang' ),
-						'1.3.4'      => __( '1.3.4', 'ang' ),
-						'1.3.0'      => __( '1.3.0', 'ang' ),
+						'1.3.6' => __( '1.3.6', 'ang' ),
+						'1.3.4' => __( '1.3.4', 'ang' ),
+						'1.3.0' => __( '1.3.0', 'ang' ),
 					),
 				),
 				array(
@@ -85,7 +85,7 @@ class Settings_Misc extends Settings_Page {
 				array(
 					'title'   => __( 'Remove Styling from typographic elements', 'ang' ),
 					'desc'    => __( 'This setting will remove any values that have been manually added in the templates. Existing templates are not affected.', 'ang' ),
-					'id'      => 'ang_remove_typography',
+					'id'      => 'ang_remove_typography_option',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
@@ -101,7 +101,7 @@ class Settings_Misc extends Settings_Page {
 				array(
 					'title'   => __( 'Data Removal', 'ang' ),
 					'desc'    => __( 'Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed.', 'ang' ),
-					'id'      => 'remove_on_uninstall',
+					'id'      => 'ang_remove_on_uninstall_option',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),

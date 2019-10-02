@@ -46,7 +46,7 @@ class Settings_General extends Settings_Page {
 				array(
 					'title'   => __( 'Sync Elementor Color Palette and Style Kit colors', 'ang' ),
 					'desc'    => __( 'If this is checked, the Elementor color picker will be populated with the Style Kit’s global colors', 'ang' ),
-					'id'      => 'ang_sync_colors',
+					'id'      => 'ang_sync_colors_option',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
@@ -61,7 +61,7 @@ class Settings_General extends Settings_Page {
 				),
 				array(
 					'title'           => __( 'Template Import method', 'ang' ),
-					'id'              => 'ang_temp_import_method',
+					'id'              => 'ang_temp_import_method_option',
 					'default'         => 'manual-import',
 					'type'            => 'radio',
 					'options'         => array(
