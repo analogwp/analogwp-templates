@@ -44,8 +44,7 @@ class Settings_Misc extends Settings_Page {
 					'id'    => 'ang_usage_tracking',
 				),
 				array(
-					'title'   => __( 'Data Tracking', 'ang' ),
-					'desc'    => __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ),
+					'title'   => __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ),
 					'id'      => 'ang_data_collection_option',
 					'default' => 'no',
 					'type'    => 'checkbox',
@@ -99,8 +98,7 @@ class Settings_Misc extends Settings_Page {
 					'id'    => 'ang_remove_data_uninstall',
 				),
 				array(
-					'title'   => __( 'Data Removal', 'ang' ),
-					'desc'    => __( 'Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed.', 'ang' ),
+					'title'   => __( 'Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed.', 'ang' ),
 					'id'      => 'ang_remove_on_uninstall_option',
 					'default' => 'no',
 					'type'    => 'checkbox',

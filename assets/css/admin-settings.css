@@ -27,6 +27,9 @@ h1.menu-title {
 .ang-wrapper form,
 .nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-active:hover  {
 	background: #fff;
+}
+.nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-active:hover, .nav-tab, .nav-tab:focus, .nav-tab:focus:active, .nav-tab:hover  {
+	box-shadow: none;
 	transition: none;
 	border-bottom: 0;
 }
@@ -60,12 +63,25 @@ h1.menu-title {
 	padding-bottom: 5px;
 	padding-left: 28px;
 }
+.form-table th, .form-table td fieldset li label {
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 180%;
+	color: #141414;
+}
+.form-table td fieldset label, .tab-content p {
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 170%;
+	color: #888888;
+}
 #ang_plugin_rollback_version-description + .form-table th, #ang_license_activation_title-description + .form-table th {
 	padding-bottom: 15px;
 	padding-left: 0;
 }
+
 .form-table input.tog, input[type="checkbox"] {
-	margin-top: -55px;
+	margin-top: -65px;
 	margin-right: 10px;
 }
 
@@ -102,4 +118,8 @@ h1.menu-title {
 	background: #F2F2F2;
 	border: 1px solid #DBDBDB;
 	margin: 15px 0;
+}
+.ang-enhanced-select {
+    width: 50%;
+	margin: 8px 0;
 }
