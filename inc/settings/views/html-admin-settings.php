@@ -5,6 +5,8 @@
  * @package Analog
  */
 
+namespace Analog\settings\views;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -18,7 +20,7 @@ if ( ! $tab_exists ) {
 }
 ?>
 <div class="wrap ang">
-	<h1><?php esc_html_e( 'Style Kits Settings', 'pulse' ); ?></h1>
+	<h1 class="menu-title"><?php esc_html_e( 'Style Kits Settings', 'pulse' ); ?></h1>
 	<div class="ang-wrapper">
 		<form method="<?php echo esc_attr( apply_filters( 'ang_settings_form_method_tab_' . $current_tab, 'post' ) ); ?>" id="mainform" action="" enctype="multipart/form-data">
 			<nav class="nav-tab-wrapper ang-nav-tab-wrapper">
