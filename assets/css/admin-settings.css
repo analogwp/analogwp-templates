@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap');
 @media screen and (min-width: 768px) {
 	.ang-wrapper {
 		display:grid;
 		grid-template-columns: 8fr 4fr;
 		column-gap: 50px;
 	}
+}
+
+.ang {
+	font-family: 'Poppins', sans-serif;
 }
 
 h1.menu-title {
@@ -31,4 +36,29 @@ h1.menu-title {
 }
 .tab-content {
 	padding: 10px 25px;
+}
+
+.form-table th, .form-table td {
+	display: block;
+}
+
+.form-table th {
+	width: 100%;
+}
+
+.form-table td {
+	padding-top: 0;
+	padding-left: 0;
+}
+.form-table th {
+	padding-bottom: 5px;
+	padding-left: 28px;
+}
+#ang_plugin_rollback_version-description + .form-table th, #ang_license_activation_title-description + .form-table th {
+	padding-bottom: 15px;
+	padding-left: 0;
+}
+.form-table input.tog, input[type="checkbox"] {
+	margin-top: -55px;
+	margin-right: 10px;
 }
