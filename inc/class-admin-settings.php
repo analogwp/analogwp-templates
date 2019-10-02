@@ -49,7 +49,6 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 				include_once dirname( __FILE__ ) . '/settings/class-settings-page.php';
 
 				$settings[] = include 'settings/class-settings-general.php';
-				$settings[] = include 'settings/class-settings-user-roles.php';
 				$settings[] = include 'settings/class-settings-license.php';
 				$settings[] = include 'settings/class-settings-misc.php';
 
