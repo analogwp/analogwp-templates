@@ -41,12 +41,12 @@ class Settings_License extends Settings_Page {
 				array(
 					'title' => __( 'Enter your license', 'ang' ),
 					'type'  => 'title',
-					'id'    => 'license_activation_title',
+					'id'    => 'ang_license_activation_title',
 					'desc'  => __( 'You can enter your license key here and hit save to get it activated.', 'ang' ),
 				),
 				array(
 					'title'    => __( 'Input your license key', 'ang' ),
-					'id'       => 'license_activation',
+					'id'       => 'ang_license_key_option',
 					'css'      => 'min-width:50px;',
 					'default'  => '',
 					'type'     => 'text',
@@ -54,7 +54,7 @@ class Settings_License extends Settings_Page {
 				),
 				array(
 					'type' => 'sectionend',
-					'id'   => 'license',
+					'id'   => 'ang_license',
 				),
 			)
 		);

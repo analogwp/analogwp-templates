@@ -60,7 +60,6 @@ class Settings_General extends Settings_Page {
 					'id'    => 'ang_tmp_import_method',
 				),
 				array(
-					'title'           => __( 'Template Import method', 'ang' ),
 					'id'              => 'ang_temp_import_method_option',
 					'default'         => 'manual-import',
 					'type'            => 'radio',
