@@ -123,7 +123,7 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 
 			do_action( 'ang_settings_start' );
 			wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', [], ANG_VERSION );
-			wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris' ), ANG_VERSION, true );
+			wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n' ), ANG_VERSION, true );
 
 			wp_localize_script(
 				'ang_settings',
