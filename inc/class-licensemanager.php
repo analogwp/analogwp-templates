@@ -23,7 +23,7 @@ class LicenseManager extends Base {
 	 *
 	 * @var string
 	 */
-	protected $license_slug = 'ang_license_key';
+	protected $license_slug = 'ang_license_key_option';
 
 	/**
 	 * AnalogWP Pro download id from AnalogWP.com
@@ -81,7 +81,7 @@ class LicenseManager extends Base {
 			'license-key-expired-%s'    => __( 'License key expired %s.', 'ang' ),
 			'license-key-expired'       => __( 'License key has expired.', 'ang' ),
 			'license-keys-do-not-match' => __(
-				'License keys do not match. <br><br> Enter your theme license key received upon purchase from <a target="_blank" href="https://analogwp.com/account/">AnalogWP</a>.',
+				'License keys do not match. <br> Enter your theme license key received upon purchase from <a target="_blank" href="https://analogwp.com/account/">AnalogWP</a>.',
 				'ang'
 			),
 			'license-is-inactive'       => __( 'License is inactive.', 'ang' ),
@@ -99,6 +99,24 @@ class LicenseManager extends Base {
 
 		add_action( 'rest_api_init', [ $this, 'register_endpoints' ] );
 		add_action( 'admin_init', [ $this, 'get_license_message' ], 10, 2 );
+		add_action( 'admin_init', [ $this, 'license_action' ] );
+	}
+
+	/**
+	 * Checks if a license action was submitted.
+	 *
+	 */
+	public function license_action() {
+		if ( isset( $_POST[ 'ang-license_activate' ] ) ) {
+			if ( check_admin_referer( 'ang_nonce', 'ang_nonce' ) ) {
+				$this->activate_license();
+			}
+		}
+		if ( isset( $_POST[ 'ang-license_deactivate' ] ) ) {
+			if ( check_admin_referer( 'ang_nonce', 'ang_nonce' ) ) {
+				$this->deactivate_license();
+			}
+		}
 	}
 
 	/**
@@ -453,6 +471,17 @@ class LicenseManager extends Base {
 			'message' => $this->get_license_message(),
 			'action'  => 'deactivate',
 		];
+	}
+
+	/**
+	 * Processes protected license message strings for use externally.
+	 *
+	 * @return array
+	 */
+	public function get_strings() {
+		$strings = $this->strings;
+
+		return $strings;
 	}
 }
 
