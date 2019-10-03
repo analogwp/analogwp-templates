@@ -43,7 +43,7 @@
 			}
 
 			const version =  $( '#ang_rollback_version_select_option' ).val();
-			const rollbackUrl = addQueryArgs( data.rollback_url, version );
+			const rollbackUrl = addQueryArgs( data.rollback_url, { version: version } );
 
 			window.location.href = rollbackUrl;
 			return false;
