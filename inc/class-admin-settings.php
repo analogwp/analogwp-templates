@@ -285,6 +285,20 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 						}
 						break;
 
+					case 'content':
+						if ( ! empty( $value['class'] ) ) {
+							echo '<div class="' . esc_attr( $value['class'] ) . '">';
+						}
+						if ( ! empty( $value['title'] ) ) {
+							echo '<h2 id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-title">' . esc_html( $value['title'] ) . '</h2>';
+						}
+						if ( ! empty( $value['desc'] ) ) {
+							echo '<p id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-desc">' . wp_kses_post( $value['desc'] ) . '</p>';
+						}
+						if ( ! empty( $value['class'] ) ) {
+							echo '</div>';
+						}
+						break;
 					// Standard text inputs and subtypes like 'number'.
 					case 'text':
 					case 'password':
@@ -332,7 +346,25 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 							</td>
 						</tr>
 						<?php
-					    break;
+						break;
+					case 'action':
+						$option_value = $value['value'];
+						echo '<table class="form-table ang-action">' . "\n\n";
+							if ( ! empty( $value['id'] ) ) {
+								do_action( 'ang_settings_' . sanitize_title( $value['id'] ) );
+							}
+						?>
+						<tr valign="top">
+							<th scope="row" class="titledesc">
+								<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?></label>
+							</th>
+							<td class="forminwp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+								<?php wp_nonce_field( 'ang_nonce', 'ang_nonce' ); ?>
+								<input type="submit" class="<?php echo esc_attr( $value['class'] ); ?>" name="<?php echo esc_attr( $value['id'] ); ?>" value="<?php echo esc_attr( $option_value ); ?>"/>
+							</td>
+						</tr>
+						<?php
+						break;
 
 					// Color picker.
 					case 'color':
