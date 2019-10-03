@@ -22,12 +22,12 @@
 				error: function() {
 					const message = __( 'An error occured', 'ang' );
 
-					$( '.form-newsletter' ).append( '<p class="ang-message">' + message + '</p>' );
+					$( '.form-newsletter' ).append( '<p class="ang-message-error">' + message + '</p>' );
 				},
 				success: function() {
 					const message = __( 'Successfully subscribed!!!', 'ang' );
 
-					$( '.form-newsletter' ).append( '<p class="ang-message">' + message + '</p>' );
+					$( '.form-newsletter' ).append( '<p class="ang-message-success">' + message + '</p>' );
 				},
 			} );
 

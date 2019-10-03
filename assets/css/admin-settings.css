@@ -2,6 +2,7 @@
 
 :root {
 	--ang-settings-accent: #5C32B6;
+	--ang-settings-warning: #B33A3A;
 }
 
 body {
@@ -179,6 +180,15 @@ h1.menu-title {
 .ang.gopro .ang-button.ang-gopro-button {
 	display: inline-block;
 	margin-top: 30px;
+}
+
+.sidebar .ang-message-success {
+	color: var( --ang-settings-accent );
+	font-size: 14px;
+}
+.sidebar .ang-message-error {
+	color: var( --ang-settings-warning );
+	font-size: 14px;
 }
 
 
