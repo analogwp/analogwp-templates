@@ -55,12 +55,12 @@ if ( ! $tab_exists ) {
 			<div class="docs">
 				<h1><?php esc_html_e( 'Documentation', 'ang' ); ?></h1>
 				<p><?php esc_html_e( 'Style Kits come with easy-to-follow docs to get you started.', 'ang' ); ?></p>
-				<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>"><?php esc_html_e( 'Go to Docs', 'ang' ); ?></a>
+				<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Go to Docs', 'ang' ); ?></a>
 			</div>
 			<div class="social-group">
 				<h1><?php esc_html_e( 'Facebook group', 'ang' ); ?></h1>
 				<p><?php esc_html_e( 'Join our Facebook community and share workflows, get ideas and support.', 'ang' ); ?></p>
-				<a href="<?php echo esc_url( 'https://www.facebook.com/groups/analogwp/' ); ?>"><?php esc_html_e( 'Join Facebook Group', 'ang' ); ?></a>
+				<a href="<?php echo esc_url( 'https://www.facebook.com/groups/analogwp/' ); ?>" target="_blank"><?php esc_html_e( 'Join Facebook Group', 'ang' ); ?></a>
 			</div>
 			<div class="newsletter-list">
 				<h1><?php esc_html_e( 'Sign up to the mailing list', 'ang' ); ?></h1>
@@ -68,7 +68,7 @@ if ( ! $tab_exists ) {
 					<input id="ang-newsletter-email" type="email" placeholder="Enter your email" />
 					<button id="ang-newsletter-submit" class="ang-button" type="submit"><?php esc_html_e( 'Subscribe up to newsletter', 'ang'); ?></button>
 				</form>
-				<p><?php esc_html_e( 'By signing up you agree to our ', 'ang' ); ?><a href="#"><?php esc_html_e( 'privacy and terms' ); ?></a></p>
+				<p><?php esc_html_e( 'By signing up you agree to our ', 'ang' ); ?><a href="<?php echo esc_url( 'https://analogwp.com/privacy-policy/' ); ?>" target="_blank"><?php esc_html_e( 'privacy and terms' ); ?></a></p>
 			</div>
 			<div class="social">
 				<a href="https://facebook.com/analogwp" target="_blank"><span class="dashicons dashicons-facebook-alt"></span></a>

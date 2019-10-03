@@ -17,6 +17,6 @@ namespace Analog\settings\views;
 		<li><?php _e( 'Global design control.', 'ang' ); ?></li>
 		<li><?php _e( 'Advanced Style Kit control.', 'ang' ); ?></li>
 	</ul>
-	<a href="<?php echo esc_url( 'https://analogwp.com/#' ); ?>" class="ang-button"><?php _e( 'Explore Style Kits', 'ang' ); ?></a>
+	<a href="<?php echo esc_url( 'https://analogwp.com/style-kits-pro' ); ?>" class="ang-button" target="_blank"><?php _e( 'Explore Style Kits', 'ang' ); ?></a>
 </div>
 
