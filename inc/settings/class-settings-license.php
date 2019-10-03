@@ -45,11 +45,11 @@ class Settings_License extends Settings_Page {
 					'desc'  => __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ),
 				),
 				array(
-					'title'    => __( 'Input your license key', 'ang' ),
-					'desc'  => __( 'If you do not have a license key, you can get one from AnalogWP', 'ang' ),
-					'id'       => 'ang_license_key_option',
-					'default'  => '',
-					'type'     => 'text',
+					'title'   => __( 'Input your license key', 'ang' ),
+					'desc'    => '<p>' . __( 'If you do not have a license key, you can get one from ', 'ang' ) . '<a href="https://analogwp.com">AnalogWP</a></p>',
+					'id'      => 'ang_license_key_option',
+					'default' => '',
+					'type'    => 'text',
 				),
 				array(
 					'type' => 'sectionend',
