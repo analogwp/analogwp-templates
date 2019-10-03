@@ -7,6 +7,8 @@
 
 namespace Analog\settings;
 
+use Analog\Utils;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -123,13 +125,15 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 
 			do_action( 'ang_settings_start' );
 			wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', [ 'dashicons' ], ANG_VERSION );
-			wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n' ), ANG_VERSION, true );
+			wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n', 'wp-api-fetch' ), ANG_VERSION, true );
 
 			wp_localize_script(
 				'ang_settings',
-				'ang_settings_params',
+				'ang_settings_data',
 				array(
 					'i18n_nav_warning' => __( 'The changes you made will be lost if you navigate away from this page.', 'ang' ),
+					'rollback_url'      => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
+					'rollback_versions' => Utils::get_rollback_versions(),
 				)
 			);
 
