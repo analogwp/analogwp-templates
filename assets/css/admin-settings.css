@@ -132,12 +132,25 @@ h1.menu-title {
 	border: 1px solid #DBDBDB;
 	margin: 15px 0;
 }
+.sidebar .social {
+	margin-top: 15px;
+}
+.sidebar .social > a {
+	margin-right: 15px;
+	text-decoration: none;
+}
+
+.sidebar .social .dashicons {
+	width: 40px;
+	height: 40px;
+}
+
 .ang-enhanced-select {
     width: 50%;
 	margin: 8px 0;
 }
 
-.wp-core-ui .ang .ang-save-button, .wp-core-ui .ang .ang-button {
+.ang .ang-save-button, .ang .ang-button {
 	background: var( --ang-settings-accent );
 	border-color: var( --ang-settings-accent );
 	box-shadow: none;
