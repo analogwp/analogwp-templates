@@ -190,5 +190,50 @@ h1.menu-title {
 	color: var( --ang-settings-warning );
 	font-size: 14px;
 }
+.ang.gopro h1 {
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 30px;
+}
+
+.ang.gopro ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 180%;
+	margin-top: 20px;
+}
+@media screen and ( min-width: 768px ) {
+	.ang.gopro ul {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+.ang.gopro ul > li {
+	position: relative;
+	margin-left: 15px;
+}
+
+.ang.gopro ul > li::before {
+	content: "• ";
+	font-size: 30px;
+	color: var( --ang-settings-accent );
+	display: inline-block;
+	margin-left: -16px;
+position: absolute;
+  }
+
+.ang.gopro .ang-button {
+	display: inline-block;
+	margin-top: 30px;
+}
 
 
+.ang.gopro #mainform {
+	background-image: url( 'http://analogwp.local/wp-content/plugins/analogwp-templates/assets/img/gopro_frames.png' );
+	background-position: bottom;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
