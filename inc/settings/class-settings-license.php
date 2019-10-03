@@ -39,18 +39,17 @@ class Settings_License extends Settings_Page {
 			'ang_license_settings',
 			array(
 				array(
-					'title' => __( 'Enter your license', 'ang' ),
+					'title' => __( 'Pro license', 'ang' ),
 					'type'  => 'title',
 					'id'    => 'ang_license_activation_title',
-					'desc'  => __( 'You can enter your license key here and hit save to get it activated.', 'ang' ),
+					'desc'  => __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ),
 				),
 				array(
 					'title'    => __( 'Input your license key', 'ang' ),
+					'desc'  => __( 'If you do not have a license key, you can get one from AnalogWP', 'ang' ),
 					'id'       => 'ang_license_key_option',
-					'css'      => 'min-width:50px;',
 					'default'  => '',
 					'type'     => 'text',
-					'desc_tip' => true,
 				),
 				array(
 					'type' => 'sectionend',
