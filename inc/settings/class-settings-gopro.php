@@ -26,7 +26,7 @@ class Settings_GoPro extends Settings_Page {
 		$this->label = __( 'Go Pro', 'ang' );
 		parent::__construct();
 
-		add_action( 'ang_settings_tabs_' . $this->id, [ $this, 'get_pro' ] );
+		add_action( 'ang_settings_' . $this->id, [ $this, 'get_pro' ] );
 	}
 
 	/**
@@ -37,24 +37,7 @@ class Settings_GoPro extends Settings_Page {
 	public function get_settings() {
 		$settings = apply_filters(
 			'ang_gopro_settings',
-			array(
-				array(
-				'title' => __( 'Access an interconnected library of Template Kits, blocks and additional design control with Style kits Pro.', 'ang' ),
-				'type'  => 'title',
-				'id'    => 'ang_gopro_title',
-				),
-				array(
-				'to'    => '',
-				'id'    => 'ang_gopro_button',
-				'type'  => 'button',
-				'class' => 'ang-gopro-button ang-button',
-				'value' => __( 'Explore Style Kits Pro', 'ang' ),
-				),
-				array(
-				'type' => 'sectionend',
-				'id'   => 'ang_gopro_title',
-				),
-			)
+			array()
 		);
 
 		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
@@ -64,7 +47,6 @@ class Settings_GoPro extends Settings_Page {
 	 * Get Pro Tab Data.
 	 */
 	public function get_pro() {
-		echo 'hello';
 		include dirname( __FILE__ ) . '/views/html-admin-settings-gopro.php';
 	}
 
