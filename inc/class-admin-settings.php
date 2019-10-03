@@ -311,6 +311,20 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 						</tr>
 						<?php
 						break;
+					case 'button':
+						$option_value = $value['value'];
+						?><tr valign="top">
+							<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+								<button
+									id="<?php echo esc_attr( $value['id'] ); ?>"
+									style="<?php echo esc_attr( $value['css'] ); ?>"
+									class="<?php echo esc_attr( $value['class'] ); ?>"
+									<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+									><?php echo esc_html( $option_value ); ?></button><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // WPCS: XSS ok. ?>
+							</td>
+						</tr>
+						<?php
+					    break;
 
 					// Color picker.
 					case 'color':
