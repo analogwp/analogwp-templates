@@ -18,11 +18,15 @@ if ( ! $tab_exists ) {
 	wp_safe_redirect( admin_url( 'admin.php?page=ang-settings' ) );
 	exit;
 }
+$background_img = '';
+if ( 'gopro' === $current_tab ) {
+	$background_img = 'background-image:url(' . esc_url( ANG_PLUGIN_URL . 'assets/img/gopro_frames.png' ) . ');';
+}
 ?>
 <div class="wrap ang <?php echo esc_attr( $current_tab );?>">
 	<h1 class="menu-title"><?php esc_html_e( 'Style Kits Settings', 'pulse' ); ?></h1>
 	<div class="ang-wrapper">
-		<form method="<?php echo esc_attr( apply_filters( 'ang_settings_form_method_tab_' . $current_tab, 'post' ) ); ?>" id="mainform" action="" enctype="multipart/form-data">
+		<form method="<?php echo esc_attr( apply_filters( 'ang_settings_form_method_tab_' . $current_tab, 'post' ) ); ?>" id="mainform" action="" enctype="multipart/form-data" style="<?php echo esc_attr( $background_img ); ?>">
 			<nav class="nav-tab-wrapper ang-nav-tab-wrapper">
 				<?php
 
