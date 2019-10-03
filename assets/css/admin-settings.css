@@ -225,7 +225,7 @@ h1.menu-title {
 position: absolute;
   }
 
-.ang.gopro .ang-button {
+.ang.gopro .tab-content .ang-button {
 	display: inline-block;
 	margin-top: 30px;
 }
