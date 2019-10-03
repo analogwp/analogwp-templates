@@ -144,7 +144,7 @@ h1.menu-title {
 	text-shadow: none;
 }
 
-.wp-core-ui .ang .ang-button {
+.ang .ang-button {
 	padding: 12px 24px;
 	color: #fff;
 	font-size: 14.22px;
@@ -155,7 +155,7 @@ h1.menu-title {
 	border: none;
 	text-decoration: none;
 }
-.wp-core-ui .ang .ang-save-button:hover, .wp-core-ui .ang .ang-save-button:focus, .wp-core-ui .ang .ang-save-button:active, .wp-core-ui .ang .ang-button:hover, .wp-core-ui .ang .ang-button:focus, .wp-core-ui .ang .ang-button:active {
+.ang .ang-save-button:hover, .ang .ang-save-button:focus, .ang .ang-save-button:active, .ang .ang-button:hover, .ang .ang-button:focus, .ang .ang-button:active {
 	background: rgba(92, 50, 182, 0.8);
 	border-color: rgba(92, 50, 182, 0.8);
 }
@@ -167,3 +167,5 @@ h1.menu-title {
 	display: inline-block;
 	margin-top: 30px;
 }
+
+
