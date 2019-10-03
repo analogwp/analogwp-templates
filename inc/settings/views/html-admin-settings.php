@@ -71,7 +71,11 @@ if ( ! $tab_exists ) {
 				</form>
 				<p><?php esc_html_e( 'By signing up you agree to our ', 'ang' ); ?><a href="#"><?php esc_html_e( 'privacy and terms' ); ?></a></p>
 			</div>
-			<div class="social"></div>
+			<div class="social">
+				<a href="https://facebook.com/analogwp" target="_blank"><span class="dashicons dashicons-facebook-alt"></span></a>
+				<a href="https://twitter.com/analogwp" target="_blank"><span class="dashicons dashicons-twitter"></span></a>
+				<a href="https://instagram.com/analogwp" target="_blank"><span class="dashicons dashicons-instagram"></span></span></a>
+			</div>
 		</div>
 	</div>
 </div>
