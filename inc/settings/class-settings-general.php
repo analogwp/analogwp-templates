@@ -54,26 +54,6 @@ class Settings_General extends Settings_Page {
 					'type' => 'sectionend',
 					'id'   => 'ang_color_palette',
 				),
-				array(
-					'title' => __( 'Template Import method', 'ang' ),
-					'type'  => 'title',
-					'id'    => 'ang_tmp_import_method',
-				),
-				array(
-					'id'              => 'ang_temp_import_method_option',
-					'default'         => 'manual-import',
-					'type'            => 'radio',
-					'options'         => array(
-						'manual-import'           => __( 'Let me choose the import method while importing', 'ang' ),
-						'apply-default-style-kit' => __( 'Always apply the template’s default Style Kit', 'ang' ),
-						'apply-current-style-kit' => __( 'Always apply the Style Kit you are working with to the imported templates', 'ang' ),
-					),
-					'show_if_checked' => 'option',
-				),
-				array(
-					'type' => 'sectionend',
-					'id'   => 'ang_temp_import',
-				),
 			)
 		);
 
