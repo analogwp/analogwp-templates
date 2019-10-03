@@ -236,3 +236,29 @@ position: absolute;
 	background-size: contain;
 	background-repeat: no-repeat;
 }
+
+.ang-license-status {
+    display: inline-flex;
+    justify-content: space-evenly;
+}
+
+.ang-license-status > h2 {
+	margin-right: 30px;
+}
+.ang-license-status p {
+	font-size: 14px;
+}
+
+.ang.license .ang-action tr {
+	display: inline-flex;
+}
+.ang.license .ang-action th {
+	padding: 0;
+	margin-right: 30px;
+}
+
+.ang.license .ang-action label {
+	font-size: 16.9px;
+	font-weight: 600;
+	margin-right:
+}
