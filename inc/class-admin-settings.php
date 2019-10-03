@@ -50,6 +50,7 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 
 				$settings[] = include 'settings/class-settings-general.php';
 				$settings[] = include 'settings/class-settings-license.php';
+				$settings[] = include 'settings/class-settings-gopro.php';
 				$settings[] = include 'settings/class-settings-misc.php';
 
 				self::$settings = apply_filters( 'ang_get_settings_pages', $settings );
@@ -625,20 +626,7 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 						$value = wp_kses_post( trim( $raw_value ) );
 						break;
 					case 'multiselect':
-					case 'multi_select_countries':
 						$value = array_filter( array_map( 'ang_clean', (array) $raw_value ) );
-						break;
-					case 'image_width':
-						$value = array();
-						if ( isset( $raw_value['width'] ) ) {
-							$value['width']  = ang_clean( $raw_value['width'] );
-							$value['height'] = ang_clean( $raw_value['height'] );
-							$value['crop']   = isset( $raw_value['crop'] ) ? 1 : 0;
-						} else {
-							$value['width']  = $option['default']['width'];
-							$value['height'] = $option['default']['height'];
-							$value['crop']   = $option['default']['crop'];
-						}
 						break;
 					case 'select':
 						$allowed_values = empty( $option['options'] ) ? array() : array_map( 'strval', array_keys( $option['options'] ) );
