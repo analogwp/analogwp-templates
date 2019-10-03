@@ -1,6 +1,40 @@
 /* global ang_settings_params, wp */
 ( function( $, params, wp ) {
 	$( function() {
+		const { __ } = wp.i18n;
+
+		// Process Newsletter.
+		function processNewsletter( e ) {
+			if ( e.preventDefault ) {
+				e.preventDefault();
+			}
+
+			const angEmail = $( '#ang-newsletter-email' ).val();
+
+			$.ajax( {
+				url: 'https://analogwp.com/?ang-api=asdf&request=subscribe_newsletter',
+				cache: ! 1,
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+					email: angEmail,
+				},
+				error: function() {
+					const message = __( 'An error occured', 'ang' );
+
+					$( '.form-newsletter' ).append( '<p class="ang-message">' + message + '</p>' );
+				},
+				success: function() {
+					const message = __( 'Successfully subscribed!!!', 'ang' );
+
+					$( '.form-newsletter' ).append( '<p class="ang-message">' + message + '</p>' );
+				},
+			} );
+
+			return false;
+		}
+		$( '#ang-newsletter' ).submit( processNewsletter );
+
 		// Color picker
 		$( '.colorpick' )
 			.iris( {

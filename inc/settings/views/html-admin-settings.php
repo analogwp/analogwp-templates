@@ -65,7 +65,10 @@ if ( ! $tab_exists ) {
 			</div>
 			<div class="newsletter-list">
 				<h1><?php esc_html_e( 'Sign up to the mailing list', 'ang' ); ?></h1>
-				<input id="newsletter" type="text" placeholder="Add your email and hit enter" />
+				<form id="ang-newsletter" action="" class="form-newsletter">
+					<input id="ang-newsletter-email" type="email" placeholder="Enter your email" />
+					<button id="ang-newsletter-submit" class="ang-button" type="submit"><?php esc_html_e( 'Subscribe up to newsletter', 'ang'); ?></button>
+				</form>
 				<p><?php esc_html_e( 'By signing up you agree to our ', 'ang' ); ?><a href="#"><?php esc_html_e( 'privacy and terms' ); ?></a></p>
 			</div>
 			<div class="social"></div>
