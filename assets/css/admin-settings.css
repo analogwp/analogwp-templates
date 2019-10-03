@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap');
+
+:root {
+	--ang-settings-accent: #5C32B6;
+}
+
 body {
 	background: #E3E3E3;
 }
@@ -15,6 +20,14 @@ body {
 	font-family: 'Poppins', sans-serif;
 }
 
+a {
+	color: var( --ang-settings-accent );
+}
+a:hover, a:focus, a:active {
+	color: var( --ang-settings-accent );
+	text-decoration: none;
+}
+
 h1.menu-title {
 	margin-top: 20px;
 	margin-bottom: 25px;
@@ -24,7 +37,7 @@ h1.menu-title {
 .nav-tab-wrapper {
 	background: #E3E3E3;
 }
-.ang-wrapper form,
+.ang-wrapper form:not(.form-newsletter),
 .nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-active:hover  {
 	background: #fff;
 }
@@ -122,4 +135,35 @@ h1.menu-title {
 .ang-enhanced-select {
     width: 50%;
 	margin: 8px 0;
+}
+
+.wp-core-ui .ang .ang-save-button, .wp-core-ui .ang .ang-button {
+	background: var( --ang-settings-accent );
+	border-color: var( --ang-settings-accent );
+	box-shadow: none;
+	text-shadow: none;
+}
+
+.wp-core-ui .ang .ang-button {
+	padding: 12px 24px;
+	color: #fff;
+	font-size: 14.22px;
+    font-weight: bold;
+    text-align: center;
+	border-radius: 4px;
+	cursor: pointer;
+	border: none;
+	text-decoration: none;
+}
+.wp-core-ui .ang .ang-save-button:hover, .wp-core-ui .ang .ang-save-button:focus, .wp-core-ui .ang .ang-save-button:active, .wp-core-ui .ang .ang-button:hover, .wp-core-ui .ang .ang-button:focus, .wp-core-ui .ang .ang-button:active {
+	background: rgba(92, 50, 182, 0.8);
+	border-color: rgba(92, 50, 182, 0.8);
+}
+
+.ang.gopro .submit {
+ display: none;
+}
+.ang.gopro .ang-button.ang-gopro-button {
+	display: inline-block;
+	margin-top: 30px;
 }
