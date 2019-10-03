@@ -9,8 +9,10 @@
 			if ( e.preventDefault ) {
 				e.preventDefault();
 			}
-
+			const elSubmitBtn = $( '#ang-newsletter-submit' );
+			let status = __( 'Subscribing', 'ang' );
 			const angEmail = $( '#ang-newsletter-email' ).val();
+			elSubmitBtn.text( status );
 
 			$.ajax( {
 				url: 'https://analogwp.com/?ang-api=asdf&request=subscribe_newsletter',
@@ -21,14 +23,16 @@
 					email: angEmail,
 				},
 				error: function() {
-					const message = __( 'An error occured', 'ang' );
-
-					$( '.form-newsletter' ).append( '<p class="ang-message-error">' + message + '</p>' );
+					status = __( 'Failed', 'ang' );
+					elSubmitBtn.text( status );
+					setTimeout( function() {
+						elSubmitBtn.text( __( 'Subscribe up to newsletter', 'ang' ) );
+					}, 2000 );
 				},
 				success: function() {
-					const message = __( 'Successfully subscribed!!!', 'ang' );
-
-					$( '.form-newsletter' ).append( '<p class="ang-message-success">' + message + '</p>' );
+					status = __( 'Subscribed', 'ang' );
+					elSubmitBtn.text( status );
+					elSubmitBtn.attr( 'disabled', 'disabled' );
 				},
 			} );
 
