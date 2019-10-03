@@ -211,6 +211,9 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 				if ( ! isset( $value['class'] ) ) {
 					$value['class'] = '';
 				}
+				if ( ! isset( $value['to'] ) ) {
+					$value['to'] = '';
+				}
 				if ( ! isset( $value['css'] ) ) {
 					$value['css'] = '';
 				}
@@ -315,12 +318,12 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 						$option_value = $value['value'];
 						?><tr valign="top">
 							<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
-								<button
+								<a  href="<?php echo esc_attr( $value['to'] ); ?>"
 									id="<?php echo esc_attr( $value['id'] ); ?>"
 									style="<?php echo esc_attr( $value['css'] ); ?>"
 									class="<?php echo esc_attr( $value['class'] ); ?>"
 									<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
-									><?php echo esc_html( $option_value ); ?></button><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // WPCS: XSS ok. ?>
+									><?php echo esc_html( $option_value ); ?></a><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // WPCS: XSS ok. ?>
 							</td>
 						</tr>
 						<?php
