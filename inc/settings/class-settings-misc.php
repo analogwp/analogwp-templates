@@ -7,6 +7,8 @@
 
 namespace Analog\settings;
 
+use Analog\Utils;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( class_exists( 'Settings_Misc', false ) ) {
@@ -29,12 +31,26 @@ class Settings_Misc extends Settings_Page {
 	}
 
 	/**
+	 * Processes array to be used in setting fields.
+	 *
+	 * @return array
+	 */
+	public function get_rollback_versions() {
+		$keys = Utils::get_rollback_versions();
+		$data = [];
+		foreach ( $keys as $key => $value ) {
+			$data[ $value ] = $value;
+		}
+
+		return $data;
+	}
+
+	/**
 	 * Get settings array.
 	 *
 	 * @return array
 	 */
 	public function get_settings() {
-
 		$settings = apply_filters(
 			'ang_misc_settings',
 			array(
@@ -66,11 +82,7 @@ class Settings_Misc extends Settings_Page {
 					'type'     => 'select',
 					'class'    => 'ang-enhanced-select',
 					'desc_tip' => true,
-					'options'  => array(
-						'1.3.6' => __( '1.3.6', 'ang' ),
-						'1.3.4' => __( '1.3.4', 'ang' ),
-						'1.3.0' => __( '1.3.0', 'ang' ),
-					),
+					'options'  => $this->get_rollback_versions(),
 				),
 				array(
 					'id'       => 'ang_rollback_version_button',
