@@ -62,7 +62,7 @@ class Settings_Misc extends Settings_Page {
 				array(
 					'desc'     => __( 'Select version number to which rollback should happen.', 'ang' ),
 					'id'       => 'ang_rollback_version_select_option',
-					'default'  => '',
+					'default'  => '1.3.6',
 					'type'     => 'select',
 					'class'    => 'ang-enhanced-select',
 					'desc_tip' => true,
@@ -71,6 +71,12 @@ class Settings_Misc extends Settings_Page {
 						'1.3.4' => __( '1.3.4', 'ang' ),
 						'1.3.0' => __( '1.3.0', 'ang' ),
 					),
+				),
+				array(
+					'id'       => 'ang_rollback_version_button',
+					'type'     => 'button',
+					'class'    => 'ang-rollback-version-button ang-button',
+					'value'    => __( 'Reinstall this version', 'ang' ),
 				),
 				array(
 					'type' => 'sectionend',
