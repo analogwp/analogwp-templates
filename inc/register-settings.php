@@ -171,7 +171,7 @@ function create_options() {
 		}
 	}
 }
-add_action( 'init', 'Analog\settings\create_options' );
+add_action( 'init', 'Analog\Settings\create_options', 20 );
 
 /**
  * Register plugin settings.
