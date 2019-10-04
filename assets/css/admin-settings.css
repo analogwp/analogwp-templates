@@ -120,6 +120,10 @@ h1.menu-title {
 	margin-top: -120px;
 }
 
+.form-table label[for="ang_remove_typography_option"] a {
+	margin-top: 10px;
+}
+
 #ang_plugin_rollback_version-description + .form-table tbody {
 	display: flex;
 	align-items: center;
@@ -249,6 +253,7 @@ h1.menu-title {
 }
 
 .ang.gopro h1 {
+	margin-top: 20px;
 	font-weight: 600;
 	font-size: 20px;
 	line-height: 30px;
