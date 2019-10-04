@@ -57,22 +57,23 @@ if ( 'gopro' === $current_tab ) {
 		</form>
 		<div class="sidebar">
 			<div class="docs">
-				<h1><?php esc_html_e( 'Documentation', 'ang' ); ?></h1>
-				<p><?php esc_html_e( 'Style Kits come with easy-to-follow docs to get you started.', 'ang' ); ?></p>
-				<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Go to Docs', 'ang' ); ?></a>
+				<h1><?php esc_html_e( 'Docs', 'ang' ); ?></h1>
+				<p><?php esc_html_e( 'Need help setting up? We have a number of handy articles to get you started.', 'ang' ); ?></p>
+				<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Read Documentation', 'ang' ); ?><span class="dashicons dashicons-external"></span></a>
 			</div>
 			<div class="social-group">
-				<h1><?php esc_html_e( 'Facebook group', 'ang' ); ?></h1>
-				<p><?php esc_html_e( 'Join our Facebook community and share workflows, get ideas and support.', 'ang' ); ?></p>
-				<a href="<?php echo esc_url( 'https://www.facebook.com/groups/analogwp/' ); ?>" target="_blank"><?php esc_html_e( 'Join Facebook Group', 'ang' ); ?></a>
+				<h1><?php esc_html_e( 'Join our Facebook group', 'ang' ); ?></h1>
+				<p><?php esc_html_e( 'Get insights, tips and updates in our facebook community. Let\'s take Elementor design to a whole new level.', 'ang' ); ?></p>
+				<a href="<?php echo esc_url( 'https://www.facebook.com/groups/analogwp/' ); ?>" target="_blank"><?php esc_html_e( 'Join the AnalogWP community', 'ang' ); ?><span class="dashicons dashicons-external"></span></a>
 			</div>
 			<div class="newsletter-list">
-				<h1><?php esc_html_e( 'Sign up to the mailing list', 'ang' ); ?></h1>
+				<h1><?php esc_html_e( 'Sign up for updates', 'ang' ); ?></h1>
+				<p><?php esc_html_e( 'Sign up to Analog Newsletter and get notified about product updates, freebies and more.', 'ang' ); ?></p>
 				<form id="ang-newsletter" action="" class="form-newsletter">
 					<input id="ang-newsletter-email" type="email" placeholder="Enter your email" />
 					<button id="ang-newsletter-submit" class="ang-button" type="submit"><?php esc_html_e( 'Subscribe up to newsletter', 'ang'); ?></button>
 				</form>
-				<p><?php esc_html_e( 'By signing up you agree to our ', 'ang' ); ?><a href="<?php echo esc_url( 'https://analogwp.com/privacy-policy/' ); ?>" target="_blank"><?php esc_html_e( 'privacy and terms' ); ?></a></p>
+				<p><?php esc_html_e( 'By signing up you agree to our ', 'ang' ); ?><a href="<?php echo esc_url( 'https://analogwp.com/privacy-policy/' ); ?>" target="_blank"><?php esc_html_e( 'privacy and terms' ); ?><span class="dashicons dashicons-external"></span></a></p>
 			</div>
 			<div class="social">
 				<a href="https://facebook.com/analogwp" target="_blank"><span class="dashicons dashicons-facebook-alt"></span></a>

@@ -42,7 +42,7 @@ class Settings_License extends Settings_Page {
 		$status                 = Options::get_instance()->get( 'ang_license_key_status' );
 		$lm_instance            = new LicenseManager();
 		$strings                = $lm_instance->get_strings();
-		$license_status_message = $lm_instance->get_license_message();
+		$license_status_message = $lm_instance->check_license();
 
 		$license_status_setting = array();
 		if ( $license ) {
@@ -57,7 +57,7 @@ class Settings_License extends Settings_Page {
 
 		$license_action_setting = array();
 		if ( ! empty( $license ) ) {
-			if ( 'valid' === $status ) {
+			if ( 'valid' == $status ) {
 				$license_action_setting = array(
 					'title' => __( 'License Action', 'ang' ),
 					'type'  => 'action',
@@ -87,8 +87,7 @@ class Settings_License extends Settings_Page {
 					'desc'  => __( 'If you own an AnalogPro License, then please enter your license key here.', 'ang' ),
 				),
 				array(
-					'title'   => __( 'Input your license key', 'ang' ),
-					'desc'    => '<p>' . __( 'If you do not have a license key, you can get one from ', 'ang' ) . '<a href="https://analogwp.com" target="_blank">AnalogWP</a></p>',
+					'desc'    => '<p>' . __( 'If you do not have a license key, you can get one from ', 'ang' ) . '<a href="https://analogwp.com" target="_blank" class="ang-link">AnalogWP <span class="dashicons dashicons-external"></span></a></p>',
 					'id'      => 'ang_license_key_option',
 					'default' => '',
 					'type'    => 'text',

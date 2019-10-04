@@ -426,9 +426,11 @@ if ( ! class_exists( 'Admin_Settings', false ) ) :
 
 						?>
 						<tr valign="top">
+							<?php if ( ! empty( $value['title'] ) ) { ?>
 							<th scope="row" class="titledesc">
 								<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
 							</th>
+							<?php } ?>
 							<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 								<select
 									name="<?php echo esc_attr( $value['id'] ); ?><?php echo ( 'multiselect' === $value['type'] ) ? '[]' : ''; ?>"

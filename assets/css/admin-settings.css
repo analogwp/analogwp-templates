@@ -51,6 +51,7 @@ h1.menu-title {
 	margin-left: 0;
 	border: 0;
 	padding: 12px 30px;
+	font-size: 16px;
 	font-weight: 700;
 }
 
@@ -77,18 +78,29 @@ h1.menu-title {
 	padding-bottom: 5px;
 	padding-left: 28px;
 }
+
 .form-table th, .form-table td fieldset li label {
 	font-weight: normal;
-	font-size: 14px;
+	font-size: 15px;
 	line-height: 180%;
 	color: #141414;
 }
 .form-table td fieldset label, .tab-content p {
 	font-weight: 500;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 170%;
 	color: #888888;
 }
+.form-table td fieldset label {
+	padding-left: 28px;
+}
+
+@media screen and ( max-width: 768px ) {
+	.form-table th {
+		padding-left: 40px;
+	}
+}
+
 #ang_plugin_rollback_version-description + .form-table th, #ang_license_activation_title-description + .form-table th {
 	padding-bottom: 15px;
 	padding-left: 0;
@@ -97,10 +109,41 @@ h1.menu-title {
 .form-table input.tog, input[type="checkbox"] {
 	margin-top: -65px;
 	margin-right: 10px;
+	margin-left: -28px;
 }
 
 .form-table:not(:last-of-type) {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.ang.misc .form-table:last-of-type td input[type="checkbox"], .ang.misc .form-table:first-of-type td input[type="checkbox"] {
+	margin-top: -120px;
+}
+
+#ang_plugin_rollback_version-description + .form-table tbody {
+	display: flex;
+	align-items: center;
+}
+#ang_plugin_rollback_version-description + .form-table tbody tr td {
+	display: inline-block;
+}
+
+#ang_plugin_rollback_version-description + .form-table tbody tr select {
+	min-width: 200px;
+	margin-right: 10px;
+}
+#ang_plugin_rollback_version-description + .form-table tbody tr .ang-button {
+	display: inline-block;
+}
+
+#ang_license_activation_title-description + .form-table tbody th {
+	padding: 0;
+	padding-top: 15px;
+}
+
+#ang_license_activation_title-description + .form-table tbody td .description {
+	display: block;
+    margin-top: 10px;
 }
 
 .sidebar > div:not(:last-of-type) {
@@ -115,9 +158,9 @@ h1.menu-title {
 	font-size: 16px;
 	line-height: 24px;
 }
-.sidebar {
+.sidebar, .sidebar p {
 	font-weight: 500;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 170%;
 	color: #6A6A6A;
 }
@@ -126,12 +169,19 @@ h1.menu-title {
 	width: 80%;
 	padding: 5px 10px;
 	font-weight: normal;
-	font-size: 14.22px;
+	font-size: 15px;
 	line-height: 21px;
 	color: #888888;
 	background: #F2F2F2;
 	border: 1px solid #DBDBDB;
 	margin: 15px 0;
+}
+
+.sidebar > div:not(.social) a {
+	border-bottom: 2px solid var(--ang-settings-accent);
+}
+.sidebar a, .sidebar a .dashicons {
+	text-decoration: none;
 }
 .sidebar .social {
 	margin-top: 15px;
@@ -158,10 +208,10 @@ h1.menu-title {
 	text-shadow: none;
 }
 
-.ang .ang-button {
+.ang .ang-button, .ang .ang-save-button {
 	padding: 12px 24px;
 	color: #fff;
-	font-size: 14.22px;
+	font-size: 15px;
     font-weight: bold;
     text-align: center;
 	border-radius: 4px;
@@ -169,27 +219,35 @@ h1.menu-title {
 	border: none;
 	text-decoration: none;
 }
+
+.ang .ang-link {
+	display: inline-block;
+	border-bottom: 2px solid var(--ang-settings-accent);
+}
+.ang .ang-save-button {
+	height: auto;
+}
+
+.ang .tab-content a.ang-link, .ang .tab-content a.ang-link span {
+	text-decoration: none;
+}
+
 .ang .ang-save-button:hover, .ang .ang-save-button:focus, .ang .ang-save-button:active, .ang .ang-button:hover, .ang .ang-button:focus, .ang .ang-button:active {
 	background: rgba(92, 50, 182, 0.8);
 	border-color: rgba(92, 50, 182, 0.8);
+	box-shadow: none;
 }
-
+.ang:not(.license) .submit {
+	margin-top: 0;
+}
 .ang.gopro .submit {
- display: none;
+  display: none;
 }
 .ang.gopro .ang-button.ang-gopro-button {
 	display: inline-block;
 	margin-top: 30px;
 }
 
-.sidebar .ang-message-success {
-	color: var( --ang-settings-accent );
-	font-size: 14px;
-}
-.sidebar .ang-message-error {
-	color: var( --ang-settings-warning );
-	font-size: 14px;
-}
 .ang.gopro h1 {
 	font-weight: 600;
 	font-size: 20px;
