@@ -234,6 +234,9 @@ class Admin_Settings {
 			if ( ! isset( $value['suffix'] ) ) {
 				$value['suffix'] = '';
 			}
+			if ( ! isset( $value['switch'] ) ) {
+				$value['switch'] = false;
+			}
 			if ( ! isset( $value['value'] ) ) {
 				$value['value'] = self::get_option( $value['id'], $value['default'] );
 			}
@@ -258,7 +261,7 @@ class Admin_Settings {
 				// Section Titles.
 				case 'title':
 					if ( ! empty( $value['title'] ) ) {
-						echo '<h2>' . esc_html( $value['title'] ) . '</h2>';
+						echo '<h2 class="title ' . esc_attr( $value['class'] ) . '">' . esc_html( $value['title'] ) . '</h2>';
 					}
 					if ( ! empty( $value['desc'] ) ) {
 						echo '<div id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-description">';
@@ -548,6 +551,9 @@ class Admin_Settings {
 								<?php checked( $option_value, 'yes' ); ?>
 								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
 							/> <?php echo $description; // WPCS: XSS ok. ?>
+							<?php if ( $value['switch'] ) { ?>
+								<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
+							<?php } ?>
 						</label> <?php echo $tooltip_html; // WPCS: XSS ok. ?>
 					<?php
 
