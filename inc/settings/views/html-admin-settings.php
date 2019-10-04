@@ -5,7 +5,7 @@
  * @package Analog
  */
 
-namespace Analog\settings\views;
+namespace Analog\Settings\views;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

@@ -5,18 +5,14 @@
  * @package Analog/Admin
  */
 
-namespace Analog\settings;
+namespace Analog\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( class_exists( 'Settings_GoPro', false ) ) {
-	return new Settings_GoPro();
-}
-
 /**
- * Admin_Settings_GoPro.
+ * GoPro.
  */
-class Settings_GoPro extends Settings_Page {
+class GoPro extends Settings_Page {
 
 	/**
 	 * Constructor.
@@ -69,4 +65,4 @@ class Settings_GoPro extends Settings_Page {
 	}
 }
 
-return new Settings_GoPro();
+return new GoPro();

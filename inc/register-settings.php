@@ -5,7 +5,7 @@
  * @package AnalogWP
  */
 
-namespace Analog\settings;
+namespace Analog\Settings;
 
 /**
  * Register plugin menu.
@@ -18,7 +18,7 @@ function register_menu() {
 		esc_html__( 'Style Kits', 'ang' ),
 		'manage_options',
 		'analogwp_templates',
-		'Analog\settings\settings_page',
+		'Analog\Settings\settings_page',
 		ANG_PLUGIN_URL . 'assets/img/triangle.svg',
 		'58.6'
 	);
@@ -53,10 +53,10 @@ function register_menu() {
 		__( 'Settings Page', 'ang' ),
 		'manage_options',
 		'ang-settings',
-		'Analog\settings\new_settings_page'
+		'Analog\Settings\new_settings_page'
 	);
 
-	add_action( 'load-style-kits_page_settings', 'Analog\settings\settings_page_init' );
+	add_action( 'load-style-kits_page_settings', 'Analog\Settings\settings_page_init' );
 
 	add_submenu_page(
 		'analogwp_templates',
@@ -68,7 +68,7 @@ function register_menu() {
 
 }
 
-add_action( 'admin_menu', 'Analog\settings\register_menu' );
+add_action( 'admin_menu', 'Analog\Settings\register_menu' );
 
 /**
  * Loads methods into memory for use within settings.
@@ -120,7 +120,7 @@ function settings_page_init() {
 
 
 // Handle saving settings earlier than load-{page} hook to avoid race conditions in conditional menus.
-add_action( 'wp_loaded', 'Analog\settings\save_settings' );
+add_action( 'wp_loaded', 'Analog\Settings\save_settings' );
 
 /**
  * Add settings page.

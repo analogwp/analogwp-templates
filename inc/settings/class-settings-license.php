@@ -5,21 +5,17 @@
  * @package Analog/Admin
  */
 
-namespace Analog\settings;
+namespace Analog\Settings;
 
 use Analog\Options;
 use Analog\LicenseManager;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( class_exists( 'Settings_License', false ) ) {
-	return new Settings_License();
-}
-
 /**
- * Admin_Settings_License.
+ * License.
  */
-class Settings_License extends Settings_Page {
+class License extends Settings_Page {
 
 	/**
 	 * Constructor.
@@ -127,4 +123,4 @@ class Settings_License extends Settings_Page {
 	}
 }
 
-return new Settings_License();
+return new License();

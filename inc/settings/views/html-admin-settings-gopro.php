@@ -6,7 +6,7 @@
  * @package Analog
  */
 
-namespace Analog\settings\views;
+namespace Analog\Settings\views;
 ?>
 
 <div class="gopro-content">

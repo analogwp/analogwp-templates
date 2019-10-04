@@ -4,7 +4,7 @@
  *
  * @package  Analog/settings
  */
-namespace Analog\settings;
+namespace Analog\Settings;
 
 defined( 'ABSPATH' ) || exit;
 

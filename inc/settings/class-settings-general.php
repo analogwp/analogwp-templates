@@ -5,18 +5,15 @@
  * @package Analog/Admin
  */
 
-namespace Analog\settings;
+namespace Analog\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( class_exists( 'Settings_General', false ) ) {
-	return new Settings_General();
-}
 
 /**
- * Admin_Settings_General.
+ * General.
  */
-class Settings_General extends Settings_Page {
+class General extends Settings_Page {
 
 	/**
 	 * Constructor.
@@ -79,4 +76,4 @@ class Settings_General extends Settings_Page {
 	}
 }
 
-return new Settings_General();
+return new General();

@@ -1,5 +1,5 @@
 <?php
-namespace Analog\settings;
+namespace Analog\Settings;
 /**
  * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
  * Non-scalar values are ignored.

@@ -5,20 +5,16 @@
  * @package Analog/Admin
  */
 
-namespace Analog\settings;
+namespace Analog\Settings;
 
 use Analog\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( class_exists( 'Settings_Misc', false ) ) {
-	return new Settings_Misc();
-}
-
 /**
- * Admin_Settings_Misc.
+ * Misc.
  */
-class Settings_Misc extends Settings_Page {
+class Misc extends Settings_Page {
 
 	/**
 	 * Constructor.
@@ -150,4 +146,4 @@ class Settings_Misc extends Settings_Page {
 	}
 }
 
-return new Settings_Misc();
+return new Misc();
