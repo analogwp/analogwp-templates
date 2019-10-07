@@ -34,7 +34,7 @@ class License extends Settings_Page {
 	 */
 	public function get_settings() {
 
-		$license                = trim( Options::get_instance()->get( 'ang_license_key_option' ) );
+		$license                = trim( Options::get_instance()->get( 'ang_license_key' ) );
 		$status                 = Options::get_instance()->get( 'ang_license_key_status' );
 		$lm_instance            = new LicenseManager();
 		$strings                = $lm_instance->get_strings();
@@ -84,7 +84,7 @@ class License extends Settings_Page {
 				),
 				array(
 					'desc'    => '<p>' . __( 'If you do not have a license key, you can get one from ', 'ang' ) . '<a href="https://analogwp.com" target="_blank" class="ang-link">AnalogWP <span class="dashicons dashicons-external"></span></a></p>',
-					'id'      => 'ang_license_key_option',
+					'id'      => 'ang_license_key',
 					'default' => '',
 					'type'    => 'text',
 				),

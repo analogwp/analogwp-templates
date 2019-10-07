@@ -23,7 +23,7 @@ class LicenseManager extends Base {
 	 *
 	 * @var string
 	 */
-	protected $license_slug = 'ang_license_key_option';
+	protected $license_slug = 'ang_license_key';
 
 	/**
 	 * AnalogWP Pro download id from AnalogWP.com
