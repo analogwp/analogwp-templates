@@ -48,7 +48,6 @@ class Admin_Settings {
 			include_once dirname( __FILE__ ) . '/settings/class-settings-page.php';
 
 			$settings[] = include 'settings/class-settings-general.php';
-			$settings[] = include 'settings/class-settings-license.php';
 			$settings[] = include 'settings/class-settings-gopro.php';
 			$settings[] = include 'settings/class-settings-misc.php';
 
