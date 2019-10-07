@@ -8,6 +8,7 @@
 namespace Analog\Settings;
 
 use Analog\Utils;
+use Analog\Options;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -732,7 +733,9 @@ class Admin_Settings {
 		}
 
 		// Save all options in our array.
-		update_option( self::OPTION_KEY, $update_options );
+		foreach ( $update_options as $name => $value ) {
+			Options::get_instance()->set( $name, $value );
+		}
 
 		return true;
 	}
