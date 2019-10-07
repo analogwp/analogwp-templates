@@ -43,8 +43,8 @@ class General extends Settings_Page {
 				array(
 					'title'   => __( 'Sync Color Palettes and Style Kit colors by default', 'ang' ),
 					'desc'    => __( 'The Elementor color palette will be populated with the Style Kit’s global colors', 'ang' ),
-					'id'      => 'ang_sync_colors_option',
-					'default' => 'no',
+					'id'      => 'ang_sync_colors',
+					'default' => false,
 					'type'    => 'checkbox',
 				),
 				array(

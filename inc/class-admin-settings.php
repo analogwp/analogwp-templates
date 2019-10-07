@@ -547,7 +547,7 @@ class Admin_Settings {
 								type="checkbox"
 								class="<?php echo esc_attr( isset( $value['class'] ) ? $value['class'] : '' ); ?>"
 								value="1"
-								<?php checked( $option_value, 'yes' ); ?>
+								<?php checked( $option_value, true ); ?>
 								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
 							/> <?php echo $description; // WPCS: XSS ok. ?>
 							<?php if ( $value['switch'] ) { ?>
@@ -660,7 +660,7 @@ class Admin_Settings {
 			// Format the value based on option type.
 			switch ( $option['type'] ) {
 				case 'checkbox':
-					$value = '1' === $raw_value || 'yes' === $raw_value ? 'yes' : 'no';
+					$value = '1' === $raw_value || true === $raw_value ? true : false;
 					break;
 				case 'textarea':
 					$value = wp_kses_post( trim( $raw_value ) );
@@ -727,8 +727,6 @@ class Admin_Settings {
 
 			/**
 			 * Fire an action before saved.
-			 *
-			 * @deprecated 2.4.0 - doesn't allow manipulation of values!
 			 */
 			do_action( 'ang_update_option', $option );
 		}

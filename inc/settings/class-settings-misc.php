@@ -58,8 +58,8 @@ class Misc extends Settings_Page {
 				array(
 					'title'   => __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ),
 					'desc'    => '<a class="ang-link" href="https://docs.analogwp.com/article/547-what-data-is-tracked-by-the-plugin" target="_blank">' . __( 'More Info', 'ang' ) . '<span class="dashicons dashicons-external"></span></a>',
-					'id'      => 'ang_data_collection_option',
-					'default' => 'no',
+					'id'      => 'ang_data_collection',
+					'default' => false,
 					'type'    => 'checkbox',
 				),
 				array(
@@ -81,10 +81,10 @@ class Misc extends Settings_Page {
 					'options'  => $this->get_rollback_versions(),
 				),
 				array(
-					'id'       => 'ang_rollback_version_button',
-					'type'     => 'button',
-					'class'    => 'ang-rollback-version-button ang-button',
-					'value'    => __( 'Reinstall this version', 'ang' ),
+					'id'    => 'ang_rollback_version_button',
+					'type'  => 'button',
+					'class' => 'ang-rollback-version-button ang-button',
+					'value' => __( 'Reinstall this version', 'ang' ),
 				),
 				array(
 					'type' => 'sectionend',
@@ -98,8 +98,8 @@ class Misc extends Settings_Page {
 				array(
 					'title'   => __( 'Remove Styling from typographic elements', 'ang' ),
 					'desc'    => __( 'This setting will remove any values that have been manually added in the templates. Existing templates are not affected.', 'ang' ) . '<br><a class="ang-link" href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements" target="_blank">' . __( 'More Info', 'ang' ) . '<span class="dashicons dashicons-external"></span></a>',
-					'id'      => 'ang_remove_typography_option',
-					'default' => 'no',
+					'id'      => 'ang_remove_typography',
+					'default' => false,
 					'type'    => 'checkbox',
 				),
 				array(
@@ -113,8 +113,8 @@ class Misc extends Settings_Page {
 				),
 				array(
 					'title'   => __( 'Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed.', 'ang' ),
-					'id'      => 'ang_remove_on_uninstall_option',
-					'default' => 'no',
+					'id'      => 'remove_on_uninstall',
+					'default' => false,
 					'type'    => 'checkbox',
 				),
 				array(

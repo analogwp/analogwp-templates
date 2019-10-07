@@ -50,7 +50,7 @@ function register_menu() {
 	add_submenu_page(
 		'analogwp_templates',
 		__( 'Style Kits Settings Page', 'ang' ),
-		__( 'Settings Page', 'ang' ),
+		__( 'Settings', 'ang' ),
 		'manage_options',
 		'ang-settings',
 		'Analog\Settings\new_settings_page'
