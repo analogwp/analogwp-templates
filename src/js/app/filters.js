@@ -51,9 +51,6 @@ const FiltersContainer = styled.div`
 		}
 	}
 
-	label {
-	}
-
 	.is-active {
 		svg {
 			fill: #FFB443 !important;

@@ -46,13 +46,22 @@ const TemplatesList = styled.ul`
 		color: #fff;
 		z-index: 110;
 		font-weight: bold;
-		font-size: 12px;
 		padding: 8px 10px;
 		line-height: 1;
 		border-radius: 4px;
 		text-transform: uppercase;
 		font-size: 14.22px;
 		letter-spacing: .5px;
+	}
+
+	.pro {
+		bottom: 15px;
+		right: 20px;
+		top: auto;
+		background: rgba(92, 50, 182, 0.1);
+		font-size: 12px;
+		color: var(--ang-accent);
+		padding: 4px 7px;
 	}
 
 	.new {
@@ -404,10 +413,6 @@ class Templates extends React.Component {
 								}
 
 								return <li key={ template.id }>
-									{ template.is_pro && (
-										<span className="pro">{ __( 'Pro', 'ang' ) }</span>
-									) }
-
 									{ ( isNewTheme( template.published ) > -14 ) && (
 										<span className="new">{ __( 'New', 'ang' ) }</span>
 									) }
@@ -466,6 +471,10 @@ class Templates extends React.Component {
 												<span key={ tag }>{ tag }</span>
 											) ) }
 										</div>
+									) }
+
+									{ template.is_pro && (
+										<span className="pro">{ __( 'Pro', 'ang' ) }</span>
 									) }
 								</li>;
 							} )
