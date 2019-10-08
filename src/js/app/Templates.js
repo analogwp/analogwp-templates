@@ -113,10 +113,15 @@ const TemplatesList = styled.ul`
 		position: relative;
 		min-height: 100px;
 
-		&:hover .actions {
-			opacity: 1;
-			button {
-				transform: none;
+		&:hover {
+			.actions {
+				opacity: 1;
+				button {
+					transform: none;
+					opacity: 1;
+				}
+			}
+			.favorite {
 				opacity: 1;
 			}
 		}
@@ -163,6 +168,44 @@ const TemplatesList = styled.ul`
 
 		span + span:before {
 			content: " / ";
+		}
+	}
+
+	.favorite {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 200;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		width: 25px;
+		height: 25px;
+
+		&:not(.is-active) {
+			opacity: 0;
+		}
+
+		&:before {
+			content: '';
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 42px 42px 0 0;
+			border-color: var(--ang-accent) transparent transparent transparent;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 190;
+		}
+
+		svg {
+			fill: #fff;
+			position: relative;
+			z-index: 195;
+		}
+		&.is-active svg {
+			fill: #FFB443;
 		}
 	}
 `;
@@ -429,11 +472,9 @@ class Templates extends React.Component {
 												{ __( 'Import', 'ang' ) }
 											</button>
 										</div>
-									</figure>
-									<div className="content">
-										<h3>{ decodeEntities( template.title ) }</h3>
+
 										<button
-											className={ classnames( 'button-plain', {
+											className={ classnames( 'button-plain favorite', {
 												'is-active': template.id in this.context.state.favorites,
 											} ) }
 											onClick={ () => {
@@ -464,6 +505,9 @@ class Templates extends React.Component {
 										>
 											<Star />
 										</button>
+									</figure>
+									<div className="content">
+										<h3>{ decodeEntities( template.title ) }</h3>
 									</div>
 									{ template.tags && (
 										<div className="tags">
