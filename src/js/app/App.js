@@ -25,6 +25,10 @@ const Analog = styled.div`
 		z-index: 100000;
 	}
 
+	.components-form-toggle.is-checked .components-form-toggle__track {
+		background-color: var(--ang-accent);
+	}
+
 	.ang-button {
 		font-size: 14.22px;
 		font-weight: bold;
@@ -186,7 +190,8 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			filters: [],
-			showFree: true,
+			showFree: wp.hooks.applyFilters( 'analog_list_view', true ),
+			group: wp.hooks.applyFilters( 'analog_list_group', true ),
 			tab: 'templates',
 			hasPro: false,
 			settings: {

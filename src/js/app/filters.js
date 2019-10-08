@@ -5,16 +5,33 @@ import AnalogContext from './AnalogContext';
 import { ThemeConsumer } from './contexts/ThemeContext';
 import Star from './icons/star';
 const { __ } = wp.i18n;
-const { CheckboxControl } = wp.components;
+const { CheckboxControl, ToggleControl } = wp.components;
 
 const FiltersContainer = styled.div`
 	margin: 0 0 40px 0;
-	display: flex;
-	font-weight: 500;
-	align-items: center;
 	color: ${ props => props.theme.textDark };
 	font-size: 14.22px;
 	font-weight: bold;
+
+	.top {
+		background: #FFF;
+		margin: -40px -40px 12px -40px;
+		padding: 28px 40px;
+		display: flex;
+		align-items: center;
+
+		.components-base-control, .components-base-control__field {
+			margin-bottom: 0;
+		}
+
+		.components-base-control + .components-base-control {
+			margin-left: 40px;
+		}
+	}
+	.bottom {
+		display: flex;
+		align-items: center;
+	}
 
 	a {
 		text-decoration: none;
@@ -44,7 +61,7 @@ const FiltersContainer = styled.div`
 	}
 
 	.favorites.favorites {
-		margin-right: 40px;
+		margin-right: auto;
 		svg {
 			margin-right: 8px;
 			fill: #060606;
@@ -76,7 +93,7 @@ const List = styled.div`
 	display: inline-flex;
 	align-items: center;
 	position: relative;
-	margin-left: 30px;
+	margin-right: 30px;
 
 	label {
 		margin-right: 15px;
@@ -111,6 +128,7 @@ class Filters extends React.Component {
 
 		this.searchInput = React.createRef();
 	}
+
 	render() {
 		const filterTypes = [ ...this.context.state.filters ].map( filter => {
 			return { value: `${ filter }`, label: `${ filter }` };
@@ -129,67 +147,79 @@ class Filters extends React.Component {
 			<ThemeConsumer>
 				{ ( { theme } ) => (
 					<FiltersContainer theme={ theme }>
-						<button
-							onClick={ this.context.toggleFavorites }
-							className={ classNames( 'favorites button-plain', {
-								'is-active': this.context.state.showing_favorites,
-							} ) }
-						>
-							<Star />{ ' ' }
-							{ this.context.state.showing_favorites ?
-								__( 'Back to all', 'ang' ) :
-								__( 'My Favorites', 'ang' ) }
-						</button>
-						{ this.context.state.filters.length > 1 && (
-							<List>
-								<label htmlFor="filter">{ __( 'filter', 'ang' ) }</label>
-								<Select
-									inputId="filter"
-									className="dropdown"
-									defaultValue={ filterOptions[ 0 ] }
-									isSearchable={ false }
-									options={ filterOptions }
-									onChange={ e => this.context.handleFilter( e.value ) }
-								/>
-							</List>
-						) }
-						<List>
-							<label htmlFor="sort">{ __( 'sort by', 'ang' ) }</label>
-							<Select
-								inputId="sort"
-								className="dropdown"
-								defaultValue={ sortOptions[ 0 ] }
-								isSearchable={ false }
-								options={ sortOptions }
-								onChange={ e => this.context.handleSort( e.value ) }
-							/>
-						</List>
+						<div className="top">
+							<button
+								onClick={ this.context.toggleFavorites }
+								className={ classNames( 'favorites button-plain', {
+									'is-active': this.context.state.showing_favorites,
+								} ) }
+							>
+								<Star />{ ' ' }
+								{ this.context.state.showing_favorites ?
+									__( 'Back to all', 'ang' ) :
+									__( 'My Favorites', 'ang' ) }
+							</button>
 
-						{ this.context.state.hasPro && (
-							<List>
-								<CheckboxControl
-									label={ __( 'show only free', 'ang' ) }
-									checked={ this.context.state.showFree }
-									className="checkbox"
+							{ this.context.state.hasPro && (
+								<ToggleControl
+									label={ __( 'Show Pro Templates' ) }
+									checked={ ! this.context.state.showFree }
 									onChange={ () => {
 										this.context.dispatch( {
 											showFree: ! this.context.state.showFree,
 										} );
 									} }
 								/>
-							</List>
-						) }
+							) }
 
-						<input
-							type="search"
-							placeholder={ __( 'Search templates', 'ang' ) }
-							ref={ this.searchInput }
-							onChange={ () =>
-								this.context.handleSearch(
-									this.searchInput.current.value.toLowerCase()
-								)
-							}
-						/>
+							<ToggleControl
+								label={ __( 'Group by Template Kit' ) }
+								checked={ this.context.state.group }
+								onChange={ () => {
+									this.context.dispatch( {
+										group: ! this.context.state.group,
+									} );
+								} }
+							/>
+						</div>
+
+						<div className="bottom">
+							{ this.context.state.filters.length > 1 && (
+								<List>
+									<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
+									<Select
+										inputId="filter"
+										className="dropdown"
+										defaultValue={ filterOptions[ 0 ] }
+										isSearchable={ false }
+										options={ filterOptions }
+										onChange={ e => this.context.handleFilter( e.value ) }
+									/>
+								</List>
+							) }
+							<List>
+								<label htmlFor="sort">{ __( 'Sort by', 'ang' ) }</label>
+								<Select
+									inputId="sort"
+									className="dropdown"
+									defaultValue={ sortOptions[ 0 ] }
+									isSearchable={ false }
+									options={ sortOptions }
+									onChange={ e => this.context.handleSort( e.value ) }
+								/>
+							</List>
+
+							<input
+								type="search"
+								placeholder={ __( 'Search templates', 'ang' ) }
+								ref={ this.searchInput }
+								onChange={ () =>
+									this.context.handleSearch(
+										this.searchInput.current.value.toLowerCase()
+									)
+								}
+							/>
+						</div>
 					</FiltersContainer>
 				) }
 			</ThemeConsumer>
