@@ -2,7 +2,9 @@ import classnames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { requestDirectImport, requestElementorImport } from './api';
+import Collection from './collection/Collection';
 import { Theme } from './contexts/ThemeContext';
+import Empty from './helpers/Empty';
 import Image from './helpers/Image';
 import Loader from './icons/loader';
 import Star from './icons/star';
@@ -11,7 +13,6 @@ import { NotificationConsumer } from './Notifications';
 import Popup from './popup';
 import ProModal from './ProModal';
 import { isNewTheme } from './utils';
-import Empty from './helpers/Empty';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
@@ -379,6 +380,12 @@ class Templates extends React.Component {
 				<AnalogContext.Consumer>
 					{ context => ! context.state.isOpen && context.state.templates.length < 1 && (
 						<Empty />
+					) }
+				</AnalogContext.Consumer>
+
+				<AnalogContext.Consumer>
+					{ context => (
+						<Collection templates={ context.state.templates } kits={ context.state.kits } />
 					) }
 				</AnalogContext.Consumer>
 

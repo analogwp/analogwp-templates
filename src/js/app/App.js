@@ -15,6 +15,8 @@ const Analog = styled.div`
 	font-size: 13px;
 	position: relative;
 
+	--ang-accent: #5C32B6;
+
 	.ang-notices {
 		position: fixed;
 		right: 0;
@@ -176,6 +178,7 @@ class App extends React.Component {
 
 		this.state = {
 			templates: [],
+			kits: [],
 			count: null,
 			isOpen: false, // Determines whether modal to preview template is open or not.
 			syncing: false,
@@ -238,6 +241,7 @@ class App extends React.Component {
 
 		this.setState( {
 			templates: templates.templates,
+			kits: templates.kits,
 			archive: templates.templates,
 			count: templates.count,
 			timestamp: templates.timestamp,
