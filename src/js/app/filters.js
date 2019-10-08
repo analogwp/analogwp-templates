@@ -56,7 +56,7 @@ const FiltersContainer = styled.div`
 
 	.is-active {
 		svg {
-			fill: #3152FF;
+			fill: var(--ang-accent);
 		}
 	}
 

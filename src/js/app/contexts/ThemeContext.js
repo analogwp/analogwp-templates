@@ -4,7 +4,7 @@ export const ThemeProvider = ThemeContext.Provider;
 export const ThemeConsumer = ThemeContext.Consumer;
 
 export const Theme = {
-	accent: '#3152FF',
+	accent: 'var(--ang-accent)',
 	textLight: '#888888',
 	textDark: '#060606',
 	lightGray: '#F2F2F2',

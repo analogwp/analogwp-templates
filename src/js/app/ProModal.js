@@ -39,7 +39,7 @@ const Container = styled.div`
 
 	.button {
 		color: #fff;
-		background: #3152FF;
+		background: var(--ang-accent);
 		border-radius: 0;
 		font-weight: 600;
 		font-size: 15px;

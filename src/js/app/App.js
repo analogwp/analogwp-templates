@@ -125,7 +125,7 @@ const Analog = styled.div`
 	}
 
 	.button-accent {
-		background: #3152FF;
+		background: var(--ang-accent);
 		border: 0;
 		border-radius: 0;
 		text-transform: uppercase;
@@ -156,9 +156,9 @@ const Analog = styled.div`
 	}
 
 	.ang-link {
-		color: #3152FF;
+		color: var(--ang-accent);
 		text-transform: uppercase;
-		border-bottom: 2px solid #3152FF;
+		border-bottom: 2px solid var(--ang-accent);
 		font-size: 12.64px;
 		letter-spacing: 1px;
 		text-decoration: none;

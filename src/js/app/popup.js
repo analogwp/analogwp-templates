@@ -43,7 +43,7 @@ const Container = styled.div`
 	}
 
 	a {
-		color: #3152FF;
+		color: var(--ang-accent);
 		text-decoration: none;
 	}
 `;

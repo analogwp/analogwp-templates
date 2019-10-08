@@ -42,7 +42,7 @@ const TemplatesList = styled.ul`
 		position: absolute;
 		top: -8px;
 		right: -8px;
-		background: #3152FF;
+		background: var(--ang-accent);
 		color: #fff;
 		z-index: 110;
 		font-weight: bold;
