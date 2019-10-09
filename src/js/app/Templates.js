@@ -5,14 +5,12 @@ import { requestDirectImport, requestElementorImport } from './api';
 import Collection from './collection/Collection';
 import { Theme } from './contexts/ThemeContext';
 import Empty from './helpers/Empty';
-import Image from './helpers/Image';
 import Loader from './icons/loader';
-import Star from './icons/star';
 import CustomModal from './modal';
 import { NotificationConsumer } from './Notifications';
 import Popup from './popup';
 import ProModal from './ProModal';
-import { isNewTheme } from './utils';
+import Template from './Template';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
@@ -477,48 +475,16 @@ class Templates extends React.Component {
 									return;
 								}
 
-								return <li key={ template.id }>
-									{ ( isNewTheme( template.published ) > -14 ) && (
-										<span className="new">{ __( 'New', 'ang' ) }</span>
-									) }
-
-									<figure>
-										{ template.thumbnail && <Image template={ template } /> }
-										<div className="actions">
-											<button className="ang-button"
-												onClick={ () => this.setModalContent( template ) }
-											>
-												{ __( 'Preview', 'ang' ) }
-											</button>
-											<button className="ang-button" onClick={ () => this.importLayout( template ) }>
-												{ __( 'Import', 'ang' ) }
-											</button>
-										</div>
-
-										<button
-											className={ classnames( 'button-plain favorite', {
-												'is-active': template.id in this.context.state.favorites,
-											} ) }
-											onClick={ () => this.makeFavorite( template.id ) }
-										>
-											<Star />
-										</button>
-									</figure>
-									<div className="content">
-										<h3>{ decodeEntities( template.title ) }</h3>
-									</div>
-									{ template.tags && (
-										<div className="tags">
-											{ template.tags.map( tag => (
-												<span key={ tag }>{ tag }</span>
-											) ) }
-										</div>
-									) }
-
-									{ template.is_pro && (
-										<span className="pro">{ __( 'Pro', 'ang' ) }</span>
-									) }
-								</li>;
+								return (
+									<Template
+										key={ template.id }
+										template={ template }
+										favorites={ this.context.state.favorites }
+										setModalContent={ this.setModalContent }
+										importLayout={ this.importLayout }
+										makeFavorite={ this.makeFavorite }
+									/>
+								);
 							} )
 						}
 					</AnalogContext.Consumer>
