@@ -657,16 +657,6 @@ class Admin_Settings {
 			}
 
 			/**
-			 * Fire an action when a certain 'type' of field is being saved.
-			 *
-			 * @deprecated 2.4.0 - doesn't allow manipulation of values!
-			 */
-			if ( has_action( 'ang_update_option_' . sanitize_title( $option['type'] ) ) ) {
-				do_action( 'ang_update_option_' . sanitize_title( $option['type'] ), $option );
-				continue;
-			}
-
-			/**
 			 * Sanitize the value of an option.
 			 *
 			 * @since 2.4.0
