@@ -54,17 +54,17 @@ if ( ! $tab_exists ) {
 		</form>
 		<div class="sidebar">
 			<div class="docs">
-				<h1><?php esc_html_e( 'Docs', 'ang' ); ?></h1>
+				<h3><?php esc_html_e( 'Docs', 'ang' ); ?></h3>
 				<p><?php esc_html_e( 'Need help setting up? We have a number of handy articles to get you started.', 'ang' ); ?></p>
 				<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Read Documentation', 'ang' ); ?><span class="dashicons dashicons-external"></span></a>
 			</div>
 			<div class="social-group">
-				<h1><?php esc_html_e( 'Join our Facebook group', 'ang' ); ?></h1>
+				<h3><?php esc_html_e( 'Join our Facebook group', 'ang' ); ?></h3>
 				<p><?php esc_html_e( 'Get insights, tips and updates in our facebook community. Let\'s take Elementor design to a whole new level.', 'ang' ); ?></p>
 				<a href="<?php echo esc_url( 'https://www.facebook.com/groups/analogwp/' ); ?>" target="_blank"><?php esc_html_e( 'Join the AnalogWP community', 'ang' ); ?><span class="dashicons dashicons-external"></span></a>
 			</div>
 			<div class="newsletter-list">
-				<h1><?php esc_html_e( 'Sign up for updates', 'ang' ); ?></h1>
+				<h3><?php esc_html_e( 'Sign up for updates', 'ang' ); ?></h3>
 				<p><?php esc_html_e( 'Sign up to Analog Newsletter and get notified about product updates, freebies and more.', 'ang' ); ?></p>
 				<form id="ang-newsletter" action="" class="form-newsletter">
 					<input id="ang-newsletter-email" type="email" placeholder="Enter your email" value="<?php echo esc_attr( $current_user->user_email ); ?>"/>
