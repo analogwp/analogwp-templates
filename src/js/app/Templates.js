@@ -252,6 +252,28 @@ class Templates extends React.Component {
 		} );
 	}
 
+	makeFavorite = ( id ) => {
+		const favorites = this.context.state.favorites;
+
+		this.context.markFavorite( id, ! ( id in favorites ) );
+
+		if ( id in favorites ) {
+			delete favorites[ id ];
+		} else {
+			favorites[ id ] = ! ( id in favorites );
+		}
+
+		this.context.dispatch( { favorites } );
+
+		if ( this.context.state.showing_favorites ) {
+			const filteredTemplates = this.context.state.templates.filter( t => t.id in favorites );
+
+			this.context.dispatch( {
+				templates: filteredTemplates,
+			} );
+		}
+	};
+
 	/**
 	 * Handle different states for Importing direct layout.
 	 *
@@ -477,31 +499,7 @@ class Templates extends React.Component {
 											className={ classnames( 'button-plain favorite', {
 												'is-active': template.id in this.context.state.favorites,
 											} ) }
-											onClick={ () => {
-												const favorites = this.context.state.favorites;
-
-												this.context.markFavorite(
-													template.id,
-													! ( template.id in favorites )
-												);
-
-												if ( template.id in favorites ) {
-													delete favorites[ template.id ];
-												} else {
-													favorites[ template.id ] = ! ( template.id in favorites );
-												}
-
-												this.context.dispatch( { favorites } );
-
-												if ( this.context.state.showing_favorites ) {
-													const filteredTemplates = this.context.state.templates.filter(
-														t => t.id in favorites
-													);
-													this.context.dispatch( {
-														templates: filteredTemplates,
-													} );
-												}
-											} }
+											onClick={ () => this.makeFavorite( template.id ) }
 										>
 											<Star />
 										</button>
