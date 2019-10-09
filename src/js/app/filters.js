@@ -16,7 +16,7 @@ const FiltersContainer = styled.div`
 	.top {
 		background: #FFF;
 		margin: -40px -40px 12px -40px;
-		padding: 28px 40px;
+		padding: 20px 40px;
 		display: flex;
 		align-items: center;
 
@@ -27,7 +27,18 @@ const FiltersContainer = styled.div`
 		.components-base-control + .components-base-control {
 			margin-left: 40px;
 		}
+
+		.components-toggle-control__label {
+			font-weight: 500;
+		}
 	}
+
+	.kit-title {
+		font-size: 20px;
+		font-weight: 600;
+		margin: 0 auto 0 25px;
+	}
+
 	.bottom {
 		display: flex;
 		align-items: center;
@@ -143,22 +154,42 @@ class Filters extends React.Component {
 			{ value: 'latest', label: __( 'Latest', 'ang' ) },
 			{ value: 'popular', label: __( 'Popular', 'ang' ) },
 		];
+
+		const showingKit = ( this.context.state.group && this.context.state.activeKit );
 		return (
 			<ThemeConsumer>
 				{ ( { theme } ) => (
 					<FiltersContainer theme={ theme }>
 						<div className="top">
-							<button
-								onClick={ this.context.toggleFavorites }
-								className={ classNames( 'favorites button-plain', {
-									'is-active': this.context.state.showing_favorites,
-								} ) }
-							>
-								<Star />{ ' ' }
-								{ this.context.state.showing_favorites ?
-									__( 'Back to all', 'ang' ) :
-									__( 'My Favorites', 'ang' ) }
-							</button>
+							{ showingKit && (
+								<React.Fragment>
+									<button
+										className="ang-button secondary"
+										onClick={ () => {
+											this.context.dispatch( {
+												activeKit: false,
+											} );
+										} }
+									>
+										{ __( 'Back to Kits', 'ang' ) }
+									</button>
+									<h4 className="kit-title">{ this.context.state.activeKit.title } { __( 'Template Kit' ) }</h4>
+								</React.Fragment>
+							) }
+
+							{ ! showingKit && (
+								<button
+									onClick={ this.context.toggleFavorites }
+									className={ classNames( 'favorites button-plain', {
+										'is-active': this.context.state.showing_favorites,
+									} ) }
+								>
+									<Star />{ ' ' }
+									{ this.context.state.showing_favorites ?
+										__( 'Back to all', 'ang' ) :
+										__( 'My Favorites', 'ang' ) }
+								</button>
+							) }
 
 							{ this.context.state.hasPro && (
 								<ToggleControl
@@ -172,15 +203,17 @@ class Filters extends React.Component {
 								/>
 							) }
 
-							<ToggleControl
-								label={ __( 'Group by Template Kit' ) }
-								checked={ this.context.state.group }
-								onChange={ () => {
-									this.context.dispatch( {
-										group: ! this.context.state.group,
-									} );
-								} }
-							/>
+							{ ! showingKit && (
+								<ToggleControl
+									label={ __( 'Group by Template Kit' ) }
+									checked={ this.context.state.group }
+									onChange={ () => {
+										this.context.dispatch( {
+											group: ! this.context.state.group,
+										} );
+									} }
+								/>
+							) }
 						</div>
 
 						<div className="bottom">

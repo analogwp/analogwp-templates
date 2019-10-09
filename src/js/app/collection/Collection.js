@@ -2,6 +2,7 @@
  * Component for Template kit collections.
  */
 import styled from 'styled-components';
+import AnalogContext from '../AnalogContext';
 import Template from '../Template';
 const { __ } = wp.i18n;
 
@@ -79,11 +80,6 @@ export default class Collection extends React.Component {
 	constructor() {
 		super( ...arguments );
 
-		this.state = {
-			isPopupOpen: false,
-			activeKit: false,
-		};
-
 		this.getCollectionCount = this.getCollectionCount.bind( this );
 		this.getGroupedCollection = this.getGroupedCollection.bind( this );
 		this.getActiveKit = this.getActiveKit.bind( this );
@@ -124,18 +120,19 @@ export default class Collection extends React.Component {
 
 	getActiveKit() {
 		const groupedCollection = this.getGroupedCollection();
+		const activeKit = this.context.state.activeKit;
 
-		if ( ! ( this.state.activeKit in groupedCollection ) ) {
+		if ( ! activeKit || ! ( activeKit.site_id in groupedCollection ) ) {
 			return false;
 		}
 
-		return groupedCollection[ this.state.activeKit ];
+		return groupedCollection[ activeKit.site_id ];
 	}
 
 	render() {
 		return (
 			<div className="collection">
-				{ ! this.state.isPopupOpen && (
+				{ ! this.context.state.activeKit && (
 					<List>
 						{ this.props.kits.map( ( kit ) => {
 							if ( ! this.getCollectionCount( kit.site_id ) ) {
@@ -148,9 +145,8 @@ export default class Collection extends React.Component {
 										<img src={ kit.thumbnail || AGWP.pluginURL + 'assets/img/placeholder.svg' } loading="lazy" alt={ kit.title } />
 										<div className="actions">
 											<button className="ang-button" onClick={ () => {
-												this.setState( {
-													isPopupOpen: true,
-													activeKit: kit.site_id,
+												this.context.dispatch( {
+													activeKit: kit,
 												} );
 											} }>
 												{ __( 'View Kit', 'ang' ) }
@@ -165,10 +161,10 @@ export default class Collection extends React.Component {
 					</List>
 				) }
 
-				{ this.state.isPopupOpen && this.getActiveKit() && (
+				{ this.getActiveKit() && (
 					<ul className="templates-list">
 						{ this.getActiveKit().map( ( template ) => {
-							if ( this.props.showFree && Boolean( template.is_pro ) ) {
+							if ( this.context.state.showFree && Boolean( template.is_pro ) ) {
 								return;
 							}
 
@@ -189,3 +185,5 @@ export default class Collection extends React.Component {
 		);
 	}
 }
+
+Collection.contextType = AnalogContext;

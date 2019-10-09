@@ -47,6 +47,13 @@ const Analog = styled.div`
 		min-width: 100px;
 		text-decoration: none;
 		box-sizing: border-box;
+
+		&.secondary {
+			background: #000222;
+			border-radius: 0;
+			text-transform: uppercase;
+			font-size: 12px;
+		}
 	}
 
 	h1,h2,h3,h4,h5,h6 {
@@ -192,6 +199,7 @@ class App extends React.Component {
 			filters: [],
 			showFree: wp.hooks.applyFilters( 'analog_list_view', true ),
 			group: wp.hooks.applyFilters( 'analog_list_group', true ),
+			activeKit: false,
 			tab: 'templates',
 			hasPro: false,
 			settings: {
