@@ -457,11 +457,6 @@ class Templates extends React.Component {
 
 				{ this.context.state.group ? (
 					<Collection
-						templates={ this.context.state.templates }
-						kits={ this.context.state.kits }
-						showFree={ this.context.state.showFree }
-						showingKit={ this.context.state.showingKit }
-						favorites={ this.context.state.favorites }
 						setModalContent={ this.setModalContent }
 						importLayout={ this.importLayout }
 						makeFavorite={ this.makeFavorite }

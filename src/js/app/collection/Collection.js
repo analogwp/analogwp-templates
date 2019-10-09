@@ -86,11 +86,11 @@ export default class Collection extends React.Component {
 	}
 
 	getGroupedCollection() {
-		if ( ! this.props.templates ) {
+		if ( ! this.context.state.templates ) {
 			return;
 		}
 
-		return this.props.templates.reduce( ( accumulator, currentValue ) => {
+		return this.context.state.templates.reduce( ( accumulator, currentValue ) => {
 			if ( ! accumulator[ currentValue.site_id ] ) {
 				accumulator[ currentValue.site_id ] = [];
 			}
@@ -107,7 +107,7 @@ export default class Collection extends React.Component {
 
 		if ( collection[ id ] ) {
 			const kit = collection[ id ];
-			if ( this.props.showFree ) {
+			if ( this.context.state.showFree ) {
 				const filtered = kit.filter( ( t ) => t.is_pro !== true );
 				count = filtered.length;
 			} else {
@@ -134,7 +134,7 @@ export default class Collection extends React.Component {
 			<div className="collection">
 				{ ! this.context.state.activeKit && (
 					<List>
-						{ this.props.kits.map( ( kit ) => {
+						{ this.context.state.kits.map( ( kit ) => {
 							if ( ! this.getCollectionCount( kit.site_id ) ) {
 								return;
 							}
@@ -172,7 +172,7 @@ export default class Collection extends React.Component {
 								<Template
 									key={ template.id }
 									template={ template }
-									favorites={ this.props.favorites }
+									favorites={ this.context.state.favorites }
 									setModalContent={ this.props.setModalContent }
 									importLayout={ this.props.importLayout }
 									makeFavorite={ this.props.makeFavorite }
