@@ -2,12 +2,13 @@
  * Component for Template kit collections.
  */
 import styled from 'styled-components';
+import Template from '../Template';
 const { __ } = wp.i18n;
 
 const List = styled.ul`
 	margin: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,280px));
+    grid-template-columns: repeat(auto-fit,minmax(380px,380px));
     grid-gap: 25px;
 	color: #000;
 	li {
@@ -20,6 +21,7 @@ const List = styled.ul`
 		margin: 0;
 		position: relative;
 		min-height: 100px;
+		padding: 20px;
 		&:hover .actions {
 			opacity: 1;
 		}
@@ -108,7 +110,13 @@ export default class Collection extends React.Component {
 		let count = false;
 
 		if ( collection[ id ] ) {
-			count = Object.keys( collection[ id ] ).length;
+			const kit = collection[ id ];
+			if ( this.props.showFree ) {
+				const filtered = kit.filter( ( t ) => t.is_pro !== true );
+				count = filtered.length;
+			} else {
+				count = Object.keys( kit ).length;
+			}
 		}
 
 		return count;
@@ -136,9 +144,8 @@ export default class Collection extends React.Component {
 
 							return (
 								<li key={ kit.site_id }>
-									{ /* TODO: Remove placeholder image */ }
 									<figure>
-										<img src={ AGWP.pluginURL + 'assets/img/placeholder.svg' } loading="lazy" alt={ kit.title } />
+										<img src={ kit.thumbnail || AGWP.pluginURL + 'assets/img/placeholder.svg' } loading="lazy" alt={ kit.title } />
 										<div className="actions">
 											<button className="ang-button" onClick={ () => {
 												this.setState( {
@@ -159,11 +166,24 @@ export default class Collection extends React.Component {
 				) }
 
 				{ this.state.isPopupOpen && this.getActiveKit() && (
-					<div className="kit">
-						{ this.getActiveKit().map( ( kit ) => {
-							console.log( kit );
+					<ul className="templates-list">
+						{ this.getActiveKit().map( ( template ) => {
+							if ( this.props.showFree && Boolean( template.is_pro ) ) {
+								return;
+							}
+
+							return (
+								<Template
+									key={ template.id }
+									template={ template }
+									favorites={ this.props.favorites }
+									setModalContent={ this.props.setModalContent }
+									importLayout={ this.props.importLayout }
+									makeFavorite={ this.props.makeFavorite }
+								/>
+							);
 						} ) }
-					</div>
+					</ul>
 				) }
 			</div>
 		);
