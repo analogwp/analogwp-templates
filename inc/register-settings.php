@@ -95,7 +95,7 @@ function settings_page_init() {
  *
  * @return void
  */
- function save_settings() {
+function save_settings() {
 		global $current_tab, $current_section;
 
 		// We should only save on the settings page.
