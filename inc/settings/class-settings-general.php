@@ -41,11 +41,12 @@ class General extends Settings_Page {
 					'id'    => 'ang_color_palette',
 				),
 				array(
-					'title'   => __( 'Sync Color Palettes and Style Kit colors by default', 'ang' ),
-					'desc'    => __( 'The Elementor color palette will be populated with the Style Kit’s global colors', 'ang' ),
-					'id'      => 'ang_sync_colors',
-					'default' => false,
-					'type'    => 'checkbox',
+					'desc'          => __( 'Sync Color Palettes and Style Kit colors by default', 'ang' ),
+					'id'            => 'ang_sync_colors',
+					'default'       => false,
+					'type'          => 'checkbox',
+					'checkboxgroup' => 'start',
+					'desc_tip'      => __( 'The Elementor color palette will be populated with the Style Kit’s global colors', 'woocommerce' ),
 				),
 				array(
 					'type' => 'sectionend',
