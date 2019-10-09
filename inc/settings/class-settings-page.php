@@ -9,12 +9,12 @@
 
 namespace Analog\Settings;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Settings_Page.
+ *
+ * @since 1.3.8
  */
 abstract class Settings_Page {
 
@@ -65,7 +65,7 @@ abstract class Settings_Page {
 	/**
 	 * Add this page to settings.
 	 *
-	 * @param array $pages
+	 * @param array $pages List of existing pages.
 	 *
 	 * @return mixed
 	 */
@@ -101,7 +101,7 @@ abstract class Settings_Page {
 
 		$sections = $this->get_sections();
 
-		if ( empty( $sections ) || 1 === sizeof( $sections ) ) {
+		if ( empty( $sections ) || 1 === count( $sections ) ) {
 			return;
 		}
 

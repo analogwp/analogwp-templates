@@ -53,7 +53,7 @@ class License extends Settings_Page {
 
 		$license_action_setting = array();
 		if ( ! empty( $license ) ) {
-			if ( 'valid' == $status ) {
+			if ( 'valid' === $status ) {
 				$license_action_setting = array(
 					'title' => __( 'License Action', 'ang' ),
 					'type'  => 'action',
@@ -71,7 +71,6 @@ class License extends Settings_Page {
 				);
 			}
 		}
-
 
 		$settings = apply_filters(
 			'ang_license_settings',

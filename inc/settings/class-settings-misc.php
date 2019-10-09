@@ -27,8 +27,9 @@ class Misc extends Settings_Page {
 	}
 
 	/**
-	 * Processes array to be used in setting fields.
+	 * Get recent rollback versions in key/value pair.
 	 *
+	 * @uses \Analog\Utils::get_rollback_versions()
 	 * @return array
 	 */
 	public function get_rollback_versions() {
@@ -74,7 +75,7 @@ class Misc extends Settings_Page {
 				),
 				array(
 					'id'       => 'ang_rollback_version_select_option',
-					'default'  => '1.3.6',
+					'default'  => '',
 					'type'     => 'select',
 					'class'    => 'ang-enhanced-select',
 					'desc_tip' => true,
