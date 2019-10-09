@@ -259,6 +259,7 @@ class Local extends Base {
 	public function handle_direct_import( WP_REST_Request $request ) {
 		$template  = $request->get_param( 'template' );
 		$with_page = $request->get_param( 'with_page' );
+		$site_id   = $request->get_param( 'site_id' );
 		$method    = $with_page ? 'page' : 'library';
 		$license   = false;
 
@@ -279,6 +280,7 @@ class Local extends Base {
 				'editor_post_id' => false,
 				'license'        => $license,
 				'method'         => $method,
+				'site_id'        => $site_id,
 				'options'        => [
 					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
 				],
