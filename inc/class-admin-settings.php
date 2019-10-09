@@ -128,7 +128,7 @@ class Admin_Settings {
 			'ang_settings',
 			'ang_settings_data',
 			array(
-				'i18n_nav_warning' => __( 'The changes you made will be lost if you navigate away from this page.', 'ang' ),
+				'i18n_nav_warning'  => __( 'The changes you made will be lost if you navigate away from this page.', 'ang' ),
 				'rollback_url'      => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
 				'rollback_versions' => Utils::get_rollback_versions(),
 			)
@@ -335,7 +335,8 @@ class Admin_Settings {
 					break;
 				case 'button':
 					$option_value = $value['value'];
-					?><tr valign="top">
+					?>
+					<tr valign="top">
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<a  href="<?php echo esc_attr( $value['to'] ); ?>"
 								id="<?php echo esc_attr( $value['id'] ); ?>"
@@ -350,9 +351,9 @@ class Admin_Settings {
 				case 'action':
 					$option_value = $value['value'];
 					echo '<table class="form-table ang-action">' . "\n\n";
-						if ( ! empty( $value['id'] ) ) {
-							do_action( 'ang_settings_' . sanitize_title( $value['id'] ) );
-						}
+					if ( ! empty( $value['id'] ) ) {
+						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) );
+					}
 					?>
 					<tr valign="top">
 						<th scope="row" class="titledesc">
@@ -361,34 +362,6 @@ class Admin_Settings {
 						<td class="forminwp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<?php wp_nonce_field( 'ang_nonce', 'ang_nonce' ); ?>
 							<input type="submit" class="<?php echo esc_attr( $value['class'] ); ?>" name="<?php echo esc_attr( $value['id'] ); ?>" value="<?php echo esc_attr( $option_value ); ?>"/>
-						</td>
-					</tr>
-					<?php
-					break;
-
-				// Color picker.
-				case 'color':
-					$option_value = $value['value'];
-
-					?>
-					<tr valign="top">
-						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
-						</th>
-						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">&lrm;
-							<span class="colorpickpreview" style="background: <?php echo esc_attr( $option_value ); ?>">&nbsp;</span>
-							<input
-								name="<?php echo esc_attr( $value['id'] ); ?>"
-								id="<?php echo esc_attr( $value['id'] ); ?>"
-								type="text"
-								dir="ltr"
-								style="<?php echo esc_attr( $value['css'] ); ?>"
-								value="<?php echo esc_attr( $option_value ); ?>"
-								class="<?php echo esc_attr( $value['class'] ); ?>colorpick"
-								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
-								/>&lrm; <?php echo $description; // WPCS: XSS ok. ?>
-								<div id="colorPickerDiv_<?php echo esc_attr( $value['id'] ); ?>" class="colorpickdiv" style="z-index: 100;background:#eee;border:1px solid #ccc;position:absolute;display:none;"></div>
 						</td>
 					</tr>
 					<?php
