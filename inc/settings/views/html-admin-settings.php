@@ -3,6 +3,7 @@
  * Admin View: Settings
  *
  * @package Analog
+ * @since 1.3.8
  */
 
 namespace Analog\Settings\views;

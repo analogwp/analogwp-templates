@@ -3,6 +3,7 @@
  * Analog Miscelleneous Settings
  *
  * @package Analog/Admin
+ * @since 1.3.8
  */
 
 namespace Analog\Settings;

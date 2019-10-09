@@ -1,5 +1,13 @@
 <?php
+/**
+ * Helper functions for Page Settings.
+ *
+ * @package Analog
+ * @since 1.3.8
+ */
+
 namespace Analog\Settings;
+
 /**
  * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
  * Non-scalar values are ignored.

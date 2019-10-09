@@ -3,12 +3,12 @@
  * Analog General Settings
  *
  * @package Analog/Admin
+ * @since 1.3.8
  */
 
 namespace Analog\Settings;
 
 defined( 'ABSPATH' ) || exit;
-
 
 /**
  * General.

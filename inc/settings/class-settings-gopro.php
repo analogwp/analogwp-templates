@@ -3,6 +3,7 @@
  * Analog Go Pro Promotional Tab.
  *
  * @package Analog/Admin
+ * @since 1.3.8
  */
 
 namespace Analog\Settings;

@@ -604,7 +604,7 @@ class Admin_Settings {
 	 */
 	public static function save_fields( $options, $data = null ) {
 		if ( is_null( $data ) ) {
-			$data = $_POST; // WPCS: input var okay, CSRF ok.
+			$data = $_POST; // phpcs:ignore
 		}
 		if ( empty( $data ) ) {
 			return false;
