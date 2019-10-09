@@ -121,7 +121,8 @@ class Admin_Settings {
 		global $current_section, $current_tab;
 
 		do_action( 'ang_settings_start' );
-		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', [ 'dashicons' ], ANG_VERSION );
+		wp_enqueue_style( 'ang-poppins', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap', [], '20191009' );
+		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', [ 'ang-poppins', 'dashicons' ], ANG_VERSION );
 		wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n', 'wp-api-fetch' ), ANG_VERSION, true );
 
 		wp_localize_script(

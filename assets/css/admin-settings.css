@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap');
-
 :root {
 	--ang-settings-accent: #5c32b6;
 	--ang-settings-warning: #b33a3a;
@@ -179,8 +177,7 @@ input[type='checkbox'] {
 }
 
 #ang_license_activation_title-description + .form-table tbody th {
-	padding: 0;
-	padding-top: 15px;
+	padding: 15px 0 0;
 }
 
 #ang_license_activation_title-description + .form-table tbody td .description {
@@ -337,12 +334,11 @@ input[type='checkbox'] {
 .ang.gopro ul {
 	list-style: none;
 	padding: 0;
-	margin: 0;
 	display: grid;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 180%;
-	margin-top: 20px;
+	margin: 20px 0 0;
 }
 @media screen and (min-width: 768px) {
 	.ang.gopro ul {
@@ -395,7 +391,6 @@ input[type='checkbox'] {
 }
 
 .ang.license .ang-action label {
-	font-size: 16.9px;
+	font-size: 17px;
 	font-weight: 600;
-	margin-right: ;
 }
