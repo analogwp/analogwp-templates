@@ -2,7 +2,6 @@ import classnames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 import { requestDirectImport, requestElementorImport } from './api';
-import Collection from './collection/Collection';
 import { Theme } from './contexts/ThemeContext';
 import Empty from './helpers/Empty';
 import Loader from './icons/loader';
@@ -449,45 +448,31 @@ class Templates extends React.Component {
 					<ProModal onDimiss={ () => this.resetState() } />
 				}
 
-				<AnalogContext.Consumer>
-					{ context => ! context.state.isOpen && context.state.templates.length < 1 && (
-						<Empty />
-					) }
-				</AnalogContext.Consumer>
-
-				<AnalogContext.Consumer>
-					{ context => (
-						<Collection templates={ context.state.templates } kits={ context.state.kits } />
-					) }
-				</AnalogContext.Consumer>
+				{ ! this.context.state.isOpen && this.context.state.templates.length < 1 && (
+					<Empty />
+				) }
 
 				<TemplatesList
 					className={ classnames( {
 						hide: ( this.state.template && this.state.showingModal && ! this.canImportTemplate() ),
 					} ) }
 				>
-					<AnalogContext.Consumer>
-						{ context =>
-							! context.state.isOpen &&
-							context.state.count >= 1 &&
-							context.state.templates.map( template => {
-								if ( context.state.showFree && Boolean( template.is_pro ) ) {
-									return;
-								}
-
-								return (
-									<Template
-										key={ template.id }
-										template={ template }
-										favorites={ this.context.state.favorites }
-										setModalContent={ this.setModalContent }
-										importLayout={ this.importLayout }
-										makeFavorite={ this.makeFavorite }
-									/>
-								);
-							} )
+					{ ! this.context.state.isOpen && this.context.state.count >= 1 && this.context.state.templates.map( template => {
+						if ( this.context.state.showFree && Boolean( template.is_pro ) ) {
+							return;
 						}
-					</AnalogContext.Consumer>
+
+						return (
+							<Template
+								key={ template.id }
+								template={ template }
+								favorites={ this.context.state.favorites }
+								setModalContent={ this.setModalContent }
+								importLayout={ this.importLayout }
+								makeFavorite={ this.makeFavorite }
+							/>
+						);
+					} ) }
 				</TemplatesList>
 			</div>
 		);
