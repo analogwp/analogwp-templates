@@ -17,6 +17,7 @@ namespace Analog\Settings\views;
 		<li><?php _e( 'Global design control.', 'ang' ); ?></li>
 		<li><?php _e( 'Advanced Style Kit control.', 'ang' ); ?></li>
 	</ul>
-	<a href="<?php echo esc_url( 'https://analogwp.com/style-kits-pro' ); ?>" class="ang-button" target="_blank"><?php _e( 'Explore Style Kits', 'ang' ); ?></a>
+	<a href="<?php echo esc_url( 'https://analogwp.com/style-kits-pro' ); ?>" class="ang-button" target="_blank"><?php _e( 'Explore Style Kits Pro', 'ang' ); ?></a>
+	<img src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/gopro_frames.png' ); ?>" alt="">
 </div>
 
