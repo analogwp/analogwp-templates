@@ -349,6 +349,7 @@ class App extends React.Component {
 			archive: [],
 			count: null,
 			syncing: true,
+			kits: [],
 		} );
 
 		wp.hooks.doAction( 'refreshLibrary' );
@@ -360,6 +361,7 @@ class App extends React.Component {
 				templates: data.templates,
 				archive: data.templates,
 				count: data.count,
+				kits: data.kits,
 				timestamp: data.timestamp,
 				syncing: false,
 			} );
