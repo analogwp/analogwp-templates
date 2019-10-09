@@ -174,12 +174,13 @@ class Remote extends Base {
 	/**
 	 * Get a single template content.
 	 *
-	 * @param int    $template_id Template ID.
-	 * @param string $license Customer license.
-	 * @param string $method Whether being imported from Elementor, library, or page.
+	 * @param int      $template_id Template ID.
+	 * @param string   $license Customer license.
+	 * @param string   $method Whether being imported from Elementor, library, or page.
+	 * @param int|bool $site_id Site ID to fetch Remote template from.
 	 * @return mixed|\WP_Error
 	 */
-	public function get_template_content( $template_id, $license, $method = 'elementor' ) {
+	public function get_template_content( $template_id, $license, $method = 'elementor', $site_id = false ) {
 		$url = sprintf( self::$template_url, $template_id );
 
 		$body_args = apply_filters( 'analog/api/get_template_content/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
@@ -189,6 +190,7 @@ class Remote extends Base {
 				'license' => $license,
 				'url'     => home_url(),
 				'method'  => $method,
+				'site_id' => $site_id,
 			]
 		);
 

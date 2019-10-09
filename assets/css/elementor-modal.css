@@ -1,5 +1,9 @@
+:root {
+	--ang-accent: #5C32B6;
+}
+
 .elementor-add-analogwp-button {
-	background-color: #3152FF;
+	background-color: var(--ang-accent);
 	margin-left: 5px;
 }
 

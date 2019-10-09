@@ -15,12 +15,18 @@ const Analog = styled.div`
 	font-size: 13px;
 	position: relative;
 
+	--ang-accent: #5C32B6;
+
 	.ang-notices {
 		position: fixed;
 		right: 0;
 		top: 75px;
 		padding: 8px;
 		z-index: 100000;
+	}
+
+	.components-form-toggle.is-checked .components-form-toggle__track {
+		background-color: var(--ang-accent);
 	}
 
 	.ang-button {
@@ -41,6 +47,13 @@ const Analog = styled.div`
 		min-width: 100px;
 		text-decoration: none;
 		box-sizing: border-box;
+
+		&.secondary {
+			background: #000222;
+			border-radius: 0;
+			text-transform: uppercase;
+			font-size: 12px;
+		}
 	}
 
 	h1,h2,h3,h4,h5,h6 {
@@ -123,7 +136,7 @@ const Analog = styled.div`
 	}
 
 	.button-accent {
-		background: #3152FF;
+		background: var(--ang-accent);
 		border: 0;
 		border-radius: 0;
 		text-transform: uppercase;
@@ -154,9 +167,9 @@ const Analog = styled.div`
 	}
 
 	.ang-link {
-		color: #3152FF;
+		color: var(--ang-accent);
 		text-transform: uppercase;
-		border-bottom: 2px solid #3152FF;
+		border-bottom: 2px solid var(--ang-accent);
 		font-size: 12.64px;
 		letter-spacing: 1px;
 		text-decoration: none;
@@ -176,6 +189,7 @@ class App extends React.Component {
 
 		this.state = {
 			templates: [],
+			kits: [],
 			count: null,
 			isOpen: false, // Determines whether modal to preview template is open or not.
 			syncing: false,
@@ -183,7 +197,9 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			filters: [],
-			showFree: true,
+			showFree: wp.hooks.applyFilters( 'analog_list_view', true ),
+			group: wp.hooks.applyFilters( 'analog_list_group', true ),
+			activeKit: false,
 			tab: 'templates',
 			hasPro: false,
 			settings: {
@@ -238,6 +254,7 @@ class App extends React.Component {
 
 		this.setState( {
 			templates: templates.templates,
+			kits: templates.kits,
 			archive: templates.templates,
 			count: templates.count,
 			timestamp: templates.timestamp,
@@ -332,6 +349,7 @@ class App extends React.Component {
 			archive: [],
 			count: null,
 			syncing: true,
+			kits: [],
 		} );
 
 		wp.hooks.doAction( 'refreshLibrary' );
@@ -343,6 +361,7 @@ class App extends React.Component {
 				templates: data.templates,
 				archive: data.templates,
 				count: data.count,
+				kits: data.kits,
 				timestamp: data.timestamp,
 				syncing: false,
 			} );

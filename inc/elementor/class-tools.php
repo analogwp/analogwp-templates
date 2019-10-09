@@ -642,7 +642,7 @@ CSS;
 
 				if ( get_option( 'elementor_ang_global_kit' ) !== $kit_id && '' !== get_option( 'elementor_ang_global_kit' ) && post_exists( get_the_title( $kit_id ) ) && 'publish' === get_post_status( $kit_id ) ) {
 					/* translators: %s: Style kit title. */
-					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#3152FF;">&#9679;</span>', 'ang' ), get_the_title( $kit_id ) );
+					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#5C32B6;">&#9679;</span>', 'ang' ), get_the_title( $kit_id ) );
 				}
 			}
 		}

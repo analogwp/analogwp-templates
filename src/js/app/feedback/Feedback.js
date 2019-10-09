@@ -57,7 +57,7 @@ const ChildContainer = styled.div`
 
 	.components-button {
 		padding: 15px;
-		background: #3152FF;
+		background: var(--ang-accent);
 		color: #fff;
 		font-weight: 600;
 	}

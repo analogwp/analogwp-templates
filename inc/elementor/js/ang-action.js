@@ -254,7 +254,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		//
 		// 	if ( classes ) {
 		// 		const ID = el.id;
-		// 		jQuery( elementorFrontend.elements.$body ).find( '[data-id="' + ID + '"]' ).css( 'box-shadow', '0 0 0 1px #3152FF' );
+		// 		jQuery( elementorFrontend.elements.$body ).find( '[data-id="' + ID + '"]' ).css( 'box-shadow', '0 0 0 1px var(--ang-accent)' );
 		// 	}
 		//
 		// 	if ( el.attributes.elements.models.length ) {
@@ -262,7 +262,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		// 			const childID = childEl.id;
 		//
 		// 			if ( childEl.attributes.settings.attributes.css_classes ) {
-		// 				jQuery( elementorFrontend.elements.$body ).find( '[data-id="' + childID + '"]' ).css( 'box-shadow', '0 0 0 1px #3152FF' );
+		// 				jQuery( elementorFrontend.elements.$body ).find( '[data-id="' + childID + '"]' ).css( 'box-shadow', '0 0 0 1px var(--ang-accent)' );
 		// 			}
 		// 		} );
 		// 	}

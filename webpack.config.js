@@ -2,9 +2,7 @@
  * External Dependencies
  */
 const webpack = require( 'webpack' );
-const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
-const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
-const WebpackRTLPlugin = require( 'webpack-rtl-plugin' );
+const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 
 // Enviornment Flag
 const inProduction = 'production' === process.env.NODE_ENV;
@@ -38,7 +36,11 @@ const config = {
 			},
 		],
 	},
-	plugins: [ new CleanWebpackPlugin( [ 'build' ] ), new WebpackRTLPlugin() ],
+	plugins: [
+		new CleanWebpackPlugin( {
+			cleanOnceBeforeBuildPatterns: [ 'build' ],
+		} ),
+	],
 	stats: {
 		children: false,
 	},

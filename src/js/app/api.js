@@ -36,6 +36,7 @@ export async function requestDirectImport( template, withPage = false ) {
 		method: 'post',
 		data: {
 			template,
+			site_id: template.site_id || false,
 			with_page: withPage,
 		},
 	} ).then( response => {
