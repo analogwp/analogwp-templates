@@ -113,7 +113,6 @@ final class Analog_Templates {
 	private function includes() {
 		require_once ANG_PLUGIN_DIR . 'inc/register-settings.php';
 		require_once ANG_PLUGIN_DIR . 'inc/settings-helpers.php';
-		require_once ANG_PLUGIN_DIR . 'inc/class-ang-register-wp-admin-settings.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-import-image.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-utils.php';
