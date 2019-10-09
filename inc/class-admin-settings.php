@@ -49,8 +49,8 @@ class Admin_Settings {
 			include_once dirname( __FILE__ ) . '/settings/class-settings-page.php';
 
 			$settings[] = include 'settings/class-settings-general.php';
-			$settings[] = include 'settings/class-settings-gopro.php';
 			$settings[] = include 'settings/class-settings-misc.php';
+			$settings[] = include 'settings/class-settings-gopro.php';
 
 			self::$settings = apply_filters( 'ang_get_settings_pages', $settings );
 		}
