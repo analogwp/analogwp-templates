@@ -79,10 +79,12 @@ export default class Collection extends React.Component {
 
 		this.state = {
 			isPopupOpen: false,
+			activeKit: false,
 		};
 
 		this.getCollectionCount = this.getCollectionCount.bind( this );
 		this.getGroupedCollection = this.getGroupedCollection.bind( this );
+		this.getActiveKit = this.getActiveKit.bind( this );
 	}
 
 	getGroupedCollection() {
@@ -112,34 +114,57 @@ export default class Collection extends React.Component {
 		return count;
 	}
 
+	getActiveKit() {
+		const groupedCollection = this.getGroupedCollection();
+
+		if ( ! ( this.state.activeKit in groupedCollection ) ) {
+			return false;
+		}
+
+		return groupedCollection[ this.state.activeKit ];
+	}
+
 	render() {
 		return (
-			<div>
-				<List>
-					{ ! this.state.isPopupOpen && this.props.kits.map( ( kit ) => {
-						if ( ! this.getCollectionCount( kit.site_id ) ) {
-							return;
-						}
+			<div className="collection">
+				{ ! this.state.isPopupOpen && (
+					<List>
+						{ this.props.kits.map( ( kit ) => {
+							if ( ! this.getCollectionCount( kit.site_id ) ) {
+								return;
+							}
 
-						return (
-							<li key={ kit.site_id }>
-								{ /* TODO: Remove placeholder image */ }
-								<figure>
-									<img src={ AGWP.pluginURL + 'assets/img/placeholder.svg' } loading="lazy" alt={ kit.title } />
-									<div className="actions">
-										<button className="ang-button" onClick={ () => {
-											this.setState( { isPopupOpen: true } );
-										} }>
-											{ __( 'View Kit', 'ang' ) }
-										</button>
-									</div>
-								</figure>
-								<h3>{ kit.title }</h3>
-								<span>{ this.getCollectionCount( kit.site_id ) }</span>
-							</li>
-						);
-					} ) }
-				</List>
+							return (
+								<li key={ kit.site_id }>
+									{ /* TODO: Remove placeholder image */ }
+									<figure>
+										<img src={ AGWP.pluginURL + 'assets/img/placeholder.svg' } loading="lazy" alt={ kit.title } />
+										<div className="actions">
+											<button className="ang-button" onClick={ () => {
+												this.setState( {
+													isPopupOpen: true,
+													activeKit: kit.site_id,
+												} );
+											} }>
+												{ __( 'View Kit', 'ang' ) }
+											</button>
+										</div>
+									</figure>
+									<h3>{ kit.title }</h3>
+									<span>{ this.getCollectionCount( kit.site_id ) }</span>
+								</li>
+							);
+						} ) }
+					</List>
+				) }
+
+				{ this.state.isPopupOpen && this.getActiveKit() && (
+					<div className="kit">
+						{ this.getActiveKit().map( ( kit ) => {
+							console.log( kit );
+						} ) }
+					</div>
+				) }
 			</div>
 		);
 	}

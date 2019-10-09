@@ -5,7 +5,7 @@ import AnalogContext from './AnalogContext';
 import { ThemeConsumer } from './contexts/ThemeContext';
 import Star from './icons/star';
 const { __ } = wp.i18n;
-const { CheckboxControl, ToggleControl } = wp.components;
+const { ToggleControl } = wp.components;
 
 const FiltersContainer = styled.div`
 	margin: 0 0 40px 0;
