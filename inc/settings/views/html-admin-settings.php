@@ -53,8 +53,10 @@ if ( ! $tab_exists ) {
 			</div>
 		</form>
 		<div class="sidebar">
+			<?php do_action( 'ang_sidebar_start' ); ?>
+
 			<div class="docs">
-				<h3><?php esc_html_e( 'Docs', 'ang' ); ?></h3>
+				<h3><?php esc_html_e( 'Documentation', 'ang' ); ?></h3>
 				<p><?php esc_html_e( 'Need help setting up? We have a number of handy articles to get you started.', 'ang' ); ?></p>
 				<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Read Documentation', 'ang' ); ?><span class="dashicons dashicons-external"></span></a>
 			</div>
@@ -77,6 +79,8 @@ if ( ! $tab_exists ) {
 				<a href="https://twitter.com/analogwp" target="_blank"><span class="dashicons dashicons-twitter"></span></a>
 				<a href="https://instagram.com/analogwp" target="_blank"><span class="dashicons dashicons-instagram"></span></span></a>
 			</div>
+
+			<?php do_action( 'ang_sidebar_end' ); ?>
 		</div>
 	</div>
 </div>
