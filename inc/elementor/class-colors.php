@@ -50,6 +50,9 @@ class Colors extends Module {
 				'selectors'   => [
 					'{{WRAPPER}} a:not([role=button]), {{WRAPPER}} .sk-accent-1' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'color: {{VALUE}}; border-color: {{VALUE}};',
+
 					'{{WRAPPER}} .elementor-progress-bar' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .sk-primary-accent'      => 'color: {{VALUE}}',
 
