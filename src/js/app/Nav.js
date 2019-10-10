@@ -1,5 +1,6 @@
 import classnames from 'classnames';
 import styled from 'styled-components';
+import { requestStyleKitsList } from './api';
 import AnalogContext from './AnalogContext';
 const { __ } = wp.i18n;
 
@@ -57,6 +58,11 @@ const List = styled.ul`
 	}
 `;
 
+const Count = styled.span`
+	margin-left: 8px;
+	color: rgba(255, 255, 255, 0.5);
+`;
+
 const ITEMS = [
 	{ key: 'templates', label: __( 'Templates', 'ang' ), show: true },
 	{ key: 'stylekits', label: __( 'Style Kits', 'ang' ), show: true },
@@ -65,23 +71,79 @@ const ITEMS = [
 // Filter nav items to show/hide between App and Elementor page.
 // const filteredItems = ITEMS.filter( item => Boolean( item.show ) === true );
 
-const Nav = () => (
-	<List>
-		<AnalogContext.Consumer>
-			{ ( { state, dispatch } ) => (
-				ITEMS.map( ( item ) => (
-					<li
-						key={ item.key }
-						className={ classnames( 'button-plain', {
-							active: item.key === state.tab,
-						} ) }
-					>
-						<a href={ `#${ item.key }` } onClick={ () => dispatch( { tab: item.key } ) }>{ item.label }</a>
-					</li>
-				) )
-			) }
-		</AnalogContext.Consumer>
-	</List>
-);
+const TemplatesCount = () => {
+	const { state } = React.useContext( AnalogContext );
+	const templates = state.templates;
+	let count = false;
+	if ( state.showFree ) {
+		const filtered = templates.filter( ( t ) => t.is_pro !== true );
+		count = filtered.length;
+	} else {
+		count = Object.keys( templates ).length;
+	}
+	return ( count );
+};
+
+class Nav extends React.Component {
+	constructor() {
+		super( ...arguments );
+
+		this.state = {
+			kitsCount: '',
+		};
+	}
+
+	componentDidMount() {
+		this.refreshLibrary();
+
+		wp.hooks.addAction( 'refreshLibrary', 'analog/stylekits/library', () => {
+			this.refreshLibrary( true );
+		} );
+	}
+
+	componentWillUnmount() {
+		wp.hooks.removeAction( 'refreshLibrary', 'analog/stylekits/library' );
+	}
+
+	async refreshLibrary( $force = false ) {
+		const kits = await requestStyleKitsList( $force );
+
+		this.setState( {
+			kitsCount: kits.length,
+		} );
+	}
+
+	render() {
+		return (
+			<List>
+				<AnalogContext.Consumer>
+					{ ( { state, dispatch } ) => (
+						ITEMS.map( ( item ) => (
+							<li
+								key={ item.key }
+								className={ classnames( 'button-plain', {
+									active: item.key === state.tab,
+								} ) }
+							>
+								<a href={ `#${ item.key }` } onClick={ () => dispatch( { tab: item.key } ) }>{ item.label }</a>
+								{ item.key === 'templates' && (
+									<Count>
+										{ <TemplatesCount /> }
+									</Count>
+								) }
+								{ item.key === 'stylekits' && (
+									<Count>
+										{ this.state.kitsCount }
+									</Count>
+								) }
+
+							</li>
+						) )
+					) }
+				</AnalogContext.Consumer>
+			</List>
+		);
+	}
+}
 
 export default Nav;
