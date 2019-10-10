@@ -134,7 +134,7 @@ export default class Collection extends React.Component {
 			<div className="collection">
 				{ ! this.context.state.activeKit && (
 					<List>
-						{ this.context.state.kits.map( ( kit ) => {
+						{ this.context.state.kits && this.context.state.kits.map( ( kit ) => {
 							if ( ! this.getCollectionCount( kit.site_id ) ) {
 								return;
 							}
