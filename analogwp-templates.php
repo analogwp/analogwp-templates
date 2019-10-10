@@ -93,8 +93,6 @@ final class Analog_Templates {
 			define( 'ANG_VERSION', self::$version );
 		}
 
-		define( 'ANG_LAST_STABLE_VERSION', '1.2.2' );
-
 		// Plugin Folder Path.
 		if ( ! defined( 'ANG_PLUGIN_DIR' ) ) {
 			define( 'ANG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
