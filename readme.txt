@@ -97,7 +97,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
-= 1.3.7 =
+= 1.3.7 - September 20, 2019 =
 * New: Added a settings Style Kit > Settings to be able to rollback to any older version of plugin
 * Fix: Bug where Quick edit mode would accidentally break Elementor page settings
 * Fix: Hide title setting being overridden on applying a Style Kit.
@@ -106,7 +106,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Fix: Style Kit library search results listing everything if no matches are found
 * Fix: SK classes not working properly with Columns because of tags nesting
 
-= 1.3.6 =
+= 1.3.6 - September 12, 2019 =
 * New: Added an option to disable accent color on titles under Style Kits > Tools
 * New: Add more helper classes for color controls
   * `sk-primary-accent`
@@ -125,10 +125,10 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Fix: Issue with invalid default value type causing `array_merge` errors
 * Fix: Style Kits not refreshing in Elementor editor upon importing
 
-= 1.3.5 =
+= 1.3.5 - August 28, 2019 =
 * Fix: An issue with Analog modal not launching in Elementor screen
 
-= 1.3.4 =
+= 1.3.4 - August 28, 2019 =
 * New: All new *[Style Kits](https://github.com/mauryaratan/analogwp-templates/issues/135)* library page to import pre-build Style Kits.
 * New: Added Quick Edit and Bulk edit actions on posts list, to assign a Style Kit to multiple posts/pages at once.
 * New: Reorganized nav menu and settings tab for better access to different pages.
@@ -140,16 +140,16 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Improve: Style kit can be imported from Elementor screen as well
 * Improve: Loading of data sent to app
 
-= 1.3.3 =
+= 1.3.3 - August 21, 2019 =
 * Fix: An undefined function error when importing a template inside Elementor editor
 * Improve: Always shows Style Kits post type page, so users can always import without having to create one first
 
-= 1.3.2 =
+= 1.3.2 - August 16, 2019 =
 * Improve: Rename and reorder Global Color setting labels
 * Improve: Rename Outer Section Padding labels to avoid confusions
 * Improve: Extend Primary Accent colors to Icon + Progress bar widgets. Feel it should extend to more? [Sound off](https://github.com/mauryaratan/analogwp-templates/issues/new).
 
-= 1.3.1 =
+= 1.3.1 - August 15, 2019 =
 * New: Added Color Controls in page settings
 * New: Added Plugin setting to sync Color controls output colors with Elementor color picker
 * New: Added Control for spacing between widgets under Style Kits > Column Gaps
@@ -161,7 +161,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Fix: Fatal error with `use function` usage in PHP 5.5.x
 * Fix: Issue with Style kit post state showing empty title
 
-= 1.3 =
+= 1.3 - August 05, 2019 =
 * New: Added Button Controls under Page Styles 🎉
 * New: Plugin rebranded as "Style Kits for Elementor"
 * Fix: Text/Heading size controls not being persistent on style kit change
@@ -170,12 +170,12 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Fix: Dependency error with Gutenberg 6.2
 * Improve: Added a modal window to indicate if page has Global Style Kit
 
-= 1.2.4 =
+= 1.2.4 - June 19, 2019 =
 * Fix: A critical error where templates won't import due to internal error
 * Improve: Replace `body` selectors with `{{WRAPPER}}` to scope it to specific template
 * Improve: Reorganize settings in Heading and Text sizes sections
 
-= 1.2.3 =
+= 1.2.3 - May 30, 2019 =
 * New: Added a [notice](https://github.com/mauryaratan/analogwp-templates/issues/92) to reopen tabs when setting a global Style Kit.
 * New: [Updating](https://github.com/mauryaratan/analogwp-templates/issues/107) an existing Style Kit now shows a modal window on pages using the same kit, to choose whether to pull latest changes or keep old.
 * New: Added option to [rollback](https://github.com/mauryaratan/analogwp-templates/issues/99) to a previous stable version under AnalogWP > Settings.
@@ -185,11 +185,11 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Fix: [Extend](https://github.com/mauryaratan/analogwp-templates/issues/106) heading selector to include `a` tags inside to match styles.
 * Improve: Stop users from creating a new style kit directly from CPT [page](https://github.com/mauryaratan/analogwp-templates/issues/97), as it results in empty style kit.
 
-= 1.2.2 =
+= 1.2.2 - May 19, 2019 =
 * Fixed an issue with padding section media queries
 * Fix broken dependency on Settings page ahead of new Gutenberg version
 
-= 1.2.1 =
+= 1.2.1 - May 09, 2019 =
 * New: Added ability to import/export Style Kits 🎉.
 * Fix: Issue with page style column gap not being overridden with advanced section padding.
 * Fix: Incorrect documentation link.
@@ -197,7 +197,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Improve: Add visual notification when a setting is changed on Settings page.
 * Improve: Add a visual indicator in notification based on notification timeout duration on Settings page.
 
-= 1.2 =
+= 1.2 - April 25, 2019=
 * New: Introducing [Style Kits](https://analogwp.com/style-kits-for-elementor/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp). 🎉
 * New: Added Elementor Finder shortcuts to quickly navigate to Style Kits settings/library.
 * New: Added a new settings to assign global style kit under Elementor > Settings > Styles > Global Style kit.
@@ -207,17 +207,17 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Improve: Added better and visible server side error handling.
 * Improve: Added notices if importing a template doesn't meet specified requirements.
 
-= 1.1.2 =
+= 1.1.2 - March 26, 2019 =
 * New: Added [Page style settings](https://analogwp.com/testing-global-page-styles-in-analog-templates). 🎉
 * New: Added option to enable beta features under Style Kits > Settings.
 * Fix: Remove User First/Last name collection on newsletter signup, as it wasn't communicated.
 * Tweak: Added documentation links to settings with more instructions.
 * Tweak: Show 'New' badge for 14 days, to match new template publish timing.
 
-= 1.1.1 =
+= 1.1.1 - March 14, 2019 =
 * Fixed a styling issue with Elementor popup modal, caused with Elementor v2.5.5
 
-= 1.1 =
+= 1.1 - March 13, 2019 =
 * New: All new designed settings page. 🎉
 * New: Added option to Strip Typography under settings tab. [More info](https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements).
 * New: Lazy load images on templates page to avoid unnecessary loading, making page load faster.
@@ -229,7 +229,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Improve: Check WordPress version before loading files to avoid errors.
 * Fix: Set right data type to _ang_import_type post meta
 
-= 1.0.0 =
+= 1.0.0 - February 15, 2019 = 
 * Initial Release
 
 == Upgrade Notice ==
