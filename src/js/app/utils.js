@@ -1,14 +1,10 @@
 import { requestSettingUpdate } from './api';
 import Filters from './filters';
-import Settings from './settings/Settings';
 import StyleKits from './stylekits/stylekits';
 import Templates from './Templates';
 const { Fragment } = React;
 
 export const getPageComponents = ( state ) => {
-	if ( state.tab === 'settings' ) {
-		return <Settings />;
-	}
 	if ( state.tab === 'stylekits' ) {
 		return <StyleKits />;
 	}

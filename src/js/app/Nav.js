@@ -60,17 +60,16 @@ const List = styled.ul`
 const ITEMS = [
 	{ key: 'templates', label: __( 'Templates', 'ang' ), show: true },
 	{ key: 'stylekits', label: __( 'Style Kits', 'ang' ), show: true },
-	{ key: 'settings', label: __( 'Settings', 'ang' ), show: AGWP.is_settings_page },
 ];
 
 // Filter nav items to show/hide between App and Elementor page.
-const filteredItems = ITEMS.filter( item => Boolean( item.show ) === true );
+// const filteredItems = ITEMS.filter( item => Boolean( item.show ) === true );
 
 const Nav = () => (
 	<List>
 		<AnalogContext.Consumer>
 			{ ( { state, dispatch } ) => (
-				filteredItems.map( ( item ) => (
+				ITEMS.map( ( item ) => (
 					<li
 						key={ item.key }
 						className={ classnames( 'button-plain', {

@@ -41,15 +41,7 @@ function register_menu() {
 
 	add_submenu_page(
 		'analogwp_templates',
-		__( 'Style Kits', 'ang' ),
-		__( 'Settings', 'ang' ),
-		'manage_options',
-		admin_url( 'admin.php?page=analogwp_templates#settings' )
-	);
-
-	add_submenu_page(
-		'analogwp_templates',
-		__( 'Style Kits Settings Page', 'ang' ),
+		__( 'Style Kits Settings', 'ang' ),
 		__( 'Settings', 'ang' ),
 		'manage_options',
 		'ang-settings',
