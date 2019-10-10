@@ -190,6 +190,7 @@ class App extends React.Component {
 		this.state = {
 			templates: [],
 			kits: [],
+			styleKits: [],
 			count: null,
 			isOpen: false, // Determines whether modal to preview template is open or not.
 			syncing: false,

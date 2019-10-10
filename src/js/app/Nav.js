@@ -57,6 +57,11 @@ const List = styled.ul`
 	}
 `;
 
+const Count = styled.span`
+	margin-left: 8px;
+	color: rgba(255, 255, 255, 0.5);
+`;
+
 const ITEMS = [
 	{ key: 'templates', label: __( 'Templates', 'ang' ), show: true },
 	{ key: 'stylekits', label: __( 'Style Kits', 'ang' ), show: true },
@@ -77,6 +82,17 @@ const Nav = () => (
 						} ) }
 					>
 						<a href={ `#${ item.key }` } onClick={ () => dispatch( { tab: item.key } ) }>{ item.label }</a>
+						{ state.templates && item.key === 'templates' && (
+							<Count>
+								{ state.showFree ? Object.keys( state.templates.filter( t => t.is_pro !== true ) ).length : Object.keys( state.templates ).length }
+							</Count>
+						) }
+
+						{ item.key === 'stylekits' && state.styleKits && (
+							<Count>
+								{ state.showFree ? state.styleKits.filter( k => k.is_pro !== true ).length : Object.keys( state.styleKits ).length }
+							</Count>
+						) }
 					</li>
 				) )
 			) }

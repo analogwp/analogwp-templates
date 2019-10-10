@@ -104,6 +104,11 @@ export default class StyleKits extends React.Component {
 		this.setState( {
 			kits,
 		} );
+
+		// Send to parent app for showing counter in Nav.js
+		this.context.dispatch( {
+			styleKits: kits,
+		} );
 	}
 
 	handleImport( kit, add, checkKitStatus = false ) {
