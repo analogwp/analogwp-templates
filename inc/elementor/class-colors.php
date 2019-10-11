@@ -49,7 +49,7 @@ class Colors extends Module {
 				'classes'     => 'ang-description-wide',
 				'selectors'   => [
 					'{{WRAPPER}} a:not([role=button]), {{WRAPPER}} .sk-accent-1' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon, {{WRAPPER}} .elementor-divider' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-progress-bar' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .sk-primary-accent'      => 'color: {{VALUE}}',
 
