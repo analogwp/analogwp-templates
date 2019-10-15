@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
-import { getSettings, markFavorite, requestTemplateList } from './api';
+import { getSettings, markFavorite, requestStyleKitsList, requestTemplateList } from './api';
 import ThemeContext, { Theme } from './contexts/ThemeContext';
 import Header from './Header';
 import Notifications from './Notifications';
@@ -53,6 +53,12 @@ const Analog = styled.div`
 			border-radius: 0;
 			text-transform: uppercase;
 			font-size: 12px;
+		}
+
+		&:disabled {
+			cursor: not-allowed;
+			opacity: 0.4;
+			filter: grayscale(1);
 		}
 	}
 
@@ -214,6 +220,7 @@ class App extends React.Component {
 		this.handleSort = this.handleSort.bind( this );
 		this.handleFilter = this.handleFilter.bind( this );
 		this.switchTabs = this.switchTabs.bind( this );
+		this.refreshLibrary = this.refreshLibrary.bind( this );
 	}
 
 	switchTabs() {
@@ -262,6 +269,8 @@ class App extends React.Component {
 			hasPro: hasProTemplates( templates.templates ),
 			filters: [ ...new Set( templates.templates.map( f => f.type ) ) ],
 		} );
+
+		await this.refreshLibrary();
 
 		// Listen for Elementor modal close, so we can reset some states.
 		document.addEventListener( 'modal-close', () => {
@@ -351,9 +360,12 @@ class App extends React.Component {
 			count: null,
 			syncing: true,
 			kits: [],
+			styleKits: [],
 		} );
 
 		wp.hooks.doAction( 'refreshLibrary' );
+
+		await this.refreshLibrary();
 
 		return await apiFetch( {
 			path: '/agwp/v1/templates/?force_update=true',
@@ -370,6 +382,14 @@ class App extends React.Component {
 			this.setState( {
 				syncing: false,
 			} );
+		} );
+	}
+
+	async refreshLibrary( $force = false ) {
+		const kits = await requestStyleKitsList( $force );
+
+		this.setState( {
+			styleKits: kits,
 		} );
 	}
 
