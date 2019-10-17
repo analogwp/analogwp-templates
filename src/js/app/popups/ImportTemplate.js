@@ -1,10 +1,11 @@
 import Select from 'react-select';
 import styled from 'styled-components';
+import AnalogContext from '../AnalogContext';
 import Loader from '../icons/loader';
 import { NotificationConsumer } from '../Notifications';
 import Popup from '../popup';
 
-const { Fragment, useState } = React;
+const { Fragment, useState, useContext } = React;
 
 const { decodeEntities } = wp.htmlEntities;
 const { Button, Dashicon, TextControl, ExternalLink } = wp.components;
@@ -12,7 +13,19 @@ const { __ } = wp.i18n;
 const { addQueryArgs } = wp.url;
 
 const Container = styled.div`
+	.row {
+		display: flex;
+		align-items: center;
 
+		> div {
+			height: 45px;
+			margin-right: 20px;
+			flex: 1;
+			> div {
+				min-height: 100%;
+			}
+		}
+	}
 `;
 
 const groupStyles = {
@@ -34,10 +47,19 @@ const groupBadgeStyles = {
 	textAlign: 'center',
 };
 
+const formatGroupLabel = data => (
+	<div style={ groupStyles }>
+		<span>{ data.label }</span>
+		<span style={ groupBadgeStyles }>{ data.options.length }</span>
+	</div>
+);
+
 const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 	const [ step, setStep ] = useState( 1 );
 	const [ title, setTitle ] = useState( __( 'Select a Style Kit to apply on this layout', 'ang' ) );
 	const [ kit, setKit ] = useState( false );
+
+	const { state: { styleKits } } = useContext( AnalogContext );
 
 	const { template } = state;
 
@@ -45,18 +67,49 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 		return { value: filter, label: filter };
 	} );
 
+	const importables = styleKits
+		.filter( k => parseInt( k.site_id ) === parseInt( state.template.site_id ) )
+		.filter( k => ! AGWP.installed_kits.includes( k.title ) );
+
+	const importableOptions = importables.map( ( k ) => {
+		return { value: k.title, label: k.title };
+	} );
+
 	const groupedOptions = [
+		{
+			label: __( 'Import', 'ang' ),
+			options: importableOptions,
+		},
 		{
 			label: __( 'Installed', 'ang' ),
 			options: filterOptions,
 		},
 	];
-	const formatGroupLabel = data => (
-		<div style={ groupStyles }>
-			<span>{ data.label }</span>
-			<span style={ groupBadgeStyles }>{ data.options.length }</span>
-		</div>
-	);
+
+	/**
+	 * Determine if a selected kit from state is being
+	 * imported from library and inserted from local site.
+	 *
+	 * @returns {string} import or insert.
+	 */
+	const getStyleKitInfo = () => {
+		const isKitInstalled = AGWP.installed_kits.filter( ( k ) => kit === k );
+		const method = isKitInstalled.length > 0 ? 'insert' : 'import';
+		let data = false;
+
+		if ( method === 'insert' ) {
+			data = kit;
+		} else {
+			data = styleKits.find( k => k.title === kit );
+		}
+
+		const info = {
+			method,
+			data,
+		};
+
+		return info;
+	};
 
 	return (
 		<Popup
@@ -73,12 +126,18 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 								formatGroupLabel={ formatGroupLabel }
 								isSearchable={ false }
 								placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
+								defaultValue={ filterOptions.find( option => option.value === kit ) }
 								onChange={ ( e ) => {
 									setKit( e.value );
+								} }
+							/>
+							<button
+								className="ang-button"
+								onClick={ () => {
 									setStep( 2 );
 									setTitle( decodeEntities( template.title ) );
 								} }
-							/>
+							>{ __( 'Choose', 'ang' ) }</button>
 						</div>
 					</div>
 				) }
@@ -87,7 +146,10 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 					<div>
 						<Button
 							isTertiary
-							onClick={ () => setStep( 1 ) }
+							onClick={ () => {
+								setStep( 1 );
+								setKit( false );
+							} }
 						>
 							<Dashicon icon="arrow-left" />{ ' ' }{ __( 'Change Style Kit', 'ang' ) }
 						</Button>
@@ -104,7 +166,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 									<Button
 										className="ang-button"
 										onClick={ () => {
-											handleImport( add );
+											handleImport( add, false, getStyleKitInfo() );
 											setStep( 3 );
 										} }
 									>
@@ -135,7 +197,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 											marginLeft: '15px',
 										} }
 										onClick={ () => {
-											handleImport( add, state.pageName );
+											handleImport( add, state.pageName, getStyleKitInfo() );
 											setStep( 3 );
 										} }
 									>

@@ -284,8 +284,9 @@ class Templates extends React.Component {
 	 *
 	 * @param {function} add Adds a notification.
 	 * @param {boolean} withPage Determine if import needs a page.
+	 * @param {object} kit Include Style Kit info from library.
 	 */
-	handleImport = async( add, withPage = false ) => {
+	handleImport = async( add, withPage = false, kit = false ) => {
 		this.setState( { importing: true } );
 
 		const version = this.state.template.version;
@@ -303,7 +304,11 @@ class Templates extends React.Component {
 			}
 		}
 
-		await requestDirectImport( this.state.template, withPage ).then( response => {
+		await requestDirectImport(
+			this.state.template,
+			withPage,
+			kit
+		).then( response => {
 			this.setState( {
 				importedPage: response.page,
 			} );

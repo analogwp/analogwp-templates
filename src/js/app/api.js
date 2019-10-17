@@ -30,7 +30,7 @@ export async function requestStyleKitsList( $force ) {
 	);
 }
 
-export async function requestDirectImport( template, withPage = false ) {
+export async function requestDirectImport( template, withPage = false, kit = false ) {
 	return await apiFetch( {
 		path: '/agwp/v1/import/elementor/direct',
 		method: 'post',
@@ -38,6 +38,7 @@ export async function requestDirectImport( template, withPage = false ) {
 			template,
 			site_id: template.site_id || false,
 			with_page: withPage,
+			kit,
 		},
 	} ).then( response => {
 		return response;

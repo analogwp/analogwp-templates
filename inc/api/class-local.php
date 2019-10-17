@@ -260,8 +260,10 @@ class Local extends Base {
 		$template  = $request->get_param( 'template' );
 		$with_page = $request->get_param( 'with_page' );
 		$site_id   = $request->get_param( 'site_id' );
-		$method    = $with_page ? 'page' : 'library';
-		$license   = false;
+		$kit_info  = $request->get_param( 'kit' );
+
+		$method  = $with_page ? 'page' : 'library';
+		$license = false;
 
 		if ( $template['is_pro'] ) {
 			// Fetch license only when necessary, throw error if not found.
@@ -294,6 +296,13 @@ class Local extends Base {
 		// Attach template content to template array for later use.
 		$template['content'] = $data['content'];
 		$template['tokens']  = $data['tokens'];
+
+		if ( $kit_info ) {
+			$kit_content = $this->fetch_kit_content( $kit_info['data'] );
+			if ( ! is_wp_error( $kit_content ) ) {
+				$template['tokens'] = $kit_content;
+			}
+		}
 
 		// Finally create the page.
 		$page = $this->create_page( $template, $with_page );
@@ -526,6 +535,20 @@ class Local extends Base {
 			return new WP_Error( 'kit_import_error', __( 'Invalid Style Kit ID.', 'ang' ) );
 		}
 
+		$data = $this->process_kit_import( $kit );
+
+		return new WP_REST_Response( $data, 200 );
+	}
+
+	/**
+	 * Process a Style Kit import.
+	 *
+	 * @since 1.3.8
+	 *
+	 * @param array $kit Array containing Style Kit info to import.
+	 * @return WP_Error|array
+	 */
+	protected function process_kit_import( $kit ) {
 		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit['id'] );
 
 		if ( is_wp_error( $remote_kit ) ) {
@@ -563,7 +586,39 @@ class Local extends Base {
 				'id'      => $post,
 			];
 
-			return new WP_REST_Response( $data, 200 );
+			return $data;
+		}
+	}
+
+	/**
+	 * Fetch a Style Kit's tokens.
+	 *
+	 * @since 1.3.8
+	 *
+	 * @param array|string $kit Kit Info.
+	 * @return array|WP_Error Kit tokens or WP_Error object.
+	 */
+	protected function fetch_kit_content( $kit ) {
+		$post_id = false;
+
+		if ( is_array( $kit ) && isset( $kit['id'] ) ) {
+			$import = $this->process_kit_import( $kit );
+
+			if ( ! is_wp_error( $import ) ) {
+				$post_id = $import['id'];
+			}
+		} else {
+			$find    = get_page_by_title( $kit, OBJECT, 'ang_tokens' );
+			$post_id = $find->ID;
+		}
+
+		$tokens  = json_decode( get_post_meta( $post_id, '_tokens_data', true ), true );
+		$tokens += [ 'ang_action_tokens' => $post_id ];
+
+		if ( ! $tokens ) {
+			return new WP_Error( 'invalid_token_data', __( 'Invalid token data returned', 'ang' ) );
+		} else {
+			return $tokens;
 		}
 	}
 }
