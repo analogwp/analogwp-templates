@@ -52,7 +52,7 @@ class Colors extends Module {
 					'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-progress-bar' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .sk-primary-accent'      => 'color: {{VALUE}}',
-
+					'{{WRAPPER}} .elementor-divider'      => '--divider-border-color: {{VALUE}}',
 					'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1,
 					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h2,
 					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h3,
