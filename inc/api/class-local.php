@@ -254,6 +254,9 @@ class Local extends Base {
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 *
+	 * @uses \Elementor\TemplateLibrary\Analog_Importer
+	 * @uses Utils::convert_string_to_boolean()
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function handle_direct_import( WP_REST_Request $request ) {
@@ -293,8 +296,15 @@ class Local extends Base {
 			return new WP_Error( 'import_error', 'Error fetching template content.', $data );
 		}
 
+		/**
+		 * During json encode/decode between preview/demo, isInner is usually converted into string.
+		 * This helper function converts it back to Boolean so Elementor doesn't changes this control
+		 * into an "Inner Section".
+		 */
+		$content = Utils::convert_string_to_boolean( $data['content'] );
+
 		// Attach template content to template array for later use.
-		$template['content'] = $data['content'];
+		$template['content'] = wp_slash( wp_json_encode( $content ) );
 		$template['tokens']  = $data['tokens'];
 
 		if ( $kit_info ) {
