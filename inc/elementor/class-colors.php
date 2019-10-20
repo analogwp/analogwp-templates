@@ -50,10 +50,15 @@ class Colors extends Module {
 				'selectors'   => [
 					'{{WRAPPER}} *:not(.elementor-tab-title) > a:not([role=button]), {{WRAPPER}} .elementor-tab-title, {{WRAPPER}} .sk-accent-1' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
+					'{{WRAPPER}} a:not([role=button]), {{WRAPPER}} .sk-accent-1' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'color: {{VALUE}}; border-color: {{VALUE}};',
 					'{{WRAPPER}} .elementor-progress-bar' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .sk-primary-accent'      => 'color: {{VALUE}}',
-
-					'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1,
+					'{{WRAPPER}} .elementor-divider'      => '--divider-border-color: {{VALUE}}',
+					
+          '{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1,
 					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h2,
 					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h3,
 					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h4,
