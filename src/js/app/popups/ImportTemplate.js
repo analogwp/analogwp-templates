@@ -75,9 +75,11 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 		return { value: k.title, label: k.title };
 	} );
 
+	const activeKit = styleKits.find( option => option.site_id === state.template.site_id );
+
 	const groupedOptions = [
 		{
-			label: __( 'Import', 'ang' ),
+			label: __( 'Default', 'ang' ),
 			options: importableOptions,
 		},
 		{
@@ -90,7 +92,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 	 * Determine if a selected kit from state is being
 	 * imported from library and inserted from local site.
 	 *
-	 * @returns {string} import or insert.
+	 * @returns {object} import or insert.
 	 */
 	const getStyleKitInfo = () => {
 		const isKitInstalled = AGWP.installed_kits.filter( ( k ) => kit === k );
@@ -126,7 +128,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 								formatGroupLabel={ formatGroupLabel }
 								isSearchable={ false }
 								placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
-								defaultValue={ filterOptions.find( option => option.value === kit ) }
+								defaultValue={ importableOptions.length ? importableOptions[ 0 ] : filterOptions.find( option => option.value === activeKit.title ) }
 								onChange={ ( e ) => {
 									setKit( e.value );
 								} }
