@@ -410,7 +410,7 @@ class Templates extends React.Component {
 					/>
 				) }
 
-				{ ( this.state.template !== null ) && ! this.canImportTemplate() && this.state.showingModal &&
+				{ ! this.context.state.showFree &&
 					<ProModal onDimiss={ () => this.resetState() } />
 				}
 

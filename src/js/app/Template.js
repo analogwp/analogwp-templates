@@ -19,9 +19,11 @@ const Template = ( { template, setModalContent, importLayout, favorites, makeFav
 					<button className="ang-button" onClick={ () => setModalContent( template ) }>
 						{ __( 'Preview', 'ang' ) }
 					</button>
-					<button className="ang-button" onClick={ () => importLayout( template ) }>
-						{ __( 'Import', 'ang' ) }
-					</button>
+					{ ! template.is_pro && (
+						<button className="ang-button" onClick={ () => importLayout( template ) }>
+							{ __( 'Import', 'ang' ) }
+						</button>
+					) }
 				</div>
 
 				<button
