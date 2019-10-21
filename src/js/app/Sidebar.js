@@ -179,7 +179,7 @@ const Sidebar = () => {
 						<li>{ __( 'Pro Elements, theme builder layouts', 'ang' ) }</li>
 						<li>{ __( 'Requires Elementor Pro', 'ang' ) }</li>
 					</ul>
-					<p><ExternalLink className="ang-link" href="https://analogwp.com/">{ __( 'More Details', 'ang' ) }</ExternalLink></p>
+					<p><ExternalLink className="ang-link" href="https://analogwp.com/style-kits-pro">{ __( 'More Details', 'ang' ) }</ExternalLink></p>
 				</div>
 			) }
 		</Container>

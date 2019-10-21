@@ -14,8 +14,7 @@ const animate = keyframes`
 
 const Container = styled.div`
 	font-size: 15px;
-	font-weight: 500;
-	color: #6d6d6d;
+	color: #000222;
 	font-family: 'Poppins', sans-serif;
 	position: fixed;
     top: 0;
@@ -31,7 +30,7 @@ const Container = styled.div`
 	.inner {
 		background: #fff;
 		border-radius: 4px;
-		overflow: scroll;
+		overflow: visible;
 		width: 600px;
 		max-height: 80vh;
 		animation-fill-mode: forwards;
@@ -45,13 +44,13 @@ const Container = styled.div`
 	a {
 		color: var(--ang-accent);
 		text-decoration: none;
+		font-weight: 500;
 	}
 `;
 
 const Header = styled.div`
-	margin: 0 45px;
+	margin: 0 35px;
 	padding: 20px 0;
-	border-bottom: 2px solid #F1F1F1;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -60,7 +59,7 @@ const Header = styled.div`
     background: #fff;
 
 	h1 {
-		font-size: 13px;
+		font-size: 18px;
 		font-weight: bold;
 		color: #060606;
 		margin: 0;
@@ -78,15 +77,19 @@ const Header = styled.div`
 
 const Content = styled.div`
 	margin: 0;
-	padding: 20px 45px;
-	font-size: 14.22px;
+	padding: 20px 35px;
+	font-size: 14px;
+	background: #F7F4F4;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	line-height: 1.6;
 
 	h2 {
 		font-size: 25px;
 	}
 
 	hr {
-		border-top: 2px solid #F1F1F1;
+		border-top: 2px solid #dadada;
 		border-bottom: none;
 		margin: 2em 0;
 	}

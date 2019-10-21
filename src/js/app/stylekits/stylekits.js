@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
-import { requestStyleKitData, requestStyleKitsList } from '../api';
+import { requestStyleKitData } from '../api';
 import Loader from '../icons/loader';
 import { NotificationConsumer } from '../Notifications';
 import Popup from '../popup';
@@ -76,7 +76,6 @@ export default class StyleKits extends React.Component {
 		super( ...arguments );
 
 		this.state = {
-			kits: [],
 			installedKits: AGWP.installed_kits,
 			...initialState,
 		};
@@ -84,31 +83,6 @@ export default class StyleKits extends React.Component {
 
 	resetState() {
 		this.setState( initialState );
-	}
-
-	componentDidMount() {
-		this.refreshLibrary();
-
-		wp.hooks.addAction( 'refreshLibrary', 'analog/stylekits/library', () => {
-			this.refreshLibrary( true );
-		} );
-	}
-
-	componentWillUnmount() {
-		wp.hooks.removeAction( 'refreshLibrary', 'analog/stylekits/library' );
-	}
-
-	async refreshLibrary( $force = false ) {
-		const kits = await requestStyleKitsList( $force );
-
-		this.setState( {
-			kits,
-		} );
-
-		// Send to parent app for showing counter in Nav.js
-		this.context.dispatch( {
-			styleKits: kits,
-		} );
 	}
 
 	handleImport( kit, add, checkKitStatus = false ) {
@@ -157,7 +131,7 @@ export default class StyleKits extends React.Component {
 					&nbsp;<a href="https://docs.analogwp.com/article/590-style-kit-library" target="_blank" rel="noopener noreferrer">{ __( 'Learn more', 'ang' ) }</a>.
 				</p>
 				<ChildContainer>
-					{ this.state.kits.length > 0 && this.state.kits.map( ( kit ) => {
+					{ this.context.state.styleKits.length > 0 && this.context.state.styleKits.map( ( kit ) => {
 						return (
 							<li key={ kit.id }>
 								<img src={ kit.image } alt={ kit.title } />

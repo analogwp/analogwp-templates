@@ -470,6 +470,30 @@ class Utils extends Base {
 
 		return $rollback_versions;
 	}
+
+	/**
+	 * Convert string to boolean.
+	 *
+	 * @param array $data Array object.
+	 * @since 1.3.8
+	 * @return array
+	 */
+	public static function convert_string_to_boolean( $data ) {
+		if ( ! is_array( $data ) ) {
+			return $data;
+		}
+
+		array_walk_recursive(
+			$data,
+			function( &$value, $key ) {
+				if ( 'isInner' === $key || 'isLinked' === $key ) {
+					$value = (bool) $value;
+				}
+			}
+		);
+
+		return $data;
+	}
 }
 
 new Utils();

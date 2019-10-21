@@ -1,0 +1,227 @@
+import Select from 'react-select';
+import styled from 'styled-components';
+import AnalogContext from '../AnalogContext';
+import { requestElementorImport } from '../api';
+import Loader from '../icons/loader';
+import { NotificationConsumer } from '../Notifications';
+import Popup from '../popup';
+
+const { Fragment, useState, useContext } = React;
+
+const { decodeEntities } = wp.htmlEntities;
+const { Button, Dashicon, TextControl, ExternalLink } = wp.components;
+const { __ } = wp.i18n;
+const { addQueryArgs } = wp.url;
+
+const Container = styled.div`
+	.row {
+		display: flex;
+		align-items: center;
+
+		> div {
+			height: 45px;
+			margin-right: 20px;
+			flex: 1;
+			> div {
+				min-height: 100%;
+			}
+		}
+	}
+`;
+
+const groupStyles = {
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'space-between',
+};
+
+const groupBadgeStyles = {
+	backgroundColor: '#EBECF0',
+	borderRadius: '2em',
+	color: '#172B4D',
+	display: 'inline-block',
+	fontSize: 12,
+	fontWeight: 'normal',
+	lineHeight: '1',
+	minWidth: 1,
+	padding: '0.16666666666667em 0.5em',
+	textAlign: 'center',
+};
+
+const formatGroupLabel = data => (
+	<div style={ groupStyles }>
+		<span>{ data.label }</span>
+		<span style={ groupBadgeStyles }>{ data.options.length }</span>
+	</div>
+);
+
+const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyleKitInfo } ) => {
+	const [ step, setStep ] = useState( 1 );
+	const [ title, setTitle ] = useState( __( 'Select a Style Kit to apply on this layout', 'ang' ) );
+	const kit = state.kit;
+	const { state: { styleKits } } = useContext( AnalogContext );
+	const { template } = state;
+
+	const filterOptions = AGWP.installed_kits.map( filter => {
+		return { value: filter, label: filter };
+	} );
+
+	const importables = styleKits
+		.filter( k => parseInt( k.site_id ) === parseInt( state.template.site_id ) )
+		.filter( k => ! AGWP.installed_kits.includes( k.title ) );
+
+	const importableOptions = importables.map( ( k ) => {
+		return { value: k.title, label: k.title };
+	} );
+
+	const activeKit = styleKits.find( option => option.site_id === state.template.site_id );
+
+	const groupedOptions = [
+		{
+			label: __( 'Default', 'ang' ),
+			options: importableOptions,
+		},
+		{
+			label: __( 'Installed', 'ang' ),
+			options: filterOptions,
+		},
+	];
+
+	const defaultOption = importableOptions.length ? importableOptions[ 0 ] : filterOptions.find( option => option.value === activeKit.title );
+
+	const importElementor = () => {
+		requestElementorImport( state.template, getStyleKitInfo( state.kit ) ).then( () => {
+			handler( { showingModal: false, importing: false, importingElementor: false } );
+		} );
+	};
+
+	return (
+		<Popup
+			title={ title }
+			onRequestClose={ onRequestClose }
+		>
+			<Container>
+				{ ( step === 1 ) && (
+					<div>
+						<p>You can import the template with its default Style Kit or choose any other of your available Style kits:</p>
+						<div className="row">
+							<Select
+								options={ groupedOptions }
+								formatGroupLabel={ formatGroupLabel }
+								isSearchable={ false }
+								placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
+								defaultValue={ defaultOption }
+								onChange={ ( e ) => {
+									handler( { kit: e.value } );
+								} }
+							/>
+							<button
+								className="ang-button"
+								onClick={ () => {
+									setStep( 2 );
+									setTitle( decodeEntities( template.title ) );
+
+									// Fallback if the Default kit in dropdown in unchanged.
+									if ( ! kit ) {
+										handler( { kit: defaultOption.value } );
+									}
+								} }
+							>{ __( 'Choose', 'ang' ) }</button>
+						</div>
+					</div>
+				) }
+
+				{ ( step === 2 ) && ! state.importingElementor && (
+					<div>
+						<Button
+							isTertiary
+							onClick={ () => {
+								setStep( 1 );
+								handler( { kit: false } );
+							} }
+						>
+							<Dashicon icon="arrow-left" />{ ' ' }{ __( 'Change Style Kit', 'ang' ) }
+						</Button>
+
+						<p>
+							{ __( 'Import this template to your library to make it available in your Elementor ', 'ang' ) }
+							<ExternalLink href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'ang' ) }</ExternalLink>
+							{ __( ' list for future use.', 'ang' ) }
+						</p>
+
+						<p>
+							<NotificationConsumer>
+								{ ( { add } ) => (
+									<Button
+										className="ang-button"
+										onClick={ () => {
+											handleImport( add, false );
+											setStep( 3 );
+										} }
+									>
+										{ __( 'Import to Library', 'ang' ) }
+									</Button>
+								) }
+							</NotificationConsumer>
+						</p>
+
+						<hr />
+
+						<p>{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }</p>
+
+						<div className="form-row">
+							<TextControl
+								placeholder={ __( 'Enter a Page Name', 'ang' ) }
+								style={ { maxWidth: '60%' } }
+								onChange={ val => {
+									handler( { pageName: val } );
+								} }
+							/>
+							<NotificationConsumer>
+								{ ( { add } ) => (
+									<Button
+										className="ang-button"
+										disabled={ ! state.pageName }
+										style={ {
+											marginLeft: '15px',
+										} }
+										onClick={ () => {
+											handleImport( add, state.pageName );
+											setStep( 3 );
+										} }
+									>
+										{ __( 'Import to page', 'ang' ) }
+									</Button>
+								) }
+							</NotificationConsumer>
+						</div>
+					</div>
+				) }
+
+				{ ( step >= 2 ) && state.importing && (
+					<div style={ { textAlign: 'center', fontSize: '15px' } }>
+						{ state.importedPage ?
+							( <Fragment>
+								<p>{ __( 'Blimey! Your template has been imported.', 'ang' ) }</p>
+								<p>
+									<a
+										className="ang-button"
+										href={ addQueryArgs( 'post.php', { post: state.importedPage, action: 'elementor' } ) }
+									>{ __( 'Edit Template' ) }</a>
+								</p>
+							</Fragment> ) :
+							(
+								<Fragment>
+									{ state.importingElementor && importElementor() }
+									<Loader />
+								</Fragment>
+							)
+						}
+					</div>
+				) }
+			</Container>
+		</Popup>
+	);
+};
+
+export default ImportTemplate;

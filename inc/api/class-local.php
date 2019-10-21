@@ -116,6 +116,8 @@ class Local extends Base {
 		$template_id = $request->get_param( 'template_id' );
 		$editor_id   = $request->get_param( 'editor_post_id' );
 		$is_pro      = (bool) $request->get_param( 'is_pro' );
+		$site_id     = $request->get_param( 'site_id' );
+		$kit_info    = $request->get_param( 'kit' );
 
 		if ( ! $template_id ) {
 			return new WP_REST_Response( [ 'error' => 'Invalid Template ID.' ], 500 );
@@ -144,11 +146,18 @@ class Local extends Base {
 				'editor_post_id' => $editor_id,
 				'license'        => $license,
 				'method'         => 'elementor',
+				'site_id'        => $site_id,
 				'options'        => [
 					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
 				],
 			]
 		);
+
+		if ( $kit_info && isset( $kit_info['data'] ) ) {
+			$tokens = $this->fetch_kit_content( $kit_info['data'] );
+
+			$data['tokens'] = $tokens;
+		}
 
 		return new WP_REST_Response( wp_json_encode( maybe_unserialize( $data ) ), 200 );
 	}
@@ -254,14 +263,19 @@ class Local extends Base {
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 *
+	 * @uses \Elementor\TemplateLibrary\Analog_Importer
+	 * @uses Utils::convert_string_to_boolean()
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function handle_direct_import( WP_REST_Request $request ) {
 		$template  = $request->get_param( 'template' );
 		$with_page = $request->get_param( 'with_page' );
 		$site_id   = $request->get_param( 'site_id' );
-		$method    = $with_page ? 'page' : 'library';
-		$license   = false;
+		$kit_info  = $request->get_param( 'kit' );
+
+		$method  = $with_page ? 'page' : 'library';
+		$license = false;
 
 		if ( $template['is_pro'] ) {
 			// Fetch license only when necessary, throw error if not found.
@@ -292,8 +306,15 @@ class Local extends Base {
 		}
 
 		// Attach template content to template array for later use.
-		$template['content'] = $data['content'];
+		$template['content'] = wp_slash( wp_json_encode( $content ) );
 		$template['tokens']  = $data['tokens'];
+
+		if ( $kit_info ) {
+			$kit_content = $this->fetch_kit_content( $kit_info['data'] );
+			if ( ! is_wp_error( $kit_content ) ) {
+				$template['tokens'] = $kit_content;
+			}
+		}
 
 		// Finally create the page.
 		$page = $this->create_page( $template, $with_page );
@@ -526,6 +547,20 @@ class Local extends Base {
 			return new WP_Error( 'kit_import_error', __( 'Invalid Style Kit ID.', 'ang' ) );
 		}
 
+		$data = $this->process_kit_import( $kit );
+
+		return new WP_REST_Response( $data, 200 );
+	}
+
+	/**
+	 * Process a Style Kit import.
+	 *
+	 * @since 1.3.8
+	 *
+	 * @param array $kit Array containing Style Kit info to import.
+	 * @return WP_Error|array
+	 */
+	protected function process_kit_import( $kit ) {
 		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit['id'] );
 
 		if ( is_wp_error( $remote_kit ) ) {
@@ -563,7 +598,41 @@ class Local extends Base {
 				'id'      => $post,
 			];
 
-			return new WP_REST_Response( $data, 200 );
+			return $data;
+		}
+	}
+
+	/**
+	 * Fetch a Style Kit's tokens.
+	 *
+	 * @since 1.3.8
+	 *
+	 * @param array|string $kit Kit Info.
+	 * @return array|WP_Error Kit tokens or WP_Error object.
+	 */
+	protected function fetch_kit_content( $kit ) {
+		$post_id = false;
+
+		if ( is_array( $kit ) && isset( $kit['id'] ) ) {
+			$import = $this->process_kit_import( $kit );
+
+			if ( ! is_wp_error( $import ) ) {
+				$post_id = $import['id'];
+			}
+		} else {
+			$find    = get_page_by_title( $kit, OBJECT, 'ang_tokens' );
+			$post_id = $find->ID;
+		}
+
+		$tokens = json_decode( get_post_meta( $post_id, '_tokens_data', true ), true );
+		if ( is_array( $tokens ) ) {
+			$tokens += [ 'ang_action_tokens' => $post_id ];
+		}
+
+		if ( ! $tokens ) {
+			return new WP_Error( 'invalid_token_data', __( 'Invalid token data returned', 'ang' ) );
+		} else {
+			return $tokens;
 		}
 	}
 }

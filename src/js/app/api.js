@@ -30,7 +30,7 @@ export async function requestStyleKitsList( $force ) {
 	);
 }
 
-export async function requestDirectImport( template, withPage = false ) {
+export async function requestDirectImport( template, withPage = false, kit = false ) {
 	return await apiFetch( {
 		path: '/agwp/v1/import/elementor/direct',
 		method: 'post',
@@ -38,6 +38,7 @@ export async function requestDirectImport( template, withPage = false ) {
 			template,
 			site_id: template.site_id || false,
 			with_page: withPage,
+			kit,
 		},
 	} ).then( response => {
 		return response;
@@ -125,11 +126,11 @@ export async function getLicenseStatus() {
 	);
 }
 
-export async function requestElementorImport( template ) {
+export async function requestElementorImport( template, kit ) {
 	if ( template.version ) {
-		if ( parseFloat( AGWP.version ) < parseFloat( template.version ) ) {
+		if ( AGWP.version < template.version ) {
 			elementorCommon.dialogsManager.createWidget( 'alert', {
-				message: 'Please update Analog Template plugin to latest version.',
+				message: 'This template requires an updated version, please update your plugin to latest version.',
 			} ).show();
 			return;
 		}
@@ -147,6 +148,8 @@ export async function requestElementorImport( template ) {
 			template_id: template.id,
 			editor_post_id: editorId,
 			is_pro: template.is_pro,
+			site_id: template.site_id || false,
+			kit,
 		},
 	} ).then( data => {
 		const parsedTemplate = JSON.parse( data );
