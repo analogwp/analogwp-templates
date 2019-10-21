@@ -129,7 +129,7 @@ class Typography extends Module {
 				'type'      => Controls_Manager::FONT,
 				'default'   => $this->get_default_value( 'ang_default_heading_font_family' ),
 				'selectors' => [
-					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
+					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
 				],
 			]
 		);
