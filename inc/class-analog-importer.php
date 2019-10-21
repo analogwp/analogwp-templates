@@ -13,6 +13,7 @@ use Elementor\TemplateLibrary\Source_Remote;
 use Elementor\TemplateLibrary\Classes\Images;
 use Elementor\Api;
 use Elementor\Plugin;
+use Analog\Utils;
 
 /**
  * Class Analog_Importer.
@@ -62,6 +63,13 @@ class Analog_Importer extends Source_Remote {
 		if ( $document ) {
 			$data['content'] = $document->get_elements_raw_data( $data['content'], true );
 		}
+
+		/**
+		 * During json encode/decode between preview/demo, isInner is usually converted into string.
+		 * This helper function converts it back to Boolean so Elementor doesn't changes this control
+		 * into an "Inner Section".
+		 */
+		$data['content'] = Utils::convert_string_to_boolean( $data['content'] );
 
 		return $data;
 	}

@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
-import { requestDirectImport, requestElementorImport } from './api';
+import { requestDirectImport } from './api';
 import Collection from './collection/Collection';
 import { Theme } from './contexts/ThemeContext';
 import Empty from './helpers/Empty';
@@ -211,6 +211,7 @@ const initialState = {
 	importing: false,
 	importedPage: false,
 	importingElementor: false,
+	kit: false,
 };
 
 class Templates extends React.Component {
@@ -221,6 +222,7 @@ class Templates extends React.Component {
 
 		this.handler = this.handler.bind( this );
 		this.handleImport = this.handleImport.bind( this );
+		this.getStyleKitInfo = this.getStyleKitInfo.bind( this );
 	}
 
 	resetState() {
@@ -245,6 +247,25 @@ class Templates extends React.Component {
 	componentWillUnmount() {
 		this.resetState();
 		window.removeEventListener( 'keyup', this.closeOnEsc );
+	}
+
+	getStyleKitInfo() {
+		const isKitInstalled = AGWP.installed_kits.filter( ( k ) => this.state.kit === k );
+		const method = isKitInstalled.length > 0 ? 'insert' : 'import';
+		let data = false;
+
+		if ( method === 'insert' ) {
+			data = this.state.kit;
+		} else {
+			data = this.context.state.styleKits.find( k => k.title === this.state.kit );
+		}
+
+		const info = {
+			method,
+			data,
+		};
+
+		return info;
 	}
 
 	setModalContent = template => {
@@ -286,22 +307,20 @@ class Templates extends React.Component {
 	 * @param {boolean} withPage Determine if import needs a page.
 	 * @param {object} kit Include Style Kit info from library.
 	 */
-	handleImport = async( add, withPage = false, kit = false ) => {
+	handleImport = async( add, withPage = false ) => {
 		this.setState( { importing: true } );
-
+		const kit = this.getStyleKitInfo();
 		const version = this.state.template.version;
 
-		if ( version ) {
-			if ( AGWP.version < version ) {
-				this.resetState();
-				add(
-					__( 'This template requires an updated version, please update your plugin to latest version.', 'ang' ),
-					'error', 'ang',
-					'import-error',
-					false
-				);
-				return;
-			}
+		if ( version && AGWP.version < version ) {
+			this.resetState();
+			add(
+				__( 'This template requires an updated version, please update your plugin to latest version.', 'ang' ),
+				'error', 'ang',
+				'import-error',
+				false
+			);
+			return;
 		}
 
 		await requestDirectImport(
@@ -353,9 +372,10 @@ class Templates extends React.Component {
 		}
 
 		if ( typeof elementor !== 'undefined' ) {
-			this.setState( { showingModal: true, importing: true } );
-			requestElementorImport( template ).then( () => {
-				this.setState( { showingModal: false, importing: false } );
+			this.setState( {
+				showingModal: true,
+				importing: true,
+				importingElementor: true,
 			} );
 		} else {
 			this.setState( {
@@ -386,6 +406,7 @@ class Templates extends React.Component {
 						state={ this.state }
 						handleImport={ this.handleImport }
 						handler={ this.handler }
+						getStyleKitInfo={ this.getStyleKitInfo }
 					/>
 				) }
 

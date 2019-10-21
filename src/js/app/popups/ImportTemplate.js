@@ -1,6 +1,7 @@
 import Select from 'react-select';
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
+import { requestElementorImport } from '../api';
 import Loader from '../icons/loader';
 import { NotificationConsumer } from '../Notifications';
 import Popup from '../popup';
@@ -54,13 +55,11 @@ const formatGroupLabel = data => (
 	</div>
 );
 
-const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
+const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyleKitInfo } ) => {
 	const [ step, setStep ] = useState( 1 );
 	const [ title, setTitle ] = useState( __( 'Select a Style Kit to apply on this layout', 'ang' ) );
-	const [ kit, setKit ] = useState( false );
-
+	const kit = state.kit;
 	const { state: { styleKits } } = useContext( AnalogContext );
-
 	const { template } = state;
 
 	const filterOptions = AGWP.installed_kits.map( filter => {
@@ -88,29 +87,12 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 		},
 	];
 
-	/**
-	 * Determine if a selected kit from state is being
-	 * imported from library and inserted from local site.
-	 *
-	 * @returns {object} import or insert.
-	 */
-	const getStyleKitInfo = () => {
-		const isKitInstalled = AGWP.installed_kits.filter( ( k ) => kit === k );
-		const method = isKitInstalled.length > 0 ? 'insert' : 'import';
-		let data = false;
+	const defaultOption = importableOptions.length ? importableOptions[ 0 ] : filterOptions.find( option => option.value === activeKit.title );
 
-		if ( method === 'insert' ) {
-			data = kit;
-		} else {
-			data = styleKits.find( k => k.title === kit );
-		}
-
-		const info = {
-			method,
-			data,
-		};
-
-		return info;
+	const importElementor = () => {
+		requestElementorImport( state.template, getStyleKitInfo( state.kit ) ).then( () => {
+			handler( { showingModal: false, importing: false, importingElementor: false } );
+		} );
 	};
 
 	return (
@@ -128,9 +110,9 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 								formatGroupLabel={ formatGroupLabel }
 								isSearchable={ false }
 								placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
-								defaultValue={ importableOptions.length ? importableOptions[ 0 ] : filterOptions.find( option => option.value === activeKit.title ) }
+								defaultValue={ defaultOption }
 								onChange={ ( e ) => {
-									setKit( e.value );
+									handler( { kit: e.value } );
 								} }
 							/>
 							<button
@@ -138,19 +120,24 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 								onClick={ () => {
 									setStep( 2 );
 									setTitle( decodeEntities( template.title ) );
+
+									// Fallback if the Default kit in dropdown in unchanged.
+									if ( ! kit ) {
+										handler( { kit: defaultOption.value } );
+									}
 								} }
 							>{ __( 'Choose', 'ang' ) }</button>
 						</div>
 					</div>
 				) }
 
-				{ ( step === 2 ) && (
+				{ ( step === 2 ) && ! state.importingElementor && (
 					<div>
 						<Button
 							isTertiary
 							onClick={ () => {
 								setStep( 1 );
-								setKit( false );
+								handler( { kit: false } );
 							} }
 						>
 							<Dashicon icon="arrow-left" />{ ' ' }{ __( 'Change Style Kit', 'ang' ) }
@@ -168,7 +155,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 									<Button
 										className="ang-button"
 										onClick={ () => {
-											handleImport( add, false, getStyleKitInfo() );
+											handleImport( add, false );
 											setStep( 3 );
 										} }
 									>
@@ -199,7 +186,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 											marginLeft: '15px',
 										} }
 										onClick={ () => {
-											handleImport( add, state.pageName, getStyleKitInfo() );
+											handleImport( add, state.pageName );
 											setStep( 3 );
 										} }
 									>
@@ -211,7 +198,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 					</div>
 				) }
 
-				{ state.importing && (
+				{ ( step >= 2 ) && state.importing && (
 					<div style={ { textAlign: 'center', fontSize: '15px' } }>
 						{ state.importedPage ?
 							( <Fragment>
@@ -223,7 +210,12 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport } ) => {
 									>{ __( 'Edit Template' ) }</a>
 								</p>
 							</Fragment> ) :
-							<Loader />
+							(
+								<Fragment>
+									{ state.importingElementor && importElementor() }
+									<Loader />
+								</Fragment>
+							)
 						}
 					</div>
 				) }

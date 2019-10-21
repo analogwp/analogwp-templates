@@ -126,7 +126,7 @@ export async function getLicenseStatus() {
 	);
 }
 
-export async function requestElementorImport( template ) {
+export async function requestElementorImport( template, kit ) {
 	if ( template.version ) {
 		if ( AGWP.version < template.version ) {
 			elementorCommon.dialogsManager.createWidget( 'alert', {
@@ -148,6 +148,8 @@ export async function requestElementorImport( template ) {
 			template_id: template.id,
 			editor_post_id: editorId,
 			is_pro: template.is_pro,
+			site_id: template.site_id || false,
+			kit,
 		},
 	} ).then( data => {
 		const parsedTemplate = JSON.parse( data );

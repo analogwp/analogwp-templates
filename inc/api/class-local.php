@@ -116,6 +116,8 @@ class Local extends Base {
 		$template_id = $request->get_param( 'template_id' );
 		$editor_id   = $request->get_param( 'editor_post_id' );
 		$is_pro      = (bool) $request->get_param( 'is_pro' );
+		$site_id     = $request->get_param( 'site_id' );
+		$kit_info    = $request->get_param( 'kit' );
 
 		if ( ! $template_id ) {
 			return new WP_REST_Response( [ 'error' => 'Invalid Template ID.' ], 500 );
@@ -144,11 +146,18 @@ class Local extends Base {
 				'editor_post_id' => $editor_id,
 				'license'        => $license,
 				'method'         => 'elementor',
+				'site_id'        => $site_id,
 				'options'        => [
 					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
 				],
 			]
 		);
+
+		if ( $kit_info && isset( $kit_info['data'] ) ) {
+			$tokens = $this->fetch_kit_content( $kit_info['data'] );
+
+			$data['tokens'] = $tokens;
+		}
 
 		return new WP_REST_Response( wp_json_encode( maybe_unserialize( $data ) ), 200 );
 	}
@@ -295,13 +304,6 @@ class Local extends Base {
 		if ( ! is_array( $data ) ) {
 			return new WP_Error( 'import_error', 'Error fetching template content.', $data );
 		}
-
-		/**
-		 * During json encode/decode between preview/demo, isInner is usually converted into string.
-		 * This helper function converts it back to Boolean so Elementor doesn't changes this control
-		 * into an "Inner Section".
-		 */
-		$content = Utils::convert_string_to_boolean( $data['content'] );
 
 		// Attach template content to template array for later use.
 		$template['content'] = wp_slash( wp_json_encode( $content ) );
