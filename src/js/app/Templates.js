@@ -292,10 +292,10 @@ class Templates extends React.Component {
 		const version = this.state.template.version;
 
 		if ( version ) {
-			if ( parseFloat( AGWP.version ) < parseFloat( version ) ) {
+			if ( AGWP.version < version ) {
 				this.resetState();
 				add(
-					__( 'Please update Analog Template plugin to latest version.', 'ang' ),
+					__( 'This template requires an updated version, please update your plugin to latest version.', 'ang' ),
 					'error', 'ang',
 					'import-error',
 					false
