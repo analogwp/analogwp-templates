@@ -365,7 +365,7 @@ class App extends React.Component {
 
 		wp.hooks.doAction( 'refreshLibrary' );
 
-		await this.refreshLibrary();
+		await this.refreshLibrary( true );
 
 		return await apiFetch( {
 			path: '/agwp/v1/templates/?force_update=true',
