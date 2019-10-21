@@ -41,6 +41,10 @@ function do_automatic_upgrades() {
 		Utils::clear_elementor_cache();
 	}
 
+	if ( version_compare( $installed_version, '1.3.8', '<' ) ) {
+		ang_v138_upgrades();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
@@ -210,4 +214,18 @@ function ang_v13_upgrades() {
 			update_post_meta( $post_id, '_elementor_page_settings', $settings );
 		}
 	}
+}
+
+/**
+ * Run upgrade functions for v1.3.8.
+ *
+ * @since 1.3.8
+ *
+ * @return void
+ */
+function ang_v138_upgrades() {
+	Utils::clear_elementor_cache();
+
+	delete_transient( 'analog_stylekits' );
+	delete_transient( 'analogwp_template_info' );
 }
