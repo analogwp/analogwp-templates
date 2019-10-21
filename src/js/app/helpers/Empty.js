@@ -2,9 +2,11 @@ import styled from 'styled-components';
 
 const Container = styled.div`
 	text-align: center;
-	
+
 	p {
-		font-size: 16px;
+		font-size: 20px;
+		color: #A4A4A4;
+		font-weight: bold;
 	}
 `;
 
