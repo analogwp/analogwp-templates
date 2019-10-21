@@ -622,8 +622,10 @@ class Local extends Base {
 			$post_id = $find->ID;
 		}
 
-		$tokens  = json_decode( get_post_meta( $post_id, '_tokens_data', true ), true );
-		$tokens += [ 'ang_action_tokens' => $post_id ];
+		$tokens = json_decode( get_post_meta( $post_id, '_tokens_data', true ), true );
+		if ( is_array( $tokens ) ) {
+			$tokens += [ 'ang_action_tokens' => $post_id ];
+		}
 
 		if ( ! $tokens ) {
 			return new WP_Error( 'invalid_token_data', __( 'Invalid token data returned', 'ang' ) );
