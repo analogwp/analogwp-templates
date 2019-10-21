@@ -76,7 +76,6 @@ button[data-action="save_token"] {
 }
 
 #analogwp-templates,
-#analogwp-templates > div,
 #analogwp-templates-modal .dialog-message,
 #analogwp-templates-modal .dialog-content {
 	height: 100%;
