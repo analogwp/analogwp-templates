@@ -40,7 +40,7 @@ class Finder_Shortcuts extends Base_Category {
 			],
 			'settings'   => [
 				'title'    => __( 'Settings', 'ang' ),
-				'url'      => admin_url( 'admin.php?page=analogwp_templates#settings' ),
+				'url'      => admin_url( 'admin.php?page=ang-settings' ),
 				'icon'     => 'settings',
 				'keywords' => [ 'analog', 'settings' ],
 			],
