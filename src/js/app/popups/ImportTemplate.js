@@ -9,8 +9,8 @@ import Popup from '../popup';
 const { Fragment, useState, useContext } = React;
 
 const { decodeEntities } = wp.htmlEntities;
-const { Button, Dashicon, TextControl, ExternalLink } = wp.components;
-const { __ } = wp.i18n;
+const { Button, TextControl, ExternalLink } = wp.components;
+const { __, sprintf } = wp.i18n;
 const { addQueryArgs } = wp.url;
 
 const Container = styled.div`
@@ -32,6 +32,20 @@ const Container = styled.div`
 		text-transform: uppercase;
 		font-weight: 700;
 		color: #222;
+	}
+
+	footer {
+		padding: 20px 35px;
+		font-size: 12px;
+		color: #4A5157;
+		background: #fff;
+		margin: 30px -35px -20px -35px;
+		border-radius: 3px;
+
+		a {
+			color: #5c32b6;
+			text-decoration: underline;
+		}
 	}
 `;
 
@@ -101,6 +115,14 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		} );
 	};
 
+	const footer = sprintf(
+		__( 'Learn more about this in %s.', 'ang' ),
+		sprintf(
+			'<a href="https://docs.analogwp.com/article/608-sk-select-template-import" target="_blank" rel="noopener noreferer">%s</a>',
+			__( 'Style Kits Docs', 'ang' )
+		)
+	);
+
 	return (
 		<Popup
 			title={ title }
@@ -109,7 +131,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 			<Container>
 				{ ( step === 1 ) && (
 					<div>
-						<p>You can import the template with its default Style Kit or choose any other of your available Style kits:</p>
+						<p>The default Style Kit for this template is auto-selected below. You can always apply any of your available Style Kits to this template if you want.</p>
 						<div className="row">
 							<Select
 								options={ groupedOptions }
@@ -132,8 +154,10 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 										handler( { kit: defaultOption.value } );
 									}
 								} }
-							>{ __( 'Choose', 'ang' ) }</button>
+							>{ __( 'Next', 'ang' ) }</button>
 						</div>
+
+						<footer dangerouslySetInnerHTML={ { __html: footer } } />
 					</div>
 				) }
 

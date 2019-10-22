@@ -36,7 +36,7 @@ const ProModal = ( { onDimiss } ) => (
 		<p>
 			<span role="img" aria-label="zap">⚡</span> { __( 'Template Kits are', 'ang' ) } <strong>{ __( 'coming soon with Style Kits Pro.', 'ang' ) }</strong> { __( 'Sign up for an exclusive launch discount.', 'ang' ) }
 		</p>
-		<ExternalLink className="ang-button" href="https://analogwp.com/style-kits-pro">{ __( 'Learn More', 'ang' ) }</ExternalLink>
+		<ExternalLink className="ang-button" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro">{ __( 'Learn More', 'ang' ) }</ExternalLink>
 	</Container>
 );
 
