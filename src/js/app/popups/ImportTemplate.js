@@ -27,6 +27,12 @@ const Container = styled.div`
 			}
 		}
 	}
+
+	button.is-tertiary {
+		text-transform: uppercase;
+		font-weight: 700;
+		color: #222;
+	}
 `;
 
 const groupStyles = {
@@ -140,7 +146,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 								handler( { kit: false } );
 							} }
 						>
-							<Dashicon icon="arrow-left" />{ ' ' }{ __( 'Change Style Kit', 'ang' ) }
+						&larr; { __( 'Change Style Kit', 'ang' ) }
 						</Button>
 
 						<p>
