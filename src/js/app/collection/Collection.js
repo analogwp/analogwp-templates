@@ -149,7 +149,7 @@ export default class Collection extends React.Component {
 													activeKit: kit,
 												} );
 											} }>
-												{ __( 'View Kit', 'ang' ) }
+												{ __( 'View Templates', 'ang' ) }
 											</button>
 										</div>
 									</figure>
