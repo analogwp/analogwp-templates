@@ -9,14 +9,21 @@ const Container = styled.div`
 	display: flex;
 	align-items: center;
 	margin-bottom: 40px;
+	border-radius: 6px;
 
 	p {
-		font-size: 14px;
+		font-size: 15px;
+		margin: 0;
 	}
 
-	.ang-button {
+	.ang-button.ang-button {
 		width: 200px;
-		margin-left: 20px;
+		margin-left: auto;
+		background: transparent;
+		border-radius: 100px;
+		border: 3px solid #fff;
+		color: #fff;
+		width: auto;
 	}
 
 	span {
@@ -26,8 +33,10 @@ const Container = styled.div`
 
 const ProModal = ( { onDimiss } ) => (
 	<Container>
-		<p>{ __( 'Premium template kits are coming soon with Style Kits Pro. You can only preview these layouts for now but feel free to sign up to our mailing list if you want to learn when they become available.', 'ang' ) }</p>
-		<ExternalLink className="ang-button secondary" href="https://analogwp.com/style-kits-pro">{ __( 'Learn More', 'ang' ) }</ExternalLink>
+		<p>
+			<span role="img" aria-label="zap">⚡</span> { __( 'Template Kits are', 'ang' ) } <strong>{ __( 'coming soon with Style Kits Pro.', 'ang' ) }</strong> { __( 'Sign up for an exclusive launch discount.', 'ang' ) }
+		</p>
+		<ExternalLink className="ang-button" href="https://analogwp.com/style-kits-pro">{ __( 'Learn More', 'ang' ) }</ExternalLink>
 	</Container>
 );
 
