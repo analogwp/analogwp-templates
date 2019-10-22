@@ -79,33 +79,27 @@ class Utils extends Base {
 	 * @return array
 	 */
 	public static function get_tokens( $prefix = true ) {
-		$query = new WP_Query(
+		$posts = \get_posts(
 			[
 				'post_type'      => 'ang_tokens',
 				'posts_per_page' => -1,
 			]
 		);
 
-		if ( ! $query->have_posts() ) {
-			return [];
-		}
-
 		$tokens = [];
-		while ( $query->have_posts() ) {
-			$query->the_post();
-			$post_id = \get_the_ID();
 
+		foreach ( $posts as $post ) {
 			$global_token = (int) \get_option( 'elementor_ang_global_kit' );
-			if ( $global_token && $post_id === $global_token && $prefix ) {
-				$title = __( 'Global: ', 'ang' ) . \get_the_title();
-			} else {
-				$title = \get_the_title();
+
+			$title = $post->post_title;
+
+			if ( $global_token && $post->ID === $global_token && $prefix ) {
+				/* translators: Global Style Kit post title. */
+				$title = sprintf( __( 'Global: %s', 'ang' ), $title );
 			}
 
-			$tokens[ $post_id ] = $title;
+			$tokens[ $post->ID ] = $title;
 		}
-
-		wp_reset_postdata();
 
 		return $tokens;
 	}
