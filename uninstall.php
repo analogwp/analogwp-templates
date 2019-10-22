@@ -12,11 +12,11 @@ $options = get_option( 'ang_options' );
 
 if ( is_array( $options ) ) {
 	if ( isset( $options['remove_on_uninstall'] ) && true === $options['remove_on_uninstall'] ) {
-		delete_transient( 'ang_license_message' );
-		delete_transient( 'analogwp_template_info' );
 		delete_option( 'ang_options' );
-
-		wp_clear_scheduled_hook( 'analog/tracker/send_event' );
 	}
 }
 
+delete_transient( 'ang_license_message' );
+delete_transient( 'analogwp_template_info' );
+delete_transient( 'analog_stylekits' );
+wp_clear_scheduled_hook( 'analog/tracker/send_event' );
