@@ -306,7 +306,7 @@ class Local extends Base {
 		}
 
 		// Attach template content to template array for later use.
-		$template['content'] = wp_slash( wp_json_encode( $content ) );
+		$template['content'] = wp_slash( wp_json_encode( $data['content'] ) );
 		$template['tokens']  = $data['tokens'];
 
 		if ( $kit_info ) {
