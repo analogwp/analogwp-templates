@@ -117,7 +117,7 @@ h1.nav-tab-wrapper {
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 170%;
-	color: #888888;
+	color: #060606;
 }
 .form-table td fieldset label,
 .form-table td .description {
@@ -332,7 +332,7 @@ input[type='checkbox'] {
 	width: 100%;
 	position: absolute;
 	left: 0;
-	bottom: 0;
+	bottom: -30px;
 }
 
 .ang.gopro ul {
