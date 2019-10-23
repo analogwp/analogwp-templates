@@ -74,7 +74,6 @@ const Analog = styled.div`
 	a {
 		outline: 0;
 		box-shadow: none;
-		color: var(--ang-accent);
 	}
 
 	.button-plain {

@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
-Tested up to: 5.2.3
-Stable tag: 1.3.7
+Tested up to: 5.3
+Stable tag: 1.3.8
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -15,6 +15,8 @@ Style Kits adds intuitive styling controls in the Elementor editor that power-up
 [Style Kits for Elementor](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) (formerly Analog Templates for Elementor) adds a number of intuitive styling controls in the Elementor editor that allow you to apply styles globally or per page.
 
 Stop manually adding / copying / pasting styles across layouts and experience macro control of the most essential aspects of your layout system:
+
+https://www.youtube.com/watch?v=FZfTG3l-7T8
 
 - Body text
 - Headings
@@ -96,6 +98,22 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.8 - October 22, 2019 =
+* New: Added new [Template Collection](https://github.com/mauryaratan/analogwp-templates/issues/176) interface.
+* New: Added [new Settings Page](https://github.com/mauryaratan/analogwp-templates/issues/178) in Style Kits > Settings
+* New: [Template import](https://github.com/mauryaratan/analogwp-templates/issues/161) flow, allowing to select a Style Kit during import
+* Fix: Links inside Headings having 2x size when used with [EM units](https://github.com/mauryaratan/analogwp-templates/issues/175)
+* Fix: Issue with a `WP_Query` call interfering with Elementor queries
+* Fix: An issue with inline color style on the [Accordion widget title](https://github.com/mauryaratan/analogwp-templates/issues/180) does not override accent color
+* Fix: Apply accent color properly on stacked and framed variants of [icons](https://github.com/mauryaratan/analogwp-templates/issues/187).
+* Fix: Added `wp-api-fetch` as script dependency inside Elementor editor
+* Fix: Error not showing up when an unallowed version of template was being imported
+* Fix: H6 selector for Default Font Family control of Headings Typography
+* Fix: Style Kits library not force refreshing
+* Improve: [Empty state](https://github.com/mauryaratan/analogwp-templates/issues/170) when templates are empty
+* Improve: Added Templates/Style Kits count in header
+* Improve: Updated readme.txt changelog to include release dates
 
 = 1.3.7 - September 20, 2019 =
 * New: Added a settings Style Kit > Settings to be able to rollback to any older version of plugin
@@ -229,7 +247,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Improve: Check WordPress version before loading files to avoid errors.
 * Fix: Set right data type to _ang_import_type post meta
 
-= 1.0.0 - February 15, 2019 = 
+= 1.0.0 - February 15, 2019 =
 * Initial Release
 
 == Upgrade Notice ==
