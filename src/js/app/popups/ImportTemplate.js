@@ -232,7 +232,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 					<div style={ { textAlign: 'center', fontSize: '15px' } }>
 						{ state.importedPage ?
 							( <Fragment>
-								<p>{ __( 'Blimey! Your template has been imported.', 'ang' ) }</p>
+								<p>{ __( 'All done! The template has been imported.', 'ang' ) }</p>
 								<p>
 									<a
 										className="ang-button"
