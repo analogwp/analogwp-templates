@@ -16,6 +16,10 @@
     overflow-x: hidden;
 }
 
+#analogwp-templates-modal p {
+	margin: 1em 0;
+}
+
 #analogwp-templates {
     text-align: left;
 }
