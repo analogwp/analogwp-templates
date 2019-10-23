@@ -33,6 +33,9 @@ const Container = styled.section`
     	color: indianred;
     	text-align: left;
     }
+    a {
+    	color: var(--ang-accent);
+    }
 `;
 
 const ChildContainer = styled.ul`
