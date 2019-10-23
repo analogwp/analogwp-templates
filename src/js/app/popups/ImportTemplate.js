@@ -94,7 +94,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		return { value: k.title, label: k.title };
 	} );
 
-	const activeKit = styleKits.find( option => option.site_id === state.template.site_id );
+	const activeKit = styleKits.find( option => parseInt( option.site_id ) === parseInt( state.template.site_id ) );
 
 	const groupedOptions = [
 		{
