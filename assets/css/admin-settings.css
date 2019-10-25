@@ -114,10 +114,10 @@ h1.nav-tab-wrapper {
 }
 .form-table td fieldset .description,
 .tab-content p {
-	font-weight: 500;
 	font-size: 14px;
 	line-height: 170%;
 	color: #060606;
+	opacity: .8;
 }
 .form-table td fieldset label,
 .form-table td .description {
@@ -330,9 +330,8 @@ input[type='checkbox'] {
 
 .ang.gopro .gopro-content img {
 	width: 100%;
-	position: absolute;
-	left: 0;
-	bottom: -30px;
+	width: calc(100% + 80px);
+	margin: 0 -40px;
 }
 
 .ang.gopro ul {
