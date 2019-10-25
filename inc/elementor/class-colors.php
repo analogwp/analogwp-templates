@@ -8,14 +8,37 @@ use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
 use Elementor\Core\Settings\Manager;
 use Elementor\Core\Base\Module;
+use Elementor\Element_Base;
 
 class Colors extends Module {
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_color_settings' ], 170, 2 );
+		add_action( 'elementor/element/divider/section_divider_style/before_section_end', [ $this, 'tweak_divider_style' ] );
 	}
 
 	public function get_name() {
 		return 'ang-colors';
+	}
+
+	/**
+	 * Tweak default Divider color to be SKs Primary accent color.
+	 *
+	 * @since 1.3.9
+	 * @param Element_Base $element Element base.
+	 */
+	public function tweak_divider_style( Element_Base $element ) {
+		$page_settings_manager = Manager::get_settings_managers( 'page' );
+		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
+		$default_color         = $page_settings_model->get_settings( 'ang_color_accent_primary' );
+
+		if ( $default_color ) {
+			$element->update_control(
+				'color',
+				[
+					'default' => $default_color,
+				]
+			);
+		}
 	}
 
 	public function register_color_settings( Controls_Stack $element, $section_id ) {
@@ -55,7 +78,6 @@ class Colors extends Module {
 					'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'color: {{VALUE}}; border-color: {{VALUE}};',
 					'{{WRAPPER}} .elementor-progress-bar' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .sk-primary-accent'      => 'color: {{VALUE}}',
-					'{{WRAPPER}} .elementor-divider'      => '--divider-border-color: {{VALUE}}',
 
 					'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1,
 					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h2,
