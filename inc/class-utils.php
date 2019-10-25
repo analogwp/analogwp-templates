@@ -395,8 +395,6 @@ class Utils extends Base {
 				'no_found_rows'          => true,
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
-				'meta_key'               => '_import_type',
-				'meta_value'             => 'remote',
 			]
 		);
 
