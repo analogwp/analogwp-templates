@@ -213,7 +213,7 @@ jQuery( window ).on( 'elementor:init', function() {
 	};
 
 	analog.removeFromQueue = ( id = elementor.config.document.id ) => {
-		$.ajax( {
+		jQuery.ajax( {
 			type: 'POST',
 			url: AGWP.ajaxurl,
 			data: {
@@ -363,7 +363,7 @@ jQuery( window ).on( 'elementor:init', function() {
 						text: ANG_Action.translate.copyCSS,
 						callback: function() {
 							const content = modal.getElements( 'content' );
-							$( content.find( 'textarea' ) ).select();
+							jQuery( content.find( 'textarea' ) ).select();
 							document.execCommand( 'copy' );
 						},
 					} );
