@@ -9,8 +9,11 @@ use Elementor\Controls_Stack;
 use Elementor\Core\Settings\Manager;
 use Elementor\Core\Base\Module;
 use Elementor\Element_Base;
+use Elementor\Plugin;
 
 class Colors extends Module {
+	use Document;
+
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_color_settings' ], 170, 2 );
 		add_action( 'elementor/element/divider/section_divider_style/before_section_end', [ $this, 'tweak_divider_style' ] );
@@ -27,6 +30,10 @@ class Colors extends Module {
 	 * @param Element_Base $element Element base.
 	 */
 	public function tweak_divider_style( Element_Base $element ) {
+		if ( 'popup' === $this->get_document_type() ) {
+			return;
+		}
+
 		$page_settings_manager = Manager::get_settings_managers( 'page' );
 		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
 		$default_color         = $page_settings_model->get_settings( 'ang_color_accent_primary' );
@@ -42,7 +49,7 @@ class Colors extends Module {
 	}
 
 	public function register_color_settings( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
 		}
 
@@ -75,7 +82,7 @@ class Colors extends Module {
 					{{WRAPPER}} .elementor-tab-title,
 					{{WRAPPER}} .elementor-image-box-title,
 					{{WRAPPER}} .elementor-icon-box-title,
-					{{WRAPPER}} .sk-accent-1' => 'color: {{VALUE}}',
+					{{WRAPPER}} .sk-accent-1'             => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'background-color: {{VALUE}};',

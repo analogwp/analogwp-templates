@@ -26,6 +26,8 @@ defined( 'ABSPATH' ) || exit;
  * @package Analog\Elementor
  */
 class Typography extends Module {
+	use Document;
+
 	/**
 	 * Typography constructor.
 	 */
@@ -62,7 +64,7 @@ class Typography extends Module {
 		$control = $control_stack->get_controls( 'padding' );
 
 		// Exit early if $control_stack dont have the image_size control.
-		if ( empty( $control ) || ! is_array( $control ) ) {
+		if ( empty( $control ) || ! is_array( $control ) || 'popup' === $this->get_document_type() ) {
 			return;
 		}
 
@@ -95,7 +97,7 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_heading_typography( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
 		}
 
@@ -176,7 +178,7 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_body_and_paragraph_typography( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
 		}
 
@@ -221,7 +223,7 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_typography_sizes( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
 		}
 
@@ -281,7 +283,7 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_text_sizes( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
 		}
 
@@ -334,7 +336,7 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_outer_section_padding( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
 		}
 
@@ -394,7 +396,7 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_columns_gap( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
 		}
 
@@ -464,7 +466,7 @@ class Typography extends Module {
 	 * @since 1.3
 	 */
 	public function register_buttons( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
 		}
 
@@ -620,7 +622,7 @@ class Typography extends Module {
 	 * @return void
 	 */
 	public function register_styling_settings( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
 		}
 
@@ -709,7 +711,7 @@ class Typography extends Module {
 	 * @return void
 	 */
 	public function register_tools( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
 		}
 
@@ -764,6 +766,10 @@ class Typography extends Module {
 	 * @param Element_Base $element Element_Base Class.
 	 */
 	public function tweak_section_widget( Element_Base $element ) {
+		if ( 'popup' === $this->get_document_type() ) {
+			return;
+		}
+
 		$element->start_injection(
 			[
 				'of' => 'height',
@@ -800,6 +806,10 @@ class Typography extends Module {
 	 * @return void
 	 */
 	public function enqueue_preview_scripts() {
+		if ( 'popup' === $this->get_document_type() ) {
+			return;
+		}
+
 		$post_id = get_the_ID();
 
 		// Get the page settings manager.
@@ -846,6 +856,10 @@ class Typography extends Module {
 	 * @return void
 	 */
 	public function enqueue_editor_scripts() {
+		if ( 'popup' === $this->get_document_type() ) {
+			return;
+		}
+
 		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		wp_enqueue_script(
