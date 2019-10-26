@@ -397,3 +397,10 @@ input[type='checkbox'] {
 	font-size: 17px;
 	font-weight: 600;
 }
+
+.ang.extensions .tab-content {
+	padding-top: 20px;
+}
+.ang.extensions .subsubsub {
+	margin-bottom: 40px;
+}
