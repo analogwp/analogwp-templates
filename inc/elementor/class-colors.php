@@ -71,7 +71,11 @@ class Colors extends Module {
 				'description' => __( 'The primary accent color applies on Links.', 'ang' ),
 				'classes'     => 'ang-description-wide',
 				'selectors'   => [
-					'{{WRAPPER}} *:not(.elementor-tab-title) > a:not([role=button]), {{WRAPPER}} .elementor-tab-title, {{WRAPPER}} .sk-accent-1' => 'color: {{VALUE}}',
+					'{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title) > a:not([role=button]),
+					{{WRAPPER}} .elementor-tab-title,
+					{{WRAPPER}} .elementor-image-box-title,
+					{{WRAPPER}} .elementor-icon-box-title,
+					{{WRAPPER}} .sk-accent-1' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'background-color: {{VALUE}};',
