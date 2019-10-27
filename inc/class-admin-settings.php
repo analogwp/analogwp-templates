@@ -482,10 +482,7 @@ class Admin_Settings {
 							<fieldset>
 								<?php echo $description; // phpcs:ignore ?>
 								<ul>
-									<?php
-									foreach ( \get_editable_roles() as $role_slug => $role_data ) :
-									$checked = isset( $option_value[ $role_slug ] ) ? $option_value[ $role_slug ] : '';
-									?>
+									<?php foreach ( \get_editable_roles() as $role_slug => $role_data ) : ?>
 									<li>
 										<label>
 											<input
