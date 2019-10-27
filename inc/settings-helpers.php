@@ -17,7 +17,7 @@ namespace Analog\Settings;
  */
 function ang_clean( $var ) {
 	if ( is_array( $var ) ) {
-		return array_map( 'ang_clean', $var );
+		return array_map( __NAMESPACE__ . '\ang_clean', $var );
 	} else {
 		return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
 	}

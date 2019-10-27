@@ -474,6 +474,39 @@ class Admin_Settings {
 					<?php
 					break;
 
+				case 'checkbox_user_roles':
+					$option_value = $value['value'];
+					?>
+					<tr valign="top">
+						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+							<fieldset>
+								<?php echo $description; // phpcs:ignore ?>
+								<ul>
+									<?php
+									foreach ( \get_editable_roles() as $role_slug => $role_data ) :
+									$checked = isset( $option_value[ $role_slug ] ) ? $option_value[ $role_slug ] : '';
+									?>
+									<li>
+										<label>
+											<input
+												type="checkbox"
+												name="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $role_slug ); ?>]"
+												id="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $role_slug ); ?>]"
+												value="1"
+												<?php checked( @$option_value[ $role_slug ], true ); //phpcs:ignore ?>
+											/>
+											<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
+											<?php echo esc_html( $role_data['name'] ); ?>
+										</label>
+									</li>
+									<?php endforeach; ?>
+								</ul>
+							</fieldset>
+						</td>
+					</tr>
+					<?php
+					break;
+
 				// Checkbox input.
 				case 'checkbox':
 					$option_value     = $value['value'];
@@ -641,7 +674,8 @@ class Admin_Settings {
 					$value = wp_kses_post( trim( $raw_value ) );
 					break;
 				case 'multiselect':
-					$value = array_filter( array_map( 'ang_clean', (array) $raw_value ) );
+				case 'checkbox_user_roles':
+					$value = array_filter( array_map( __NAMESPACE__ . '\ang_clean', (array) $raw_value ) );
 					break;
 				case 'select':
 					$allowed_values = empty( $option['options'] ) ? array() : array_map( 'strval', array_keys( $option['options'] ) );
