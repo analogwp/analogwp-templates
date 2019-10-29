@@ -9,11 +9,18 @@ use Elementor\Controls_Stack;
 use Elementor\Core\Settings\Manager;
 use Elementor\Core\Base\Module;
 use Elementor\Element_Base;
-use Elementor\Plugin;
 
+/**
+ * Class Colors.
+ *
+ * @package Analog\Elementor
+ */
 class Colors extends Module {
 	use Document;
 
+	/**
+	 * Colors constructor.
+	 */
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_color_settings' ], 170, 2 );
 		add_action( 'elementor/element/divider/section_divider_style/before_section_end', [ $this, 'tweak_divider_style' ] );
@@ -23,6 +30,11 @@ class Colors extends Module {
 		add_action( 'elementor/element/nav-menu/section_style_main-menu/before_section_end', [ $this, 'tweak_nav_menu' ] );
 	}
 
+	/**
+	 * Get module name.
+	 *
+	 * @return string
+	 */
 	public function get_name() {
 		return 'ang-colors';
 	}
@@ -52,6 +64,12 @@ class Colors extends Module {
 		}
 	}
 
+	/**
+	 * Tweak Elementor Icon Box widget.
+	 *
+	 * @since 1.3.10
+	 * @param Element_Base $element Element base.
+	 */
 	public function tweak_icon_Box( Element_Base $element ) {
 		$page_settings_manager = Manager::get_settings_managers( 'page' );
 		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
@@ -69,6 +87,12 @@ class Colors extends Module {
 		}
 	}
 
+	/**
+	 * Tweak Elementor Image Box widget.
+	 *
+	 * @since 1.3.10
+	 * @param Element_Base $element Element base.
+	 */
 	public function tweak_image_Box( Element_Base $element ) {
 		$page_settings_manager = Manager::get_settings_managers( 'page' );
 		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
@@ -86,6 +110,12 @@ class Colors extends Module {
 		}
 	}
 
+	/**
+	 * Tweak Elementor Heading widget.
+	 *
+	 * @since 1.3.10
+	 * @param Element_Base $element Element base.
+	 */
 	public function tweak_heading( Element_Base $element ) {
 		$page_settings_manager = Manager::get_settings_managers( 'page' );
 		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
@@ -103,6 +133,12 @@ class Colors extends Module {
 		}
 	}
 
+	/**
+	 * Tweak Elementor Nav Menu widget.
+	 *
+	 * @since 1.3.10
+	 * @param Element_Base $element Element base.
+	 */
 	public function tweak_nav_menu( Element_Base $element ) {
 		$element->update_control(
 			'color_menu_item',
@@ -114,6 +150,12 @@ class Colors extends Module {
 		);
 	}
 
+	/**
+	 * Register Analog Color controls.
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 * @param string         $section_id Section ID.
+	 */
 	public function register_color_settings( Controls_Stack $element, $section_id ) {
 		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
@@ -130,6 +172,7 @@ class Colors extends Module {
 		$element->add_control(
 			'ang_colors_description',
 			[
+				/* translators: %1$s: Link to documentation, %2$s: Link text. */
 				'raw'             => __( 'Set the colors for Typography, accents and more.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/574-working-with-colours', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
