@@ -71,6 +71,10 @@ abstract class Settings_Page {
 	 * @return mixed
 	 */
 	public function add_settings_page( $pages ) {
+		if ( 'extensions' === $this->id && ! has_filter( 'ang_get_settings_' . $this->id ) ) {
+			return $pages;
+		}
+
 		$pages[ $this->id ] = $this->label;
 
 		return $pages;
