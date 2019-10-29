@@ -52,36 +52,54 @@ class Colors extends Module {
 	}
 
 	public function tweak_icon_Box( Element_Base $element ) {
-		$element->update_control(
-			'title_color',
-			[
-				'selectors' => [
-					'{{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title, {{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title a' => 'color: {{VALUE}};',
-				],
-			]
-		);
+		$page_settings_manager = Manager::get_settings_managers( 'page' );
+		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
+		$remove_link           = $page_settings_model->get_settings( 'ang_remove_title_link_color' );
+
+		if ( ! $remove_link ) {
+			$element->update_control(
+				'title_color',
+				[
+					'selectors' => [
+						'{{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title, {{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title a' => 'color: {{VALUE}};',
+					],
+				]
+			);
+		}
 	}
 
 	public function tweak_image_Box( Element_Base $element ) {
-		$element->update_control(
-			'title_color',
-			[
-				'selectors' => [
-					'{{WRAPPER}} .elementor-image-box-content .elementor-image-box-title, {{WRAPPER}} .elementor-image-box-content .elementor-image-box-title a' => 'color: {{VALUE}};',
-				],
-			]
-		);
+		$page_settings_manager = Manager::get_settings_managers( 'page' );
+		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
+		$remove_link           = $page_settings_model->get_settings( 'ang_remove_title_link_color' );
+
+		if ( ! $remove_link ) {
+			$element->update_control(
+				'title_color',
+				[
+					'selectors' => [
+						'{{WRAPPER}} .elementor-image-box-content .elementor-image-box-title, {{WRAPPER}} .elementor-image-box-content .elementor-image-box-title a' => 'color: {{VALUE}};',
+					],
+				]
+			);
+		}
 	}
 
 	public function tweak_heading( Element_Base $element ) {
-		$element->update_control(
-			'title_color',
-			[
-				'selectors' => [
-					'{{WRAPPER}}.elementor-widget-heading .elementor-heading-title, {{WRAPPER}}.elementor-widget-heading .elementor-heading-title.elementor-heading-title a' => 'color: {{VALUE}};',
-				],
-			]
-		);
+		$page_settings_manager = Manager::get_settings_managers( 'page' );
+		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
+		$remove_link           = $page_settings_model->get_settings( 'ang_remove_title_link_color' );
+
+		if ( ! $remove_link ) {
+			$element->update_control(
+				'title_color',
+				[
+					'selectors' => [
+						'{{WRAPPER}}.elementor-widget-heading .elementor-heading-title, {{WRAPPER}}.elementor-widget-heading .elementor-heading-title.elementor-heading-title a' => 'color: {{VALUE}};',
+					],
+				]
+			);
+		}
 	}
 
 	public function register_color_settings( Controls_Stack $element, $section_id ) {
@@ -106,6 +124,40 @@ class Colors extends Module {
 			]
 		);
 
+		$page_settings_manager = Manager::get_settings_managers( 'page' );
+		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
+		$remove_link           = $page_settings_model->get_settings( 'ang_remove_title_link_color' );
+
+		$selectors = [
+			'{{WRAPPER}} .sk-accent-1'              => 'color: {{VALUE}}',
+			'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
+			'{{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
+			'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'background-color: {{VALUE}};',
+			'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'color: {{VALUE}}; border-color: {{VALUE}};',
+			'{{WRAPPER}} .elementor-progress-bar'   => 'background-color: {{VALUE}}',
+			'{{WRAPPER}} .sk-primary-accent'        => 'color: {{VALUE}}',
+
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1,
+			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h2,
+			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h3,
+			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h4,
+			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5,
+			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6' => 'color: {{VALUE}}',
+
+			'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
+
+			'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
+		];
+
+		if ( ! $remove_link ) {
+			$selectors += [
+				'{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title) > a:not([role=button]),
+				{{WRAPPER}} .elementor-tab-title.elementor-active,
+				{{WRAPPER}} .elementor-image-box-title a,
+				{{WRAPPER}} .elementor-icon-box-title a' => 'color: {{VALUE}};',
+			];
+		}
+
 		$element->add_control(
 			'ang_color_accent_primary',
 			[
@@ -113,30 +165,7 @@ class Colors extends Module {
 				'type'        => Controls_Manager::COLOR,
 				'description' => __( 'The primary accent color applies on Links.', 'ang' ),
 				'classes'     => 'ang-description-wide',
-				'selectors'   => [
-					'{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title) > a:not([role=button]),
-					{{WRAPPER}} .elementor-tab-title.elementor-active,
-					{{WRAPPER}} .elementor-image-box-title a,
-					{{WRAPPER}} .elementor-icon-box-title a,
-					{{WRAPPER}} .sk-accent-1'             => 'color: {{VALUE}}',
-					'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'background-color: {{VALUE}};',
-					'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'color: {{VALUE}}; border-color: {{VALUE}};',
-					'{{WRAPPER}} .elementor-progress-bar' => 'background-color: {{VALUE}}',
-					'{{WRAPPER}} .sk-primary-accent'      => 'color: {{VALUE}}',
-
-					'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1,
-					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h2,
-					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h3,
-					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h4,
-					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5,
-					{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6' => 'color: {{VALUE}}',
-
-					'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
-
-					'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
-				],
+				'selectors'   => $selectors,
 			]
 		);
 
