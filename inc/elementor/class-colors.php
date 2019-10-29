@@ -162,7 +162,7 @@ class Colors extends Module {
 			{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:after' => 'background-color: {{VALUE}}',
 			'{{WRAPPER}} .e--pointer-framed .elementor-item:before,
 			{{WRAPPER}} .e--pointer-framed .elementor-item:after' => 'border-color: {{VALUE}}',
-
+			'{{WRAPPER}} .elementor-sub-item:hover' => 'background-color: {{VALUE}}; color: #fff !important;',
 			'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
 		];
 
