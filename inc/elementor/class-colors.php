@@ -19,6 +19,7 @@ class Colors extends Module {
 		add_action( 'elementor/element/divider/section_divider_style/before_section_end', [ $this, 'tweak_divider_style' ] );
 		add_action( 'elementor/element/icon-box/section_style_content/before_section_end', [ $this, 'tweak_icon_box' ] );
 		add_action( 'elementor/element/image-box/section_style_content/before_section_end', [ $this, 'tweak_image_box' ] );
+		add_action( 'elementor/element/heading/section_title_style/before_section_end', [ $this, 'tweak_heading' ] );
 	}
 
 	public function get_name() {
@@ -67,6 +68,17 @@ class Colors extends Module {
 			[
 				'selectors' => [
 					'{{WRAPPER}} .elementor-image-box-content .elementor-image-box-title, {{WRAPPER}} .elementor-image-box-content .elementor-image-box-title a' => 'color: {{VALUE}};',
+				],
+			]
+		);
+	}
+
+	public function tweak_heading( Element_Base $element ) {
+		$element->update_control(
+			'title_color',
+			[
+				'selectors' => [
+					'{{WRAPPER}}.elementor-widget-heading .elementor-heading-title, {{WRAPPER}}.elementor-widget-heading .elementor-heading-title a' => 'color: {{VALUE}};',
 				],
 			]
 		);
