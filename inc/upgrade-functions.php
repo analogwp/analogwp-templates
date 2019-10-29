@@ -45,6 +45,10 @@ function do_automatic_upgrades() {
 		ang_v138_upgrades();
 	}
 
+	if ( version_compare( $installed_version, '1.3.10', '<' ) ) {
+		Utils::clear_elementor_cache();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );

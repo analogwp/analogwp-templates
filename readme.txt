@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.3
-Stable tag: 1.3.9
+Stable tag: 1.3.10
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -39,7 +39,7 @@ Apply the native column gaps on your outer and inner sections and manage the spa
 
 All your custom page styles can be saved as a Stylekit and then apply it on any page.
 
-You can also make a Global Stylekit, and it will apply on your entire site.
+You can also make a Global Style Kit, and it will apply on your entire site.
 
 #### Button Styles
 
@@ -59,6 +59,7 @@ Hello Elementor is a great, lightweight theme but it lacks basic typography cont
 - [Visit the AnalogWP Website](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp)
 - [Follow on Twitter](https://twitter.com/AnalogWP/)
 - [Like us on Facebook](https://www.facebook.com/analogwp)
+- [Join the AnalogWP community](https://www.facebook.com/groups/analogwp/)
 
 == Installation ==
 
@@ -98,6 +99,12 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.10 - October 29, 2019 =
+* New: Make Nav item/pointer inherit SK accent color
+* Fix: Image/Icon box widget selectors accent color override
+* Fix: Heading widget selectors accent color override
+* Improve: Ensure “Do not apply link” setting is respected
 
 = 1.3.9 - October 26, 2019 =
 * Fix: Disable Style Kit settings from [Popups](https://github.com/mauryaratan/analogwp-templates/issues/202)
