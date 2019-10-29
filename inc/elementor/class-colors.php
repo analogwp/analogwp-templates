@@ -17,6 +17,8 @@ class Colors extends Module {
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_color_settings' ], 170, 2 );
 		add_action( 'elementor/element/divider/section_divider_style/before_section_end', [ $this, 'tweak_divider_style' ] );
+		add_action( 'elementor/element/icon-box/section_style_content/before_section_end', [ $this, 'tweak_icon_box' ] );
+		add_action( 'elementor/element/image-box/section_style_content/before_section_end', [ $this, 'tweak_image_box' ] );
 	}
 
 	public function get_name() {
@@ -46,6 +48,28 @@ class Colors extends Module {
 				]
 			);
 		}
+	}
+
+	public function tweak_icon_Box( Element_Base $element ) {
+		$element->update_control(
+			'title_color',
+			[
+				'selectors' => [
+					'{{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title, {{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title a' => 'color: {{VALUE}};',
+				],
+			]
+		);
+	}
+
+	public function tweak_image_Box( Element_Base $element ) {
+		$element->update_control(
+			'title_color',
+			[
+				'selectors' => [
+					'{{WRAPPER}} .elementor-image-box-content .elementor-image-box-title, {{WRAPPER}} .elementor-image-box-content .elementor-image-box-title a' => 'color: {{VALUE}};',
+				],
+			]
+		);
 	}
 
 	public function register_color_settings( Controls_Stack $element, $section_id ) {
@@ -79,9 +103,9 @@ class Colors extends Module {
 				'classes'     => 'ang-description-wide',
 				'selectors'   => [
 					'{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title) > a:not([role=button]),
-					{{WRAPPER}} .elementor-tab-title,
-					{{WRAPPER}} .elementor-image-box-title,
-					{{WRAPPER}} .elementor-icon-box-title,
+					{{WRAPPER}} .elementor-tab-title.elementor-active,
+					{{WRAPPER}} .elementor-image-box-title a,
+					{{WRAPPER}} .elementor-icon-box-title a,
 					{{WRAPPER}} .sk-accent-1'             => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
