@@ -33,11 +33,7 @@ class Extensions extends Settings_Page {
 	 * @return array
 	 */
 	public function get_sections() {
-		$sections = array(
-			'' => __( 'General', 'ang' ),
-		);
-
-		return apply_filters( 'ang_get_sections_' . $this->id, $sections );
+		return apply_filters( 'ang_get_sections_' . $this->id, [] );
 	}
 
 	/**

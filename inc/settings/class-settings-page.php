@@ -106,7 +106,7 @@ abstract class Settings_Page {
 
 		$sections = $this->get_sections();
 
-		if ( empty( $sections ) || 1 === count( $sections ) ) {
+		if ( empty( $sections ) ) {
 			return;
 		}
 
