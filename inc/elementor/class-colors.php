@@ -78,7 +78,7 @@ class Colors extends Module {
 			'title_color',
 			[
 				'selectors' => [
-					'{{WRAPPER}}.elementor-widget-heading .elementor-heading-title, {{WRAPPER}}.elementor-widget-heading .elementor-heading-title a' => 'color: {{VALUE}};',
+					'{{WRAPPER}}.elementor-widget-heading .elementor-heading-title, {{WRAPPER}}.elementor-widget-heading .elementor-heading-title.elementor-heading-title a' => 'color: {{VALUE}};',
 				],
 			]
 		);
