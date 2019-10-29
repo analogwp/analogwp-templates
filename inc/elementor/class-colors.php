@@ -20,6 +20,7 @@ class Colors extends Module {
 		add_action( 'elementor/element/icon-box/section_style_content/before_section_end', [ $this, 'tweak_icon_box' ] );
 		add_action( 'elementor/element/image-box/section_style_content/before_section_end', [ $this, 'tweak_image_box' ] );
 		add_action( 'elementor/element/heading/section_title_style/before_section_end', [ $this, 'tweak_heading' ] );
+		add_action( 'elementor/element/nav-menu/section_style_main-menu/before_section_end', [ $this, 'tweak_nav_menu' ] );
 	}
 
 	public function get_name() {
@@ -102,6 +103,17 @@ class Colors extends Module {
 		}
 	}
 
+	public function tweak_nav_menu( Element_Base $element ) {
+		$element->update_control(
+			'color_menu_item',
+			[
+				'selectors' => [
+					'{{WRAPPER}} .elementor-nav-menu--main .elementor-item.elementor-item' => 'color: {{VALUE}}',
+				],
+			]
+		);
+	}
+
 	public function register_color_settings( Controls_Stack $element, $section_id ) {
 		if ( 'section_page_style' !== $section_id || 'popup' === $this->get_document_type() ) {
 			return;
@@ -145,6 +157,11 @@ class Colors extends Module {
 			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6' => 'color: {{VALUE}}',
 
 			'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
+
+			'{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:before,
+			{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:after' => 'background-color: {{VALUE}}',
+			'{{WRAPPER}} .e--pointer-framed .elementor-item:before,
+			{{WRAPPER}} .e--pointer-framed .elementor-item:after' => 'border-color: {{VALUE}}',
 
 			'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
 		];
