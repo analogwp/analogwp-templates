@@ -312,7 +312,7 @@ class Templates extends React.Component {
 		const kit = this.getStyleKitInfo();
 		const version = this.state.template.version;
 
-		if ( version && AGWP.version < version ) {
+		if ( version && parseFloat( AGWP.version ) < parseFloat( version ) ) {
 			this.resetState();
 			add(
 				__( 'This template requires an updated version, please update your plugin to latest version.', 'ang' ),
