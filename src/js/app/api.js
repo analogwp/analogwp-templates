@@ -128,7 +128,7 @@ export async function getLicenseStatus() {
 
 export async function requestElementorImport( template, kit ) {
 	if ( template.version ) {
-		if ( AGWP.version < template.version ) {
+		if ( parseFloat( AGWP.version ) < parseFloat( template.version ) ) {
 			elementorCommon.dialogsManager.createWidget( 'alert', {
 				message: 'This template requires an updated version, please update your plugin to latest version.',
 			} ).show();
