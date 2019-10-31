@@ -24,9 +24,9 @@ class Colors extends Module {
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_color_settings' ], 170, 2 );
 		add_action( 'elementor/element/divider/section_divider_style/before_section_end', [ $this, 'tweak_divider_style' ] );
-		add_action( 'elementor/element/icon-box/section_style_content/before_section_end', [ $this, 'tweak_icon_box' ] );
-		add_action( 'elementor/element/image-box/section_style_content/before_section_end', [ $this, 'tweak_image_box' ] );
-		add_action( 'elementor/element/heading/section_title_style/before_section_end', [ $this, 'tweak_heading' ] );
+// add_action( 'elementor/element/icon-box/section_style_content/before_section_end', [ $this, 'tweak_icon_box' ] );
+// add_action( 'elementor/element/image-box/section_style_content/before_section_end', [ $this, 'tweak_image_box' ] );
+// add_action( 'elementor/element/heading/section_title_style/before_section_end', [ $this, 'tweak_heading' ] );
 		add_action( 'elementor/element/nav-menu/section_style_main-menu/before_section_end', [ $this, 'tweak_nav_menu' ] );
 	}
 
