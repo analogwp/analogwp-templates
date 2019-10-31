@@ -176,13 +176,13 @@ class Colors extends Module {
 		);
 
 		$selectors = [
-			'{{WRAPPER}} .sk-accent-1'              => 'color: {{VALUE}}',
+			'{{WRAPPER}} .sk-accent-1'                    => 'color: {{VALUE}}',
 			'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
-			'{{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
+			'{{WRAPPER}} .elementor-icon-list-icon'       => 'color: {{VALUE}}',
 			'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'background-color: {{VALUE}};',
 			'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'color: {{VALUE}}; border-color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-progress-bar'   => 'background-color: {{VALUE}}',
-			'{{WRAPPER}} .sk-primary-accent'        => 'color: {{VALUE}}',
+			'{{WRAPPER}} .elementor-progress-bar'         => 'background-color: {{VALUE}}',
+			'{{WRAPPER}} .sk-primary-accent'              => 'color: {{VALUE}}',
 
 			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1,
 			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h2,
@@ -193,24 +193,30 @@ class Colors extends Module {
 
 			'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
 
+			'{{WRAPPER}} .elementor-nav-menu--main .elementor-nav-menu a:not(.elementor-sub-item)' => 'color: {{VALUE}};',
+			'{{WRAPPER}} .elementor-nav-menu--main .elementor-nav-menu .elementor-sub-item:not(:hover)' => 'color: {{VALUE}};',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item:hover' => 'background-color: {{VALUE}};',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item.elementor-item-active' => 'background-color: {{VALUE}};',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown a' => 'color: {{VALUE}};',
+
 			'{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:before,
 			{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:after' => 'background-color: {{VALUE}}',
 			'{{WRAPPER}} .e--pointer-framed .elementor-item:before,
 			{{WRAPPER}} .e--pointer-framed .elementor-item:after' => 'border-color: {{VALUE}}',
-			'{{WRAPPER}} .elementor-sub-item:hover' => 'background-color: {{VALUE}}; color: #fff;',
+			'{{WRAPPER}} .elementor-sub-item:hover'       => 'background-color: {{VALUE}}; color: #fff;',
 			'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
 		];
 
-//		$remove_link = $this->get_page_setting( 'ang_remove_title_link_color' );
+// $remove_link = $this->get_page_setting( 'ang_remove_title_link_color' );
 //
-//		if ( ! $remove_link ) {
-//			$selectors += [
-//				'{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title) > a:not([role=button]),
-//				{{WRAPPER}} .elementor-tab-title.elementor-active,
-//				{{WRAPPER}} .elementor-image-box-title a,
-//				{{WRAPPER}} .elementor-icon-box-title a' => 'color: {{VALUE}};',
-//			];
-//		}
+// if ( ! $remove_link ) {
+// $selectors += [
+// '{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title) > a:not([role=button]),
+// {{WRAPPER}} .elementor-tab-title.elementor-active,
+// {{WRAPPER}} .elementor-image-box-title a,
+// {{WRAPPER}} .elementor-icon-box-title a' => 'color: {{VALUE}};',
+// ];
+// }
 
 		$element->add_control(
 			'ang_color_accent_primary',
