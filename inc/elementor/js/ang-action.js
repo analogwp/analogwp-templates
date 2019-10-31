@@ -3,10 +3,6 @@ jQuery( window ).on( 'elementor:init', function() {
 	const analog = window.analog = window.analog || {};
 	const elementorSettings = elementor.settings.page.model.attributes;
 
-	if ( 'popup' === elementor.config.document.type ) {
-		return;
-	}
-
 	/**
 	 * Determines if given key should be exported/imported into Style Kit.
 	 *
