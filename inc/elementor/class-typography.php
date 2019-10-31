@@ -745,17 +745,17 @@ class Typography extends Module {
 			]
 		);
 
-		$element->add_control(
-			'ang_remove_title_link_color',
-			[
-				'label'     => __( 'Do not apply link color on active titles', 'ang' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'selectors' => [
-					'{{WRAPPER}} .elementor-post__title.elementor-post__title a' => 'color: currentColor;',
-					'{{WRAPPER}} .elementor-tab-title a' => 'color: currentColor;',
-				],
-			]
-		);
+//		$element->add_control(
+//			'ang_remove_title_link_color',
+//			[
+//				'label'     => __( 'Do not apply link color on active titles', 'ang' ),
+//				'type'      => Controls_Manager::SWITCHER,
+//				'selectors' => [
+//					'{{WRAPPER}} .elementor-post__title.elementor-post__title a' => 'color: currentColor;',
+//					'{{WRAPPER}} .elementor-tab-title a' => 'color: currentColor;',
+//				],
+//			]
+//		);
 
 		$element->end_controls_section();
 	}
