@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.3
-Stable tag: 1.3.10
+Stable tag: 1.3.11
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -99,6 +99,12 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.11 - October 31, 2019 =
+* Fix: Templates not being imported due to a bug introduced in v1.3.10
+* Fix: Style Kit panels/settings not showing up on some template types, as a result, the setting "Do not apply link color on active titles" has been removed
+* Tweak: Better compatibility with Nav widget and Style Kits
+* Improve: Popups, once again can have a Style Kit
 
 = 1.3.10 - October 29, 2019 =
 * New: Make Nav item/pointer inherit SK accent color
