@@ -191,6 +191,11 @@ class Colors extends Module {
 			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5,
 			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6' => 'color: {{VALUE}}',
 
+			'{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title) > a:not([role=button]),
+			{{WRAPPER}} .elementor-tab-title.elementor-active,
+			{{WRAPPER}} .elementor-image-box-title a,
+			{{WRAPPER}} .elementor-icon-box-title a'      => 'color: {{VALUE}};',
+
 			'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
 
 			'{{WRAPPER}} .elementor-nav-menu--main .elementor-nav-menu a:not(.elementor-sub-item)' => 'color: {{VALUE}};',
@@ -206,17 +211,6 @@ class Colors extends Module {
 			'{{WRAPPER}} .elementor-sub-item:hover'       => 'background-color: {{VALUE}}; color: #fff;',
 			'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
 		];
-
-// $remove_link = $this->get_page_setting( 'ang_remove_title_link_color' );
-//
-// if ( ! $remove_link ) {
-// $selectors += [
-// '{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title) > a:not([role=button]),
-// {{WRAPPER}} .elementor-tab-title.elementor-active,
-// {{WRAPPER}} .elementor-image-box-title a,
-// {{WRAPPER}} .elementor-icon-box-title a' => 'color: {{VALUE}};',
-// ];
-// }
 
 		$element->add_control(
 			'ang_color_accent_primary',
