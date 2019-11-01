@@ -14,6 +14,10 @@ jQuery( window ).on( 'elementor:init', function() {
 			return false;
 		}
 
+		if ( key in elementor.settings.page.model.controls ) {
+			return true;
+		}
+
 		return ( key.startsWith( 'ang_' ) || key.startsWith( 'background' ) || key.startsWith( 'hide' ) );
 	};
 
