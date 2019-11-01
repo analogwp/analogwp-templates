@@ -24,9 +24,9 @@ class Colors extends Module {
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_color_settings' ], 170, 2 );
 		add_action( 'elementor/element/divider/section_divider_style/before_section_end', [ $this, 'tweak_divider_style' ] );
-// add_action( 'elementor/element/icon-box/section_style_content/before_section_end', [ $this, 'tweak_icon_box' ] );
-// add_action( 'elementor/element/image-box/section_style_content/before_section_end', [ $this, 'tweak_image_box' ] );
-// add_action( 'elementor/element/heading/section_title_style/before_section_end', [ $this, 'tweak_heading' ] );
+		add_action( 'elementor/element/icon-box/section_style_content/before_section_end', [ $this, 'tweak_icon_box' ] );
+		add_action( 'elementor/element/image-box/section_style_content/before_section_end', [ $this, 'tweak_image_box' ] );
+		add_action( 'elementor/element/heading/section_title_style/before_section_end', [ $this, 'tweak_heading' ] );
 		add_action( 'elementor/element/nav-menu/section_style_main-menu/before_section_end', [ $this, 'tweak_nav_menu' ] );
 	}
 
@@ -67,20 +67,14 @@ class Colors extends Module {
 	 * @param Element_Base $element Element base.
 	 */
 	public function tweak_icon_Box( Element_Base $element ) {
-		$page_settings_manager = Manager::get_settings_managers( 'page' );
-		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
-		$remove_link           = $page_settings_model->get_settings( 'ang_remove_title_link_color' );
-
-		if ( ! $remove_link ) {
-			$element->update_control(
-				'title_color',
-				[
-					'selectors' => [
-						'{{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title, {{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title a' => 'color: {{VALUE}};',
-					],
-				]
-			);
-		}
+		$element->update_control(
+			'title_color',
+			[
+				'selectors' => [
+					'{{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title, {{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title a' => 'color: {{VALUE}};',
+				],
+			]
+		);
 	}
 
 	/**
@@ -90,20 +84,14 @@ class Colors extends Module {
 	 * @param Element_Base $element Element base.
 	 */
 	public function tweak_image_Box( Element_Base $element ) {
-		$page_settings_manager = Manager::get_settings_managers( 'page' );
-		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
-		$remove_link           = $page_settings_model->get_settings( 'ang_remove_title_link_color' );
-
-		if ( ! $remove_link ) {
-			$element->update_control(
-				'title_color',
-				[
-					'selectors' => [
-						'{{WRAPPER}} .elementor-image-box-content .elementor-image-box-title, {{WRAPPER}} .elementor-image-box-content .elementor-image-box-title a' => 'color: {{VALUE}};',
-					],
-				]
-			);
-		}
+		$element->update_control(
+			'title_color',
+			[
+				'selectors' => [
+					'{{WRAPPER}} .elementor-image-box-content .elementor-image-box-title, {{WRAPPER}} .elementor-image-box-content .elementor-image-box-title a' => 'color: {{VALUE}};',
+				],
+			]
+		);
 	}
 
 	/**
@@ -113,20 +101,14 @@ class Colors extends Module {
 	 * @param Element_Base $element Element base.
 	 */
 	public function tweak_heading( Element_Base $element ) {
-		$page_settings_manager = Manager::get_settings_managers( 'page' );
-		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
-		$remove_link           = $page_settings_model->get_settings( 'ang_remove_title_link_color' );
-
-		if ( ! $remove_link ) {
-			$element->update_control(
-				'title_color',
-				[
-					'selectors' => [
-						'{{WRAPPER}}.elementor-widget-heading .elementor-heading-title, {{WRAPPER}}.elementor-widget-heading .elementor-heading-title.elementor-heading-title a' => 'color: {{VALUE}};',
-					],
-				]
-			);
-		}
+		$element->update_control(
+			'title_color',
+			[
+				'selectors' => [
+					'{{WRAPPER}}.elementor-widget-heading .elementor-heading-title, {{WRAPPER}}.elementor-widget-heading .elementor-heading-title.elementor-heading-title a' => 'color: {{VALUE}};',
+				],
+			]
+		);
 	}
 
 	/**
@@ -179,7 +161,7 @@ class Colors extends Module {
 			'{{WRAPPER}} .sk-accent-1'                    => 'color: {{VALUE}}',
 			'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 			'{{WRAPPER}} .elementor-icon-list-icon'       => 'color: {{VALUE}}',
-			'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'background-color: {{VALUE}};',
+			'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'background-color: {{VALUE}}; color: #fff;',
 			'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'color: {{VALUE}}; border-color: {{VALUE}};',
 			'{{WRAPPER}} .elementor-progress-bar'         => 'background-color: {{VALUE}}',
 			'{{WRAPPER}} .sk-primary-accent'              => 'color: {{VALUE}}',
@@ -191,8 +173,11 @@ class Colors extends Module {
 			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5,
 			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6' => 'color: {{VALUE}}',
 
-			'{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title) > a:not([role=button]),
+			'{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not([role="button"]):not(.elementor-post__read-more),
 			{{WRAPPER}} .elementor-tab-title.elementor-active,
+			{{WRAPPER}} .elementor-post__title,
+			{{WRAPPER}} .elementor-heading-title a,
+			{{WRAPPER}} .elementor-post__read-more,
 			{{WRAPPER}} .elementor-image-box-title a,
 			{{WRAPPER}} .elementor-icon-box-title a'      => 'color: {{VALUE}};',
 
