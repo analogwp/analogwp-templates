@@ -3,6 +3,10 @@ jQuery( window ).on( 'elementor:init', function() {
 	const analog = window.analog = window.analog || {};
 	const elementorSettings = elementor.settings.page.model.attributes;
 
+	// Holds post_id, if a Style Kit has been updated.
+	analog.style_kit_updated = false;
+	analog.sk_modal_shown = false;
+
 	/**
 	 * Determines if given key should be exported/imported into Style Kit.
 	 *
@@ -10,7 +14,7 @@ jQuery( window ).on( 'elementor:init', function() {
 	 * @return {bool} True, or false.
 	 */
 	const eligibleKey = ( key ) => {
-		if ( key.startsWith( 'ang_action' ) ) {
+		if ( key.startsWith( 'ang_action' ) || key.startsWith( 'post' ) ) {
 			return false;
 		}
 
@@ -246,12 +250,6 @@ jQuery( window ).on( 'elementor:init', function() {
 			analog.applyStyleKit( settings.ang_action_tokens );
 		}
 
-		if ( AGWP.stylekit_queue ) {
-			const needsRefresh = AGWP.stylekit_queue.find( el => el === elementor.config.document.id );
-			if ( needsRefresh && ! analog.StyleKitUpdateModal.isVisible() ) {
-				analog.StyleKitUpdateModal.show();
-			}
-		}
 
 		// elementor.elementsModel.attributes.elements.models.forEach( ( el ) => {
 		// 	const classes = el.attributes.settings.attributes.css_classes;
@@ -510,6 +508,8 @@ jQuery( window ).on( 'elementor:init', function() {
 							message: ANG_Action.translate.tokenUpdated,
 						} );
 
+						analog.style_kit_updated = true;
+
 						analog.removeFromQueue();
 					} ).catch( error => console.error( error ) );
 				},
@@ -526,13 +526,33 @@ jQuery( window ).on( 'elementor:init', function() {
 	} );
 
 	jQuery( document ).on( 'heartbeat-tick', function( event, response ) {
-		if ( response.stylekit_queue ) {
-			const needsRefresh = response.stylekit_queue.find( el => el === elementor.config.document.id );
-			if ( needsRefresh && ! analog.StyleKitUpdateModal.isVisible() ) {
+		const post_id = elementor.config.document.id;
+		const posts = response.sk_posts;
+
+		if ( posts && posts.indexOf(post_id) >= 0 ) {
+			if ( ! analog.sk_modal_shown ) {
+				analog.sk_modal_shown = true;
 				analog.StyleKitUpdateModal.show();
+
+				setTimeout( () => {
+					analog.sk_modal_shown = false;
+				}, 60*1000);
 			}
 		}
 	} );
+
+	jQuery( document ).on( 'heartbeat-send', function( event, data ) {
+		const kitID = elementor.settings.page.model.attributes.ang_action_tokens;
+		if ( kitID ) {
+			data.ang_sk_post = {
+				post_id: elementor.config.document.id,
+				kit_id: kitID,
+				updated: analog.style_kit_updated,
+			};
+
+			analog.style_kit_updated = false;
+		}
+	});
 
 	analog.insertColors = () => {
 		const settings = elementor.settings.page.model.attributes;

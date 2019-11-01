@@ -60,7 +60,7 @@ class Tools extends Base {
 			add_filter( 'handle_bulk_actions-edit-ang_tokens', [ $this, 'admin_export_multiple_templates' ], 10, 3 );
 		}
 
-		add_action( 'heartbeat_send', [ $this, 'heartbeat_send' ], 10, 2 );
+		add_action( 'heartbeat_received', [ $this, 'heartbeat_received' ], 10, 2 );
 	}
 
 	/**
@@ -409,14 +409,14 @@ CSS;
 					<?php esc_html_e( 'Choose an Analog template JSON file or a .zip archive of Analog Style Kits, and add them to the list of Style Kits available in your library.', 'ang' ); ?>
 				</div>
 				<form id="analog-import-template-form" method="post"
-				      action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" enctype="multipart/form-data">
+					  action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" enctype="multipart/form-data">
 					<input type="hidden" name="action" value="analog_style_kit_import">
 					<input type="hidden" name="_nonce"
-					       value="<?php echo esc_attr( wp_create_nonce( 'analog-import' ) ); ?>">
+						   value="<?php echo esc_attr( wp_create_nonce( 'analog-import' ) ); ?>">
 					<fieldset id="elementor-import-template-form-inputs">
 						<input type="file" name="file"
-						       accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
-						       required>
+							   accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
+							   required>
 						<input type="submit" class="button" value="<?php esc_attr_e( 'Import Now', 'ang' ); ?>">
 					</fieldset>
 				</form>
@@ -718,18 +718,31 @@ CSS;
 	}
 
 	/**
-	 * Send style kit queue data to heartbeat.
+	 * Send posts using Style Kit to heartbeat API for later use.
 	 *
-	 * @param array $response Response data.
+	 * @param array $response Heartbeat response.
+	 * @param array $data Heartbeat data sent as `$_POST`.
 	 *
-	 * @return mixed|array
-	 * @since 1.2.3
+	 * @since 1.3.12
+	 *
+	 * @return mixed
 	 */
-	public function heartbeat_send( $response ) {
-		$queue = Utils::get_stylekit_queue();
+	public function heartbeat_received( $response, $data ) {
+		if ( isset( $data['ang_sk_post']['kit_id'] ) ) {
+			$kit_id  = (int) $data['ang_sk_post']['kit_id'];
+			$post_id = (int) $data['ang_sk_post']['post_id'];
+			$updated = $data['ang_sk_post']['updated'];
 
-		if ( $queue ) {
-			$response['stylekit_queue'] = array_values( $queue );
+			$posts = Utils::posts_using_stylekit( $kit_id );
+			$posts = array_values( array_diff( $posts, [ $post_id ] ) );
+
+			$key = 'ang_sks_using_' . $kit_id;
+			if ( 'false' !== $updated ) {
+				set_transient( $key, $posts, 60 );
+			}
+			$cached = get_transient( $key );
+
+			$response['sk_posts'] = $cached;
 		}
 
 		return $response;
