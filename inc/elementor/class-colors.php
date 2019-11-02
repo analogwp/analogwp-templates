@@ -173,9 +173,10 @@ class Colors extends Module {
 			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5,
 			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6' => 'color: {{VALUE}}',
 
-			'{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not([role="button"]):not(.elementor-post__read-more),
+			'{{WRAPPER}} *:not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.elementor-post__read-more):not(.elementor-item.highlighted),
 			{{WRAPPER}} .elementor-tab-title.elementor-active,
 			{{WRAPPER}} .elementor-post__title,
+			{{WRAPPER}} .elementor-post__title a,
 			{{WRAPPER}} .elementor-heading-title a,
 			{{WRAPPER}} .elementor-post__read-more,
 			{{WRAPPER}} .elementor-image-box-title a,
@@ -188,6 +189,7 @@ class Colors extends Module {
 			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item:hover' => 'background-color: {{VALUE}};',
 			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item.elementor-item-active' => 'background-color: {{VALUE}};',
 			'{{WRAPPER}} .elementor-nav-menu--dropdown a' => 'color: {{VALUE}};',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item.highlighted' => 'background-color: {{VALUE}};',
 
 			'{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:before,
 			{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:after' => 'background-color: {{VALUE}}',
