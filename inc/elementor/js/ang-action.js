@@ -11,10 +11,10 @@ jQuery( window ).on( 'elementor:init', function() {
 	 * Determines if given key should be exported/imported into Style Kit.
 	 *
 	 * @param {string} key Setting ID.
-	 * @return {bool} True, or false.
+	 * @return {boolean} True, or false.
 	 */
 	const eligibleKey = ( key ) => {
-		if ( key.startsWith( 'ang_action' ) || key.startsWith( 'post' ) ) {
+		if ( key.startsWith( 'ang_action' ) || key.startsWith( 'post' ) || key.startsWith( 'preview' ) ) {
 			return false;
 		}
 
