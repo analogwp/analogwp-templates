@@ -69,7 +69,7 @@ gulp.task( 'zip', function( done ) {
 gulp.task( 'scripts', function( done ) {
 	gulp.src( [ './inc/elementor/js/*.js', '!./inc/elementor/js/*.min.js' ] )
 		.pipe( babel( {
-			presets: [ 'babel-preset-env' ],
+			presets: [ '@babel/preset-env' ],
 		} ) )
 		.pipe( uglify() )
 		.pipe( rename( {
