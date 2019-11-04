@@ -53,6 +53,10 @@ function do_automatic_upgrades() {
 		Utils::clear_elementor_cache();
 	}
 
+	if ( version_compare( $installed_version, '1.3.13', '<' ) ) {
+		Utils::clear_elementor_cache();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
@@ -192,7 +196,7 @@ function ang_v13_upgrades() {
 					$tokens[ $new ] = $tokens[ $old ];
 
 					if ( \array_key_exists( $old, $must_haves ) ) {
-						$key = $must_haves[ $old ];
+						$key            = $must_haves[ $old ];
 						$tokens[ $key ] = 'custom';
 					}
 				}
@@ -213,7 +217,7 @@ function ang_v13_upgrades() {
 					$settings[ $new ] = $settings[ $old ];
 
 					if ( \array_key_exists( $old, $must_haves ) ) {
-						$key = $must_haves[ $old ];
+						$key              = $must_haves[ $old ];
 						$settings[ $key ] = 'custom';
 					}
 				}
