@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.3
-Stable tag: 1.3.11
+Stable tag: 1.3.12
 Tags: elementor, landing page, design, website builder, templates
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -99,6 +99,14 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.12 - November 04, 2019 =
+* Fix: Added back selectors to apply accent colors on titles
+* Fix: Show SK updated popup only on open editors
+* Fix: Rare issue where SK dropdown would insert invalid items when no items exist
+* Tweak: Include all page settings as part of SK
+* Tweak: Update Column padding selectors to remove !important
+* Tweak: Better compatibility with Nav styles
 
 = 1.3.11 - October 31, 2019 =
 * Fix: Templates not being imported due to a bug introduced in v1.3.10
