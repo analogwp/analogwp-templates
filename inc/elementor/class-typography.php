@@ -64,7 +64,7 @@ class Typography extends Module {
 		$control = $control_stack->get_controls( 'padding' );
 
 		// Exit early if $control_stack dont have the image_size control.
-		if ( empty( $control ) || ! is_array( $control )  ) {
+		if ( empty( $control ) || ! is_array( $control ) ) {
 			return;
 		}
 
@@ -198,6 +198,7 @@ class Typography extends Module {
 				'default'   => 'no',
 				'selectors' => [
 					'{{WRAPPER}} .elementor-heading-title' => 'line-height: inherit;',
+					'{{WRAPPER}} .dialog-message'          => 'font-size: inherit;',
 				],
 			]
 		);
@@ -379,7 +380,7 @@ class Typography extends Module {
 					'mobile_default'  => $this->get_default_value( 'ang_section_padding_' . $key . '_mobile', true ),
 					'size_units'      => [ 'px', 'em', '%' ],
 					'selectors'       => [
-						".ang-section-padding-{$key}:not(.elementor-inner-section)" =>
+						"{{WRAPPER}} .ang-section-padding-{$key}:not(.elementor-inner-section)" =>
 						'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					],
 				]
@@ -745,17 +746,17 @@ class Typography extends Module {
 			]
 		);
 
-//		$element->add_control(
-//			'ang_remove_title_link_color',
-//			[
-//				'label'     => __( 'Do not apply link color on active titles', 'ang' ),
-//				'type'      => Controls_Manager::SWITCHER,
-//				'selectors' => [
-//					'{{WRAPPER}} .elementor-post__title.elementor-post__title a' => 'color: currentColor;',
-//					'{{WRAPPER}} .elementor-tab-title a' => 'color: currentColor;',
-//				],
-//			]
-//		);
+// $element->add_control(
+// 'ang_remove_title_link_color',
+// [
+// 'label'     => __( 'Do not apply link color on active titles', 'ang' ),
+// 'type'      => Controls_Manager::SWITCHER,
+// 'selectors' => [
+// '{{WRAPPER}} .elementor-post__title.elementor-post__title a' => 'color: currentColor;',
+// '{{WRAPPER}} .elementor-tab-title a' => 'color: currentColor;',
+// ],
+// ]
+// );
 
 		$element->end_controls_section();
 	}
