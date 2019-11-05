@@ -380,7 +380,7 @@ class Typography extends Module {
 					'mobile_default'  => $this->get_default_value( 'ang_section_padding_' . $key . '_mobile', true ),
 					'size_units'      => [ 'px', 'em', '%' ],
 					'selectors'       => [
-						"{{WRAPPER}} .ang-section-padding-{$key}:not(.elementor-inner-section)" =>
+						"{{WRAPPER}} .ang-section-padding-{$key}" =>
 						'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					],
 				]
