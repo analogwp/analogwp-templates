@@ -24,6 +24,7 @@ class GoPro extends Settings_Page {
 		parent::__construct();
 
 		add_action( 'ang_settings_' . $this->id, [ $this, 'get_pro' ] );
+		add_filter( 'ang_show_settings_' . $this->id, '__return_true' );
 	}
 
 	/**
