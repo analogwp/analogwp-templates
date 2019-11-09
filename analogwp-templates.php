@@ -153,33 +153,13 @@ final class Analog_Templates {
 		wp_enqueue_style( 'wp-components' );
 		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', [], '20190716' );
 
-		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? 'development' : 'production';
-
-		wp_deregister_script( 'react' );
-		wp_deregister_script( 'react-dom' );
-
-		wp_enqueue_script(
-			'react',
-			"https://cdn.jsdelivr.net/npm/react@16.8.4/umd/react.{$script_suffix}.min.js",
-			[],
-			'16.8.4',
-			true
-		);
-		wp_enqueue_script(
-			'react-dom',
-			"https://cdn.jsdelivr.net/npm/react-dom@16.8.4/umd/react-dom.{$script_suffix}.min.js",
-			[ 'react' ],
-			'16.8.4',
-			true
-		);
-
 		wp_enqueue_script(
 			'analogwp-app',
 			ANG_PLUGIN_URL . 'assets/js/app.js',
 			[
 				'react',
-				'jquery',
 				'react-dom',
+				'jquery',
 				'wp-components',
 				'wp-hooks',
 				'wp-i18n',

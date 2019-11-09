@@ -73,33 +73,13 @@ class Elementor {
 		wp_enqueue_script( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/js/elementor-modal.js', [ 'jquery' ], filemtime( ANG_PLUGIN_DIR . 'assets/js/elementor-modal.js' ), false );
 		wp_enqueue_style( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/css/elementor-modal.css', [ 'dashicons' ], filemtime( ANG_PLUGIN_DIR . 'assets/css/elementor-modal.css' ) );
 
-		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? 'development' : 'production';
-
-		wp_deregister_script( 'react' );
-		wp_deregister_script( 'react-dom' );
-
-		wp_enqueue_script(
-			'react',
-			"https://cdn.jsdelivr.net/npm/react@16.8.4/umd/react.{$script_suffix}.min.js",
-			[],
-			'16.8.4',
-			true
-		);
-		wp_enqueue_script(
-			'react-dom',
-			"https://cdn.jsdelivr.net/npm/react-dom@16.8.4/umd/react-dom.{$script_suffix}.min.js",
-			[ 'react' ],
-			'16.8.4',
-			true
-		);
-
 		wp_enqueue_script(
 			'analogwp-app',
 			ANG_PLUGIN_URL . 'assets/js/app.js',
 			[
 				'react',
-				'jquery',
 				'react-dom',
+				'jquery',
 				'wp-components',
 				'wp-hooks',
 				'wp-i18n',
