@@ -3,6 +3,14 @@ jQuery( window ).on( 'elementor:init', function() {
 	const analog = window.analog = window.analog || {};
 	const elementorSettings = elementor.settings.page.model.attributes;
 
+	elementor.channels.editor.on( 'status:change', function(){
+		const button = jQuery( 'button[data-action="update_token"]' );
+
+		if ( button.attr('disabled') === 'disabled' ) {
+			button.attr( 'disabled', false );
+		}
+	});
+
 	// Holds post_id, if a Style Kit has been updated.
 	analog.style_kit_updated = false;
 	analog.sk_modal_shown = false;
