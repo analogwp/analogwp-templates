@@ -20,3 +20,4 @@ delete_transient( 'ang_license_message' );
 delete_transient( 'analogwp_template_info' );
 delete_transient( 'analog_stylekits' );
 wp_clear_scheduled_hook( 'analog/tracker/send_event' );
+\Elementor\Plugin::$instance->files_manager->clear_cache();
