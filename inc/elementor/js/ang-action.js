@@ -14,7 +14,7 @@ jQuery( window ).on( 'elementor:init', function() {
 	 * @return {boolean} True, or false.
 	 */
 	const eligibleKey = ( key ) => {
-		if ( key.startsWith( 'ang_action' ) || key.startsWith( 'post' ) || key.startsWith( 'preview' ) ) {
+		if ( key.startsWith( 'ang_action' ) || key.startsWith( 'post' ) || key.startsWith( 'preview' ) || key.startsWith( 'template' ) ) {
 			return false;
 		}
 
