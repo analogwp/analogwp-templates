@@ -173,6 +173,8 @@ class Colors extends Module {
 			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5,
 			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6' => 'color: {{VALUE}}',
 
+			'{{WRAPPER}} input#submit'                    => 'background-color: {{VALUE}};',
+
 			'{{WRAPPER}} *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item),
 			{{WRAPPER}} .elementor-tab-title.elementor-active,
 			{{WRAPPER}} .elementor-post-info__terms-list-item,
