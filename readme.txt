@@ -3,8 +3,8 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.3
-Stable tag: 1.3.13
-Tags: elementor, landing page, design, website builder, templates
+Stable tag: 1.3.14
+Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -99,6 +99,15 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.14 - November 11, 2019 =
+* Fix: Don't save template value from in SK
+* Fix: Post meta terms accent color
+* Tweak: Added SK accent color on Comment submit button
+* Tweak: Change SK imported popup text, redirect to SK panel after import
+* Improve: Update Style Kit button is now more consistent
+* Improve: Clear Elementor cache on uninstall
+* Improve: Use core version of React and ReactDOM
 
 = 1.3.13 - November 04, 2019 =
 * Fix: Issue with buttons taking accent color
