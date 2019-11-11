@@ -5,10 +5,10 @@ import Loader from '../icons/loader';
 import { NotificationConsumer } from '../Notifications';
 import Popup from '../popup';
 
-const { TextControl, Button } = wp.components;
+const { TextControl, Button, Dashicon } = wp.components;
 
 const { decodeEntities } = wp.htmlEntities;
-const { __, sprintf } = wp.i18n;
+const { __ } = wp.i18n;
 const { addQueryArgs } = wp.url;
 
 const Container = styled.section`
@@ -162,7 +162,7 @@ export default class StyleKits extends React.Component {
 				{ this.state.modalActive && (
 					<Popup
 						title={ decodeEntities( this.state.activeKit.title ) }
-						onRequestClose={ () => this.resetState() }
+						className="header-center"
 					>
 						{ this.state.hasError && (
 							<div>
@@ -210,15 +210,15 @@ export default class StyleKits extends React.Component {
 
 						{ ! this.state.hasError && this.state.importedKit && (
 							<React.Fragment>
-								<p>{ __( 'The Style Kit has been imported to your library.', 'ang' ) }</p>
-								<p>{ sprintf( __( '%s has been imported and is now available in the Style Kits dropdown', 'ang' ), this.state.activeKit.title ) }</p>
+								<p>{ __( 'The Style Kit has been imported and is now available in the list of the available Style Kits.', 'ang' ) }</p>
 								<p>
 									<a
 										className="ang-button"
 										target="_blank"
 										rel="noopener noreferrer"
+										onClick={ () => this.resetState() }
 										href={ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }
-									>{ __( 'Manage Style Kits', 'ang' ) }</a>
+									>{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" /></a>
 								</p>
 							</React.Fragment>
 						) }

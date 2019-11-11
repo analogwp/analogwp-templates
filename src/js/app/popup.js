@@ -58,6 +58,10 @@ const Header = styled.div`
     top: 0;
     background: #fff;
 
+	.header-center & {
+		justify-content: center;
+	}
+
 	h1 {
 		font-size: 18px;
 		font-weight: bold;
@@ -125,9 +129,11 @@ const Popup = ( props ) => {
 			<div className="inner">
 				<Header>
 					<h1>{ title }</h1>
-					<button className="button-plain" onClick={ () => onRequestClose() }>
-						{ __( 'Close', 'ang' ) } <Close />
-					</button>
+					{ onRequestClose && (
+						<button className="button-plain" onClick={ () => onRequestClose() }>
+							{ __( 'Close', 'ang' ) } <Close />
+						</button>
+					) }
 				</Header>
 
 				<Content>
