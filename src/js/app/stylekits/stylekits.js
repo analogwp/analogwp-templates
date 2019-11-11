@@ -8,7 +8,7 @@ import Popup from '../popup';
 const { TextControl, Button, Dashicon } = wp.components;
 
 const { decodeEntities } = wp.htmlEntities;
-const { __ } = wp.i18n;
+const { __, sprintf } = wp.i18n;
 const { addQueryArgs } = wp.url;
 
 const Container = styled.section`
@@ -36,6 +36,20 @@ const Container = styled.section`
     a {
     	color: var(--ang-accent);
     }
+
+	footer {
+		padding: 20px 35px;
+		font-size: 12px;
+		color: #4A5157;
+		background: #fff;
+		margin: 30px -35px -20px -35px;
+		border-radius: 3px;
+
+		a {
+			color: #5c32b6;
+			text-decoration: underline;
+		}
+	}
 `;
 
 const ChildContainer = styled.ul`
@@ -71,6 +85,14 @@ const initialState = {
 	hasError: false,
 	kitname: '',
 };
+
+const footer = sprintf(
+	__( '%s in WordPress dashboard.', 'ang' ),
+	sprintf(
+		`<a href="${ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }" target="_blank" rel="noopener noreferer">%s</a>`,
+		__( 'Manage your Style Kits', 'ang' )
+	)
+);
 
 export default class StyleKits extends React.Component {
 	static contextType = AnalogContext;
@@ -131,6 +153,16 @@ export default class StyleKits extends React.Component {
 	}
 
 	render() {
+		let successButtonProps = {
+			target: '_blank',
+			rel: 'noopener noreferrer',
+			href: addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ),
+		};
+
+		if ( ! Boolean( AGWP.is_settings_page ) ) {
+			successButtonProps = false;
+		}
+
 		return (
 			<Container>
 				<p>
@@ -212,14 +244,22 @@ export default class StyleKits extends React.Component {
 							<React.Fragment>
 								<p>{ __( 'The Style Kit has been imported and is now available in the list of the available Style Kits.', 'ang' ) }</p>
 								<p>
-									<a
+									<a // eslint-disable-line
 										className="ang-button"
-										target="_blank"
-										rel="noopener noreferrer"
-										onClick={ () => this.resetState() }
-										href={ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }
+										onClick={ ( e ) => {
+											this.resetState();
+
+											if ( ! Boolean( AGWP.is_settings_page ) ) {
+												e.preventDefault();
+												window.analogModal.hide();
+												analog.redirectToSection();
+											}
+										} }
+										{ ...successButtonProps }
 									>{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" /></a>
 								</p>
+
+								{ ! Boolean( AGWP.is_settings_page ) && <footer dangerouslySetInnerHTML={ { __html: footer } } /> }
 							</React.Fragment>
 						) }
 
