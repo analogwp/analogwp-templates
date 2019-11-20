@@ -88,27 +88,27 @@ function settings_page_init() {
  * @return void
  */
 function save_settings() {
-		global $current_tab, $current_section;
+	global $current_tab, $current_section;
 
-		// We should only save on the settings page.
-		if ( ! is_admin() || ! isset( $_GET['page'] ) || 'ang-settings' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
-			return;
-		}
-
-		// Include settings pages.
-		Admin_Settings::get_settings_pages();
-
-		// Get current tab/section.
-		$current_tab     = empty( $_GET['tab'] ) ? 'general' : sanitize_title( wp_unslash( $_GET['tab'] ) ); // WPCS: input var okay, CSRF ok.
-		$current_section = empty( $_REQUEST['section'] ) ? '' : sanitize_title( wp_unslash( $_REQUEST['section'] ) ); // WPCS: input var okay, CSRF ok.
-
-		// Save settings if data has been posted.
-		if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
-			Admin_Settings::save();
-		} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
-			Admin_Settings::save();
-		}
+	// We should only save on the settings page.
+	if ( ! is_admin() || ! isset( $_GET['page'] ) || 'ang-settings' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		return;
 	}
+
+	// Include settings pages.
+	Admin_Settings::get_settings_pages();
+
+	// Get current tab/section.
+	$current_tab     = empty( $_GET['tab'] ) ? 'general' : sanitize_title( wp_unslash( $_GET['tab'] ) ); // WPCS: input var okay, CSRF ok.
+	$current_section = empty( $_REQUEST['section'] ) ? '' : sanitize_title( wp_unslash( $_REQUEST['section'] ) ); // WPCS: input var okay, CSRF ok.
+
+	// Save settings if data has been posted.
+	if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
+		Admin_Settings::save();
+	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
+		Admin_Settings::save();
+	}
+}
 
 
 // Handle saving settings earlier than load-{page} hook to avoid race conditions in conditional menus.
