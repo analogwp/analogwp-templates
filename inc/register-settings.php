@@ -16,7 +16,7 @@ function register_menu() {
 	add_menu_page(
 		esc_html__( 'Style Kits for Elementor', 'ang' ),
 		esc_html__( 'Style Kits', 'ang' ),
-		'manage_options',
+		'read',
 		'analogwp_templates',
 		'Analog\Settings\settings_page',
 		ANG_PLUGIN_URL . 'assets/img/triangle.svg',
@@ -27,7 +27,7 @@ function register_menu() {
 		'analogwp_templates',
 		__( 'Style Kits Library', 'ang' ),
 		__( 'Templates', 'ang' ),
-		'manage_options',
+		'read',
 		'analogwp_templates'
 	);
 
@@ -35,7 +35,7 @@ function register_menu() {
 		'analogwp_templates',
 		__( 'Style Kits', 'ang' ),
 		__( 'Library', 'ang' ),
-		'manage_options',
+		'read',
 		admin_url( 'admin.php?page=analogwp_templates#stylekits' )
 	);
 
