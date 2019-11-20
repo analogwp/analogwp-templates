@@ -10,6 +10,10 @@ namespace Analog\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
+if ( class_exists( '\AnalogPro\Plugin' ) ) {
+	return;
+}
+
 /**
  * GoPro.
  */
