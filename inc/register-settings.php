@@ -13,10 +13,15 @@ namespace Analog\Settings;
  * @return void
  */
 function register_menu() {
+	$permissions = 'manage_options';
+	if ( has_filter( 'ang_user_roles_enabled', '__return_true' ) ) {
+		$permissions = 'read';
+	}
+
 	add_menu_page(
 		esc_html__( 'Style Kits for Elementor', 'ang' ),
 		esc_html__( 'Style Kits', 'ang' ),
-		'read',
+		$permissions,
 		'analogwp_templates',
 		'Analog\Settings\settings_page',
 		ANG_PLUGIN_URL . 'assets/img/triangle.svg',
@@ -27,7 +32,7 @@ function register_menu() {
 		'analogwp_templates',
 		__( 'Style Kits Library', 'ang' ),
 		__( 'Templates', 'ang' ),
-		'read',
+		$permissions,
 		'analogwp_templates'
 	);
 
@@ -35,7 +40,7 @@ function register_menu() {
 		'analogwp_templates',
 		__( 'Style Kits', 'ang' ),
 		__( 'Library', 'ang' ),
-		'read',
+		$permissions,
 		admin_url( 'admin.php?page=analogwp_templates#stylekits' )
 	);
 
