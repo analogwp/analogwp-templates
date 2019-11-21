@@ -176,7 +176,7 @@ class Colors extends Module {
 			'{{WRAPPER}} .comment-form input#submit'      => 'background-color: {{VALUE}};',
 			'.theme-hello-elementor .comment-form input#submit' => 'color: #fff; border: none;',
 
-			'{{WRAPPER}} *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item),
+			'{{WRAPPER}} *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item):not([role="link"]),
 			{{WRAPPER}} .elementor-tab-title.elementor-active,
 			{{WRAPPER}} .elementor-post-info__terms-list-item,
 			{{WRAPPER}} .elementor-post__title,
@@ -184,6 +184,7 @@ class Colors extends Module {
 			{{WRAPPER}} .elementor-heading-title a,
 			{{WRAPPER}} .elementor-post__read-more,
 			{{WRAPPER}} .elementor-image-box-title a,
+			{{WRAPPER}} a[role="link"],
 			{{WRAPPER}} .elementor-icon-box-title a'      => 'color: {{VALUE}};',
 
 			'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
