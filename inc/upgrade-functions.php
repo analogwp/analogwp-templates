@@ -271,8 +271,14 @@ function version_1_3_15_upgrades() {
 		$settings = get_post_meta( $id, $key, true );
 		$settings = json_decode( $settings, ARRAY_A );
 
+		// Remove "Page Template" setting.
 		if ( isset( $settings['template'] ) ) {
 			unset( $settings['template'] );
+		}
+
+		// Remove "Background Image" setting.
+		if ( isset( $settings['background_image'] ) ) {
+			unset( $settings['background_image'] );
 		}
 
 		update_post_meta( $id, $key, wp_json_encode( $settings ) );
