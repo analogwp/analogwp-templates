@@ -268,7 +268,7 @@ class Utils extends Base {
 			 * 2. When there is a global style kit active or either blank. We return all Elementor posts.
 			 */
 			if ( $kit_id ) {
-				if ( (int) $settings['ang_action_tokens'] === (int) $kit_id ) {
+				if ( isset( $settings['ang_action_tokens'] ) && (int) $settings['ang_action_tokens'] === (int) $kit_id ) {
 					$posts[] = $post_id;
 				}
 			} elseif ( ! $kit_id && '' !== self::get_global_kit_id() ) {
