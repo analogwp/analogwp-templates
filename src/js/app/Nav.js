@@ -29,7 +29,7 @@ const List = styled.ul`
 			bottom: -29px;
 			border-style: solid;
 			border-width: 0 10px 10px 10px;
-			border-color: transparent transparent #E3E3E3 transparent;
+			border-color: transparent transparent #fff transparent;
 			left: 50%;
 			transform: translateX(-50%);
 
