@@ -61,6 +61,10 @@ function do_automatic_upgrades() {
 		Utils::clear_elementor_cache();
 	}
 
+	if ( version_compare( $installed_version, '1.3.15', '<' ) ) {
+		version_1_3_15_upgrades();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
@@ -244,4 +248,35 @@ function ang_v138_upgrades() {
 
 	delete_transient( 'analog_stylekits' );
 	delete_transient( 'analogwp_template_info' );
+}
+
+/**
+ * Version 1.3.15 upgrades.
+ *
+ * @since 1.3.15
+ */
+function version_1_3_15_upgrades() {
+	$query_args = [
+		'post_type'      => apply_filters( 'analog/stylekit/posttypes', $post_types ),
+		'post_status'    => 'any',
+		'meta_key'       => '_elementor_page_settings',
+		'meta_values'    => [ 'ang_action_tokens' ],
+		'meta_compare'   => 'IN',
+		'fields'         => 'ids',
+		'posts_per_page' => -1,
+	];
+
+	$query = new \WP_Query( $query_args );
+	$key   = '_elementor_page_settings';
+	foreach ( $query->posts as $id ) {
+		$settings = get_post_meta( $id, $key, true );
+
+		if ( isset( $settings['template'] ) ) {
+			unset( $settings['template'] );
+		}
+
+		update_post_meta( $id, $key, $settings );
+	}
+
+	Utils::clear_elementor_cache();
 }
