@@ -13,10 +13,15 @@ namespace Analog\Settings;
  * @return void
  */
 function register_menu() {
+	$permission = 'manage_options';
+	if ( has_filter( 'ang_user_roles_enabled', '__return_true' ) ) {
+		$permission = 'read';
+	}
+
 	add_menu_page(
 		esc_html__( 'Style Kits for Elementor', 'ang' ),
 		esc_html__( 'Style Kits', 'ang' ),
-		'manage_options',
+		$permission,
 		'analogwp_templates',
 		'Analog\Settings\settings_page',
 		ANG_PLUGIN_URL . 'assets/img/triangle.svg',
@@ -27,7 +32,7 @@ function register_menu() {
 		'analogwp_templates',
 		__( 'Style Kits Library', 'ang' ),
 		__( 'Templates', 'ang' ),
-		'manage_options',
+		$permission,
 		'analogwp_templates'
 	);
 
@@ -35,7 +40,7 @@ function register_menu() {
 		'analogwp_templates',
 		__( 'Style Kits', 'ang' ),
 		__( 'Library', 'ang' ),
-		'manage_options',
+		$permission,
 		admin_url( 'admin.php?page=analogwp_templates#stylekits' )
 	);
 
@@ -88,27 +93,27 @@ function settings_page_init() {
  * @return void
  */
 function save_settings() {
-		global $current_tab, $current_section;
+	global $current_tab, $current_section;
 
-		// We should only save on the settings page.
-		if ( ! is_admin() || ! isset( $_GET['page'] ) || 'ang-settings' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
-			return;
-		}
-
-		// Include settings pages.
-		Admin_Settings::get_settings_pages();
-
-		// Get current tab/section.
-		$current_tab     = empty( $_GET['tab'] ) ? 'general' : sanitize_title( wp_unslash( $_GET['tab'] ) ); // WPCS: input var okay, CSRF ok.
-		$current_section = empty( $_REQUEST['section'] ) ? '' : sanitize_title( wp_unslash( $_REQUEST['section'] ) ); // WPCS: input var okay, CSRF ok.
-
-		// Save settings if data has been posted.
-		if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
-			Admin_Settings::save();
-		} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
-			Admin_Settings::save();
-		}
+	// We should only save on the settings page.
+	if ( ! is_admin() || ! isset( $_GET['page'] ) || 'ang-settings' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		return;
 	}
+
+	// Include settings pages.
+	Admin_Settings::get_settings_pages();
+
+	// Get current tab/section.
+	$current_tab     = empty( $_GET['tab'] ) ? 'general' : sanitize_title( wp_unslash( $_GET['tab'] ) ); // WPCS: input var okay, CSRF ok.
+	$current_section = empty( $_REQUEST['section'] ) ? '' : sanitize_title( wp_unslash( $_REQUEST['section'] ) ); // WPCS: input var okay, CSRF ok.
+
+	// Save settings if data has been posted.
+	if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
+		Admin_Settings::save();
+	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
+		Admin_Settings::save();
+	}
+}
 
 
 // Handle saving settings earlier than load-{page} hook to avoid race conditions in conditional menus.
