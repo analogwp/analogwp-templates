@@ -16,6 +16,15 @@ const Container = styled.section`
 		font-size: 16px;
 		line-height: 24px;
 	}
+	> .tab-description {
+		position: absolute;
+		top: 0;
+		background: #fff;
+		left: 0;
+		right: 0;
+		margin: 0 !important;
+		padding: 20px;
+	}
 	.title {
 		padding: 15px;
 		display: flex;
@@ -56,7 +65,7 @@ const ChildContainer = styled.ul`
 	display: grid;
     grid-template-columns: repeat(auto-fit,minmax(280px,280px));
     grid-gap: 25px;
-    margin: 40px 0 0;
+    margin: 75px 0 0;
     padding: 0;
 
     > li {
@@ -165,9 +174,9 @@ export default class StyleKits extends React.Component {
 
 		return (
 			<Container>
-				<p>
+				<p className="tab-description">
 					{ __( 'These are some Style Kit presets that you can use as a starting point. Once you import a Style Kit, it will be added to your', 'ang' ) } <a href={ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }>{ __( 'Style Kits list', 'ang' ) }</a>.
-					&nbsp;{ __( 'You will then be able to apply on any page.', 'ang' ) }
+					&nbsp;{ __( 'You will then be able to apply it on any Elementor page.', 'ang' ) }
 					&nbsp;<a href="https://docs.analogwp.com/article/590-style-kit-library" target="_blank" rel="noopener noreferrer">{ __( 'Learn more', 'ang' ) }</a>.
 				</p>
 				<ChildContainer>
