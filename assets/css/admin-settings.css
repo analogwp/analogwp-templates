@@ -404,3 +404,43 @@ input[type='checkbox'] {
 .ang.extensions .subsubsub {
 	margin-bottom: 40px;
 }
+
+
+.collapsible {
+	background-color: #eee;
+	cursor: pointer;
+	padding: 8px 8px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 16px;
+	margin-bottom: 5px;
+}
+
+.collapsible:after, .collapsible.active:after {
+	font-family: 'Dashicons';
+	font-size: 20px;
+	color: #000;
+	float: right;
+	margin-left: 5px;
+}
+.collapsible:after {
+	content: "\f140";
+}
+.collapsible.active:after {
+	content: "\f142";;
+}
+
+.collapsible.active, .collapsible:hover {
+	background-color: #ccc;
+}
+
+.collapsible-content {
+	padding: 0 18px;
+	background-color: white;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+}
+

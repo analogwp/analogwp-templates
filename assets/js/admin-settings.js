@@ -101,5 +101,21 @@
 				.trigger( 'change' );
 			return false;
 		} );
+
+		const collBtn = document.getElementsByClassName( 'collapsible' );
+		let i;
+
+		for ( i = 0; i < collBtn.length; i++ ) {
+			collBtn[ i ].addEventListener( 'click', function( e ) {
+				e.preventDefault();
+				this.classList.toggle( 'active' );
+				const content = this.nextElementSibling;
+				if ( content.style.maxHeight ) {
+					content.style.maxHeight = null;
+				} else {
+					content.style.maxHeight = content.scrollHeight + 'px';
+				}
+			} );
+		}
 	} );
 }( jQuery, ang_settings_data, wp ) );
