@@ -238,8 +238,8 @@ class Local extends Base {
 		if ( is_array( $template['tokens'] ) ) {
 			$template['tokens']['ang_recently_imported'] = 'yes';
 		}
-		\update_post_meta( $new_post_id, '_elementor_data', $template['content'] );
-		\update_post_meta( $new_post_id, '_elementor_page_settings', $template['tokens'] );
+		\update_post_meta( $new_post_id, '_elementor_data', wp_slash( $template['content'] ) );
+		\update_post_meta( $new_post_id, '_elementor_page_settings', wp_slash( $template['tokens'] ) );
 		\update_post_meta( $new_post_id, '_elementor_template_type', $template['type'] );
 		\update_post_meta( $new_post_id, '_elementor_edit_mode', 'builder' );
 
@@ -502,7 +502,7 @@ class Local extends Base {
 			return new WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'ang' ) );
 		}
 
-		$data = \update_post_meta( $id, '_tokens_data', $tokens );
+		$data = \update_post_meta( $id, '_tokens_data', wp_slash( $tokens ) );
 
 		do_action( 'analog/token/update', $id, $data );
 

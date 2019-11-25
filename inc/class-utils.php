@@ -321,7 +321,7 @@ class Utils extends Base {
 
 			$tokens['ang_action_tokens'] = $kit_id;
 
-			update_post_meta( $post_id, '_elementor_page_settings', $tokens );
+			update_post_meta( $post_id, '_elementor_page_settings', wp_slash( $tokens ) );
 		}
 
 		return true;

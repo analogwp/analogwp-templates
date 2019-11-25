@@ -210,7 +210,7 @@ function ang_v13_upgrades() {
 				}
 			}
 
-			update_post_meta( $post->ID, '_tokens_data', wp_json_encode( $tokens ) );
+			update_post_meta( $post->ID, '_tokens_data', wp_slash( wp_json_encode( $tokens ) ) );
 		}
 	}
 
@@ -231,7 +231,7 @@ function ang_v13_upgrades() {
 				}
 			}
 
-			update_post_meta( $post_id, '_elementor_page_settings', $settings );
+			update_post_meta( $post_id, '_elementor_page_settings', wp_slash( $settings ) );
 		}
 	}
 }
@@ -281,7 +281,7 @@ function version_1_3_15_upgrades() {
 			unset( $settings['background_image'] );
 		}
 
-		update_post_meta( $id, $key, wp_json_encode( $settings ) );
+		update_post_meta( $id, $key, wp_slash( wp_json_encode( $settings ) ) );
 	}
 
 	Utils::clear_elementor_cache();
