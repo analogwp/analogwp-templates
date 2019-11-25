@@ -184,7 +184,7 @@ class Colors extends Module {
 			{{WRAPPER}} .elementor-heading-title a,
 			{{WRAPPER}} .elementor-post__read-more,
 			{{WRAPPER}} .elementor-image-box-title a,
-			{{WRAPPER}} a[role="link"],
+			{{WRAPPER}} a:not([class]),
 			{{WRAPPER}} .elementor-icon-box-title a'      => 'color: {{VALUE}};',
 
 			'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
