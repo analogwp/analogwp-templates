@@ -249,8 +249,8 @@ class Colors extends Module {
 				'classes'     => 'ang-description-wide',
 				'selectors'   => [
 					'{{WRAPPER}},{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
-					':root, {{WRAPPER}} .sk-text-light' => '--ang_color_text_light: {{VALUE}}',
-					'{{WRAPPER}} .sk-text-light'        => 'color: {{VALUE}}',
+					'{{WRAPPER}}, {{WRAPPER}} .sk-text-light' => '--ang_color_text_light: {{VALUE}}',
+					'{{WRAPPER}} .sk-text-light' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sk-text-light .elementor-heading-title' => 'color: {{VALUE}}',
 				],
 			]
@@ -314,8 +314,8 @@ class Colors extends Module {
 				'description' => __( 'This color will apply on the text in a section or column with the Dark Background Color, as it has been set above.', 'ang' ),
 				'classes'     => 'ang-description-wide',
 				'selectors'   => [
-					':root, {{WRAPPER}} .sk-text-dark' => '--ang_color_text_dark: {{VALUE}}',
-					'{{WRAPPER}} .sk-text-dark'        => 'color: {{VALUE}}',
+					'{{WRAPPER}}, {{WRAPPER}} .sk-text-dark' => '--ang_color_text_dark: {{VALUE}}',
+					'{{WRAPPER}} .sk-text-dark' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sk-text-dark .elementor-heading-title' => 'color: {{VALUE}}',
 				],
 			]
