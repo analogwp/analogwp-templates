@@ -276,6 +276,20 @@ class Admin_Settings {
 					}
 					break;
 
+				// Collapsible content starts.
+				case 'collapsiblestart':
+					if ( ! empty( $value['title'] ) ) {
+						echo '<button class="button-title ' . esc_attr( $value['class'] ) . '">' . esc_html( $value['title'] ) . '</button>';
+					}
+					if ( ! empty( $value['id'] ) ) {
+						echo '<div class="collapsible-content" id="' . esc_attr( $value['id'] ) . '">';
+					}
+					break;
+
+				case 'collapsibleend':
+					echo '</div>';
+					break;
+
 				// Section Ends.
 				case 'sectionend':
 					if ( ! empty( $value['id'] ) ) {
