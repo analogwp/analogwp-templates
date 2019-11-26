@@ -117,8 +117,7 @@
 				}
 			} );
 			if ( i === 0 ) {
-				const collFirst = $( '.collapsible' )[ 0 ];
-				$( collFirst ).trigger( 'click' );
+				$( collBtn[ i ] ).trigger( 'click' );
 			}
 		}
 	} );
