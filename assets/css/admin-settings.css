@@ -407,17 +407,18 @@ input[type='checkbox'] {
 
 
 .collapsible {
-	background-color: #eee;
-	cursor: pointer;
-	padding: 8px 8px;
-	width: 100%;
 	border: none;
-	text-align: left;
+	border-top: 1px solid#e2e4e7;
+	border-bottom: 1px solid#e2e4e7;
+	background-color: #fff;
+	padding: 15px;
 	outline: none;
-	font-size: 16px;
-	margin-bottom: 5px;
+	width: 100%;
+	font-weight: 600;
+	text-align: left;
+	box-shadow: none;
+	cursor: pointer;
 }
-
 .collapsible:after, .collapsible.active:after {
 	font-family: 'Dashicons';
 	font-size: 20px;
@@ -433,7 +434,7 @@ input[type='checkbox'] {
 }
 
 .collapsible.active, .collapsible:hover {
-	background-color: #ccc;
+	background-color: #fff;
 }
 
 .collapsible-content {
