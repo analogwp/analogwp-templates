@@ -116,6 +116,10 @@
 					content.style.maxHeight = content.scrollHeight + 'px';
 				}
 			} );
+			if ( i === 0 ) {
+				const collFirst = $( '.collapsible' )[ 0 ];
+				$( collFirst ).trigger( 'click' );
+			}
 		}
 	} );
 }( jQuery, ang_settings_data, wp ) );
