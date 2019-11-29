@@ -320,8 +320,8 @@ class Utils extends Base {
 			$tokens = json_decode( $token, ARRAY_A );
 
 			$tokens['ang_action_tokens'] = $kit_id;
-
-			update_post_meta( $post_id, '_elementor_page_settings', wp_slash( $tokens ) );
+			
+			self::update_style_kit_for_post( $post_id, $tokens );
 		}
 
 		return true;
@@ -485,6 +485,68 @@ class Utils extends Base {
 		);
 
 		return $data;
+	}
+
+	/**
+	 * This function strips off the allowed keys that are part of a Style Kit.
+	 *
+	 * @param array $settings Post Meta settings.
+	 *
+	 * @since 1.3.15
+	 * @return array Modified settings array.
+	 */
+	public static function remove_stored_kit_keys( $settings ) {
+		/**
+		 * List of settings key prefixes that needs to be removed prior to updating an SK.
+		 *
+		 * @since 1.3.15
+		 */
+		$allowed = apply_filters(
+			'analog/stylekit/allowed/setting/prefixes',
+			[ 'ang_', 'hide', 'background_background', 'background_color', 'background_grad', 'custom_css' ]
+		);
+
+		$keep = array_filter(
+			$settings,
+			function( $key ) use ( $allowed ) {
+				foreach ( $allowed as $allow ) {
+					if ( strpos( $key, $allow ) === 0 ) {
+						return false;
+					}
+				}
+
+				return true;
+			},
+			ARRAY_FILTER_USE_KEY
+		);
+
+		return $keep;
+	}
+
+	/**
+	 * Update Style Kit for a specific post.
+	 *
+	 * @param int   $post_id Post ID for which Style Kit will be updated.
+	 * @param array $tokens Style Kit data.
+	 *
+	 * @since 1.3.15
+	 * @return void
+	 */
+	public static function update_style_kit_for_post( int $post_id, array $tokens ) {
+		$page_settings = \get_post_meta( $post_id, '_elementor_page_settings', true );
+
+		$allowed_types = [ 'post', 'wp-post', 'page', 'wp-page', 'global-widget', 'popup', 'section', 'header', 'footer', 'single', 'archive' ];
+
+		$document_type = \get_post_meta( $post_id, '_elementor_template_type', true );
+
+		if ( ! $document_type || ! in_array( $document_type, $allowed_types, true ) ) {
+			return;
+		}
+
+		$preserved_settings = self::remove_stored_kit_keys( $page_settings );
+		$modified_settings  = array_merge( $preserved_settings, $tokens );
+
+		\update_post_meta( $post_id, '_elementor_page_settings', wp_slash( $modified_settings ), true );
 	}
 }
 
