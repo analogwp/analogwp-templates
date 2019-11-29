@@ -101,7 +101,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 == Changelog ==
 
 = 1.3.15 - November 29, 2019 =
-Fix: Custom CSS inconsistency between saving SKs, properly slash data before saving in post meta
+* Fix: Custom CSS inconsistency between saving SKs, properly slash data before saving in post meta
 * Fix: Remove stored template values from existing SKs
 * Fix: Issue with undefined array key in a rare cases
 * Fix: Link color within content not respecting inline color
