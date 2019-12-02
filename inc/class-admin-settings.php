@@ -507,8 +507,10 @@ class Admin_Settings {
 												value="1"
 												<?php checked( @$option_value[ $role_slug ], true ); //phpcs:ignore ?>
 											/>
-											<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
-											<?php echo esc_html( $role_data['name'] ); ?>
+											<span>
+												<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
+											</span>
+											<p><?php echo esc_html( $role_data['name'] ); ?></p>
 										</label>
 									</li>
 									<?php endforeach; ?>
