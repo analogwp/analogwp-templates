@@ -12,7 +12,6 @@ use \Analog\Base;
 use Analog\Classes\Import_Image;
 use \Analog\Options;
 use Analog\Utils;
-use Elementor\Core\Settings\Manager;
 use Elementor\TemplateLibrary\Analog_Importer;
 use WP_Error;
 use WP_Query;
@@ -75,8 +74,11 @@ class Local extends Base {
 			'/kits'                    => [
 				WP_REST_Server::READABLE => 'get_kits',
 			],
-			'import/kit'               => [
+			'/import/kit'              => [
 				WP_REST_Server::CREATABLE => 'handle_kit_import',
+			],
+			'/blocks'                  => [
+				WP_REST_Server::READABLE => 'get_blocks',
 			],
 		];
 
@@ -634,6 +636,24 @@ class Local extends Base {
 		} else {
 			return $tokens;
 		}
+	}
+
+	/**
+	 * Fetch a list of "Blocks" available from AnalogWP.com.
+	 *
+	 * @since 1.3.4
+	 * @param WP_REST_Request $request Request object.
+	 *
+	 * @return mixed
+	 */
+	public function get_blocks( WP_REST_Request $request ) {
+		$force_update = $request->get_param( 'force_update' );
+
+		if ( $force_update ) {
+			return Remote::get_instance()->get_blocks( true );
+		}
+
+		return Remote::get_instance()->get_blocks();
 	}
 }
 

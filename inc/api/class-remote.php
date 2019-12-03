@@ -37,6 +37,14 @@ class Remote extends Base {
 	private static $kits_endpoint = 'https://analogwp.com/wp-json/analogwp/v1/stylekits/';
 
 	/**
+	 * Blocks API endpoint.
+	 *
+	 * @since 1.4.0
+	 * @var string API endpoint for style kits.
+	 */
+	private static $blocks_endpoint = 'https://analogwp.com/wp-json/analogwp/v1/blocks/';
+
+	/**
 	 * Common API call args.
 	 *
 	 * @var array
@@ -136,6 +144,38 @@ class Remote extends Base {
 
 			set_transient( $transient_key, $response, DAY_IN_SECONDS * 2 );
 		}
+		return get_transient( $transient_key );
+	}
+
+	/**
+	 * Fetch blocks list from remote endpoint.
+	 *
+	 * @param bool $force_update Where to forcee the request.
+	 * @since 1.4.0
+	 * @return mixed
+	 */
+	public function get_blocks( $force_update = false ) {
+		$transient_key = 'analog_blocks';
+
+		if ( ! get_transient( $transient_key ) || $force_update ) {
+			global $wp_version;
+
+			$body_args = apply_filters( 'analog/api/get_blocks/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
+
+			$request = wp_remote_get(
+				self::$blocks_endpoint,
+				[
+					'timeout'    => $force_update ? 25 : 10,
+					'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
+					'body'       => $body_args,
+				]
+			);
+
+			$response = json_decode( wp_remote_retrieve_body( $request ), true );
+
+			set_transient( $transient_key, $response, DAY_IN_SECONDS * 2 );
+		}
+
 		return get_transient( $transient_key );
 	}
 
