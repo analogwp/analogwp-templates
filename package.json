@@ -24,6 +24,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "react-select": "3.0.8",
+    "react-transition-group": "^4.3.0",
     "react-waypoint": "^9.0.0",
     "styled-components": "^4.1.3"
   },
