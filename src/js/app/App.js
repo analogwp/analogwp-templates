@@ -181,6 +181,25 @@ const Analog = styled.div`
 		text-decoration: none;
 		font-weight: bold;
 	}
+
+	.slide-in-enter {
+		opacity: 0;
+		transform: translateY(-400px);
+	}
+	.slide-in-enter-active {
+		opacity: 1;
+		transform: translateY(0);
+		transition: opacity 150ms, transform 150ms;
+	}
+	.slide-in-exit {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	.slide-in-exit-active {
+		opacity: 0;
+		transform: translateY(-400px);
+		transition: opacity 150ms, transform 150ms;
+	}
 `;
 
 const Content = styled.div`

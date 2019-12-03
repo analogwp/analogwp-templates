@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { CSSTransition } from 'react-transition-group';
 
 import { requestBlocksList } from '../api';
 import Empty from '../helpers/Empty';
@@ -116,9 +117,14 @@ export default class Blocks extends Component {
 					</Categories>
 				) }
 
-				{ this.state.blocks && this.state.category && (
+				<CSSTransition
+					in={ !! this.state.category }
+					timeout={ 150 }
+					classNames="slide-in"
+					unmountOnExit
+				>
 					<BlockList blocks={ this.state.blocks } category={ this.state.category } />
-				) }
+				</CSSTransition>
 			</Fragment>
 		);
 	}

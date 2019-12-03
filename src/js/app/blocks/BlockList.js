@@ -2,10 +2,10 @@ const BlockList = ( { blocks, category } ) => {
 	const filteredBlocks = blocks.filter( block => block.tags.indexOf( category ) > -1 );
 
 	return (
-		<ul>
+		<ul className="slide-in">
 			{ filteredBlocks.map( ( block ) => (
 				<li key={ block.id }>
-					{ block.thumbnail && (
+					{ block.thumbnail !== '0' && (
 						<figure>
 							<img src={ block.thumbnail } loading="lazy" alt={ block.title } />
 						</figure>
