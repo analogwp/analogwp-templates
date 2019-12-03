@@ -65,6 +65,7 @@ const Count = styled.span`
 const ITEMS = [
 	{ key: 'templates', label: __( 'Templates', 'ang' ), show: true },
 	{ key: 'stylekits', label: __( 'Style Kits', 'ang' ), show: true },
+	{ key: 'blocks', label: __( 'Blocks', 'ang' ), show: true },
 ];
 
 // Filter nav items to show/hide between App and Elementor page.
