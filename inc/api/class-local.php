@@ -238,7 +238,7 @@ class Local extends Base {
 		if ( is_array( $template['tokens'] ) ) {
 			$template['tokens']['ang_recently_imported'] = 'yes';
 		}
-		\update_post_meta( $new_post_id, '_elementor_data', wp_slash( $template['content'] ) );
+		\update_post_meta( $new_post_id, '_elementor_data', $template['content'] );
 		\update_post_meta( $new_post_id, '_elementor_page_settings', wp_slash( $template['tokens'] ) );
 		\update_post_meta( $new_post_id, '_elementor_template_type', $template['type'] );
 		\update_post_meta( $new_post_id, '_elementor_edit_mode', 'builder' );
