@@ -264,6 +264,49 @@ class Local extends Base {
 	}
 
 	/**
+	 * Creates a 'Section' for Elementor.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @uses wp_insert_post()
+	 *
+	 * @param array  $block Block details.
+	 * @param array  $data Block content.
+	 * @param string $method Import method.
+	 *
+	 * @return int Post ID.
+	 */
+	private function create_section( array $block, $data, $method ) {
+		$args = [
+			'post_title'   => 'AnalogWP: ' . $block['title'],
+			'post_type'    => 'elementor_library',
+			'post_status'  => 'publish',
+			'post_content' => '',
+		];
+
+		$post_id = wp_insert_post( $args );
+
+		if ( $post_id && ! is_wp_error( $post_id ) ) {
+			\update_post_meta( $post_id, '_elementor_data', wp_slash( wp_json_encode( $data['content'] ) ) );
+			\update_post_meta( $post_id, '_elementor_edit_mode', 'builder' );
+			\update_post_meta( $post_id, '_elementor_template_type', 'section' );
+			\update_post_meta( $post_id, '_wp_page_template', 'default' );
+
+			\update_post_meta( $post_id, '_ang_import_type', $method );
+			\update_post_meta(
+				$post_id,
+				'_ang_template_id',
+				[
+					'site_id' => $block['siteID'],
+					'id'      => $block['id'],
+				]
+			);
+		}
+
+		return (int) $post_id;
+	}
+
+	/**
 	 * Handle template imports from settings page.
 	 *
 	 * @param WP_REST_Request $request Request object.
@@ -679,6 +722,21 @@ class Local extends Base {
 		return new WP_REST_Response( $data, 200 );
 	}
 
+	/**
+	 * Process block import functionaliities.
+	 *  1. Imports the remote template.
+	 *  2. Then with retrieved content, creates a page.
+	 *
+	 * @uses \Analog\API\Remote::::get_instance()->get_block_content()
+	 * @uses \Elementor\TemplateLibrary\Analog_Importer
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param array  $block Block data.
+	 * @param string $method Import method.
+	 *
+	 * @return int|WP_Error
+	 */
 	protected function process_block_import( $block, $method = 'library' ) {
 		$license = false;
 
@@ -704,7 +762,9 @@ class Local extends Base {
 			$raw_data
 		);
 
-		return $data;
+		$page_id = $this->create_section( $block, $data, $method );
+
+		return $page_id;
 	}
 }
 
