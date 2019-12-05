@@ -35,13 +35,18 @@ class Analog_Importer extends Source_Remote {
 	 *
 	 * @inheritDoc
 	 *
-	 * @param array  $args    Custom template arguments.
-	 * @param string $context Optional. The context. Default is `display`.
+	 * @param array       $args    Custom template arguments.
+	 * @param string      $context Optional. The context. Default is `display`.
+	 * @param object|bool $data Template/block import data.
+	 *
+	 * @since 1.4.0 $data was added.
 	 *
 	 * @return array Remote Template data.
 	 */
-	public function get_data( array $args, $context = 'display' ) {
-		$data = Remote::get_instance()->get_template_content( $args['template_id'], $args['license'], $args['method'], $args['site_id'] );
+	public function get_data( array $args, $context = 'display', $data = false ) {
+		if ( ! $data ) {
+			$data = Remote::get_instance()->get_template_content( $args['template_id'], $args['license'], $args['method'], $args['site_id'] );
+		}
 
 		if ( is_wp_error( $data ) ) {
 			return $data;
@@ -68,6 +73,8 @@ class Analog_Importer extends Source_Remote {
 		 * During json encode/decode between preview/demo, isInner is usually converted into string.
 		 * This helper function converts it back to Boolean so Elementor doesn't changes this control
 		 * into an "Inner Section".
+		 *
+		 * @since 1.3.8
 		 */
 		$data['content'] = Utils::convert_string_to_boolean( $data['content'] );
 
