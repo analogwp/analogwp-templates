@@ -180,6 +180,61 @@ class Remote extends Base {
 	}
 
 	/**
+	 * Get Block content.
+	 *
+	 * @param int      $block_id    Block ID.
+	 * @param string   $license     Customer license.
+	 * @param string   $method      Whether being imported from Elementor, or library.
+	 * @param int|bool $site_id     Site ID to fetch Remote template from.
+	 * @return mixed|\WP_Error
+	 */
+	public function get_block_content( $block_id, $license, $method, $site_id ) {
+		$url = self::$blocks_endpoint . $block_id;
+
+		$body_args = apply_filters( 'analog/api/get_block_content/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
+		$body_args = array_merge(
+			$body_args,
+			[
+				'license' => $license,
+				'url'     => home_url(),
+				'method'  => $method,
+				'site_id' => $site_id,
+			]
+		);
+
+		$response = wp_remote_get(
+			$url,
+			[
+				'timeout' => 40,
+				'body'    => $body_args,
+			]
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$response_code = (int) wp_remote_retrieve_response_code( $response );
+		if ( 200 !== $response_code ) {
+			$error = json_decode( wp_remote_retrieve_body( $response ), true );
+
+			return new \WP_Error( $error['code'], $error['message'] );
+		}
+
+		$block_content = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( isset( $block_content['error'] ) ) {
+			return new \WP_Error( 'response_error', $block_content['error'] );
+		}
+
+		if ( empty( $block_content['content'] ) ) {
+			return new \WP_Error( 'block_data_error', 'An invalid data was returned.' );
+		}
+
+		return $block_content;
+	}
+
+	/**
 	 * Get Style Kit tokens data from remote server.
 	 *
 	 * @since 1.3.4

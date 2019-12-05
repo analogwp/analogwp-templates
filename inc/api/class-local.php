@@ -8,9 +8,9 @@
 namespace Analog\API;
 
 use Analog\Analog_Templates;
-use \Analog\Base;
+use Analog\Base;
 use Analog\Classes\Import_Image;
-use \Analog\Options;
+use Analog\Options;
 use Analog\Utils;
 use Elementor\TemplateLibrary\Analog_Importer;
 use WP_Error;
@@ -79,6 +79,9 @@ class Local extends Base {
 			],
 			'/blocks'                  => [
 				WP_REST_Server::READABLE => 'get_blocks',
+			],
+			'/blocks/insert'           => [
+				WP_REST_Server::CREATABLE => 'get_blocks_content',
 			],
 		];
 
@@ -654,6 +657,54 @@ class Local extends Base {
 		}
 
 		return Remote::get_instance()->get_blocks();
+	}
+
+	/**
+	 * Handle remote "Blocks" import.
+	 *
+	 * @since 1.3.4
+	 * @param WP_REST_Request $request Request object.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function get_blocks_content( WP_REST_Request $request ) {
+		$block  = $request->get_param( 'block' );
+		$method = $request->get_param( 'method' );
+
+		if ( ! $block ) {
+			return new WP_Error( 'block_import_error', __( 'Invalid Block ID.', 'ang' ) );
+		}
+
+		$data = $this->process_block_import( $block, $method );
+
+		return new WP_REST_Response( $data, 200 );
+	}
+
+	protected function process_block_import( $block, $method = 'library' ) {
+		$license = false;
+
+		if ( $block['isPro'] ) {
+			// Fetch license only when necessary, throw error if not found.
+			$license = Options::get_instance()->get( 'ang_license_key' );
+			if ( empty( $license ) ) {
+				return new WP_Error( 'import_error', 'Invalid license provided.' );
+			}
+		}
+
+		$raw_data = Remote::get_instance()->get_block_content( $block['id'], $license, $method, $block['siteID'] );
+		$importer = new Analog_Importer();
+
+		$data = $importer->get_data(
+			[
+				'editor_post_id' => false,
+				'options'        => [
+					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
+				],
+			],
+			'display',
+			$raw_data
+		);
+
+		return $data;
 	}
 }
 
