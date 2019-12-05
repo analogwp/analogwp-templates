@@ -46,6 +46,14 @@ function register_menu() {
 
 	add_submenu_page(
 		'analogwp_templates',
+		__( 'Blocks', 'ang' ),
+		__( 'Blocks', 'ang' ),
+		$permission,
+		admin_url( 'admin.php?page=analogwp_templates#blocks' )
+	);
+
+	add_submenu_page(
+		'analogwp_templates',
 		__( 'Style Kits Settings', 'ang' ),
 		__( 'Settings', 'ang' ),
 		'manage_options',
