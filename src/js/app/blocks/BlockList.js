@@ -110,7 +110,8 @@ const List = styled.ul`
 	}
 `;
 
-const BlockList = ( { blocks, category } ) => {
+const BlockList = ( { state, importBlock } ) => {
+	const { category, blocks } = state;
 	const filteredBlocks = blocks.filter( block => block.tags.indexOf( category ) > -1 );
 	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
@@ -127,7 +128,7 @@ const BlockList = ( { blocks, category } ) => {
 
 						<div className="actions">
 							{ ! block.isPro && (
-								<button className="ang-button" onClick={ () => console.log('should import or bring popup') }>
+								<button className="ang-button" onClick={ () => importBlock( block ) }>
 									{ __( 'Import', 'ang' ) }
 								</button>
 							) }

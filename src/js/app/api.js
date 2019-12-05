@@ -67,6 +67,17 @@ export async function requestStyleKitData( kit ) {
 	} ).then( response => response );
 }
 
+export async function requestBlockContent( block, method ) {
+	return await apiFetch( {
+		path: '/agwp/v1/blocks/insert',
+		method: 'post',
+		data: {
+			block,
+			method,
+		},
+	} ).then( response => response );
+}
+
 export async function requestImportLayout( template ) {
 	const editorId =
 		'undefined' !== typeof ElementorConfig ? ElementorConfig.post_id : false;

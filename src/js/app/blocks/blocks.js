@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 
-import { requestBlocksList } from '../api';
+import { requestBlocksList, requestBlockContent } from '../api';
 import Empty from '../helpers/Empty';
 import BlockList from './BlockList';
 import Filters from './Filters';
+import Popup from '../popup';
+import Loader from '../icons/loader';
 
 const { __ } = wp.i18n;
-
+const { decodeEntities } = wp.htmlEntities;
 const { Component, Fragment } = wp.element;
 
 const Categories = styled.ul`
@@ -53,8 +55,11 @@ const Categories = styled.ul`
 
 const initialState = {
 	blocks: [],
+	activeBlock: false,
+	blockImported: false,
 	syncing: true,
 	category: false,
+	modalActive: false,
 };
 
 export default class Blocks extends Component {
@@ -66,6 +71,8 @@ export default class Blocks extends Component {
 		};
 
 		this.setCategory = this.setCategory.bind( this );
+		this.importBlock = this.importBlock.bind( this );
+		this.handleImport = this.handleImport.bind( this );
 	}
 
 	async componentDidMount() {
@@ -87,6 +94,27 @@ export default class Blocks extends Component {
 		this.setState( { category } );
 	}
 
+	importBlock( block ) {
+		this.setState( {
+			modalActive: true,
+			activeBlock: block,
+		} );
+
+		this.handleImport( block );
+	}
+
+	handleImport( block ) {
+		const method = 'library';
+
+		requestBlockContent( block, method )
+			.then( ( response ) => {
+				console.log(response);
+			} )
+			.catch( error => {
+				console.error( error );
+			} );
+	}
+
 	getItemCount( category ) {
 		const blocks = this.state.blocks;
 
@@ -106,6 +134,23 @@ export default class Blocks extends Component {
 
 				{ this.state.syncing && <Empty text={ __( 'Loading blocks...', 'ang' ) } /> }
 
+				{ this.state.modalActive && (
+					<Popup
+						title={ decodeEntities( this.state.activeBlock.title ) }
+						style={ {
+							textAlign: 'center',
+						} }
+						onRequestClose={ () => {
+							this.setState( {
+								activeBlock: false,
+								modalActive: false,
+							} );
+						} }
+					>
+						{ ! this.state.blockImported && <Loader /> }
+					</Popup>
+				) }
+
 				{ ! this.state.syncing && this.state.blocks && ! this.state.category && (
 					<Categories>
 						{ this.state.categories && this.state.categories.map( ( category ) => (
@@ -123,7 +168,10 @@ export default class Blocks extends Component {
 					classNames="slide-in"
 					unmountOnExit
 				>
-					<BlockList blocks={ this.state.blocks } category={ this.state.category } />
+					<BlockList
+						state={ this.state }
+						importBlock={ this.importBlock }
+					/>
 				</CSSTransition>
 			</Fragment>
 		);
