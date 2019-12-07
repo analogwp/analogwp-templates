@@ -320,7 +320,7 @@ class Utils extends Base {
 			$tokens = json_decode( $token, ARRAY_A );
 
 			$tokens['ang_action_tokens'] = $kit_id;
-			
+
 			self::update_style_kit_for_post( $post_id, $tokens );
 		}
 
@@ -434,7 +434,7 @@ class Utils extends Base {
 				return [];
 			}
 
-			krsort( $plugin_information->versions );
+			krsort( $plugin_information->versions, SORT_NATURAL );
 
 			$rollback_versions = [];
 
