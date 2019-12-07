@@ -735,7 +735,7 @@ class Local extends Base {
 	 * @param array  $block Block data.
 	 * @param string $method Import method.
 	 *
-	 * @return int|WP_Error
+	 * @return array|WP_Error
 	 */
 	protected function process_block_import( $block, $method = 'library' ) {
 		$license = false;
@@ -762,9 +762,15 @@ class Local extends Base {
 			$raw_data
 		);
 
-		$page_id = $this->create_section( $block, $data, $method );
+		if ( 'library' === $method ) {
+			$page_id = $this->create_section( $block, $data, $method );
 
-		return $page_id;
+			$payload = [ 'id' => $page_id ];
+		} else {
+			$payload = [ 'data' => $data ];
+		}
+
+		return $payload;
 	}
 }
 
