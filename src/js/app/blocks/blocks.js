@@ -7,6 +7,7 @@ import BlockList from './BlockList';
 import Filters from './Filters';
 import Popup from '../popup';
 import Loader from '../icons/loader';
+import AnalogContext from '../AnalogContext';
 
 const { __ } = wp.i18n;
 const { decodeEntities } = wp.htmlEntities;
@@ -65,6 +66,8 @@ const initialState = {
 };
 
 export default class Blocks extends Component {
+	static contextType = AnalogContext;
+
 	constructor() {
 		super( ...arguments );
 
@@ -145,7 +148,10 @@ export default class Blocks extends Component {
 	getItemCount( category ) {
 		const blocks = this.state.blocks;
 
-		const foundItems = blocks.filter( block => block.tags.indexOf( category ) > -1 );
+		const foundItems =
+			blocks
+				.filter( block => block.tags.indexOf( category ) > -1 )
+				.filter( block => ! ( this.context.state.showFree && Boolean( block.isPro ) ) );
 
 		if ( foundItems ) {
 			return foundItems.length;
@@ -195,12 +201,19 @@ export default class Blocks extends Component {
 
 				{ ! this.state.syncing && this.state.blocks && ! this.state.category && (
 					<Categories>
-						{ this.state.categories && this.state.categories.map( ( category ) => (
-							<li key={ category } onClick={ () => this.setCategory( category ) }>
-								{ this.getItemCount( category ) && <span>{ this.getItemCount( category ) }</span> }
-								{ category }
-							</li>
-						) ) }
+						{ this.state.categories && this.state.categories.map( ( category ) => {
+							const count = this.getItemCount( category );
+							if ( ! count ) {
+								return;
+							}
+
+							return (
+								<li key={ category } onClick={ () => this.setCategory( category ) }>
+									<span>{ count }</span>
+									{ category }
+								</li>
+							);
+						} ) }
 					</Categories>
 				) }
 
