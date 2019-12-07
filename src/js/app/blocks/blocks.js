@@ -82,6 +82,14 @@ export default class Blocks extends Component {
 
 	async componentDidMount() {
 		await this.getBlocks();
+
+		wp.hooks.addAction( 'analog.refreshLibrary', 'blocks', () => {
+			this.getBlocks( true );
+		} );
+	}
+
+	componentWillUnmount() {
+		wp.hooks.removeAction( 'analog.refreshLibrary', 'blocks' );
 	}
 
 	async getBlocks( $force = false ) {

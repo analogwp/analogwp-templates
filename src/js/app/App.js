@@ -383,7 +383,7 @@ class App extends React.Component {
 			styleKits: [],
 		} );
 
-		wp.hooks.doAction( 'refreshLibrary' );
+		wp.hooks.doAction( 'analog.refreshLibrary' );
 
 		await this.refreshLibrary( true );
 
