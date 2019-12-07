@@ -11,6 +11,8 @@ import Loader from '../icons/loader';
 const { __ } = wp.i18n;
 const { decodeEntities } = wp.htmlEntities;
 const { Component, Fragment } = wp.element;
+const { Dashicon } = wp.components;
+const { addQueryArgs } = wp.url;
 
 const Categories = styled.ul`
 	display: grid;
@@ -129,6 +131,10 @@ export default class Blocks extends Component {
 					} );
 
 					window.analogModal.hide();
+				} else {
+					this.setState( {
+						blockImported: true,
+					} );
 				}
 			} )
 			.catch( error => {
@@ -165,10 +171,25 @@ export default class Blocks extends Component {
 							this.setState( {
 								activeBlock: false,
 								modalActive: false,
+								blockImported: false,
 							} );
 						} }
 					>
 						{ ! this.state.blockImported && <Loader /> }
+						{ this.state.blockImported && (
+							<Fragment>
+								<p>{ __( 'The Block has been imported and is now available in the list of the available Sections.', 'ang' ) }</p>
+								<p>
+									<a
+										className="ang-button"
+										target="_blank"
+										rel="noopener noreferrer"
+										href={ addQueryArgs( 'edit.php', { post_type: 'elementor_library', tabs_group: true, elementor_library_type: 'section' } ) }
+									>{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" /></a>
+								</p>
+							</Fragment>
+
+						) }
 					</Popup>
 				) }
 
