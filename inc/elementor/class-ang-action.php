@@ -86,6 +86,11 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 			$central_color_palette = \kt_Central_Palette::instance()->get_colors();
 		}
 
+		$sk_panels_allowed = true;
+		if ( has_filter( 'ang_sk_elementor_disabled', '__return_true' ) ) {
+			$sk_panels_allowed = false;
+		}
+
 		wp_localize_script(
 			'ang_action',
 			'ANG_Action',
@@ -127,6 +132,7 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 					/* todo: Add the correct link. */
 					'pageStyleDesc'   => __( 'Typography, column gaps and more, are controlled layout-wide at Page Styles Panel, giving you the flexibility you need over the design of this template. You can save the styles and apply them to any other page. <a href="#" target="_blank">Learn More.</a>', 'ang' ),
 				],
+				'skPanelsAllowed' => $sk_panels_allowed,
 			]
 		);
 	}
