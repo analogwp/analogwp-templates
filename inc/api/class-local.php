@@ -301,6 +301,8 @@ class Local extends Base {
 					'id'      => $block['id'],
 				]
 			);
+
+			\wp_set_object_terms( $post_id, 'section', 'elementor_library_type' );
 		}
 
 		return (int) $post_id;
