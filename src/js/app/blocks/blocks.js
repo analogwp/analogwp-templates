@@ -104,11 +104,32 @@ export default class Blocks extends Component {
 	}
 
 	handleImport( block ) {
-		const method = 'library';
+		const method = ( Boolean( AGWP.is_settings_page ) ) ? 'library' : 'elementor';
 
 		requestBlockContent( block, method )
 			.then( ( response ) => {
-				console.log(response);
+				if ( method === 'elementor' ) {
+					const parsedTemplate = response.data;
+
+					const model = new Backbone.Model( {
+						getTitle: function getTitle() {
+							return 'Test';
+						},
+					} );
+
+					elementor.channels.data.trigger( 'template:before:insert', model );
+					for ( let i = 0; i < parsedTemplate.content.length; i++ ) {
+						elementor.getPreviewView().addChildElement( parsedTemplate.content[ i ] );
+					}
+					elementor.channels.data.trigger( 'template:after:insert', {} );
+
+					this.setState( {
+						modalActive: false,
+						activeBlock: false,
+					} );
+
+					window.analogModal.hide();
+				}
 			} )
 			.catch( error => {
 				console.error( error );
