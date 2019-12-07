@@ -123,8 +123,8 @@ class Admin_Settings {
 
 		do_action( 'ang_settings_start' );
 		wp_enqueue_style( 'ang-poppins', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap', [], '20191009' );
-		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', [ 'ang-poppins', 'dashicons' ], ANG_VERSION );
-		wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n', 'wp-api-fetch' ), ANG_VERSION, true );
+		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', [ 'ang-poppins', 'dashicons' ], filemtime( ANG_PLUGIN_DIR . 'assets/css/admin-settings.css' ) );
+		wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n', 'wp-api-fetch' ), filemtime( ANG_PLUGIN_DIR . 'assets/js/admin-settings.js' ), true );
 
 		wp_localize_script(
 			'ang_settings',
@@ -274,6 +274,20 @@ class Admin_Settings {
 					if ( ! empty( $value['id'] ) ) {
 						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) );
 					}
+					break;
+
+				// Collapsible content starts.
+				case 'collapsiblestart':
+					if ( ! empty( $value['title'] ) ) {
+						echo '<button class="button-title ' . esc_attr( $value['class'] ) . '">' . esc_html( $value['title'] ) . '</button>';
+					}
+					if ( ! empty( $value['id'] ) ) {
+						echo '<div class="collapsible-content" id="' . esc_attr( $value['id'] ) . '">';
+					}
+					break;
+
+				case 'collapsibleend':
+					echo '</div>';
 					break;
 
 				// Section Ends.
@@ -493,8 +507,10 @@ class Admin_Settings {
 												value="1"
 												<?php checked( @$option_value[ $role_slug ], true ); //phpcs:ignore ?>
 											/>
-											<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
-											<?php echo esc_html( $role_data['name'] ); ?>
+											<span>
+												<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
+											</span>
+											<p><?php echo esc_html( $role_data['name'] ); ?></p>
 										</label>
 									</li>
 									<?php endforeach; ?>

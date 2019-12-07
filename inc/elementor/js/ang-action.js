@@ -3,6 +3,12 @@ jQuery( window ).on( 'elementor:init', function() {
 	const analog = window.analog = window.analog || {};
 	const elementorSettings = elementor.settings.page.model.attributes;
 
+	if ( ! ANG_Action.skPanelsAllowed ) {
+		jQuery('head').append(
+			'<style id="sk-panels-allowed">.elementor-panel [class*="elementor-control-ang_"], .elementor-panel [class*="elementor-control-description_ang_"] {display:none;}</style>'
+		);
+	}
+
 	elementor.channels.editor.on( 'status:change', function(){
 		const button = jQuery( 'button[data-action="update_token"]' );
 
