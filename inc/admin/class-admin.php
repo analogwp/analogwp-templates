@@ -19,6 +19,7 @@ final class Admin extends Base {
 	 */
 	public function __construct() {
 		add_filter( 'admin_footer_text', [ $this, 'footer_text' ] );
+		add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 2 );
 	}
 
 	/**
@@ -44,6 +45,29 @@ final class Admin extends Base {
 		}
 
 		return $text;
+	}
+
+	/**
+	 * Plugin row meta.
+	 *
+	 * Adds row meta links to the plugin list table.
+	 *
+	 * @param array  $plugin_meta An array of the plugin's metadata, including the version, author, author URI, and plugin URI.
+	 * @param string $plugin_file Path to the plugin file, relative to the plugins directory.
+	 *
+	 * @return array An array of modified plugin row meta links.
+	 */
+	public function plugin_row_meta( $plugin_meta, $plugin_file ) {
+		if ( ANG_PLUGIN_BASE === $plugin_file ) {
+			$row_meta = [
+				'ang_docs'    => '<a href="https://docs.analogwp.com/" aria-label="' . esc_attr( __( 'View Documentation', 'ang' ) ) . '" target="_blank">' . __( 'Documentation', 'ang' ) . '</a>',
+				'ang_support' => '<a href="https://analogwp.com/support/" aria-label="' . esc_attr( __( 'Get Support', 'ang' ) ) . '" target="_blank">' . __( 'Get Support', 'ang' ) . '</a>',
+			];
+
+			$plugin_meta = array_merge( $plugin_meta, $row_meta );
+		}
+
+		return $plugin_meta;
 	}
 }
 

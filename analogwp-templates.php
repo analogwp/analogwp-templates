@@ -98,6 +98,10 @@ final class Analog_Templates {
 			define( 'ANG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		}
 
+		if ( ! defined( 'ANG_PLUGIN_BASE' ) ) {
+			define( 'ANG_PLUGIN_BASE', plugin_basename( __FILE__ ) );
+		}
+
 		// Plugin Folder URL.
 		if ( ! defined( 'ANG_PLUGIN_URL' ) ) {
 			define( 'ANG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
