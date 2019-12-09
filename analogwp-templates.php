@@ -124,8 +124,8 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/settings-helpers.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-import-image.php';
-		require_once ANG_PLUGIN_DIR . 'inc/class-utils.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-options.php';
+		require_once ANG_PLUGIN_DIR . 'inc/class-utils.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-licensemanager.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-remote.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-local.php';

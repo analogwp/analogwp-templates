@@ -7,6 +7,7 @@
 
 namespace Analog\Elementor;
 
+use Analog\Options;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
@@ -635,7 +636,7 @@ class Typography extends Module {
 			]
 		);
 
-		$global_token = get_option( 'elementor_ang_global_kit' );
+		$global_token = Utils::get_global_kit_id();
 
 		if ( ! $global_token ) {
 			$global_token = -1;
@@ -660,7 +661,7 @@ class Typography extends Module {
 				'label'   => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'    => Controls_Manager::SELECT2,
 				'options' => Utils::get_tokens(),
-				'default' => get_option( 'elementor_ang_global_kit' ),
+				'default' => Utils::get_global_kit_id(),
 			]
 		);
 
@@ -977,7 +978,7 @@ class Typography extends Module {
 	 * @return array
 	 */
 	public function add_token_state( $post_states, $post ) {
-		$global_token = (int) get_option( 'elementor_ang_global_kit' );
+		$global_token = (int) Utils::get_global_kit_id();
 		if ( $global_token && $post->ID === $global_token ) {
 			$post_states[] = '<span style="color:#32b644;">&#9679; Global Style Kit</span>';
 		}

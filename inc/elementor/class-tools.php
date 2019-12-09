@@ -635,12 +635,13 @@ CSS;
 	 */
 	public function stylekit_post_state( $post_states, $post ) {
 		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::$instance->db->is_built_with_elementor( $post->ID ) ) {
-			$settings = get_post_meta( $post->ID, '_elementor_page_settings', true );
+			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
+			$global_kit = Utils::get_global_kit_id();
 
 			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
 				$kit_id = $settings['ang_action_tokens'];
 
-				if ( get_option( 'elementor_ang_global_kit' ) !== $kit_id && '' !== get_option( 'elementor_ang_global_kit' ) && post_exists( get_the_title( $kit_id ) ) && 'publish' === get_post_status( $kit_id ) ) {
+				if ( $global_kit !== $kit_id && '' !== $global_kit && post_exists( get_the_title( $kit_id ) ) && 'publish' === get_post_status( $kit_id ) ) {
 					/* translators: %s: Style kit title. */
 					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#5C32B6;">&#9679;</span>', 'ang' ), get_the_title( $kit_id ) );
 				}
@@ -660,9 +661,10 @@ CSS;
 	 */
 	public function filter_post_row_actions( $actions, $post ) {
 		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::$instance->db->is_built_with_elementor( $post->ID ) ) {
-			$settings = get_post_meta( $post->ID, '_elementor_page_settings', true );
+			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
+			$global_kit = Utils::get_global_kit_id();
 
-			if ( isset( $settings['ang_action_tokens'] ) && get_option( 'elementor_ang_global_kit' ) !== $settings['ang_action_tokens'] ) {
+			if ( isset( $settings['ang_action_tokens'] ) && $global_kit !== $settings['ang_action_tokens'] ) {
 				$actions['apply_global_kit'] = sprintf(
 					'<a href="%1$s">%2$s</a>',
 					wp_nonce_url( $this->get_stylekit_global_link(), 'ang_make_global' ),
@@ -688,7 +690,7 @@ CSS;
 		}
 
 		$post_id = $_REQUEST['post_id'];
-		$token   = get_post_meta( get_option( 'elementor_ang_global_kit' ), '_tokens_data', true );
+		$token   = get_post_meta( Utils::get_global_kit_id(), '_tokens_data', true );
 
 		update_post_meta( $post_id, '_elementor_page_settings', json_decode( $token, ARRAY_A ) );
 		Utils::clear_elementor_cache();
