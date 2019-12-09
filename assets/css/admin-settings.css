@@ -445,3 +445,10 @@ input[type='checkbox'] {
 	transition: max-height 0.2s ease-out;
 }
 
+.ang .titledesc {
+	margin: 0 0 10px;
+	padding: 0;
+	color: #23282d;
+	font-size: 1.2em;
+	font-weight: bold;
+}
