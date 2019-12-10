@@ -636,7 +636,13 @@ class Typography extends Module {
 			]
 		);
 
-		$global_token = Utils::get_global_kit_id();
+		/**
+		 * Important:
+		 *
+		 * Setting Kit ID to "string" here on purpose. Elementor's condition arg expects the matching option to be a
+		 * string, where out option returns an integer.
+		 */
+		$global_token = (string) Utils::get_global_kit_id();
 
 		if ( ! $global_token ) {
 			$global_token = -1;
