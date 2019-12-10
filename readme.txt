@@ -100,7 +100,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
-= 1.3.16 - November 29, 2019 =
+= 1.3.16 - December 10, 2019 =
 * Fix: Issue with Style Kits tab not showing up
 * Fix: Issue with templates imported directly from Settings page
 * Fix: Accordion/counter widget not respecting inline colors with custom classes
