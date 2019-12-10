@@ -651,7 +651,7 @@ class Typography extends Module {
 		$element->add_control(
 			'description_ang_global_stylekit',
 			[
-				'raw'             => __( '<strong>You are editing the style kit that has been set as global.</strong> You can optionally choose a different Style Kit for this page below.', 'ang' ),
+				'raw'             => __( 'You are editing the Global Style Kit.', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'ang-notice',
 				'condition'       => [
