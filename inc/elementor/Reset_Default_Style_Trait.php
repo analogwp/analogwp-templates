@@ -29,7 +29,7 @@ trait Reset_Default_Style_Trait {
 	private function reset_default_style_for_widget( $widget, $section, $control_id, $default = '' ) {
 		add_action(
 			"elementor/element/{$widget}/{$section}/before_section_end",
-			function( Element_Base $element ) use ( $control_id ) {
+			function( Element_Base $element ) use ( $control_id, $default ) {
 				$element->update_control( $control_id, [ 'default' => $default ] );
 			}
 		);
