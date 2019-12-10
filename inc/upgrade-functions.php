@@ -65,6 +65,13 @@ function do_automatic_upgrades() {
 		version_1_3_15_upgrades();
 	}
 
+	if ( version_compare( $installed_version, '1.3.16', '<' ) ) {
+		$kit = get_option( 'elementor_ang_global_kit' );
+		Options::get_instance()->set( 'global_kit', $kit );
+
+		Utils::clear_elementor_cache();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
