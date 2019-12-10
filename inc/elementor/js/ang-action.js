@@ -651,6 +651,12 @@ jQuery( window ).on( 'elementor:init', function() {
 		elementor.settings.page.addChangeCallback( 'ang_color_text_dark', analog.updateColorPicker );
 		elementor.settings.page.addChangeCallback( 'ang_color_background_light', analog.updateColorPicker );
 		elementor.settings.page.addChangeCallback( 'ang_color_background_dark', analog.updateColorPicker );
+
+		jQuery('#elementor-panel').on('change', '[data-setting="ui_theme"]', function(e) {
+			const value = e.target.value;
+
+			jQuery('body').toggleClass( 'dark-mode', value === 'dark' );
+		});
 	}
 } );
 
