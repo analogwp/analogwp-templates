@@ -643,6 +643,8 @@ jQuery( window ).on( 'elementor:init', function() {
 	if ( Boolean( AGWP.syncColors ) === true ) {
 		elementor.on( 'preview:loaded', () => {
 			analog.insertColors();
+
+			jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
 		} );
 
 		elementor.settings.page.addChangeCallback( 'ang_color_accent_primary', analog.updateColorPicker );
