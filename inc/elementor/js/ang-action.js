@@ -289,10 +289,10 @@ jQuery( window ).on( 'elementor:init', function() {
 	const ControlANGAction = BaseData.extend( {
 		initialize: function( options ) {
 			BaseData.prototype.initialize.apply( this, arguments );
-			this.elementSettingsModel = options.elementSettingsModel;
+			this.settingsModel = options.container.model;
 
 			if ( this.model.get( 'action' ) === 'update_token' ) {
-				this.listenTo( this.elementSettingsModel, 'change', this.toggleControlVisibility );
+				this.listenTo( this.settingsModel, 'change', this.toggleControlVisibility );
 			}
 		},
 
@@ -303,7 +303,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 			this.$el.find( 'button' ).attr( 'disabled', true );
 
-			if ( Object.keys( this.elementSettingsModel.changed ).length ) {
+			if ( Object.keys( elementor.settings.page.model.changed ).length ) {
 				this.$el.find( 'button' ).attr( 'disabled', false );
 			}
 		},
