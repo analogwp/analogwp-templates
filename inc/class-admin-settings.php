@@ -371,13 +371,49 @@ class Admin_Settings {
 						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) );
 					}
 					?>
-					<tr valign="top">
+					<tr valign="top" id="<?php echo esc_attr( $value['id'] ); ?>">
 						<th scope="row" class="titledesc">
 							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?></label>
 						</th>
 						<td class="forminwp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+							<?php if ( ! empty( $value['desc'] ) ) : ?>
+								<span class="description"><?php echo esc_html( $value['desc'] ); ?></span>
+							<?php endif; ?>
 							<?php wp_nonce_field( 'ang_nonce', 'ang_nonce' ); ?>
 							<input type="submit" class="<?php echo esc_attr( $value['class'] ); ?>" name="<?php echo esc_attr( $value['id'] ); ?>" value="<?php echo esc_attr( $option_value ); ?>"/>
+						</td>
+					</tr>
+					<?php
+					break;
+				case 'license_text':
+					$option_value = $value['value'];
+
+					?><tr valign="top">
+						<th scope="row" class="titledesc">
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+						</th>
+						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+							<?php if ( ! empty( $option_value ) ) : ?>
+								<input
+								name="<?php echo esc_attr( $value['id'] ); ?>"
+								id="<?php echo esc_attr( $value['id'] ); ?>"
+								type="password"
+								value="<?php echo esc_attr( $option_value ); ?>"
+								readonly="readonly"
+								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+								/><?php echo esc_html( $value['suffix'] ); ?>
+							<?php else : ?>
+							<input
+								name="<?php echo esc_attr( $value['id'] ); ?>"
+								id="<?php echo esc_attr( $value['id'] ); ?>"
+								type="text"
+								style="<?php echo esc_attr( $value['css'] ); ?>"
+								value="<?php echo esc_attr( $option_value ); ?>"
+								class="<?php echo esc_attr( $value['class'] ); ?>"
+								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
+								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // WPCS: XSS ok. ?>
+							<?php endif; ?>
 						</td>
 					</tr>
 					<?php

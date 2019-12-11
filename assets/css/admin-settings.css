@@ -178,15 +178,6 @@ input[type='checkbox'] {
 	display: inline-block;
 }
 
-#ang_license_activation_title-description + .form-table tbody th {
-	padding: 15px 0 0;
-}
-
-#ang_license_activation_title-description + .form-table tbody td .description {
-	display: block;
-	margin-top: 10px;
-}
-
 .sidebar > div:not(:last-of-type) {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -371,31 +362,6 @@ input[type='checkbox'] {
 	background-position: bottom;
 	background-size: contain;
 	background-repeat: no-repeat;
-}
-
-.ang-license-status {
-	display: inline-flex;
-	justify-content: space-evenly;
-}
-
-.ang-license-status > h2 {
-	margin-right: 30px;
-}
-.ang-license-status p {
-	font-size: 14px;
-}
-
-.ang.license .ang-action tr {
-	display: inline-flex;
-}
-.ang.license .ang-action th {
-	padding: 0;
-	margin-right: 30px;
-}
-
-.ang.license .ang-action label {
-	font-size: 17px;
-	font-weight: 600;
 }
 
 .ang.extensions .tab-content {

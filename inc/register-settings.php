@@ -112,6 +112,8 @@ function save_settings() {
 		Admin_Settings::save();
 	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
 		Admin_Settings::save();
+	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", isset( $_POST['ang-license_activate'] ) || isset( $_POST['ang-license_deactivate'] ) ) ) { // WPCS: input var okay, CSRF ok.
+		Admin_Settings::save();
 	}
 }
 
