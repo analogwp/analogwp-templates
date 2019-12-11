@@ -59,6 +59,42 @@ button[data-action="save_token"] {
 	border-radius: 3px;
 }
 
+.hint--medium:after {
+	width: 180px !important;
+}
+
+@media (prefers-color-scheme: dark) {
+	.elementor-panel .ang-notice {
+		background: transparent;
+		border: 2px solid rgba(255, 255, 255, .3);
+	}
+
+	[class*=hint--][aria-label]:after {
+		background: #34383C;
+		border: 2px solid rgba(255,255,255,.3);
+		border-radius: 4px;
+	}
+
+	.hint--top-right:before {
+		border-top-color: #727477 !important;
+	}
+}
+
+.dark-mode .elementor-panel .ang-notice {
+	background: transparent;
+	border: 2px solid rgba(255, 255, 255, .3);
+}
+
+.dark-mode [class*=hint--][aria-label]:after {
+	background: #34383C;
+	border: 2px solid rgba(255,255,255,.3);
+	border-radius: 4px;
+}
+
+.dark-mode .hint--top-right:before {
+	border-top-color: #727477;
+}
+
 .ang-description-wide .elementor-control-field-description {
 	display: block;
 }

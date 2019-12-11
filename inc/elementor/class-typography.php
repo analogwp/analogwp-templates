@@ -7,6 +7,7 @@
 
 namespace Analog\Elementor;
 
+use Analog\Options;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
@@ -635,7 +636,13 @@ class Typography extends Module {
 			]
 		);
 
-		$global_token = get_option( 'elementor_ang_global_kit' );
+		/**
+		 * Important:
+		 *
+		 * Setting Kit ID to "string" here on purpose. Elementor's condition arg expects the matching option to be a
+		 * string, where out option returns an integer.
+		 */
+		$global_token = (string) Utils::get_global_kit_id();
 
 		if ( ! $global_token ) {
 			$global_token = -1;
@@ -644,7 +651,7 @@ class Typography extends Module {
 		$element->add_control(
 			'description_ang_global_stylekit',
 			[
-				'raw'             => __( '<strong>You are editing the style kit that has been set as global.</strong> You can optionally choose a different Style Kit for this page below.', 'ang' ),
+				'raw'             => __( 'You are editing the Global Style Kit.', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'ang-notice',
 				'condition'       => [
@@ -660,7 +667,7 @@ class Typography extends Module {
 				'label'   => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'    => Controls_Manager::SELECT2,
 				'options' => Utils::get_tokens(),
-				'default' => get_option( 'elementor_ang_global_kit' ),
+				'default' => Utils::get_global_kit_id(),
 			]
 		);
 
@@ -694,7 +701,7 @@ class Typography extends Module {
 				'raw'  => sprintf(
 					/* translators: %s: Link to Style Kits */
 					__( 'You can set a Global Style Kit <a href="%s" target="_blank">here</a>.', 'ang' ),
-					admin_url( 'admin.php?page=elementor#tab-style' )
+					admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' )
 				),
 				'type' => Controls_Manager::RAW_HTML,
 			]
@@ -977,7 +984,7 @@ class Typography extends Module {
 	 * @return array
 	 */
 	public function add_token_state( $post_states, $post ) {
-		$global_token = (int) get_option( 'elementor_ang_global_kit' );
+		$global_token = (int) Utils::get_global_kit_id();
 		if ( $global_token && $post->ID === $global_token ) {
 			$post_states[] = '<span style="color:#32b644;">&#9679; Global Style Kit</span>';
 		}

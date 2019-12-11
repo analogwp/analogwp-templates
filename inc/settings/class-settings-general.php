@@ -8,6 +8,8 @@
 
 namespace Analog\Settings;
 
+use Analog\Utils;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -31,6 +33,7 @@ class General extends Settings_Page {
 	 * @return array
 	 */
 	public function get_settings() {
+		$tokens_dropdown = [ '' => __( '— Select a Style Kit —', 'ang' ) ] + Utils::get_tokens( false );
 
 		$settings = apply_filters(
 			'ang_general_settings',
@@ -39,6 +42,18 @@ class General extends Settings_Page {
 					'title' => __( 'Elementor Settings', 'ang' ),
 					'type'  => 'title',
 					'id'    => 'ang_color_palette',
+				),
+				array(
+					'title'   => esc_html_x( 'Global Style Kit', 'settings title', 'ang' ),
+					'desc'    => sprintf(
+						/* translators: %s: Style Kit Documentation link */
+						__( 'Choosing a Style Kit will make it global and apply site-wide. Learn more about %s.', 'ang' ),
+						'<a href="https://docs.analogwp.com/article/554-what-are-style-kits" target="_blank">' . __( 'Style kits', 'ang' ) . '</a>'
+					),
+					'id'      => 'global_kit',
+					'default' => ( '' !== get_option( 'elementor_ang_global_kit' ) ) ? get_option( 'elementor_ang_global_kit' ) : false,
+					'type'    => 'select',
+					'options' => $tokens_dropdown,
 				),
 				array(
 					'desc'          => __( 'Sync Color Palettes and Style Kit colors by default', 'ang' ),

@@ -3,7 +3,7 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits adds intuitive styling controls in the Elementor editor that power-up your design workflow.
- * Version:     1.3.15
+ * Version:     1.3.16
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -40,7 +40,7 @@ final class Analog_Templates {
 	 *
 	 * @var string
 	 */
-	public static $version = '1.3.15';
+	public static $version = '1.3.16';
 
 	/**
 	 * Main Analog_Templates instance.
@@ -124,8 +124,8 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/settings-helpers.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-import-image.php';
-		require_once ANG_PLUGIN_DIR . 'inc/class-utils.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-options.php';
+		require_once ANG_PLUGIN_DIR . 'inc/class-utils.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-remote.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-local.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-analog-importer.php';

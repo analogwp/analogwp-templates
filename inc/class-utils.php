@@ -89,7 +89,7 @@ class Utils extends Base {
 		$tokens = [];
 
 		foreach ( $posts as $post ) {
-			$global_token = (int) \get_option( 'elementor_ang_global_kit' );
+			$global_token = self::get_global_kit_id();
 
 			$title = $post->post_title;
 
@@ -110,7 +110,7 @@ class Utils extends Base {
 	 * @return int Post ID.
 	 */
 	public static function get_global_kit_id() {
-		return (int) \get_option( 'elementor_ang_global_kit' );
+		return (int) Options::get_instance()->get( 'global_kit' );
 	}
 
 	/**

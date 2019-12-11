@@ -40,7 +40,7 @@ jQuery( window ).on( 'elementor:init', function() {
 	};
 
 	analog.redirectToSection = function redirectToSection( tab = 'style', section = 'ang_style_settings', page = 'page_settings' ) {
-		if ( elementor.helpers.compareVersions( ElementorConfig.document.version, '2.7.0', '<' ) ) {
+		if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.7.0', '<' ) ) {
 			const currentView = elementor.panel.currentView;
 
 			currentView.setPage( page );
@@ -289,10 +289,15 @@ jQuery( window ).on( 'elementor:init', function() {
 	const ControlANGAction = BaseData.extend( {
 		initialize: function( options ) {
 			BaseData.prototype.initialize.apply( this, arguments );
-			this.elementSettingsModel = options.elementSettingsModel;
+
+			if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.8.0', '<' ) ) {
+				this.settingsModel = options.elementSettingsModel;
+			} else {
+				this.settingsModel = options.container.model;
+			}
 
 			if ( this.model.get( 'action' ) === 'update_token' ) {
-				this.listenTo( this.elementSettingsModel, 'change', this.toggleControlVisibility );
+				this.listenTo( this.settingsModel, 'change', this.toggleControlVisibility );
 			}
 		},
 
@@ -303,7 +308,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 			this.$el.find( 'button' ).attr( 'disabled', true );
 
-			if ( Object.keys( this.elementSettingsModel.changed ).length ) {
+			if ( Object.keys( elementor.settings.page.model.changed ).length ) {
 				this.$el.find( 'button' ).attr( 'disabled', false );
 			}
 		},
@@ -643,6 +648,10 @@ jQuery( window ).on( 'elementor:init', function() {
 	if ( Boolean( AGWP.syncColors ) === true ) {
 		elementor.on( 'preview:loaded', () => {
 			analog.insertColors();
+
+			if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.7.6', '>' ) ) {
+				jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
+			}
 		} );
 
 		elementor.settings.page.addChangeCallback( 'ang_color_accent_primary', analog.updateColorPicker );
@@ -651,6 +660,12 @@ jQuery( window ).on( 'elementor:init', function() {
 		elementor.settings.page.addChangeCallback( 'ang_color_text_dark', analog.updateColorPicker );
 		elementor.settings.page.addChangeCallback( 'ang_color_background_light', analog.updateColorPicker );
 		elementor.settings.page.addChangeCallback( 'ang_color_background_dark', analog.updateColorPicker );
+
+		jQuery('#elementor-panel').on('change', '[data-setting="ui_theme"]', function(e) {
+			const value = e.target.value;
+
+			jQuery('body').toggleClass( 'dark-mode', value === 'dark' );
+		});
 	}
 } );
 
