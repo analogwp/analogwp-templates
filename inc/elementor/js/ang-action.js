@@ -289,7 +289,12 @@ jQuery( window ).on( 'elementor:init', function() {
 	const ControlANGAction = BaseData.extend( {
 		initialize: function( options ) {
 			BaseData.prototype.initialize.apply( this, arguments );
-			this.settingsModel = options.container.model;
+
+			if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.8.0', '<' ) ) {
+				this.settingsModel = options.elementSettingsModel;
+			} else {
+				this.settingsModel = options.container.model;
+			}
 
 			if ( this.model.get( 'action' ) === 'update_token' ) {
 				this.listenTo( this.settingsModel, 'change', this.toggleControlVisibility );
