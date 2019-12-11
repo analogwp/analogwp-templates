@@ -401,6 +401,7 @@ class Admin_Settings {
 								type="password"
 								value="<?php echo esc_attr( str_repeat( '*', strlen( $option_value ) ) ); ?>"
 								readonly="readonly"
+								disabled
 								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
 								/><?php echo esc_html( $value['suffix'] ); ?>
 							<?php else : ?>
