@@ -40,7 +40,7 @@ jQuery( window ).on( 'elementor:init', function() {
 	};
 
 	analog.redirectToSection = function redirectToSection( tab = 'style', section = 'ang_style_settings', page = 'page_settings' ) {
-		if ( elementor.helpers.compareVersions( ElementorConfig.document.version, '2.7.0', '<' ) ) {
+		if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.7.0', '<' ) ) {
 			const currentView = elementor.panel.currentView;
 
 			currentView.setPage( page );
@@ -649,7 +649,9 @@ jQuery( window ).on( 'elementor:init', function() {
 		elementor.on( 'preview:loaded', () => {
 			analog.insertColors();
 
-			jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
+			if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.7.6', '>' ) ) {
+				jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
+			}
 		} );
 
 		elementor.settings.page.addChangeCallback( 'ang_color_accent_primary', analog.updateColorPicker );
