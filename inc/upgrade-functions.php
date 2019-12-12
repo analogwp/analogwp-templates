@@ -72,6 +72,10 @@ function do_automatic_upgrades() {
 		Utils::clear_elementor_cache();
 	}
 
+	if ( version_compare( $installed_version, '1.3.17', '<' ) ) {
+		Utils::clear_elementor_cache();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );

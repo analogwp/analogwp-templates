@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.3
-Stable tag: 1.3.16
+Stable tag: 1.3.17
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -99,6 +99,10 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.3.17 - December 10, 2019 =
+* Fix: Added backwards compatibility for SK contextual menu
+* Fix: Icons box links not respecting inline colors
 
 = 1.3.16 - December 10, 2019 =
 * Fix: Issue with Style Kits tab not showing up
