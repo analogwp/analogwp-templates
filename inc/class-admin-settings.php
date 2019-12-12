@@ -388,7 +388,8 @@ class Admin_Settings {
 				case 'license_text':
 					$option_value = $value['value'];
 
-					?><tr valign="top">
+					?>
+					<tr valign="top">
 						<th scope="row" class="titledesc">
 							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
 						</th>
@@ -398,8 +399,9 @@ class Admin_Settings {
 								name="<?php echo esc_attr( $value['id'] ); ?>"
 								id="<?php echo esc_attr( $value['id'] ); ?>"
 								type="password"
-								value="<?php echo esc_attr( $option_value ); ?>"
+								value="<?php echo esc_attr( str_repeat( '*', strlen( $option_value ) ) ); ?>"
 								readonly="readonly"
+								disabled
 								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
 								/><?php echo esc_html( $value['suffix'] ); ?>
 							<?php else : ?>
