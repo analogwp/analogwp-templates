@@ -119,17 +119,11 @@ class Local extends Base {
 		$kit_info    = $request->get_param( 'kit' );
 
 		if ( ! $template_id ) {
-			return new WP_REST_Response( [ 'error' => 'Invalid Template ID.' ], 500 );
+			return new WP_REST_Response( [ 'error' => __( 'Invalid Template ID.', 'ang' ) ], 500 );
 		}
 
-		$license = false;
-
-		if ( $is_pro ) {
-			// Fetch license only when necessary, throw error if not found.
-			$license = Options::get_instance()->get( 'ang_license_key' );
-			if ( empty( $license ) ) {
-				return new WP_Error( 'import_error', 'Invalid license provided.' );
-			}
+		if ( $is_pro && ! Utils::has_valid_license() ) {
+			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'ang' ) );
 		}
 
 		\update_post_meta( $editor_id, '_ang_import_type', 'elementor' );
@@ -143,7 +137,7 @@ class Local extends Base {
 			[
 				'template_id'    => $template_id,
 				'editor_post_id' => $editor_id,
-				'license'        => $license,
+				'license'        => Options::get_instance()->get( 'ang_license_key' ),
 				'method'         => 'elementor',
 				'site_id'        => $site_id,
 				'options'        => [
@@ -273,15 +267,10 @@ class Local extends Base {
 		$site_id   = $request->get_param( 'site_id' );
 		$kit_info  = $request->get_param( 'kit' );
 
-		$method  = $with_page ? 'page' : 'library';
-		$license = false;
+		$method = $with_page ? 'page' : 'library';
 
-		if ( $template['is_pro'] ) {
-			// Fetch license only when necessary, throw error if not found.
-			$license = Options::get_instance()->get( 'ang_license_key' );
-			if ( empty( $license ) ) {
-				return new WP_Error( 'import_error', 'Invalid license provided.' );
-			}
+		if ( $template['is_pro'] && ! Utils::has_valid_license() ) {
+			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'ang' ) );
 		}
 
 		// Initiate template import.
@@ -291,7 +280,7 @@ class Local extends Base {
 			[
 				'template_id'    => $template['id'],
 				'editor_post_id' => false,
-				'license'        => $license,
+				'license'        => Options::get_instance()->get( 'ang_license_key' ),
 				'method'         => $method,
 				'site_id'        => $site_id,
 				'options'        => [
