@@ -8,11 +8,10 @@
 namespace Analog\API;
 
 use Analog\Analog_Templates;
-use \Analog\Base;
+use Analog\Base;
 use Analog\Classes\Import_Image;
-use \Analog\Options;
+use Analog\Options;
 use Analog\Utils;
-use Elementor\Core\Settings\Manager;
 use Elementor\TemplateLibrary\Analog_Importer;
 use WP_Error;
 use WP_Query;
