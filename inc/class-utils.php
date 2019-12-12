@@ -548,6 +548,24 @@ class Utils extends Base {
 
 		\update_post_meta( $post_id, '_elementor_page_settings', wp_slash( $modified_settings ), true );
 	}
+
+	/**
+	 * Check if current user has a valid license.
+	 *
+	 * @access public
+	 * @since 1.4.0
+	 * @return bool Whether license is valid or not.
+	 */
+	public static function has_valid_license() {
+		$license = Options::get_instance()->get( 'ang_license_key' );
+		$message = Options::get_instance()->get( 'ang_license_key_status' );
+
+		if ( ! empty( $license ) && 'valid' === $message ) {
+			return true;
+		}
+
+		return false;
+	}
 }
 
 new Utils();
