@@ -30,9 +30,19 @@ class Typography extends Module {
 	use Document;
 
 	/**
+	 * Holds Style Kits.
+	 *
+	 * @since 1.4.0
+	 * @var array
+	 */
+	protected $tokens;
+
+	/**
 	 * Typography constructor.
 	 */
 	public function __construct() {
+		$this->tokens = Utils::get_tokens();
+
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 100, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 120, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 140, 2 );
@@ -53,6 +63,7 @@ class Typography extends Module {
 		add_filter( 'display_post_states', [ $this, 'add_token_state' ], 10, 2 );
 
 		add_action( 'elementor/element/section/section_layout/before_section_end', [ $this, 'tweak_section_widget' ] );
+
 	}
 
 	/**
@@ -149,24 +160,6 @@ class Typography extends Module {
 					'fields_options' => $this->get_default_typography_values( 'ang_heading_' . $i ),
 				]
 			);
-
-// $margin_settings = [
-// 'label'      => __( 'Margin', 'ang' ),
-// 'type'       => Controls_Manager::DIMENSIONS,
-// 'size_units' => [ 'px', '%', 'em' ],
-// 'selectors'  => [
-// "{{WRAPPER}} h{$i}, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title" => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-// ],
-// ];
-//
-// if ( 6 !== $i ) {
-// $margin_settings['separator'] = 'after';
-// }
-//
-// $element->add_responsive_control(
-// 'ang_heading_' . $i . '_margin',
-// $margin_settings
-// );
 		}
 
 		$element->end_controls_section();
@@ -666,7 +659,7 @@ class Typography extends Module {
 			[
 				'label'   => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'    => Controls_Manager::SELECT2,
-				'options' => Utils::get_tokens(),
+				'options' => $this->tokens,
 				'default' => Utils::get_global_kit_id(),
 			]
 		);
