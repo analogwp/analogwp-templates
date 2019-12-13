@@ -7,14 +7,13 @@
 
 namespace Analog\Elementor;
 
-use Analog\Options;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
 use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Scheme_Typography;
+use Elementor\Core\Schemes\Typography as Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
 use Analog\Utils;
@@ -32,16 +31,34 @@ class Typography extends Module {
 	/**
 	 * Holds Style Kits.
 	 *
-	 * @since 1.4.0
+	 * @since 1.3.18
 	 * @var array
 	 */
 	protected $tokens;
 
 	/**
+	 * Holds Global Kit token data.
+	 *
+	 * @since 1.3.18
+	 * @var mixed
+	 */
+	protected $global_token_data;
+
+	/**
+	 * Holds current page's Elementor settings.
+	 *
+	 * @since 1.3.18
+	 * @var mixed
+	 */
+	protected $page_settings;
+
+	/**
 	 * Typography constructor.
 	 */
 	public function __construct() {
-		$this->tokens = Utils::get_tokens();
+		$this->tokens            = Utils::get_tokens();
+		$this->global_token_data = json_decode( Utils::get_global_token_data(), true );
+		$this->page_settings     = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 100, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 120, 2 );
@@ -872,16 +889,15 @@ class Typography extends Module {
 	 * @return array|string
 	 */
 	public function get_default_value( $key, $is_array = false ) {
-		$global_token = Utils::get_global_token_data();
+		$recently_imported = $this->page_settings;
 
-		$recently_imported = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 		if ( isset( $recently_imported['ang_recently_imported'] ) && 'yes' === $recently_imported['ang_recently_imported'] ) {
 			return ( $is_array ) ? [] : '';
 		}
 
-		if ( $global_token && ! empty( $global_token ) ) {
-			$values = json_decode( $global_token, true );
+		$values = $this->global_token_data;
 
+		if ( $values && ! empty( $values ) ) {
 			if ( isset( $values[ $key ] ) && '' !== $values[ $key ] ) {
 				return $values[ $key ];
 			}
@@ -898,14 +914,13 @@ class Typography extends Module {
 	 * @return array
 	 */
 	public function get_default_typography_values( $key ) {
-		$global_token = Utils::get_global_token_data();
+		$recently_imported = $this->page_settings;
 
-		$recently_imported = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 		if ( isset( $recently_imported['ang_recently_imported'] ) && 'yes' === $recently_imported['ang_recently_imported'] ) {
 			return [];
 		}
 
-		if ( empty( $global_token ) || 'yes' === $recently_imported ) {
+		if ( empty( $this->global_token_data ) ) {
 			return [];
 		}
 
