@@ -7,7 +7,6 @@ import { Theme } from './contexts/ThemeContext';
 import Empty from './helpers/Empty';
 import CustomModal from './modal';
 import ImportTemplate from './popups/ImportTemplate';
-import ProModal from './ProModal';
 import Template from './Template';
 
 const { __ } = wp.i18n;
@@ -409,10 +408,6 @@ class Templates extends React.Component {
 						getStyleKitInfo={ this.getStyleKitInfo }
 					/>
 				) }
-
-				{ ! this.context.state.showFree &&
-					<ProModal onDimiss={ () => this.resetState() } />
-				}
 
 				{ ! this.context.state.isOpen && this.context.state.templates.length < 1 && (
 					<Empty />
