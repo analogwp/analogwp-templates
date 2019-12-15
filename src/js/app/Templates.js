@@ -345,7 +345,7 @@ class Templates extends React.Component {
 	 * Mainly to check pro template capabilities.
 	 *
 	 * @param {object} template Template data.
-	 * @return {bool} True if Pro and license is valid, else false.
+	 * @return {boolean} True if Pro and license is valid, else false.
 	 */
 	canImportTemplate = ( template ) => {
 		if ( ! template ) {
