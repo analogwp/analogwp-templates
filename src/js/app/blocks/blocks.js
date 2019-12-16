@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 
-import { requestBlockContent, requestBlocksList } from '../api';
+import { requestBlockContent } from '../api';
 import Empty from '../helpers/Empty';
 import BlockList from './BlockList';
 import Filters from './Filters';

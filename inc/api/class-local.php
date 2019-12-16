@@ -77,9 +77,6 @@ class Local extends Base {
 			'/import/kit'              => [
 				WP_REST_Server::CREATABLE => 'handle_kit_import',
 			],
-			'/blocks'                  => [
-				WP_REST_Server::READABLE => 'get_blocks',
-			],
 			'/blocks/insert'           => [
 				WP_REST_Server::CREATABLE => 'get_blocks_content',
 			],
@@ -684,24 +681,6 @@ class Local extends Base {
 		} else {
 			return $tokens;
 		}
-	}
-
-	/**
-	 * Fetch a list of "Blocks" available from AnalogWP.com.
-	 *
-	 * @since 1.3.4
-	 * @param WP_REST_Request $request Request object.
-	 *
-	 * @return mixed
-	 */
-	public function get_blocks( WP_REST_Request $request ) {
-		$force_update = $request->get_param( 'force_update' );
-
-		if ( $force_update ) {
-			return Remote::get_instance()->get_blocks( true );
-		}
-
-		return Remote::get_instance()->get_blocks();
 	}
 
 	/**
