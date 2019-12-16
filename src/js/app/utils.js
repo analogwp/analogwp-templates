@@ -6,7 +6,7 @@ import Templates from './Templates';
 const { Fragment } = React;
 
 export const getPageComponents = ( state ) => {
-	if ( state.tab === 'stylekits' ) {
+	if ( state.tab === 'styleKits' ) {
 		return <StyleKits />;
 	}
 

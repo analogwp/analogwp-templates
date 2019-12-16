@@ -245,7 +245,7 @@ class App extends React.Component {
 
 	switchTabs() {
 		const hash = location.hash;
-		const validHashes = [ '#templates', '#stylekits', '#blocks' ];
+		const validHashes = [ '#templates', '#styleKits', '#blocks' ];
 
 		if ( validHashes.indexOf( hash ) > -1 && AGWP.is_settings_page ) {
 			this.setState( {
