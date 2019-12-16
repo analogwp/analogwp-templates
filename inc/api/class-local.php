@@ -742,7 +742,7 @@ class Local extends Base {
 	protected function process_block_import( $block, $method = 'library' ) {
 		$license = false;
 
-		if ( $block['isPro'] ) {
+		if ( $block['is_pro'] ) {
 			// Fetch license only when necessary, throw error if not found.
 			$license = Options::get_instance()->get( 'ang_license_key' );
 			if ( empty( $license ) ) {

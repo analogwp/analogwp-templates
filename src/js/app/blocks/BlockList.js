@@ -130,7 +130,7 @@ const BlockList = ( { state, importBlock } ) => {
 						<img src={ ( block.thumbnail === '0' ) ? fallbackImg : block.thumbnail } loading="lazy" alt={ block.title } />
 
 						<div className="actions">
-							{ ! block.isPro && (
+							{ ! block.is_pro && (
 								<button className="ang-button" onClick={ () => importBlock( block ) }>
 									{ __( 'Import', 'ang' ) }
 								</button>
@@ -140,7 +140,7 @@ const BlockList = ( { state, importBlock } ) => {
 
 					<div className="content">
 						<h3>{ decodeEntities( block.title ) }</h3>
-						{ block.isPro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
+						{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
 					</div>
 				</li>
 			)) }
