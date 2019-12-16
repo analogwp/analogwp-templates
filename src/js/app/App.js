@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
-import { getSettings, markFavorite, requestStyleKitsList, requestTemplateList } from './api';
+import { getSettings, markFavorite, requestTemplateList } from './api';
 import ThemeContext, { Theme } from './contexts/ThemeContext';
 import Header from './Header';
 import Notifications from './Notifications';

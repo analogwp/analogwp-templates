@@ -71,9 +71,6 @@ class Local extends Base {
 			'/tokens/update'           => [
 				WP_REST_Server::CREATABLE => 'update_token',
 			],
-			'/kits'                    => [
-				WP_REST_Server::READABLE => 'get_kits',
-			],
 			'/import/kit'              => [
 				WP_REST_Server::CREATABLE => 'handle_kit_import',
 			],
@@ -560,24 +557,6 @@ class Local extends Base {
 		}
 
 		return new WP_REST_Response( $data, 200 );
-	}
-
-	/**
-	 * Fetch a list of Style Kits available from AnalogWP.com.
-	 *
-	 * @since 1.3.4
-	 * @param WP_REST_Request $request Request object.
-	 *
-	 * @return mixed
-	 */
-	public function get_kits( WP_REST_Request $request ) {
-		$force_update = $request->get_param( 'force_update' );
-
-		if ( $force_update ) {
-			return Remote::get_instance()->get_stylekits( true );
-		}
-
-		return Remote::get_instance()->get_stylekits();
 	}
 
 	/**
