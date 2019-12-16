@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 
-import { requestBlocksList, requestBlockContent } from '../api';
+import { requestBlockContent, requestBlocksList } from '../api';
 import Empty from '../helpers/Empty';
 import BlockList from './BlockList';
 import Filters from './Filters';
@@ -73,34 +73,12 @@ export default class Blocks extends Component {
 
 		this.state = {
 			...initialState,
+			categories: [ ...new Set( this.context.state.blocks.map( block => block.tags[ 0 ] ) ) ],
 		};
 
 		this.setCategory = this.setCategory.bind( this );
 		this.importBlock = this.importBlock.bind( this );
 		this.handleImport = this.handleImport.bind( this );
-	}
-
-	async componentDidMount() {
-		await this.getBlocks();
-
-		wp.hooks.addAction( 'analog.refreshLibrary', 'blocks', () => {
-			this.getBlocks( true );
-		} );
-	}
-
-	componentWillUnmount() {
-		wp.hooks.removeAction( 'analog.refreshLibrary', 'blocks' );
-	}
-
-	async getBlocks( $force = false ) {
-		const request = await requestBlocksList( $force );
-		const blocks = request.blocks;
-
-		this.setState( {
-			blocks,
-			syncing: false,
-			categories: [ ...new Set( blocks.map( block => block.tags[ 0 ] ) ) ],
-		} );
 	}
 
 	setCategory( category ) {
@@ -154,7 +132,7 @@ export default class Blocks extends Component {
 	}
 
 	getItemCount( category ) {
-		const blocks = this.state.blocks;
+		const blocks = this.context.state.blocks;
 
 		const foundItems =
 			blocks
@@ -207,7 +185,7 @@ export default class Blocks extends Component {
 					</Popup>
 				) }
 
-				{ ! this.state.syncing && this.state.blocks && ! this.state.category && (
+				{ ! this.state.syncing && this.context.state.blocks && ! this.state.category && (
 					<Categories>
 						{ this.state.categories && this.state.categories.map( ( category ) => {
 							const count = this.getItemCount( category );

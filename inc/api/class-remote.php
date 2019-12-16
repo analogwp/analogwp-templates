@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Remote extends Base {
 	const TRANSIENT_KEY = 'analogwp_template_info';
-	const ENDPOINT      = 'https://analogwp.com/wp-json/analogwp/v1/templates/';
+	const ENDPOINT      = 'https://analogwp.com/wp-json/analogwp/v1/info/';
 
 	/**
 	 * API template URL.

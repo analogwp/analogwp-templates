@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { isNewTheme } from '../utils';
+import AnalogContext from '../AnalogContext';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
@@ -111,8 +112,10 @@ const List = styled.ul`
 `;
 
 const BlockList = ( { state, importBlock } ) => {
-	const { category, blocks } = state;
-	const filteredBlocks = blocks.filter( block => block.tags.indexOf( category ) > -1 );
+	const context = React.useContext( AnalogContext );
+
+	const { category } = state;
+	const filteredBlocks = context.blocks.filter( block => block.tags.indexOf( category ) > -1 );
 	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
 	return (

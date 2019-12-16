@@ -217,6 +217,7 @@ class App extends React.Component {
 			templates: [],
 			kits: [],
 			styleKits: [],
+			blocks: [],
 			count: null,
 			isOpen: false, // Determines whether modal to preview template is open or not.
 			syncing: false,
@@ -240,7 +241,6 @@ class App extends React.Component {
 		this.handleSort = this.handleSort.bind( this );
 		this.handleFilter = this.handleFilter.bind( this );
 		this.switchTabs = this.switchTabs.bind( this );
-		this.refreshLibrary = this.refreshLibrary.bind( this );
 	}
 
 	switchTabs() {
@@ -279,18 +279,19 @@ class App extends React.Component {
 		}
 
 		const templates = await requestTemplateList();
+		const library = templates.library;
 
 		this.setState( {
-			templates: templates.templates,
-			kits: templates.kits,
-			archive: templates.templates,
-			count: templates.count,
+			templates: library.templates,
+			kits: library.template_kits,
+			archive: library.templates,
+			count: library.templates.length,
 			timestamp: templates.timestamp,
-			hasPro: hasProTemplates( templates.templates ),
-			filters: [ ...new Set( templates.templates.map( f => f.type ) ) ],
+			hasPro: hasProTemplates( library.templates ),
+			filters: [ ...new Set( library.templates.map( f => f.type ) ) ],
+			styleKits: library.stylekits,
+			blocks: library.blocks,
 		} );
-
-		await this.refreshLibrary();
 
 		// Listen for Elementor modal close, so we can reset some states.
 		document.addEventListener( 'modal-close', () => {
@@ -381,35 +382,30 @@ class App extends React.Component {
 			syncing: true,
 			kits: [],
 			styleKits: [],
+			blocks: [],
 		} );
 
 		wp.hooks.doAction( 'analog.refreshLibrary' );
 
-		await this.refreshLibrary( true );
-
 		return await apiFetch( {
 			path: '/agwp/v1/templates/?force_update=true',
 		} ).then( data => {
+			const library = data.library;
+
 			this.setState( {
-				templates: data.templates,
-				archive: data.templates,
-				count: data.count,
-				kits: data.kits,
+				templates: library.templates,
+				archive: library.templates,
+				count: library.templates.length,
+				kits: library.template_kits,
 				timestamp: data.timestamp,
+				styleKits: library.stylekits,
+				blocks: library.blocks,
 				syncing: false,
 			} );
 		} ).catch( () => {
 			this.setState( {
 				syncing: false,
 			} );
-		} );
-	}
-
-	async refreshLibrary( $force = false ) {
-		const kits = await requestStyleKitsList( $force );
-
-		this.setState( {
-			styleKits: kits,
 		} );
 	}
 
