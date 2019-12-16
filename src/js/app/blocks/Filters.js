@@ -11,7 +11,7 @@ const Container = styled.div`
 	margin: -40px -40px 40px;
 	color: #060606;
 	font-size: 14.22px;
-	font-weight: bold;
+	font-weight: 500;
 
 	display: flex;
 	align-items: center;
