@@ -37,7 +37,7 @@ class Version_Control extends Settings_Page {
 			'ang_version_control_settings',
 			array(
 				array(
-					'title' => __( 'Rollback Version', 'ang' ),
+					'title' => __( 'Rollback Style Kits', 'ang' ),
 					'type'  => 'title',
 					'id'    => 'ang_plugin_rollback_version',
 					'desc'  => __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ),
