@@ -60,7 +60,6 @@ const initialState = {
 	blocks: [],
 	activeBlock: false,
 	blockImported: false,
-	syncing: true,
 	category: false,
 	modalActive: false,
 };
@@ -151,7 +150,7 @@ export default class Blocks extends Component {
 			<Fragment>
 				<Filters category={ this.state.category } setCategory={ this.setCategory } />
 
-				{ this.state.syncing && <Empty text={ __( 'Loading blocks...', 'ang' ) } /> }
+				{ this.context.state.syncing && <Empty text={ __( 'Loading blocks...', 'ang' ) } /> }
 
 				{ this.state.modalActive && (
 					<Popup
@@ -185,7 +184,7 @@ export default class Blocks extends Component {
 					</Popup>
 				) }
 
-				{ ! this.state.syncing && this.context.state.blocks && ! this.state.category && (
+				{ ! this.context.state.syncing && this.context.state.blocks && ! this.state.category && (
 					<Categories>
 						{ this.state.categories && this.state.categories.map( ( category ) => {
 							const count = this.getItemCount( category );
