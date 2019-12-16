@@ -73,17 +73,17 @@ const Nav = () => {
 	const context = React.useContext( AnalogContext );
 
 	const getCount = ( tab ) => {
-		let itemCount = context.state[ tab ];
+		let items = context.state[ tab ];
 
-		if ( ! itemCount ) {
+		if ( ! items ) {
 			return false;
 		}
 
 		if ( context.state.showFree ) {
-			itemCount = itemCount.filter( t => t.is_pro !== true );
+			items = items.filter( t => t.is_pro !== true );
 		}
 
-		return itemCount.length;
+		return items.length;
 	};
 
 	return (
