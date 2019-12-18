@@ -62,6 +62,7 @@ const initialState = {
 	blockImported: false,
 	category: false,
 	modalActive: false,
+	categories: [],
 };
 
 export default class Blocks extends Component {
@@ -72,7 +73,6 @@ export default class Blocks extends Component {
 
 		this.state = {
 			...initialState,
-			categories: [ ...new Set( this.context.state.blocks.map( block => block.tags[ 0 ] ) ) ],
 		};
 
 		this.setCategory = this.setCategory.bind( this );
@@ -146,6 +146,8 @@ export default class Blocks extends Component {
 	}
 
 	render() {
+		const categories = [ ...new Set( this.context.state.blocks.map( block => block.tags[ 0 ] ) ) ];
+
 		return (
 			<Fragment>
 				<Filters category={ this.state.category } setCategory={ this.setCategory } />
@@ -186,7 +188,7 @@ export default class Blocks extends Component {
 
 				{ ! this.context.state.syncing && this.context.state.blocks && ! this.state.category && (
 					<Categories>
-						{ this.state.categories && this.state.categories.map( ( category ) => {
+						{ categories && categories.map( ( category ) => {
 							const count = this.getItemCount( category );
 							if ( ! count ) {
 								return;
