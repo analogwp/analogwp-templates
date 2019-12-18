@@ -3,7 +3,7 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits adds intuitive styling controls in the Elementor editor that power-up your design workflow.
- * Version:     1.3.15
+ * Version:     1.3.17
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -40,7 +40,7 @@ final class Analog_Templates {
 	 *
 	 * @var string
 	 */
-	public static $version = '1.3.15';
+	public static $version = '1.3.17';
 
 	/**
 	 * Main Analog_Templates instance.
@@ -98,6 +98,10 @@ final class Analog_Templates {
 			define( 'ANG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		}
 
+		if ( ! defined( 'ANG_PLUGIN_BASE' ) ) {
+			define( 'ANG_PLUGIN_BASE', plugin_basename( __FILE__ ) );
+		}
+
 		// Plugin Folder URL.
 		if ( ! defined( 'ANG_PLUGIN_URL' ) ) {
 			define( 'ANG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -120,9 +124,8 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/settings-helpers.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-import-image.php';
-		require_once ANG_PLUGIN_DIR . 'inc/class-utils.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-options.php';
-		require_once ANG_PLUGIN_DIR . 'inc/class-licensemanager.php';
+		require_once ANG_PLUGIN_DIR . 'inc/class-utils.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-remote.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-local.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-analog-importer.php';
@@ -139,6 +142,8 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-analog-settings.php';
 		require_once ANG_PLUGIN_DIR . 'inc/upgrade-functions.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-quick-edit.php';
+
+		require_once ANG_PLUGIN_DIR . 'inc/admin/class-admin.php';
 	}
 
 	/**

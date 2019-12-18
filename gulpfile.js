@@ -7,6 +7,8 @@ const babel = require( 'gulp-babel' );
 const uglify = require( 'gulp-uglify' );
 const rename = require( 'gulp-rename' );
 const checktextdomain = require( 'gulp-checktextdomain' );
+const rsync = require( 'gulp-rsync' );
+const fs = require( 'fs' );
 
 const project = 'analogwp-templates';
 const buildFiles = [
@@ -34,10 +36,10 @@ const buildFiles = [
 	'!webpack.config.js',
 ];
 
-const buildDestination = './build/' + project + '/';
+const buildDestination = `./build/${ project }/`;
 const buildZipDestination = './build/';
-const cleanFiles = [ './build/' + project + '/', './build/' + project + '.zip' ];
-const jsPotFile = [ './languages/ang-js.pot', './build/' + project + '/languages/ang-js.pot' ];
+const cleanFiles = [ `./build/${ project }/`, `./build/${ project }.zip` ];
+const jsPotFile = [ './languages/ang-js.pot', `./build/${ project }/languages/ang-js.pot` ];
 
 gulp.task( 'yarnBuild', run( 'yarn run build' ) );
 gulp.task( 'yarnMakePot', run( 'yarn run makepot' ) );
@@ -120,3 +122,28 @@ gulp.task( 'build', gulp.series(
 		done();
 	} )
 );
+
+gulp.task( 'deploy', gulp.series(
+	'build',
+	function() {
+		// Dirs and Files to sync
+		const rsyncPaths = [ buildDestination ];
+		const config = JSON.parse( fs.readFileSync( './gulp.config.json' ) );
+
+		// Default options for rsync
+		const rsyncConf = {
+			emptyDirectories: true,
+			compress: true,
+			archive: true,
+			progress: true,
+			root: './build/',
+			exclude: ['node_modules', '.svn', '.git'],
+			hostname: config.play.hostname,
+			username: config.play.username,
+			destination: `~/files/wp-content/plugins/`,
+		};
+
+		// Use gulp-rsync to sync the files
+		return gulp.src( rsyncPaths ).pipe( rsync( rsyncConf ) );
+	}
+) );

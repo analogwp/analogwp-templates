@@ -13,7 +13,7 @@ use Elementor\Controls_Stack;
 use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Scheme_Typography;
+use Elementor\Core\Schemes\Typography as Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
 use Analog\Utils;
@@ -29,9 +29,37 @@ class Typography extends Module {
 	use Document;
 
 	/**
+	 * Holds Style Kits.
+	 *
+	 * @since 1.3.18
+	 * @var array
+	 */
+	protected $tokens;
+
+	/**
+	 * Holds Global Kit token data.
+	 *
+	 * @since 1.3.18
+	 * @var mixed
+	 */
+	protected $global_token_data;
+
+	/**
+	 * Holds current page's Elementor settings.
+	 *
+	 * @since 1.3.18
+	 * @var mixed
+	 */
+	protected $page_settings;
+
+	/**
 	 * Typography constructor.
 	 */
 	public function __construct() {
+		$this->tokens            = Utils::get_tokens();
+		$this->global_token_data = json_decode( Utils::get_global_token_data(), true );
+		$this->page_settings     = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
+
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 100, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 120, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 140, 2 );
@@ -52,6 +80,7 @@ class Typography extends Module {
 		add_filter( 'display_post_states', [ $this, 'add_token_state' ], 10, 2 );
 
 		add_action( 'elementor/element/section/section_layout/before_section_end', [ $this, 'tweak_section_widget' ] );
+
 	}
 
 	/**
@@ -148,24 +177,6 @@ class Typography extends Module {
 					'fields_options' => $this->get_default_typography_values( 'ang_heading_' . $i ),
 				]
 			);
-
-// $margin_settings = [
-// 'label'      => __( 'Margin', 'ang' ),
-// 'type'       => Controls_Manager::DIMENSIONS,
-// 'size_units' => [ 'px', '%', 'em' ],
-// 'selectors'  => [
-// "{{WRAPPER}} h{$i}, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title" => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-// ],
-// ];
-//
-// if ( 6 !== $i ) {
-// $margin_settings['separator'] = 'after';
-// }
-//
-// $element->add_responsive_control(
-// 'ang_heading_' . $i . '_margin',
-// $margin_settings
-// );
 		}
 
 		$element->end_controls_section();
@@ -635,7 +646,13 @@ class Typography extends Module {
 			]
 		);
 
-		$global_token = get_option( 'elementor_ang_global_kit' );
+		/**
+		 * Important:
+		 *
+		 * Setting Kit ID to "string" here on purpose. Elementor's condition arg expects the matching option to be a
+		 * string, where out option returns an integer.
+		 */
+		$global_token = (string) Utils::get_global_kit_id();
 
 		if ( ! $global_token ) {
 			$global_token = -1;
@@ -644,7 +661,7 @@ class Typography extends Module {
 		$element->add_control(
 			'description_ang_global_stylekit',
 			[
-				'raw'             => __( '<strong>You are editing the style kit that has been set as global.</strong> You can optionally choose a different Style Kit for this page below.', 'ang' ),
+				'raw'             => __( 'You are editing the Global Style Kit.', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'ang-notice',
 				'condition'       => [
@@ -659,8 +676,8 @@ class Typography extends Module {
 			[
 				'label'   => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'    => Controls_Manager::SELECT2,
-				'options' => Utils::get_tokens(),
-				'default' => get_option( 'elementor_ang_global_kit' ),
+				'options' => $this->tokens,
+				'default' => Utils::get_global_kit_id(),
 			]
 		);
 
@@ -694,7 +711,7 @@ class Typography extends Module {
 				'raw'  => sprintf(
 					/* translators: %s: Link to Style Kits */
 					__( 'You can set a Global Style Kit <a href="%s" target="_blank">here</a>.', 'ang' ),
-					admin_url( 'admin.php?page=elementor#tab-style' )
+					admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' )
 				),
 				'type' => Controls_Manager::RAW_HTML,
 			]
@@ -872,16 +889,15 @@ class Typography extends Module {
 	 * @return array|string
 	 */
 	public function get_default_value( $key, $is_array = false ) {
-		$global_token = Utils::get_global_token_data();
+		$recently_imported = $this->page_settings;
 
-		$recently_imported = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 		if ( isset( $recently_imported['ang_recently_imported'] ) && 'yes' === $recently_imported['ang_recently_imported'] ) {
 			return ( $is_array ) ? [] : '';
 		}
 
-		if ( $global_token && ! empty( $global_token ) ) {
-			$values = json_decode( $global_token, true );
+		$values = $this->global_token_data;
 
+		if ( $values && ! empty( $values ) ) {
 			if ( isset( $values[ $key ] ) && '' !== $values[ $key ] ) {
 				return $values[ $key ];
 			}
@@ -898,14 +914,13 @@ class Typography extends Module {
 	 * @return array
 	 */
 	public function get_default_typography_values( $key ) {
-		$global_token = Utils::get_global_token_data();
+		$recently_imported = $this->page_settings;
 
-		$recently_imported = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 		if ( isset( $recently_imported['ang_recently_imported'] ) && 'yes' === $recently_imported['ang_recently_imported'] ) {
 			return [];
 		}
 
-		if ( empty( $global_token ) || 'yes' === $recently_imported ) {
+		if ( empty( $this->global_token_data ) ) {
 			return [];
 		}
 
@@ -977,7 +992,7 @@ class Typography extends Module {
 	 * @return array
 	 */
 	public function add_token_state( $post_states, $post ) {
-		$global_token = (int) get_option( 'elementor_ang_global_kit' );
+		$global_token = (int) Utils::get_global_kit_id();
 		if ( $global_token && $post->ID === $global_token ) {
 			$post_states[] = '<span style="color:#32b644;">&#9679; Global Style Kit</span>';
 		}

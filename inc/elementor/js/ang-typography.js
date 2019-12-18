@@ -40,9 +40,11 @@ jQuery( document ).ready( function() {
 		return groups;
 	}
 
-	elementor.hooks.addFilter( 'elements/widget/contextMenuGroups', addPageStyleSettings );
-	elementor.hooks.addFilter( 'elements/section/contextMenuGroups', addPageStyleSettings );
-	elementor.hooks.addFilter( 'elements/column/contextMenuGroups', addPageStyleSettings );
+	if ( ANG_Action.skPanelsAllowed ) {
+		elementor.hooks.addFilter( 'elements/widget/contextMenuGroups', addPageStyleSettings );
+		elementor.hooks.addFilter( 'elements/section/contextMenuGroups', addPageStyleSettings );
+		elementor.hooks.addFilter( 'elements/column/contextMenuGroups', addPageStyleSettings );
+	}
 
 	function switchToStyleTab() {
 		if ( elementor.helpers.compareVersions( ElementorConfig.document.version, '2.7.0', '<' ) ) {

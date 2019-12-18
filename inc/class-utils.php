@@ -89,7 +89,7 @@ class Utils extends Base {
 		$tokens = [];
 
 		foreach ( $posts as $post ) {
-			$global_token = (int) \get_option( 'elementor_ang_global_kit' );
+			$global_token = self::get_global_kit_id();
 
 			$title = $post->post_title;
 
@@ -110,7 +110,7 @@ class Utils extends Base {
 	 * @return int Post ID.
 	 */
 	public static function get_global_kit_id() {
-		return (int) \get_option( 'elementor_ang_global_kit' );
+		return (int) Options::get_instance()->get( 'global_kit' );
 	}
 
 	/**
@@ -320,7 +320,7 @@ class Utils extends Base {
 			$tokens = json_decode( $token, ARRAY_A );
 
 			$tokens['ang_action_tokens'] = $kit_id;
-			
+
 			self::update_style_kit_for_post( $post_id, $tokens );
 		}
 
@@ -434,7 +434,7 @@ class Utils extends Base {
 				return [];
 			}
 
-			krsort( $plugin_information->versions );
+			krsort( $plugin_information->versions, SORT_NATURAL );
 
 			$rollback_versions = [];
 
