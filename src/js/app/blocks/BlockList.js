@@ -1,20 +1,28 @@
 import styled from 'styled-components';
 import { isNewTheme } from '../utils';
 import AnalogContext from '../AnalogContext';
+import Masonry from 'react-masonry-css';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
 
-const List = styled.ul`
-	display: grid;
-	grid-template-columns: repeat( auto-fill, minmax(380px, 1fr) );
-	grid-gap: 25px;
+const Container = styled.div`
+	.grid {
+		display: flex;
+		margin-left: -25px; /* gutter size offset */
+		width: auto;
+	}
 
-	li {
-		background: #fff;
-		border-radius: 4px;
-		box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.12);
-		position: relative;
+	.grid-item {
+		padding-left: 25px;
+		background-clip: padding-box;
+
+		> div {
+			background: #fff;
+			border-radius: 4px;
+			box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.12);
+			position: relative;
+		}
 	}
 
 	.new {
@@ -74,6 +82,7 @@ const List = styled.ul`
 	}
 	img {
 		max-width: 100%;
+		height: auto;
 	}
 
 	img[src$="svg"] {
@@ -111,6 +120,24 @@ const List = styled.ul`
 	}
 `;
 
+const getHeight = ( url ) => {
+	/**
+	 * Split at image width to get the height next.
+	 *
+	 * Should return "448.png" where 448 is image height.
+	 * @type {*|string[]}
+	 */
+	const parts = url.split( '768x' );
+
+	if ( ! parts[ 1 ] ) {
+		return false;
+	}
+
+	const p2 = parts[ 1 ].split( '.' );
+
+	return p2[ 0 ];
+};
+
 const BlockList = ( { state, importBlock } ) => {
 	const context = React.useContext( AnalogContext );
 
@@ -119,32 +146,43 @@ const BlockList = ( { state, importBlock } ) => {
 	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
 	return (
-		<List className="slide-in">
-			{ filteredBlocks.map( ( block ) => (
-				<li key={ block.id }>
-					{ ( isNewTheme( block.published ) > -14 ) && (
-						<span className="new">{ __( 'New', 'ang' ) }</span>
-					) }
+		<Container>
+			<Masonry
+				breakpointCols={ 3 }
+				className="grid"
+				columnClassName="grid-item"
+			>
+				{ filteredBlocks.map( ( block ) => (
+					<div key={ block.id }>
+						{ ( isNewTheme( block.published ) > -14 ) && (
+							<span className="new">{ __( 'New', 'ang' ) }</span>
+						) }
 
-					<figure>
-						<img src={ ( block.thumbnail === '0' ) ? fallbackImg : block.thumbnail } loading="lazy" alt={ block.title } />
+						<figure>
+							<img
+								src={ ( block.thumbnail === '0' ) ? fallbackImg : block.thumbnail }
+								loading="lazy"
+								width="768"
+								height={ getHeight( block.thumbnail ) || undefined }
+								alt={ block.title } />
 
-						<div className="actions">
-							{ ! block.is_pro && (
-								<button className="ang-button" onClick={ () => importBlock( block ) }>
-									{ __( 'Import', 'ang' ) }
-								</button>
-							) }
+							<div className="actions">
+								{ ! block.is_pro && (
+									<button className="ang-button" onClick={ () => importBlock( block ) }>
+										{ __( 'Import', 'ang' ) }
+									</button>
+								) }
+							</div>
+						</figure>
+
+						<div className="content">
+							<h3>{ decodeEntities( block.title ) }</h3>
+							{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
 						</div>
-					</figure>
-
-					<div className="content">
-						<h3>{ decodeEntities( block.title ) }</h3>
-						{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
 					</div>
-				</li>
-			)) }
-		</List>
+				) ) }
+			</Masonry>
+		</Container>
 	);
 };
 
