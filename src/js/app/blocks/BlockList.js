@@ -115,7 +115,7 @@ const BlockList = ( { state, importBlock } ) => {
 	const context = React.useContext( AnalogContext );
 
 	const { category } = state;
-	const filteredBlocks = context.blocks.filter( block => block.tags.indexOf( category ) > -1 );
+	const filteredBlocks = context.state.blocks.filter( block => block.tags.indexOf( category ) > -1 );
 	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
 	return (
