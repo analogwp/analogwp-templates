@@ -43,12 +43,12 @@ class Version_Control extends Settings_Page {
 					'desc'  => __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ),
 				),
 				array(
-					'id'       => 'ang_rollback_version_select_option',
-					'default'  => '',
-					'type'     => 'select',
-					'class'    => 'ang-enhanced-select',
-					'desc_tip' => true,
-					'options'  => $this->get_rollback_versions(),
+					'id'        => 'ang_rollback_version_select_option',
+					'type'      => 'select',
+					'class'     => 'ang-enhanced-select',
+					'desc_tip'  => true,
+					'options'   => $this->get_rollback_versions(),
+					'is_option' => false,
 				),
 				array(
 					'id'    => 'ang_rollback_version_button',
