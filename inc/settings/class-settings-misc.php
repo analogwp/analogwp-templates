@@ -8,8 +8,6 @@
 
 namespace Analog\Settings;
 
-use Analog\Utils;
-
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -25,22 +23,6 @@ class Misc extends Settings_Page {
 		$this->label = __( 'Misc', 'ang' );
 
 		parent::__construct();
-	}
-
-	/**
-	 * Get recent rollback versions in key/value pair.
-	 *
-	 * @uses \Analog\Utils::get_rollback_versions()
-	 * @return array
-	 */
-	public function get_rollback_versions() {
-		$keys = Utils::get_rollback_versions();
-		$data = [];
-		foreach ( $keys as $key => $value ) {
-			$data[ $value ] = $value;
-		}
-
-		return $data;
 	}
 
 	/**
@@ -68,30 +50,6 @@ class Misc extends Settings_Page {
 				array(
 					'type' => 'sectionend',
 					'id'   => 'ang_usage_tracking',
-				),
-				array(
-					'title' => __( 'Rollback Version', 'ang' ),
-					'type'  => 'title',
-					'id'    => 'ang_plugin_rollback_version',
-					'desc'  => __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ),
-				),
-				array(
-					'id'       => 'ang_rollback_version_select_option',
-					'default'  => '',
-					'type'     => 'select',
-					'class'    => 'ang-enhanced-select',
-					'desc_tip' => true,
-					'options'  => $this->get_rollback_versions(),
-				),
-				array(
-					'id'    => 'ang_rollback_version_button',
-					'type'  => 'button',
-					'class' => 'ang-rollback-version-button ang-button',
-					'value' => __( 'Reinstall this version', 'ang' ),
-				),
-				array(
-					'type' => 'sectionend',
-					'id'   => 'ang_plugin_rollback',
 				),
 				array(
 					'title' => __( 'Template Settings', 'ang' ),

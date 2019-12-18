@@ -52,6 +52,7 @@ class Admin_Settings {
 			$settings[] = include 'settings/class-settings-misc.php';
 			$settings[] = include 'settings/class-settings-gopro.php';
 			$settings[] = include 'settings/class-settings-extensions.php';
+			$settings[] = include 'settings/class-settings-version-control.php';
 
 			self::$settings = apply_filters( 'ang_get_settings_pages', $settings );
 		}
