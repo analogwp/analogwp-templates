@@ -172,12 +172,18 @@ export default class Blocks extends Component {
 							<Fragment>
 								<p>{ __( 'The Block has been imported and is now available in the list of the available Sections.', 'ang' ) }</p>
 								<p>
-									<a
+									<button
 										className="ang-button"
-										target="_blank"
-										rel="noopener noreferrer"
-										href={ addQueryArgs( 'edit.php', { post_type: 'elementor_library', tabs_group: true, elementor_library_type: 'section' } ) }
-									>{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" /></a>
+										onClick={ () => {
+											this.setState( {
+												activeBlock: false,
+												modalActive: false,
+												blockImported: false,
+											} );
+										} }
+									>
+										{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
+									</button>
 								</p>
 							</Fragment>
 
