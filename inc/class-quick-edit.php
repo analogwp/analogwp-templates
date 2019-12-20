@@ -36,6 +36,10 @@ class Quick_Edit extends Base {
 	 * @return void
 	 */
 	protected function update_posts_stylekit( $post_id, $kit_id ) {
+		if ( ! $kit_id || '-1' === $kit_id ) {
+			return;
+		}
+
 		$token = get_post_meta( $kit_id, '_tokens_data', true );
 		$token = json_decode( $token, ARRAY_A );
 		$token = array_merge( $token, [ 'ang_action_tokens' => $kit_id ] );

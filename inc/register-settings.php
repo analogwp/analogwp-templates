@@ -155,6 +155,9 @@ function settings_page() {
  * Sets up the default options used on the settings page.
  */
 function create_options() {
+	if ( ! is_admin() ) {
+		return false;
+	}
 	// Include settings so that we can run through defaults.
 	include_once dirname( __FILE__ ) . '/class-admin-settings.php';
 
@@ -176,7 +179,7 @@ function create_options() {
 		}
 	}
 }
-add_action( 'init', 'Analog\Settings\create_options', 20 );
+add_action( 'init', 'Analog\Settings\create_options' );
 
 /**
  * Register plugin settings.
