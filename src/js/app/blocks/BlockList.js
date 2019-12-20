@@ -22,6 +22,7 @@ const Container = styled.div`
 			border-radius: 4px;
 			box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.12);
 			position: relative;
+			margin-bottom: 25px;
 		}
 	}
 
