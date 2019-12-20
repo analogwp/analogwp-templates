@@ -170,7 +170,21 @@ export default class Blocks extends Component {
 						{ ! this.state.blockImported && <Loader /> }
 						{ this.state.blockImported && (
 							<Fragment>
-								<p>{ __( 'The Block has been imported and is now available in the list of the available Sections.', 'ang' ) }</p>
+								<p>
+									{ __( 'The block has been imported and is now available in the', 'ang' ) }
+									{ ' ' }
+									<a
+										target="_blank"
+										rel="noopener noreferrer"
+										href={ addQueryArgs( 'edit.php', {
+											post_type: 'elementor_library',
+											tabs_group: true,
+											elementor_library_type: 'section',
+										} ) }
+									>
+										{ __( 'Elementor section library', 'ang' ) }
+									</a>.
+								</p>
 								<p>
 									<button
 										className="ang-button"
