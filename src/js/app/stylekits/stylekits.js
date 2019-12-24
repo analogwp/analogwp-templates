@@ -203,7 +203,7 @@ export default class StyleKits extends React.Component {
 				{ this.state.modalActive && (
 					<Popup
 						title={ decodeEntities( this.state.activeKit.title ) }
-						className="header-center"
+						onRequestClose={ () => this.setState( { modalActive: false } ) }
 					>
 						{ this.state.hasError && (
 							<div>
