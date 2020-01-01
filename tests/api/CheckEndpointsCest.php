@@ -15,10 +15,10 @@ class CheckEndpointsCest {
 		// Test Blocks.
 		$I->seeResponseMatchesJsonType(
 			[
-				'id' => 'integer',
+				'id' => 'integer:>0',
 				'siteID' => 'integer',
 				'title' => 'string',
-				'thumbnail' => 'string',
+				'thumbnail' => 'string:url',
 				'published' => 'integer',
 				'tags' => 'array',
 				'popularityIndex' => 'integer',
@@ -31,10 +31,10 @@ class CheckEndpointsCest {
 		// Test StyleKits.
 		$I->seeResponseMatchesJsonType(
 			[
-				'id' => 'integer',
+				'id' => 'integer:>0',
 				'title' => 'string',
 				'slug' => 'string',
-				'image' => 'string',
+				'image' => 'string:url',
 				'site_id' => 'integer',
 				'is_pro' => 'boolean',
 			],
@@ -47,9 +47,9 @@ class CheckEndpointsCest {
 				'id' => 'string',
 				'site_id' => 'string',
 				'title' => 'string',
-				'thumbnail' => 'string',
+				'thumbnail' => 'string:url',
 				'published' => 'integer',
-				'url' => 'string',
+				'url' => 'string:url',
 				'type' => 'string',
 				'tags' => 'array',
 				'page_template' => 'string',
@@ -65,7 +65,7 @@ class CheckEndpointsCest {
 			[
 				'title' => 'string',
 				'site_id' => 'integer',
-				'thumbnail' => 'string',
+				'thumbnail' => 'string:url',
 			],
 			'$.library.template_kits[0]'
 		);
