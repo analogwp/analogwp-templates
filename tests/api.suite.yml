@@ -4,4 +4,5 @@ modules:
         - REST:
             url: '%WP_URL%/wp-json/agwp/v1'
             depends: PhpBrowser
+            part: Json
         - \Helper\Api

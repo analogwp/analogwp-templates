@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreFile
 
 /**
  * Inherited Methods

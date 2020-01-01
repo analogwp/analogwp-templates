@@ -70,4 +70,9 @@ class CheckEndpointsCest {
 			'$.library.template_kits[0]'
 		);
 	}
+
+	public function shouldBeUnauthorized( ApiTester $I ) {
+		$I->sendGET( '/templates' );
+		$I->seeResponseCodeIs( 401 );
+	}
 }
