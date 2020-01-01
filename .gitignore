@@ -12,3 +12,6 @@ node_modules/
 /inc/elementor/js/ang-typography.min.js
 /inc/elementor/js/*.min.js
 /gulp.config.json
+
+/vendor/
+/.env
