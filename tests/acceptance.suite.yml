@@ -23,8 +23,11 @@ modules:
             url: '%WP_URL%'
             urlReplacement: true #replace the hardcoded dump URL with the one above
             tablePrefix: '%TABLE_PREFIX%'
-        WPBrowser:
+        WPWebDriver:
             url: '%WP_URL%'
+            browser: chrome
+            window_size: false # disabled in ChromeDriver
+            port: 9515
             adminUsername: '%ADMIN_USERNAME%'
             adminPassword: '%ADMIN_PASSWORD%'
             adminPath: '%WP_ADMIN_PATH%'
