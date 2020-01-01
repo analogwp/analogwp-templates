@@ -3,11 +3,11 @@
 // @codingStandardsIgnoreFile
 
 class SaveSettingsCest {
-    public function _before(AcceptanceTester $I) {
+    public function _before( AcceptanceTester $I ) {
     	$I->loginAsAdmin();
     }
 
-    public function shouldSaveSettings(AcceptanceTester $I) {
+    private function shouldSaveSettings(AcceptanceTester $I) {
     	// Ensure settings can be saved.
     	$I->amOnAdminPage( 'admin.php?page=ang-settings' );
 

@@ -10,6 +10,7 @@ modules:
     enabled:
         - WPDb
         - WPWebDriver
+        - Filesystem
         - \Helper\Acceptance
     config:
         WPDb:
