@@ -138,7 +138,7 @@ class Utils extends Base {
 	 * @access public
 	 */
 	public static function clear_elementor_cache() {
-		Plugin::instance()->files_manager->clear_cache();
+		Plugin::$instance->files_manager->clear_cache();
 	}
 
 	/**
@@ -546,7 +546,7 @@ class Utils extends Base {
 		$preserved_settings = self::remove_stored_kit_keys( $page_settings );
 		$modified_settings  = array_merge( $preserved_settings, $tokens );
 
-		\update_post_meta( $post_id, '_elementor_page_settings', wp_slash( $modified_settings ), true );
+		\update_post_meta( $post_id, '_elementor_page_settings', wp_slash( $modified_settings ) );
 	}
 }
 
