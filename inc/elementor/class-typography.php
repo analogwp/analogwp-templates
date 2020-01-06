@@ -13,10 +13,15 @@ use Elementor\Controls_Stack;
 use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Core\Schemes\Typography as Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
 use Analog\Utils;
+
+if ( version_compare( ELEMENTOR_VERSION, '2.8.0', '<' ) ) {
+	class_alias( 'Elementor\Scheme_Typography', 'Analog\Elementor\Scheme_Typography' );
+} else {
+	class_alias( 'Elementor\Core\Schemes\Typography', 'Analog\Elementor\Scheme_Typography' );
+}
 
 defined( 'ABSPATH' ) || exit;
 
