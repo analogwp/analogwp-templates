@@ -34,6 +34,11 @@ const buildFiles = [
 	'!.eslintignore',
 	'!.eslintrc.json',
 	'!webpack.config.js',
+	'!phpcs.xml.dist',
+	'!composer.lock',
+	'!codeception.dist.yml',
+	'!tests/**',
+	'!vendor/**',
 ];
 
 const buildDestination = `./build/${ project }/`;

@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.3
-Stable tag: 1.3.17
+Stable tag: 1.4.0
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -100,7 +100,17 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
-= 1.3.17 - December 10, 2019 =
+= 1.4.0 - January 06, 2020 =
+* New: Added Version Control tab under Settings
+* New: Option to become a Beta Tester
+* Fix: Minor issue with Settings page [footer links](https://github.com/mauryaratan/analogwp-templates/issues/233) inherting Settings styles
+* Fix: Critical error caused sometimes during [Quick Post](https://github.com/mauryaratan/analogwp-templates/issues/251) update
+* Fix: Global SK values not updating properly due to a recent change
+* Improve: Added [backward compatibility](https://github.com/mauryaratan/analogwp-templates/issues/249) with < Elementor v2.8.0
+* Improve: Added [Close link](https://github.com/mauryaratan/analogwp-templates/issues/250) to Style Kit import popup.
+* Improve: Heavily improved performance, caused due to a memory leak
+
+= 1.3.17 - December 12, 2019 =
 * Fix: Added backwards compatibility for SK contextual menu
 * Fix: Icons box links not respecting inline colors
 
@@ -321,3 +331,6 @@ Introducing Style Kits for Elementor, added a bunch of QoL improvements.
 
 = 1.3.4 =
 Fixed a critical bug inside Elementor when attempting to import a template.
+
+= 1.4.0 =
+Improved performance, fixes issues with Global Style Kit among various fixes.
