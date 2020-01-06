@@ -429,3 +429,8 @@ body.style-kits_page_ang-settings {
 	font-size: 1.2em;
 	font-weight: bold;
 }
+
+#global_kit + span {
+	display: block;
+	padding: 10px 0 0;
+}
