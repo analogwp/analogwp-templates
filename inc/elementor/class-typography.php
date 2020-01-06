@@ -36,7 +36,7 @@ class Typography extends Module {
 	/**
 	 * Holds Style Kits.
 	 *
-	 * @since 1.3.18
+	 * @since 1.4.0
 	 * @var array
 	 */
 	protected $tokens;
@@ -44,7 +44,7 @@ class Typography extends Module {
 	/**
 	 * Holds Global Kit token data.
 	 *
-	 * @since 1.3.18
+	 * @since 1.4.0
 	 * @var mixed
 	 */
 	protected $global_token_data;
@@ -52,7 +52,7 @@ class Typography extends Module {
 	/**
 	 * Holds current page's Elementor settings.
 	 *
-	 * @since 1.3.18
+	 * @since 1.4.0
 	 * @var mixed
 	 */
 	protected $page_settings;

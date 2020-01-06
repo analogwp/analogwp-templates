@@ -11,7 +11,7 @@ namespace Analog;
  * Class BetaTesters
 
  * @package Analog
- * @since 1.3.18
+ * @since 1.4.0
  */
 class Beta_Testers {
 	/**
