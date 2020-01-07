@@ -17,6 +17,10 @@ const Container = styled.div`
 		padding-left: 25px;
 		background-clip: padding-box;
 
+		&:empty {
+			display: none;
+		}
+
 		> div {
 			background: #fff;
 			border-radius: 4px;
@@ -153,35 +157,41 @@ const BlockList = ( { state, importBlock } ) => {
 				className="grid"
 				columnClassName="grid-item"
 			>
-				{ filteredBlocks.map( ( block ) => (
-					<div key={ block.id }>
-						{ ( isNewTheme( block.published ) > -14 ) && (
-							<span className="new">{ __( 'New', 'ang' ) }</span>
-						) }
+				{ filteredBlocks.map( ( block ) => {
+					if ( context.state.showFree && Boolean( block.is_pro ) ) {
+						return;
+					}
 
-						<figure>
-							<img
-								src={ ( block.thumbnail === '0' ) ? fallbackImg : block.thumbnail }
-								loading="lazy"
-								width="768"
-								height={ getHeight( block.thumbnail ) || undefined }
-								alt={ block.title } />
+					return (
+						<div key={ block.id }>
+							{ ( isNewTheme( block.published ) > -14 ) && (
+								<span className="new">{ __( 'New', 'ang' ) }</span>
+							) }
 
-							<div className="actions">
-								{ ! block.is_pro && (
-									<button className="ang-button" onClick={ () => importBlock( block ) }>
-										{ __( 'Import', 'ang' ) }
-									</button>
-								) }
+							<figure>
+								<img
+									src={ ( block.thumbnail === '0' ) ? fallbackImg : block.thumbnail }
+									loading="lazy"
+									width="768"
+									height={ getHeight( block.thumbnail ) || undefined }
+									alt={ block.title }/>
+
+								<div className="actions">
+									{ ! block.is_pro && (
+										<button className="ang-button" onClick={ () => importBlock( block ) }>
+											{ __( 'Import', 'ang' ) }
+										</button>
+									) }
+								</div>
+							</figure>
+
+							<div className="content">
+								<h3>{ decodeEntities( block.title ) }</h3>
+								{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
 							</div>
-						</figure>
-
-						<div className="content">
-							<h3>{ decodeEntities( block.title ) }</h3>
-							{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
 						</div>
-					</div>
-				) ) }
+					);
+				} ) }
 			</Masonry>
 		</Container>
 	);
