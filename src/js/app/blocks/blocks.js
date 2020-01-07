@@ -1,12 +1,11 @@
 import styled from 'styled-components';
-
+import AnalogContext from '../AnalogContext';
 import { requestBlockContent } from '../api';
 import Empty from '../helpers/Empty';
+import Loader from '../icons/loader';
+import Popup from '../popup';
 import BlockList from './BlockList';
 import Filters from './Filters';
-import Popup from '../popup';
-import Loader from '../icons/loader';
-import AnalogContext from '../AnalogContext';
 
 const { __ } = wp.i18n;
 const { decodeEntities } = wp.htmlEntities;

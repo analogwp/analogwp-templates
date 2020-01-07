@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { isNewTheme } from '../utils';
-import AnalogContext from '../AnalogContext';
 import Masonry from 'react-masonry-css';
+import styled from 'styled-components';
+import AnalogContext from '../AnalogContext';
+import { isNewTheme } from '../utils';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
@@ -174,7 +174,8 @@ const BlockList = ( { state, importBlock } ) => {
 									loading="lazy"
 									width="768"
 									height={ getHeight( block.thumbnail ) || undefined }
-									alt={ block.title }/>
+									alt={ block.title }
+								/>
 
 								<div className="actions">
 									{ ! block.is_pro && (
