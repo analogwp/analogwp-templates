@@ -5,7 +5,9 @@
  * @package AnalogWP
  */
 
-namespace Analog;
+namespace Analog\Admin;
+
+use Analog\Base;
 
 /**
  * Class to handle Admin related funtionality.

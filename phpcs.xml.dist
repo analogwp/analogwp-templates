@@ -29,7 +29,7 @@
 	</rule>
 
 	<rule ref="WordPress-Extra">
-		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+		<exclude name="WordPress.Files.FileName" />
 	</rule>
 
 	<!-- Check all PHP files in directory tree by default. -->
