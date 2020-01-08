@@ -260,10 +260,10 @@ class Colors extends Module {
 		$element->add_control(
 			'ang_color_text_light',
 			[
-				'label'     => __( 'Text and Headings Color', 'ang' ),
+				'label'     => __( 'Text Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}},{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
+					'{{WRAPPER}}'                => 'color: {{VALUE}};',
 					'{{WRAPPER}}, {{WRAPPER}} .sk-text-light' => '--ang_color_text_light: {{VALUE}}',
 					'{{WRAPPER}} .sk-text-light' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sk-text-light .elementor-heading-title' => 'color: {{VALUE}}',
@@ -272,11 +272,13 @@ class Colors extends Module {
 		);
 
 		$element->add_control(
-			'ang_color_text_light_desc',
+			'ang_color_heading',
 			[
-				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'Applies on the text and headings in the layout.', 'ang' ),
-				'classes' => 'elementor-descriptor',
+				'label'     => __( 'Headings Color', 'ang' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
+				],
 			]
 		);
 

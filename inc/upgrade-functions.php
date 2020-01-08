@@ -313,3 +313,14 @@ function version_1_3_15_upgrades() {
 
 	Utils::clear_elementor_cache();
 }
+
+/**
+ * Version 1.5.0 upgrades.
+ *
+ * @since 1.5.0
+ */
+function version_1_5_upgrades() {
+	// Style Kit migrations.
+
+	// TODO: Map 'ang_color_text_light' to 'ang_color_heading'.
+}
