@@ -313,3 +313,15 @@ function version_1_3_15_upgrades() {
 
 	Utils::clear_elementor_cache();
 }
+
+/**
+ * Version 1.4.0 upgrades.
+ *
+ * @since 1.4.0
+ */
+function version_140_upgrades() {
+	delete_transient( 'analog_blocks' );
+	delete_transient( 'analog_stylekits' );
+
+	Utils::clear_elementor_cache();
+}

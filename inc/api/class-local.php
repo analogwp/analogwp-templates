@@ -8,11 +8,10 @@
 namespace Analog\API;
 
 use Analog\Analog_Templates;
-use \Analog\Base;
+use Analog\Base;
 use Analog\Classes\Import_Image;
-use \Analog\Options;
+use Analog\Options;
 use Analog\Utils;
-use Elementor\Core\Settings\Manager;
 use Elementor\TemplateLibrary\Analog_Importer;
 use WP_Error;
 use WP_Query;
@@ -72,11 +71,11 @@ class Local extends Base {
 			'/tokens/update'           => [
 				WP_REST_Server::CREATABLE => 'update_token',
 			],
-			'/kits'                    => [
-				WP_REST_Server::READABLE => 'get_kits',
-			],
-			'import/kit'               => [
+			'/import/kit'              => [
 				WP_REST_Server::CREATABLE => 'handle_kit_import',
+			],
+			'/blocks/insert'           => [
+				WP_REST_Server::CREATABLE => 'get_blocks_content',
 			],
 		];
 
@@ -256,6 +255,51 @@ class Local extends Base {
 		}
 
 		return new WP_Error( 'import_error', 'Unable to create page.' );
+	}
+
+	/**
+	 * Creates a 'Section' for Elementor.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @uses wp_insert_post()
+	 *
+	 * @param array  $block Block details.
+	 * @param array  $data Block content.
+	 * @param string $method Import method.
+	 *
+	 * @return int Post ID.
+	 */
+	private function create_section( array $block, $data, $method ) {
+		$args = [
+			'post_title'   => 'AnalogWP: ' . $block['title'],
+			'post_type'    => 'elementor_library',
+			'post_status'  => 'publish',
+			'post_content' => '',
+		];
+
+		$post_id = wp_insert_post( $args );
+
+		if ( $post_id && ! is_wp_error( $post_id ) ) {
+			\update_post_meta( $post_id, '_elementor_data', wp_slash( wp_json_encode( $data['content'] ) ) );
+			\update_post_meta( $post_id, '_elementor_edit_mode', 'builder' );
+			\update_post_meta( $post_id, '_elementor_template_type', 'section' );
+			\update_post_meta( $post_id, '_wp_page_template', 'default' );
+
+			\update_post_meta( $post_id, '_ang_import_type', $method );
+			\update_post_meta(
+				$post_id,
+				'_ang_template_id',
+				[
+					'site_id' => $block['siteID'],
+					'id'      => $block['id'],
+				]
+			);
+
+			\wp_set_object_terms( $post_id, 'section', 'elementor_library_type' );
+		}
+
+		return (int) $post_id;
 	}
 
 	/**
@@ -516,24 +560,6 @@ class Local extends Base {
 	}
 
 	/**
-	 * Fetch a list of Style Kits available from AnalogWP.com.
-	 *
-	 * @since 1.3.4
-	 * @param WP_REST_Request $request Request object.
-	 *
-	 * @return mixed
-	 */
-	public function get_kits( WP_REST_Request $request ) {
-		$force_update = $request->get_param( 'force_update' );
-
-		if ( $force_update ) {
-			return Remote::get_instance()->get_stylekits( true );
-		}
-
-		return Remote::get_instance()->get_stylekits();
-	}
-
-	/**
 	 * Handle remote Style Kit import.
 	 *
 	 * @since 1.3.4
@@ -634,6 +660,77 @@ class Local extends Base {
 		} else {
 			return $tokens;
 		}
+	}
+
+	/**
+	 * Handle remote "Blocks" import.
+	 *
+	 * @since 1.3.4
+	 * @param WP_REST_Request $request Request object.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function get_blocks_content( WP_REST_Request $request ) {
+		$block  = $request->get_param( 'block' );
+		$method = $request->get_param( 'method' );
+
+		if ( ! $block ) {
+			return new WP_Error( 'block_import_error', __( 'Invalid Block ID.', 'ang' ) );
+		}
+
+		$data = $this->process_block_import( $block, $method );
+
+		return new WP_REST_Response( $data, 200 );
+	}
+
+	/**
+	 * Process block import functionaliities.
+	 *  1. Imports the remote template.
+	 *  2. Then with retrieved content, creates a page.
+	 *
+	 * @uses \Analog\API\Remote::::get_instance()->get_block_content()
+	 * @uses \Elementor\TemplateLibrary\Analog_Importer
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param array  $block Block data.
+	 * @param string $method Import method.
+	 *
+	 * @return array|WP_Error
+	 */
+	protected function process_block_import( $block, $method = 'library' ) {
+		$license = false;
+
+		if ( $block['is_pro'] ) {
+			// Fetch license only when necessary, throw error if not found.
+			$license = Options::get_instance()->get( 'ang_license_key' );
+			if ( empty( $license ) ) {
+				return new WP_Error( 'import_error', 'Invalid license provided.' );
+			}
+		}
+
+		$raw_data = Remote::get_instance()->get_block_content( $block['id'], $license, $method, $block['siteID'] );
+		$importer = new Analog_Importer();
+
+		$data = $importer->get_data(
+			[
+				'editor_post_id' => false,
+				'options'        => [
+					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
+				],
+			],
+			'display',
+			$raw_data
+		);
+
+		if ( 'library' === $method ) {
+			$page_id = $this->create_section( $block, $data, $method );
+
+			$payload = [ 'id' => $page_id ];
+		} else {
+			$payload = [ 'data' => $data ];
+		}
+
+		return $payload;
 	}
 }
 

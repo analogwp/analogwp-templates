@@ -63,41 +63,46 @@ const Count = styled.span`
 `;
 
 const ITEMS = [
-	{ key: 'templates', label: __( 'Templates', 'ang' ), show: true },
-	{ key: 'stylekits', label: __( 'Style Kits', 'ang' ), show: true },
+	{ key: 'templates', label: __( 'Templates', 'ang' ) },
+	// dont change the "styleKits" casing here
+	{ key: 'styleKits', label: __( 'Style Kits', 'ang' ) },
+	{ key: 'blocks', label: __( 'Blocks', 'ang' ) },
 ];
 
-// Filter nav items to show/hide between App and Elementor page.
-// const filteredItems = ITEMS.filter( item => Boolean( item.show ) === true );
+const Nav = () => {
+	const context = React.useContext( AnalogContext );
 
-const Nav = () => (
-	<List>
-		<AnalogContext.Consumer>
-			{ ( { state, dispatch } ) => (
-				ITEMS.map( ( item ) => (
-					<li
-						key={ item.key }
-						className={ classnames( 'button-plain', {
-							active: item.key === state.tab,
-						} ) }
-					>
-						<a href={ `#${ item.key }` } onClick={ () => dispatch( { tab: item.key } ) }>{ item.label }</a>
-						{ state.templates && item.key === 'templates' && (
-							<Count>
-								{ state.showFree ? Object.keys( state.templates.filter( t => t.is_pro !== true ) ).length : Object.keys( state.templates ).length }
-							</Count>
-						) }
+	const getCount = ( tab ) => {
+		let items = context.state[ tab ];
 
-						{ item.key === 'stylekits' && state.styleKits && (
-							<Count>
-								{ state.showFree ? state.styleKits.filter( k => k.is_pro !== true ).length : Object.keys( state.styleKits ).length }
-							</Count>
-						) }
-					</li>
-				) )
-			) }
-		</AnalogContext.Consumer>
-	</List>
-);
+		if ( ! items ) {
+			return false;
+		}
+
+		if ( context.state.showFree ) {
+			items = items.filter( t => t.is_pro !== true );
+		}
+
+		return items.length;
+	};
+
+	return (
+		<List>
+			{ ITEMS.map( ( item ) => (
+				<li
+					key={ item.key }
+					className={ classnames( 'button-plain', {
+						active: item.key === context.state.tab,
+					} ) }
+				>
+					<a href={ `#${ item.key }` } onClick={ () => context.dispatch( { tab: item.key } ) }>
+						{ item.label }
+						{ getCount( item.key ) > 0 && <Count>{ getCount( item.key ) }</Count> }
+					</a>
+				</li>
+			) ) }
+		</List>
+	);
+};
 
 export default Nav;

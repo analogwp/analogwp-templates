@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Remote extends Base {
 	const TRANSIENT_KEY = 'analogwp_template_info';
-	const ENDPOINT      = 'https://analogwp.com/wp-json/analogwp/v1/templates/';
+	const ENDPOINT      = 'https://analogwp.com/wp-json/analogwp/v1/info/';
 
 	/**
 	 * API template URL.
@@ -35,6 +35,14 @@ class Remote extends Base {
 	 * @var string API endpoint for style kits.
 	 */
 	private static $kits_endpoint = 'https://analogwp.com/wp-json/analogwp/v1/stylekits/';
+
+	/**
+	 * Blocks API endpoint.
+	 *
+	 * @since 1.4.0
+	 * @var string API endpoint for style kits.
+	 */
+	private static $blocks_endpoint = 'https://analogwp.com/wp-json/analogwp/v1/blocks/';
 
 	/**
 	 * Common API call args.
@@ -110,33 +118,58 @@ class Remote extends Base {
 	}
 
 	/**
-	 * Retrieve remote Style Kits.
+	 * Get Block content.
 	 *
-	 * @param bool $force_update Whether to force the request.
-	 * @since 1.3.4
-	 * @return mixed
+	 * @param int      $block_id    Block ID.
+	 * @param string   $license     Customer license.
+	 * @param string   $method      Whether being imported from Elementor, or library.
+	 * @param int|bool $site_id     Site ID to fetch Remote template from.
+	 * @return mixed|\WP_Error
 	 */
-	public function get_stylekits( $force_update = false ) {
-		$transient_key = 'analog_stylekits';
+	public function get_block_content( $block_id, $license, $method, $site_id ) {
+		$url = self::$blocks_endpoint . $block_id;
 
-		if ( ! get_transient( $transient_key ) || $force_update ) {
-			global $wp_version;
-			$body_args = apply_filters( 'analog/api/get_stylekits/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
+		$body_args = apply_filters( 'analog/api/get_block_content/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
+		$body_args = array_merge(
+			$body_args,
+			[
+				'license' => $license,
+				'url'     => home_url(),
+				'method'  => $method,
+				'site_id' => $site_id,
+			]
+		);
 
-			$request = wp_remote_get(
-				self::$kits_endpoint,
-				[
-					'timeout'    => $force_update ? 25 : 10,
-					'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
-					'body'       => $body_args,
-				]
-			);
+		$response = wp_remote_get(
+			$url,
+			[
+				'timeout' => 40,
+				'body'    => $body_args,
+			]
+		);
 
-			$response = json_decode( wp_remote_retrieve_body( $request ), true );
-
-			set_transient( $transient_key, $response, DAY_IN_SECONDS * 2 );
+		if ( is_wp_error( $response ) ) {
+			return $response;
 		}
-		return get_transient( $transient_key );
+
+		$response_code = (int) wp_remote_retrieve_response_code( $response );
+		if ( 200 !== $response_code ) {
+			$error = json_decode( wp_remote_retrieve_body( $response ), true );
+
+			return new \WP_Error( $error['code'], $error['message'] );
+		}
+
+		$block_content = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( isset( $block_content['error'] ) ) {
+			return new \WP_Error( 'response_error', $block_content['error'] );
+		}
+
+		if ( empty( $block_content['content'] ) ) {
+			return new \WP_Error( 'block_data_error', 'An invalid data was returned.' );
+		}
+
+		return $block_content;
 	}
 
 	/**
