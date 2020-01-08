@@ -655,9 +655,9 @@ class Typography extends Module {
 		 * Important:
 		 *
 		 * Setting Kit ID to "string" here on purpose. Elementor's condition arg expects the matching option to be a
-		 * string, where out option returns an integer.
+		 * string, where our option returns an integer.
 		 */
-		$global_token = (string) Utils::get_global_kit_id();
+		$global_token = Utils::get_global_kit_id();
 
 		if ( ! $global_token ) {
 			$global_token = -1;
@@ -670,7 +670,7 @@ class Typography extends Module {
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'ang-notice',
 				'condition'       => [
-					'ang_action_tokens' => $global_token,
+					'ang_action_tokens' => (string) $global_token,
 				],
 			]
 		);
