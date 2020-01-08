@@ -330,5 +330,7 @@ function version_1_5_upgrades() {
 	 * // TODO: Map 'ang_color_text_light' to 'ang_background_light_text'.
 	 * // TODO: Migrate 'ang_color_text_light' to 'ang_color_text'.
 	 * // TODO: Migrate 'ang_color_text_dark' to 'ang_background_dark_text'.
+	 * // TODO: Migrate 'ang_color_background_light' to 'ang_background_light_background'.
+	 * // TODO: Migrate 'ang_color_background_dark' to 'ang_background_dark_background'.
 	 */
 }
