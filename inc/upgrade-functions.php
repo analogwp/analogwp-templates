@@ -322,5 +322,7 @@ function version_1_3_15_upgrades() {
 function version_1_5_upgrades() {
 	// Style Kit migrations.
 
+	// TODO: Migrate 'ang_color_text_light' to 'ang_color_text'.
 	// TODO: Map 'ang_color_text_light' to 'ang_color_heading'.
+	// TODO: Unset 'ang_color_text_light'.
 }

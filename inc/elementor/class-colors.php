@@ -258,7 +258,7 @@ class Colors extends Module {
 		);
 
 		$element->add_control(
-			'ang_color_text_light',
+			'ang_color_text',
 			[
 				'label'     => __( 'Text Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
