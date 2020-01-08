@@ -31,7 +31,7 @@ class Finder_Shortcuts extends Base_Category {
 	 * @return array
 	 */
 	public function get_category_items( array $options = [] ) {
-		$items = [
+		return [
 			'library'    => [
 				'title'    => __( 'Templates Library', 'ang' ),
 				'url'      => admin_url( 'admin.php?page=analogwp_templates' ),
@@ -51,7 +51,5 @@ class Finder_Shortcuts extends Base_Category {
 				'keywords' => [ 'analog', 'style', 'kits' ],
 			],
 		];
-
-		return $items;
 	}
 }

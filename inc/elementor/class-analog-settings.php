@@ -48,7 +48,7 @@ class Analog_Settings {
 							'html' => sprintf(
 								/* translators: %s: Style Kit Documentation link */
 								__( 'This setting has been moved to %s.', 'ang' ),
-								'<a href="' . admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' ) . '">' . __( 'Style Kit settings' ) . '</a>'
+								'<a href="' . admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' ) . '">' . __( 'Style Kit settings', 'ang' ) . '</a>'
 							),
 						],
 					],

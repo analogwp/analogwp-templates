@@ -149,6 +149,12 @@ CSS;
 		);
 	}
 
+	/**
+	 * Returns a link to make a Style Kit Global.
+	 *
+	 * @access private
+	 * @return string
+	 */
 	private function get_stylekit_global_link() {
 		return add_query_arg(
 			[

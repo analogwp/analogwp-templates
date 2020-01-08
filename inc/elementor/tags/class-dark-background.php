@@ -3,6 +3,7 @@
 namespace Analog\Elementor\Tags;
 
 use Elementor\Core\DynamicTags\Tag as Tag;
+use Elementor\Modules\DynamicTags\Module;
 
 class Dark_Background extends Tag {
 	public function get_name() {
@@ -18,7 +19,7 @@ class Dark_Background extends Tag {
 	}
 
 	public function get_categories() {
-		return [ \Elementor\Modules\DynamicTags\Module::TEXT_CATEGORY ];
+		return [ Module::TEXT_CATEGORY ];
 	}
 
 	public function render() {

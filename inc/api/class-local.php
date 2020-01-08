@@ -12,7 +12,6 @@ use \Analog\Base;
 use Analog\Classes\Import_Image;
 use \Analog\Options;
 use Analog\Utils;
-use Elementor\Core\Settings\Manager;
 use Elementor\TemplateLibrary\Analog_Importer;
 use WP_Error;
 use WP_Query;
@@ -593,12 +592,10 @@ class Local extends Base {
 
 			update_post_meta( $post, '_thumbnail_id', $attachment['id'] );
 
-			$data = [
+			return [
 				'message' => __( 'Style Kit imported', 'ang' ),
 				'id'      => $post,
 			];
-
-			return $data;
 		}
 	}
 
