@@ -58,6 +58,8 @@ final class Analog_Templates {
 			add_filter( 'analog/app/strings', [ self::$instance, 'send_strings_to_app' ] );
 
 			self::$instance->includes();
+
+			( new Admin\Notices() )->register();
 		}
 	}
 
@@ -144,6 +146,8 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/class-quick-edit.php';
 
 		require_once ANG_PLUGIN_DIR . 'inc/Admin/class-admin.php';
+		require_once ANG_PLUGIN_DIR . 'inc/Admin/Notice.php';
+		require_once ANG_PLUGIN_DIR . 'inc/Admin/Notices.php';
 
 		require_once ANG_PLUGIN_DIR . 'inc/class-beta-testers.php';
 	}
