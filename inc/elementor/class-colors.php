@@ -263,10 +263,7 @@ class Colors extends Module {
 				'label'     => __( 'Text Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}}'                => 'color: {{VALUE}};',
-					'{{WRAPPER}}, {{WRAPPER}} .sk-text-light' => '--ang_color_text_light: {{VALUE}}',
-					'{{WRAPPER}} .sk-text-light' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .sk-text-light .elementor-heading-title' => 'color: {{VALUE}}',
+					'{{WRAPPER}}' => 'color: {{VALUE}};',
 				],
 			]
 		);
