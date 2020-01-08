@@ -346,28 +346,6 @@ class Colors extends Module {
 			]
 		);
 
-		$element->add_control(
-			'ang_color_text_dark',
-			[
-				'label'     => __( 'Text over dark background', 'ang' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}}, {{WRAPPER}} .sk-text-dark' => '--ang_color_text_dark: {{VALUE}}',
-					'{{WRAPPER}} .sk-text-dark' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .sk-text-dark .elementor-heading-title' => 'color: {{VALUE}}',
-				],
-			]
-		);
-
-		$element->add_control(
-			'ang_color_text_dark_desc',
-			[
-				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'This color will apply on the text in a section or column with the Dark Background Color, as it has been set above.', 'ang' ),
-				'classes' => 'elementor-descriptor',
-			]
-		);
-
 		$element->end_controls_section();
 	}
 }
