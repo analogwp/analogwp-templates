@@ -125,7 +125,19 @@ final class Notice {
 				return;
 			}
 		} else {
-			$content = '<p>' . wp_kses( $this->args['content'], 'analog_admin_notice' ) . '</p>';
+			$allowed_html = apply_filters(
+				'analog_admin_notices_html',
+				[
+					'a'      => [
+						'href'   => [],
+						'target' => [],
+					],
+					'br'     => [],
+					'em'     => [],
+					'strong' => [],
+				]
+			);
+			$content      = '<p>' . wp_kses( $this->args['content'], $allowed_html ) . '</p>';
 		}
 
 		$class = 'notice notice-' . $this->args['type'];
