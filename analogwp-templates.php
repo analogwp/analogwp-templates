@@ -59,6 +59,7 @@ final class Analog_Templates {
 
 			self::$instance->includes();
 
+			( new User() )->register();
 			( new Admin\Notices() )->register();
 		}
 	}
@@ -134,6 +135,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/class-elementor.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-tracker.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-cron.php';
+		require_once ANG_PLUGIN_DIR . 'inc/User.php';
 
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/Reset_Default_Style_Trait.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/trait-document.php';
