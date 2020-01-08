@@ -7,6 +7,8 @@
 
 namespace Analog\Admin;
 
+use Analog\User;
+
 /**
  * Class Notice
  *
@@ -18,6 +20,24 @@ final class Notice {
 	const TYPE_INFO    = 'info';
 	const TYPE_WARNING = 'warning';
 	const TYPE_ERROR   = 'error';
+
+	/**
+	 * The action for the nonce
+	 *
+	 * @since 1.5.0
+	 * @access protected
+	 * @var string
+	 */
+	public static $nonce_action = 'analog_admin_notice';
+
+	/**
+	 * The nonce field.
+	 *
+	 * @since 0.5.0
+	 * @access protected
+	 * @var string
+	 */
+	protected static $nonce_field = '';
 
 	/**
 	 * Unique notice slug.
@@ -80,6 +100,10 @@ final class Notice {
 	 * @return bool True if the notice is active, false otherwise.
 	 */
 	public function is_active( $hook_suffix ) {
+		if ( User::is_user_notice_viewed( $this->slug ) ) {
+			return false;
+		}
+
 		if ( ! $this->args['content'] ) {
 			return false;
 		}
@@ -109,9 +133,12 @@ final class Notice {
 			$class .= ' is-dismissible';
 		}
 
+		self::$nonce_field = wp_nonce_field( self::$nonce_action );
+
 		?>
-		<div id="<?php echo esc_attr( 'analog-notice-' . $this->slug ); ?>" class="<?php echo esc_attr( $class ); ?>" data-notice_id="<?php echo esc_attr( $this->slug ); ?>">
+		<div id="<?php echo esc_attr( 'analog-notice-' . $this->slug ); ?>" class="analog-notice <?php echo esc_attr( $class ); ?>" data-key="<?php echo esc_attr( $this->slug ); ?>">
 			<?php echo $content; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
+			<?php echo self::$nonce_field; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
 		</div>
 		<?php
 	}

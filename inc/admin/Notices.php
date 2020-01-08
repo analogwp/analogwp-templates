@@ -33,6 +33,7 @@ final class Notices {
 		};
 
 		add_action( 'admin_notices', $callback );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
 
 	/**
@@ -86,4 +87,34 @@ final class Notices {
 			}
 		);
 	}
+
+	/**
+	 * Enqueue admin scripts.
+	 *
+	 * Registers all the admin scripts and enqueues them.
+	 * Fired by `admin_enqueue_scripts` action.
+	 *
+	 * @since 1.5.0
+	 * @access public
+	 */
+	public function enqueue_scripts() {
+		wp_register_script(
+			'analog-admin',
+			ANG_PLUGIN_URL . '/assets/js/admin.js',
+			[ 'jquery' ],
+			ANG_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'analog-admin',
+			'AnalogAdmin',
+			[
+				'nonce' => wp_create_nonce( Notice::$nonce_action ),
+			]
+		);
+
+		wp_enqueue_script( 'analog-admin' );
+	}
+
 }
