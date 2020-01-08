@@ -127,7 +127,8 @@ final class Notice {
 		} else {
 			$allowed_html = [
 				'a'      => [
-					'href' => [],
+					'href'   => [],
+					'target' => [],
 				],
 				'br'     => [],
 				'em'     => [],
