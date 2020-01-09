@@ -180,6 +180,8 @@ final class BackgroundColorClasses extends Module {
 
 		$element->end_controls_tab();
 
+		do_action( 'analog_background_colors_tab_end', $element );
+
 		$element->end_controls_tabs();
 
 		$element->end_controls_section();
