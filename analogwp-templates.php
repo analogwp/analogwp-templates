@@ -147,9 +147,9 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/upgrade-functions.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-quick-edit.php';
 
-		require_once ANG_PLUGIN_DIR . 'inc/Admin/class-admin.php';
-		require_once ANG_PLUGIN_DIR . 'inc/Admin/Notice.php';
-		require_once ANG_PLUGIN_DIR . 'inc/Admin/Notices.php';
+		require_once ANG_PLUGIN_DIR . 'inc/admin/class-admin.php';
+		require_once ANG_PLUGIN_DIR . 'inc/admin/Notice.php';
+		require_once ANG_PLUGIN_DIR . 'inc/admin/Notices.php';
 
 		require_once ANG_PLUGIN_DIR . 'inc/class-beta-testers.php';
 	}
