@@ -27,7 +27,6 @@ body.style-kits_page_ang-settings {
 .ang a:hover,
 .ang a:focus,
 .ang a:active {
-	color: var(--ang-settings-accent);
 	text-decoration: none;
 }
 
