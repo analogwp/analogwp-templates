@@ -33,7 +33,7 @@ class General extends Settings_Page {
 	 * @return array
 	 */
 	public function get_settings() {
-		$tokens_dropdown = [ '' => __( '— Select a Style Kit —', 'ang' ) ] + Utils::get_tokens( false );
+		$tokens_dropdown = [ '-1' => __( '— Select a Style Kit —', 'ang' ) ] + Utils::get_tokens( false );
 
 		$settings = apply_filters(
 			'ang_general_settings',
@@ -51,7 +51,7 @@ class General extends Settings_Page {
 						'<a href="https://docs.analogwp.com/article/554-what-are-style-kits" target="_blank">' . __( 'Style kits', 'ang' ) . '</a>'
 					),
 					'id'      => 'global_kit',
-					'default' => ( '' !== get_option( 'elementor_ang_global_kit' ) ) ? get_option( 'elementor_ang_global_kit' ) : false,
+					'default' => ( '' !== get_option( 'elementor_ang_global_kit' ) ) ? get_option( 'elementor_ang_global_kit' ) : '-1',
 					'type'    => 'select',
 					'options' => $tokens_dropdown,
 				),
