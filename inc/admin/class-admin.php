@@ -42,7 +42,7 @@ final class Admin extends Base {
 				/* translators: 1: Style Kits for Elementor, 2: Link to plugin review */
 				__( 'Enjoyed %1$s? Please leave us a %2$s rating. We really appreciate your support!', 'ang' ),
 				'<strong>' . __( 'Style Kits for Elementor', 'ang' ) . '</strong>',
-				'<a href="https://wordpress.org/support/plugin/analogwp-templates/reviews/?filter=5/#new-post" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+				'<a href="https://analogwp.com/admin-review" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
 			);
 		}
 
