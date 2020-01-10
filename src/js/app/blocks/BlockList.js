@@ -147,7 +147,12 @@ const BlockList = ( { state, importBlock } ) => {
 	const context = React.useContext( AnalogContext );
 
 	const { category } = state;
-	const filteredBlocks = context.state.blocks.filter( block => block.tags.indexOf( category ) > -1 );
+
+	const filteredBlocks =
+		context.state.blocks
+			.filter( block => block.tags.indexOf( category ) > -1 )
+			.filter( block => ! ( context.state.showFree && Boolean( block.is_pro ) ) );
+
 	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
 	return (
@@ -158,10 +163,6 @@ const BlockList = ( { state, importBlock } ) => {
 				columnClassName="grid-item"
 			>
 				{ filteredBlocks.map( ( block ) => {
-					if ( context.state.showFree && Boolean( block.is_pro ) ) {
-						return;
-					}
-
 					return (
 						<div key={ block.id }>
 							{ ( isNewTheme( block.published ) > -14 ) && (
