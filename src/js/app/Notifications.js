@@ -61,6 +61,7 @@ const NotificationContainer = styled.div`
 		border: none;
 		color: currentColor;
 		outline: 0;
+		padding: 0 8px;
 		&:hover {
 			opacity: 1;
 		}
