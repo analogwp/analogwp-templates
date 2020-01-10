@@ -17,6 +17,7 @@ const Container = styled.section`
 		line-height: 24px;
 	}
 	> .tab-description {
+		color: #444;
 		position: absolute;
 		top: 0;
 		background: #fff;
