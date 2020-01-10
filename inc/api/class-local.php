@@ -619,12 +619,10 @@ class Local extends Base {
 
 			update_post_meta( $post, '_thumbnail_id', $attachment['id'] );
 
-			$data = [
+			return [
 				'message' => __( 'Style Kit imported', 'ang' ),
 				'id'      => $post,
 			];
-
-			return $data;
 		}
 	}
 

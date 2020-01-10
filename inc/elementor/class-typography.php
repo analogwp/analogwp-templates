@@ -655,9 +655,9 @@ class Typography extends Module {
 		 * Important:
 		 *
 		 * Setting Kit ID to "string" here on purpose. Elementor's condition arg expects the matching option to be a
-		 * string, where out option returns an integer.
+		 * string, where our option returns an integer.
 		 */
-		$global_token = (string) Utils::get_global_kit_id();
+		$global_token = Utils::get_global_kit_id();
 
 		if ( ! $global_token ) {
 			$global_token = -1;
@@ -670,7 +670,7 @@ class Typography extends Module {
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'ang-notice',
 				'condition'       => [
-					'ang_action_tokens' => $global_token,
+					'ang_action_tokens' => (string) $global_token,
 				],
 			]
 		);
@@ -767,18 +767,6 @@ class Typography extends Module {
 				'action_label' => __( 'Export CSS', 'ang' ),
 			]
 		);
-
-// $element->add_control(
-// 'ang_remove_title_link_color',
-// [
-// 'label'     => __( 'Do not apply link color on active titles', 'ang' ),
-// 'type'      => Controls_Manager::SWITCHER,
-// 'selectors' => [
-// '{{WRAPPER}} .elementor-post__title.elementor-post__title a' => 'color: currentColor;',
-// '{{WRAPPER}} .elementor-tab-title a' => 'color: currentColor;',
-// ],
-// ]
-// );
 
 		$element->end_controls_section();
 	}

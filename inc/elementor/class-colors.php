@@ -347,9 +347,9 @@ class Colors extends Module {
 		$element->add_control(
 			'ang_color_text_dark',
 			[
-				'label'       => __( 'Text over dark background', 'ang' ),
-				'type'        => Controls_Manager::COLOR,
-				'selectors'   => [
+				'label'     => __( 'Text over dark background', 'ang' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}}, {{WRAPPER}} .sk-text-dark' => '--ang_color_text_dark: {{VALUE}}',
 					'{{WRAPPER}} .sk-text-dark' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sk-text-dark .elementor-heading-title' => 'color: {{VALUE}}',

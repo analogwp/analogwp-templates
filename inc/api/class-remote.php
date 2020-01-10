@@ -112,9 +112,7 @@ class Remote extends Base {
 			]
 		);
 
-		$response = json_decode( wp_remote_retrieve_body( $request ), true );
-
-		return $response;
+		return json_decode( wp_remote_retrieve_body( $request ), true );
 	}
 
 	/**
@@ -199,9 +197,7 @@ class Remote extends Base {
 			return $request;
 		}
 
-		$response = json_decode( wp_remote_retrieve_body( $request ), true );
-
-		return $response;
+		return json_decode( wp_remote_retrieve_body( $request ), true );
 	}
 
 	/**
