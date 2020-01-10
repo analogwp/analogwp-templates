@@ -52,6 +52,7 @@ const Container = styled.div`
 		overflow: hidden;
 		margin: 0;
 		min-height: 150px;
+		display: flex;
 
 		&:hover {
 			.actions {
@@ -88,6 +89,7 @@ const Container = styled.div`
 	img {
 		max-width: 100%;
 		height: auto;
+		align-self: center;
 	}
 
 	img[src$="svg"] {
@@ -106,6 +108,7 @@ const Container = styled.div`
 	}
 
 	.content {
+		border-top: 1px solid #DDD;
 		padding: 30px 20px;
 		display: flex;
 		justify-content: space-between;
