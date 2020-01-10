@@ -17,7 +17,7 @@ const Container = styled.div`
 	align-items: center;
 
 	.components-base-control__field {
-		margin-bottom: 0;
+		margin-bottom: 0 !important;
 	}
 
 	.pro-toggle {
