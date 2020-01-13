@@ -277,12 +277,12 @@ class Typography extends Module {
 					'label'          => $setting[1],
 					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
 					'selector'       => "
-						{{WRAPPER}} .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}
+						{{WRAPPER}} h1.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} h2.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} h3.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} h4.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} h5.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} h6.elementor-heading-title.elementor-size-{$setting[0]}
 					",
 					'exclude'        => [ 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ],
 					'fields_options' => $this->get_default_typography_values( 'ang_size_' . $setting[0] ),
