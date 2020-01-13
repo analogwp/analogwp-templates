@@ -7,6 +7,7 @@
 
 namespace Analog;
 
+use Elementor\Core\Settings\Manager;
 use Elementor\Plugin;
 use WP_Query;
 
@@ -487,6 +488,56 @@ class Utils extends Base {
 		$modified_settings  = array_merge( $preserved_settings, $tokens );
 
 		\update_post_meta( $post_id, '_elementor_page_settings', wp_slash( $modified_settings ) );
+	}
+
+	/**
+	 * Fetch color values from Post Meta.
+	 *
+	 * @param int $id Post ID.
+	 *
+	 * @since 1.5.0
+	 * @return array
+	 */
+	public static function get_color_scheme_items( int $id ) {
+		$page_settings_manager = Manager::get_settings_managers( 'page' );
+		$page_settings_model   = $page_settings_manager->get_model( $id );
+
+		$keys = apply_filters(
+			'analog_color_scheme_items',
+			array(
+				'ang_color_accent_primary',
+				'ang_color_accent_secondary',
+				'ang_color_text_light',
+				'ang_color_background_light',
+				'ang_color_background_dark',
+				'ang_color_text_dark',
+			)
+		);
+
+		$colors = array();
+		foreach ( $keys as $key ) {
+			$color = $page_settings_model->get_settings( $key );
+
+			if ( '' !== $color ) {
+				$colors[] = $color;
+			}
+		}
+
+		if ( class_exists( 'kt_Central_Palette' ) ) {
+			$central_color_palette = \kt_Central_Palette::instance()->get_colors();
+
+			if ( is_array( $central_color_palette ) ) {
+				$colors = array_merge( $central_color_palette, $colors );
+			}
+		}
+
+		$formatted_colors = array();
+
+		foreach ( array_unique( $colors ) as $color ) {
+			$formatted_colors[] = array( 'value' => $color );
+		}
+
+		return $formatted_colors;
 	}
 }
 
