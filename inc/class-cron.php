@@ -37,7 +37,7 @@ class Cron {
 	public function add_schedules( $schedules = array() ) {
 		// Adds once weekly to the existing schedules.
 		$schedules['weekly'] = array(
-			'interval' => 604800,
+			'interval' => WEEK_IN_SECONDS,
 			'display'  => __( 'Once Weekly', 'ang' ),
 		);
 
