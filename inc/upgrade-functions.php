@@ -117,8 +117,15 @@ function install_stylekits() {
 		}
 	}
 }
-// add_action( 'admin_init', __NAMESPACE__ . '\install_stylekits' );
 
+/**
+ * Check if a string ends with certain characters.
+ *
+ * @param string $string Haystack, string to look into.
+ * @param string $end_string Needlee, string to look for.
+ *
+ * @return bool
+ */
 function ends_with( $string, $end_string ) {
 	$len = strlen( $end_string );
 	if ( 0 === $len ) {
@@ -128,6 +135,12 @@ function ends_with( $string, $end_string ) {
 	return ( substr( $string, -$len ) === $end_string );
 }
 
+/**
+ * Version 1.3.0 upgrades.
+ *
+ * @since 1.3.0
+ * @return void
+ */
 function ang_v13_upgrades() {
 	$keys = array(
 		// Heading Text sizes.

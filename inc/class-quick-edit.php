@@ -1,10 +1,20 @@
 <?php
+/**
+ * Class Analog\QuickEdit.
+ *
+ * @package Analog
+ */
 
 namespace Analog;
 
 use Elementor\Plugin;
 use Elementor\User;
 
+/**
+ * Class Quick_Edit
+ *
+ * @package Analog
+ */
 class Quick_Edit extends Base {
 	const FIELD_SLUG = 'ang_stylekit';
 
@@ -88,10 +98,10 @@ class Quick_Edit extends Base {
 						$value = esc_html( $settings['ang_action_tokens'] );
 					}
 
-					echo $value;
+					echo $value; // phpcs:ignore
 				}
 				break;
-		endswitch;
+		endswitch;  // phpcs:ignore
 	}
 
 	/**

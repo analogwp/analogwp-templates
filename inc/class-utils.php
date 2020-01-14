@@ -138,6 +138,14 @@ class Utils extends Base {
 		Plugin::$instance->files_manager->clear_cache();
 	}
 
+	/**
+	 * Get public post types.
+	 *
+	 * @param array $args Arguments.
+	 *
+	 * @since 1.2.3
+	 * @return array
+	 */
 	public static function get_public_post_types( $args = array() ) {
 		$post_type_args = array(
 			// Default is the value $public.
@@ -165,7 +173,7 @@ class Utils extends Base {
 		 *
 		 * Allow 3rd party plugins to filters the public post types elementor should work on
 		 *
-		 * @since 2.3.0
+		 * @since 1.3.0
 		 *
 		 * @param array $post_types Elementor supported public post types.
 		 */
@@ -447,7 +455,7 @@ class Utils extends Base {
 			array( 'ang_', 'hide', 'background_background', 'background_color', 'background_grad', 'custom_css' )
 		);
 
-		$keep = array_filter(
+		return array_filter(
 			$settings,
 			function( $key ) use ( $allowed ) {
 				foreach ( $allowed as $allow ) {
@@ -460,8 +468,6 @@ class Utils extends Base {
 			},
 			ARRAY_FILTER_USE_KEY
 		);
-
-		return $keep;
 	}
 
 	/**

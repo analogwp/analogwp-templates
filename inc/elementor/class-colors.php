@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Analog\Elementor\Class.
+ *
+ * @package AnalogWP
+ */
 
 namespace Analog\Elementor;
 

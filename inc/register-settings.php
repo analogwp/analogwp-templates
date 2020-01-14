@@ -84,12 +84,12 @@ function settings_page_init() {
 	Admin_Settings::get_settings_pages();
 
 	// Add any posted messages.
-	if ( ! empty( $_GET['ang_error'] ) ) { // WPCS: input var okay, CSRF ok.
-		Admin_Settings::add_error( wp_kses_post( wp_unslash( $_GET['ang_error'] ) ) ); // WPCS: input var okay, CSRF ok.
+	if ( ! empty( $_GET['ang_error'] ) ) { // phpcs:ignore
+		Admin_Settings::add_error( wp_kses_post( wp_unslash( $_GET['ang_error'] ) ) ); // phpcs:ignore
 	}
 
-	if ( ! empty( $_GET['ang_message'] ) ) { // WPCS: input var okay, CSRF ok.
-		Admin_Settings::add_message( wp_kses_post( wp_unslash( $_GET['ang_message'] ) ) ); // WPCS: input var okay, CSRF ok.
+	if ( ! empty( $_GET['ang_message'] ) ) { // phpcs:ignore
+		Admin_Settings::add_message( wp_kses_post( wp_unslash( $_GET['ang_message'] ) ) ); // phpcs:ignore
 	}
 
 	do_action( 'ang_settings_page_init' );
@@ -104,7 +104,7 @@ function save_settings() {
 	global $current_tab, $current_section;
 
 	// We should only save on the settings page.
-	if ( ! is_admin() || ! isset( $_GET['page'] ) || 'ang-settings' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+	if ( ! is_admin() || ! isset( $_GET['page'] ) || 'ang-settings' !== $_GET['page'] ) { // phpcs:ignore
 		return;
 	}
 
@@ -112,13 +112,13 @@ function save_settings() {
 	Admin_Settings::get_settings_pages();
 
 	// Get current tab/section.
-	$current_tab     = empty( $_GET['tab'] ) ? 'general' : sanitize_title( wp_unslash( $_GET['tab'] ) ); // WPCS: input var okay, CSRF ok.
-	$current_section = empty( $_REQUEST['section'] ) ? '' : sanitize_title( wp_unslash( $_REQUEST['section'] ) ); // WPCS: input var okay, CSRF ok.
+	$current_tab     = empty( $_GET['tab'] ) ? 'general' : sanitize_title( wp_unslash( $_GET['tab'] ) ); // phpcs:ignore
+	$current_section = empty( $_REQUEST['section'] ) ? '' : sanitize_title( wp_unslash( $_REQUEST['section'] ) ); // phpcs:ignore
 
 	// Save settings if data has been posted.
-	if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", ! empty( $_POST['save'] ) ) ) { // WPCS: input var okay, CSRF ok.
+	if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", ! empty( $_POST['save'] ) ) ) { // phpcs:ignore
 		Admin_Settings::save();
-	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", ! empty( $_POST['save'] ) || isset( $_POST['ang-license_activate'] ) ) ) { // WPCS: input var okay, CSRF ok.
+	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", ! empty( $_POST['save'] ) || isset( $_POST['ang-license_activate'] ) ) ) { // phpcs:ignore
 		Admin_Settings::save();
 	}
 }
