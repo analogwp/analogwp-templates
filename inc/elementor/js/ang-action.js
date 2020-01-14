@@ -788,6 +788,10 @@ jQuery( window ).on( 'elementor:init', function() {
 			content.append( html );
 		};
 
+		modal.onHide = function() {
+			modal.destroy();
+		};
+
 		modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
 
 		return modal;
@@ -799,9 +803,12 @@ jQuery( window ).on( 'elementor:init', function() {
 	 * @since 1.5.0
 	 */
 	if ( undefined !== typeof($e) ) {
+		const modal = analog.CSSVariablesModal();
 		$e.shortcuts.register( 'ctrl+shift+1', {
 			callback: function() {
-				analog.CSSVariablesModal().show();
+				if ( ! modal.isVisible() ) {
+					modal.show();
+				}
 			}
 		} );
 	}
