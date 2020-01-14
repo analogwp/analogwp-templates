@@ -52,10 +52,10 @@ final class Analog_Templates {
 			self::$instance = new Analog_Templates();
 			self::$instance->setup_constants();
 
-			add_action( 'plugins_loaded', [ self::$instance, 'load_textdomain' ] );
-			add_action( 'admin_enqueue_scripts', [ self::$instance, 'scripts' ] );
-			add_filter( 'plugin_action_links_' . plugin_basename( ANG_PLUGIN_FILE ), [ self::$instance, 'plugin_action_links' ] );
-			add_filter( 'analog/app/strings', [ self::$instance, 'send_strings_to_app' ] );
+			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
+			add_action( 'admin_enqueue_scripts', array( self::$instance, 'scripts' ) );
+			add_filter( 'plugin_action_links_' . plugin_basename( ANG_PLUGIN_FILE ), array( self::$instance, 'plugin_action_links' ) );
+			add_filter( 'analog/app/strings', array( self::$instance, 'send_strings_to_app' ) );
 
 			self::$instance->includes();
 
@@ -165,12 +165,12 @@ final class Analog_Templates {
 		}
 
 		wp_enqueue_style( 'wp-components' );
-		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', [], '20190716' );
+		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', array(), '20190716' );
 
 		wp_enqueue_script(
 			'analogwp-app',
 			ANG_PLUGIN_URL . 'assets/js/app.js',
-			[
+			array(
 				'react',
 				'react-dom',
 				'jquery',
@@ -179,7 +179,7 @@ final class Analog_Templates {
 				'wp-i18n',
 				'wp-api-fetch',
 				'wp-html-entities',
-			],
+			),
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/app.js' ),
 			true
 		);
@@ -187,11 +187,11 @@ final class Analog_Templates {
 
 		$i10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
-			[
+			array(
 				'is_settings_page'  => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
 				'rollback_url'      => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
 				'rollback_versions' => Utils::get_rollback_versions(),
-			]
+			)
 		);
 
 		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
@@ -231,17 +231,17 @@ final class Analog_Templates {
 	 */
 	public function send_strings_to_app( $domains ) {
 		if ( ! is_array( $domains ) ) {
-			$domains = [];
+			$domains = array();
 		}
 
 		$favorites    = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
 		$current_user = wp_get_current_user();
 
 		if ( ! $favorites ) {
-			$favorites = [];
+			$favorites = array();
 		}
 
-		$new_domains = [
+		$new_domains = array(
 			'ajaxurl'        => admin_url( 'admin-ajax.php' ),
 			'favorites'      => $favorites,
 			'isPro'          => false,
@@ -249,15 +249,15 @@ final class Analog_Templates {
 			'elementorURL'   => admin_url( 'edit.php?post_type=elementor_library' ),
 			'debugMode'      => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
 			'pluginURL'      => plugin_dir_url( __FILE__ ),
-			'license'        => [
+			'license'        => array(
 				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 				'message' => get_transient( 'ang_license_message' ),
-			],
-			'user'           => [
+			),
+			'user'           => array(
 				'email' => $current_user->user_email,
-			],
+			),
 			'installed_kits' => Utils::imported_remote_kits(),
-		];
+		);
 
 		$domains += $new_domains;
 

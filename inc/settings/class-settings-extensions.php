@@ -33,7 +33,7 @@ class Extensions extends Settings_Page {
 	 * @return array
 	 */
 	public function get_sections() {
-		return apply_filters( 'ang_get_sections_' . $this->id, [] );
+		return apply_filters( 'ang_get_sections_' . $this->id, array() );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Extensions extends Settings_Page {
 			$current_section = array_keys( $sections )[0];
 		}
 
-		$settings = [];
+		$settings = array();
 		if ( '' === $current_section ) {
 			$settings = apply_filters(
 				'ang_general_extension_settings',

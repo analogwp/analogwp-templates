@@ -43,7 +43,7 @@ class Tracker {
 	public function __construct() {
 		self::$intalled_time = self::get_installed_time();
 
-		add_action( 'analog/tracker/send_event', [ __CLASS__, 'send_tracking_data' ] );
+		add_action( 'analog/tracker/send_event', array( __CLASS__, 'send_tracking_data' ) );
 
 		add_filter(
 			'analog_admin_notices',
@@ -86,27 +86,27 @@ class Tracker {
 		}
 
 		// Tracking Data.
-		$data = [
+		$data = array(
 			'site_lang'      => get_bloginfo( 'language' ),
 			'email'          => get_option( 'admin_email' ),
 			'wp_version'     => get_bloginfo( 'version' ),
 			'site_url'       => home_url(),
 			'plugin_version' => ANG_VERSION,
 			'usages'         => Utils::get_import_log(),
-		];
+		);
 
 		$data = apply_filters( 'analog/tracker/send_tracking_data_params', $data );
 
 		wp_remote_post(
 			self::$api_url,
-			[
+			array(
 				'timeout'   => 25,
 				'blocking'  => false,
 				'sslverify' => false,
-				'body'      => [
+				'body'      => array(
 					'data' => wp_json_encode( $data ),
-				],
-			]
+				),
+			)
 		);
 	}
 
@@ -124,7 +124,7 @@ class Tracker {
 	public function get_rating_notification() {
 		return new Notice(
 			'rate_plugin',
-			[
+			array(
 				'content'         => sprintf(
 					/* translators: %2$s Plugin Name %3%s Review text */
 					__( 'Hey! You have been using %1$s for over 2 weeks, we hope you enjoy it! If so, please leave a positive %2$s.', 'ang' ),
@@ -136,7 +136,7 @@ class Tracker {
 					return current_user_can( 'manage_options' ) && ( self::$intalled_time < strtotime( '-2 week' ) );
 				},
 				'dismissible'     => true,
-			]
+			)
 		);
 	}
 }

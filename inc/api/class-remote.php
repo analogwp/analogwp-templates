@@ -49,18 +49,18 @@ class Remote extends Base {
 	 *
 	 * @var array
 	 */
-	public static $api_call_args = [];
+	public static $api_call_args = array();
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'ang_loaded_templates', [ $this, 'set_templates_info' ] );
+		add_action( 'ang_loaded_templates', array( $this, 'set_templates_info' ) );
 
-		self::$api_call_args = [
+		self::$api_call_args = array(
 			'plugin_version' => ANG_VERSION,
 			'url'            => home_url(),
-		];
+		);
 	}
 
 	/**
@@ -105,11 +105,11 @@ class Remote extends Base {
 
 		$request = wp_remote_get(
 			self::ENDPOINT,
-			[
+			array(
 				'timeout'    => $force_update ? 25 : 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
 				'body'       => $body_args,
-			]
+			)
 		);
 
 		return json_decode( wp_remote_retrieve_body( $request ), true );
@@ -130,20 +130,20 @@ class Remote extends Base {
 		$body_args = apply_filters( 'analog/api/get_block_content/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
 		$body_args = array_merge(
 			$body_args,
-			[
+			array(
 				'license' => $license,
 				'url'     => home_url(),
 				'method'  => $method,
 				'site_id' => $site_id,
-			]
+			)
 		);
 
 		$response = wp_remote_get(
 			$url,
-			[
+			array(
 				'timeout' => 40,
 				'body'    => $body_args,
-			]
+			)
 		);
 
 		if ( is_wp_error( $response ) ) {
@@ -186,11 +186,11 @@ class Remote extends Base {
 
 		$request = wp_remote_get(
 			$url,
-			[
+			array(
 				'timeout'    => 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
 				'body'       => $body_args,
-			]
+			)
 		);
 
 		if ( is_wp_error( $request ) ) {
@@ -215,20 +215,20 @@ class Remote extends Base {
 		$body_args = apply_filters( 'analog/api/get_template_content/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
 		$body_args = array_merge(
 			$body_args,
-			[
+			array(
 				'license' => $license,
 				'url'     => home_url(),
 				'method'  => $method,
 				'site_id' => $site_id,
-			]
+			)
 		);
 
 		$response = wp_remote_get(
 			$url,
-			[
+			array(
 				'timeout' => 40,
 				'body'    => $body_args,
-			]
+			)
 		);
 
 		if ( is_wp_error( $response ) ) {

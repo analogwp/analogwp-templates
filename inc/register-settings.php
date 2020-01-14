@@ -190,23 +190,23 @@ function register_settings() {
 	register_setting(
 		'ang',
 		'ang_import_count',
-		[
+		array(
 			'type'              => 'number',
 			'description'       => esc_html__( 'Imported Count', 'ang' ),
 			'sanitize_callback' => 'absint',
 			'show_in_rest'      => true,
 			'default'           => 0,
-		]
+		)
 	);
 
 	register_setting(
 		'ang',
 		'ang_imported_templates',
-		[
+		array(
 			'type'         => 'string',
 			'description'  => esc_html__( 'Imported templates', 'ang' ),
 			'show_in_rest' => true,
 			'default'      => '',
-		]
+		)
 	);
 }

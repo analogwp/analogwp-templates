@@ -14,6 +14,7 @@ use Elementor\Settings;
 /**
  * Analog Settings.
  *
+ * @deprecated
  * @since 1.2.0
  */
 class Analog_Settings {
@@ -23,7 +24,7 @@ class Analog_Settings {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/admin/after_create_settings/' . Settings::PAGE_ID, [ $this, 'register_admin_fields' ], 100 );
+		add_action( 'elementor/admin/after_create_settings/' . Settings::PAGE_ID, array( $this, 'register_admin_fields' ), 100 );
 	}
 
 	/**
@@ -36,24 +37,24 @@ class Analog_Settings {
 		$settings->add_section(
 			Settings::TAB_STYLE,
 			'analogwp',
-			[
+			array(
 				'callback' => function() {
 					echo '<hr><h2>' . esc_html__( 'Style Kits for Elementor Settings', 'ang' ) . '</h2>';
 				},
-				'fields'   => [
-					self::ANG_GLOBAL_KIT_OPTION_NAME => [
+				'fields'   => array(
+					self::ANG_GLOBAL_KIT_OPTION_NAME => array(
 						'label'      => __( 'Global Style Kit', 'ang' ),
-						'field_args' => [
+						'field_args' => array(
 							'type' => 'raw_html',
 							'html' => sprintf(
 								/* translators: %s: Style Kit Documentation link */
 								__( 'This setting has been moved to %s.', 'ang' ),
 								'<a href="' . admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' ) . '">' . __( 'Style Kit settings', 'ang' ) . '</a>'
 							),
-						],
-					],
-				],
-			]
+						),
+					),
+				),
+			)
 		);
 	}
 

@@ -22,8 +22,8 @@ class Cron {
 	 * @see Cron::weekly_events()
 	 */
 	public function __construct() {
-		add_filter( 'cron_schedules', [ $this, 'add_schedules' ] );
-		add_action( 'init', [ $this, 'schedule_events' ] );
+		add_filter( 'cron_schedules', array( $this, 'add_schedules' ) );
+		add_action( 'init', array( $this, 'schedule_events' ) );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class Cron {
 	 */
 	private function weekly_events() {
 		if ( ! wp_next_scheduled( 'analog/tracker/send_event' ) ) {
-			wp_schedule_event( current_time( 'timestamp', true ), 'weekly', 'analog/tracker/send_event' );
+			wp_schedule_event( time(), 'weekly', 'analog/tracker/send_event' );
 		}
 	}
 }

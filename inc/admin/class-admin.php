@@ -20,8 +20,8 @@ final class Admin extends Base {
 	 * Admin constructor.
 	 */
 	public function __construct() {
-		add_filter( 'admin_footer_text', [ $this, 'footer_text' ] );
-		add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 2 );
+		add_filter( 'admin_footer_text', array( $this, 'footer_text' ) );
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 	}
 
 	/**
@@ -61,10 +61,10 @@ final class Admin extends Base {
 	 */
 	public function plugin_row_meta( $plugin_meta, $plugin_file ) {
 		if ( ANG_PLUGIN_BASE === $plugin_file ) {
-			$row_meta = [
+			$row_meta = array(
 				'ang_docs'    => '<a href="https://docs.analogwp.com/" aria-label="' . esc_attr( __( 'View Documentation', 'ang' ) ) . '" target="_blank">' . __( 'Documentation', 'ang' ) . '</a>',
 				'ang_support' => '<a href="https://analogwp.com/support/" aria-label="' . esc_attr( __( 'Get Support', 'ang' ) ) . '" target="_blank">' . __( 'Get Support', 'ang' ) . '</a>',
-			];
+			);
 
 			$plugin_meta = array_merge( $plugin_meta, $row_meta );
 		}
