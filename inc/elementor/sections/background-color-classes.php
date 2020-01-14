@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Analog\Elementor\Sections\BackgroundColorClasses.
+ *
+ * @package Analog
+ */
 
 namespace Analog\Elementor\Sections;
 
@@ -73,7 +78,9 @@ final class BackgroundColorClasses extends Module {
 			array(
 				'label'     => __( 'Background Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_background_light_background',
 				'selectors' => array(
+					'{{WRAPPER}}' => '--ang_background_light_background: {{VALUE}};',
 					'{{WRAPPER}} .sk-light-bg:not(.elementor-column)' => 'background-color: {{VALUE}}; color: var(--ang_color_text_light)',
 					'{{WRAPPER}} .sk-dark-bg .elementor-counter-title, {{WRAPPER}} .sk-dark-bg .elementor-counter-number-wrapper' => 'color: currentColor',
 					'{{WRAPPER}} .sk-light-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}}; color: var(--ang_color_text_light)',
@@ -85,6 +92,7 @@ final class BackgroundColorClasses extends Module {
 			array(
 				'label'     => __( 'Text Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_text_light',
 				'selectors' => array(
 					'{{WRAPPER}} .sk-light-bg'   => 'color: {{VALUE}};',
 					'{{WRAPPER}}, {{WRAPPER}} .sk-text-light' => '--ang_color_text_light: {{VALUE}}',
@@ -98,7 +106,9 @@ final class BackgroundColorClasses extends Module {
 			array(
 				'label'     => __( 'Headings Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_background_light_heading',
 				'selectors' => array(
+					'{{WRAPPER}}'                 => '--ang_background_light_heading: {{VALUE}};',
 					'{{WRAPPER}} .sk-light-bg h1,' .
 					'{{WRAPPER}} .sk-light-bg h2,' .
 					'{{WRAPPER}} .sk-light-bg h3,' .
@@ -136,7 +146,9 @@ final class BackgroundColorClasses extends Module {
 			array(
 				'label'     => __( 'Background Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_background_dark_background',
 				'selectors' => array(
+					'{{WRAPPER}}' => '--ang_background_dark_background: {{VALUE}};',
 					'{{WRAPPER}} .sk-dark-bg:not(.elementor-column)' => 'background-color: {{VALUE}}; color: var(--ang_color_text_dark)',
 					'{{WRAPPER}} .sk-light-bg .elementor-counter-title, {{WRAPPER}} .sk-light-bg .elementor-counter-number-wrapper' => 'color: currentColor;',
 					'{{WRAPPER}} .sk-dark-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}}; color: var(--ang_color_text_dark)',
@@ -148,6 +160,7 @@ final class BackgroundColorClasses extends Module {
 			array(
 				'label'     => __( 'Text Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_text_dark',
 				'selectors' => array(
 					'{{WRAPPER}} .sk-dark-bg'   => 'color: {{VALUE}};',
 					'{{WRAPPER}}, {{WRAPPER}} .sk-text-dark' => '--ang_color_text_dark: {{VALUE}}',
@@ -161,7 +174,9 @@ final class BackgroundColorClasses extends Module {
 			array(
 				'label'     => __( 'Headings Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_background_dark_heading',
 				'selectors' => array(
+					'{{WRAPPER}}'                => '--ang_background_dark_heading: {{VALUE}};',
 					'{{WRAPPER}} .sk-dark-bg h1,' .
 					'{{WRAPPER}} .sk-dark-bg h2,' .
 					'{{WRAPPER}} .sk-dark-bg h3,' .

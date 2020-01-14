@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Analog\Elementor\Class.
+ * Class Analog\Elementor\Colors.
  *
  * @package AnalogWP
  */
@@ -163,6 +163,7 @@ class Colors extends Module {
 		);
 
 		$selectors = array(
+			'{{WRAPPER}}'                                 => '--ang_color_accent_primary: {{VALUE}}',
 			'{{WRAPPER}} .sk-accent-1'                    => 'color: {{VALUE}}',
 			'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 			'{{WRAPPER}} .elementor-icon-list-icon'       => 'color: {{VALUE}}',
@@ -217,6 +218,7 @@ class Colors extends Module {
 			array(
 				'label'     => __( 'Primary Accent', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_accent_primary',
 				'selectors' => $selectors,
 			)
 		);
@@ -235,7 +237,9 @@ class Colors extends Module {
 			array(
 				'label'     => __( 'Secondary Accent', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_accent_secondary',
 				'selectors' => array(
+					'{{WRAPPER}}'                      => '--ang_color_accent_secondary: {{VALUE}};',
 					'{{WRAPPER}} .elementor-button, {{WRAPPER}} .button, {{WRAPPER}} button, {{WRAPPER}} .sk-accent-2' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .sk-secondary-accent' => 'color: {{VALUE}}',
 
@@ -267,8 +271,9 @@ class Colors extends Module {
 			array(
 				'label'     => __( 'Text Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_text',
 				'selectors' => array(
-					'{{WRAPPER}}' => 'color: {{VALUE}};',
+					'{{WRAPPER}}' => '--ang_color_text: {{VALUE}}; color: {{VALUE}};',
 				),
 			)
 		);
@@ -278,7 +283,9 @@ class Colors extends Module {
 			array(
 				'label'     => __( 'Headings Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_heading',
 				'selectors' => array(
+					'{{WRAPPER}}' => '--ang_color_heading: {{VALUE}};',
 					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
 				),
 			)
