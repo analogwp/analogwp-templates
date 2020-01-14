@@ -79,7 +79,7 @@ class ANG_Action extends Base_Data_Control {
 				'jquery',
 				'cssbeautify',
 			),
-			ANG_VERSION,
+			filemtime( ANG_PLUGIN_DIR . "inc/elementor/js/ang-action{$script_suffix}.js" ),
 			false
 		);
 
