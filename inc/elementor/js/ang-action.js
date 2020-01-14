@@ -741,6 +741,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		return variables;
 	};
 
+
 	/**
 	 * Creates a modal with list and preview of all CSS variables.
 	 *
@@ -751,7 +752,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
 			id: 'ang-css-variables',
 			className: 'ang-css-variables',
-			headerMessage: ANG_Action.translate.cssVariables,
+			headerMessage: `<span class="icon"><img src="${AGWP.pluginURL}/assets/img/triangle.svg" /></span> ${ANG_Action.translate.cssVariables}`,
 			closeButton: true,
 			closeModal: '.ang-css-variables .close-modal',
 			closeButtonClass: 'eicon-close',
@@ -760,7 +761,6 @@ jQuery( window ).on( 'elementor:init', function() {
 				onBackgroundClick: true,
 				onEscKeyPress: true,
 			},
-
 		} );
 
 		modal.onShow = function() {
@@ -768,8 +768,6 @@ jQuery( window ).on( 'elementor:init', function() {
 			let html = '<div class="ang-css-variables__list"><ul>';
 
 			const header = modal.getElements( 'header' );
-			header.prepend( `<span class="icon"><img src="${AGWP.pluginURL}/assets/img/triangle.svg" /></span>` );
-
 			modal.getElements('closeButton').appendTo(header);
 
 			const variables = analog.getColorControlsVariables();
@@ -785,11 +783,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 			html += '</ul></div>';
 
-			content.append( html );
-		};
-
-		modal.onHide = function() {
-			modal.destroy();
+			content.html( html );
 		};
 
 		modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
@@ -806,10 +800,9 @@ jQuery( window ).on( 'elementor:init', function() {
 		const modal = analog.CSSVariablesModal();
 		$e.shortcuts.register( 'ctrl+shift+1', {
 			callback: function() {
-				if ( ! modal.isVisible() ) {
-					modal.show();
-				}
-			}
+				modal.show();
+			},
+			dependency: () => ! modal.isVisible(),
 		} );
 	}
 } );
