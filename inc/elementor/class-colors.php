@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Analog\Elementor\Class.
+ *
+ * @package AnalogWP
+ */
 
 namespace Analog\Elementor;
 
@@ -22,12 +27,12 @@ class Colors extends Module {
 	 * Colors constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_color_settings' ], 170, 2 );
-		add_action( 'elementor/element/divider/section_divider_style/before_section_end', [ $this, 'tweak_divider_style' ] );
-		add_action( 'elementor/element/icon-box/section_style_content/before_section_end', [ $this, 'tweak_icon_box' ] );
-		add_action( 'elementor/element/image-box/section_style_content/before_section_end', [ $this, 'tweak_image_box' ] );
-		add_action( 'elementor/element/heading/section_title_style/before_section_end', [ $this, 'tweak_heading' ] );
-		add_action( 'elementor/element/nav-menu/section_style_main-menu/before_section_end', [ $this, 'tweak_nav_menu' ] );
+		add_action( 'elementor/element/after_section_end', array( $this, 'register_color_settings' ), 170, 2 );
+		add_action( 'elementor/element/divider/section_divider_style/before_section_end', array( $this, 'tweak_divider_style' ) );
+		add_action( 'elementor/element/icon-box/section_style_content/before_section_end', array( $this, 'tweak_icon_box' ) );
+		add_action( 'elementor/element/image-box/section_style_content/before_section_end', array( $this, 'tweak_image_box' ) );
+		add_action( 'elementor/element/heading/section_title_style/before_section_end', array( $this, 'tweak_heading' ) );
+		add_action( 'elementor/element/nav-menu/section_style_main-menu/before_section_end', array( $this, 'tweak_nav_menu' ) );
 	}
 
 	/**
@@ -53,9 +58,9 @@ class Colors extends Module {
 		if ( $default_color ) {
 			$element->update_control(
 				'color',
-				[
+				array(
 					'default' => $default_color,
-				]
+				)
 			);
 		}
 	}
@@ -69,11 +74,11 @@ class Colors extends Module {
 	public function tweak_icon_Box( Element_Base $element ) {
 		$element->update_control(
 			'title_color',
-			[
-				'selectors' => [
+			array(
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title, {{WRAPPER}} .elementor-icon-box-content .elementor-icon-box-title a' => 'color: {{VALUE}};',
-				],
-			]
+				),
+			)
 		);
 	}
 
@@ -86,11 +91,11 @@ class Colors extends Module {
 	public function tweak_image_Box( Element_Base $element ) {
 		$element->update_control(
 			'title_color',
-			[
-				'selectors' => [
+			array(
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-image-box-content .elementor-image-box-title, {{WRAPPER}} .elementor-image-box-content .elementor-image-box-title a' => 'color: {{VALUE}};',
-				],
-			]
+				),
+			)
 		);
 	}
 
@@ -103,11 +108,11 @@ class Colors extends Module {
 	public function tweak_heading( Element_Base $element ) {
 		$element->update_control(
 			'title_color',
-			[
-				'selectors' => [
+			array(
+				'selectors' => array(
 					'{{WRAPPER}}.elementor-widget-heading .elementor-heading-title, {{WRAPPER}}.elementor-widget-heading .elementor-heading-title.elementor-heading-title a' => 'color: {{VALUE}};',
-				],
-			]
+				),
+			)
 		);
 	}
 
@@ -120,11 +125,11 @@ class Colors extends Module {
 	public function tweak_nav_menu( Element_Base $element ) {
 		$element->update_control(
 			'color_menu_item',
-			[
-				'selectors' => [
+			array(
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-nav-menu--main .elementor-item.elementor-item' => 'color: {{VALUE}}',
-				],
-			]
+				),
+			)
 		);
 	}
 
@@ -141,23 +146,23 @@ class Colors extends Module {
 
 		$element->start_controls_section(
 			'ang_colors',
-			[
+			array(
 				'label' => _x( 'Global Colors', 'Section Title', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$element->add_control(
 			'ang_colors_description',
-			[
+			array(
 				/* translators: %1$s: Link to documentation, %2$s: Link text. */
 				'raw'             => __( 'Set the colors for Typography, accents and more.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/574-working-with-colours', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
-			]
+			)
 		);
 
-		$selectors = [
+		$selectors = array(
 			'{{WRAPPER}} .sk-accent-1'                    => 'color: {{VALUE}}',
 			'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 			'{{WRAPPER}} .elementor-icon-list-icon'       => 'color: {{VALUE}}',
@@ -205,32 +210,32 @@ class Colors extends Module {
 			{{WRAPPER}} .e--pointer-framed .elementor-item:after' => 'border-color: {{VALUE}}',
 			'{{WRAPPER}} .elementor-sub-item:hover'       => 'background-color: {{VALUE}}; color: #fff;',
 			'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
-		];
+		);
 
 		$element->add_control(
 			'ang_color_accent_primary',
-			[
+			array(
 				'label'     => __( 'Primary Accent', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => $selectors,
-			]
+			)
 		);
 
 		$element->add_control(
 			'ang_color_accent_primary_desc',
-			[
+			array(
 				'type'    => Controls_Manager::RAW_HTML,
 				'raw'     => __( 'The primary accent color applies on Links.', 'ang' ),
 				'classes' => 'elementor-descriptor',
-			]
+			)
 		);
 
 		$element->add_control(
 			'ang_color_accent_secondary',
-			[
+			array(
 				'label'     => __( 'Secondary Accent', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => [
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-button, {{WRAPPER}} .button, {{WRAPPER}} button, {{WRAPPER}} .sk-accent-2' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .sk-secondary-accent' => 'color: {{VALUE}}',
 
@@ -244,17 +249,17 @@ class Colors extends Module {
 					'{{WRAPPER}} .sk-secondary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
 
 					'{{WRAPPER}} .sk-secondary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
-				],
-			]
+				),
+			)
 		);
 
 		$element->add_control(
 			'ang_color_accent_secondary_desc',
-			[
+			array(
 				'type'    => Controls_Manager::RAW_HTML,
 				'raw'     => __( 'The default Button color. You can also set button colors in the Buttons tab.', 'ang' ),
 				'classes' => 'elementor-descriptor',
-			]
+			)
 		);
 
 		$element->add_control(

@@ -19,7 +19,7 @@ class Light_Background extends Tag {
 	}
 
 	public function get_categories() {
-		return [ Module::TEXT_CATEGORY ];
+		return array( Module::TEXT_CATEGORY );
 	}
 
 	public function render() {

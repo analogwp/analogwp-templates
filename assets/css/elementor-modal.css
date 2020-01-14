@@ -41,6 +41,10 @@
 	margin: 0;
 }
 
+#analogwp-templates-modal .ang-notices p {
+	margin: 0;
+}
+
 .elementor-add-analogwp-button {
 	background-image: url('../img/triangle.svg');
 	background-repeat: no-repeat;

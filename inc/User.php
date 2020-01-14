@@ -19,8 +19,8 @@ final class User {
 	 * @access public
 	 */
 	public function register() {
-		add_action( 'wp_ajax_analog_set_admin_notice_viewed', [ __CLASS__, 'ajax_set_admin_notice_viewed' ] );
-		add_action( 'admin_post_analog_set_admin_notice_viewed', [ __CLASS__, 'ajax_set_admin_notice_viewed' ] );
+		add_action( 'wp_ajax_analog_set_admin_notice_viewed', array( __CLASS__, 'ajax_set_admin_notice_viewed' ) );
+		add_action( 'admin_post_analog_set_admin_notice_viewed', array( __CLASS__, 'ajax_set_admin_notice_viewed' ) );
 	}
 
 	/**
@@ -39,7 +39,7 @@ final class User {
 
 		$notices = self::get_user_notices();
 		if ( empty( $notices ) ) {
-			$notices = [];
+			$notices = array();
 		}
 
 		if ( ! isset( $_POST['key'] ) ) {

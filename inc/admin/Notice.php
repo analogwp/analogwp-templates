@@ -51,7 +51,7 @@ final class Notice {
 	 *
 	 * @var array
 	 */
-	private $args = [];
+	private $args = array();
 
 	/**
 	 * Constructor.
@@ -73,12 +73,12 @@ final class Notice {
 
 		$this->args = wp_parse_args(
 			$args,
-			[
+			array(
 				'content'         => '',
 				'type'            => self::TYPE_INFO,
 				'active_callback' => null,
 				'dismissible'     => false,
-			]
+			)
 		);
 	}
 
@@ -127,15 +127,15 @@ final class Notice {
 		} else {
 			$allowed_html = apply_filters(
 				'analog_admin_notices_html',
-				[
-					'a'      => [
-						'href'   => [],
-						'target' => [],
-					],
-					'br'     => [],
-					'em'     => [],
-					'strong' => [],
-				]
+				array(
+					'a'      => array(
+						'href'   => array(),
+						'target' => array(),
+					),
+					'br'     => array(),
+					'em'     => array(),
+					'strong' => array(),
+				)
 			);
 			$content      = '<p>' . wp_kses( $this->args['content'], $allowed_html ) . '</p>';
 		}

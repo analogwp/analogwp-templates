@@ -62,12 +62,12 @@ class ANG_Action extends Base_Data_Control {
 
 		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_enqueue_style( 'hint-css', ANG_PLUGIN_URL . 'inc/elementor/css/hint.min.css', [], '2.5.1' );
+		wp_enqueue_style( 'hint-css', ANG_PLUGIN_URL . 'inc/elementor/css/hint.min.css', array(), '2.5.1' );
 
 		wp_enqueue_script(
 			'cssbeautify',
 			ANG_PLUGIN_URL . 'inc/elementor/js/cssbeautify.min.js',
-			[],
+			array(),
 			'0.3.1',
 			false
 		);
@@ -75,15 +75,15 @@ class ANG_Action extends Base_Data_Control {
 		wp_enqueue_script(
 			'ang_action',
 			ANG_PLUGIN_URL . "inc/elementor/js/ang-action{$script_suffix}.js",
-			[
+			array(
 				'jquery',
 				'cssbeautify',
-			],
+			),
 			ANG_VERSION,
 			false
 		);
 
-		$central_color_palette = [];
+		$central_color_palette = array();
 		if ( class_exists( 'kt_Central_Palette' ) ) {
 			$central_color_palette = \kt_Central_Palette::instance()->get_colors();
 		}
@@ -96,10 +96,10 @@ class ANG_Action extends Base_Data_Control {
 		wp_localize_script(
 			'ang_action',
 			'ANG_Action',
-			[
+			array(
 				'saveToken'       => rest_url( 'agwp/v1/tokens/save' ),
 				'palette'         => $central_color_palette,
-				'translate'       => [
+				'translate'       => array(
 					'resetMessage'    => __( 'This will reset all the settings you configured previously under Page Style Settings from Analog Templates.', 'ang' ),
 					'resetHeader'     => __( 'Are you sure?', 'ang' ),
 					'saveToken'       => __( 'Save Style Kit as', 'ang' ),
@@ -133,9 +133,9 @@ class ANG_Action extends Base_Data_Control {
 					'pageStyleHeader' => __( 'This template offers global typography and spacing control, through the Page Style tab.', 'ang' ),
 					/* todo: Add the correct link. */
 					'pageStyleDesc'   => __( 'Typography, column gaps and more, are controlled layout-wide at Page Styles Panel, giving you the flexibility you need over the design of this template. You can save the styles and apply them to any other page. <a href="#" target="_blank">Learn More.</a>', 'ang' ),
-				],
+				),
 				'skPanelsAllowed' => $sk_panels_allowed,
-			]
+			)
 		);
 	}
 

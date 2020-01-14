@@ -27,7 +27,6 @@ body.style-kits_page_ang-settings {
 .ang a:hover,
 .ang a:focus,
 .ang a:active {
-	color: var(--ang-settings-accent);
 	text-decoration: none;
 }
 
@@ -140,8 +139,7 @@ body.style-kits_page_ang-settings {
 	}
 }
 
-.ang #ang_plugin_rollback_version-description + .form-table th,
-.ang #ang_license_activation_title-description + .form-table th {
+.ang #ang_plugin_rollback_version-description + .form-table th {
 	padding-bottom: 15px;
 	padding-left: 0;
 }

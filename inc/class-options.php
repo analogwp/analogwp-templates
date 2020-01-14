@@ -23,7 +23,7 @@ class Options extends Base {
 		$options = get_option( self::OPTION_KEY );
 
 		if ( ! $options || ! is_array( $options ) ) {
-			$options = [];
+			$options = array();
 		}
 
 		if ( false !== $key ) {

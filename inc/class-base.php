@@ -26,7 +26,7 @@ class Base {
 	 *
 	 * @var Base
 	 */
-	private static $instances = [];
+	private static $instances = array();
 
 	/**
 	 * Disable class cloning and throw an error on object clone.

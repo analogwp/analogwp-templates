@@ -14,7 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $tab_exists        = isset( $tabs[ $current_tab ] ) || has_action( 'ang_sections_' . $current_tab ) || has_action( 'ang_settings_' . $current_tab ) || has_action( 'ang_settings_tabs_' . $current_tab );
 $current_tab_label = isset( $tabs[ $current_tab ] ) ? $tabs[ $current_tab ] : '';
-$current_user      = wp_get_current_user();
+
+global $current_user;
 
 if ( ! $tab_exists ) {
 	wp_safe_redirect( admin_url( 'admin.php?page=ang-settings' ) );
@@ -22,7 +23,7 @@ if ( ! $tab_exists ) {
 }
 ?>
 <div class="wrap ang <?php echo esc_attr( $current_tab ); ?>">
-	<h1 class="menu-title"><?php esc_html_e( 'Style Kits Settings', 'pulse' ); ?></h1>
+	<h1 class="menu-title"><?php esc_html_e( 'Style Kits Settings', 'ang' ); ?></h1>
 	<div class="ang-wrapper">
 		<form method="<?php echo esc_attr( apply_filters( 'ang_settings_form_method_tab_' . $current_tab, 'post' ) ); ?>" id="mainform" action="" enctype="multipart/form-data">
 			<nav class="nav-tab-wrapper ang-nav-tab-wrapper">
@@ -73,7 +74,7 @@ if ( ! $tab_exists ) {
 					<input id="ang-newsletter-email" type="email" placeholder="Enter your email" value="<?php echo esc_attr( $current_user->user_email ); ?>"/>
 					<button id="ang-newsletter-submit" class="ang-button" type="submit"><?php esc_html_e( 'Subscribe up to newsletter', 'ang' ); ?></button>
 				</form>
-				<p><?php esc_html_e( 'By signing up you agree to our', 'ang' ); ?> <a href="<?php echo esc_url( 'https://analogwp.com/privacy-policy/' ); ?>" target="_blank"><?php esc_html_e( 'privacy and terms' ); ?><span class="dashicons dashicons-external"></span></a></p>
+				<p><?php esc_html_e( 'By signing up you agree to our', 'ang' ); ?> <a href="<?php echo esc_url( 'https://analogwp.com/privacy-policy/' ); ?>" target="_blank"><?php esc_html_e( 'privacy and terms', 'ang' ); ?><span class="dashicons dashicons-external"></span></a></p>
 			</div>
 			<div class="social">
 				<a href="https://facebook.com/analogwp" target="_blank"><span class="dashicons dashicons-facebook-alt"></span></a>
