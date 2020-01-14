@@ -20,7 +20,7 @@ class Formatter {
 	 * @return array
 	 */
 	private static function get_reset_keys() {
-		$resetters = [
+		$resetters = array(
 			'', // important as original list removes data as well.
 			'content',
 			'name',
@@ -37,9 +37,9 @@ class Formatter {
 			'label',
 			'field',
 			'button',
-		];
+		);
 
-		$list = [
+		$list = array(
 			'typography_typography',
 			'typography_font_family',
 			'typography_font_size',
@@ -55,9 +55,9 @@ class Formatter {
 			'typography_letter_spacing_tablet',
 			'typography_text_decoration',
 			'typography_text_transform',
-		];
+		);
 
-		$keys = [];
+		$keys = array();
 		foreach ( $resetters as $reset ) {
 			foreach ( $list as $item ) {
 				if ( '' === $reset ) {

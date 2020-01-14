@@ -41,7 +41,15 @@ function register_menu() {
 		__( 'Style Kits', 'ang' ),
 		__( 'Library', 'ang' ),
 		$permission,
-		admin_url( 'admin.php?page=analogwp_templates#stylekits' )
+		admin_url( 'admin.php?page=analogwp_templates#styleKits' )
+	);
+
+	add_submenu_page(
+		'analogwp_templates',
+		__( 'Blocks', 'ang' ),
+		__( 'Blocks', 'ang' ),
+		$permission,
+		admin_url( 'admin.php?page=analogwp_templates#blocks' )
 	);
 
 	add_submenu_page(
@@ -182,23 +190,23 @@ function register_settings() {
 	register_setting(
 		'ang',
 		'ang_import_count',
-		[
+		array(
 			'type'              => 'number',
 			'description'       => esc_html__( 'Imported Count', 'ang' ),
 			'sanitize_callback' => 'absint',
 			'show_in_rest'      => true,
 			'default'           => 0,
-		]
+		)
 	);
 
 	register_setting(
 		'ang',
 		'ang_imported_templates',
-		[
+		array(
 			'type'         => 'string',
 			'description'  => esc_html__( 'Imported templates', 'ang' ),
 			'show_in_rest' => true,
 			'default'      => '',
-		]
+		)
 	);
 }

@@ -30,26 +30,26 @@ class Finder_Shortcuts extends Base_Category {
 	 * @param array $options Old options.
 	 * @return array
 	 */
-	public function get_category_items( array $options = [] ) {
-		return [
-			'library'    => [
+	public function get_category_items( array $options = array() ) {
+		return array(
+			'library'    => array(
 				'title'    => __( 'Templates Library', 'ang' ),
 				'url'      => admin_url( 'admin.php?page=analogwp_templates' ),
 				'icon'     => 'library-download',
-				'keywords' => [ 'analog', 'library', 'settings' ],
-			],
-			'settings'   => [
+				'keywords' => array( 'analog', 'library', 'settings' ),
+			),
+			'settings'   => array(
 				'title'    => __( 'Settings', 'ang' ),
 				'url'      => admin_url( 'admin.php?page=ang-settings' ),
 				'icon'     => 'settings',
-				'keywords' => [ 'analog', 'settings' ],
-			],
-			'style-kits' => [
+				'keywords' => array( 'analog', 'settings' ),
+			),
+			'style-kits' => array(
 				'title'    => __( 'Style Kits', 'ang' ),
 				'url'      => admin_url( 'edit.php?post_type=ang_tokens' ),
 				'icon'     => 'settings',
-				'keywords' => [ 'analog', 'style', 'kits' ],
-			],
-		];
+				'keywords' => array( 'analog', 'style', 'kits' ),
+			),
+		);
 	}
 }

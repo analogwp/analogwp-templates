@@ -17,8 +17,8 @@ class Elementor {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
-		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_editor_scripts' ] );
+		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'enqueue_editor_scripts' ) );
+		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_editor_scripts' ) );
 
 		add_action(
 			'elementor/finder/categories/init',
@@ -29,7 +29,7 @@ class Elementor {
 			}
 		);
 
-		add_action( 'elementor/controls/controls_registered', [ $this, 'register_controls' ] );
+		add_action( 'elementor/controls/controls_registered', array( $this, 'register_controls' ) );
 
 		add_action(
 			'elementor/dynamic_tags/register_tags',
@@ -38,9 +38,9 @@ class Elementor {
 
 				$module->register_group(
 					'ang_classes',
-					[
+					array(
 						'title' => __( 'AnalogWP Classes', 'ang' ),
-					]
+					)
 				);
 
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-dark-background.php';
@@ -50,6 +50,11 @@ class Elementor {
 				$module->register_tag( 'Analog\Elementor\Tags\Dark_Background' );
 			}
 		);
+
+		$sync = Options::get_instance()->get( 'ang_sync_colors' );
+		if ( true === $sync && version_compare( ELEMENTOR_VERSION, '2.8', '>=' ) ) {
+			add_filter( 'elementor/editor/localize_settings', array( $this, 'add_color_scheme_items' ), 200 );
+		}
 	}
 
 	/**
@@ -70,13 +75,13 @@ class Elementor {
 	public function enqueue_editor_scripts() {
 		do_action( 'ang_loaded_templates' );
 
-		wp_enqueue_script( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/js/elementor-modal.js', [ 'jquery' ], filemtime( ANG_PLUGIN_DIR . 'assets/js/elementor-modal.js' ), false );
-		wp_enqueue_style( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/css/elementor-modal.css', [ 'dashicons' ], filemtime( ANG_PLUGIN_DIR . 'assets/css/elementor-modal.css' ) );
+		wp_enqueue_script( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/js/elementor-modal.js', array( 'jquery' ), filemtime( ANG_PLUGIN_DIR . 'assets/js/elementor-modal.js' ), false );
+		wp_enqueue_style( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/css/elementor-modal.css', array( 'dashicons' ), filemtime( ANG_PLUGIN_DIR . 'assets/css/elementor-modal.css' ) );
 
 		wp_enqueue_script(
 			'analogwp-app',
 			ANG_PLUGIN_URL . 'assets/js/app.js',
-			[
+			array(
 				'react',
 				'react-dom',
 				'jquery',
@@ -85,7 +90,7 @@ class Elementor {
 				'wp-i18n',
 				'wp-api-fetch',
 				'wp-html-entities',
-			],
+			),
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/app.js' ),
 			true
 		);
@@ -93,18 +98,38 @@ class Elementor {
 
 		wp_enqueue_style( 'wp-components' );
 
-		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', [], '20190716' );
+		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', array(), '20190716' );
 
 		$i10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
-			[
+			array(
 				'is_settings_page' => false,
 				'syncColors'       => ( '' !== Options::get_instance()->get( 'ang_sync_colors' ) ? Options::get_instance()->get( 'ang_sync_colors' ) : true ),
-				'stylekit_queue'   => Utils::get_stylekit_queue() ? array_values( Utils::get_stylekit_queue() ) : [],
-			]
+				'stylekit_queue'   => Utils::get_stylekit_queue() ? array_values( Utils::get_stylekit_queue() ) : array(),
+			)
 		);
 
 		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
+	}
+
+	/**
+	 * All colors from Style Kit to Color picker palette in editor.
+	 *
+	 * @param array $config Existing config.
+	 *
+	 * @since 1.5.0
+	 * @return array Modified config.
+	 */
+	public function add_color_scheme_items( $config ) {
+		$config['schemes'] = array(
+			'items' => array(
+				'color-picker' => array(
+					'items' => Utils::get_color_scheme_items( get_the_ID() ),
+				),
+			),
+		);
+
+		return $config;
 	}
 }
 

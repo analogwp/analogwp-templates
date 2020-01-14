@@ -82,10 +82,10 @@ function do_automatic_upgrades() {
 		// Trigger a post save on global kit, so all associated posts can be updated.
 		if ( $global_kit && '' !== $global_kit ) {
 			wp_update_post(
-				[
+				array(
 					'ID'           => $global_kit,
 					'post_content' => 'Updated.',
-				]
+				)
 			);
 		}
 
@@ -129,7 +129,7 @@ function ends_with( $string, $end_string ) {
 }
 
 function ang_v13_upgrades() {
-	$keys = [
+	$keys = array(
 		// Heading Text sizes.
 		'ang_size_xxl'                      => 'ang_size_xxl_font_size',
 		'ang_size_xxl_tablet'               => 'ang_size_xxl_font_size_tablet',
@@ -197,9 +197,9 @@ function ang_v13_upgrades() {
 		'ang_text_size_lh_small'            => 'ang_text_size_small_line_height',
 		'ang_text_size_lh_small_tablet'     => 'ang_text_size_small_line_height_tablet',
 		'ang_text_size_lh_small_mobile'     => 'ang_text_size_small_line_height_mobile',
-	];
+	);
 
-	$must_haves = [
+	$must_haves = array(
 		'ang_size_xxl'         => 'ang_size_xxl_typography',
 		'ang_size_xl'          => 'ang_size_xl_typography',
 		'ang_size_large'       => 'ang_size_large_typography',
@@ -210,13 +210,13 @@ function ang_v13_upgrades() {
 		'ang_text_size_large'  => 'ang_text_size_large_typography',
 		'ang_text_size_medium' => 'ang_text_size_medium_typography',
 		'ang_text_size_small'  => 'ang_text_size_small_typography',
-	];
+	);
 
 	$query = new \WP_Query(
-		[
+		array(
 			'post_type'      => 'ang_tokens',
 			'posts_per_page' => -1,
-		]
+		)
 	);
 
 	if ( $query->have_posts() ) {
@@ -285,12 +285,12 @@ function ang_v138_upgrades() {
 function version_1_3_15_upgrades() {
 	$key = '_tokens_data';
 
-	$query_args = [
+	$query_args = array(
 		'post_type'      => 'ang_tokens',
 		'post_status'    => 'any',
 		'fields'         => 'ids',
 		'posts_per_page' => -1,
-	];
+	);
 
 	$query = new \WP_Query( $query_args );
 
@@ -310,6 +310,18 @@ function version_1_3_15_upgrades() {
 
 		update_post_meta( $id, $key, wp_slash( wp_json_encode( $settings ) ) );
 	}
+
+	Utils::clear_elementor_cache();
+}
+
+/**
+ * Version 1.4.0 upgrades.
+ *
+ * @since 1.4.0
+ */
+function version_140_upgrades() {
+	delete_transient( 'analog_blocks' );
+	delete_transient( 'analog_stylekits' );
 
 	Utils::clear_elementor_cache();
 }

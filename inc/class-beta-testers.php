@@ -36,7 +36,7 @@ class Beta_Testers {
 
 		$this->transient_key = md5( 'ang_beta_testers_response_key' );
 
-		add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'check_version' ] );
+		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_version' ) );
 	}
 
 	/**

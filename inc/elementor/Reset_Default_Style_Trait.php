@@ -30,7 +30,7 @@ trait Reset_Default_Style_Trait {
 		add_action(
 			"elementor/element/{$widget}/{$section}/before_section_end",
 			function( Element_Base $element ) use ( $control_id, $default ) {
-				$element->update_control( $control_id, [ 'default' => $default ] );
+				$element->update_control( $control_id, array( 'default' => $default ) );
 			}
 		);
 	}

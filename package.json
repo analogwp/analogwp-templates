@@ -23,7 +23,8 @@
   "homepage": "https://github.com/mauryaratan/analogwp-templates#readme",
   "dependencies": {
     "classnames": "^2.2.6",
-    "react-select": "^2.3.0",
+    "react-masonry-css": "^1.0.14",
+    "react-select": "3.0.8",
     "react-waypoint": "^9.0.0",
     "styled-components": "^4.1.3"
   },

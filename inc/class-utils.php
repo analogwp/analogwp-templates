@@ -7,6 +7,7 @@
 
 namespace Analog;
 
+use Elementor\Core\Settings\Manager;
 use Elementor\Plugin;
 use WP_Query;
 
@@ -58,7 +59,7 @@ class Utils extends Base {
 	public static function add_import_log( $id, $post_id, $method ) {
 		$imports = self::get_import_log();
 		if ( ! $imports ) {
-			$imports = [];
+			$imports = array();
 		}
 
 		$time = time();
@@ -76,13 +77,13 @@ class Utils extends Base {
 	 */
 	public static function get_tokens( $prefix = true ) {
 		$posts = \get_posts(
-			[
+			array(
 				'post_type'      => 'ang_tokens',
 				'posts_per_page' => -1,
-			]
+			)
 		);
 
-		$tokens = [];
+		$tokens = array();
 
 		foreach ( $posts as $post ) {
 			$global_token = self::get_global_kit_id();
@@ -137,11 +138,11 @@ class Utils extends Base {
 		Plugin::$instance->files_manager->clear_cache();
 	}
 
-	public static function get_public_post_types( $args = [] ) {
-		$post_type_args = [
+	public static function get_public_post_types( $args = array() ) {
+		$post_type_args = array(
 			// Default is the value $public.
 			'show_in_nav_menus' => true,
-		];
+		);
 
 		// Keep for backwards compatibility.
 		if ( ! empty( $args['post_type'] ) ) {
@@ -153,7 +154,7 @@ class Utils extends Base {
 
 		$_post_types = get_post_types( $post_type_args, 'objects' );
 
-		$post_types = [];
+		$post_types = array();
 
 		foreach ( $_post_types as $post_type => $object ) {
 			$post_types[ $post_type ] = $object->label;
@@ -180,23 +181,23 @@ class Utils extends Base {
 	 * @return array
 	 */
 	public static function posts_using_stylekit( $kit_id = false ) {
-		$post_types  = get_post_types( [ 'public' => true ] );
-		$post_types += [ 'elementor_library' ];
+		$post_types  = get_post_types( array( 'public' => true ) );
+		$post_types += array( 'elementor_library' );
 		unset( $post_types['attachment'] );
 
-		$query_args = [
+		$query_args = array(
 			'post_type'      => apply_filters( 'analog/stylekit/posttypes', $post_types ),
 			'post_status'    => 'any',
 			'meta_key'       => '_elementor_page_settings',
-			'meta_values'    => [ 'ang_action_tokens' ],
+			'meta_values'    => array( 'ang_action_tokens' ),
 			'meta_compare'   => 'IN',
 			'fields'         => 'ids',
 			'posts_per_page' => -1,
-		];
+		);
 
 		$query = new WP_Query( $query_args );
 
-		$posts = [];
+		$posts = array();
 
 		foreach ( $query->posts as $post_id ) {
 			$settings = \get_post_meta( $post_id, '_elementor_page_settings', true );
@@ -282,7 +283,7 @@ class Utils extends Base {
 		$queue = Options::get_instance()->get( 'stylekit_refresh_queue' );
 
 		if ( ! $queue ) {
-			$queue = [];
+			$queue = array();
 		}
 
 		$queue[] = $posts;
@@ -325,17 +326,17 @@ class Utils extends Base {
 	 * @return array
 	 */
 	public static function imported_remote_kits() {
-		$kits = [];
+		$kits = array();
 
 		$query = new WP_Query(
-			[
+			array(
 				'post_type'              => 'ang_tokens',
 				'post_status'            => 'publish',
 				'posts_per_page'         => -1,
 				'no_found_rows'          => true,
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
-			]
+			)
 		);
 
 		if ( $query->have_posts() ) {
@@ -367,16 +368,16 @@ class Utils extends Base {
 
 			$plugin_information = plugins_api(
 				'plugin_information',
-				[ 'slug' => 'analogwp-templates' ]
+				array( 'slug' => 'analogwp-templates' )
 			);
 
 			if ( empty( $plugin_information->versions ) || ! is_array( $plugin_information->versions ) ) {
-				return [];
+				return array();
 			}
 
 			krsort( $plugin_information->versions, SORT_NATURAL );
 
-			$rollback_versions = [];
+			$rollback_versions = array();
 
 			$current_index = 0;
 
@@ -443,7 +444,7 @@ class Utils extends Base {
 		 */
 		$allowed = apply_filters(
 			'analog/stylekit/allowed/setting/prefixes',
-			[ 'ang_', 'hide', 'background_background', 'background_color', 'background_grad', 'custom_css' ]
+			array( 'ang_', 'hide', 'background_background', 'background_color', 'background_grad', 'custom_css' )
 		);
 
 		$keep = array_filter(
@@ -475,7 +476,7 @@ class Utils extends Base {
 	public static function update_style_kit_for_post( int $post_id, array $tokens ) {
 		$page_settings = \get_post_meta( $post_id, '_elementor_page_settings', true );
 
-		$allowed_types = [ 'post', 'wp-post', 'page', 'wp-page', 'global-widget', 'popup', 'section', 'header', 'footer', 'single', 'archive' ];
+		$allowed_types = array( 'post', 'wp-post', 'page', 'wp-page', 'global-widget', 'popup', 'section', 'header', 'footer', 'single', 'archive' );
 
 		$document_type = \get_post_meta( $post_id, '_elementor_template_type', true );
 
@@ -505,6 +506,65 @@ class Utils extends Base {
 		}
 
 		return false;
+  }
+  
+	/**
+	 * Returns a list of all keys for color controls defined by Style Kits.
+	 *
+	 * @since 1.5.0
+	 * @return array
+	 */
+	public static function get_keys_for_color_controls() {
+		$keys = array(
+			'ang_color_accent_primary',
+			'ang_color_accent_secondary',
+			'ang_color_text_light',
+			'ang_color_background_light',
+			'ang_color_background_dark',
+			'ang_color_text_dark',
+		);
+
+		return apply_filters( 'analog_color_scheme_items', $keys );
+	}
+
+	/**
+	 * Fetch color values from Post Meta.
+	 *
+	 * @param int $id Post ID.
+	 *
+	 * @since 1.5.0
+	 * @return array
+	 */
+	public static function get_color_scheme_items( int $id ) {
+		$page_settings_manager = Manager::get_settings_managers( 'page' );
+		$page_settings_model   = $page_settings_manager->get_model( $id );
+
+		$keys = self::get_keys_for_color_controls();
+
+		$colors = array();
+		foreach ( $keys as $key ) {
+			$color = $page_settings_model->get_settings( $key );
+
+			if ( '' !== $color ) {
+				$colors[] = $color;
+			}
+		}
+
+		if ( class_exists( 'kt_Central_Palette' ) ) {
+			$central_color_palette = \kt_Central_Palette::instance()->get_colors();
+
+			if ( is_array( $central_color_palette ) ) {
+				$colors = array_merge( $central_color_palette, $colors );
+			}
+		}
+
+		$formatted_colors = array();
+
+		foreach ( array_unique( $colors ) as $color ) {
+			$formatted_colors[] = array( 'value' => $color );
+		}
+
+		return $formatted_colors;
 	}
 }
 

@@ -37,30 +37,30 @@ class Tools extends Base {
 	 * Add all actions and filters.
 	 */
 	private function add_actions() {
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-		add_action( 'admin_post_ang_rollback', [ $this, 'post_ang_rollback' ] );
-		add_filter( 'display_post_states', [ $this, 'stylekit_post_state' ], 20, 2 );
+		add_action( 'admin_post_ang_rollback', array( $this, 'post_ang_rollback' ) );
+		add_filter( 'display_post_states', array( $this, 'stylekit_post_state' ), 20, 2 );
 
-		add_filter( 'post_row_actions', [ $this, 'filter_post_row_actions' ], 15, 2 );
-		add_filter( 'page_row_actions', [ $this, 'filter_post_row_actions' ], 15, 2 );
+		add_filter( 'post_row_actions', array( $this, 'filter_post_row_actions' ), 15, 2 );
+		add_filter( 'page_row_actions', array( $this, 'filter_post_row_actions' ), 15, 2 );
 
-		add_action( 'wp_ajax_ang_make_global', [ $this, 'post_global_stylekit' ] );
-		add_action( 'wp_ajax_ang_remove_kit_queue', [ $this, 'ang_remove_kit_queue' ] );
+		add_action( 'wp_ajax_ang_make_global', array( $this, 'post_global_stylekit' ) );
+		add_action( 'wp_ajax_ang_remove_kit_queue', array( $this, 'ang_remove_kit_queue' ) );
 
 		if ( is_admin() ) {
-			add_action( 'admin_footer', [ $this, 'import_stylekit_template' ] );
-			add_filter( 'post_row_actions', [ $this, 'post_row_actions' ], 10, 2 );
+			add_action( 'admin_footer', array( $this, 'import_stylekit_template' ) );
+			add_filter( 'post_row_actions', array( $this, 'post_row_actions' ), 10, 2 );
 
-			add_action( 'wp_ajax_analog_style_kit_export', [ $this, 'handle_style_kit_export' ] );
-			add_action( 'wp_ajax_analog_style_kit_import', [ $this, 'handle_style_kit_import' ] );
+			add_action( 'wp_ajax_analog_style_kit_export', array( $this, 'handle_style_kit_export' ) );
+			add_action( 'wp_ajax_analog_style_kit_import', array( $this, 'handle_style_kit_import' ) );
 
 			// Template library bulk actions.
-			add_filter( 'bulk_actions-edit-ang_tokens', [ $this, 'admin_add_bulk_export_action' ] );
-			add_filter( 'handle_bulk_actions-edit-ang_tokens', [ $this, 'admin_export_multiple_templates' ], 10, 3 );
+			add_filter( 'bulk_actions-edit-ang_tokens', array( $this, 'admin_add_bulk_export_action' ) );
+			add_filter( 'handle_bulk_actions-edit-ang_tokens', array( $this, 'admin_export_multiple_templates' ), 10, 3 );
 		}
 
-		add_action( 'heartbeat_received', [ $this, 'heartbeat_received' ], 10, 2 );
+		add_action( 'heartbeat_received', array( $this, 'heartbeat_received' ), 10, 2 );
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Tools extends Base {
 		wp_enqueue_script(
 			'ang-cpt-tools',
 			ANG_PLUGIN_URL . 'inc/elementor/js/ang-cpt-tools.js',
-			[ 'jquery' ],
+			array( 'jquery' ),
 			ANG_VERSION,
 			true
 		);
@@ -140,11 +140,11 @@ CSS;
 	 */
 	private function get_export_link( $kit_id ) {
 		return add_query_arg(
-			[
+			array(
 				'action' => 'analog_style_kit_export',
 				'_nonce' => wp_create_nonce( 'analog_ajax' ),
 				'kit_id' => $kit_id,
-			],
+			),
 			admin_url( 'admin-ajax.php' )
 		);
 	}
@@ -157,10 +157,10 @@ CSS;
 	 */
 	private function get_stylekit_global_link() {
 		return add_query_arg(
-			[
+			array(
 				'action'  => 'ang_make_global',
 				'post_id' => get_the_ID(),
-			],
+			),
 			admin_url( 'admin-ajax.php' )
 		);
 	}
@@ -241,7 +241,7 @@ CSS;
 	 * @return \WP_Error|void WordPress error if export failed.
 	 */
 	public function export_multiple_templates( array $kit_ids ) {
-		$files         = [];
+		$files         = array();
 		$wp_upload_dir = wp_upload_dir();
 		$temp_path     = $wp_upload_dir['basedir'] . '/' . self::TEMP_FILES_DIR;
 
@@ -264,10 +264,10 @@ CSS;
 				return new WP_Error( '404', sprintf( 'Cannot create file "%s".', $file_data['name'] ) );
 			}
 
-			$files[] = [
+			$files[] = array(
 				'path' => $complete_path,
 				'name' => $file_data['name'],
-			];
+			);
 		}
 
 		if ( ! $files ) {
@@ -320,15 +320,15 @@ CSS;
 			return new WP_Error( 'empty_kit', 'The Style Kit is empty' );
 		}
 
-		$kit_data = [];
+		$kit_data = array();
 
 		$kit_data['content'] = $tokens;
 		$kit_data['title']   = get_the_title( $kit_id );
 
-		return [
+		return array(
 			'name'    => 'analog-' . $kit_id . '-' . date( 'Y-m-d' ) . '.json',
 			'content' => wp_json_encode( $kit_data ),
-		];
+		);
 	}
 
 	/**
@@ -383,14 +383,14 @@ CSS;
 
 	public function handle_style_kit_export() {
 		if ( empty( $_REQUEST['_nonce'] ) || ! wp_verify_nonce( $_REQUEST['_nonce'], 'analog_ajax' ) ) {
-			wp_send_json_error( [ 'message' => 'Access Denied.' ] );
+			wp_send_json_error( array( 'message' => 'Access Denied.' ) );
 		}
 
 		$kit_id = $_REQUEST['kit_id'];
 
 		$export = $this->export_stylekit( $kit_id );
 		if ( is_wp_error( $export ) ) {
-			wp_send_json_error( [ 'message' => $export->get_error_message() ] );
+			wp_send_json_error( array( 'message' => $export->get_error_message() ) );
 		}
 
 		wp_send_json_success();
@@ -448,7 +448,7 @@ CSS;
 			return new WP_Error( 'file_error', 'Please upload a file to import' );
 		}
 
-		$items = [];
+		$items = array();
 
 		$file_extension = pathinfo( $name, PATHINFO_EXTENSION );
 
@@ -469,7 +469,7 @@ CSS;
 
 			$zip->close();
 
-			$file_names = array_diff( scandir( $temp_path ), [ '.', '..' ] );
+			$file_names = array_diff( scandir( $temp_path ), array( '.', '..' ) );
 
 			foreach ( $file_names as $file_name ) {
 				$full_file_name = $temp_path . '/' . $file_name;
@@ -523,14 +523,14 @@ CSS;
 		}
 
 		$new_kit = wp_insert_post(
-			[
+			array(
 				'post_type'   => 'ang_tokens',
 				'post_title'  => $data['title'],
 				'post_status' => 'publish',
-				'meta_input'  => [
+				'meta_input'  => array(
 					'_tokens_data' => $content,
-				],
-			]
+				),
+			)
 		);
 
 		if ( is_wp_error( $new_kit ) ) {
@@ -546,7 +546,7 @@ CSS;
 	public function handle_style_kit_import() {
 		// @codingStandardsIgnoreLine
 		if ( empty( $_REQUEST['_nonce'] ) || ! wp_verify_nonce( $_REQUEST['_nonce'], 'analog-import' ) ) {
-			wp_send_json_error( [ 'message' => 'Access Denied.' ] );
+			wp_send_json_error( array( 'message' => 'Access Denied.' ) );
 		}
 
 		$imports = $this->import_style_kit( $_FILES['file']['name'], $_FILES['file']['tmp_name'] ); // @codingStandardsIgnoreLine
@@ -606,12 +606,12 @@ CSS;
 		$stable_version = $_GET['version'];
 
 		$rollback = new Rollback(
-			[
+			array(
 				'version'     => $stable_version,
 				'plugin_name' => $plugin_name,
 				'plugin_slug' => $plugin_slug,
 				'package_url' => sprintf( 'https://downloads.wordpress.org/plugin/%s.%s.zip', $plugin_slug, $stable_version ),
-			]
+			)
 		);
 
 		$rollback->run();
@@ -619,9 +619,9 @@ CSS;
 		wp_die(
 			'',
 			esc_html__( 'Rollback to Previous Version', 'ang' ),
-			[
+			array(
 				'response' => 200,
-			]
+			)
 		);
 	}
 
@@ -714,9 +714,9 @@ CSS;
 	public function ang_remove_kit_queue() {
 		if ( ! isset( $_REQUEST['id'] ) ) {
 			wp_send_json_error(
-				[
+				array(
 					'message' => __( 'Invalid/empty Post ID.', 'ang' ),
-				]
+				)
 			);
 		}
 
@@ -742,7 +742,7 @@ CSS;
 			$updated = $data['ang_sk_post']['updated'];
 
 			$posts = Utils::posts_using_stylekit( $kit_id );
-			$posts = array_values( array_diff( $posts, [ $post_id ] ) );
+			$posts = array_values( array_diff( $posts, array( $post_id ) ) );
 
 			$key = 'ang_sks_using_' . $kit_id;
 			if ( 'false' !== $updated ) {

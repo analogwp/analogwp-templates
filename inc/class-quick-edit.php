@@ -12,19 +12,19 @@ class Quick_Edit extends Base {
 	 * QuickEdit constructor.
 	 */
 	public function __construct() {
-		add_filter( 'manage_post_posts_columns', [ $this, 'add_sk_column' ], 10, 2 );
-		add_filter( 'manage_page_posts_columns', [ $this, 'add_sk_column' ], 10, 2 );
-		add_filter( 'manage_elementor_library_posts_columns', [ $this, 'add_sk_column' ], 10, 2 );
+		add_filter( 'manage_post_posts_columns', array( $this, 'add_sk_column' ), 10, 2 );
+		add_filter( 'manage_page_posts_columns', array( $this, 'add_sk_column' ), 10, 2 );
+		add_filter( 'manage_elementor_library_posts_columns', array( $this, 'add_sk_column' ), 10, 2 );
 
-		add_action( 'manage_posts_custom_column', [ $this, 'populate_columns' ], 10, 2 );
-		add_action( 'manage_page_posts_custom_column', [ $this, 'populate_columns' ], 10, 2 );
+		add_action( 'manage_posts_custom_column', array( $this, 'populate_columns' ), 10, 2 );
+		add_action( 'manage_page_posts_custom_column', array( $this, 'populate_columns' ), 10, 2 );
 
-		add_action( 'quick_edit_custom_box', [ $this, 'display_custom_quickedit_book' ], 10, 2 );
-		add_action( 'bulk_edit_custom_box', [ $this, 'display_custom_quickedit_book' ], 10, 2 );
-		add_action( 'save_post', [ $this, 'quick_edit_save' ] );
+		add_action( 'quick_edit_custom_box', array( $this, 'display_custom_quickedit_book' ), 10, 2 );
+		add_action( 'bulk_edit_custom_box', array( $this, 'display_custom_quickedit_book' ), 10, 2 );
+		add_action( 'save_post', array( $this, 'quick_edit_save' ) );
 
-		add_action( 'admin_enqueue_scripts', [ $this, 'quick_edit_scripts' ] );
-		add_action( 'wp_ajax_save_bulk_edit_stylekit', [ $this, 'save_bulk_edit_stylekit' ] );
+		add_action( 'admin_enqueue_scripts', array( $this, 'quick_edit_scripts' ) );
+		add_action( 'wp_ajax_save_bulk_edit_stylekit', array( $this, 'save_bulk_edit_stylekit' ) );
 	}
 
 	/**
@@ -42,11 +42,11 @@ class Quick_Edit extends Base {
 
 		$token = get_post_meta( $kit_id, '_tokens_data', true );
 		$token = json_decode( $token, ARRAY_A );
-		$token = array_merge( $token, [ 'ang_action_tokens' => $kit_id ] );
+		$token = array_merge( $token, array( 'ang_action_tokens' => $kit_id ) );
 
 		$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
 		if ( ! is_array( $settings ) ) {
-			$settings = [];
+			$settings = array();
 		}
 
 		$settings = array_merge( $settings, $token );
@@ -101,11 +101,11 @@ class Quick_Edit extends Base {
 	 */
 	public function get_stylekits() {
 		$posts = get_posts(
-			[
+			array(
 				'post_type'   => 'ang_tokens',
 				'numberposts' => -1,
 				'fields'      => 'ids',
-			]
+			)
 		);
 
 		return $posts;
@@ -145,7 +145,7 @@ class Quick_Edit extends Base {
 					</div>
 				</div>
 			</fieldset>
-		<?php
+			<?php
 		endif;
 	}
 
@@ -177,7 +177,7 @@ class Quick_Edit extends Base {
 	 */
 	public function quick_edit_scripts( $hook ) {
 		if ( 'edit.php' === $hook ) {
-			wp_enqueue_script( 'ang-quick-edit', ANG_PLUGIN_URL . 'assets/js/quick-edit.js', [ 'jquery' ], ANG_VERSION, true );
+			wp_enqueue_script( 'ang-quick-edit', ANG_PLUGIN_URL . 'assets/js/quick-edit.js', array( 'jquery' ), ANG_VERSION, true );
 		}
 	}
 
