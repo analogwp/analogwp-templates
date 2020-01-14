@@ -327,7 +327,7 @@ function version_1_3_15_upgrades() {
 	Utils::clear_elementor_cache();
 }
 
-/**
+/* 
  * Version 1.4.0 upgrades.
  *
  * @since 1.4.0
@@ -337,4 +337,93 @@ function version_140_upgrades() {
 	delete_transient( 'analog_stylekits' );
 
 	Utils::clear_elementor_cache();
+}
+
+/**
+ * Version 1.5.0 upgrades.
+ *
+ * @since 1.5.0
+ */
+function version_1_5_upgrades() {
+
+	$run_migration = function( array $settings ) {
+		/**
+		 * "Text and Heading Colors" was removed, in favor of:
+		 * New Text Color and Heading Color, both these settings should inherit the value.
+		 *
+		 * Also "Light Background > Text Color" should inherit it.
+		 */
+		if ( isset( $settings['ang_color_text_light'] ) ) {
+			$text_light = $settings['ang_color_text_light'];
+
+			$settings += [
+				'ang_color_text'               => $text_light,
+				'ang_color_heading'            => $text_light,
+				'ang_background_light_text'    => $text_light,
+				'ang_background_light_heading' => $text_light,
+			];
+
+			// TODO: Enable unset.
+			// unset( $settings['ang_color_text_light'] );
+		}
+
+		/**
+		 * Migrate old keys to new keys.
+		 */
+		$migrate_keys = [
+			'ang_color_text_dark'        => [
+				'ang_background_dark_text',
+				'ang_background_dark_heading',
+			],
+			'ang_color_background_light' => 'ang_background_light_background',
+			'ang_color_background_dark'  => 'ang_background_dark_background',
+		];
+
+		foreach ( $migrate_keys as $old_key => $new_key ) {
+			if ( isset( $settings[ $old_key ] ) ) {
+				if ( is_array( $new_key ) ) {
+					foreach ( $new_key as $subkey ) {
+						$settings += [ $subkey => $settings[ $old_key ] ];
+					}
+				} else {
+					$settings += [ $new_key => $settings[ $old_key ] ];
+				}
+
+				// TODO: Enable unset.
+				//unset( $settings[ $old_key ] );
+			}
+		}
+
+		return $settings;
+	};
+
+	$query = new \WP_Query(
+		[
+			'post_type'      => 'ang_tokens',
+			'post_status'    => 'any',
+			'fields'         => 'ids',
+			'posts_per_page' => -1,
+		]
+	);
+
+	if ( count( $query->posts ) ) {
+		foreach ( $query->posts as $id ) {
+			$settings = get_post_meta( $id, '_tokens_data', true );
+			$settings = json_decode( $settings, ARRAY_A );
+
+			$updated_settings = $run_migration( $settings );
+			update_post_meta( $id, '_tokens_data', wp_slash( wp_json_encode( $updated_settings ) ) );
+		}
+	}
+
+	$posts_with_stylekit = \Analog\Utils::posts_using_stylekit();
+
+	if ( count( $posts_with_stylekit ) ) {
+		foreach ( $posts_with_stylekit as $id ) {
+			$settings = get_post_meta( $id, '_elementor_page_settings', true );
+
+			$updated_settings = $run_migration( $settings );
+			update_post_meta( $id, '_elementor_page_settings', wp_slash( $updated_settings ) );
+		}
+	}
 }
