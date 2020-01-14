@@ -388,6 +388,21 @@ jQuery( window ).on( 'elementor:init', function() {
 				autosemicolon: true,
 			} );
 
+			const replacer = (e) => {
+				const checked = e.target.checked;
+				const elBody = 'body.elementor-page-' + elementor.config.document.id;
+				const elSelector = 'selector';
+				const elTextarea = jQuery('#ang-export-css');
+
+				if ( checked ) {
+					const stripped = replaceAll( formattedCSS, elBody, elSelector );
+					jQuery(elTextarea).html(stripped);
+				} else {
+					const stripped = replaceAll( formattedCSS, elSelector, elBody );
+					jQuery(elTextarea).html(stripped);
+				}
+			};
+
 			const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
 				id: 'ang-modal-export-css',
 				headerMessage: ANG_Action.translate.exportCSS,
@@ -426,20 +441,12 @@ jQuery( window ).on( 'elementor:init', function() {
 						</div>
 					` );
 
-					jQuery('#ang-switch-selector').on( 'change', function(e) {
-						const checked = e.target.checked;
-						const elBody = 'body.elementor-page-' + elementor.config.document.id;
-						const elSelector = 'selector';
-						const elTextarea = jQuery('#ang-export-css');
-
-						if ( checked ) {
-							const stripped = replaceAll( formattedCSS, elBody, elSelector );
-							jQuery(elTextarea).html(stripped);
-						} else {
-							const stripped = replaceAll( formattedCSS, elSelector, elBody );
-							jQuery(elTextarea).html(stripped);
-						}
-					});
+					jQuery('#ang-switch-selector').bind('change', replacer);
+				},
+				onHide: function() {
+					setTimeout(function(){
+						modal.destroy();
+					}, 200 );
 				},
 			} );
 
