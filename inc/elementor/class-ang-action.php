@@ -133,6 +133,7 @@ class ANG_Action extends Base_Data_Control {
 					'pageStyleHeader' => __( 'This template offers global typography and spacing control, through the Page Style tab.', 'ang' ),
 					/* todo: Add the correct link. */
 					'pageStyleDesc'   => __( 'Typography, column gaps and more, are controlled layout-wide at Page Styles Panel, giving you the flexibility you need over the design of this template. You can save the styles and apply them to any other page. <a href="#" target="_blank">Learn More.</a>', 'ang' ),
+					'cssVariables'    => __( 'CSS Variables', 'ang' ),
 				),
 				'skPanelsAllowed' => $sk_panels_allowed,
 			)

@@ -479,9 +479,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 				onShow: function() {
 					const content = modal.getElements( 'content' );
-					content.append( `
-						<input id="ang_token_title" type="text" value="" placeholder="${ ANG_Action.translate.enterTitle }" />
-					` );
+					content.append( `<input id="ang_token_title" type="text" value="" placeholder="${ ANG_Action.translate.enterTitle }" />` );
 				},
 			} );
 
@@ -667,5 +665,85 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		jQuery('body').toggleClass( 'dark-mode', value === 'dark' );
 	});
+
+	/**
+	 * Returns a list of all keys that generate CSS variables.
+	 *
+	 * @since 1.5.0
+	 * @returns {array}
+	 */
+	analog.getColorControlsVariables = function() {
+		const controls = elementor.settings.page.model.controls;
+		const variables = [];
+
+		_.forEach( controls, function( control ) {
+			if ( control.name.startsWith( 'ang_color' ) || control.name.startsWith( 'ang_background' ) ) {
+				if ( 'variable' in control ) {
+					variables.push( { name: control.name, variable: control.variable } );
+				}
+			}
+		});
+
+		return variables;
+	};
+
+	/**
+	 * Creates a modal with list and preview of all CSS variables.
+	 *
+	 * @since 1.5.0
+	 * @returns {*} Modal instance.
+	 */
+	analog.CSSVariablesModal = function() {
+		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
+			id: 'ang-css-variables',
+			className: 'ang-css-variables',
+			headerMessage: ANG_Action.translate.cssVariables,
+			closeButton: true,
+			closeModal: '.ang-css-variables .close-modal',
+			closeButtonClass: 'eicon-close',
+			hide: {
+				onOutsideClick: true,
+				onBackgroundClick: true,
+				onEscKeyPress: true,
+			},
+
+		} );
+
+		modal.onShow = function() {
+			const content = modal.getElements( 'content' );
+			let html = '<div class="ang-css-variables__list"><ul>';
+
+			const header = modal.getElements( 'header' );
+			header.prepend( `<span class="icon"><img src="${AGWP.pluginURL}/assets/img/triangle.svg" /></span>` );
+
+			modal.getElements('closeButton').appendTo(header);
+
+			const variables = analog.getColorControlsVariables();
+			const attributes = elementor.settings.page.model.attributes;
+
+			_.map( variables, function(key) {
+				html += `
+					<li>
+						<code>var(--${key.variable})</code>
+						<span class="swatch" style="background-color:${attributes[key.name]}"></span>
+					</li>`;
+			});
+
+			html += '</ul></div>';
+
+			content.append( html );
+		};
+
+		modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
+
+		return modal;
+	};
+
+	$e.shortcuts.register( 'ctrl+shift+1', {
+		callback: function() {
+			analog.CSSVariablesModal().show();
+		}
+	} );
+
 } );
 

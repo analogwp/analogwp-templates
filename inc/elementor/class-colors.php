@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Analog\Elementor\Colors.
+ *
+ * @package AnalogWP
+ */
 
 namespace Analog\Elementor;
 
@@ -158,6 +163,7 @@ class Colors extends Module {
 		);
 
 		$selectors = array(
+			'{{WRAPPER}}'                                 => '--ang_color_accent_primary: {{VALUE}}',
 			'{{WRAPPER}} .sk-accent-1'                    => 'color: {{VALUE}}',
 			'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
 			'{{WRAPPER}} .elementor-icon-list-icon'       => 'color: {{VALUE}}',
@@ -212,6 +218,7 @@ class Colors extends Module {
 			array(
 				'label'     => __( 'Primary Accent', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_accent_primary',
 				'selectors' => $selectors,
 			)
 		);
@@ -230,7 +237,9 @@ class Colors extends Module {
 			array(
 				'label'     => __( 'Secondary Accent', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_accent_secondary',
 				'selectors' => array(
+					'{{WRAPPER}}'                      => '--ang_color_accent_secondary: {{VALUE}};',
 					'{{WRAPPER}} .elementor-button, {{WRAPPER}} .button, {{WRAPPER}} button, {{WRAPPER}} .sk-accent-2' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .sk-secondary-accent' => 'color: {{VALUE}}',
 
@@ -258,111 +267,27 @@ class Colors extends Module {
 		);
 
 		$element->add_control(
-			'ang_color_text_light',
+			'ang_color_text',
 			array(
-				'label'     => __( 'Text and Headings Color', 'ang' ),
+				'label'     => __( 'Text Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_text',
 				'selectors' => array(
-					'{{WRAPPER}},{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
-					'{{WRAPPER}}, {{WRAPPER}} .sk-text-light' => '--ang_color_text_light: {{VALUE}}',
-					'{{WRAPPER}} .sk-text-light' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .sk-text-light .elementor-heading-title' => 'color: {{VALUE}}',
+					'{{WRAPPER}}' => '--ang_color_text: {{VALUE}}; color: {{VALUE}};',
 				),
 			)
 		);
 
 		$element->add_control(
-			'ang_color_text_light_desc',
+			'ang_color_heading',
 			array(
-				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'Applies on the text and headings in the layout.', 'ang' ),
-				'classes' => 'elementor-descriptor',
-			)
-		);
-
-		$element->add_control(
-			'ang_color_background_light',
-			array(
-				'label'     => __( 'Light Background', 'ang' ),
+				'label'     => __( 'Headings Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_heading',
 				'selectors' => array(
-					'{{WRAPPER}} .sk-light-bg:not(.elementor-column)' => 'background-color: {{VALUE}}; color: var(--ang_color_text_light)',
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h1,
-					{{WRAPPER}} .sk-dark-bg .sk-light-bg h2,
-					{{WRAPPER}} .sk-dark-bg .sk-light-bg h3,
-					{{WRAPPER}} .sk-dark-bg .sk-light-bg h4,
-					{{WRAPPER}} .sk-dark-bg .sk-light-bg h5,
-					{{WRAPPER}} .sk-dark-bg .sk-light-bg h6' => 'color: var(--ang_color_text_light)',
-					'{{WRAPPER}} .sk-dark-bg .elementor-counter-title, {{WRAPPER}} .sk-dark-bg .elementor-counter-number-wrapper' => 'color: currentColor',
-
-					'{{WRAPPER}} .sk-light-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}}; color: var(--ang_color_text_light)',
+					'{{WRAPPER}}' => '--ang_color_heading: {{VALUE}};',
+					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
 				),
-			)
-		);
-
-		$element->add_control(
-			'ang_color_background_light_desc',
-			array(
-				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'Apply this color to sections or columns, using the <code>sk-light-bg</code>. The text inside will inherit the Text and titles color.', 'ang' ),
-				'classes' => 'elementor-descriptor',
-			)
-		);
-
-		$element->add_control(
-			'ang_color_background_dark',
-			array(
-				'label'     => __( 'Dark Background', 'ang' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .sk-dark-bg:not(.elementor-column)' => 'background-color: {{VALUE}}; color: var(--ang_color_text_dark)',
-					'{{WRAPPER}} .sk-dark-bg h1,
-					{{WRAPPER}} .sk-dark-bg h2,
-					{{WRAPPER}} .sk-dark-bg h3,
-					{{WRAPPER}} .sk-dark-bg h4,
-					{{WRAPPER}} .sk-dark-bg h5,
-					{{WRAPPER}} .sk-dark-bg h6' => 'color: var(--ang_color_text_dark)',
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h1,
-					{{WRAPPER}} .sk-light-bg .sk-dark-bg h2,
-					{{WRAPPER}} .sk-light-bg .sk-dark-bg h3,
-					{{WRAPPER}} .sk-light-bg .sk-dark-bg h4,
-					{{WRAPPER}} .sk-light-bg .sk-dark-bg h5,
-					{{WRAPPER}} .sk-light-bg .sk-dark-bg h6' => 'color: var(--ang_color_text_dark)',
-					'{{WRAPPER}} .sk-light-bg .elementor-counter-title, {{WRAPPER}} .sk-light-bg .elementor-counter-number-wrapper' => 'color: currentColor;',
-
-					'{{WRAPPER}} .sk-dark-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}}; color: var(--ang_color_text_dark)',
-				),
-			)
-		);
-
-		$element->add_control(
-			'ang_color_background_dark_desc',
-			array(
-				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'Apply this color to sections or columns, using the <code>sk-dark-bg</code>. The text inside will inherit the <em>Text over Dark Background</em> color that can be set below.', 'ang' ),
-				'classes' => 'elementor-descriptor',
-			)
-		);
-
-		$element->add_control(
-			'ang_color_text_dark',
-			array(
-				'label'     => __( 'Text over dark background', 'ang' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}}, {{WRAPPER}} .sk-text-dark' => '--ang_color_text_dark: {{VALUE}}',
-					'{{WRAPPER}} .sk-text-dark' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .sk-text-dark .elementor-heading-title' => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$element->add_control(
-			'ang_color_text_dark_desc',
-			array(
-				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'This color will apply on the text in a section or column with the Dark Background Color, as it has been set above.', 'ang' ),
-				'classes' => 'elementor-descriptor',
 			)
 		);
 
