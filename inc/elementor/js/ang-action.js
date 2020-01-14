@@ -729,15 +729,21 @@ jQuery( window ).on( 'elementor:init', function() {
 					</li>`;
 			});
 
-			html += '</ul></div>'
+			html += '</ul></div>';
 
 			content.append( html );
 		};
 
-		modal.getElements( 'message' ).append( modal.addElement( 'content' ) )
-		modal.show();
+		modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
+
+		return modal;
 	};
-	analog.CSSVariablesModal();
+
+	$e.shortcuts.register( 'ctrl+shift+1', {
+		callback: function() {
+			analog.CSSVariablesModal().show();
+		}
+	} );
 
 } );
 
