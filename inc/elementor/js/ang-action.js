@@ -786,9 +786,16 @@ jQuery( window ).on( 'elementor:init', function() {
 		return modal;
 	};
 
-	$e.shortcuts.register( 'ctrl+shift+1', {
-		callback: function() {
-			analog.CSSVariablesModal().show();
-		}
-	} );
+	/**
+	 * Register shortcut to display CSS variables modal.
+	 *
+	 * @since 1.5.0
+	 */
+	if ( undefined !== typeof($e) ) {
+		$e.shortcuts.register( 'ctrl+shift+1', {
+			callback: function() {
+				analog.CSSVariablesModal().show();
+			}
+		} );
+	}
 } );
