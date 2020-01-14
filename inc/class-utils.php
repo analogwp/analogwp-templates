@@ -491,6 +491,25 @@ class Utils extends Base {
 	}
 
 	/**
+	 * Returns a list of all keys for color controls defined by Style Kits.
+	 *
+	 * @since 1.5.0
+	 * @return array
+	 */
+	public static function get_keys_for_color_controls() {
+		$keys = array(
+			'ang_color_accent_primary',
+			'ang_color_accent_secondary',
+			'ang_color_text_light',
+			'ang_color_background_light',
+			'ang_color_background_dark',
+			'ang_color_text_dark',
+		);
+
+		return apply_filters( 'analog_color_scheme_items', $keys );
+	}
+
+	/**
 	 * Fetch color values from Post Meta.
 	 *
 	 * @param int $id Post ID.
@@ -502,17 +521,7 @@ class Utils extends Base {
 		$page_settings_manager = Manager::get_settings_managers( 'page' );
 		$page_settings_model   = $page_settings_manager->get_model( $id );
 
-		$keys = apply_filters(
-			'analog_color_scheme_items',
-			array(
-				'ang_color_accent_primary',
-				'ang_color_accent_secondary',
-				'ang_color_text_light',
-				'ang_color_background_light',
-				'ang_color_background_dark',
-				'ang_color_text_dark',
-			)
-		);
+		$keys = self::get_keys_for_color_controls();
 
 		$colors = array();
 		foreach ( $keys as $key ) {
