@@ -1,382 +1,28 @@
-:root {
-	--ang-settings-accent: #5c32b6;
-	--ang-settings-warning: #b33a3a;
-}
-
-body.style-kits_page_ang-settings {
-	background: #e3e3e3;
-}
-
 @media screen and (min-width: 768px) {
 	.ang-wrapper {
 		display: grid;
-		grid-template-columns: 8fr 4fr;
+		grid-template-columns: 9fr 3fr;
 		column-gap: 50px;
 	}
-}
 
-.ang {
-	font-family: 'Poppins', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
+	#ang_plugin_rollback_version-description + .form-table tbody {
+		display: grid;
+		grid-template-columns: auto 1fr;
+	}
 
-.ang a {
-	color: var(--ang-settings-accent);
-}
-.ang a:hover,
-.ang a:focus,
-.ang a:active {
-	text-decoration: none;
-}
-
-.ang h1.menu-title {
-	margin-top: 20px;
-	margin-bottom: 25px;
-	font-weight: 700;
-}
-
-.ang .nav-tab-wrapper {
-	background: #e3e3e3;
-}
-
-.ang form:not(.form-newsletter),
-.ang .nav-tab-active,
-.ang .nav-tab-active:focus,
-.ang .nav-tab-active:focus:active,
-.ang .nav-tab-active:hover {
-	background: #fff;
-}
-
-.ang .nav-tab-active,
-.ang .nav-tab-active:focus,
-.ang .nav-tab-active:focus:active,
-.ang .nav-tab-active:hover,
-.ang .nav-tab,
-.ang .nav-tab:focus,
-.ang .nav-tab:focus:active,
-.ang .nav-tab:hover {
-	color: #060606;
-	box-shadow: none;
-	transition: none;
-	border-bottom: 0;
-}
-
-.ang .nav-tab {
-	margin-left: 0;
-	border: 0;
-	padding: 12px 30px;
-	font-size: 16px;
-	font-weight: 700;
-}
-
-.ang .nav-tab-wrapper,
-.ang h2.nav-tab-wrapper,
-.ang h1.nav-tab-wrapper {
-	border-bottom: 0;
-}
-
-.ang .tab-content {
-	padding: 60px 40px;
-}
-
-.ang .tab-content .title {
-	margin-bottom: 20px;
-	margin-top: 0px;
-}
-
-.ang .form-table {
-	margin-top: 0;
-	margin-bottom: 20px;
-}
-
-.ang .form-table th,
-.ang .form-table td {
-	display: block;
-}
-
-.ang .form-table th {
-	width: 90%;
-	padding-bottom: 5px;
-	padding-left: 28px;
-	padding-top: 0;
-}
-
-.ang .form-table td {
-	padding-top: 0;
-	padding-left: 0;
-}
-
-.ang .form-table th,
-.ang .form-table td fieldset li label,
-.ang .form-table td fieldset label {
-	font-weight: normal;
-	font-size: 15px;
-	line-height: 180%;
-	color: #141414;
-}
-
-.ang .form-table td fieldset .description,
-.ang .tab-content p {
-	font-size: 14px;
-	line-height: 170%;
-	color: #060606;
-	opacity: .8;
-}
-
-.ang .form-table td fieldset label,
-.ang .form-table td .description {
-	padding-left: 28px;
-}
-
-.ang .form-table td .description {
-	font-style: normal;
-}
-
-@media screen and (max-width: 768px) {
-	.ang .form-table th {
-		padding-left: 40px;
+	#ang_plugin_rollback_version-description + .form-table .forminp-button {
+		padding: 15px 0;
 	}
 }
 
-.ang #ang_plugin_rollback_version-description + .form-table th {
-	padding-bottom: 15px;
-	padding-left: 0;
-}
-
-.ang .form-table input.tog,
-.ang input[type='checkbox'] {
-	margin-right: 10px;
-	margin-left: -28px;
-}
-
-.ang .form-table:not(:last-of-type) {
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.ang .form-table label[for='ang_remove_typography_option'] a {
+.ang .forminp .description {
+	display: block;
 	margin-top: 10px;
 }
 
-.ang.version-control .form-table tbody {
-	display: flex;
-	align-items: center;
+.ang .forminp-button {
+	padding: 0 0 15px;
 }
-.ang.version-control .form-table tbody tr td {
-	display: inline-block;
-}
-
-.ang.version-control .form-table tbody tr select {
-	min-width: 200px;
-	margin-right: 10px;
-	padding: 8px 10px;
-	font-size: 15px;
-	line-height: 1.3;
-	height: auto;
-}
-
-.ang.version-control .form-table tbody tr .ang-button {
-	display: inline-block;
-}
-
-.ang .sidebar > div:not(:last-of-type) {
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.ang .sidebar > div {
-	padding: 20px 0;
-}
-
-.ang .sidebar h3 {
-	font-weight: 600;
-	font-size: 16px;
-	line-height: 24px;
-	margin-top: 0;
-}
-
-.ang .sidebar,
-.ang .sidebar p {
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 170%;
-	color: #6a6a6a;
-}
-
-.ang .sidebar .newsletter-list input {
-	width: 80%;
-	padding: 5px 10px;
-	font-weight: normal;
-	font-size: 15px;
-	line-height: 21px;
-	color: #888888;
-	background: #f2f2f2;
-	border: 1px solid #dbdbdb;
-	margin: 15px 0;
-}
-
-.ang .sidebar > div:not(.social) a {
-	border-bottom: 2px solid var(--ang-settings-accent);
-}
-
-.ang .sidebar a,
-.ang .sidebar a .dashicons {
-	text-decoration: none;
-}
-
-.ang .sidebar .social {
-	margin-top: 15px;
-}
-
-.ang .sidebar .social > a {
-	margin-right: 15px;
-	text-decoration: none;
-}
-
-.ang .sidebar .social .dashicons {
-	width: 40px;
-	height: 40px;
-}
-
-.ang .ang-enhanced-select {
-	width: 50%;
-	margin: 8px 0;
-}
-
-.ang .ang-save-button,
-.ang .ang-button {
-	background: var(--ang-settings-accent);
-	border-color: var(--ang-settings-accent);
-	box-shadow: none;
-	text-shadow: none;
-}
-
-.ang .ang-button,
-.ang .ang-save-button {
-	padding: 12px 24px;
-	color: #fff;
-	font-size: 15px;
-	font-weight: bold;
-	text-align: center;
-	border-radius: 4px;
-	cursor: pointer;
-	border: none;
-	text-decoration: none;
-	line-height: 1.3;
-}
-
-.ang .ang-link {
-	display: inline-block;
-	border-bottom: 2px solid var(--ang-settings-accent);
-}
-.ang .ang-save-button {
-	height: auto;
-}
-
-.ang .tab-content a.ang-link,
-.ang .tab-content a.ang-link span {
-	text-decoration: none;
-}
-
-.ang .ang-save-button:hover,
-.ang .ang-save-button:focus,
-.ang .ang-save-button:active,
-.ang .ang-button:hover,
-.ang .ang-button:focus,
-.ang .ang-button:active {
-	background: rgba(92, 50, 182, 0.8);
-	border-color: rgba(92, 50, 182, 0.8);
-	box-shadow: none;
-}
-.ang:not(.license) .submit {
-	margin-top: 0;
-}
-.ang.gopro .submit {
-	display: none;
-}
-.ang.gopro .ang-button.ang-gopro-button {
-	display: inline-block;
-	margin-top: 30px;
-}
-
-.ang.gopro h1 {
-	margin-top: 0;
-	font-weight: 600;
-	font-size: 20px;
-	line-height: 30px;
-}
-
-.ang.gopro form {
-	position: relative;
-}
-
-.ang.gopro form {
-	height: calc(100% - 10%);
-}
-
-@media screen and ( min-width: 1920px ) {
-	.ang.gopro form {
-		height: auto;
-	}
-}
-
-@media screen and (max-width: 768px) {
-	.ang.gopro form {
-		padding-bottom: 250px;
-	}
-}
-
-.ang.gopro .gopro-content img {
-	width: 100%;
-	width: calc(100% + 80px);
-	margin: 0 -40px;
-}
-
-.ang.gopro ul {
-	list-style: none;
-	padding: 0;
-	display: grid;
-	font-weight: normal;
-	font-size: 15px;
-	line-height: 180%;
-	margin: 20px 0 0;
-}
-@media screen and (min-width: 768px) {
-	.ang.gopro ul {
-		grid-template-columns: 1fr 1fr;
-	}
-}
-.ang.gopro ul > li {
-	position: relative;
-	margin-left: 15px;
-}
-
-.ang.gopro ul > li::before {
-	content: '• ';
-	font-size: 30px;
-	color: var(--ang-settings-accent);
-	display: inline-block;
-	margin-left: -16px;
-	position: absolute;
-}
-
-.ang.gopro .tab-content .ang-button {
-	display: inline-block;
-	margin-top: 30px;
-}
-
-.ang.gopro #mainform {
-	background-position: bottom;
-	background-size: contain;
-	background-repeat: no-repeat;
-}
-
-.ang.extensions .tab-content {
-	padding-top: 20px;
-}
-.ang.extensions .subsubsub {
-	margin-bottom: 40px;
-}
-
 
 .ang .collapsible {
 	border: none;
@@ -420,15 +66,71 @@ body.style-kits_page_ang-settings {
 	transition: max-height 0.2s ease-out;
 }
 
-.ang .form-table .titledesc {
-	margin: 0 0 10px;
-	padding: 0;
-	color: #23282d;
-	font-size: 1.2em;
-	font-weight: bold;
+.ang.gopro .submit {
+	display: none;
+}
+.ang.gopro .ang-button.ang-gopro-button {
+	display: inline-block;
+	margin-top: 30px;
 }
 
-#global_kit + span {
-	display: block;
-	padding: 10px 0 0;
+.ang.gopro h1 {
+	margin-top: 0;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 30px;
+}
+
+.ang.gopro form {
+	position: relative;
+}
+
+.ang.gopro form {
+	height: calc(100% - 10%);
+}
+
+@media screen and ( min-width: 1920px ) {
+	.ang.gopro form {
+		height: auto;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.ang.gopro form {
+		padding-bottom: 250px;
+	}
+}
+
+.ang.gopro .gopro-content img {
+	width: 100%;
+	width: calc(100% + 80px);
+	margin: 0 -40px;
+}
+
+.ang.gopro .tab-content .ang-button {
+	display: inline-block;
+	margin-top: 30px;
+}
+
+.ang .ang-enhanced-select {
+	min-width: 150px;
+}
+
+.ang .sidebar {
+	margin-top: 50px;
+	background: #fff;
+	border: 1px solid #dcdcdc;
+	padding: 5px 30px 25px;
+}
+
+.ang .sidebar .form-newsletter input {
+	width: 100%;
+}
+
+.ang .sidebar .form-newsletter .ang-button {
+	margin-top: 10px;
+}
+
+.ang .sidebar .social > a {
+	text-decoration: none;
 }

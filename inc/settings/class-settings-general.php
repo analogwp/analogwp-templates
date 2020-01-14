@@ -56,6 +56,7 @@ class General extends Settings_Page {
 					'options' => $tokens_dropdown,
 				),
 				array(
+					'title'         => esc_html_x( 'Sync Color Palettes', 'settings title', 'ang' ),
 					'desc'          => __( 'Sync Color Palettes and Style Kit colors by default', 'ang' ),
 					'id'            => 'ang_sync_colors',
 					'default'       => false,
