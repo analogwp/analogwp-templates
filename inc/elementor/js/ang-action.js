@@ -3,10 +3,40 @@ jQuery( window ).on( 'elementor:init', function() {
 	const analog = window.analog = window.analog || {};
 	const elementorSettings = elementor.settings.page.model.attributes;
 
+	// Holds post_id, if a Style Kit has been updated.
+	analog.style_kit_updated = false;
+	analog.sk_modal_shown = false;
+
 	if ( ! ANG_Action.skPanelsAllowed ) {
 		jQuery('head').append(
 			'<style id="sk-panels-allowed">.elementor-panel [class*="elementor-control-ang_"], .elementor-panel [class*="elementor-control-description_ang_"] {display:none;}</style>'
 		);
+	}
+
+	/**
+	 * Escape charcters in during Regexp.
+	 *
+	 * @param {string} String to replace.
+	 *
+	 * @since 1.5.0
+	 * @returns {void | *}
+	 */
+	function escapeRegExp(string){
+		return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+	}
+
+	/**
+	 * Define functin to find and replace specified term with replacement string.
+	 *
+	 * @param {string} str String to replace.
+	 * @param {string} term Search string.
+	 * @param {string}replacement Replacement string.
+	 *
+	 * @since 1.5.0
+	 * @returns {string}
+	 */
+	function replaceAll(str, term, replacement) {
+		return str.replace(new RegExp(escapeRegExp(term), 'g'), replacement);
 	}
 
 	elementor.channels.editor.on( 'status:change', function(){
@@ -16,10 +46,6 @@ jQuery( window ).on( 'elementor:init', function() {
 			button.attr( 'disabled', false );
 		}
 	});
-
-	// Holds post_id, if a Style Kit has been updated.
-	analog.style_kit_updated = false;
-	analog.sk_modal_shown = false;
 
 	/**
 	 * Determines if given key should be exported/imported into Style Kit.
@@ -392,7 +418,28 @@ jQuery( window ).on( 'elementor:init', function() {
 
 				onShow: function() {
 					const content = modal.getElements( 'content' );
-					content.append( '<textarea rows="10">' + formattedCSS + '</textarea>' );
+					content.append( `
+						<textarea id="ang-export-css" rows="10">${formattedCSS}</textarea>
+						<div style="text-align:left;">
+							<input type="checkbox" id="ang-switch-selector" />
+							<label for="ang-switch-selector">${ANG_Action.translate.cssSelector}</label>
+						</div>
+					` );
+
+					jQuery('#ang-switch-selector').on( 'change', function(e) {
+						const checked = e.target.checked;
+						const elBody = 'body.elementor-page-' + elementor.config.document.id;
+						const elSelector = 'selector';
+						const elTextarea = jQuery('#ang-export-css');
+
+						if ( checked ) {
+							const stripped = replaceAll( formattedCSS, elBody, elSelector );
+							jQuery(elTextarea).html(stripped);
+						} else {
+							const stripped = replaceAll( formattedCSS, elSelector, elBody );
+							jQuery(elTextarea).html(stripped);
+						}
+					});
 				},
 			} );
 
@@ -744,6 +791,4 @@ jQuery( window ).on( 'elementor:init', function() {
 			analog.CSSVariablesModal().show();
 		}
 	} );
-
 } );
-

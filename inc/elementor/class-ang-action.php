@@ -131,9 +131,9 @@ class ANG_Action extends Base_Data_Control {
 					'got_it'          => __( 'Ok, got it.', 'ang' ),
 					'gotoPageStyle'   => __( 'Go to Page Style', 'ang' ),
 					'pageStyleHeader' => __( 'This template offers global typography and spacing control, through the Page Style tab.', 'ang' ),
-					/* todo: Add the correct link. */
 					'pageStyleDesc'   => __( 'Typography, column gaps and more, are controlled layout-wide at Page Styles Panel, giving you the flexibility you need over the design of this template. You can save the styles and apply them to any other page. <a href="#" target="_blank">Learn More.</a>', 'ang' ),
 					'cssVariables'    => __( 'CSS Variables', 'ang' ),
+					'cssSelector'     => __( 'Replace CSS selector with <code>selector</code> to make it easy to paste into custom CSS.', 'ang' ),
 				),
 				'skPanelsAllowed' => $sk_panels_allowed,
 			)
