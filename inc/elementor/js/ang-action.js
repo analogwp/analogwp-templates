@@ -687,11 +687,17 @@ jQuery( window ).on( 'elementor:init', function() {
 		return variables;
 	};
 
+	/**
+	 * Creates a modal with list and preview of all CSS variables.
+	 *
+	 * @since 1.5.0
+	 * @returns {*} Modal instance.
+	 */
 	analog.CSSVariablesModal = function() {
 		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
 			id: 'ang-css-variables',
 			className: 'ang-css-variables',
-			headerMessage: 'CSS Variables',
+			headerMessage: ANG_Action.translate.cssVariables,
 			closeButton: true,
 			closeModal: '.ang-css-variables .close-modal',
 			closeButtonClass: 'eicon-close',
