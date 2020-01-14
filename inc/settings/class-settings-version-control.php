@@ -37,12 +37,13 @@ class Version_Control extends Settings_Page {
 			'ang_version_control_settings',
 			array(
 				array(
-					'title' => __( 'Rollback Style Kits', 'ang' ),
+					'title' => __( 'Rollback Versions', 'ang' ),
+					'desc'  => __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ),
 					'type'  => 'title',
 					'id'    => 'ang_plugin_rollback_version',
-					'desc'  => __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ),
 				),
 				array(
+					'title'     => __( 'Rollback Style Kits', 'ang' ),
 					'id'        => 'ang_rollback_version_select_option',
 					'type'      => 'select',
 					'class'     => 'ang-enhanced-select',
@@ -53,7 +54,7 @@ class Version_Control extends Settings_Page {
 				array(
 					'id'    => 'ang_rollback_version_button',
 					'type'  => 'button',
-					'class' => 'ang-rollback-version-button ang-button',
+					'class' => 'ang-rollback-version-button ang-button button-secondary',
 					'value' => __( 'Reinstall this version', 'ang' ),
 				),
 				array(
@@ -61,11 +62,12 @@ class Version_Control extends Settings_Page {
 					'id'   => 'ang_plugin_rollback',
 				),
 				array(
-					'title' => __( 'Become a beta tester', 'ang' ),
+					'title' => __( 'Beta Features', 'ang' ),
 					'type'  => 'title',
-					'id'    => 'ang_beta_tester',
+					'id'    => 'ang_beta',
 				),
 				array(
+					'title' => __( 'Become a beta tester', 'ang' ),
 					'desc'          => __( 'Check this box to turn on beta updates for Style Kits and Style Kits Pro. The update will not be installed automatically, you always have the option to ignore it.', 'ang' ),
 					'id'            => 'beta_tester',
 					'default'       => false,
@@ -74,7 +76,7 @@ class Version_Control extends Settings_Page {
 				),
 				array(
 					'type' => 'sectionend',
-					'id'   => 'ang_beta_tester',
+					'id'   => 'ang_beta',
 				),
 			)
 		);

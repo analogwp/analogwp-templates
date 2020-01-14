@@ -35,45 +35,29 @@ class Misc extends Settings_Page {
 			'ang_misc_settings',
 			array(
 				array(
-					'title' => __( 'Usage Data Tracking', 'ang' ),
-					'type'  => 'title',
-					'id'    => 'ang_usage_tracking',
+					'type' => 'title',
+					'id'   => 'ang_misc',
 				),
 				array(
-					'desc'          => __( 'Opt-in to our anonymous plugin data collection and to updates. We guarantee no sensitive data is collected.', 'ang' ),
+					'title'         => __( 'Usage Data Tracking', 'ang' ),
+					'desc'          => __( 'Opt-in to our anonymous plugin data collection and to updates', 'ang' ),
 					'id'            => 'ang_data_collection',
 					'default'       => false,
 					'type'          => 'checkbox',
 					'checkboxgroup' => 'start',
-					'desc_tip'      => '<a class="ang-link" href="https://docs.analogwp.com/article/547-what-data-is-tracked-by-the-plugin" target="_blank">' . __( 'More Info', 'ang' ) . '<span class="dashicons dashicons-external"></span></a>',
+					'desc_tip'      => __( 'We guarantee no sensitive data is collected. ', 'ang' ) . '<a class="ang-link" href="https://docs.analogwp.com/article/547-what-data-is-tracked-by-the-plugin" target="_blank">' . __( 'More Info', 'ang' ) . '</a>',
 				),
 				array(
-					'type' => 'sectionend',
-					'id'   => 'ang_usage_tracking',
-				),
-				array(
-					'title' => __( 'Template Settings', 'ang' ),
-					'type'  => 'title',
-					'id'    => 'ang_temp_settings',
-				),
-				array(
+					'title'         => __( 'Template Settings', 'ang' ),
 					'desc'          => __( 'Remove Styling from typographic elements', 'ang' ),
 					'id'            => 'ang_remove_typography',
 					'default'       => false,
 					'type'          => 'checkbox',
 					'checkboxgroup' => 'start',
-					'desc_tip'      => __( 'This setting will remove any values that have been manually added in the templates. Existing templates are not affected.', 'ang' ) . '<br><a class="ang-link" href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements" target="_blank">' . __( 'More Info', 'ang' ) . '<span class="dashicons dashicons-external"></span></a>',
+					'desc_tip'      => __( 'This setting will remove any values that have been manually added in the templates. Existing templates are not affected. ', 'ang' ) . '<a class="ang-link" href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements" target="_blank">' . __( 'More Info', 'ang' ) . '</a>',
 				),
 				array(
-					'type' => 'sectionend',
-					'id'   => 'ang_temp_settings',
-				),
-				array(
-					'title' => __( 'Remove Data on Uninstall', 'ang' ),
-					'type'  => 'title',
-					'id'    => 'ang_remove_data_uninstall',
-				),
-				array(
+					'title'         => __( 'Remove Data on Uninstall', 'ang' ),
 					'desc'          => __( 'Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed.', 'ang' ),
 					'id'            => 'remove_on_uninstall',
 					'default'       => false,
@@ -82,7 +66,7 @@ class Misc extends Settings_Page {
 				),
 				array(
 					'type' => 'sectionend',
-					'id'   => 'ang_remove_data_uninstall',
+					'id'   => 'ang_misc',
 				),
 			)
 		);
