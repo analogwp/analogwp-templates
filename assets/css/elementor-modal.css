@@ -160,18 +160,23 @@ button[data-action="save_token"] {
 	margin-right: 10px;
 }
 
+.ang-css-variables__list ul {
+	border-radius: 3px;
+	overflow: hidden;
+	background: #fff;
+}
+
 .ang-css-variables__list li {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 10px;
-	background: #fff;
 	color: #8f8f8f;
 	user-select: text;
 }
 
 .ang-css-variables__list li:not(:last-child) {
-	border-top: 1px solid whitesmoke;
+	border-bottom: 1px solid whitesmoke;
 }
 
 .ang-css-variables__list .swatch {
@@ -197,4 +202,37 @@ button[data-action="save_token"] {
 	border-left: 1px solid #e6e9ec;
 	padding-left: 10px;
 }
-.ang-css-variables.dialog-type-lightbox {}
+
+.dark-mode .ang-css-variables.dialog-type-lightbox .dialog-widget-content {
+	background: #34383c;
+}
+.dark-mode .ang-css-variables.dialog-type-lightbox .dialog-header {
+	background: #26292c;
+}
+
+.dark-mode .ang-css-variables__list ul {
+	background: #4c4f56;
+}
+
+.dark-mode .ang-css-variables__list li {
+	color: #e0e1e3;
+	border-color: #64666a !important;
+}
+
+@media (prefers-color-scheme: dark) {
+	.ang-css-variables.dialog-type-lightbox .dialog-widget-content {
+		background: #34383c;
+	}
+	.ang-css-variables.dialog-type-lightbox .dialog-header {
+		background: #26292c;
+	}
+
+	.ang-css-variables__list ul {
+		background: #4c4f56;
+	}
+
+	.ang-css-variables__list li {
+		color: #e0e1e3;
+		border-color: #64666a !important;
+	}
+}
