@@ -206,8 +206,8 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			filters: [],
-			showFree: wp.hooks.applyFilters( 'analog_list_view', true ),
-			group: wp.hooks.applyFilters( 'analog_list_group', true ),
+			showFree: true,
+			group: true,
 			activeKit: false,
 			tab: 'templates',
 			hasPro: false,
@@ -238,6 +238,17 @@ class App extends React.Component {
 	async componentDidMount() {
 		window.addEventListener( 'hashchange', this.switchTabs, false );
 		window.addEventListener( 'DOMContentLoaded', this.switchTabs, false );
+
+		if ( window.localStorage.getItem( 'analog::show-free' ) === 'false' ) {
+			this.setState( {
+				showFree: false,
+			} );
+		}
+		if ( window.localStorage.getItem( 'analog::group-kit' ) === 'false' ) {
+			this.setState( {
+				group: false,
+			} );
+		}
 
 		if ( AGWP.is_settings_page ) {
 			const parentMenu = document.querySelector( '#toplevel_page_analogwp_templates .wp-submenu' );

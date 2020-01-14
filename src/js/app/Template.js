@@ -7,6 +7,8 @@ const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
 
 const Template = ( { template, setModalContent, importLayout, favorites, makeFavorite } ) => {
+	const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
+
 	return (
 		<li>
 			{ ( isNewTheme( template.published ) > -14 ) && (
@@ -19,7 +21,7 @@ const Template = ( { template, setModalContent, importLayout, favorites, makeFav
 					<button className="ang-button" onClick={ () => setModalContent( template ) }>
 						{ __( 'Preview', 'ang' ) }
 					</button>
-					{ ! template.is_pro && (
+					{ isValid( template.is_pro ) && (
 						<button className="ang-button" onClick={ () => importLayout( template ) }>
 							{ __( 'Import', 'ang' ) }
 						</button>
