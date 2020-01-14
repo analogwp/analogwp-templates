@@ -33,7 +33,7 @@ final class Notices {
 		};
 
 		add_action( 'admin_notices', $callback );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**
@@ -78,7 +78,7 @@ final class Notices {
 		 *
 		 * @param array $notices List of Notice instances.
 		 */
-		$notices = apply_filters( 'analog_admin_notices', [] );
+		$notices = apply_filters( 'analog_admin_notices', array() );
 
 		return array_filter(
 			$notices,
@@ -101,7 +101,7 @@ final class Notices {
 		wp_register_script(
 			'analog-admin',
 			ANG_PLUGIN_URL . '/assets/js/admin.js',
-			[ 'jquery' ],
+			array( 'jquery' ),
 			ANG_VERSION,
 			true
 		);
@@ -109,9 +109,9 @@ final class Notices {
 		wp_localize_script(
 			'analog-admin',
 			'AnalogAdmin',
-			[
+			array(
 				'nonce' => wp_create_nonce( Notice::$nonce_action ),
-			]
+			)
 		);
 
 		wp_enqueue_script( 'analog-admin' );

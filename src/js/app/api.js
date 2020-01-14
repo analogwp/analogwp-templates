@@ -18,18 +18,6 @@ export async function requestTemplateList() {
 	);
 }
 
-export async function requestStyleKitsList( $force ) {
-	let path = '/agwp/v1/kits/';
-
-	if ( $force ) {
-		path += '?force_update=true';
-	}
-
-	return await apiFetch( { path: path } ).then(
-		response => response
-	);
-}
-
 export async function requestDirectImport( template, withPage = false, kit = false ) {
 	return await apiFetch( {
 		path: '/agwp/v1/import/elementor/direct',
@@ -51,6 +39,17 @@ export async function requestStyleKitData( kit ) {
 		method: 'post',
 		data: {
 			kit,
+		},
+	} ).then( response => response );
+}
+
+export async function requestBlockContent( block, method ) {
+	return await apiFetch( {
+		path: '/agwp/v1/blocks/insert',
+		method: 'post',
+		data: {
+			block,
+			method,
 		},
 	} ).then( response => response );
 }

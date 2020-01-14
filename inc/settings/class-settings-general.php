@@ -33,7 +33,7 @@ class General extends Settings_Page {
 	 * @return array
 	 */
 	public function get_settings() {
-		$tokens_dropdown = [ '-1' => __( '— Select a Style Kit —', 'ang' ) ] + Utils::get_tokens( false );
+		$tokens_dropdown = array( '-1' => __( '— Select a Style Kit —', 'ang' ) ) + Utils::get_tokens( false );
 
 		$settings = apply_filters(
 			'ang_general_settings',
@@ -61,7 +61,7 @@ class General extends Settings_Page {
 					'default'       => false,
 					'type'          => 'checkbox',
 					'checkboxgroup' => 'start',
-					'desc_tip'      => __( 'The Elementor color palette will be populated with the Style Kit’s global colors', 'woocommerce' ),
+					'desc_tip'      => __( 'The Elementor color palette will be populated with the Style Kit’s global colors', 'ang' ),
 				),
 				array(
 					'type' => 'sectionend',

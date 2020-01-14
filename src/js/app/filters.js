@@ -199,6 +199,8 @@ class Filters extends React.Component {
 										this.context.dispatch( {
 											showFree: ! this.context.state.showFree,
 										} );
+
+										window.localStorage.setItem( 'analog::show-free', ! this.context.state.showFree );
 									} }
 								/>
 							) }
@@ -211,6 +213,8 @@ class Filters extends React.Component {
 										this.context.dispatch( {
 											group: ! this.context.state.group,
 										} );
+
+										window.localStorage.setItem( 'analog::group-kit', ! this.context.state.group );
 									} }
 								/>
 							) }

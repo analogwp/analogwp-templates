@@ -90,7 +90,7 @@ class Version_Control extends Settings_Page {
 	 */
 	public function get_rollback_versions() {
 		$keys = Utils::get_rollback_versions();
-		$data = [];
+		$data = array();
 		foreach ( $keys as $key => $value ) {
 			$data[ $value ] = $value;
 		}

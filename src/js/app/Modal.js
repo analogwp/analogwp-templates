@@ -101,7 +101,7 @@ const Modal = props => {
 						<span className="dashicons dashicons-external" />
 					</a>
 				</Tooltip>
-				{ ! props.template.is_pro && (
+				{ ! ( props.template.is_pro && AGWP.license.status !== 'valid' ) && (
 					<button className="ang-button" onClick={ props.onRequestImport }>
 						{ __( 'Insert Layout', 'ang' ) }
 					</button>

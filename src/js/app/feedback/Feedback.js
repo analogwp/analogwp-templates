@@ -3,7 +3,6 @@ import { AnalogContext } from './../AnalogContext';
 import Sidebar from './../Sidebar';
 const { __ } = wp.i18n;
 const { TextControl, TextareaControl, CheckboxControl, Button, ExternalLink } = wp.components;
-const { apiFetch } = wp;
 
 const Container = styled.div`
 	display: grid;

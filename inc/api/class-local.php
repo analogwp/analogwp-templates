@@ -8,9 +8,9 @@
 namespace Analog\API;
 
 use Analog\Analog_Templates;
-use \Analog\Base;
+use Analog\Base;
 use Analog\Classes\Import_Image;
-use \Analog\Options;
+use Analog\Options;
 use Analog\Utils;
 use Elementor\TemplateLibrary\Analog_Importer;
 use WP_Error;
@@ -31,7 +31,7 @@ class Local extends Base {
 	 * Local constructor.
 	 */
 	public function __construct() {
-		add_action( 'rest_api_init', [ $this, 'register_endpoints' ] );
+		add_action( 'rest_api_init', array( $this, 'register_endpoints' ) );
 	}
 
 	/**
@@ -40,56 +40,56 @@ class Local extends Base {
 	 * @return void
 	 */
 	public function register_endpoints() {
-		$endpoints = [
-			'/import/elementor'        => [
+		$endpoints = array(
+			'/import/elementor'        => array(
 				WP_REST_Server::CREATABLE => 'handle_import',
-			],
-			'/import/elementor/direct' => [
+			),
+			'/import/elementor/direct' => array(
 				WP_REST_Server::CREATABLE => 'handle_direct_import',
-			],
-			'/templates'               => [
+			),
+			'/templates'               => array(
 				WP_REST_Server::READABLE => 'templates_list',
-			],
-			'/mark_favorite/'          => [
+			),
+			'/mark_favorite/'          => array(
 				WP_REST_Server::CREATABLE => 'mark_as_favorite',
-			],
-			'/get/settings/'           => [
+			),
+			'/get/settings/'           => array(
 				WP_REST_Server::READABLE => 'get_settings',
-			],
-			'/update/settings/'        => [
+			),
+			'/update/settings/'        => array(
 				WP_REST_Server::CREATABLE => 'update_setting',
-			],
-			'/tokens'                  => [
+			),
+			'/tokens'                  => array(
 				WP_REST_Server::READABLE => 'get_tokens',
-			],
-			'/tokens/save'             => [
+			),
+			'/tokens/save'             => array(
 				WP_REST_Server::CREATABLE => 'save_tokens',
-			],
-			'/tokens/get'              => [
+			),
+			'/tokens/get'              => array(
 				WP_REST_Server::CREATABLE => 'get_token',
-			],
-			'/tokens/update'           => [
+			),
+			'/tokens/update'           => array(
 				WP_REST_Server::CREATABLE => 'update_token',
-			],
-			'/kits'                    => [
-				WP_REST_Server::READABLE => 'get_kits',
-			],
-			'import/kit'               => [
+			),
+			'/import/kit'              => array(
 				WP_REST_Server::CREATABLE => 'handle_kit_import',
-			],
-		];
+			),
+			'/blocks/insert'           => array(
+				WP_REST_Server::CREATABLE => 'get_blocks_content',
+			),
+		);
 
 		foreach ( $endpoints as $endpoint => $details ) {
 			foreach ( $details as $method => $callback ) {
 				register_rest_route(
 					'agwp/v1',
 					$endpoint,
-					[
+					array(
 						'methods'             => $method,
-						'callback'            => [ $this, $callback ],
-						'permission_callback' => [ $this, 'rest_permission_check' ],
-						'args'                => [],
-					]
+						'callback'            => array( $this, $callback ),
+						'permission_callback' => array( $this, 'rest_permission_check' ),
+						'args'                => array(),
+					)
 				);
 			}
 		}
@@ -119,17 +119,11 @@ class Local extends Base {
 		$kit_info    = $request->get_param( 'kit' );
 
 		if ( ! $template_id ) {
-			return new WP_REST_Response( [ 'error' => 'Invalid Template ID.' ], 500 );
+			return new WP_REST_Response( array( 'error' => 'Invalid Template ID.' ), 500 );
 		}
 
-		$license = false;
-
-		if ( $is_pro ) {
-			// Fetch license only when necessary, throw error if not found.
-			$license = Options::get_instance()->get( 'ang_license_key' );
-			if ( empty( $license ) ) {
-				return new WP_Error( 'import_error', 'Invalid license provided.' );
-			}
+		if ( $is_pro && ! Utils::has_valid_license() ) {
+			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'ang' ) );
 		}
 
 		\update_post_meta( $editor_id, '_ang_import_type', 'elementor' );
@@ -140,16 +134,16 @@ class Local extends Base {
 
 		$obj  = new Analog_Importer();
 		$data = $obj->get_data(
-			[
+			array(
 				'template_id'    => $template_id,
 				'editor_post_id' => $editor_id,
-				'license'        => $license,
+				'license'        => Options::get_instance()->get( 'ang_license_key' ),
 				'method'         => 'elementor',
 				'site_id'        => $site_id,
-				'options'        => [
+				'options'        => array(
 					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
-				],
-			]
+				),
+			)
 		);
 
 		if ( $kit_info && isset( $kit_info['data'] ) ) {
@@ -191,7 +185,7 @@ class Local extends Base {
 		$favorites_templates = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
 
 		if ( ! $favorites_templates ) {
-			$favorites_templates = [];
+			$favorites_templates = array();
 		}
 
 		if ( $favorite ) {
@@ -200,7 +194,7 @@ class Local extends Base {
 			unset( $favorites_templates[ $template_id ] );
 		}
 
-		$data                  = [];
+		$data                  = array();
 		$data['template_id']   = $template_id;
 		$data['action']        = $favorite;
 		$data['update_status'] = update_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, $favorites_templates );
@@ -222,12 +216,12 @@ class Local extends Base {
 			return new WP_Error( 'import_error', 'Invalid Template ID.' );
 		}
 
-		$args = [
+		$args = array(
 			'post_type'    => $with_page ? 'page' : 'elementor_library',
 			'post_status'  => $with_page ? 'draft' : 'publish',
 			'post_title'   => $with_page ? $with_page : 'AnalogWP: ' . $template['title'],
 			'post_content' => '',
-		];
+		);
 
 		$new_post_id = wp_insert_post( $args );
 
@@ -258,6 +252,51 @@ class Local extends Base {
 	}
 
 	/**
+	 * Creates a 'Section' for Elementor.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @uses wp_insert_post()
+	 *
+	 * @param array  $block Block details.
+	 * @param array  $data Block content.
+	 * @param string $method Import method.
+	 *
+	 * @return int Post ID.
+	 */
+	private function create_section( array $block, $data, $method ) {
+		$args = array(
+			'post_title'   => 'AnalogWP: ' . $block['title'],
+			'post_type'    => 'elementor_library',
+			'post_status'  => 'publish',
+			'post_content' => '',
+		);
+
+		$post_id = wp_insert_post( $args );
+
+		if ( $post_id && ! is_wp_error( $post_id ) ) {
+			\update_post_meta( $post_id, '_elementor_data', wp_slash( wp_json_encode( $data['content'] ) ) );
+			\update_post_meta( $post_id, '_elementor_edit_mode', 'builder' );
+			\update_post_meta( $post_id, '_elementor_template_type', 'section' );
+			\update_post_meta( $post_id, '_wp_page_template', 'default' );
+
+			\update_post_meta( $post_id, '_ang_import_type', $method );
+			\update_post_meta(
+				$post_id,
+				'_ang_template_id',
+				array(
+					'site_id' => $block['siteID'],
+					'id'      => $block['id'],
+				)
+			);
+
+			\wp_set_object_terms( $post_id, 'section', 'elementor_library_type' );
+		}
+
+		return (int) $post_id;
+	}
+
+	/**
 	 * Handle template imports from settings page.
 	 *
 	 * @param WP_REST_Request $request Request object.
@@ -273,31 +312,26 @@ class Local extends Base {
 		$site_id   = $request->get_param( 'site_id' );
 		$kit_info  = $request->get_param( 'kit' );
 
-		$method  = $with_page ? 'page' : 'library';
-		$license = false;
+		$method = $with_page ? 'page' : 'library';
 
-		if ( $template['is_pro'] ) {
-			// Fetch license only when necessary, throw error if not found.
-			$license = Options::get_instance()->get( 'ang_license_key' );
-			if ( empty( $license ) ) {
-				return new WP_Error( 'import_error', 'Invalid license provided.' );
-			}
+		if ( $template['is_pro'] && ! Utils::has_valid_license() ) {
+			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'ang' ) );
 		}
 
 		// Initiate template import.
 		$obj = new Analog_Importer();
 
 		$data = $obj->get_data(
-			[
+			array(
 				'template_id'    => $template['id'],
 				'editor_post_id' => false,
-				'license'        => $license,
+				'license'        => Options::get_instance()->get( 'ang_license_key' ),
 				'method'         => $method,
 				'site_id'        => $site_id,
-				'options'        => [
+				'options'        => array(
 					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
-				],
-			]
+				),
+			)
 		);
 
 		if ( ! is_array( $data ) ) {
@@ -321,9 +355,9 @@ class Local extends Base {
 		// Add import history.
 		Utils::add_import_log( $template['id'], $page, $method );
 
-		$data = [
+		$data = array(
 			'page' => $page,
-		];
+		);
 
 		return new WP_REST_Response( $data, 200 );
 	}
@@ -357,7 +391,7 @@ class Local extends Base {
 		Options::get_instance()->set( $key, $value );
 
 		return new WP_REST_Response(
-			[ 'message' => __( 'Setting updated.', 'ang' ) ],
+			array( 'message' => __( 'Setting updated.', 'ang' ) ),
 			200
 		);
 	}
@@ -370,34 +404,34 @@ class Local extends Base {
 	 */
 	public function get_tokens() {
 		$query = new WP_Query(
-			[
+			array(
 				'post_type'      => 'ang_tokens',
 				'posts_per_page' => - 1,
-			]
+			)
 		);
 
 		if ( ! $query->have_posts() ) {
-			return [];
+			return array();
 		}
 
-		$tokens = [];
+		$tokens = array();
 
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			$post_id = get_the_ID();
 
-			$tokens[] = [
+			$tokens[] = array(
 				'id'    => $post_id,
 				'title' => get_the_title(),
-			];
+			);
 		}
 
 		wp_reset_postdata();
 
 		return new WP_REST_Response(
-			[
+			array(
 				'tokens' => $tokens,
-			],
+			),
 			200
 		);
 	}
@@ -422,15 +456,15 @@ class Local extends Base {
 			return new WP_Error( 'tokens_error', 'Please provide a title.' );
 		}
 
-		$args = [
+		$args = array(
 			'post_type'   => 'ang_tokens',
 			'post_title'  => $title,
 			'post_status' => 'publish',
-			'meta_input'  => [
+			'meta_input'  => array(
 				'belongs_to'   => $belongs_to,
 				'_tokens_data' => $tokens,
-			],
-		];
+			),
+		);
 
 		/**
 		 * Save token arguments. Filters the arguments for wp_insert_post().
@@ -448,10 +482,10 @@ class Local extends Base {
 			return new WP_Error( 'tokens_error', __( 'Unable to create a post', 'ang' ) );
 		} else {
 			return new WP_REST_Response(
-				[
+				array(
 					'id'      => $post_id,
 					'message' => __( 'Token saved.', 'ang' ),
-				],
+				),
 				200
 			);
 		}
@@ -478,9 +512,9 @@ class Local extends Base {
 		$tokens_data = get_post_meta( $id, '_tokens_data', true );
 
 		return new WP_REST_Response(
-			[
+			array(
 				'data' => $tokens_data,
-			],
+			),
 			200
 		);
 	}
@@ -512,24 +546,6 @@ class Local extends Base {
 		}
 
 		return new WP_REST_Response( $data, 200 );
-	}
-
-	/**
-	 * Fetch a list of Style Kits available from AnalogWP.com.
-	 *
-	 * @since 1.3.4
-	 * @param WP_REST_Request $request Request object.
-	 *
-	 * @return mixed
-	 */
-	public function get_kits( WP_REST_Request $request ) {
-		$force_update = $request->get_param( 'force_update' );
-
-		if ( $force_update ) {
-			return Remote::get_instance()->get_stylekits( true );
-		}
-
-		return Remote::get_instance()->get_stylekits();
 	}
 
 	/**
@@ -568,15 +584,15 @@ class Local extends Base {
 
 		$tokens_data = $remote_kit['data'];
 
-		$post_args = [
+		$post_args = array(
 			'post_type'   => 'ang_tokens',
 			'post_title'  => $kit['title'],
 			'post_status' => 'publish',
-			'meta_input'  => [
+			'meta_input'  => array(
 				'_tokens_data' => $tokens_data,
 				'_import_type' => 'remote',
-			],
-		];
+			),
+		);
 
 		$post = wp_insert_post( apply_filters( 'analog/kits/remote/create', $post_args ) );
 
@@ -584,18 +600,18 @@ class Local extends Base {
 			return new WP_Error( 'kit_post_error', $post->get_error_message() );
 		} else {
 			$attachment = Import_Image::get_instance()->import(
-				[
+				array(
 					'id'  => wp_rand( 000, 999 ),
 					'url' => $kit['image'],
-				]
+				)
 			);
 
 			update_post_meta( $post, '_thumbnail_id', $attachment['id'] );
 
-			return [
+			return array(
 				'message' => __( 'Style Kit imported', 'ang' ),
 				'id'      => $post,
-			];
+			);
 		}
 	}
 
@@ -623,7 +639,7 @@ class Local extends Base {
 
 		$tokens = json_decode( get_post_meta( $post_id, '_tokens_data', true ), true );
 		if ( is_array( $tokens ) ) {
-			$tokens += [ 'ang_action_tokens' => $post_id ];
+			$tokens += array( 'ang_action_tokens' => $post_id );
 		}
 
 		if ( ! $tokens ) {
@@ -631,6 +647,77 @@ class Local extends Base {
 		} else {
 			return $tokens;
 		}
+	}
+
+	/**
+	 * Handle remote "Blocks" import.
+	 *
+	 * @since 1.3.4
+	 * @param WP_REST_Request $request Request object.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function get_blocks_content( WP_REST_Request $request ) {
+		$block  = $request->get_param( 'block' );
+		$method = $request->get_param( 'method' );
+
+		if ( ! $block ) {
+			return new WP_Error( 'block_import_error', __( 'Invalid Block ID.', 'ang' ) );
+		}
+
+		$data = $this->process_block_import( $block, $method );
+
+		return new WP_REST_Response( $data, 200 );
+	}
+
+	/**
+	 * Process block import functionaliities.
+	 *  1. Imports the remote template.
+	 *  2. Then with retrieved content, creates a page.
+	 *
+	 * @uses \Analog\API\Remote::::get_instance()->get_block_content()
+	 * @uses \Elementor\TemplateLibrary\Analog_Importer
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param array  $block Block data.
+	 * @param string $method Import method.
+	 *
+	 * @return array|WP_Error
+	 */
+	protected function process_block_import( $block, $method = 'library' ) {
+		$license = false;
+
+		if ( $block['is_pro'] ) {
+			// Fetch license only when necessary, throw error if not found.
+			$license = Options::get_instance()->get( 'ang_license_key' );
+			if ( empty( $license ) ) {
+				return new WP_Error( 'import_error', 'Invalid license provided.' );
+			}
+		}
+
+		$raw_data = Remote::get_instance()->get_block_content( $block['id'], $license, $method, $block['siteID'] );
+		$importer = new Analog_Importer();
+
+		$data = $importer->get_data(
+			array(
+				'editor_post_id' => false,
+				'options'        => array(
+					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
+				),
+			),
+			'display',
+			$raw_data
+		);
+
+		if ( 'library' === $method ) {
+			$page_id = $this->create_section( $block, $data, $method );
+
+			$payload = array( 'id' => $page_id );
+		} else {
+			$payload = array( 'data' => $data );
+		}
+
+		return $payload;
 	}
 }
 

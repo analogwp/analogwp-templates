@@ -19,7 +19,7 @@ class Post_Type {
 	 * Constructor class.
 	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'register' ] );
+		add_action( 'init', array( $this, 'register' ) );
 	}
 
 	/**
@@ -28,7 +28,7 @@ class Post_Type {
 	 * @return array
 	 */
 	public function labels() {
-		return [
+		return array(
 			'name'               => __( 'Style Kits', 'ang' ),
 			'singular_name'      => __( 'Style Kit', 'ang' ),
 			'menu_name'          => _x( 'Style Kits', 'admin menu', 'ang' ),
@@ -43,7 +43,7 @@ class Post_Type {
 			'parent_item_colon'  => __( 'Parent Style Kits:', 'ang' ),
 			'not_found'          => __( 'No Style Kit found.', 'ang' ),
 			'not_found_in_trash' => __( 'No Style Kit found in Trash.', 'ang' ),
-		];
+		);
 	}
 
 	/**
@@ -52,7 +52,7 @@ class Post_Type {
 	 * @return void
 	 */
 	public function register() {
-		$args = [
+		$args = array(
 			'labels'            => $this->labels(),
 			'hierarchical'      => false,
 			'show_ui'           => apply_filters( 'analog_tokens_visibility', true ),
@@ -62,17 +62,17 @@ class Post_Type {
 			'show_admin_column' => false,
 			'rewrite'           => false,
 			'public'            => false,
-			'supports'          => [
+			'supports'          => array(
 				'title',
 				'author',
 				'thumbnail',
 				'custom-fields',
-			],
-			'capabilities'      => [
+			),
+			'capabilities'      => array(
 				'create_posts' => 'do_not_allow',
-			],
+			),
 			'map_meta_cap'      => true,
-		];
+		);
 
 		$args = apply_filters( 'analog/elementor/cpt/tokens/args', $args, $this->labels() );
 
