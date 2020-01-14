@@ -3,7 +3,7 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits adds intuitive styling controls in the Elementor editor that power-up your design workflow.
- * Version:     1.3.16
+ * Version:     1.4.0
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -40,7 +40,7 @@ final class Analog_Templates {
 	 *
 	 * @var string
 	 */
-	public static $version = '1.3.16';
+	public static $version = '1.4.0';
 
 	/**
 	 * Main Analog_Templates instance.
@@ -58,6 +58,9 @@ final class Analog_Templates {
 			add_filter( 'analog/app/strings', [ self::$instance, 'send_strings_to_app' ] );
 
 			self::$instance->includes();
+
+			( new User() )->register();
+			( new Admin\Notices() )->register();
 		}
 	}
 
@@ -132,6 +135,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/class-elementor.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-tracker.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-cron.php';
+		require_once ANG_PLUGIN_DIR . 'inc/User.php';
 
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/Reset_Default_Style_Trait.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/trait-document.php';
@@ -144,6 +148,10 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/class-quick-edit.php';
 
 		require_once ANG_PLUGIN_DIR . 'inc/admin/class-admin.php';
+		require_once ANG_PLUGIN_DIR . 'inc/admin/Notice.php';
+		require_once ANG_PLUGIN_DIR . 'inc/admin/Notices.php';
+
+		require_once ANG_PLUGIN_DIR . 'inc/class-beta-testers.php';
 	}
 
 	/**

@@ -72,6 +72,26 @@ function do_automatic_upgrades() {
 		Utils::clear_elementor_cache();
 	}
 
+	if ( version_compare( $installed_version, '1.3.17', '<' ) ) {
+		Utils::clear_elementor_cache();
+	}
+
+	if ( version_compare( $installed_version, '1.4.0', '<' ) ) {
+		$global_kit = Options::get_instance()->get( 'global_kit' );
+
+		// Trigger a post save on global kit, so all associated posts can be updated.
+		if ( $global_kit && '' !== $global_kit ) {
+			wp_update_post(
+				[
+					'ID'           => $global_kit,
+					'post_content' => 'Updated.',
+				]
+			);
+		}
+
+		Utils::clear_elementor_cache();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );

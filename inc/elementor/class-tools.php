@@ -149,6 +149,12 @@ CSS;
 		);
 	}
 
+	/**
+	 * Returns a link to make a Style Kit Global.
+	 *
+	 * @access private
+	 * @return string
+	 */
 	private function get_stylekit_global_link() {
 		return add_query_arg(
 			[
@@ -636,7 +642,7 @@ CSS;
 	public function stylekit_post_state( $post_states, $post ) {
 		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::$instance->db->is_built_with_elementor( $post->ID ) ) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
-			$global_kit = Utils::get_global_kit_id();
+			$global_kit = (string) Utils::get_global_kit_id();
 
 			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
 				$kit_id = $settings['ang_action_tokens'];
@@ -662,7 +668,7 @@ CSS;
 	public function filter_post_row_actions( $actions, $post ) {
 		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::$instance->db->is_built_with_elementor( $post->ID ) ) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
-			$global_kit = Utils::get_global_kit_id();
+			$global_kit = (string) Utils::get_global_kit_id();
 
 			if ( isset( $settings['ang_action_tokens'] ) && $global_kit !== $settings['ang_action_tokens'] ) {
 				$actions['apply_global_kit'] = sprintf(

@@ -3,7 +3,7 @@
 	--ang-settings-warning: #b33a3a;
 }
 
-body {
+body.style-kits_page_ang-settings {
 	background: #e3e3e3;
 }
 
@@ -21,45 +21,48 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-a {
+.ang a {
 	color: var(--ang-settings-accent);
 }
-a:hover,
-a:focus,
-a:active {
-	color: var(--ang-settings-accent);
+.ang a:hover,
+.ang a:focus,
+.ang a:active {
 	text-decoration: none;
 }
 
-h1.menu-title {
+.ang h1.menu-title {
 	margin-top: 20px;
 	margin-bottom: 25px;
 	font-weight: 700;
 }
 
-.nav-tab-wrapper {
+.ang .nav-tab-wrapper {
 	background: #e3e3e3;
 }
-.ang-wrapper form:not(.form-newsletter),
-.nav-tab-active,
-.nav-tab-active:focus,
-.nav-tab-active:focus:active,
-.nav-tab-active:hover {
+
+.ang form:not(.form-newsletter),
+.ang .nav-tab-active,
+.ang .nav-tab-active:focus,
+.ang .nav-tab-active:focus:active,
+.ang .nav-tab-active:hover {
 	background: #fff;
 }
-.nav-tab-active,
-.nav-tab-active:focus,
-.nav-tab-active:focus:active,
-.nav-tab-active:hover,
-.nav-tab,
-.nav-tab:focus,
-.nav-tab:focus:active,
-.nav-tab:hover {
+
+.ang .nav-tab-active,
+.ang .nav-tab-active:focus,
+.ang .nav-tab-active:focus:active,
+.ang .nav-tab-active:hover,
+.ang .nav-tab,
+.ang .nav-tab:focus,
+.ang .nav-tab:focus:active,
+.ang .nav-tab:hover {
+	color: #060606;
 	box-shadow: none;
 	transition: none;
 	border-bottom: 0;
 }
-.nav-tab {
+
+.ang .nav-tab {
 	margin-left: 0;
 	border: 0;
 	padding: 12px 30px;
@@ -67,9 +70,9 @@ h1.menu-title {
 	font-weight: 700;
 }
 
-.nav-tab-wrapper,
-.wrap h2.nav-tab-wrapper,
-h1.nav-tab-wrapper {
+.ang .nav-tab-wrapper,
+.ang h2.nav-tab-wrapper,
+.ang h1.nav-tab-wrapper {
 	border-bottom: 0;
 }
 
@@ -82,91 +85,88 @@ h1.nav-tab-wrapper {
 	margin-top: 0px;
 }
 
-.form-table {
+.ang .form-table {
 	margin-top: 0;
 	margin-bottom: 20px;
 }
 
-.form-table th,
-.form-table td {
+.ang .form-table th,
+.ang .form-table td {
 	display: block;
 }
 
-.form-table th {
+.ang .form-table th {
 	width: 90%;
 	padding-bottom: 5px;
 	padding-left: 28px;
 	padding-top: 0;
 }
 
-.form-table td {
+.ang .form-table td {
 	padding-top: 0;
 	padding-left: 0;
 }
 
-.form-table th,
-.form-table td fieldset li label,
-.form-table td fieldset label {
+.ang .form-table th,
+.ang .form-table td fieldset li label,
+.ang .form-table td fieldset label {
 	font-weight: normal;
 	font-size: 15px;
 	line-height: 180%;
 	color: #141414;
 }
-.form-table td fieldset .description,
-.tab-content p {
+
+.ang .form-table td fieldset .description,
+.ang .tab-content p {
 	font-size: 14px;
 	line-height: 170%;
 	color: #060606;
 	opacity: .8;
 }
-.form-table td fieldset label,
-.form-table td .description {
+
+.ang .form-table td fieldset label,
+.ang .form-table td .description {
 	padding-left: 28px;
 }
 
-.form-table td .description {
+.ang .form-table td .description {
 	font-style: normal;
 }
 
 @media screen and (max-width: 768px) {
-	.form-table th {
+	.ang .form-table th {
 		padding-left: 40px;
 	}
 }
 
-#ang_plugin_rollback_version-description + .form-table th,
-#ang_license_activation_title-description + .form-table th {
+.ang #ang_plugin_rollback_version-description + .form-table th {
 	padding-bottom: 15px;
 	padding-left: 0;
 }
 
-.form-table input.tog,
-input[type='checkbox'] {
+.ang .form-table input.tog,
+.ang input[type='checkbox'] {
 	margin-right: 10px;
 	margin-left: -28px;
 }
 
-.form-table:not(:last-of-type) {
+.ang .form-table:not(:last-of-type) {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* .ang.misc .form-table:last-of-type td input[type="checkbox"], .ang.misc .form-table:first-of-type td input[type="checkbox"] {
-	margin-top: -120px;
-} */
-
-.form-table label[for='ang_remove_typography_option'] a {
+.ang .form-table label[for='ang_remove_typography_option'] a {
 	margin-top: 10px;
 }
 
-#ang_plugin_rollback_version-description + .form-table tbody {
+.ang.version-control .form-table tbody {
 	display: flex;
 	align-items: center;
 }
-#ang_plugin_rollback_version-description + .form-table tbody tr td {
+.ang.version-control .form-table tbody tr td {
 	display: inline-block;
 }
 
-#ang_plugin_rollback_version-description + .form-table tbody tr select {
+.ang.version-control .form-table tbody tr select {
 	min-width: 200px;
 	margin-right: 10px;
 	padding: 8px 10px;
@@ -174,32 +174,35 @@ input[type='checkbox'] {
 	line-height: 1.3;
 	height: auto;
 }
-#ang_plugin_rollback_version-description + .form-table tbody tr .ang-button {
+
+.ang.version-control .form-table tbody tr .ang-button {
 	display: inline-block;
 }
 
-.sidebar > div:not(:last-of-type) {
+.ang .sidebar > div:not(:last-of-type) {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-.sidebar > div {
+
+.ang .sidebar > div {
 	padding: 20px 0;
 }
 
-.sidebar h3 {
+.ang .sidebar h3 {
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 24px;
 	margin-top: 0;
 }
-.sidebar,
-.sidebar p {
+
+.ang .sidebar,
+.ang .sidebar p {
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 170%;
 	color: #6a6a6a;
 }
 
-.sidebar .newsletter-list input {
+.ang .sidebar .newsletter-list input {
 	width: 80%;
 	padding: 5px 10px;
 	font-weight: normal;
@@ -211,27 +214,30 @@ input[type='checkbox'] {
 	margin: 15px 0;
 }
 
-.sidebar > div:not(.social) a {
+.ang .sidebar > div:not(.social) a {
 	border-bottom: 2px solid var(--ang-settings-accent);
 }
-.sidebar a,
-.sidebar a .dashicons {
+
+.ang .sidebar a,
+.ang .sidebar a .dashicons {
 	text-decoration: none;
 }
-.sidebar .social {
+
+.ang .sidebar .social {
 	margin-top: 15px;
 }
-.sidebar .social > a {
+
+.ang .sidebar .social > a {
 	margin-right: 15px;
 	text-decoration: none;
 }
 
-.sidebar .social .dashicons {
+.ang .sidebar .social .dashicons {
 	width: 40px;
 	height: 40px;
 }
 
-.ang-enhanced-select {
+.ang .ang-enhanced-select {
 	width: 50%;
 	margin: 8px 0;
 }
@@ -372,7 +378,7 @@ input[type='checkbox'] {
 }
 
 
-.collapsible {
+.ang .collapsible {
 	border: none;
 	border-top: 1px solid#e2e4e7;
 	border-bottom: 1px solid#e2e4e7;
@@ -385,25 +391,28 @@ input[type='checkbox'] {
 	box-shadow: none;
 	cursor: pointer;
 }
-.collapsible:after, .collapsible.active:after {
+
+.ang .collapsible:after, .ang .collapsible.active:after {
 	font-family: 'Dashicons';
 	font-size: 20px;
 	color: #000;
 	float: right;
 	margin-left: 5px;
 }
-.collapsible:after {
+
+.ang .collapsible:after {
 	content: "\f140";
 }
-.collapsible.active:after {
+
+.ang .collapsible.active:after {
 	content: "\f142";;
 }
 
-.collapsible.active, .collapsible:hover {
+.ang .collapsible.active, .ang .collapsible:hover {
 	background-color: #fff;
 }
 
-.collapsible-content {
+.ang .collapsible-content {
 	padding: 0 18px;
 	background-color: white;
 	max-height: 0;
@@ -411,10 +420,15 @@ input[type='checkbox'] {
 	transition: max-height 0.2s ease-out;
 }
 
-.ang .titledesc {
+.ang .form-table .titledesc {
 	margin: 0 0 10px;
 	padding: 0;
 	color: #23282d;
 	font-size: 1.2em;
 	font-weight: bold;
+}
+
+#global_kit + span {
+	display: block;
+	padding: 10px 0 0;
 }

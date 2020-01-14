@@ -12,3 +12,11 @@ node_modules/
 /inc/elementor/js/ang-typography.min.js
 /inc/elementor/js/*.min.js
 /gulp.config.json
+
+/vendor/
+/.env
+/tests/_data/dump.sql
+tests/_output/*
+tests/_support/_generated/*
+tests/cache/*
+tests/error.log

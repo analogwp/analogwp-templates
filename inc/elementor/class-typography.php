@@ -7,17 +7,21 @@
 
 namespace Analog\Elementor;
 
-use Analog\Options;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
 use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
 use Analog\Utils;
+
+if ( version_compare( ELEMENTOR_VERSION, '2.8.0', '<' ) ) {
+	class_alias( 'Elementor\Scheme_Typography', 'Analog\Elementor\Scheme_Typography' );
+} else {
+	class_alias( 'Elementor\Core\Schemes\Typography', 'Analog\Elementor\Scheme_Typography' );
+}
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,9 +34,37 @@ class Typography extends Module {
 	use Document;
 
 	/**
+	 * Holds Style Kits.
+	 *
+	 * @since 1.4.0
+	 * @var array
+	 */
+	protected $tokens;
+
+	/**
+	 * Holds Global Kit token data.
+	 *
+	 * @since 1.4.0
+	 * @var mixed
+	 */
+	protected $global_token_data;
+
+	/**
+	 * Holds current page's Elementor settings.
+	 *
+	 * @since 1.4.0
+	 * @var mixed
+	 */
+	protected $page_settings;
+
+	/**
 	 * Typography constructor.
 	 */
 	public function __construct() {
+		$this->tokens            = Utils::get_tokens();
+		$this->global_token_data = json_decode( Utils::get_global_token_data(), true );
+		$this->page_settings     = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
+
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 100, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 120, 2 );
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 140, 2 );
@@ -53,6 +85,7 @@ class Typography extends Module {
 		add_filter( 'display_post_states', [ $this, 'add_token_state' ], 10, 2 );
 
 		add_action( 'elementor/element/section/section_layout/before_section_end', [ $this, 'tweak_section_widget' ] );
+
 	}
 
 	/**
@@ -149,24 +182,6 @@ class Typography extends Module {
 					'fields_options' => $this->get_default_typography_values( 'ang_heading_' . $i ),
 				]
 			);
-
-// $margin_settings = [
-// 'label'      => __( 'Margin', 'ang' ),
-// 'type'       => Controls_Manager::DIMENSIONS,
-// 'size_units' => [ 'px', '%', 'em' ],
-// 'selectors'  => [
-// "{{WRAPPER}} h{$i}, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title" => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-// ],
-// ];
-//
-// if ( 6 !== $i ) {
-// $margin_settings['separator'] = 'after';
-// }
-//
-// $element->add_responsive_control(
-// 'ang_heading_' . $i . '_margin',
-// $margin_settings
-// );
 		}
 
 		$element->end_controls_section();
@@ -262,12 +277,12 @@ class Typography extends Module {
 					'label'          => $setting[1],
 					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
 					'selector'       => "
-						{{WRAPPER}} .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}
+						{{WRAPPER}} h1.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} h2.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} h3.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} h4.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} h5.elementor-heading-title.elementor-size-{$setting[0]},
+						{{WRAPPER}} h6.elementor-heading-title.elementor-size-{$setting[0]}
 					",
 					'exclude'        => [ 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ],
 					'fields_options' => $this->get_default_typography_values( 'ang_size_' . $setting[0] ),
@@ -640,9 +655,9 @@ class Typography extends Module {
 		 * Important:
 		 *
 		 * Setting Kit ID to "string" here on purpose. Elementor's condition arg expects the matching option to be a
-		 * string, where out option returns an integer.
+		 * string, where our option returns an integer.
 		 */
-		$global_token = (string) Utils::get_global_kit_id();
+		$global_token = Utils::get_global_kit_id();
 
 		if ( ! $global_token ) {
 			$global_token = -1;
@@ -655,7 +670,7 @@ class Typography extends Module {
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'ang-notice',
 				'condition'       => [
-					'ang_action_tokens' => $global_token,
+					'ang_action_tokens' => (string) $global_token,
 				],
 			]
 		);
@@ -666,7 +681,7 @@ class Typography extends Module {
 			[
 				'label'   => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'    => Controls_Manager::SELECT2,
-				'options' => Utils::get_tokens(),
+				'options' => $this->tokens,
 				'default' => Utils::get_global_kit_id(),
 			]
 		);
@@ -752,18 +767,6 @@ class Typography extends Module {
 				'action_label' => __( 'Export CSS', 'ang' ),
 			]
 		);
-
-// $element->add_control(
-// 'ang_remove_title_link_color',
-// [
-// 'label'     => __( 'Do not apply link color on active titles', 'ang' ),
-// 'type'      => Controls_Manager::SWITCHER,
-// 'selectors' => [
-// '{{WRAPPER}} .elementor-post__title.elementor-post__title a' => 'color: currentColor;',
-// '{{WRAPPER}} .elementor-tab-title a' => 'color: currentColor;',
-// ],
-// ]
-// );
 
 		$element->end_controls_section();
 	}
@@ -879,16 +882,15 @@ class Typography extends Module {
 	 * @return array|string
 	 */
 	public function get_default_value( $key, $is_array = false ) {
-		$global_token = Utils::get_global_token_data();
+		$recently_imported = $this->page_settings;
 
-		$recently_imported = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 		if ( isset( $recently_imported['ang_recently_imported'] ) && 'yes' === $recently_imported['ang_recently_imported'] ) {
 			return ( $is_array ) ? [] : '';
 		}
 
-		if ( $global_token && ! empty( $global_token ) ) {
-			$values = json_decode( $global_token, true );
+		$values = $this->global_token_data;
 
+		if ( $values && ! empty( $values ) ) {
 			if ( isset( $values[ $key ] ) && '' !== $values[ $key ] ) {
 				return $values[ $key ];
 			}
@@ -905,14 +907,13 @@ class Typography extends Module {
 	 * @return array
 	 */
 	public function get_default_typography_values( $key ) {
-		$global_token = Utils::get_global_token_data();
+		$recently_imported = $this->page_settings;
 
-		$recently_imported = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 		if ( isset( $recently_imported['ang_recently_imported'] ) && 'yes' === $recently_imported['ang_recently_imported'] ) {
 			return [];
 		}
 
-		if ( empty( $global_token ) || 'yes' === $recently_imported ) {
+		if ( empty( $this->global_token_data ) ) {
 			return [];
 		}
 

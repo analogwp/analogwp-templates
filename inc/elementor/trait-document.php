@@ -60,6 +60,13 @@ trait Document {
 		return false;
 	}
 
+	/**
+	 * Get a specific Elementor page setting.
+	 *
+	 * @param string $id Setting ID.
+	 *
+	 * @return mixed
+	 */
 	public function get_page_setting( $id ) {
 		$page_settings_manager = Manager::get_settings_managers( 'page' );
 		$page_settings_model   = $page_settings_manager->get_model( $this->get_post_id() );

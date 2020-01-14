@@ -7,12 +7,14 @@
 
 namespace Analog\Elementor;
 
+use Elementor\Base_Data_Control;
+
 /**
  * ANG_Action class.
  *
  * @since 1.2
  */
-class ANG_Action extends \Elementor\Base_Data_Control {
+class ANG_Action extends Base_Data_Control {
 	/**
 	 * Get control type.
 	 * Retrieve the control type.
@@ -95,9 +97,9 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 			'ang_action',
 			'ANG_Action',
 			[
-				'saveToken' => rest_url( 'agwp/v1/tokens/save' ),
-				'palette'   => $central_color_palette,
-				'translate' => [
+				'saveToken'       => rest_url( 'agwp/v1/tokens/save' ),
+				'palette'         => $central_color_palette,
+				'translate'       => [
 					'resetMessage'    => __( 'This will reset all the settings you configured previously under Page Style Settings from Analog Templates.', 'ang' ),
 					'resetHeader'     => __( 'Are you sure?', 'ang' ),
 					'saveToken'       => __( 'Save Style Kit as', 'ang' ),
