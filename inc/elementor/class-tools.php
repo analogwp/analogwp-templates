@@ -732,7 +732,6 @@ CSS;
 	 * @param array $data Heartbeat data sent as `$_POST`.
 	 *
 	 * @since 1.3.12
-	 *
 	 * @return mixed
 	 */
 	public function heartbeat_received( $response, $data ) {

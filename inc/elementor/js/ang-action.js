@@ -289,26 +289,6 @@ jQuery( window ).on( 'elementor:init', function() {
 		if ( settings.ang_action_tokens && settings.ang_action_tokens !== '-1' ) {
 			analog.applyStyleKit( settings.ang_action_tokens );
 		}
-
-
-		// elementor.elementsModel.attributes.elements.models.forEach( ( el ) => {
-		// 	const classes = el.attributes.settings.attributes.css_classes;
-		//
-		// 	if ( classes ) {
-		// 		const ID = el.id;
-		// 		jQuery( elementorFrontend.elements.$body ).find( '[data-id="' + ID + '"]' ).css( 'box-shadow', '0 0 0 1px var(--ang-accent)' );
-		// 	}
-		//
-		// 	if ( el.attributes.elements.models.length ) {
-		// 		el.attributes.elements.models.map( childEl => {
-		// 			const childID = childEl.id;
-		//
-		// 			if ( childEl.attributes.settings.attributes.css_classes ) {
-		// 				jQuery( elementorFrontend.elements.$body ).find( '[data-id="' + childID + '"]' ).css( 'box-shadow', '0 0 0 1px var(--ang-accent)' );
-		// 			}
-		// 		} );
-		// 	}
-		// } );
 	} );
 
 	const BaseData = elementor.modules.controls.BaseData;

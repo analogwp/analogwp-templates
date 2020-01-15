@@ -327,7 +327,7 @@ function version_1_3_15_upgrades() {
 	Utils::clear_elementor_cache();
 }
 
-/* 
+/*
  * Version 1.4.0 upgrades.
  *
  * @since 1.4.0
@@ -356,41 +356,39 @@ function version_1_5_upgrades() {
 		if ( isset( $settings['ang_color_text_light'] ) ) {
 			$text_light = $settings['ang_color_text_light'];
 
-			$settings += [
+			$settings += array(
 				'ang_color_text'               => $text_light,
 				'ang_color_heading'            => $text_light,
 				'ang_background_light_text'    => $text_light,
 				'ang_background_light_heading' => $text_light,
-			];
+			);
 
-			// TODO: Enable unset.
-			// unset( $settings['ang_color_text_light'] );
+			 unset( $settings['ang_color_text_light'] );
 		}
 
 		/**
 		 * Migrate old keys to new keys.
 		 */
-		$migrate_keys = [
-			'ang_color_text_dark'        => [
+		$migrate_keys = array(
+			'ang_color_text_dark'        => array(
 				'ang_background_dark_text',
 				'ang_background_dark_heading',
-			],
+			),
 			'ang_color_background_light' => 'ang_background_light_background',
 			'ang_color_background_dark'  => 'ang_background_dark_background',
-		];
+		);
 
 		foreach ( $migrate_keys as $old_key => $new_key ) {
 			if ( isset( $settings[ $old_key ] ) ) {
 				if ( is_array( $new_key ) ) {
 					foreach ( $new_key as $subkey ) {
-						$settings += [ $subkey => $settings[ $old_key ] ];
+						$settings += array( $subkey => $settings[ $old_key ] );
 					}
 				} else {
-					$settings += [ $new_key => $settings[ $old_key ] ];
+					$settings += array( $new_key => $settings[ $old_key ] );
 				}
 
-				// TODO: Enable unset.
-				//unset( $settings[ $old_key ] );
+				 unset( $settings[ $old_key ] );
 			}
 		}
 
@@ -398,12 +396,12 @@ function version_1_5_upgrades() {
 	};
 
 	$query = new \WP_Query(
-		[
+		array(
 			'post_type'      => 'ang_tokens',
 			'post_status'    => 'any',
 			'fields'         => 'ids',
 			'posts_per_page' => -1,
-		]
+		)
 	);
 
 	if ( count( $query->posts ) ) {
