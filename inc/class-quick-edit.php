@@ -149,6 +149,8 @@ class Quick_Edit extends Base {
 			wp_nonce_field( plugin_basename( __FILE__ ), 'ang_sk_update_nonce' );
 		}
 
+		$global_kit = Options::get_instance()->get( 'global_kit' );
+
 		?>
 		<?php if ( self::FIELD_SLUG === $column_name && $this->get_stylekits() ) : ?>
 			<fieldset id="ang-stylekit-fieldset" class="inline-edit-col-left" style="clear:both">
@@ -160,7 +162,7 @@ class Quick_Edit extends Base {
 							<select name="ang_stylekit">
 								<option value="-1">&mdash; Select &mdash;</option>
 								<?php foreach ( $this->get_stylekits() as $id ) : ?>
-									<option value="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( get_the_title( $id ) ); ?></option>
+									<option value="<?php echo esc_attr( $id ); ?>"<?php if ( $id === $global_kit ) echo ' selected'; ?>><?php echo esc_html( get_the_title( $id ) ); ?></option>
 								<?php endforeach; ?>
 							</select>
 						</label>

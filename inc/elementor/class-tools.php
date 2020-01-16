@@ -698,8 +698,12 @@ CSS;
 
 		$post_id = $_REQUEST['post_id'];
 		$token   = get_post_meta( Utils::get_global_kit_id(), '_tokens_data', true );
+		$token   = json_decode( $token, ARRAY_A );
 
-		update_post_meta( $post_id, '_elementor_page_settings', json_decode( $token, ARRAY_A ) );
+		$token['ang_action_tokens'] = (string) Utils::get_global_kit_id();
+
+		update_post_meta( $post_id, '_elementor_page_settings', $token );
+
 		Utils::clear_elementor_cache();
 
 		wp_safe_redirect( wp_get_referer() );
