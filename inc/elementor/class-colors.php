@@ -147,7 +147,7 @@ class Colors extends Module {
 		$element->start_controls_section(
 			'ang_colors',
 			array(
-				'label' => _x( 'Global Colors', 'Section Title', 'ang' ),
+				'label' => _x( 'Main Colors', 'Section Title', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
