@@ -64,4 +64,20 @@
 		});
 	});
 
+	$( document ).ready( function() {
+		if ( '?post_type=elementor_library' !== window.location.search ) {
+			return;
+		}
+
+		$( document ).on( 'click', '.editinline', function() {
+			var data = this.parentElement.parentElement.parentElement.parentElement;
+			var $type = $( '.column-elementor_library_type', data ).text();
+			if ( 'Section' === $type ) {
+				var id = data.id;
+				id = id.split( '-' );
+				$( '#edit-' + id[1] + ' #ang-stylekit-fieldset' ).hide();
+			}
+		} );
+	} );
+
 })(jQuery);
