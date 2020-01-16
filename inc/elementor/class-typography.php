@@ -757,11 +757,10 @@ class Typography extends Module {
 			)
 		);
 
-		$label = __( 'Export styles as custom CSS text.', 'ang' );
 		$element->add_control(
 			'ang_action_export_css',
 			array(
-				'label'        => __( 'Export Custom CSS', 'ang' ) . $this->get_tooltip( $label ),
+				'label'        => __( 'Export Style Kit CSS', 'ang' ),
 				'type'         => 'ang_action',
 				'action'       => 'export_css',
 				'action_label' => __( 'Export CSS', 'ang' ),
