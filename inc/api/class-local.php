@@ -140,9 +140,6 @@ class Local extends Base {
 				'license'        => Options::get_instance()->get( 'ang_license_key' ),
 				'method'         => 'elementor',
 				'site_id'        => $site_id,
-				'options'        => array(
-					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
-				),
 			)
 		);
 
@@ -328,9 +325,6 @@ class Local extends Base {
 				'license'        => Options::get_instance()->get( 'ang_license_key' ),
 				'method'         => $method,
 				'site_id'        => $site_id,
-				'options'        => array(
-					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
-				),
 			)
 		);
 
@@ -705,9 +699,6 @@ class Local extends Base {
 		$data = $importer->get_data(
 			array(
 				'editor_post_id' => false,
-				'options'        => array(
-					'remove_typography' => Options::get_instance()->get( 'ang_remove_typography' ),
-				),
 			),
 			'display',
 			$raw_data
