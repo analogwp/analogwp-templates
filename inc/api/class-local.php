@@ -666,6 +666,10 @@ class Local extends Base {
 
 		$data = $this->process_block_import( $block, $method );
 
+		if ( is_wp_error( $data ) ) {
+			return $data;
+		}
+
 		return new WP_REST_Response( $data, 200 );
 	}
 
@@ -674,7 +678,7 @@ class Local extends Base {
 	 *  1. Imports the remote template.
 	 *  2. Then with retrieved content, creates a page.
 	 *
-	 * @uses \Analog\API\Remote::::get_instance()->get_block_content()
+	 * @uses \Analog\API\Remote::get_instance()->get_block_content()
 	 * @uses \Elementor\TemplateLibrary\Analog_Importer
 	 *
 	 * @since 1.4.0
@@ -708,6 +712,10 @@ class Local extends Base {
 			'display',
 			$raw_data
 		);
+
+		if ( is_wp_error( $data ) ) {
+			return $data;
+		}
 
 		if ( 'library' === $method ) {
 			$page_id = $this->create_section( $block, $data, $method );

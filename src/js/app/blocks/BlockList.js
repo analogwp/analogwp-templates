@@ -2,6 +2,7 @@ import Masonry from 'react-masonry-css';
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
 import { isNewTheme } from '../utils';
+import { NotificationConsumer } from '../Notifications';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
@@ -158,6 +159,8 @@ const BlockList = ( { state, importBlock } ) => {
 
 	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
+	const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
+
 	return (
 		<Container>
 			<Masonry
@@ -182,11 +185,15 @@ const BlockList = ( { state, importBlock } ) => {
 								/>
 
 								<div className="actions">
-									{ ! block.is_pro && (
-										<button className="ang-button" onClick={ () => importBlock( block ) }>
-											{ __( 'Import', 'ang' ) }
-										</button>
-									) }
+									<NotificationConsumer>
+										{ ( { add } ) => (
+											isValid( block.is_pro ) && (
+												<button className="ang-button" onClick={ () => importBlock( block, add ) }>
+													{ __( 'Import', 'ang' ) }
+												</button>
+											)
+										) }
+									</NotificationConsumer>
 								</div>
 							</figure>
 
