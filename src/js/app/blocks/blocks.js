@@ -82,16 +82,16 @@ export default class Blocks extends Component {
 		this.setState( { category } );
 	}
 
-	importBlock( block ) {
+	importBlock( block, add ) {
 		this.setState( {
 			modalActive: true,
 			activeBlock: block,
 		} );
 
-		this.handleImport( block );
+		this.handleImport( block, add );
 	}
 
-	handleImport( block ) {
+	handleImport( block, add ) {
 		const method = ( Boolean( AGWP.is_settings_page ) ) ? 'library' : 'elementor';
 
 		requestBlockContent( block, method )
@@ -124,7 +124,12 @@ export default class Blocks extends Component {
 				}
 			} )
 			.catch( error => {
-				console.error( error );
+				add( error.message, 'error', 'import-error', false );
+
+				this.setState( {
+					modalActive: false,
+					activeBlock: false,
+				} );
 			} );
 	}
 
