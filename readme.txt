@@ -94,9 +94,25 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Screenshots ==
 
-1. Style Kits Settings page.
-2. Import screen: import to Elementor library or create a new page.
-3. Access Style Kits templates directly under Elementor.
+1. Main Plugin screen, displaying grouped templates.
+2. Template import modal.
+3. Style Kits tab
+4. Blocks tab, grouped by kind.
+5. Expanded Templates group view.
+6. Expanded Blocks group view.
+7. Analog Modal launcher inside Elementor editor.
+8. Plugin settings page.
+9. Style kit panel inside Elementor style tab.
+10. "Body Typography" panel inside Elementor style tab.
+11. "Headings Typography" panel inside Elementor style tab.
+12. "Headings Sizes" panel inside Elementor style tab.
+13. "Text Sizes" panel inside Elementor style tab.
+14. "Main Colors" panel inside Elementor style tab.
+15. "Background Colors" panel inside Elementor style tab.
+16. "Buttons" panel inside Elementor style tab.
+17. "Outer Section Padding" panel inside Elementor style tab.
+18. "Columns Gaps" panel inside Elementor style tab.
+19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
 
