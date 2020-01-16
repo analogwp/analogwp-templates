@@ -110,6 +110,13 @@ class Quick_Edit extends Base {
 	 * @return array|bool Style Kit IDs, false if empty.
 	 */
 	public function get_stylekits() {
+		/**
+		 * Remove Elementor's filter on `parse_query` which prevents other posts types from returning posts.
+		 *
+		 * @since 1.5.0
+		 */
+		remove_all_filters( 'parse_query' );
+
 		$posts = get_posts(
 			array(
 				'post_type'   => 'ang_tokens',
@@ -117,6 +124,11 @@ class Quick_Edit extends Base {
 				'fields'      => 'ids',
 			)
 		);
+
+		/**
+		 * Add back the filter.
+		 */
+		add_action( 'parse_query', array( '\Elementor\TemplateLibrary\Source_Local', 'admin_query_filter_types' ) );
 
 		return $posts;
 	}
