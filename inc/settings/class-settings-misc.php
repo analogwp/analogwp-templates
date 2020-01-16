@@ -48,15 +48,6 @@ class Misc extends Settings_Page {
 					'desc_tip'      => __( 'We guarantee no sensitive data is collected. ', 'ang' ) . '<a class="ang-link" href="https://docs.analogwp.com/article/547-what-data-is-tracked-by-the-plugin" target="_blank">' . __( 'More Info', 'ang' ) . '</a>',
 				),
 				array(
-					'title'         => __( 'Template Settings', 'ang' ),
-					'desc'          => __( 'Remove Styling from typographic elements', 'ang' ),
-					'id'            => 'ang_remove_typography',
-					'default'       => false,
-					'type'          => 'checkbox',
-					'checkboxgroup' => 'start',
-					'desc_tip'      => __( 'This setting will remove any values that have been manually added in the templates. Existing templates are not affected. ', 'ang' ) . '<a class="ang-link" href="https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements" target="_blank">' . __( 'More Info', 'ang' ) . '</a>',
-				),
-				array(
 					'title'         => __( 'Remove Data on Uninstall', 'ang' ),
 					'desc'          => __( 'Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed.', 'ang' ),
 					'id'            => 'remove_on_uninstall',
