@@ -370,15 +370,21 @@ jQuery( window ).on( 'elementor:init', function() {
 
 			const replacer = (e) => {
 				const checked = e.target.checked;
-				const elBody = `body.elementor-page-${elementor.config.document.id} `;
-				const elSelector = 'body.elementor-page ';
+				const elBody = `body.elementor-page-${elementor.config.document.id}`;
+				const elSelector = 'body.elementor-page';
 				const elTextarea = jQuery('#ang-export-css');
 
 				if ( checked ) {
-					const stripped = replaceAll( formattedCSS, elBody, elSelector );
+					let stripped = replaceAll( formattedCSS, elBody + ' ', elSelector + ' ' );
+					stripped = replaceAll( stripped, elBody + ':', elSelector + ':' );
+					stripped = replaceAll( stripped, elBody + ',', elSelector + ',' );
+
 					jQuery(elTextarea).html(stripped);
 				} else {
-					const stripped = replaceAll( formattedCSS, elSelector, elBody );
+					let stripped = replaceAll( formattedCSS, elSelector + ' ', elBody + ' ' );
+					stripped = replaceAll( stripped, elSelector + ':', elBody + ':' );
+					stripped = replaceAll( stripped, elSelector + ',', elBody + ',' );
+
 					jQuery(elTextarea).html(stripped);
 				}
 			};
