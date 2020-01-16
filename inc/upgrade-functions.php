@@ -92,6 +92,10 @@ function do_automatic_upgrades() {
 		Utils::clear_elementor_cache();
 	}
 
+	if ( version_compare( $installed_version, '1.5.0', '<' ) ) {
+		version_1_5_upgrades();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
@@ -409,8 +413,10 @@ function version_1_5_upgrades() {
 			$settings = get_post_meta( $id, '_tokens_data', true );
 			$settings = json_decode( $settings, ARRAY_A );
 
-			$updated_settings = $run_migration( $settings );
-			update_post_meta( $id, '_tokens_data', wp_slash( wp_json_encode( $updated_settings ) ) );
+			if ( is_array( $settings ) ) {
+				$updated_settings = $run_migration( $settings );
+				update_post_meta( $id, '_tokens_data', wp_slash( wp_json_encode( $updated_settings ) ) );
+			}
 		}
 	}
 
@@ -420,8 +426,12 @@ function version_1_5_upgrades() {
 		foreach ( $posts_with_stylekit as $id ) {
 			$settings = get_post_meta( $id, '_elementor_page_settings', true );
 
-			$updated_settings = $run_migration( $settings );
-			update_post_meta( $id, '_elementor_page_settings', wp_slash( $updated_settings ) );
+			if ( is_array( $settings ) ) {
+				$updated_settings = $run_migration( $settings );
+				update_post_meta( $id, '_elementor_page_settings', wp_slash( $updated_settings ) );
+			}
 		}
 	}
+
+	Utils::clear_elementor_cache();
 }

@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.3
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -99,6 +99,22 @@ Our dedicated support team has your back. Please reach out via our website at ht
 3. Access Style Kits templates directly under Elementor.
 
 == Changelog ==
+
+= 1.5.0 - January 16, 2020 =
+- New: All new Blocks tab to import blocks
+- New: Save template filter values in local storage to keep them same on refresh
+- New: Separated Text and Heading colors
+- New: Moved background colors to their own tab, now divided by Light/Dark color tabs
+- New: Added option to replace page ID while exporting Style Kit CSS
+- New: Updated settings page design
+- Fix: Added close button on SK import popup
+- Fix: Issue with Heading sizes not respecting inline styles in some cases
+- Fix: Show SK colors as swatches in Color Picker, bugged since Elementor v2.8
+- Tweak: Rename Global Colors section to Main Colors
+- Improve: A more consistent way to show admin notices
+- Improve: Removed redundant setting "Remove Styling from typographic elements"
+- Improve: New library endpoint for cumulative library data
+- Improve: All color controls in Main/Background Color now generate a CSS variable on page
 
 = 1.4.0 - January 06, 2020 =
 * New: Added Version Control tab under Settings
