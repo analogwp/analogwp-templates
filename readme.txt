@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
-Tested up to: 5.3
-Stable tag: 1.5.0
+Tested up to: 5.3.2
+Stable tag: 1.5.1
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -115,6 +115,11 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.5.1 - January 18, 2020 =
+- Fix: \Analog\User class conflict with \Elementor\User (props: @midoelhawy)
+- Fix: SK color interferring with Color picker. A null color item results in broken color picker
+- Tweak: Show Pro badge for Style Kits
 
 = 1.5.0 - January 16, 2020 =
 - New: All new Blocks tab to import blocks
@@ -366,3 +371,6 @@ Fixed a critical bug inside Elementor when attempting to import a template.
 
 = 1.4.0 =
 Improved performance, fixes issues with Global Style Kit among various fixes.
+
+= 1.5.1 =
+Fixes a conflict with Elementor User class, and color picker swatches.
