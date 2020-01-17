@@ -47,6 +47,18 @@ const Container = styled.section`
     	color: var(--ang-accent);
     }
 
+    .pro {
+    	font-weight: bold;
+		line-height: 1;
+		border-radius: 4px;
+		text-transform: uppercase;
+		letter-spacing: .5px;
+		background: rgba(92, 50, 182, 0.1);
+		font-size: 12px;
+		color: var(--ang-accent);
+		padding: 4px 7px;
+    }
+
 	footer {
 		padding: 20px 35px;
 		font-size: 12px;
@@ -83,6 +95,43 @@ const ChildContainer = styled.ul`
 				background: #e3e3e3;
 				color: #747474;
 			}
+		}
+    }
+
+    figure {
+    	margin: 0;
+    	padding: 0;
+    	position: relative;
+		&:hover {
+			.actions {
+				opacity: 1;
+				button {
+					transform: none;
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+    .actions {
+		opacity: 0;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background: rgba(0, 0, 0, 0.7);
+		top: 0;
+		left: 0;
+		z-index: 100;
+		transition: all 200ms;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+		button {
+			transform: translateY(20px);
+			opacity: 0;
 		}
     }
 `;
@@ -186,19 +235,26 @@ export default class StyleKits extends React.Component {
 					{ this.context.state.styleKits.length > 0 && this.context.state.styleKits.map( ( kit ) => {
 						return (
 							<li key={ kit.id }>
-								<img src={ kit.image } alt={ kit.title } />
+								<figure>
+									<div className="actions">
+										{ isValid( kit.is_pro ) && (
+											<NotificationConsumer>
+												{ ( { add } ) => (
+													<button
+														onClick={ () => this.handleImport( kit, add, true ) }
+														className="ang-button"
+													>{ __( 'Import', 'ang' ) }</button>
+												) }
+											</NotificationConsumer>
+										) }
+									</div>
+									<img src={ kit.image } alt={ kit.title } />
+								</figure>
 								<div className="title">
 									<h3>{ kit.title }</h3>
 
-									{ isValid( kit.is_pro ) && (
-										<NotificationConsumer>
-											{ ( { add } ) => (
-												<button
-													onClick={ () => this.handleImport( kit, add, true ) }
-													className="ang-button"
-												>{ __( 'Import', 'ang' ) }</button>
-											) }
-										</NotificationConsumer>
+									{ kit.is_pro && (
+										<span className="pro">{ __( 'Pro', 'ang' ) }</span>
 									) }
 								</div>
 							</li>
