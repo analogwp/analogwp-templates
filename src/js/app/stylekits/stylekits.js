@@ -173,6 +173,8 @@ export default class StyleKits extends React.Component {
 			successButtonProps = false;
 		}
 
+		const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
+
 		return (
 			<Container>
 				<p className="tab-description">
@@ -187,14 +189,17 @@ export default class StyleKits extends React.Component {
 								<img src={ kit.image } alt={ kit.title } />
 								<div className="title">
 									<h3>{ kit.title }</h3>
-									<NotificationConsumer>
-										{ ( { add } ) => (
-											<button
-												onClick={ () => this.handleImport( kit, add, true ) }
-												className="ang-button"
-											>{ __( 'Import', 'ang' ) }</button>
-										) }
-									</NotificationConsumer>
+
+									{ isValid( kit.is_pro ) && (
+										<NotificationConsumer>
+											{ ( { add } ) => (
+												<button
+													onClick={ () => this.handleImport( kit, add, true ) }
+													className="ang-button"
+												>{ __( 'Import', 'ang' ) }</button>
+											) }
+										</NotificationConsumer>
+									) }
 								</div>
 							</li>
 						);

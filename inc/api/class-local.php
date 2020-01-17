@@ -570,7 +570,11 @@ class Local extends Base {
 	 * @return WP_Error|array
 	 */
 	protected function process_kit_import( $kit ) {
-		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit['id'] );
+		if ( $kit['is_pro'] && ! Utils::has_valid_license() ) {
+			return new WP_Error( 'import_error', 'Invalid license provided.' );
+		}
+
+		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit );
 
 		if ( is_wp_error( $remote_kit ) ) {
 			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'ang' ) );
@@ -619,6 +623,10 @@ class Local extends Base {
 	 */
 	protected function fetch_kit_content( $kit ) {
 		$post_id = false;
+
+		if ( $kit['is_pro'] && ! Utils::has_valid_license() ) {
+			return new WP_Error( 'import_error', 'Invalid license provided.' );
+		}
 
 		if ( is_array( $kit ) && isset( $kit['id'] ) ) {
 			$import = $this->process_kit_import( $kit );

@@ -8,6 +8,7 @@
 namespace Analog\API;
 
 use \Analog\Base;
+use Analog\Options;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -174,15 +175,23 @@ class Remote extends Base {
 	 * Get Style Kit tokens data from remote server.
 	 *
 	 * @since 1.3.4
-	 * @param string $kit_id Style Kit ID.
+	 * @param array $kit Style Kit details.
 	 *
 	 * @return array|mixed|object
 	 */
-	public function get_stylekit_data( $kit_id ) {
-		$url = self::$kits_endpoint . $kit_id;
+	public function get_stylekit_data( $kit ) {
+		$url = self::$kits_endpoint . $kit['id'];
 
 		global $wp_version;
 		$body_args = apply_filters( 'analog/api/get_stylekits_data/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
+		$body_args = array_merge(
+			$body_args,
+			array(
+				'license' => Options::get_instance()->get( 'ang_license_key' ),
+				'url'     => home_url(),
+				'site_id' => $kit['site_id'],
+			)
+		);
 
 		$request = wp_remote_get(
 			$url,
