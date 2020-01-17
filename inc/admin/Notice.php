@@ -7,7 +7,7 @@
 
 namespace Analog\Admin;
 
-use Analog\User;
+use Analog\Consumer;
 
 /**
  * Class Notice
@@ -100,7 +100,7 @@ final class Notice {
 	 * @return bool True if the notice is active, false otherwise.
 	 */
 	public function is_active( $hook_suffix ) {
-		if ( User::is_user_notice_viewed( $this->slug ) ) {
+		if ( Consumer::is_user_notice_viewed( $this->slug ) ) {
 			return false;
 		}
 

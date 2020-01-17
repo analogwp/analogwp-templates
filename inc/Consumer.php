@@ -5,11 +5,14 @@ namespace Analog;
 use Analog\Admin\Notice;
 
 /**
- * Class User.
+ * Class Consumer.
  *
+ * Classname changed from User to Consumer due to a conflict with Elementor/User class usage.
+ *
+ * @since 1.5.0
  * @package Analog
  */
-final class User {
+final class Consumer {
 	const ADMIN_NOTICES_KEY = 'analog_admin_notices';
 
 	/**
