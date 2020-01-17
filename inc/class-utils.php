@@ -524,10 +524,14 @@ class Utils extends Base {
 		$keys = array(
 			'ang_color_accent_primary',
 			'ang_color_accent_secondary',
-			'ang_color_text_light',
-			'ang_color_background_light',
-			'ang_color_background_dark',
-			'ang_color_text_dark',
+			'ang_color_text',
+			'ang_color_heading',
+			'ang_background_light_background',
+			'ang_background_light_text',
+			'ang_background_light_heading',
+			'ang_background_dark_background',
+			'ang_background_dark_text',
+			'ang_background_dark_heading',
 		);
 
 		return apply_filters( 'analog_color_scheme_items', $keys );
