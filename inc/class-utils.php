@@ -512,8 +512,8 @@ class Utils extends Base {
 		}
 
 		return false;
-  }
-  
+	}
+
 	/**
 	 * Returns a list of all keys for color controls defined by Style Kits.
 	 *
@@ -542,17 +542,17 @@ class Utils extends Base {
 	 * @return array
 	 */
 	public static function get_color_scheme_items( int $id ) {
-		$page_settings_manager = Manager::get_settings_managers( 'page' );
-		$page_settings_model   = $page_settings_manager->get_model( $id );
+		$settings = get_post_meta( $id, '_elementor_page_settings', true );
 
 		$keys = self::get_keys_for_color_controls();
 
 		$colors = array();
 		foreach ( $keys as $key ) {
-			$color = $page_settings_model->get_settings( $key );
-
-			if ( '' !== $color ) {
-				$colors[] = $color;
+			if ( isset( $settings[ $key ] ) ) {
+				$color = $settings[ $key ];
+				if ( '' !== $color && ! empty( $color ) ) {
+					$colors[] = $color;
+				}
 			}
 		}
 
