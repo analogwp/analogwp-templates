@@ -96,6 +96,10 @@ function do_automatic_upgrades() {
 		version_1_5_upgrades();
 	}
 
+	if ( version_compare( $installed_version, '1.5.1', '<' ) ) {
+		version_1_5_1_upgrades();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
@@ -434,4 +438,25 @@ function version_1_5_upgrades() {
 	}
 
 	Utils::clear_elementor_cache();
+}
+
+/**
+ * Version 1.5.1 upgrades.
+ *
+ * @since 1.5.1
+ */
+function version_1_5_1_upgrades() {
+	$color_items = get_option( 'elementor_scheme_color-picker' );
+
+	if ( is_array( $color_items ) ) {
+		foreach ( $color_items as $color ) {
+			if ( empty( $color ) || $color === '' || $color === null ) {
+				unset( $color_items[ $color ] );
+			}
+		}
+	}
+
+	update_option( 'elementor_scheme_color-picker', $color_items );
+
+	delete_transient( 'analogwp_template_info' );
 }
