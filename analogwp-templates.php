@@ -59,7 +59,7 @@ final class Analog_Templates {
 
 			self::$instance->includes();
 
-			( new User() )->register();
+			( new Consumer() )->register();
 			( new Admin\Notices() )->register();
 		}
 	}
@@ -128,7 +128,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-import-image.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-options.php';
-		require_once ANG_PLUGIN_DIR . 'inc/User.php';
+		require_once ANG_PLUGIN_DIR . 'inc/Consumer.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notice.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notices.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-utils.php';
