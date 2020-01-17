@@ -693,12 +693,8 @@ class Local extends Base {
 	protected function process_block_import( $block, $method = 'library' ) {
 		$license = false;
 
-		if ( $block['is_pro'] ) {
-			// Fetch license only when necessary, throw error if not found.
-			$license = Options::get_instance()->get( 'ang_license_key' );
-			if ( empty( $license ) ) {
-				return new WP_Error( 'import_error', 'Invalid license provided.' );
-			}
+		if ( $block['is_pro'] && ! Utils::has_valid_license() ) {
+			return new WP_Error( 'import_error', 'Invalid license provided.' );
 		}
 
 		$raw_data = Remote::get_instance()->get_block_content( $block['id'], $license, $method, $block['siteID'] );
