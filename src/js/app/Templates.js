@@ -436,7 +436,7 @@ class Templates extends React.Component {
 
 							return (
 								<Template
-									key={ template.id }
+									key={ `${template.id}-${template.site_id}` }
 									template={ template }
 									favorites={ this.context.state.favorites }
 									setModalContent={ this.setModalContent }
