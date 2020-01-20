@@ -181,6 +181,10 @@ const Analog = styled.div`
 		text-decoration: none;
 		font-weight: bold;
 	}
+
+	.preview-active .templates-list {
+		visibility: hidden;
+	}
 `;
 
 const Content = styled.div`

@@ -390,6 +390,10 @@ class Templates extends React.Component {
 					position: 'relative',
 					minHeight: '80vh',
 				} }
+				className={ classnames( {
+					hide: ( this.state.template && this.state.showingModal && ! this.canImportTemplate() ),
+					'preview-active': this.context.state.isOpen,
+				} ) }
 			>
 				{ this.context.state.isOpen && (
 					<CustomModal
