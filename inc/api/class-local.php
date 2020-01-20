@@ -691,7 +691,7 @@ class Local extends Base {
 	 * @return array|WP_Error
 	 */
 	protected function process_block_import( $block, $method = 'library' ) {
-		$license = false;
+		$license = Options::get_instance()->get( 'ang_license_key' );
 
 		if ( $block['is_pro'] && ! Utils::has_valid_license() ) {
 			return new WP_Error( 'import_error', 'Invalid license provided.' );
