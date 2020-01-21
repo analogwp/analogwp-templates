@@ -72,7 +72,7 @@ if ( ! $tab_exists ) {
 				<p><?php esc_html_e( 'Sign up to Analog Newsletter and get notified about product updates, freebies and more.', 'ang' ); ?></p>
 				<form id="ang-newsletter" action="" class="form-newsletter">
 					<input id="ang-newsletter-email" type="email" placeholder="Enter your email" value="<?php echo esc_attr( $current_user->user_email ); ?>"/>
-					<button id="ang-newsletter-submit" class="ang-button button-primary" type="submit"><?php esc_html_e( 'Subscribe up to newsletter', 'ang' ); ?></button>
+					<button id="ang-newsletter-submit" class="ang-button button-primary" type="submit"><?php esc_html_e( 'Sign me up', 'ang' ); ?></button>
 				</form>
 				<p><?php esc_html_e( 'By signing up you agree to our', 'ang' ); ?> <a href="<?php echo esc_url( 'https://analogwp.com/privacy-policy/' ); ?>" target="_blank"><?php esc_html_e( 'privacy and terms', 'ang' ); ?></a></p>
 			</div>
