@@ -576,6 +576,20 @@ class Utils extends Base {
 
 		return $formatted_colors;
 	}
+
+	/**
+	 * Check if a string starts with certain character.
+	 *
+	 * @param string $string String to search into.
+	 * @param string $start_string String to search for.
+	 *
+	 * @return bool
+	 */
+	public static function string_starts_with( $string, $start_string ) {
+		$len = strlen( $start_string );
+
+		return ( substr( $string, 0, $len ) === $start_string );
+	}
 }
 
 new Utils();
