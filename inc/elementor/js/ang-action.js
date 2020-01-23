@@ -257,6 +257,9 @@ jQuery( window ).on( 'elementor:init', function() {
 			}
 		} ).catch( function( error ) {
 			console.error( error );
+
+			// If Post is not found, reset Style Kit option.
+			elementor.settings.page.model.set( 'ang_action_tokens', '' );
 		} );
 	};
 

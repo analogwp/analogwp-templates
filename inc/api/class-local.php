@@ -311,7 +311,7 @@ class Local extends Base {
 
 		$method = $with_page ? 'page' : 'library';
 
-		if ( $template['is_pro'] && ! Utils::has_valid_license() ) {
+		if ( isset( $template['is_pro'] ) && $template['is_pro'] && ! Utils::has_valid_license() ) {
 			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'ang' ) );
 		}
 
@@ -570,7 +570,7 @@ class Local extends Base {
 	 * @return WP_Error|array
 	 */
 	protected function process_kit_import( $kit ) {
-		if ( $kit['is_pro'] && ! Utils::has_valid_license() ) {
+		if ( isset( $kit['is_pro'] ) && $kit['is_pro'] && ! Utils::has_valid_license() ) {
 			return new WP_Error( 'import_error', 'Invalid license provided.' );
 		}
 
@@ -624,11 +624,11 @@ class Local extends Base {
 	protected function fetch_kit_content( $kit ) {
 		$post_id = false;
 
-		if ( $kit['is_pro'] && ! Utils::has_valid_license() ) {
-			return new WP_Error( 'import_error', 'Invalid license provided.' );
-		}
-
 		if ( is_array( $kit ) && isset( $kit['id'] ) ) {
+			if ( isset( $kit['is_pro'] ) && $kit['is_pro'] && ! Utils::has_valid_license() ) {
+				return new WP_Error( 'kit_import_error', 'Invalid license provided.' );
+			}
+
 			$import = $this->process_kit_import( $kit );
 
 			if ( ! is_wp_error( $import ) ) {
@@ -693,8 +693,8 @@ class Local extends Base {
 	protected function process_block_import( $block, $method = 'library' ) {
 		$license = Options::get_instance()->get( 'ang_license_key' );
 
-		if ( $block['is_pro'] && ! Utils::has_valid_license() ) {
-			return new WP_Error( 'import_error', 'Invalid license provided.' );
+		if ( isset( $block['is_pro'] ) && $block['is_pro'] && ! Utils::has_valid_license() ) {
+			return new WP_Error( 'block_import_error', 'Invalid license provided.' );
 		}
 
 		$raw_data = Remote::get_instance()->get_block_content( $block['id'], $license, $method, $block['siteID'] );

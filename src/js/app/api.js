@@ -1,5 +1,6 @@
 /* global elementorCommon, analog */
 const { apiFetch } = wp;
+const { __ } = wp.i18n;
 
 export async function markFavorite( id, favorite = true ) {
 	return await apiFetch( {
@@ -69,17 +70,8 @@ export async function requestImportLayout( template ) {
 		const parsedTemplate = JSON.parse( data );
 
 		if ( typeof elementor !== 'undefined' ) {
-			const model = new Backbone.Model( {
-				getTitle: function getTitle() {
-					return 'Test';
-				},
-			} );
+			doElementorInsert( parsedTemplate.content );
 
-			elementor.channels.data.trigger( 'template:before:insert', model );
-			for ( let i = 0; i < parsedTemplate.content.length; i++ ) {
-				elementor.getPreviewView().addChildElement( parsedTemplate.content[ i ] );
-			}
-			elementor.channels.data.trigger( 'template:after:insert', {} );
 			window.analogModal.hide();
 		}
 	} );
@@ -168,17 +160,48 @@ export async function requestElementorImport( template, kit ) {
 			elementor.settings.page.model.set( parsedTemplate.tokens );
 		}
 
-		const model = new Backbone.Model( {
-			getTitle: function getTitle() {
-				return 'Test';
-			},
-		} );
+		doElementorInsert( parsedTemplate.content );
 
-		elementor.channels.data.trigger( 'template:before:insert', model );
-		for ( let i = 0; i < parsedTemplate.content.length; i++ ) {
-			elementor.getPreviewView().addChildElement( parsedTemplate.content[ i ] );
-		}
-		elementor.channels.data.trigger( 'template:after:insert', {} );
 		window.analogModal.hide();
 	} );
+}
+
+export function doElementorInsert( content, context = 'template' ) {
+	let contextText = __( 'Template', 'ang' );
+
+	if ( context === 'block' ) {
+		contextText = __( 'Block', 'ang' );
+	}
+
+	if ( typeof $e !== 'undefined' ) {
+		const historyId = $e.run( 'document/history/start-log', {
+			type: 'add',
+			title: `${ __( 'Add Style Kits', 'ang' ) } ${contextText}`,
+		} );
+
+		for ( let i = 0; i < content.length; i++ ) {
+			$e.run( 'document/elements/create', {
+				container: elementor.getPreviewContainer(),
+				model: content[ i ],
+			} );
+		}
+
+		$e.run( 'document/history/end-log', {
+			id: historyId,
+		} );
+	} else {
+		const model = new Backbone.Model({
+			getTitle() {
+				return "Test"
+			},
+		});
+
+		elementor.channels.data.trigger( "template:before:insert", model );
+
+		for ( let i = 0; i < json.data.content.length; i++ ) {
+			elementor.getPreviewView().addChildElement( content[ i ] );
+		}
+
+		elementor.channels.data.trigger( "template:after:insert", {} );
+	}
 }
