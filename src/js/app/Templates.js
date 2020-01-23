@@ -251,20 +251,12 @@ class Templates extends React.Component {
 	getStyleKitInfo() {
 		const isKitInstalled = AGWP.installed_kits.filter( ( k ) => this.state.kit === k );
 		const method = isKitInstalled.length > 0 ? 'insert' : 'import';
-		let data = false;
 
-		if ( method === 'insert' ) {
-			data = this.state.kit;
-		} else {
-			data = this.context.state.styleKits.find( k => k.title === this.state.kit );
-		}
+		let data = ( method === 'insert' )
+					? this.state.kit
+					: this.context.state.styleKits.find( k => k.title === this.state.kit );
 
-		const info = {
-			method,
-			data,
-		};
-
-		return info;
+		return { method, data };
 	}
 
 	setModalContent = template => {
