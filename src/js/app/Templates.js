@@ -8,6 +8,7 @@ import Empty from './helpers/Empty';
 import CustomModal from './modal';
 import ImportTemplate from './popups/ImportTemplate';
 import Template from './Template';
+import ProModal from './ProModal';
 
 const { __ } = wp.i18n;
 
@@ -411,6 +412,10 @@ class Templates extends React.Component {
 						handler={ this.handler }
 						getStyleKitInfo={ this.getStyleKitInfo }
 					/>
+				) }
+
+				{ ! this.context.state.showFree && AGWP.license.status !== 'valid' && (
+					<ProModal onDimiss={ () => this.resetState() } />
 				) }
 
 				{ ! this.context.state.isOpen && this.context.state.templates.length < 1 && (
