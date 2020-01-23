@@ -186,6 +186,8 @@ export function doElementorInsert( content, context = 'template' ) {
 		contextText = __( 'Block', 'ang' );
 	}
 
+	let insertIndex = analog.insertIndex || -1;
+
 	if ( typeof $e !== 'undefined' ) {
 		const historyId = $e.run( 'document/history/start-log', {
 			type: 'add',
@@ -196,6 +198,7 @@ export function doElementorInsert( content, context = 'template' ) {
 			$e.run( 'document/elements/create', {
 				container: elementor.getPreviewContainer(),
 				model: content[ i ],
+				options: insertIndex >= 0 ? { at: insertIndex++ } : {}
 			} );
 		}
 
@@ -212,7 +215,7 @@ export function doElementorInsert( content, context = 'template' ) {
 		elementor.channels.data.trigger( 'template:before:insert', model );
 
 		for ( let i = 0; i < json.data.content.length; i++ ) {
-			elementor.getPreviewView().addChildElement( content[ i ] );
+			elementor.getPreviewView().addChildElement( content[ i ], insertIndex >= 0 ? { at: insertIndex++ } : null );
 		}
 
 		elementor.channels.data.trigger( 'template:after:insert', {} );

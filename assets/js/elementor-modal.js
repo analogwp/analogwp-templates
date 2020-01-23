@@ -1,9 +1,16 @@
 /* global elementor, elementorCommon */
 /* eslint-disable */
+
+const analog = window.analog = window.analog || {};
+
 "undefined" != typeof jQuery &&
 	!(function($) {
 		$(function() {
 			function modal() {
+				const insertIndex = 0 < jQuery(this).parents(".elementor-section-wrap").length ? jQuery(this).parents(".elementor-add-section").index() : -1;
+
+				analog.insertIndex = insertIndex;
+
 				elementorCommon &&
 					(window.analogModal ||
 						((window.analogModal = elementorCommon.dialogsManager.createWidget(
