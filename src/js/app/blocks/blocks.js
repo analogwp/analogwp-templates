@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
-import { requestBlockContent } from '../api';
+import { requestBlockContent, doElementorInsert } from '../api';
 import Empty from '../helpers/Empty';
 import Loader from '../icons/loader';
 import Popup from '../popup';
@@ -99,17 +99,7 @@ export default class Blocks extends Component {
 				if ( method === 'elementor' ) {
 					const parsedTemplate = response.data;
 
-					const model = new Backbone.Model( {
-						getTitle: function getTitle() {
-							return 'Test';
-						},
-					} );
-
-					elementor.channels.data.trigger( 'template:before:insert', model );
-					for ( let i = 0; i < parsedTemplate.content.length; i++ ) {
-						elementor.getPreviewView().addChildElement( parsedTemplate.content[ i ] );
-					}
-					elementor.channels.data.trigger( 'template:after:insert', {} );
+					doElementorInsert( parsedTemplate.content, 'block' );
 
 					this.setState( {
 						modalActive: false,
