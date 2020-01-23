@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.3.2
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -115,6 +115,16 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.5.2 - January 24, 2020 =
+- New: Template/block inserts inside Elementor are now recorded in Elementor history tab
+- New: Insert block/templates at point from where Modal was launched
+- Fix: Issue with installed kits not being set properly on template import
+- Fix: Missing license key info during block import
+- Fix: Hide template list when preview is active
+- Fix: Bug where Pro templates were displayed regardless of option selected
+- Tweak: Style Kits library listing design
+- Tweak: Show Pro notice again if Pro templates are shown
 
 = 1.5.1 - January 18, 2020 =
 - Fix: \Analog\User class conflict with \Elementor\User (props: @midoelhawy)
@@ -374,3 +384,6 @@ Improved performance, fixes issues with Global Style Kit among various fixes.
 
 = 1.5.1 =
 Fixes a conflict with Elementor User class, and color picker swatches.
+
+= 1.5.2 =
+Fixes an issue with incorrect Kit selected during Template imports.
