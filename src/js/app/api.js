@@ -55,6 +55,10 @@ export async function requestBlockContent( block, method ) {
 	} ).then( response => response );
 }
 
+/**
+ * @deprecated
+ * @use requestElementorImport()
+ */
 export async function requestImportLayout( template ) {
 	const editorId =
 		'undefined' !== typeof ElementorConfig ? ElementorConfig.post_id : false;
@@ -166,6 +170,15 @@ export async function requestElementorImport( template, kit ) {
 	} );
 }
 
+/**
+ * Perform content insertion inside Elementor.
+ *
+ * @param {object} content Elementor content object with serialized data.
+ * @param {string} context Import context, can be 'template' or 'block'.
+ *
+ * @since 1.5.2
+ * @returns void
+ */
 export function doElementorInsert( content, context = 'template' ) {
 	let contextText = __( 'Template', 'ang' );
 
@@ -176,7 +189,7 @@ export function doElementorInsert( content, context = 'template' ) {
 	if ( typeof $e !== 'undefined' ) {
 		const historyId = $e.run( 'document/history/start-log', {
 			type: 'add',
-			title: `${ __( 'Add Style Kits', 'ang' ) } ${contextText}`,
+			title: `${ __( 'Add Style Kits', 'ang' ) } ${ contextText }`,
 		} );
 
 		for ( let i = 0; i < content.length; i++ ) {
@@ -190,18 +203,18 @@ export function doElementorInsert( content, context = 'template' ) {
 			id: historyId,
 		} );
 	} else {
-		const model = new Backbone.Model({
+		const model = new Backbone.Model( {
 			getTitle() {
-				return "Test"
+				return 'Test';
 			},
-		});
+		} );
 
-		elementor.channels.data.trigger( "template:before:insert", model );
+		elementor.channels.data.trigger( 'template:before:insert', model );
 
 		for ( let i = 0; i < json.data.content.length; i++ ) {
 			elementor.getPreviewView().addChildElement( content[ i ] );
 		}
 
-		elementor.channels.data.trigger( "template:after:insert", {} );
+		elementor.channels.data.trigger( 'template:after:insert', {} );
 	}
 }
