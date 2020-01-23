@@ -31,6 +31,7 @@ const Container = styled.section`
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		border-top: 1px solid #DDD;
 	}
 	h3 {
 		margin: 0;
@@ -57,6 +58,7 @@ const Container = styled.section`
 		font-size: 12px;
 		color: var(--ang-accent);
 		padding: 4px 7px;
+		margin-right: 15px;
     }
 
 	footer {
@@ -76,7 +78,7 @@ const Container = styled.section`
 
 const ChildContainer = styled.ul`
 	display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,280px));
+    grid-template-columns: repeat(auto-fit, minmax(580px, 580px));
     grid-gap: 25px;
     margin: 75px 0 0;
     padding: 0;
@@ -101,39 +103,14 @@ const ChildContainer = styled.ul`
     figure {
     	margin: 0;
     	padding: 0;
-    	position: relative;
-		&:hover {
-			.actions {
-				opacity: 1;
-				button {
-					transform: none;
-					opacity: 1;
-				}
-			}
+		position: relative;
+		display: flex;
+		justify-content: center;
+		img {
+			width: 100%;
+			height: auto;
 		}
 	}
-
-    .actions {
-		opacity: 0;
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		background: rgba(0, 0, 0, 0.7);
-		top: 0;
-		left: 0;
-		z-index: 100;
-		transition: all 200ms;
-		border-top-left-radius: 4px;
-		border-top-right-radius: 4px;
-		button {
-			transform: translateY(20px);
-			opacity: 0;
-		}
-    }
 `;
 
 const initialState = {
@@ -236,7 +213,15 @@ export default class StyleKits extends React.Component {
 						return (
 							<li key={ kit.id }>
 								<figure>
+									<img src={ kit.image } alt={ kit.title } />
+								</figure>
+								<div className="title">
+									<h3>{ kit.title }</h3>
+
 									<div className="actions">
+										{ kit.is_pro && (
+											<span className="pro">{ __( 'Pro', 'ang' ) }</span>
+										) }
 										{ isValid( kit.is_pro ) && (
 											<NotificationConsumer>
 												{ ( { add } ) => (
@@ -248,14 +233,6 @@ export default class StyleKits extends React.Component {
 											</NotificationConsumer>
 										) }
 									</div>
-									<img src={ kit.image } alt={ kit.title } />
-								</figure>
-								<div className="title">
-									<h3>{ kit.title }</h3>
-
-									{ kit.is_pro && (
-										<span className="pro">{ __( 'Pro', 'ang' ) }</span>
-									) }
 								</div>
 							</li>
 						);
