@@ -207,8 +207,10 @@ class App extends React.Component {
 			isOpen: false, // Determines whether modal to preview template is open or not.
 			syncing: false,
 			favorites: AGWP.favorites,
+			blockFavorites: AGWP.blockFavorites,
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
+			blockArchive: [], // same as archive above just for blocks.
 			filters: [],
 			showFree: true,
 			group: true,
@@ -281,6 +283,7 @@ class App extends React.Component {
 			templates: library.templates,
 			kits: library.template_kits,
 			archive: library.templates,
+			blockArchive: library.blocks,
 			count: library.templates.length,
 			timestamp: templates.timestamp,
 			hasPro: hasProTemplates( library.templates ),
@@ -374,6 +377,7 @@ class App extends React.Component {
 		this.setState( {
 			templates: [],
 			archive: [],
+			blockArchive: [],
 			count: null,
 			syncing: true,
 			kits: [],
@@ -391,6 +395,7 @@ class App extends React.Component {
 			this.setState( {
 				templates: library.templates,
 				archive: library.templates,
+				blockArchive: library.blocks,
 				count: library.templates.length,
 				kits: library.template_kits,
 				timestamp: data.timestamp,
@@ -409,12 +414,18 @@ class App extends React.Component {
 		const filteredTemplates = this.state.templates.filter(
 			template => template.id in this.state.favorites
 		);
+		const filteredBlocks = this.state.blocks.filter(
+			block => block.id in this.state.blockFavorites
+		);
 
 		this.setState( {
 			showing_favorites: ! this.state.showing_favorites,
 			templates: ! this.state.showing_favorites ?
 				filteredTemplates :
 				this.state.archive,
+			blocks: ! this.state.showing_favorites ?
+				filteredBlocks :
+				this.state.blockArchive,
 		} );
 	}
 
