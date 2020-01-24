@@ -75,7 +75,7 @@ const Container = styled.section`
 
 const ChildContainer = styled.ul`
 	display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+    grid-template-columns: repeat(auto-fit,minmax(380px,380px));
     grid-gap: 25px;
     margin: 75px 0 0;
     padding: 0;
@@ -103,7 +103,7 @@ const ChildContainer = styled.ul`
 
     figure {
     	margin: 0;
-    	padding: 0;
+    	padding: 20px;
 		position: relative;
 		display: flex;
 		justify-content: center;
@@ -139,9 +139,15 @@ const ChildContainer = styled.ul`
 		transition: all 200ms;
 		border-top-left-radius: 4px;
 		border-top-right-radius: 4px;
+		min-width: 110px;
+
 		button {
 			transform: translateY(20px);
 			opacity: 0;
+
+			+ button {
+				margin-top: 10px;
+			}
 		}
 		img {
 			width: 100%;
@@ -270,8 +276,8 @@ export default class StyleKits extends React.Component {
 								<figure>
 									<img src={ kit.image } alt={ kit.title } />
 
-									{ kit.preview && (
-										<div className="preview">
+									<div className="preview">
+										{ kit.preview && (
 											<button
 												className="ang-button"
 												onClick={ () => {
@@ -281,16 +287,8 @@ export default class StyleKits extends React.Component {
 											>
 												{ __( 'Preview', 'ang' ) }
 											</button>
-										</div>
-									) }
-								</figure>
-								<div className="title">
-									<h3>{ kit.title }</h3>
-
-									<div className="actions">
-										{ kit.is_pro && (
-											<span className="pro">{ __( 'Pro', 'ang' ) }</span>
 										) }
+
 										{ isValid( kit.is_pro ) && (
 											<NotificationConsumer>
 												{ ( { add } ) => (
@@ -300,6 +298,15 @@ export default class StyleKits extends React.Component {
 													>{ __( 'Import', 'ang' ) }</button>
 												) }
 											</NotificationConsumer>
+										) }
+									</div>
+								</figure>
+								<div className="title">
+									<h3>{ kit.title }</h3>
+
+									<div className="actions">
+										{ kit.is_pro && (
+											<span className="pro">{ __( 'Pro', 'ang' ) }</span>
 										) }
 									</div>
 								</div>
