@@ -6,6 +6,7 @@ import Loader from '../icons/loader';
 import Popup from '../popup';
 import BlockList from './BlockList';
 import Filters from './Filters';
+import ProModal from '../ProModal';
 
 const { __ } = wp.i18n;
 const { decodeEntities } = wp.htmlEntities;
@@ -219,6 +220,10 @@ export default class Blocks extends Component {
 
 						) }
 					</Popup>
+				) }
+
+				{ ! this.context.state.showFree && AGWP.license.status !== 'valid' && (
+					<ProModal type={ __( 'blocks', 'ang' ) } />
 				) }
 
 				{ ! this.context.state.syncing && this.context.state.blocks && ! this.state.category && this.context.state.group && (
