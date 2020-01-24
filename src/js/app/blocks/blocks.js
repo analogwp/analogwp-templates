@@ -221,7 +221,7 @@ export default class Blocks extends Component {
 					</Popup>
 				) }
 
-				{ ! this.context.state.syncing && this.context.state.blocks && ! this.state.category && (
+				{ ! this.context.state.syncing && this.context.state.blocks && ! this.state.category && this.context.state.group && (
 					<Categories>
 						{ categories && categories.map( ( category ) => {
 							const count = this.getItemCount( category );

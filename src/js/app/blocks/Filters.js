@@ -8,18 +8,25 @@ const { Fragment } = wp.element;
 const { ToggleControl } = wp.components;
 
 const Container = styled.div`
-	background: #fff;
-	padding: 20px 35px;
+	background: #FFF;
 	margin: -40px -40px 40px;
 	color: #060606;
 	font-size: 14.22px;
 	font-weight: 500;
-
+	padding: 20px 40px;
 	display: flex;
 	align-items: center;
 
-	.components-base-control__field {
+	.components-base-control, .components-base-control__field {
 		margin-bottom: 0 !important;
+	}
+
+	.components-base-control + .components-base-control {
+		margin-left: 40px;
+	}
+
+	.components-toggle-control__label {
+		font-weight: 500;
 	}
 
 	.pro-toggle {
@@ -89,6 +96,20 @@ const Filters = ( { category, setCategory } ) => {
 					} );
 				} }
 			/>
+
+			{ ! showingCategory && (
+				<ToggleControl
+					label={ __( 'Group by Block type' ) }
+					checked={ context.state.group }
+					onChange={ () => {
+						context.dispatch( {
+							group: ! context.state.group,
+						} );
+
+						window.localStorage.setItem( 'analog::group-block', ! this.context.state.group );
+					} }
+				/>
+			) }
 		</Container>
 	);
 };
