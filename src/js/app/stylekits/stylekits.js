@@ -254,6 +254,10 @@ export default class StyleKits extends React.Component {
 								template={ this.state.previewing }
 								onRequestClose={ () => this.resetState() }
 								onRequestImport={ () => this.handleImport( this.state.previewing, add, true ) }
+								style={ {
+									padding: '20px',
+									boxSizing: 'border-box',
+								} }
 							/>
 						) }
 					</NotificationConsumer>
@@ -268,7 +272,15 @@ export default class StyleKits extends React.Component {
 
 									{ kit.preview && (
 										<div className="preview">
-											<button className="ang-button" onClick={ () => this.setState( { previewing: kit } ) }>{ __( 'Preview', 'ang' ) }</button>
+											<button
+												className="ang-button"
+												onClick={ () => {
+													window.scrollTo( 0, 0 );
+													this.setState( { previewing: kit } );
+												} }
+											>
+												{ __( 'Preview', 'ang' ) }
+											</button>
 										</div>
 									) }
 								</figure>

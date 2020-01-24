@@ -89,12 +89,14 @@ const Container = styled.div`
 const Preview = ( props ) => {
 	const [ loading, setLoading ] = React.useState( true );
 
+	const { onRequestClose, onRequestImport, ...rest } = props;
+
 	const previewURL = props.template.url || props.template.preview;
 
 	return (
-		<Container loading={ loading }>
+		<Container loading={ loading } { ...rest }>
 			<div className="frame-header">
-				<button className="button--plain" onClick={ props.onRequestClose }>
+				<button className="button--plain" onClick={ onRequestClose }>
 					{ __( 'Back to Library', 'ang' ) }
 				</button>
 
@@ -105,7 +107,7 @@ const Preview = ( props ) => {
 				</Tooltip>
 
 				{ ! ( props.template.is_pro && AGWP.license.status !== 'valid' ) && (
-					<button className="ang-button" onClick={ props.onRequestImport }>
+					<button className="ang-button" onClick={ onRequestImport }>
 						{ __( 'Insert Layout', 'ang' ) }
 					</button>
 				) }
