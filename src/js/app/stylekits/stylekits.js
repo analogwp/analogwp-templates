@@ -4,6 +4,7 @@ import { requestStyleKitData } from '../api';
 import Loader from '../icons/loader';
 import { NotificationConsumer } from '../Notifications';
 import Popup from '../popup';
+import Preview from './../modal/Preview';
 
 const { TextControl, Button, Dashicon } = wp.components;
 
@@ -87,7 +88,7 @@ const ChildContainer = styled.ul`
     	border-radius: 4px;
     	overflow: hidden;
     	background: #fff;
-		.ang-button {
+		.actions .ang-button {
 			font-size: 12px;
 			line-height: 18px;
 			padding: 6px 12px;
@@ -110,7 +111,43 @@ const ChildContainer = styled.ul`
 			width: 100%;
 			height: auto;
 		}
+
+		&:hover {
+			.preview {
+				opacity: 1;
+				button {
+					transform: none;
+					opacity: 1;
+				}
+			}
+		}
 	}
+
+	 .preview {
+		opacity: 0;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background: rgba(0, 0, 0, 0.7);
+		top: 0;
+		left: 0;
+		z-index: 100;
+		transition: all 200ms;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+		button {
+			transform: translateY(20px);
+			opacity: 0;
+		}
+		img {
+			width: 100%;
+			height: auto;
+		}
+    }
 `;
 
 const initialState = {
@@ -120,6 +157,7 @@ const initialState = {
 	importedKit: false,
 	hasError: false,
 	kitname: '',
+	previewing: null,
 };
 
 const footer = sprintf(
@@ -208,12 +246,31 @@ export default class StyleKits extends React.Component {
 					&nbsp;{ __( 'You will then be able to apply it on any Elementor page.', 'ang' ) }
 					&nbsp;<a href="https://docs.analogwp.com/article/590-style-kit-library" target="_blank" rel="noopener noreferrer">{ __( 'Learn more', 'ang' ) }</a>.
 				</p>
+
+				{ this.state.previewing && this.state.previewing.preview && (
+					<NotificationConsumer>
+						{ ( { add } ) => (
+							<Preview
+								template={ this.state.previewing }
+								onRequestClose={ () => this.resetState() }
+								onRequestImport={ () => this.handleImport( this.state.previewing, add, true ) }
+							/>
+						) }
+					</NotificationConsumer>
+				) }
+
 				<ChildContainer>
 					{ this.context.state.styleKits.length > 0 && this.context.state.styleKits.map( ( kit ) => {
 						return (
 							<li key={ kit.id }>
 								<figure>
 									<img src={ kit.image } alt={ kit.title } />
+
+									{ kit.preview && (
+										<div className="preview">
+											<button className="ang-button" onClick={ () => this.setState( { previewing: kit } ) }>{ __( 'Preview', 'ang' ) }</button>
+										</div>
+									) }
 								</figure>
 								<div className="title">
 									<h3>{ kit.title }</h3>
@@ -242,7 +299,7 @@ export default class StyleKits extends React.Component {
 				{ this.state.modalActive && (
 					<Popup
 						title={ decodeEntities( this.state.activeKit.title ) }
-						onRequestClose={ () => this.setState( { modalActive: false } ) }
+						onRequestClose={ () => this.resetState() }
 					>
 						{ this.state.hasError && (
 							<div>
