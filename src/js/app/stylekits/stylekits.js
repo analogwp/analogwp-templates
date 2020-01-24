@@ -18,12 +18,8 @@ const Container = styled.section`
 	}
 	> .tab-description {
 		color: #444;
-		position: absolute;
-		top: 0;
 		background: #fff;
-		left: 0;
-		right: 0;
-		margin: 0 !important;
+		margin: -40px -40px 40px -40px;
 		padding: 20px;
 	}
 	.title {
@@ -78,10 +74,14 @@ const Container = styled.section`
 
 const ChildContainer = styled.ul`
 	display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(580px, 580px));
+    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
     grid-gap: 25px;
     margin: 75px 0 0;
     padding: 0;
+
+    @media (max-width: 768px) {
+    	grid-template-columns: 1fr;
+    }
 
     > li {
     	border-radius: 4px;
