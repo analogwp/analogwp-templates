@@ -31,10 +31,10 @@ const Container = styled.div`
 	}
 `;
 
-const ProModal = ( { onDimiss } ) => (
+const ProModal = ( { type } ) => (
 	<Container>
 		<p>
-			<span role="img" aria-label="zap">⚡</span> { __( 'To import Pro templates, you’ll need an active ', 'ang' ) } <strong>{ __( 'Style Kits Pro', 'ang' ) }</strong> { __( 'license.', 'ang' ) }
+			<span role="img" aria-label="zap">⚡</span> { __( 'To import Pro ', 'ang' ) + type + __( ', you’ll need an active ', 'ang' ) } <strong>{ __( 'Style Kits Pro', 'ang' ) }</strong> { __( 'license.', 'ang' ) }
 		</p>
 		<ExternalLink className="ang-button" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro">{ __( 'Learn More', 'ang' ) }</ExternalLink>
 	</Container>
