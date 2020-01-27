@@ -4,7 +4,7 @@ import { getSettings, markFavorite, requestTemplateList } from './api';
 import ThemeContext, { Theme } from './contexts/ThemeContext';
 import Header from './Header';
 import Notifications from './Notifications';
-import { getPageComponents, hasProTemplates } from './utils';
+import { getTime, getPageComponents, hasProTemplates } from './utils';
 const { apiFetch } = wp;
 
 const Analog = styled.div`
@@ -292,6 +292,9 @@ class App extends React.Component {
 			blocks: library.blocks,
 		} );
 
+		this.handleSort( 'latest', 'templates' );
+		this.handleSort( 'latest', 'blocks' );
+
 		// Listen for Elementor modal close, so we can reset some states.
 		document.addEventListener( 'modal-close', () => {
 			this.setState( {
@@ -304,26 +307,41 @@ class App extends React.Component {
 		getSettings().then( settings => this.setState( { settings } ) );
 	}
 
-	handleFilter( type ) {
+	handleFilter( type, library = 'templates' ) {
 		const templates = [ ...this.state.archive ];
-		if ( type === 'all' ) {
-			this.setState( { templates: this.state.archive } );
-			return;
-		}
+		const blocks = [ ...this.state.blockArchive ];
 
-		const filtered = templates.filter( template => template.type === type );
-		this.setState( { templates: filtered } );
+		if ( 'blocks' !== library ) {
+			if ( type === 'all' ) {
+				this.setState( { templates: this.state.archive } );
+				return;
+			}
+
+			const filtered = templates.filter( template => template.type === type );
+			this.setState( { templates: filtered } );
+		} else {
+			if ( type === 'all' ) {
+				this.setState( { blocks: this.state.blockArchive } );
+				return;
+			}
+
+			const filtered = blocks.filter( block => block.tags[0] === type );
+			this.setState( { blocks: filtered } );
+		}
 	}
 
-	handleSort( value ) {
+	handleSort( value, library = 'templates' ) {
 		this.setState( {
 			showing_favorites: false,
-			templates: this.state.archive,
 		} );
 
+		let sortData = this.state.blocks;
+		if ( 'blocks' !== library ) {
+			sortData = this.state.templates;
+		}
+
 		if ( 'popular' === value ) {
-			const templates = [ ...this.state.archive ];
-			const sorted = templates.sort( ( a, b ) => {
+			const sorted = sortData.sort( ( a, b ) => {
 				if ( 'popularityIndex' in a ) {
 					if ( parseInt( a.popularityIndex ) < parseInt( b.popularityIndex ) ) {
 						return 1;
@@ -334,43 +352,80 @@ class App extends React.Component {
 				}
 				return 0;
 			} );
-			this.setState( { templates: sorted } );
+
+			if ( 'blocks' !== library ) {
+				this.setState( { templates: sorted } );
+			} else {
+				this.setState( { blocks: sorted } );
+			}
 		}
 
 		if ( 'latest' === value ) {
-			this.setState( { templates: this.state.archive } );
+			const sorted = sortData.sort( ( a, b ) => {
+				if ( 'popularityIndex' in a ) {
+					if ( parseInt( getTime( a.published ) ) < parseInt( getTime( b.published ) ) ) {
+						return 1;
+					}
+					if ( parseInt( getTime( a.published ) ) > parseInt( getTime( b.published ) ) ) {
+						return -1;
+					}
+				}
+				return 0;
+			} );
+
+			if ( 'blocks' !== library ) {
+				this.setState( { templates: sorted } );
+			} else {
+				this.setState( { blocks: sorted } );
+			}
 		}
 	}
 
-	handleSearch( value ) {
-		const templates = this.state.archive;
+	handleSearch( value, library = 'templates' ) {
+		let searchData = this.state.blockArchive;
+		if ( 'blocks' !== library ) {
+			searchData = this.state.archive;
+		}
 		let filtered = [];
 		let searchTags = [];
 
 		if ( value ) {
-			filtered = templates.filter( template => {
-				if ( template.tags ) {
-					searchTags = template.tags.filter( tag => {
+			filtered = searchData.filter( single => {
+				if ( single.tags ) {
+					searchTags = single.tags.filter( tag => {
 						return tag.toLowerCase().includes( value );
 					} );
 				}
 				return (
-					template.title.toLowerCase().includes( value ) || searchTags.length >= 1
+					single.title.toLowerCase().includes( value ) || searchTags.length >= 1
 				);
 			} );
 
 			if ( filtered.length > 0 ) {
+				if ( 'blocks' !== library ) {
+					this.setState( {
+						templates: filtered,
+					} );
+
+					return;
+				}
+
 				this.setState( {
-					templates: filtered,
+					blocks: filtered,
 				} );
 
 				return;
 			}
 		}
-
-		this.setState( {
-			templates: value ? [] : this.state.archive,
-		} );
+		if ( 'blocks' !== library ) {
+			this.setState( {
+				templates: value ? [] : this.state.archive,
+			} );
+		} else {
+			this.setState( {
+				blocks: value ? [] : this.state.blockArchive,
+			} );
+		}
 	}
 
 	async refreshAPI() {

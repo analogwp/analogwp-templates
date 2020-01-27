@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import Select from 'react-select';
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
 import Star from '../icons/star';
@@ -8,18 +9,49 @@ const { Fragment } = wp.element;
 const { ToggleControl } = wp.components;
 
 const Container = styled.div`
-	background: #fff;
-	padding: 20px 35px;
-	margin: -40px -40px 40px;
-	color: #060606;
+	margin: 0 0 40px 0;
 	font-size: 14.22px;
-	font-weight: 500;
+	font-weight: bold;
 
-	display: flex;
-	align-items: center;
+	.top {
+		background: #FFF;
+		margin: -40px -40px 12px -40px;
+		padding: 20px 40px;
+		display: flex;
+		align-items: center;
 
-	.components-base-control__field {
-		margin-bottom: 0 !important;
+		.components-base-control, .components-base-control__field {
+			margin-bottom: 0;
+		}
+
+		.components-base-control + .components-base-control {
+			margin-left: 40px;
+		}
+
+		.components-toggle-control__label {
+			font-weight: 500;
+		}
+	}
+
+	.bottom {
+		display: flex;
+		align-items: center;
+	}
+
+	input[type="search"] {
+		margin-left: auto;
+		padding: 8px;
+		border: none;
+		outline: none;
+		box-shadow: none;
+		width: 250px;
+		margin-right: 4px;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
+		&::placeholder {
+			color: #b9b9b9;
+		}
 	}
 
 	.pro-toggle {
@@ -49,48 +81,158 @@ const Container = styled.div`
 	}
 `;
 
-const Filters = ( { category, setCategory } ) => {
-	const context = React.useContext( AnalogContext );
-	const showingCategory = ( ! context.state.syncing && context.state.blocks && category );
+const List = styled.div`
+	margin: 0;
+	padding: 0;
+	display: inline-flex;
+	align-items: center;
+	position: relative;
+	margin-right: 30px;
 
-	return (
-		<Container>
-			{ category && (
-				<Fragment>
-					<button className="ang-button secondary" onClick={ () => setCategory( false ) }>
-						{ __( 'Back to all Blocks', 'ang' ) }
-					</button>
+	label {
+		margin-right: 15px;
 
-					<h4>{ category }</h4>
-				</Fragment>
-			) }
+	}
 
-			{ ! showingCategory && (
-				<button
-					onClick={ context.toggleFavorites }
-					className={ classNames( 'favorites button-plain', {
-						'is-active': context.state.showing_favorites,
-					} ) }
-				>
-					<Star />{ ' ' }
-					{ context.state.showing_favorites ?
-						__( 'Back to all', 'ang' ) :
-						__( 'My Favorites', 'ang' ) }
-				</button>
-			) }
+	.dropdown {
+		width: 140px;
+		z-index: 1000;
+		text-transform: capitalize;
+		font-weight: normal;
 
-			<ToggleControl
-				label={ __( 'Show Pro Blocks' ) }
-				checked={ ! context.state.showFree }
-				className="pro-toggle"
-				onChange={ () => {
-					context.dispatch( {
-						showFree: ! context.state.showFree,
-					} );
-				} }
-			/>
-		</Container>
-	);
-};
+		.css-xp4uvy {
+			color: #888;
+		}
 
-export default Filters;
+		.css-vj8t7z {
+			border: 2px solid #C7C7C7;
+			border-radius: 4px;
+		}
+
+		.css-2o5izw {
+			box-shadow: none !important;
+			border-width: 2px;
+		}
+	}
+`;
+
+export default class Filters extends React.Component {
+	constructor() {
+		super( ...arguments );
+		this.searchInput = React.createRef();
+	}
+
+	render() {
+		const { category, setCategory } = this.props;
+		const categories = [ ...new Set( this.context.state.blockArchive.map( block => block.tags[ 0 ] ) ) ];
+		const filterTypes = [ ...categories ].map( filter => {
+			return { value: `${ filter }`, label: `${ filter }` };
+		} );
+
+		const filterOptions = [
+			{ value: 'all', label: __( 'Show All', 'ang' ) },
+			...filterTypes,
+		];
+
+		const sortOptions = [
+			{ value: 'latest', label: __( 'Latest', 'ang' ) },
+			{ value: 'popular', label: __( 'Popular', 'ang' ) },
+		];
+		const showingCategory = ( ! this.context.state.syncing && this.context.state.blocks && category );
+
+		return (
+			<Container>
+				<div className="top">
+					{ category && (
+						<Fragment>
+							<button className="ang-button secondary" onClick={ () => setCategory( false ) }>
+								{ __( 'Back to all Blocks', 'ang' ) }
+							</button>
+
+							<h4>{ category }</h4>
+						</Fragment>
+					) }
+
+					{ ! showingCategory && (
+						<button
+							onClick={ this.context.toggleFavorites }
+							className={ classNames( 'favorites button-plain', {
+								'is-active': this.context.state.showing_favorites,
+							} ) }
+						>
+							<Star />{ ' ' }
+							{ this.context.state.showing_favorites ?
+								__( 'Back to all', 'ang' ) :
+								__( 'My Favorites', 'ang' ) }
+						</button>
+					) }
+
+					<ToggleControl
+						label={ __( 'Show Pro Blocks' ) }
+						checked={ ! this.context.state.showFree }
+						className="pro-toggle"
+						onChange={ () => {
+							this.context.dispatch( {
+								showFree: ! this.context.state.showFree,
+							} );
+						} }
+					/>
+
+					{ ! showingCategory && (
+						<ToggleControl
+							label={ __( 'Group by Block type' ) }
+							checked={ this.context.state.group }
+							onChange={ () => {
+								this.context.dispatch( {
+									group: ! this.context.state.group,
+								} );
+
+								window.localStorage.setItem( 'analog::group-block', ! this.context.state.group );
+							} }
+						/>
+					) }
+				</div>
+				{ ( ! this.context.state.group || showingCategory ) && (
+					<div className="bottom">
+						{ ! showingCategory &&  <List>
+							<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
+							<Select
+								inputId="filter"
+								className="dropdown"
+								defaultValue={ filterOptions[ 0 ] }
+								isSearchable={ false }
+								options={ filterOptions }
+								onChange={ e => this.context.handleFilter( e.value, 'blocks' ) }
+							/>
+						</List> }
+						<List>
+							<label htmlFor="sort">{ __( 'Sort by', 'ang' ) }</label>
+							<Select
+								inputId="sort"
+								className="dropdown"
+								defaultValue={ sortOptions[ 0 ] }
+								isSearchable={ false }
+								options={ sortOptions }
+								onChange={ e => this.context.handleSort( e.value, 'blocks' ) }
+							/>
+						</List>
+
+						<input
+							type="search"
+							placeholder={ __( 'Search blocks', 'ang' ) }
+							ref={ this.searchInput }
+							onChange={ () =>
+								this.context.handleSearch(
+									this.searchInput.current.value.toLowerCase(),
+									'blocks'
+								)
+							}
+						/>
+					</div>
+				) }
+			</Container>
+		);
+	}
+}
+
+Filters.contextType = AnalogContext;
