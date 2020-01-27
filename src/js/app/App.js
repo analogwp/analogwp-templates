@@ -4,7 +4,7 @@ import { getSettings, markFavorite, requestTemplateList } from './api';
 import ThemeContext, { Theme } from './contexts/ThemeContext';
 import Header from './Header';
 import Notifications from './Notifications';
-import { getPageComponents, hasProTemplates } from './utils';
+import { getTime, getPageComponents, hasProTemplates } from './utils';
 const { apiFetch } = wp;
 
 const Analog = styled.div`
@@ -292,6 +292,9 @@ class App extends React.Component {
 			blocks: library.blocks,
 		} );
 
+		this.handleSort( 'latest', 'templates' );
+		this.handleSort( 'latest', 'blocks' );
+
 		// Listen for Elementor modal close, so we can reset some states.
 		document.addEventListener( 'modal-close', () => {
 			this.setState( {
@@ -322,7 +325,6 @@ class App extends React.Component {
 				return;
 			}
 
-			console.log( type );
 			const filtered = blocks.filter( block => block.tags[0] === type );
 			this.setState( { blocks: filtered } );
 		}
@@ -331,13 +333,11 @@ class App extends React.Component {
 	handleSort( value, library = 'templates' ) {
 		this.setState( {
 			showing_favorites: false,
-			templates: this.state.archive,
-			blocks: this.state.blockArchive,
 		} );
 
-		let sortData = this.state.blockArchive;
+		let sortData = this.state.blocks;
 		if ( 'blocks' !== library ) {
-			sortData = this.state.archive;
+			sortData = this.state.templates;
 		}
 
 		if ( 'popular' === value ) {
@@ -361,10 +361,22 @@ class App extends React.Component {
 		}
 
 		if ( 'latest' === value ) {
+			const sorted = sortData.sort( ( a, b ) => {
+				if ( 'popularityIndex' in a ) {
+					if ( parseInt( getTime( a.published ) ) < parseInt( getTime( b.published ) ) ) {
+						return 1;
+					}
+					if ( parseInt( getTime( a.published ) ) > parseInt( getTime( b.published ) ) ) {
+						return -1;
+					}
+				}
+				return 0;
+			} );
+
 			if ( 'blocks' !== library ) {
-				this.setState( { templates: this.state.archive } );
+				this.setState( { templates: sorted } );
 			} else {
-				this.setState( { blocks: this.state.blockArchive } );
+				this.setState( { blocks: sorted } );
 			}
 		}
 	}

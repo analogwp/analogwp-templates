@@ -74,3 +74,11 @@ export function isNewTheme( date ) {
 
 	return diff;
 }
+
+export function getTime( date ) {
+	const start = moment.unix( date );
+	const end = moment.now();
+	const diff = Math.ceil( moment.duration( start.diff( end ) ).asMinutes() );
+
+	return diff;
+}
