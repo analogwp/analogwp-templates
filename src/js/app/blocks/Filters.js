@@ -1,5 +1,7 @@
+import classNames from 'classnames';
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
+import Star from '../icons/star';
 
 const { __ } = wp.i18n;
 const { Fragment } = wp.element;
@@ -31,10 +33,25 @@ const Container = styled.div`
 		color: #000;
 		margin: 0 0 0 35px;
 	}
+
+	.favorites.favorites {
+		margin-right: auto;
+		svg {
+			margin-right: 8px;
+			fill: #060606;
+		}
+	}
+
+	.is-active {
+		svg {
+			fill: #FFB443 !important;
+		}
+	}
 `;
 
 const Filters = ( { category, setCategory } ) => {
 	const context = React.useContext( AnalogContext );
+	const showingCategory = ( ! context.state.syncing && context.state.blocks && category );
 
 	return (
 		<Container>
@@ -46,6 +63,20 @@ const Filters = ( { category, setCategory } ) => {
 
 					<h4>{ category }</h4>
 				</Fragment>
+			) }
+
+			{ ! showingCategory && (
+				<button
+					onClick={ context.toggleFavorites }
+					className={ classNames( 'favorites button-plain', {
+						'is-active': context.state.showing_favorites,
+					} ) }
+				>
+					<Star />{ ' ' }
+					{ context.state.showing_favorites ?
+						__( 'Back to all', 'ang' ) :
+						__( 'My Favorites', 'ang' ) }
+				</button>
 			) }
 
 			<ToggleControl

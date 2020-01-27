@@ -170,32 +170,36 @@ class Local extends Base {
 	}
 
 	/**
-	 * Mark a template as favorite.
+	 * Mark a template or block as favorite.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 *
 	 * @return WP_REST_Response
 	 */
 	public function mark_as_favorite( WP_REST_Request $request ) {
-		$template_id         = $request->get_param( 'template_id' );
-		$favorite            = $request->get_param( 'favorite' );
-		$favorites_templates = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
+		$type = Analog_Templates::$user_meta_prefix;
+		if ( ! empty( $request->get_param( 'type' ) ) && 'block' === $request->get_param( 'type' ) ) {
+			$type = Analog_Templates::$user_meta_block_prefix;
+		}
+		$id        = $request->get_param( 'id' );
+		$favorite  = $request->get_param( 'favorite' );
+		$favorites = get_user_meta( get_current_user_id(), $type, true );
 
-		if ( ! $favorites_templates ) {
-			$favorites_templates = array();
+		if ( ! $favorites ) {
+			$favorites = array();
 		}
 
 		if ( $favorite ) {
-			$favorites_templates[ $template_id ] = $favorite;
-		} elseif ( isset( $favorites_templates[ $template_id ] ) ) {
-			unset( $favorites_templates[ $template_id ] );
+			$favorites[ $id ] = $favorite;
+		} elseif ( isset( $favorites[ $id ] ) ) {
+			unset( $favorites[ $id ] );
 		}
 
 		$data                  = array();
-		$data['template_id']   = $template_id;
+		$data['id']            = $id;
 		$data['action']        = $favorite;
-		$data['update_status'] = update_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, $favorites_templates );
-		$data['favorites']     = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
+		$data['update_status'] = update_user_meta( get_current_user_id(), $type, $favorites );
+		$data['favorites']     = get_user_meta( get_current_user_id(), $type, true );
 
 		return new WP_REST_Response( $data, 200 );
 	}

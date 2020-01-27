@@ -138,6 +138,28 @@ export default class Blocks extends Component {
 		return false;
 	}
 
+	makeFavorite = ( id ) => {
+		const blockFavorites = this.context.state.blockFavorites;
+
+		this.context.markFavorite( id, ! ( id in blockFavorites ), 'block' );
+
+		if ( id in blockFavorites ) {
+			delete blockFavorites[ id ];
+		} else {
+			blockFavorites[ id ] = ! ( id in blockFavorites );
+		}
+
+		this.context.dispatch( { blockFavorites } );
+
+		if ( this.context.state.showing_favorites ) {
+			const filteredBlocks = this.context.state.blocks.filter( t => t.id in blockFavorites );
+
+			this.context.dispatch( {
+				blocks: filteredBlocks,
+			} );
+		}
+	};
+
 	render() {
 		const categories = [ ...new Set( this.context.state.blocks.map( block => block.tags[ 0 ] ) ) ];
 
@@ -220,6 +242,8 @@ export default class Blocks extends Component {
 				<BlockList
 					state={ this.state }
 					importBlock={ this.importBlock }
+					favorites={ this.context.state.blockFavorites }
+					makeFavorite={ this.makeFavorite }
 				/>
 			</Fragment>
 		);

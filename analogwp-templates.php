@@ -36,6 +36,13 @@ final class Analog_Templates {
 	public static $user_meta_prefix = 'analog_library_favorites';
 
 	/**
+	 * Holds key for Favorite blocks user meta.
+	 *
+	 * @var string
+	 */
+	public static $user_meta_block_prefix = 'analog_block_favorites';
+
+	/**
 	 * Current plugin version.
 	 *
 	 * @var string
@@ -236,16 +243,21 @@ final class Analog_Templates {
 			$domains = array();
 		}
 
-		$favorites    = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
-		$current_user = wp_get_current_user();
+		$favorites       = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
+		$block_favorites = get_user_meta( get_current_user_id(), self::$user_meta_block_prefix, true );
+		$current_user    = wp_get_current_user();
 
 		if ( ! $favorites ) {
 			$favorites = array();
+		}
+		if ( ! $block_favorites ) {
+			$block_favorites = array();
 		}
 
 		$new_domains = array(
 			'ajaxurl'        => admin_url( 'admin-ajax.php' ),
 			'favorites'      => $favorites,
+			'blockFavorites' => $block_favorites,
 			'isPro'          => false,
 			'version'        => ANG_VERSION,
 			'elementorURL'   => admin_url( 'edit.php?post_type=elementor_library' ),

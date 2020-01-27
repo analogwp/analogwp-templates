@@ -1,8 +1,10 @@
+import classnames from 'classnames';
 import Masonry from 'react-masonry-css';
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
 import { isNewTheme } from '../utils';
 import { NotificationConsumer } from '../Notifications';
+import Star from '../icons/star';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
@@ -63,6 +65,9 @@ const Container = styled.div`
 					opacity: 1;
 				}
 			}
+			.favorite {
+				opacity: 1;
+			}
 		}
 
 		.actions {
@@ -87,6 +92,45 @@ const Container = styled.div`
 			}
 		}
 	}
+
+	.favorite {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 200;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		width: 25px;
+		height: 25px;
+
+		&:not(.is-active) {
+			opacity: 0;
+		}
+
+		&:before {
+			content: '';
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 42px 42px 0 0;
+			border-color: var(--ang-accent) transparent transparent transparent;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 190;
+		}
+
+		svg {
+			fill: #fff;
+			position: relative;
+			z-index: 195;
+		}
+		&.is-active svg {
+			fill: #FFB443;
+		}
+	}
+
 	img {
 		max-width: 100%;
 		height: auto;
@@ -147,7 +191,7 @@ const getHeight = ( url ) => {
 	return p2[ 0 ];
 };
 
-const BlockList = ( { state, importBlock } ) => {
+const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 	const context = React.useContext( AnalogContext );
 
 	const { category } = state;
@@ -195,6 +239,14 @@ const BlockList = ( { state, importBlock } ) => {
 										) }
 									</NotificationConsumer>
 								</div>
+								<button
+									className={ classnames( 'button-plain favorite', {
+										'is-active': block.id in favorites,
+									} ) }
+									onClick={ () => makeFavorite( block.id ) }
+								>
+									<Star />
+								</button>
 							</figure>
 
 							<div className="content">

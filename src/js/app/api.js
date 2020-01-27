@@ -2,13 +2,14 @@
 const { apiFetch } = wp;
 const { __ } = wp.i18n;
 
-export async function markFavorite( id, favorite = true ) {
+export async function markFavorite( id, favorite = true, type = 'template' ) {
 	return await apiFetch( {
 		path: '/agwp/v1/mark_favorite',
 		method: 'post',
 		data: {
-			template_id: id,
+			id: id,
 			favorite,
+			type: type,
 		},
 	} ).then( response => response );
 }
