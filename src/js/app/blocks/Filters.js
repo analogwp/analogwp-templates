@@ -194,7 +194,7 @@ export default class Filters extends React.Component {
 				</div>
 				{ ( ! this.context.state.group || showingCategory ) && (
 					<div className="bottom">
-						{ ! showingCategory &&  <List>
+						{ ! showingCategory && <List>
 							<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
 							<Select
 								inputId="filter"
