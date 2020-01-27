@@ -226,6 +226,10 @@ export default class Blocks extends Component {
 					<ProModal type={ __( 'blocks', 'ang' ) } />
 				) }
 
+				{ this.context.state.blocks.length < 1 && (
+					<Empty text={ __( 'No blocks found.', 'ang' ) }/>
+				) }
+
 				{ ! this.context.state.syncing && this.context.state.blocks && ! this.state.category && this.context.state.group && (
 					<Categories>
 						{ categories && categories.map( ( category ) => {
