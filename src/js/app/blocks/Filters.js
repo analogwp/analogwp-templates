@@ -178,7 +178,7 @@ export default class Filters extends React.Component {
 						} }
 					/>
 
-					{ ! showingCategory && (
+					{ ! showingCategory && ! this.context.state.showing_favorites && (
 						<ToggleControl
 							label={ __( 'Group by Block type' ) }
 							checked={ this.context.state.group }
@@ -192,7 +192,7 @@ export default class Filters extends React.Component {
 						/>
 					) }
 				</div>
-				{ ( ! this.context.state.group || showingCategory ) && (
+				{ ( ! this.context.state.group || showingCategory) && ! this.context.state.showing_favorites && (
 					<div className="bottom">
 						{ ! showingCategory && <List>
 							<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
