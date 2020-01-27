@@ -138,6 +138,7 @@ export default class Filters extends React.Component {
 			{ value: 'latest', label: __( 'Latest', 'ang' ) },
 			{ value: 'popular', label: __( 'Popular', 'ang' ) },
 		];
+
 		const showingCategory = ( ! this.context.state.syncing && this.context.state.blocks && category );
 
 		return (
@@ -187,7 +188,7 @@ export default class Filters extends React.Component {
 									group: ! this.context.state.group,
 								} );
 
-								window.localStorage.setItem( 'analog::group-block', ! this.context.state.group );
+								window.localStorage.setItem( 'analog::group-kit', ! this.context.state.group );
 							} }
 						/>
 					) }
