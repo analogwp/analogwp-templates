@@ -141,7 +141,8 @@ class Filters extends React.Component {
 	}
 
 	render() {
-		const filterTypes = [ ...this.context.state.filters ].map( filter => {
+		const filters = [ ...new Set( this.context.state.archive.map( f => f.type ) ) ];
+		const filterTypes = [ ...filters ].map( filter => {
 			return { value: `${ filter }`, label: `${ filter }` };
 		} );
 
@@ -222,7 +223,7 @@ class Filters extends React.Component {
 
 						{ ( ! this.context.state.group || showingKit ) && ! this.context.state.showing_favorites && (
 							<div className="bottom">
-								{ this.context.state.filters.length > 1 && (
+								{ filters.length > 1 && (
 									<List>
 										<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
 										<Select

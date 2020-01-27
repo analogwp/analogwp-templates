@@ -211,7 +211,6 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			blockArchive: [], // same as archive above just for blocks.
-			filters: [],
 			showFree: true,
 			group: true,
 			activeKit: false,
@@ -287,7 +286,6 @@ class App extends React.Component {
 			count: library.templates.length,
 			timestamp: templates.timestamp,
 			hasPro: hasProTemplates( library.templates ),
-			filters: [ ...new Set( library.templates.map( f => f.type ) ) ],
 			styleKits: library.stylekits,
 			blocks: library.blocks,
 		} );
