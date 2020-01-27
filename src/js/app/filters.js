@@ -221,7 +221,7 @@ class Filters extends React.Component {
 						</div>
 
 						<div className="bottom">
-							{ this.context.state.filters.length > 1 && (
+							{ ( ! this.context.state.group || showingKit ) && this.context.state.filters.length > 1 && (
 								<List>
 									<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
 									<Select
@@ -234,6 +234,7 @@ class Filters extends React.Component {
 									/>
 								</List>
 							) }
+							{ ( ! this.context.state.group || showingKit )  && (
 							<List>
 								<label htmlFor="sort">{ __( 'Sort by', 'ang' ) }</label>
 								<Select
@@ -245,7 +246,9 @@ class Filters extends React.Component {
 									onChange={ e => this.context.handleSort( e.value ) }
 								/>
 							</List>
+							)}
 
+							{ ( ! this.context.state.group || showingKit )  && (
 							<input
 								type="search"
 								placeholder={ __( 'Search templates', 'ang' ) }
@@ -256,6 +259,7 @@ class Filters extends React.Component {
 									)
 								}
 							/>
+							) }
 						</div>
 					</FiltersContainer>
 				) }
