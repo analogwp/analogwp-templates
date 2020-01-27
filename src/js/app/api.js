@@ -163,11 +163,26 @@ export async function requestElementorImport( template, kit ) {
 		if ( parsedTemplate.tokens ) {
 			analog.resetStyles();
 			elementor.settings.page.model.set( parsedTemplate.tokens );
+
+			/* Populate Style Kits dropdown with new item. */
+			let options = elementor.settings.page.model.controls.ang_action_tokens.options;
+			if ( options.length === 0 ) {
+				options = {};
+			}
+			const id = parsedTemplate.tokens.ang_action_tokens.toString();
+			options[ [id] ] = kit.data.title;
+
+			elementor.settings.page.model.controls.ang_action_tokens.options = options;
 		}
 
 		doElementorInsert( parsedTemplate.content );
 
 		window.analogModal.hide();
+		elementor.reloadPreview();
+
+		elementor.once( 'preview:loaded', () => {
+			analog.redirectToSection();
+		} );
 	} );
 }
 
