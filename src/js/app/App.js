@@ -455,10 +455,16 @@ class App extends React.Component {
 	}
 
 	toggleFavorites() {
-		const filteredTemplates = this.state.templates.filter(
+		// Reset group state to false.
+		this.setState( {
+			group: false,
+		} );
+		window.localStorage.setItem( 'analog::group-block', false );
+
+		const filteredTemplates = this.state.archive.filter(
 			template => template.id in this.state.favorites
 		);
-		const filteredBlocks = this.state.blocks.filter(
+		const filteredBlocks = this.state.blockArchive.filter(
 			block => block.id in this.state.blockFavorites
 		);
 
