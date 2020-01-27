@@ -335,10 +335,7 @@ class App extends React.Component {
 			showing_favorites: false,
 		} );
 
-		let sortData = this.state.blocks;
-		if ( 'blocks' !== library ) {
-			sortData = this.state.templates;
-		}
+		const sortData = this.state[ library ];
 
 		if ( 'popular' === value ) {
 			const sorted = sortData.sort( ( a, b ) => {
@@ -353,11 +350,7 @@ class App extends React.Component {
 				return 0;
 			} );
 
-			if ( 'blocks' !== library ) {
-				this.setState( { templates: sorted } );
-			} else {
-				this.setState( { blocks: sorted } );
-			}
+			this.setState( { [ library ]: sorted } );
 		}
 
 		if ( 'latest' === value ) {
@@ -373,11 +366,7 @@ class App extends React.Component {
 				return 0;
 			} );
 
-			if ( 'blocks' !== library ) {
-				this.setState( { templates: sorted } );
-			} else {
-				this.setState( { blocks: sorted } );
-			}
+			this.setState( { [ library ]: sorted } );
 		}
 	}
 
