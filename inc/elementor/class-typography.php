@@ -61,7 +61,7 @@ class Typography extends Module {
 	 * Typography constructor.
 	 */
 	public function __construct() {
-		$this->tokens            = Utils::get_tokens();
+		$this->tokens            = Utils::get_kits();
 		$this->global_token_data = json_decode( Utils::get_global_token_data(), true );
 		$this->page_settings     = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 
@@ -662,7 +662,7 @@ class Typography extends Module {
 				'label'   => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'    => Controls_Manager::SELECT2,
 				'options' => $this->tokens,
-				'default' => Utils::get_global_kit_id(),
+				'default' => get_option( 'elementor_active_kit' ),
 			)
 		);
 
