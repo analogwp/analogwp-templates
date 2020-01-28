@@ -143,6 +143,9 @@ class Migration {
 		// Recursive replacements, keys with multiple instances.
 		$settings = $this->change_key_prefixes( 'background_', 'body_background_', $settings );
 
+		// Body Typography = Typography > Typography.
+		$settings = $this->change_key_prefixes( 'ang_body_', 'body_typography_', $settings );
+
 		$settings = $this->change_key_prefixes( 'ang_heading_1_', 'h1_typography_', $settings );
 		$settings = $this->change_key_prefixes( 'ang_heading_2_', 'h2_typography_', $settings );
 		$settings = $this->change_key_prefixes( 'ang_heading_3_', 'h3_typography_', $settings );
@@ -152,13 +155,16 @@ class Migration {
 
 		$replacements = array(
 			// Heading Colors.
-			'ang_color_heading_h1' => 'h1_color',
-			'ang_color_heading_h2' => 'h2_color',
-			'ang_color_heading_h3' => 'h3_color',
-			'ang_color_heading_h4' => 'h4_color',
-			'ang_color_heading_h5' => 'h5_color',
-			'ang_color_heading_h6' => 'h6_color',
+			'ang_color_heading_h1'     => 'h1_color',
+			'ang_color_heading_h2'     => 'h2_color',
+			'ang_color_heading_h3'     => 'h3_color',
+			'ang_color_heading_h4'     => 'h4_color',
+			'ang_color_heading_h5'     => 'h5_color',
+			'ang_color_heading_h6'     => 'h6_color',
 
+			// Main Color > Text Color = Body Color.
+			'ang_color_text'           => 'body_color',
+			'ang_color_accent_primary' => 'link_normal_color',
 		);
 
 		$settings = $this->replace_old_keys_with_new( $replacements, $settings );
