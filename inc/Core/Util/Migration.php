@@ -28,11 +28,6 @@ class Migration {
 	protected $settings;
 
 	/**
-	 * Elementor key storing active kit ID.
-	 */
-	const OPTION_ACTIVE = 'elementor_active_kit';
-
-	/**
 	 * Migration constructor.
 	 *
 	 * @param array $settings Page settings.
