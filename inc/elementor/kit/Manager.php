@@ -22,7 +22,7 @@ class Manager {
 	 */
 	const OPTION_ACTIVE = 'elementor_active_kit';
 
-	const OPTION_CUSTOM_KIT = '_ang_custom_kit';
+	const OPTION_CUSTOM_KIT = '_elementor_page_settings';
 
 	/**
 	 * Manager constructor.
@@ -48,9 +48,17 @@ class Manager {
 	 * @return bool
 	 */
 	public function is_using_custom_kit() {
+		if ( ! get_the_ID() ) {
+			return false;
+		}
+
 		$kit = $this->get_current_post()->get_meta( self::OPTION_CUSTOM_KIT );
 
-		return ( '' !== $kit ) ? true : false;
+		if ( isset( $kit['ang_action_tokens'] ) && '' !== $kit['ang_action_tokens'] ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -61,7 +69,7 @@ class Manager {
 	public function remove_global_kit_css() {
 		$kit_id = get_option( self::OPTION_ACTIVE );
 
-		wp_dequeue_style( 'elementor-post-' . $kit_id );
+		wp_deregister_style( 'elementor-post-' . $kit_id );
 	}
 
 	/**
@@ -88,11 +96,13 @@ class Manager {
 	 * @return void
 	 */
 	public function frontend_before_enqueue_styles() {
+
 		if ( ! $this->is_using_custom_kit() ) {
 			return;
 		}
 
 		$custom_kit = $this->get_current_post()->get_meta( self::OPTION_CUSTOM_KIT );
+		$custom_kit = $custom_kit['ang_action_tokens'];
 
 		$this->remove_global_kit_css();
 		$css = Post_CSS::create( $custom_kit );
