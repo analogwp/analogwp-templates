@@ -219,7 +219,7 @@ export default class Blocks extends Component {
 					</Popup>
 				) }
 
-				{ ! this.context.state.showFree && AGWP.license.status !== 'valid' && (
+				{ AGWP.license.status !== 'valid' && (
 					<ProModal type={ __( 'blocks', 'ang' ) } />
 				) }
 

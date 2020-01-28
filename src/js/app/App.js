@@ -48,6 +48,10 @@ const Analog = styled.div`
 		min-width: 100px;
 		text-decoration: none;
 		box-sizing: border-box;
+		a {
+			color: #fff !important;
+			text-decoration: none;
+		}
 
 		&.secondary {
 			background: #000222;

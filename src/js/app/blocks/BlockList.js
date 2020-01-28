@@ -6,6 +6,7 @@ import { isNewTheme } from '../utils';
 import { NotificationConsumer } from '../Notifications';
 import Star from '../icons/star';
 
+const { ExternalLink } = wp.components;
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
 
@@ -230,6 +231,9 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 								/>
 
 								<div className="actions">
+									{ ! isValid( block.is_pro ) && (
+										<button className="ang-button"><ExternalLink href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro">{ __( 'Go PRO', 'ang' ) }</ExternalLink></button>
+									) }
 									<NotificationConsumer>
 										{ ( { add } ) => (
 											isValid( block.is_pro ) && (
