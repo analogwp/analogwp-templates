@@ -125,3 +125,17 @@ button[data-action="save_token"] {
 #analogwp-templates-modal .dialog-content {
 	height: 100%;
 }
+
+
+/* TODO: Add final styles before release */
+.elementor-control[class*="ang_"] .elementor-panel-heading {
+	position: relative;
+}
+
+.elementor-control[class*="ang_"] .elementor-panel-heading:after {
+	content: '\2B55';
+	position: absolute;
+	top: 50%;
+	right: 20px;
+	transform: translateY(-50%);
+}
