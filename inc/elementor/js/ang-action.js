@@ -1,4 +1,94 @@
 /* global jQuery, elementor, elementorCommon, ANG_Action, cssbeautify, elementorModules */
+
+( function( window, $ ) {
+	'use strict';
+
+	$.fn.classList = function() {return this[0].className.split(/\s+/);};
+
+	const App = function() {
+		function init() {
+			bindEvents();
+		}
+
+		function bindEvents() {
+			elementor.once( 'preview:loaded', function() {
+				elementor.settings.page.addChangeCallback( 'ang_action_tokens', refreshKit );
+
+				if ( elementor.config.initial_document.type !== 'kit' ) {
+					elementor.config.kit_id = elementor.settings.page.model.attributes.ang_action_tokens;
+					fixKitClasses();
+					enqueueFonts();
+					loadDocumentAndEnqueueFonts( elementor.config.kit_id );
+				} else {
+					elementor.$previewContents.find('body').removeClass(`elementor-kit-${elementor.config.kit_id}`).addClass(`elementor-kit-${elementor.config.document.id}`);
+					enqueueFonts();
+				}
+			});
+		}
+
+		function fixKitClasses( id = elementor.config.kit_id ) {
+			const classes = elementor.$previewContents.find('body').classList().filter(word => word.startsWith('elementor-kit-'));
+			classes.forEach( className => {
+				elementor.$previewContents.find('body').removeClass(className);
+			} );
+			elementor.$previewContents.find('body').addClass(`elementor-kit-${id}`);
+		}
+
+		function loadDocumentAndEnqueueFonts( id ) {
+			elementor.documents.request(id)
+				.then( ( config ) => elementor.documents.addDocumentByConfig(config))
+				.then( () => {
+					const document = elementor.documents.get(id);
+					const settings = document.config.settings.settings;
+					const controls = document.config.settings.controls;
+
+					for (let [key, value] of Object.entries( settings ) ) {
+						if ( controls[ key ] && 'font' === controls[ key ].type && value ) {
+							console.log(value);
+							elementor.helpers.enqueueFont( value );
+						}
+					}
+				} );
+		}
+
+		function enqueueFonts() {
+			const attributes = elementor.settings.page.model.attributes;
+			const controls = elementor.settings.page.model.controls;
+
+			for (let [key, value] of Object.entries(attributes)) {
+				if ( controls[ key ] && 'font' === controls[ key ].type && value ) {
+					console.log(value);
+					elementor.helpers.enqueueFont( value );
+				}
+			}
+		}
+
+		function refreshKit( id ) {
+			elementor.config.kit_id = id;
+
+			$e.run( 'document/save/auto', {
+				force: true,
+				onSuccess: function() {
+					elementor.reloadPreview();
+
+					elementor.once( 'preview:loaded', function() {
+						fixKitClasses( id );
+						elementor.helpers.enqueuePreviewStylesheet( ANG_Action.cssDir + `post-${id}.css` );
+
+						$e.route( 'panel/page-settings/style' );
+					} );
+				},
+			} );
+		}
+
+		init();
+	};
+
+	$( window ).on( 'elementor:init', function() {
+		new App();
+	});
+}( window, jQuery ) );
+
 jQuery( window ).on( 'elementor:init', function() {
 	const analog = window.analog = window.analog || {};
 	const elementorSettings = elementor.settings.page.model.attributes;
@@ -71,113 +161,113 @@ jQuery( window ).on( 'elementor:init', function() {
 		}
 	};
 
-	analog.showStyleKitAttentionDialog = () => {
-		const introduction = new elementorModules.editor.utils.Introduction( {
-			introductionKey: 'angStylekit',
-			dialogType: 'confirm',
-			dialogOptions: {
-				id: 'ang-stylekit-attention-dialog',
-				headerMessage: ANG_Action.translate.sk_header,
-				message: ANG_Action.translate.sk_message,
-				position: {
-					my: 'center center',
-					at: 'center center',
-				},
-				strings: {
-					confirm: ANG_Action.translate.sk_learn,
-					cancel: elementor.translate( 'got_it' ),
-				},
-				hide: {
-					onButtonClick: false,
-				},
-				onCancel: () => {
-					introduction.setViewed();
-					introduction.getDialog().hide();
-				},
-				onConfirm: () => {
-					introduction.setViewed();
-					introduction.getDialog().hide();
-					analog.redirectToSection();
-				},
-			},
-		} );
+	// analog.showStyleKitAttentionDialog = () => {
+	// 	const introduction = new elementorModules.editor.utils.Introduction( {
+	// 		introductionKey: 'angStylekit',
+	// 		dialogType: 'confirm',
+	// 		dialogOptions: {
+	// 			id: 'ang-stylekit-attention-dialog',
+	// 			headerMessage: ANG_Action.translate.sk_header,
+	// 			message: ANG_Action.translate.sk_message,
+	// 			position: {
+	// 				my: 'center center',
+	// 				at: 'center center',
+	// 			},
+	// 			strings: {
+	// 				confirm: ANG_Action.translate.sk_learn,
+	// 				cancel: elementor.translate( 'got_it' ),
+	// 			},
+	// 			hide: {
+	// 				onButtonClick: false,
+	// 			},
+	// 			onCancel: () => {
+	// 				introduction.setViewed();
+	// 				introduction.getDialog().hide();
+	// 			},
+	// 			onConfirm: () => {
+	// 				introduction.setViewed();
+	// 				introduction.getDialog().hide();
+	// 				analog.redirectToSection();
+	// 			},
+	// 		},
+	// 	} );
+	//
+	// 	introduction.show();
+	// };
 
-		introduction.show();
-	};
+	// analog.styleKitUpdateDialog = () => {
+	// 	const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
+	// 		id: 'ang-stylekit-update',
+	// 		headerMessage: ANG_Action.translate.skUpdate,
+	// 		message: ANG_Action.translate.skUpdateDesc,
+	// 		hide: {
+	// 			onOutsideClick: false,
+	// 			onBackgroundClick: false,
+	// 			onEscKeyPress: false,
+	// 		},
+	// 	} );
+	//
+	// 	modal.addButton( {
+	// 		name: 'ang_discard',
+	// 		text: ANG_Action.translate.discard,
+	// 		callback() {
+	// 			analog.removeFromQueue();
+	// 			// Set to negative value to avoid queue of Global Style Kit.
+	// 			elementor.settings.page.model.set( 'ang_action_tokens', '-1' );
+	// 		},
+	// 	} );
+	//
+	// 	modal.addButton( {
+	// 		name: 'ang_apply',
+	// 		text: ANG_Action.translate.apply,
+	// 		callback() {
+	// 			analog.removeFromQueue();
+	// 			analog.applyStyleKit( elementorSettings.ang_action_tokens );
+	// 		},
+	// 	} );
+	//
+	// 	return modal;
+	// };
 
-	analog.styleKitUpdateDialog = () => {
-		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
-			id: 'ang-stylekit-update',
-			headerMessage: ANG_Action.translate.skUpdate,
-			message: ANG_Action.translate.skUpdateDesc,
-			hide: {
-				onOutsideClick: false,
-				onBackgroundClick: false,
-				onEscKeyPress: false,
-			},
-		} );
+	// analog.hasGlobalKit = () => {
+	// 	const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
+	// 		id: 'ang-has-globalkit',
+	// 		headerMessage: ANG_Action.translate.pageStyleHeader,
+	// 		message: ANG_Action.translate.pageStyleDesc,
+	// 		hide: {
+	// 			onOutsideClick: false,
+	// 			onBackgroundClick: false,
+	// 			onEscKeyPress: false,
+	// 		},
+	// 	} );
+	//
+	// 	modal.addButton( {
+	// 		name: 'ang_discard',
+	// 		text: ANG_Action.translate.discard,
+	// 		callback() {
+	// 			elementor.settings.page.model.set( 'uses_style_kit', false );
+	// 			elementor.saver.defaultSave();
+	// 		},
+	// 	} );
+	//
+	// 	modal.addButton( {
+	// 		name: 'ang_apply',
+	// 		text: ANG_Action.translate.gotoPageStyle,
+	// 		callback() {
+	// 			elementor.settings.page.model.set( 'uses_style_kit', false );
+	// 			analog.redirectToSection();
+	// 			elementor.saver.defaultSave();
+	// 		},
+	// 	} );
+	//
+	// 	modal.show();
+	// };
 
-		modal.addButton( {
-			name: 'ang_discard',
-			text: ANG_Action.translate.discard,
-			callback() {
-				analog.removeFromQueue();
-				// Set to negative value to avoid queue of Global Style Kit.
-				elementor.settings.page.model.set( 'ang_action_tokens', '-1' );
-			},
-		} );
+	// if ( elementor.settings.page.getSettings().settings.uses_style_kit ) {
+	// 	analog.hasGlobalKit();
+	// }
 
-		modal.addButton( {
-			name: 'ang_apply',
-			text: ANG_Action.translate.apply,
-			callback() {
-				analog.removeFromQueue();
-				analog.applyStyleKit( elementorSettings.ang_action_tokens );
-			},
-		} );
-
-		return modal;
-	};
-
-	analog.hasGlobalKit = () => {
-		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
-			id: 'ang-has-globalkit',
-			headerMessage: ANG_Action.translate.pageStyleHeader,
-			message: ANG_Action.translate.pageStyleDesc,
-			hide: {
-				onOutsideClick: false,
-				onBackgroundClick: false,
-				onEscKeyPress: false,
-			},
-		} );
-
-		modal.addButton( {
-			name: 'ang_discard',
-			text: ANG_Action.translate.discard,
-			callback() {
-				elementor.settings.page.model.set( 'uses_style_kit', false );
-				elementor.saver.defaultSave();
-			},
-		} );
-
-		modal.addButton( {
-			name: 'ang_apply',
-			text: ANG_Action.translate.gotoPageStyle,
-			callback() {
-				elementor.settings.page.model.set( 'uses_style_kit', false );
-				analog.redirectToSection();
-				elementor.saver.defaultSave();
-			},
-		} );
-
-		modal.show();
-	};
-
-	if ( elementor.settings.page.getSettings().settings.uses_style_kit ) {
-		analog.hasGlobalKit();
-	}
-
-	analog.StyleKitUpdateModal = analog.styleKitUpdateDialog();
+	// analog.StyleKitUpdateModal = analog.styleKitUpdateDialog();
 
 	analog.resetStyles = () => {
 		const settings = elementor.settings.page.model.attributes;
@@ -228,60 +318,60 @@ jQuery( window ).on( 'elementor:init', function() {
 		analog.redirectToSection();
 	};
 
-	analog.applyStyleKit = ( value ) => {
-		if ( ! value || value === '' ) {
-			console.warn( 'No value provided.', value );
-			return;
-		}
+	// analog.applyStyleKit = ( value ) => {
+	// 	if ( ! value || value === '' ) {
+	// 		console.warn( 'No value provided.', value );
+	// 		return;
+	// 	}
+	//
+	// 	wp.apiFetch( {
+	// 		method: 'post',
+	// 		path: 'agwp/v1/tokens/get',
+	// 		data: {
+	// 			id: value,
+	// 		},
+	// 	} ).then( function( response ) {
+	// 		const data = JSON.parse( response.data );
+	//
+	// 		if ( Object.keys( data ).length ) {
+	// 			elementor.settings.page.model.set( data );
+	// 			elementor.settings.page.model.set( 'ang_recently_imported', 'no' );
+	// 		}
+	// 	} ).catch( function( error ) {
+	// 		console.error( error );
+	// 	} );
+	// };
 
-		wp.apiFetch( {
-			method: 'post',
-			path: 'agwp/v1/tokens/get',
-			data: {
-				id: value,
-			},
-		} ).then( function( response ) {
-			const data = JSON.parse( response.data );
+	// analog.removeFromQueue = ( id = elementor.config.document.id ) => {
+	// 	jQuery.ajax( {
+	// 		type: 'POST',
+	// 		url: AGWP.ajaxurl,
+	// 		data: {
+	// 			action: 'ang_remove_kit_queue',
+	// 			id: id,
+	// 		},
+	// 		success: ( response ) => {
+	// 			if ( ! response.success ) {
+	// 				elementorCommon.dialogsManager.createWidget( 'alert', {
+	// 					message: response.data.message,
+	// 				} ).show();
+	// 			}
+	// 		},
+	// 		dataType: 'JSON',
+	// 	} );
+	// };
 
-			if ( Object.keys( data ).length ) {
-				elementor.settings.page.model.set( data );
-				elementor.settings.page.model.set( 'ang_recently_imported', 'no' );
-			}
-		} ).catch( function( error ) {
-			console.error( error );
-		} );
-	};
-
-	analog.removeFromQueue = ( id = elementor.config.document.id ) => {
-		jQuery.ajax( {
-			type: 'POST',
-			url: AGWP.ajaxurl,
-			data: {
-				action: 'ang_remove_kit_queue',
-				id: id,
-			},
-			success: ( response ) => {
-				if ( ! response.success ) {
-					elementorCommon.dialogsManager.createWidget( 'alert', {
-						message: response.data.message,
-					} ).show();
-				}
-			},
-			dataType: 'JSON',
-		} );
-	};
-
-	elementor.on( 'preview:loaded', () => {
-		if ( ! elementor.config.user.introduction.angStylekit ) {
-			analog.showStyleKitAttentionDialog();
-		}
-
-		const settings = elementor.settings.page.model.attributes;
-
-		if ( settings.ang_action_tokens && settings.ang_action_tokens !== '-1' ) {
-			analog.applyStyleKit( settings.ang_action_tokens );
-		}
-	} );
+	// elementor.on( 'preview:loaded', () => {
+	// 	if ( ! elementor.config.user.introduction.angStylekit ) {
+	// 		analog.showStyleKitAttentionDialog();
+	// 	}
+	//
+	// 	const settings = elementor.settings.page.model.attributes;
+	//
+	// 	if ( settings.ang_action_tokens && settings.ang_action_tokens !== '-1' ) {
+	// 		analog.applyStyleKit( settings.ang_action_tokens );
+	// 	}
+	// } );
 
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {
@@ -521,38 +611,34 @@ jQuery( window ).on( 'elementor:init', function() {
 	} );
 	elementor.addControlView( 'ang_action', ControlANGAction );
 
-	elementor.settings.page.addChangeCallback( 'ang_action_tokens', function( value ) {
-		analog.applyStyleKit( value );
-	} );
+	// jQuery( document ).on( 'heartbeat-tick', function( event, response ) {
+	// 	const post_id = elementor.config.document.id;
+	// 	const posts = response.sk_posts;
+	//
+	// 	if ( posts && posts.indexOf(post_id) >= 0 ) {
+	// 		if ( ! analog.sk_modal_shown ) {
+	// 			analog.sk_modal_shown = true;
+	// 			analog.StyleKitUpdateModal.show();
+	//
+	// 			setTimeout( () => {
+	// 				analog.sk_modal_shown = false;
+	// 			}, 60*1000);
+	// 		}
+	// 	}
+	// } );
 
-	jQuery( document ).on( 'heartbeat-tick', function( event, response ) {
-		const post_id = elementor.config.document.id;
-		const posts = response.sk_posts;
-
-		if ( posts && posts.indexOf(post_id) >= 0 ) {
-			if ( ! analog.sk_modal_shown ) {
-				analog.sk_modal_shown = true;
-				analog.StyleKitUpdateModal.show();
-
-				setTimeout( () => {
-					analog.sk_modal_shown = false;
-				}, 60*1000);
-			}
-		}
-	} );
-
-	jQuery( document ).on( 'heartbeat-send', function( event, data ) {
-		const kitID = elementor.settings.page.model.attributes.ang_action_tokens;
-		if ( kitID ) {
-			data.ang_sk_post = {
-				post_id: elementor.config.document.id,
-				kit_id: kitID,
-				updated: analog.style_kit_updated,
-			};
-
-			analog.style_kit_updated = false;
-		}
-	});
+	// jQuery( document ).on( 'heartbeat-send', function( event, data ) {
+	// 	const kitID = elementor.settings.page.model.attributes.ang_action_tokens;
+	// 	if ( kitID ) {
+	// 		data.ang_sk_post = {
+	// 			post_id: elementor.config.document.id,
+	// 			kit_id: kitID,
+	// 			updated: analog.style_kit_updated,
+	// 		};
+	//
+	// 		analog.style_kit_updated = false;
+	// 	}
+	// });
 
 	analog.insertColors = () => {
 		const settings = elementor.settings.page.model.attributes;

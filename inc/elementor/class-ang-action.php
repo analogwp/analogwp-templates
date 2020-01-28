@@ -99,6 +99,7 @@ class ANG_Action extends Base_Data_Control {
 			array(
 				'saveToken'       => rest_url( 'agwp/v1/tokens/save' ),
 				'palette'         => $central_color_palette,
+				'cssDir'          => \Elementor\Core\Files\Base::get_base_uploads_url() . \Elementor\Core\Files\Base::DEFAULT_FILES_DIR,
 				'translate'       => array(
 					'resetMessage'    => __( 'This will reset all the settings you configured previously under Page Style Settings from Analog Templates.', 'ang' ),
 					'resetHeader'     => __( 'Are you sure?', 'ang' ),
