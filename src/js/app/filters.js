@@ -220,6 +220,7 @@ class Filters extends React.Component {
 											isSearchable={ false }
 											options={ filterOptions }
 											onChange={ e => {
+												this.searchInput.current.value = '';
 												this.context.handleFilter( e.value );
 											} }
 										/>
