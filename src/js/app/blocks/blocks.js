@@ -127,10 +127,7 @@ export default class Blocks extends Component {
 	getItemCount( category ) {
 		const blocks = this.context.state.blocks;
 
-		const foundItems =
-			blocks
-				.filter( block => block.tags.indexOf( category ) > -1 )
-				.filter( block => ! ( this.context.state.showFree && Boolean( block.is_pro ) ) );
+		const foundItems = blocks.filter( block => block.tags.indexOf( category ) > -1 );
 
 		if ( foundItems ) {
 			return foundItems.length;
@@ -222,8 +219,12 @@ export default class Blocks extends Component {
 					</Popup>
 				) }
 
-				{ ! this.context.state.showFree && AGWP.license.status !== 'valid' && (
+				{ AGWP.license.status !== 'valid' && (
 					<ProModal type={ __( 'blocks', 'ang' ) } />
+				) }
+
+				{ this.context.state.blocks.length < 1 && (
+					<Empty text={ __( 'No blocks found.', 'ang' ) }/>
 				) }
 
 				{ ! this.context.state.syncing && this.context.state.blocks && ! this.state.category && this.context.state.group && (

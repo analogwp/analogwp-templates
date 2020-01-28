@@ -406,7 +406,7 @@ class Templates extends React.Component {
 					/>
 				) }
 
-				{ ! this.context.state.showFree && AGWP.license.status !== 'valid' && (
+				{ AGWP.license.status !== 'valid' && (
 					<ProModal type={ __( 'templates', 'ang' ) } />
 				) }
 
@@ -427,10 +427,6 @@ class Templates extends React.Component {
 						} ) }
 					>
 						{ ! this.context.state.isOpen && this.context.state.count >= 1 && this.context.state.templates.map( template => {
-							if ( this.context.state.showFree && Boolean( template.is_pro ) ) {
-								return;
-							}
-
 							return (
 								<Template
 									key={ `${template.id}-${template.site_id}` }

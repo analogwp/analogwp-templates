@@ -6,6 +6,7 @@ import Header from './Header';
 import Notifications from './Notifications';
 import { getTime, getPageComponents, hasProTemplates } from './utils';
 const { apiFetch } = wp;
+const { __ } = wp.i18n;
 
 const Analog = styled.div`
 	margin: 0 0 0 -20px;
@@ -47,6 +48,10 @@ const Analog = styled.div`
 		min-width: 100px;
 		text-decoration: none;
 		box-sizing: border-box;
+		a {
+			color: #fff !important;
+			text-decoration: none;
+		}
 
 		&.secondary {
 			background: #000222;
@@ -211,7 +216,6 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			blockArchive: [], // same as archive above just for blocks.
-			filters: [],
 			showFree: true,
 			group: true,
 			activeKit: false,
@@ -237,6 +241,9 @@ class App extends React.Component {
 		if ( validHashes.indexOf( hash ) > -1 && AGWP.is_settings_page ) {
 			this.setState( {
 				tab: hash.substr( 1 ),
+				templates: this.state.archive,
+				blocks: this.state.blockArchive,
+				showing_favorites: false,
 			} );
 		}
 	}
@@ -245,11 +252,6 @@ class App extends React.Component {
 		window.addEventListener( 'hashchange', this.switchTabs, false );
 		window.addEventListener( 'DOMContentLoaded', this.switchTabs, false );
 
-		if ( window.localStorage.getItem( 'analog::show-free' ) === 'false' ) {
-			this.setState( {
-				showFree: false,
-			} );
-		}
 		if ( window.localStorage.getItem( 'analog::group-kit' ) === 'false' ) {
 			this.setState( {
 				group: false,
@@ -287,7 +289,6 @@ class App extends React.Component {
 			count: library.templates.length,
 			timestamp: templates.timestamp,
 			hasPro: hasProTemplates( library.templates ),
-			filters: [ ...new Set( library.templates.map( f => f.type ) ) ],
 			styleKits: library.stylekits,
 			blocks: library.blocks,
 		} );
