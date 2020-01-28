@@ -241,6 +241,8 @@ class App extends React.Component {
 		if ( validHashes.indexOf( hash ) > -1 && AGWP.is_settings_page ) {
 			this.setState( {
 				tab: hash.substr( 1 ),
+				templates: this.state.archive,
+				blocks: this.state.blockArchive,
 			} );
 		}
 	}
