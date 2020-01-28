@@ -666,19 +666,6 @@ class Typography extends Module {
 			)
 		);
 
-		$element->add_control(
-			'ang_action_update_token',
-			array(
-				'label'        => __( 'Update Your Style Kit', 'ang' ),
-				'type'         => 'ang_action',
-				'action'       => 'update_token',
-				'action_label' => __( 'Update Style Kit', 'ang' ),
-				'condition'    => array(
-					'ang_action_tokens!' => '',
-				),
-			)
-		);
-
 		$label = __( 'Save all the styles as a Style Kit that you can apply on other pages or globally. Please note that only the custom styles added in the styles page are saved with the stylekit.', 'ang' );
 		$element->add_control(
 			'ang_action_save_token',

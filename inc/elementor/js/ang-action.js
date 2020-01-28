@@ -39,14 +39,6 @@ jQuery( window ).on( 'elementor:init', function() {
 		return str.replace(new RegExp(escapeRegExp(term), 'g'), replacement);
 	}
 
-	elementor.channels.editor.on( 'status:change', function(){
-		const button = jQuery( 'button[data-action="update_token"]' );
-
-		if ( button.attr('disabled') === 'disabled' ) {
-			button.attr( 'disabled', false );
-		}
-	});
-
 	/**
 	 * Determines if given key should be exported/imported into Style Kit.
 	 *
@@ -342,7 +334,6 @@ jQuery( window ).on( 'elementor:init', function() {
 				export_css: 'handleCSSExport',
 				reset_css: 'handleCSSReset',
 				save_token: 'handleSaveToken',
-				update_token: 'handleTokenUpdate',
 			};
 
 			return this[ actions[ name ] ]();
@@ -526,54 +517,6 @@ jQuery( window ).on( 'elementor:init', function() {
 			modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
 			modal.show();
 			jQuery( window ).resize();
-		},
-
-		handleTokenUpdate: function() {
-			const postID = elementor.settings.page.model.attributes.ang_action_tokens;
-			const currentID = elementor.config.post_id;
-			const settings = elementor.settings.page.model.attributes;
-			const angSettings = {};
-
-			// Save settings before saving the token.
-			elementor.saver.defaultSave();
-
-			_.map( settings, function( value, key ) {
-				if ( eligibleKey( key ) ) {
-					angSettings[ key ] = value;
-				}
-			} );
-
-			const modal = elementorCommon.dialogsManager.createWidget( 'confirm', {
-				message: ANG_Action.translate.updateMessage,
-				headerMessage: ANG_Action.translate.updateKit,
-				strings: {
-					confirm: elementor.translate( 'yes' ),
-					cancel: elementor.translate( 'cancel' ),
-				},
-				defaultOption: 'cancel',
-				onConfirm: function() {
-					wp.apiFetch( {
-						path: 'agwp/v1/tokens/update',
-						method: 'post',
-						data: {
-							id: postID,
-							current_id: currentID,
-							tokens: JSON.stringify( angSettings ),
-						},
-					} ).then( () => {
-						elementor.notifications.showToast( {
-							message: ANG_Action.translate.tokenUpdated,
-						} );
-
-						analog.style_kit_updated = true;
-
-						analog.removeFromQueue();
-					} ).catch( error => console.error( error ) );
-				},
-			} );
-
-			modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
-			modal.show();
 		},
 	} );
 	elementor.addControlView( 'ang_action', ControlANGAction );
