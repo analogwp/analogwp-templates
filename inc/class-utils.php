@@ -7,8 +7,8 @@
 
 namespace Analog;
 
-use Elementor\Core\Settings\Manager;
 use Elementor\Plugin;
+use Elementor\TemplateLibrary\Source_Local;
 use WP_Query;
 
 /**
@@ -589,6 +589,41 @@ class Utils extends Base {
 		$len = strlen( $start_string );
 
 		return ( substr( $string, 0, $len ) === $start_string );
+	}
+
+	public static function get_kits( $prefix = true ) {
+		$posts = \get_posts(
+			array(
+				'post_type'      => Source_Local::CPT,
+				'post_status'    => array( 'publish', 'draft' ),
+				'posts_per_page' => -1,
+				'orderby'        => 'title',
+				'order'          => 'DESC',
+				'meta_query'     => array( // @codingStandardsIgnoreLine
+					array(
+						'key'   => \Elementor\Core\Base\Document::TYPE_META_KEY,
+						'value' => 'kit',
+					),
+				),
+			)
+		);
+
+		$kits = array();
+
+		foreach ( $posts as $post ) {
+			$global_kit = (int) get_option( \Elementor\Core\Kits\Manager::OPTION_ACTIVE );
+
+			$title = $post->post_title;
+
+			if ( $global_kit && $post->ID === $global_kit && $prefix ) {
+				/* translators: Global Style Kit post title. */
+				$title = sprintf( __( 'Global: %s', 'ang' ), $title );
+			}
+
+			$kits[ $post->ID ] = $title;
+		}
+
+		return $kits;
 	}
 }
 
