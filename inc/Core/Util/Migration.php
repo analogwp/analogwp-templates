@@ -160,6 +160,8 @@ class Migration {
 			// Main Color > Text Color = Body Color.
 			'ang_color_text'           => 'body_color',
 			'ang_color_accent_primary' => 'link_normal_color',
+
+			// TODO: Default Heading Font will be lost, add it somewhere in new controls.
 		);
 
 		$settings = $this->replace_old_keys_with_new( $replacements, $settings );

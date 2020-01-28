@@ -27,7 +27,7 @@ class Colors extends Module {
 	 * Colors constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/element/after_section_end', array( $this, 'register_color_settings' ), 170, 2 );
+		add_action( 'elementor/element/kit/section_body/after_section_end', array( $this, 'register_color_settings' ), 40, 2 );
 		add_action( 'elementor/element/divider/section_divider_style/before_section_end', array( $this, 'tweak_divider_style' ) );
 		add_action( 'elementor/element/icon-box/section_style_content/before_section_end', array( $this, 'tweak_icon_box' ) );
 		add_action( 'elementor/element/image-box/section_style_content/before_section_end', array( $this, 'tweak_image_box' ) );
@@ -140,10 +140,6 @@ class Colors extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_color_settings( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$element->start_controls_section(
 			'ang_colors',
 			array(

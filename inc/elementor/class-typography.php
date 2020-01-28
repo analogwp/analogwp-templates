@@ -65,17 +65,17 @@ class Typography extends Module {
 		$this->global_token_data = json_decode( Utils::get_global_token_data(), true );
 		$this->page_settings     = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 
-		add_action( 'elementor/element/after_section_end', array( $this, 'register_body_and_paragraph_typography' ), 100, 2 );
-		add_action( 'elementor/element/after_section_end', array( $this, 'register_heading_typography' ), 120, 2 );
-		add_action( 'elementor/element/after_section_end', array( $this, 'register_typography_sizes' ), 140, 2 );
+//		add_action( 'elementor/element/after_section_end', array( $this, 'register_body_and_paragraph_typography' ), 100, 2 );
+//		add_action( 'elementor/element/after_section_end', array( $this, 'register_heading_typography' ), 120, 2 );
+		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_typography_sizes' ), 20, 2 );
 
 		// Color section is hooked at 170 Priority.
-		add_action( 'elementor/element/after_section_end', array( $this, 'register_text_sizes' ), 160, 2 );
-		add_action( 'elementor/element/after_section_end', array( $this, 'register_buttons' ), 180, 2 );
-		add_action( 'elementor/element/after_section_end', array( $this, 'register_outer_section_padding' ), 200, 2 );
-		add_action( 'elementor/element/after_section_end', array( $this, 'register_columns_gap' ), 220, 2 );
+		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_text_sizes' ), 40, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 20, 2 );
+		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_outer_section_padding' ), 20, 2 );
+		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_columns_gap' ), 40, 2 );
 		add_action( 'elementor/element/before_section_start', array( $this, 'register_styling_settings' ), 240, 2 );
-		add_action( 'elementor/element/after_section_end', array( $this, 'register_tools' ), 260, 2 );
+		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_tools' ), 999, 2 );
 
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_preview_scripts' ) );
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'enqueue_editor_scripts' ), 999 );
@@ -240,10 +240,6 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_typography_sizes( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$element->start_controls_section(
 			'ang_typography_sizes',
 			array(
@@ -300,10 +296,6 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_text_sizes( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$element->start_controls_section(
 			'ang_text_sizes',
 			array(
@@ -353,10 +345,6 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_outer_section_padding( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$gaps = array(
 			'default'  => __( 'Normal', 'ang' ),
 			'narrow'   => __( 'Small', 'ang' ),
@@ -413,10 +401,6 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_columns_gap( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$gaps = array(
 			'default'  => __( 'Default Padding', 'ang' ),
 			'narrow'   => __( 'Narrow Padding', 'ang' ),
@@ -483,14 +467,10 @@ class Typography extends Module {
 	 * @since 1.3
 	 */
 	public function register_buttons( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$element->start_controls_section(
 			'ang_buttons',
 			array(
-				'label' => __( 'Buttons', 'ang' ),
+				'label' => __( 'Button Sizes', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -734,10 +714,6 @@ class Typography extends Module {
 	 * @return void
 	 */
 	public function register_tools( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$element->start_controls_section(
 			'ang_tools',
 			array(
