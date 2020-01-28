@@ -213,6 +213,7 @@ class Filters extends React.Component {
 									onChange={ () => {
 										this.context.dispatch( {
 											group: ! this.context.state.group,
+											templates: this.context.state.archive,
 										} );
 
 										window.localStorage.setItem( 'analog::group-kit', ! this.context.state.group );
@@ -232,7 +233,9 @@ class Filters extends React.Component {
 											defaultValue={ filterOptions[ 0 ] }
 											isSearchable={ false }
 											options={ filterOptions }
-											onChange={ e => this.context.handleFilter( e.value ) }
+											onChange={ e => {
+												this.context.handleFilter( e.value );
+											} }
 										/>
 									</List>
 								) }

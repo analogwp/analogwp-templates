@@ -6,6 +6,7 @@ import Header from './Header';
 import Notifications from './Notifications';
 import { getTime, getPageComponents, hasProTemplates } from './utils';
 const { apiFetch } = wp;
+const { __ } = wp.i18n;
 
 const Analog = styled.div`
 	margin: 0 0 0 -20px;

@@ -119,7 +119,6 @@ const List = styled.div`
 export default class Filters extends React.Component {
 	constructor() {
 		super( ...arguments );
-		this.searchInput = React.createRef();
 	}
 
 	render() {
@@ -186,6 +185,7 @@ export default class Filters extends React.Component {
 							onChange={ () => {
 								this.context.dispatch( {
 									group: ! this.context.state.group,
+									blocks: this.context.state.blockArchive,
 								} );
 
 								window.localStorage.setItem( 'analog::group-kit', ! this.context.state.group );
@@ -203,7 +203,9 @@ export default class Filters extends React.Component {
 								defaultValue={ filterOptions[ 0 ] }
 								isSearchable={ false }
 								options={ filterOptions }
-								onChange={ e => this.context.handleFilter( e.value, 'blocks' ) }
+								onChange={ e => {
+									this.context.handleFilter( e.value, 'blocks' );
+								} }
 							/>
 						</List> }
 						<List>
@@ -217,18 +219,6 @@ export default class Filters extends React.Component {
 								onChange={ e => this.context.handleSort( e.value, 'blocks' ) }
 							/>
 						</List>
-
-						<input
-							type="search"
-							placeholder={ __( 'Search blocks', 'ang' ) }
-							ref={ this.searchInput }
-							onChange={ () =>
-								this.context.handleSearch(
-									this.searchInput.current.value.toLowerCase(),
-									'blocks'
-								)
-							}
-						/>
 					</div>
 				) }
 			</Container>
