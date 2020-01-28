@@ -107,12 +107,7 @@ export default class Collection extends React.Component {
 
 		if ( collection[ id ] ) {
 			const kit = collection[ id ];
-			if ( this.context.state.showFree ) {
-				const filtered = kit.filter( ( t ) => t.is_pro !== true );
-				count = filtered.length;
-			} else {
-				count = Object.keys( kit ).length;
-			}
+			count = Object.keys( kit ).length;
 		}
 
 		return count;
@@ -164,10 +159,6 @@ export default class Collection extends React.Component {
 				{ this.getActiveKit() && (
 					<ul className="templates-list">
 						{ this.getActiveKit().map( ( template ) => {
-							if ( this.context.state.showFree && Boolean( template.is_pro ) ) {
-								return;
-							}
-
 							return (
 								<Template
 									key={ template.id }

@@ -196,7 +196,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 
 	const { category } = state;
 
-	let filteredBlocks = context.state.blocks.filter( block => ! ( context.state.showFree && Boolean( block.is_pro ) ) );
+	let filteredBlocks = context.state.blocks;
 
 	if ( context.state.group ) {
 		filteredBlocks = filteredBlocks.filter( block => block.tags.indexOf( category ) > -1 );

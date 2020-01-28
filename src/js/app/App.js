@@ -245,11 +245,6 @@ class App extends React.Component {
 		window.addEventListener( 'hashchange', this.switchTabs, false );
 		window.addEventListener( 'DOMContentLoaded', this.switchTabs, false );
 
-		if ( window.localStorage.getItem( 'analog::show-free' ) === 'false' ) {
-			this.setState( {
-				showFree: false,
-			} );
-		}
 		if ( window.localStorage.getItem( 'analog::group-kit' ) === 'false' ) {
 			this.setState( {
 				group: false,

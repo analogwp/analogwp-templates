@@ -127,10 +127,7 @@ export default class Blocks extends Component {
 	getItemCount( category ) {
 		const blocks = this.context.state.blocks;
 
-		const foundItems =
-			blocks
-				.filter( block => block.tags.indexOf( category ) > -1 )
-				.filter( block => ! ( this.context.state.showFree && Boolean( block.is_pro ) ) );
+		const foundItems = blocks.filter( block => block.tags.indexOf( category ) > -1 );
 
 		if ( foundItems ) {
 			return foundItems.length;

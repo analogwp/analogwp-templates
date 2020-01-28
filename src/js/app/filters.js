@@ -192,20 +192,6 @@ class Filters extends React.Component {
 								</button>
 							) }
 
-							{ this.context.state.hasPro && (
-								<ToggleControl
-									label={ __( 'Show Pro Templates' ) }
-									checked={ ! this.context.state.showFree }
-									onChange={ () => {
-										this.context.dispatch( {
-											showFree: ! this.context.state.showFree,
-										} );
-
-										window.localStorage.setItem( 'analog::show-free', ! this.context.state.showFree );
-									} }
-								/>
-							) }
-
 							{ ! showingKit && ! this.context.state.showing_favorites && (
 								<ToggleControl
 									label={ __( 'Group by Template Kit' ) }
@@ -250,8 +236,7 @@ class Filters extends React.Component {
 										onChange={ e => this.context.handleSort( e.value ) }
 									/>
 								</List>
-
-								<input
+								{ ! showingKit && <input
 									type="search"
 									placeholder={ __( 'Search templates', 'ang' ) }
 									ref={ this.searchInput }
@@ -261,6 +246,7 @@ class Filters extends React.Component {
 										)
 									}
 								/>
+								}
 							</div>
 						) }
 					</FiltersContainer>
