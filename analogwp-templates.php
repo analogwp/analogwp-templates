@@ -204,30 +204,6 @@ final class Analog_Templates {
 		);
 
 		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
-
-		$helpscout = '!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});';
-		wp_add_inline_script( 'analogwp-app', $helpscout );
-		wp_add_inline_script( 'analogwp-app', "window.Beacon('init', 'a7572e82-da95-4f09-880e-5c1f071aaf07')" );
-
-		$version = ANG_VERSION;
-		$url     = home_url();
-
-		$current_user = wp_get_current_user();
-		global $wp_version;
-
-		$identify_customer = "Beacon('identify', {
-			name: '{$current_user->display_name}',
-			email: '{$current_user->user_email}',
-			'Website': '{$url}',
-			'Plugin Version': '{$version}',
-			'WP Version': '{$wp_version}',
-		});
-		Beacon('prefill', {
-			name: '{$current_user->display_name}',
-			email: '{$current_user->user_email}',
-		});";
-
-		wp_add_inline_script( 'analogwp-app', $identify_customer );
 	}
 
 	/**
