@@ -243,6 +243,7 @@ class App extends React.Component {
 				tab: hash.substr( 1 ),
 				templates: this.state.archive,
 				blocks: this.state.blockArchive,
+				showing_favorites: false,
 			} );
 		}
 	}
