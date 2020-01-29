@@ -44,7 +44,6 @@
 
 					for (let [key, value] of Object.entries( settings ) ) {
 						if ( controls[ key ] && 'font' === controls[ key ].type && value ) {
-							console.log(value);
 							elementor.helpers.enqueueFont( value );
 						}
 					}
@@ -57,7 +56,6 @@
 
 			for (let [key, value] of Object.entries(attributes)) {
 				if ( controls[ key ] && 'font' === controls[ key ].type && value ) {
-					console.log(value);
 					elementor.helpers.enqueueFont( value );
 				}
 			}
@@ -65,6 +63,11 @@
 
 		function refreshKit( id ) {
 			elementor.config.kit_id = id;
+
+			// Required to show correct data in preview window.
+			$e.run( 'document/save/default', {
+				force: true,
+			} );
 
 			fixKitClasses(id);
 			loadDocumentAndEnqueueFonts( id );
