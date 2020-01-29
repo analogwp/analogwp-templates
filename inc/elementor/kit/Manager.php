@@ -85,7 +85,10 @@ class Manager {
 	public function should_remove_global_kit_class( $classes ) {
 		if ( $this->is_using_custom_kit() ) {
 			$class = 'elementor-kit-' . get_option( self::OPTION_ACTIVE );
-			unset( $classes[ $class ] );
+			$found = array_search( $class, $classes, true );
+			if ( $found ) {
+				unset( $classes[ $found ] );
+			}
 		}
 
 		return $classes;
@@ -98,7 +101,6 @@ class Manager {
 	 * @return void
 	 */
 	public function frontend_before_enqueue_styles() {
-
 		if ( ! $this->is_using_custom_kit() ) {
 			return;
 		}
