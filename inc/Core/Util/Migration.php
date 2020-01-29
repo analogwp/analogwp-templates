@@ -148,20 +148,45 @@ class Migration {
 		$settings = $this->change_key_prefixes( 'ang_heading_5_', 'h5_typography_', $settings );
 		$settings = $this->change_key_prefixes( 'ang_heading_6_', 'h6_typography_', $settings );
 
+		if ( isset( $settings['ang_color_heading'] ) ) {
+			$settings += array( 'body_color' => $settings['ang_color_text'] );
+		}
+		if ( isset( $settings['ang_color_accent_primary'] ) ) {
+			$settings += array( 'link_normal_color' => $settings['ang_color_accent_primary'] );
+		}
+
+		if ( isset( $settings['ang_color_heading'] ) ) {
+			$settings += array(
+				'h1_color' => $settings['ang_color_heading'],
+				'h2_color' => $settings['ang_color_heading'],
+				'h3_color' => $settings['ang_color_heading'],
+				'h4_color' => $settings['ang_color_heading'],
+				'h5_color' => $settings['ang_color_heading'],
+				'h6_color' => $settings['ang_color_heading'],
+			);
+		}
+
+		// Form label typography.
+		$settings = $this->change_key_prefixes( 'ang_form_label_typography_', 'form_label_typography_', $settings );
+		$settings = $this->change_key_prefixes( 'ang_form_field_typography_', 'form_field_typography_', $settings );
+
 		$replacements = array(
 			// Heading Colors.
-			'ang_color_heading_h1'     => 'h1_color',
-			'ang_color_heading_h2'     => 'h2_color',
-			'ang_color_heading_h3'     => 'h3_color',
-			'ang_color_heading_h4'     => 'h4_color',
-			'ang_color_heading_h5'     => 'h5_color',
-			'ang_color_heading_h6'     => 'h6_color',
+			'ang_color_heading_h1'            => 'h1_color',
+			'ang_color_heading_h2'            => 'h2_color',
+			'ang_color_heading_h3'            => 'h3_color',
+			'ang_color_heading_h4'            => 'h4_color',
+			'ang_color_heading_h5'            => 'h5_color',
+			'ang_color_heading_h6'            => 'h6_color',
 
-			// Main Color > Text Color = Body Color.
-			'ang_color_text'           => 'body_color',
-			'ang_color_accent_primary' => 'link_normal_color',
+			// Pro Form.
+			'ang_form_label_color'            => 'form_label_color',
 
-			// TODO: Default Heading Font will be lost, add it somewhere in new controls.
+			'ang_form_field_text_color'       => 'form_field_text_color',
+			'ang_form_field_background_color' => 'form_field_background_color',
+			'ang_form_field_border_color'     => 'form_field_border_color',
+			'ang_form_field_border_width'     => 'form_field_border_width',
+			'ang_form_field_border_radius'    => 'form_field_border_radius',
 		);
 
 		$settings = $this->replace_old_keys_with_new( $replacements, $settings );
