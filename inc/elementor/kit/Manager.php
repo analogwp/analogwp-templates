@@ -69,7 +69,9 @@ class Manager {
 	public function remove_global_kit_css() {
 		$kit_id = get_option( self::OPTION_ACTIVE );
 
-		wp_deregister_style( 'elementor-post-' . $kit_id );
+		if ( wp_style_is( 'elementor-post-' . $kit_id, 'registered' ) ) {
+			wp_deregister_style( 'elementor-post-' . $kit_id );
+		}
 	}
 
 	/**
