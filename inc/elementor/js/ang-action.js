@@ -66,21 +66,8 @@
 		function refreshKit( id ) {
 			elementor.config.kit_id = id;
 
-			$e.run( 'document/save/auto', {
-				force: true,
-				onSuccess: function() {
-					elementor.reloadPreview();
-
-					elementor.once( 'preview:loaded', function() {
-						fixKitClasses( id );
-						loadDocumentAndEnqueueFonts( id );
-
-						elementor.helpers.enqueuePreviewStylesheet( ANG_Action.cssDir + `post-${id}.css` );
-
-						$e.route( 'panel/page-settings/style' );
-					} );
-				},
-			} );
+			fixKitClasses(id);
+			loadDocumentAndEnqueueFonts( id );
 		}
 
 		init();
