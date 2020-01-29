@@ -73,6 +73,8 @@
 
 					elementor.once( 'preview:loaded', function() {
 						fixKitClasses( id );
+						loadDocumentAndEnqueueFonts( id );
+
 						elementor.helpers.enqueuePreviewStylesheet( ANG_Action.cssDir + `post-${id}.css` );
 
 						$e.route( 'panel/page-settings/style' );
