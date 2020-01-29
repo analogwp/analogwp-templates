@@ -149,13 +149,6 @@ class Migration {
 		$settings = $this->change_key_prefixes( 'ang_heading_6_', 'h6_typography_', $settings );
 
 		if ( isset( $settings['ang_color_heading'] ) ) {
-			$settings += array( 'body_color' => $settings['ang_color_text'] );
-		}
-		if ( isset( $settings['ang_color_accent_primary'] ) ) {
-			$settings += array( 'link_normal_color' => $settings['ang_color_accent_primary'] );
-		}
-
-		if ( isset( $settings['ang_color_heading'] ) ) {
 			$settings += array(
 				'h1_color' => $settings['ang_color_heading'],
 				'h2_color' => $settings['ang_color_heading'],
@@ -188,6 +181,50 @@ class Migration {
 			'ang_form_field_border_width'     => 'form_field_border_width',
 			'ang_form_field_border_radius'    => 'form_field_border_radius',
 		);
+
+		// Copy values to new items but don't remove the old.
+		$copy_items = array(
+			'ang_button_sm_typography'                     => 'button_typography_typography',
+			'ang_button_sm_font_family'                    => 'button_typography_font_family',
+			'ang_button_sm_font_size'                      => 'button_typography_font_size',
+			'ang_button_sm_font_size_tablet'               => 'button_typography_font_size_tablet',
+			'ang_button_sm_font_size_mobile'               => 'button_typography_font_size_mobile',
+			'ang_button_sm_font_weight'                    => 'button_typography_font_weight',
+			'ang_button_sm_text_transform'                 => 'button_typography_text_transform',
+			'ang_button_sm_font_style'                     => 'button_typography_font_style',
+			'ang_button_sm_text_decoration'                => 'button_typography_text_decoration',
+			'ang_button_sm_line_height'                    => 'button_typography_line_height',
+			'ang_button_sm_line_height_tablet'             => 'button_typography_line_height_tablet',
+			'ang_button_sm_line_height_mobile'             => 'button_typography_line_height_mobile',
+			'ang_button_sm_letter_spacing'                 => 'button_typography_letter_spacing',
+			'ang_button_sm_letter_spacing_tablet'          => 'button_typography_letter_spacing_tablet',
+			'ang_button_sm_letter_spacing_mobile'          => 'button_typography_letter_spacing_mobile',
+			'ang_button_text_color_sm'                     => 'button_text_color',
+			'ang_button_text_hover_color_sm'               => 'button_hover_text_color',
+			'ang_button_background_color_sm'               => 'button_background_color',
+			'ang_button_background_hover_color_sm'         => 'button_hover_background_color',
+			'ang_button_border_sm_border'                  => 'button_border_border',
+			'ang_button_border_sm_width'                   => 'button_border_width',
+			'ang_button_border_sm_width_tablet'            => 'button_border_width_tablet',
+			'ang_button_border_sm_width_mobile'            => 'button_border_width_mobile',
+			'ang_button_border_sm_color'                   => 'button_border_color',
+			'ang_button_border_radius_sm'                  => 'button_border_radius',
+			'ang_button_box_shadow_sm_box_shadow_type'     => 'button_box_shadow_box_shadow_type',
+			'ang_button_box_shadow_sm_box_shadow'          => 'button_box_shadow_box_shadow',
+			'ang_button_box_shadow_sm_box_shadow_position' => 'button_box_shadow_box_shadow_position',
+			'ang_button_padding_sm'                        => 'button_padding',
+			'ang_button_padding_sm_tablet'                 => 'button_padding_tablet',
+			'ang_button_padding_sm_mobile'                 => 'button_padding_mobile',
+
+			'ang_color_text'                               => 'body_color',
+			'ang_color_accent_primary'                     => 'link_normal_color',
+		);
+
+		foreach ( $copy_items as $old => $new ) {
+			if ( isset( $settings[ $old ] ) ) {
+				$settings += array( $new => $settings[ $old ] );
+			}
+		}
 
 		$settings = $this->replace_old_keys_with_new( $replacements, $settings );
 	}
