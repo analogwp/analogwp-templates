@@ -206,6 +206,14 @@ export default class StyleKits extends React.Component {
 
 		requestStyleKitData( kit )
 			.then( response => {
+				if ( response.errors ) {
+					const message = Object.values( response.errors )[ 0 ];
+					add( message, 'error', 'kit-error', false );
+					this.resetState();
+
+					return;
+				}
+
 				const kits = [ ...this.state.installedKits ];
 				kits.push( kit.title );
 				this.setState( {
@@ -229,6 +237,7 @@ export default class StyleKits extends React.Component {
 			} )
 			.catch( error => {
 				add( error.message, 'error', 'kit-error', false );
+				this.resetState();
 			} );
 	}
 

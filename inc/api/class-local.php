@@ -580,6 +580,10 @@ class Local extends Base {
 
 		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit );
 
+		if ( isset( $remote_kit['message'] ) && isset( $remote_kit['code'] ) ) {
+			return new WP_Error( $remote_kit['code'], $remote_kit['message'] );
+		}
+
 		if ( is_wp_error( $remote_kit ) ) {
 			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'ang' ) );
 		}
