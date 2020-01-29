@@ -262,52 +262,14 @@ jQuery( window ).on( 'elementor:init', function() {
 	// analog.StyleKitUpdateModal = analog.styleKitUpdateDialog();
 
 	analog.resetStyles = () => {
-		const settings = elementor.settings.page.model.attributes;
-		const angSettings = {};
-		_.map( settings, function( value, key ) {
-			if ( eligibleKey( key ) ) {
-				if ( elementor.settings.page.model.controls[ key ] !== undefined ) {
-					switch ( typeof elementor.settings.page.model.controls[ key ].default ) {
-						case 'string':
-							angSettings[ key ] = '';
-							break;
+		const historyId = $e.run('document/history/start-log', {
+			type: 'reset_settings',
+			title: 'Reset Page Settings'
+		});
 
-						case 'boolean':
-							angSettings[ key ] = false;
-							break;
+		elementor.settings.page.model.set( elementor.documents.getCurrent().container.settings.defaults );
 
-						case 'object':
-							const type = elementor.settings.page.model.controls[ key ].type;
-							let returnVal = '';
-							if ( type === 'slider' ) {
-								returnVal = { size: '', sizes: [], unit: 'em' };
-							}
-
-							if ( type === 'dimensions' ) {
-								returnVal = {
-									unit: 'px',
-									top: '',
-									right: '',
-									bottom: '',
-									left: '',
-									isLinked: true,
-								};
-							}
-
-							angSettings[ key ] = returnVal;
-							break;
-
-						default:
-							angSettings[ key ] = elementor.settings.page.model.controls[ key ].default;
-					}
-				}
-			}
-		} );
-
-		elementor.settings.page.model.set( angSettings );
-		elementor.settings.page.model.set( 'ang_action_tokens', '' );
-
-		analog.redirectToSection();
+		$e.run('document/history/end-log', { id: historyId });
 	};
 
 	// analog.applyStyleKit = ( value ) => {
