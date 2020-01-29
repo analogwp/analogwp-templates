@@ -7,6 +7,7 @@
 
 namespace Analog\Elementor\Kit;
 
+use Analog\Utils;
 use Elementor\Plugin;
 use Elementor\Core\Files\CSS\Post as Post_CSS;
 
@@ -108,10 +109,30 @@ class Manager {
 		$custom_kit = $this->get_current_post()->get_meta( self::OPTION_CUSTOM_KIT );
 		$custom_kit = $custom_kit['ang_action_tokens'];
 
-		$this->remove_global_kit_css();
+		if ( Plugin::$instance->preview->is_preview_mode() ) {
+			$this->generate_kit_css();
+		} else {
+			$this->remove_global_kit_css();
+		}
+
 		$css = Post_CSS::create( $custom_kit );
 		$css->enqueue();
+
 		Plugin::$instance->frontend->add_body_class( 'elementor-kit-' . $custom_kit );
+	}
+
+	/**
+	 * Generate CSS stylesheets for all Kits.
+	 *
+	 * @return void
+	 */
+	public function generate_kit_css() {
+		$kits = Utils::get_kits();
+
+		foreach ( $kits as $id => $title ) {
+			$css = Post_CSS::create( $id );
+			$css->enqueue();
+		}
 	}
 
 	/**
