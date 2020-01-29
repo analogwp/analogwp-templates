@@ -28,7 +28,6 @@ class Manager {
 	 * Manager constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'frontend_before_enqueue_styles' ), 999 );
 		add_action( 'elementor/frontend/after_enqueue_global', array( $this, 'frontend_before_enqueue_styles' ), 999 );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'preview_enqueue_styles' ), 999 );
 		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ), 999 );
@@ -70,8 +69,8 @@ class Manager {
 	public function remove_global_kit_css() {
 		$kit_id = get_option( self::OPTION_ACTIVE );
 
-		if ( wp_style_is( 'elementor-post-' . $kit_id, 'registered' ) ) {
-			wp_deregister_style( 'elementor-post-' . $kit_id );
+		if ( wp_style_is( 'elementor-post-' . $kit_id, 'enqueued' ) ) {
+			wp_dequeue_style( 'elementor-post-' . $kit_id );
 		}
 	}
 
