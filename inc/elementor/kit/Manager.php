@@ -28,9 +28,10 @@ class Manager {
 	 * Manager constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/frontend/after_enqueue_global', array( $this, 'frontend_before_enqueue_styles' ), 20 );
-		add_action( 'elementor/preview/enqueue_styles', array( $this, 'preview_enqueue_styles' ), 0 );
-		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ) );
+		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'frontend_before_enqueue_styles' ), 999 );
+		add_action( 'elementor/frontend/after_enqueue_global', array( $this, 'frontend_before_enqueue_styles' ), 999 );
+		add_action( 'elementor/preview/enqueue_styles', array( $this, 'preview_enqueue_styles' ), 999 );
+		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ), 999 );
 	}
 
 	/**
