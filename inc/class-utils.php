@@ -591,6 +591,15 @@ class Utils extends Base {
 		return ( substr( $string, 0, $len ) === $start_string );
 	}
 
+	/**
+	 * Get a list of all Elementor Kits.
+	 * Returns an associative arrray with [id] => [title].
+	 *
+	 * @param bool $prefix Whether to prefix Global Kit with "Global :".
+	 *
+	 * @since 1.6.0
+	 * @return array
+	 */
 	public static function get_kits( $prefix = true ) {
 		$posts = \get_posts(
 			array(
