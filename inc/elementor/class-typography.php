@@ -666,17 +666,6 @@ class Typography extends Module {
 			)
 		);
 
-		$label = __( 'Save all the styles as a Style Kit that you can apply on other pages or globally. Please note that only the custom styles added in the styles page are saved with the stylekit.', 'ang' );
-		$element->add_control(
-			'ang_action_save_token',
-			array(
-				'label'        => __( 'Save Style Kit as...', 'ang' ) . $this->get_tooltip( $label ),
-				'type'         => 'ang_action',
-				'action'       => 'save_token',
-				'action_label' => __( 'Save as...', 'ang' ),
-			)
-		);
-
 		$element->add_control(
 			'description_ang_stylekit_docs',
 			array(
@@ -717,6 +706,17 @@ class Typography extends Module {
 				'type'         => 'ang_action',
 				'action'       => 'reset_css',
 				'action_label' => __( 'Reset all', 'ang' ),
+			)
+		);
+
+		$label = __( 'Save all the styles as a Style Kit that you can apply on other pages or globally. Please note that only the custom styles added in the styles page are saved with the stylekit.', 'ang' );
+		$element->add_control(
+			'ang_action_save_token',
+			array(
+				'label'        => __( 'Save Style Kit as...', 'ang' ) . $this->get_tooltip( $label ),
+				'type'         => 'ang_action',
+				'action'       => 'save_token',
+				'action_label' => __( 'Save as...', 'ang' ),
 			)
 		);
 

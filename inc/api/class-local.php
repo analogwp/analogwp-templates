@@ -12,6 +12,7 @@ use Analog\Base;
 use Analog\Classes\Import_Image;
 use Analog\Options;
 use Analog\Utils;
+use Elementor\Plugin;
 use Elementor\TemplateLibrary\Analog_Importer;
 use WP_Error;
 use WP_Query;
@@ -441,44 +442,31 @@ class Local extends Base {
 	public function save_tokens( WP_REST_Request $request ) {
 		$belongs_to = $request->get_param( 'id' );
 		$title      = $request->get_param( 'title' );
-		$tokens     = $request->get_param( 'tokens' );
 
-		if ( ! $tokens ) {
-			return new WP_Error( 'tokens_error', 'No tokens data found.' );
-		}
 		if ( ! $title ) {
-			return new WP_Error( 'tokens_error', 'Please provide a title.' );
+			return new WP_Error( 'kit_title_error', 'Please provide a title.' );
 		}
 
-		$args = array(
-			'post_type'   => 'ang_tokens',
-			'post_title'  => $title,
-			'post_status' => 'publish',
-			'meta_input'  => array(
-				'belongs_to'   => $belongs_to,
-				'_tokens_data' => $tokens,
-			),
+		$tokens = get_post_meta( $belongs_to, '_elementor_page_settings', true );
+		$kit    = new \Analog\Elementor\Kit\Manager();
+
+		$post_id = $kit->create_kit(
+			$title,
+			array(
+				'_elementor_page_settings' => $tokens,
+				'_duplicate_of'            => $belongs_to,
+				'_is_analog_user_kit'      => true,
+			)
 		);
 
-		/**
-		 * Save token arguments. Filters the arguments for wp_insert_post().
-		 *
-		 * @param string $args Arguments.
-		 * @param string $title Post Title.
-		 * @param string $tokens Tokens data.
-		 * @param string $belongs_to Post/Page ID of the page tokens are being saved from.
-		 */
-		$args = apply_filters( 'analog/elementor/save/tokens/args', $args, $title, $tokens, $belongs_to );
-
-		$post_id = wp_insert_post( $args );
-
 		if ( is_wp_error( $post_id ) ) {
-			return new WP_Error( 'tokens_error', __( 'Unable to create a post', 'ang' ) );
+			return new WP_Error( 'tokens_error', __( 'Unable to create a Kit', 'ang' ) );
 		} else {
 			return new WP_REST_Response(
 				array(
 					'id'      => $post_id,
-					'message' => __( 'Token saved.', 'ang' ),
+					'url'     => Plugin::$instance->documents->get( $post_id )->get_edit_url(),
+					'message' => __( 'Kit saved.', 'ang' ),
 				),
 				200
 			);

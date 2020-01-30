@@ -490,17 +490,11 @@ jQuery( window ).on( 'elementor:init', function() {
 		},
 
 		handleSaveToken: function() {
-			const settings = elementor.settings.page.model.attributes;
-			const angSettings = {};
-
-			// Save settings before saving the token.
-			elementor.saver.defaultSave();
-
-			_.map( settings, function( value, key ) {
-				if ( eligibleKey( key ) ) {
-					angSettings[ key ] = value;
-				}
-			} );
+			/**
+			 * Save settings before sending request,
+			 * so we can copy the latest data directly from post meta.
+			 */
+			$e.run( 'document/save/default' );
 
 			const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
 				id: 'ang-modal-save-token',
@@ -529,24 +523,32 @@ jQuery( window ).on( 'elementor:init', function() {
 									url: ANG_Action.saveToken,
 									method: 'post',
 									data: {
-										id: elementor.config.post_id,
+										id: elementor.config.initial_document.id,
 										title: title,
-										tokens: JSON.stringify( angSettings ),
 									},
 								} ).then( function( response ) {
-									const options = elementor.settings.page.model.controls.ang_action_tokens.options;
-									options[ response.id ] = title;
-									elementor.reloadPreview();
+									modal.destroy();
 
-									setTimeout( function() {
-										modal.destroy();
-
-										elementor.settings.page.model.set( 'ang_action_tokens', response.id );
-										analog.redirectToSection();
-									}, 2000 );
+									elementor.notifications.showToast( {
+										message: response.message,
+										buttons: [
+											{
+												name: 'view_page',
+												text: elementor.translate( 'have_a_look' ),
+												callback() {
+													open( response.url );
+												},
+											},
+										],
+									} );
 								} ).catch( function( error ) {
-									console.error( error.message );
+									elementorCommon.dialogsManager.createWidget( 'alert', {
+										headerMessage: error.code,
+										message: error.message,
+									} ).show();
 								} );
+							} else {
+								elementor.notifications.showToast( { message: 'Please enter a title to save your Kit.' } );
 							}
 						},
 					} );
