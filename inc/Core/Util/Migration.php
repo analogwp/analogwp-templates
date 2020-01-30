@@ -17,22 +17,10 @@ use Analog\Utils;
  * @package Analog\Core\Util
  */
 class Migration {
-
-	/**
-	 * Page settings meta, currently unused.
-	 *
-	 * @var array $settings
-	 */
-	protected $settings;
-
 	/**
 	 * Migration constructor.
-	 *
-	 * @param array $settings Page settings.
 	 */
-	public function __construct( $settings = array() ) {
-		$this->settings = $settings;
-	}
+	public function __construct() {}
 
 	/**
 	 * Find keys starting with similar prefix.
@@ -202,5 +190,30 @@ class Migration {
 		}
 
 		$settings = $this->replace_old_keys_with_new( $replacements, $settings );
+
+		return $settings;
+	}
+
+	/**
+	 * Create a Kit from Style Kit.
+	 *
+	 * @param int $post_id Style Kit Post ID.
+	 *
+	 * @return string Kit ID.
+	 */
+	public function create_kit_from_sk( $post_id ) {
+		$settings = get_post_meta( $post_id, '_tokens_data', true );
+		$settings = json_decode( $settings, ARRAY_A );
+
+		$settings = $this->migrate_sk_to_kits( $settings );
+
+		$kit = new \Analog\Elementor\Kit\Manager();
+
+		return $kit->create_kit(
+			get_post_field( 'post_title', $post_id ),
+			array(
+				'_elementor_page_settings' => $settings,
+			)
+		);
 	}
 }

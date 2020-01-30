@@ -156,6 +156,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/sections/background-color-classes.php';
 
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Manager.php';
+		require_once ANG_PLUGIN_DIR . 'inc/Core/Util/Migration.php';
 	}
 
 	/**
