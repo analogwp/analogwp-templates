@@ -65,8 +65,8 @@ class Typography extends Module {
 		$this->global_token_data = json_decode( Utils::get_global_token_data(), true );
 		$this->page_settings     = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 
-//		add_action( 'elementor/element/after_section_end', array( $this, 'register_body_and_paragraph_typography' ), 100, 2 );
-//		add_action( 'elementor/element/after_section_end', array( $this, 'register_heading_typography' ), 120, 2 );
+// add_action( 'elementor/element/after_section_end', array( $this, 'register_body_and_paragraph_typography' ), 100, 2 );
+// add_action( 'elementor/element/after_section_end', array( $this, 'register_heading_typography' ), 120, 2 );
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_typography_sizes' ), 20, 2 );
 
 		// Color section is hooked at 170 Priority.
@@ -86,6 +86,7 @@ class Typography extends Module {
 
 		add_action( 'elementor/element/section/section_layout/before_section_end', array( $this, 'tweak_section_widget' ) );
 
+		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
 	}
 
 	/**
@@ -149,24 +150,6 @@ class Typography extends Module {
 				'raw'             => __( 'These settings apply to all Headings in your layout. You can still override individual values at each element.', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
-			)
-		);
-
-		$default_fonts = Manager::get_settings_managers( 'general' )->get_model()->get_settings( 'elementor_default_generic_fonts' );
-
-		if ( $default_fonts ) {
-			$default_fonts = ', ' . $default_fonts;
-		}
-
-		$element->add_control(
-			'ang_default_heading_font_family',
-			array(
-				'label'     => __( 'Default Headings Font', 'ang' ),
-				'type'      => Controls_Manager::FONT,
-				'default'   => $this->get_default_value( 'ang_default_heading_font_family' ),
-				'selectors' => array(
-					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
-				),
 			)
 		);
 
@@ -953,6 +936,40 @@ class Typography extends Module {
 		}
 
 		return $post_states;
+	}
+
+	/**
+	 * Tweak default Section widget.
+	 *
+	 * @since 1.6.0
+	 * @param $element Element_Base Class.
+	 */
+	public function tweak_typography_section( $element ) {
+		$element->start_injection(
+			array(
+				'of' => 'body_typography_typography',
+				'at' => 'after',
+			)
+		);
+
+		$default_fonts = Manager::get_settings_managers( 'general' )->get_model()->get_settings( 'elementor_default_generic_fonts' );
+
+		if ( $default_fonts ) {
+			$default_fonts = ', ' . $default_fonts;
+		}
+
+		$element->add_control(
+			'ang_default_heading_font_family',
+			array(
+				'label'     => __( 'Default Headings Font', 'ang' ),
+				'type'      => Controls_Manager::FONT,
+				'selectors' => array(
+					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
+				),
+			)
+		);
+
+		$element->end_injection();
 	}
 }
 
