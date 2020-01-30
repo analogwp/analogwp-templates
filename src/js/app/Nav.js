@@ -90,7 +90,7 @@ const Nav = () => {
 	};
 
 	return (
-		<List>
+		<List className="ang-nav">
 			{ ITEMS.map( ( item ) => (
 				<li
 					key={ item.key }

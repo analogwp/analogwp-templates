@@ -261,6 +261,8 @@ class App extends React.Component {
 		if ( AGWP.is_settings_page ) {
 			const parentMenu = document.querySelector( '#toplevel_page_analogwp_templates .wp-submenu' );
 			const menuItems = parentMenu.querySelectorAll( 'a' );
+			const angNav = document.querySelector( '#analogwp-templates ul.ang-nav' );
+			const angNavItems = angNav.querySelectorAll( 'a' );
 
 			const removeClasses = () => {
 				const listItems = parentMenu.querySelectorAll( 'li' );
@@ -274,6 +276,21 @@ class App extends React.Component {
 					removeClasses();
 
 					menu.parentNode.classList.add( 'current' );
+				} );
+			} );
+
+			angNavItems.forEach( ( nav ) => {
+				nav.addEventListener( 'click', () => {
+					removeClasses();
+
+					menuItems.forEach( ( menu ) => {
+						if ( nav.hash === menu.hash ) {
+							menu.parentNode.classList.add( 'current' );
+						}
+						if ( '#templates' === nav.hash && '' === menu.hash && 'wp-first-item' === menu.classList[ 0 ] ) {
+							menu.parentNode.classList.add( 'current' );
+						}
+					} );
 				} );
 			} );
 		}
