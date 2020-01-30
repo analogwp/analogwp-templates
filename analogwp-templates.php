@@ -157,6 +157,10 @@ final class Analog_Templates {
 
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Manager.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Core/Util/Migration.php';
+
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			require_once ANG_PLUGIN_DIR . 'inc/cli/migrate.php';
+		}
 	}
 
 	/**
