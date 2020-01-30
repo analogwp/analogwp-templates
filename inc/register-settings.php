@@ -39,7 +39,7 @@ function register_menu() {
 	add_submenu_page(
 		'analogwp_templates',
 		__( 'Style Kits', 'ang' ),
-		__( 'Library', 'ang' ),
+		__( 'Style Kits', 'ang' ),
 		$permission,
 		admin_url( 'admin.php?page=analogwp_templates#styleKits' )
 	);
