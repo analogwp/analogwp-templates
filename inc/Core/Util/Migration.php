@@ -8,8 +8,6 @@
 namespace Analog\Core\Util;
 
 use Analog\Utils;
-use Elementor\Plugin;
-use Elementor\TemplateLibrary\Source_Local;
 
 /**
  * Class Migration_SK_Kits.
@@ -34,29 +32,6 @@ class Migration {
 	 */
 	public function __construct( $settings = array() ) {
 		$this->settings = $settings;
-	}
-
-	/**
-	 * Create an Elementor Kit.
-	 *
-	 * @param string $title Kit title.
-	 * @param array  $meta Kit meta data. Optional.
-	 *
-	 * @access private
-	 * @return string
-	 */
-	public function create_kit( string $title, $meta = array() ) {
-		$kit = Plugin::$instance->documents->create(
-			'kit',
-			array(
-				'post_type'   => Source_Local::CPT,
-				'post_title'  => $title,
-				'post_status' => 'publish',
-			),
-			$meta
-		);
-
-		return $kit->get_id();
 	}
 
 	/**

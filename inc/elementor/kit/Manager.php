@@ -10,6 +10,7 @@ namespace Analog\Elementor\Kit;
 use Analog\Utils;
 use Elementor\Plugin;
 use Elementor\Core\Files\CSS\Post as Post_CSS;
+use Elementor\TemplateLibrary\Source_Local;
 
 /**
  * Class Manager.
@@ -150,6 +151,29 @@ class Manager {
 		Plugin::$instance->frontend->print_fonts_links();
 
 		$this->frontend_before_enqueue_styles();
+	}
+
+	/**
+	 * Create an Elementor Kit.
+	 *
+	 * @param string $title Kit title.
+	 * @param array  $meta Kit meta data. Optional.
+	 *
+	 * @access private
+	 * @return string
+	 */
+	public function create_kit( string $title, $meta = array() ) {
+		$kit = Plugin::$instance->documents->create(
+			'kit',
+			array(
+				'post_type'   => Source_Local::CPT,
+				'post_title'  => $title,
+				'post_status' => 'publish',
+			),
+			$meta
+		);
+
+		return $kit->get_id();
 	}
 }
 
