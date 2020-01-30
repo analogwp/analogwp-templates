@@ -9,6 +9,7 @@ namespace Analog\Core\Util;
 
 use Analog\Elementor\Kit\Manager;
 use Analog\Utils;
+use Elementor\TemplateLibrary\Source_Local;
 
 /**
  * Class Migration_SK_Kits.
@@ -194,6 +195,37 @@ class Migration {
 		);
 	}
 
+	private function convert_posts_using_sk( $posts, $kit_id ) {
+		if ( is_array( $posts ) ) {
+			foreach ( $posts as $post_id ) {
+				$post_type = get_post_type( $post_id );
+				if ( 'ang_tokens' === $post_type ) {
+					continue;
+				}
+
+				if ( Source_Local::CPT === $post_type ) {
+					$type = get_post_meta( $post_id, \Elementor\Core\Base\Document::TYPE_META_KEY, true );
+					if ( 'kit' === $type || 'section' === $type ) {
+						continue;
+					}
+				}
+
+				$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+
+				if ( ! is_array( $settings ) ) {
+					continue;
+				}
+
+				$settings['ang_action_tokens'] = $kit_id;
+
+				update_post_meta( $post_id, '_elementor_page_settings', $settings );
+
+				$title = get_post_field( 'post_title', $post_id );
+				Utils::cli_log( "👉 🗣 Post: {$title}'s has been updated to use new Kit." );
+			}
+		}
+	}
+
 	/**
 	 * Converts existing SKs to Kits.
 	 *
@@ -213,23 +245,15 @@ class Migration {
 			Utils::cli_log( "👉 Style Kit '{$post->post_title}' has been migrated to Elementor Kit." );
 
 			$posts_using_sk = Utils::posts_using_stylekit( $post->ID );
-
-			if ( is_array( $posts_using_sk ) ) {
-				foreach ( $posts_using_sk as $post_id ) {
-					$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
-
-					$settings['ang_action_tokens'] = $kit_id;
-					update_post_meta( $post_id, '_elementor_page_settings', $settings );
-
-					$title = get_post_field( 'post_title', $post_id );
-					Utils::cli_log( "👉 🗣 Post: {$title}'s has been updated to use new Kit." );
-				}
-			}
+			$this->convert_posts_using_sk( $posts_using_sk, $kit_id );
 
 			if ( Utils::get_global_kit_id() === $post->ID ) {
 				update_option( Manager::OPTION_ACTIVE, $kit_id );
 
 				Utils::cli_log( "👉 🌐 Kit: {$post->post_title} has been set as Global Kit." );
+
+				$posts_using_global_sk = Utils::posts_using_stylekit();
+				$this->convert_posts_using_sk( $posts_using_global_sk, $kit_id );
 			}
 		}
 	}
