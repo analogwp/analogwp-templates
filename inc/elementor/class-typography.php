@@ -947,8 +947,8 @@ class Typography extends Module {
 	public function tweak_typography_section( $element ) {
 		$element->start_injection(
 			array(
-				'of' => 'body_typography_typography',
-				'at' => 'after',
+				'of' => 'h1_heading',
+				'at' => 'before',
 			)
 		);
 
@@ -966,6 +966,7 @@ class Typography extends Module {
 				'selectors' => array(
 					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
 				),
+				'separator' => 'before',
 			)
 		);
 
