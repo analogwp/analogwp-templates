@@ -26,7 +26,6 @@ final class BackgroundColorClasses extends Module {
 	 * BackgroundColorClasses constructor.
 	 */
 	public function __construct() {
-//		add_action( 'elementor/element/after_section_end', array( $this, 'register_section' ), 170, 2 );
 		add_action( 'elementor/element/kit/section_body/after_section_end', array( $this, 'register_section' ), 20, 2 );
 	}
 
@@ -105,19 +104,19 @@ final class BackgroundColorClasses extends Module {
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_background_light_heading',
 				'selectors' => array(
-					'{{WRAPPER}}'                 => '--ang_background_light_heading: {{VALUE}};',
-					'{{WRAPPER}} .sk-light-bg h1,' .
-					'{{WRAPPER}} .sk-light-bg h2,' .
-					'{{WRAPPER}} .sk-light-bg h3,' .
-					'{{WRAPPER}} .sk-light-bg h4,' .
-					'{{WRAPPER}} .sk-light-bg h5,' .
-					'{{WRAPPER}} .sk-light-bg h6' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h1,' .
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h2,' .
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h3,' .
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h4,' .
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h5,' .
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h6' => 'color: {{VALUE}};',
+					'{{WRAPPER}}' => '--ang_background_light_heading: {{VALUE}};',
+					'{{WRAPPER}} .sk-light-bg h1, {{WRAPPER}} .sk-light-bg h1.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-light-bg h2, {{WRAPPER}} .sk-light-bg h2.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-light-bg h3, {{WRAPPER}} .sk-light-bg h3.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-light-bg h4, {{WRAPPER}} .sk-light-bg h4.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-light-bg h5, {{WRAPPER}} .sk-light-bg h5.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-light-bg h6, {{WRAPPER}} .sk-light-bg h6.elementor-heading-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h1, {{WRAPPER}} .sk-dark-bg .sk-light-bg h1.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h2, {{WRAPPER}} .sk-dark-bg .sk-light-bg h2.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h3, {{WRAPPER}} .sk-dark-bg .sk-light-bg h3.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h4, {{WRAPPER}} .sk-dark-bg .sk-light-bg h4.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h5, {{WRAPPER}} .sk-dark-bg .sk-light-bg h5.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h6, {{WRAPPER}} .sk-dark-bg .sk-light-bg h6.elementor-heading-title' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -173,19 +172,19 @@ final class BackgroundColorClasses extends Module {
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_background_dark_heading',
 				'selectors' => array(
-					'{{WRAPPER}}'                => '--ang_background_dark_heading: {{VALUE}};',
-					'{{WRAPPER}} .sk-dark-bg h1,' .
-					'{{WRAPPER}} .sk-dark-bg h2,' .
-					'{{WRAPPER}} .sk-dark-bg h3,' .
-					'{{WRAPPER}} .sk-dark-bg h4,' .
-					'{{WRAPPER}} .sk-dark-bg h5,' .
-					'{{WRAPPER}} .sk-dark-bg h6' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h1,' .
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h2,' .
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h3,' .
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h4,' .
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h5,' .
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h6' => 'color: {{VALUE}};',
+					'{{WRAPPER}}' => '--ang_background_dark_heading: {{VALUE}};',
+					'{{WRAPPER}} .sk-dark-bg h1, {{WRAPPER}} .sk-dark-bg h1.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-dark-bg h2, {{WRAPPER}} .sk-dark-bg h2.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-dark-bg h3, {{WRAPPER}} .sk-dark-bg h3.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-dark-bg h4, {{WRAPPER}} .sk-dark-bg h4.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-dark-bg h5, {{WRAPPER}} .sk-dark-bg h5.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-dark-bg h6, {{WRAPPER}} .sk-dark-bg h6.elementor-heading-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h1, {{WRAPPER}} .sk-light-bg .sk-dark-bg h1.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h2, {{WRAPPER}} .sk-light-bg .sk-dark-bg h2.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h3, {{WRAPPER}} .sk-light-bg .sk-dark-bg h3.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h4, {{WRAPPER}} .sk-light-bg .sk-dark-bg h4.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h5, {{WRAPPER}} .sk-light-bg .sk-dark-bg h5.elementor-heading-title,' .
+					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h6, {{WRAPPER}} .sk-light-bg .sk-dark-bg h6.elementor-heading-title' => 'color: {{VALUE}};',
 				),
 			)
 		);
