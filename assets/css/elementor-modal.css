@@ -139,3 +139,7 @@ button[data-action="save_token"] {
 	right: 20px;
 	transform: translateY(-50%);
 }
+
+.elementor-control-ang_action_tokens .select2-container {
+	min-width: 120px;
+}
