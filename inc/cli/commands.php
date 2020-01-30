@@ -15,24 +15,7 @@ WP_CLI::add_command( 'analog library refresh', __NAMESPACE__ . '\refresh_library
 
 function migrate() {
 	$migration = new Migration();
-
-	$posts = \get_posts(
-		array(
-			'post_type'      => 'ang_tokens',
-			'posts_per_page' => -1,
-		)
-	);
-
-	foreach ( $posts as $post ) {
-		$kit_id = $migration->create_kit_from_sk( $post->ID );
-
-		if ( Utils::get_global_kit_id() === $post->ID ) {
-			update_option( Manager::OPTION_ACTIVE, $kit_id );
-			WP_CLI::line( "👉 👉 Kit: {$post->post_title} has been set as Global Kit." );
-		}
-
-		WP_CLI::line( "👉 Style Kit '{$post->post_title}' has been migrated to Elementor Kit." );
-	}
+	$migration->convert_all_sk_to_kits();
 
 	WP_CLI::success( 'All Style Kits have been migrated. 🎉' );
 }
