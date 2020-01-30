@@ -15,8 +15,12 @@
 				elementor.settings.page.addChangeCallback( 'ang_action_tokens', refreshKit );
 
 				if ( elementor.config.initial_document.type !== 'kit' ) {
-					elementor.config.kit_id = elementor.settings.page.model.attributes.ang_action_tokens;
-					fixKitClasses();
+					const activeKit = elementor.settings.page.model.attributes.ang_action_tokens;
+
+					if ( undefined !== activeKit ) {
+						elementor.config.kit_id = activeKit;
+						fixKitClasses();
+					}
 					enqueueFonts();
 					loadDocumentAndEnqueueFonts( elementor.config.kit_id );
 				} else {
