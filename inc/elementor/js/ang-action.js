@@ -405,7 +405,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 			const replacer = (e) => {
 				const checked = e.target.checked;
-				const elBody = `body.elementor-page-${elementor.config.document.id}`;
+				const elBody = `body.elementor-kit-${elementor.config.document.id}`;
 				const elSelector = 'body.elementor-page';
 				const elTextarea = jQuery('#ang-export-css');
 
