@@ -3,6 +3,8 @@
 namespace Analog\CLI;
 
 use Analog\Core\Util\Migration;
+use Analog\Elementor\Kit\Manager;
+use Analog\Utils;
 use Elementor\TemplateLibrary\Source_Local;
 use WP_CLI;
 
@@ -22,7 +24,12 @@ function migrate() {
 	);
 
 	foreach ( $posts as $post ) {
-		$migration->create_kit_from_sk( $post->ID );
+		$kit_id = $migration->create_kit_from_sk( $post->ID );
+
+		if ( Utils::get_global_kit_id() === $post->ID ) {
+			update_option( Manager::OPTION_ACTIVE, $kit_id );
+			WP_CLI::line( "👉 👉 Kit: {$post->post_title} has been set as Global Kit." );
+		}
 
 		WP_CLI::line( "👉 Style Kit '{$post->post_title}' has been migrated to Elementor Kit." );
 	}

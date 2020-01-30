@@ -7,6 +7,7 @@
 
 namespace Analog\Core\Util;
 
+use Analog\Elementor\Kit\Manager;
 use Analog\Utils;
 
 /**
@@ -207,7 +208,11 @@ class Migration {
 		);
 
 		foreach ( $posts as $post ) {
-			$this->create_kit_from_sk( $post->ID );
+			$kit_id = $this->create_kit_from_sk( $post->ID );
+
+			if ( Utils::get_global_kit_id() === $post->ID ) {
+				update_option( Manager::OPTION_ACTIVE, $kit_id );
+			}
 		}
 	}
 }
