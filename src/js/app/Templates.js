@@ -148,7 +148,7 @@ const TemplatesContainer = styled.div`
 				transform: translateX(20px);
 			}
 
-			+ button {
+			+ button, + .ang-promo {
 				margin-top: 10px;
 			}
 		}

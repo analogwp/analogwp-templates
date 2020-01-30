@@ -3,7 +3,6 @@ import Image from './helpers/Image';
 import Star from './icons/star';
 import { isNewTheme } from './utils';
 
-const { ExternalLink } = wp.components;
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
 
@@ -23,7 +22,7 @@ const Template = ( { template, setModalContent, importLayout, favorites, makeFav
 						{ __( 'Preview', 'ang' ) }
 					</button>
 					{ ! isValid( template.is_pro ) && (
-						<button className="ang-button"><ExternalLink href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro">{ __( 'Go PRO', 'ang' ) }</ExternalLink></button>
+						<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank"><button className="ang-button">{ __( 'Go Pro', 'ang' ) }</button></a>
 					) }
 					{ isValid( template.is_pro ) && (
 						<button className="ang-button" onClick={ () => importLayout( template ) }>

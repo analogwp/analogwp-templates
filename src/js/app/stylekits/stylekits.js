@@ -145,7 +145,7 @@ const ChildContainer = styled.ul`
 			transform: translateY(20px);
 			opacity: 0;
 
-			+ button {
+			+ button, + .ang-promo {
 				margin-top: 10px;
 			}
 		}
@@ -296,6 +296,10 @@ export default class StyleKits extends React.Component {
 											>
 												{ __( 'Preview', 'ang' ) }
 											</button>
+										) }
+
+										{ ! isValid( kit.is_pro ) && (
+											<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank"><button className="ang-button">{ __( 'Go Pro', 'ang' ) }</button></a>
 										) }
 
 										{ isValid( kit.is_pro ) && (
