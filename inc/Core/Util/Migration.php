@@ -210,9 +210,7 @@ class Migration {
 		foreach ( $posts as $post ) {
 			$kit_id = $this->create_kit_from_sk( $post->ID );
 
-			if ( defined( 'WP_CLI' ) && WP_CLI ) {
-				\WP_CLI::line( "👉 Style Kit '{$post->post_title}' has been migrated to Elementor Kit." );
-			}
+			Utils::cli_log( "👉 Style Kit '{$post->post_title}' has been migrated to Elementor Kit." );
 
 			$posts_using_sk = Utils::posts_using_stylekit( $post->ID );
 
@@ -223,23 +221,16 @@ class Migration {
 					$settings['ang_action_tokens'] = $kit_id;
 					update_post_meta( $post_id, '_elementor_page_settings', $settings );
 
-					if ( defined( 'WP_CLI' ) && WP_CLI ) {
-						$title = get_post_field( 'post_title', $post_id );
-						\WP_CLI::line( "👉👉 Post: {$title}'s has been updated to use new Kit." );
-					}
+					$title = get_post_field( 'post_title', $post_id );
+					Utils::cli_log( "👉 🗣 Post: {$title}'s has been updated to use new Kit." );
 				}
 			}
 
 			if ( Utils::get_global_kit_id() === $post->ID ) {
 				update_option( Manager::OPTION_ACTIVE, $kit_id );
-				if ( defined( 'WP_CLI' ) && WP_CLI ) {
-					\WP_CLI::line( "👉 👉 Kit: {$post->post_title} has been set as Global Kit." );
-				}
-			}
-		}
 
-		if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			\WP_CLI::line( ' ' );
+				Utils::cli_log( "👉 🌐 Kit: {$post->post_title} has been set as Global Kit." );
+			}
 		}
 	}
 }

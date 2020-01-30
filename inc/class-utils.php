@@ -634,6 +634,19 @@ class Utils extends Base {
 
 		return $kits;
 	}
+
+	/**
+	 * Log a message to CLI.
+	 *
+	 * @param string $message CLI message to output.
+	 * @since 1.6.0
+	 * @return string|void Return message if in CLI, or void.
+	 */
+	public static function cli_log( $message ) {
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			\WP_CLI::line( $message );
+		}
+	}
 }
 
 new Utils();
