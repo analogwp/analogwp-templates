@@ -186,7 +186,28 @@ class Migration {
 			get_post_field( 'post_title', $post_id ),
 			array(
 				'_elementor_page_settings' => $settings,
+				'_ang_migrated_from'       => $post_id,
+				'_ang_migrated_on'         => current_time( 'mysql' ),
+				'_is_analog_kit'           => true,
 			)
 		);
+	}
+
+	/**
+	 * Converts existing SKs to Kits.
+	 *
+	 * @return void
+	 */
+	public function convert_all_sk_to_kits() {
+		$posts = \get_posts(
+			array(
+				'post_type'      => 'ang_tokens',
+				'posts_per_page' => -1,
+			)
+		);
+
+		foreach ( $posts as $post ) {
+			$this->create_kit_from_sk( $post->ID );
+		}
 	}
 }
