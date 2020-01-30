@@ -170,7 +170,7 @@ export async function requestElementorImport( template, kit ) {
 				options = {};
 			}
 			const id = parsedTemplate.tokens.ang_action_tokens.toString();
-			options[ [id] ] = kit.data.title;
+			options[ [id] ] = kit.data;
 
 			elementor.settings.page.model.controls.ang_action_tokens.options = options;
 		}
