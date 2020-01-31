@@ -63,7 +63,7 @@ const Container = styled.div`
 		font-size: 20px;
 		line-height: 30px;
 		color: #000;
-		margin: 0 0 0 35px;
+		margin: 0 auto 0 35px;
 	}
 
 	.favorites.favorites {
