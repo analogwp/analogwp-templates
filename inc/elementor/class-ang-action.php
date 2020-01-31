@@ -100,7 +100,7 @@ class ANG_Action extends Base_Data_Control {
 				'saveToken'       => rest_url( 'agwp/v1/tokens/save' ),
 				'palette'         => $central_color_palette,
 				'translate'       => array(
-					'resetMessage'    => __( 'This will reset all the settings you configured previously under Page Style Settings from Analog Templates.', 'ang' ),
+					'resetMessage'    => __( 'This will reset all the settings you configured previously under Page Style Settings from Style Kits.', 'ang' ),
 					'resetHeader'     => __( 'Are you sure?', 'ang' ),
 					'saveToken'       => __( 'Save Style Kit as', 'ang' ),
 					'saveToken2'      => __( 'Save', 'ang' ),
