@@ -110,6 +110,11 @@ class Manager {
 		$custom_kit = $this->get_current_post()->get_meta( self::OPTION_CUSTOM_KIT );
 		$custom_kit = $custom_kit['ang_action_tokens'];
 
+		$post_status = get_post_status( $custom_kit );
+		if ( 'publish' !== $post_status ) {
+			return;
+		}
+
 		if ( Plugin::$instance->preview->is_preview_mode() ) {
 			$this->generate_kit_css();
 		} else {
