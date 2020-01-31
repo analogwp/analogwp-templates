@@ -93,7 +93,7 @@ function ang_update_elementor_kit() {
 
 	if ( $raw_value !== $kit_id || $raw_value !== $elementor_kit ) {
 		if ( empty( $raw_value ) || '-1' === $raw_value ) {
-			\update_option( $elementor_kit_key, false );
+			\update_option( $elementor_kit_key, Options::get_instance()->get( 'default_kit' ) );
 		}
 
 		\update_option( $elementor_kit_key, $raw_value );
