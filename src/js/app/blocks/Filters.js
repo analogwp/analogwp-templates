@@ -123,10 +123,18 @@ export default class Filters extends React.Component {
 
 	render() {
 		const { category, setCategory } = this.props;
-		const categories = [ ...new Set( this.context.state.blockArchive.map( block => block.tags[ 0 ] ) ) ];
+		const categories = [ ...new Set( this.context.state.blockArchive.map( block => {
+			if ( AGWP.license.status !== 'valid' && this.context.state.showFree && Boolean( block.is_pro ) ) {
+				return;
+			}
+			return block.tags[ 0 ];
+		} ) ) ];
 		const filterTypes = [ ...categories ].map( filter => {
-			return { value: `${ filter }`, label: `${ filter }` };
-		} );
+			if ( 'undefined' !== typeof filter ) {
+				return { value: `${ filter }`, label: `${ filter }` };
+			}
+		} ).filter( filter => 'undefined' !== typeof filter );
+
 
 		const filterOptions = [
 			{ value: 'all', label: __( 'Show All', 'ang' ) },
