@@ -196,7 +196,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 
 	const { category } = state;
 
-	let filteredBlocks = context.state.blocks;
+	let filteredBlocks = context.state.blocks.filter( block => ! ( AGWP.license.status !== 'valid' && context.state.showFree && Boolean( block.is_pro ) ) );
 
 	if ( context.state.group ) {
 		filteredBlocks = filteredBlocks.filter( block => block.tags.indexOf( category ) > -1 );

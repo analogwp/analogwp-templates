@@ -127,7 +127,10 @@ export default class Blocks extends Component {
 	getItemCount( category ) {
 		const blocks = this.context.state.blocks;
 
-		const foundItems = blocks.filter( block => block.tags.indexOf( category ) > -1 );
+		const foundItems =
+			blocks
+				.filter( block => block.tags.indexOf( category ) > -1 )
+				.filter( block => ! ( AGWP.license.status !== 'valid' && this.context.state.showFree && Boolean( block.is_pro ) ) );
 
 		if ( foundItems ) {
 			return foundItems.length;

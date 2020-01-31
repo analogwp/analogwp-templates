@@ -167,6 +167,20 @@ export default class Filters extends React.Component {
 						</button>
 					) }
 
+					{ AGWP.license.status !== 'valid' && (
+						<ToggleControl
+							label={ __( 'Show Pro Blocks' ) }
+							checked={ ! this.context.state.showFree }
+							onChange={ () => {
+								this.context.dispatch( {
+									showFree: ! this.context.state.showFree,
+								} );
+
+								window.localStorage.setItem( 'analog::show-free', ! this.context.state.showFree );
+							} }
+						/>
+					) }
+
 					{ ! showingCategory && ! this.context.state.showing_favorites && (
 						<ToggleControl
 							label={ __( 'Group by Block type' ) }

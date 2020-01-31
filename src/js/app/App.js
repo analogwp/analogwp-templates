@@ -216,7 +216,7 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			blockArchive: [], // same as archive above just for blocks.
-			showFree: true,
+			showFree: false,
 			group: true,
 			activeKit: false,
 			tab: 'templates',
@@ -251,6 +251,12 @@ class App extends React.Component {
 	async componentDidMount() {
 		window.addEventListener( 'hashchange', this.switchTabs, false );
 		window.addEventListener( 'DOMContentLoaded', this.switchTabs, false );
+
+		if ( window.localStorage.getItem( 'analog::show-free' ) === 'false' ) {
+			this.setState( {
+				showFree: false,
+			} );
+		}
 
 		if ( window.localStorage.getItem( 'analog::group-kit' ) === 'false' ) {
 			this.setState( {
