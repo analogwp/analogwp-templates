@@ -7,6 +7,7 @@
 
 namespace Analog\Elementor\Kit;
 
+use Analog\Options;
 use Analog\Utils;
 use Elementor\Plugin;
 use Elementor\Core\Files\CSS\Post as Post_CSS;
@@ -33,6 +34,25 @@ class Manager {
 		add_action( 'elementor/frontend/after_enqueue_global', array( $this, 'frontend_before_enqueue_styles' ), 999 );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'preview_enqueue_styles' ), 999 );
 		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ), 999 );
+		add_action( 'delete_post', array( $this, 'restore_default_kit' ) );
+	}
+
+	/**
+	 * Restore Elementor default if a custom Kit is deleted, if it was global.
+	 *
+	 * @param int $post_id Post ID being deleted.
+	 * @return void
+	 */
+	public function restore_default_kit( $post_id ) {
+		if ( Source_Local::CPT !== get_post_type( $post_id ) ) {
+			return;
+		}
+
+		$global_kit = Options::get_instance()->get( 'global_kit' );
+
+		if ( $global_kit && $post_id === (int) $global_kit ) {
+			update_option( self::OPTION_ACTIVE, Options::get_instance()->get( 'default_kit' ) );
+		}
 	}
 
 	/**
