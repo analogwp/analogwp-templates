@@ -158,55 +158,63 @@ class Colors extends Module {
 			)
 		);
 
+		$primary_accent_color_selectors = array(
+			'{{WRAPPER}} .sk-accent-1',
+			'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon',
+			'{{WRAPPER}} .elementor-icon-list-icon',
+			'{{WRAPPER}} .elementor-view-framed .elementor-icon',
+			'{{WRAPPER}} .elementor-view-default .elementor-icon',
+			'{{WRAPPER}} .sk-primary-accent',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h2',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h3',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h4',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6',
+			'{{WRAPPER}} *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-icon-box-icon):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item):not([role="link"])',
+			'{{WRAPPER}} a:not([class])',
+			'{{WRAPPER}} .elementor-tab-title.elementor-active',
+			'{{WRAPPER}} .elementor-post-info__terms-list-item',
+			'{{WRAPPER}} .elementor-post__title',
+			'{{WRAPPER}} .elementor-post__title a',
+			'{{WRAPPER}} .elementor-heading-title a',
+			'{{WRAPPER}} .elementor-post__read-more',
+			'{{WRAPPER}} .elementor-image-box-title a',
+			'{{WRAPPER}} .elementor-icon-box-icon a',
+			'{{WRAPPER}} .elementor-icon-box-title a',
+			'{{WRAPPER}} .elementor-nav-menu--main .elementor-nav-menu a:not(.elementor-sub-item)',
+			'{{WRAPPER}} .elementor-nav-menu--main .elementor-nav-menu .elementor-sub-item:not(:hover) a',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown a',
+		);
+
+		$primary_accent_background_selectors = array(
+			'{{WRAPPER}} .elementor-view-stacked .elementor-icon',
+			'{{WRAPPER}} .elementor-progress-bar',
+			'{{WRAPPER}} .comment-form input#submit',
+			'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item:hover',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item.elementor-item-active',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item.highlighted',
+			'{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:before',
+			'{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:after',
+			'{{WRAPPER}} .elementor-sub-item:hover',
+			'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated',
+		);
+
+		$primary_accent_color_selectors      = implode( ',', $primary_accent_color_selectors );
+		$primary_accent_background_selectors = implode( ',', $primary_accent_background_selectors );
+
 		$selectors = array(
-			'{{WRAPPER}}'                                 => '--ang_color_accent_primary: {{VALUE}}',
-			'{{WRAPPER}} .sk-accent-1'                    => 'color: {{VALUE}}',
-			'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
-			'{{WRAPPER}} .elementor-icon-list-icon'       => 'color: {{VALUE}}',
-			'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'background-color: {{VALUE}}; color: #fff;',
-			'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'color: {{VALUE}}; border-color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-progress-bar'         => 'background-color: {{VALUE}}',
-			'{{WRAPPER}} .sk-primary-accent'              => 'color: {{VALUE}}',
-
-			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1,
-			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h2,
-			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h3,
-			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h4,
-			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5,
-			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6' => 'color: {{VALUE}}',
-
-			'{{WRAPPER}} .comment-form input#submit'      => 'background-color: {{VALUE}};',
+			'{{WRAPPER}}'                           => '--ang_color_accent_primary: {{VALUE}};',
+			'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'color: #fff;',
+			'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'border-color: {{VALUE}};',
 			'.theme-hello-elementor .comment-form input#submit' => 'color: #fff; border: none;',
+			'{{WRAPPER}} .elementor-tab-title a'    => 'color: inherit;',
+			'{{WRAPPER}} .e--pointer-framed .elementor-item:before,{{WRAPPER}} .e--pointer-framed .elementor-item:after' => 'border-color: {{VALUE}};',
+			'{{WRAPPER}} .elementor-sub-item:hover' => 'color: #fff;',
 
-			'{{WRAPPER}} *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-icon-box-icon):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item):not([role="link"]),
-			{{WRAPPER}} a:not([class]),
-			{{WRAPPER}} .elementor-tab-title.elementor-active,
-			{{WRAPPER}} .elementor-post-info__terms-list-item,
-			{{WRAPPER}} .elementor-post__title,
-			{{WRAPPER}} .elementor-post__title a,
-			{{WRAPPER}} .elementor-heading-title a,
-			{{WRAPPER}} .elementor-post__read-more,
-			{{WRAPPER}} .elementor-image-box-title a,
-			{{WRAPPER}} .elementor-icon-box-icon a,
-			{{WRAPPER}} .elementor-icon-box-title a'      => 'color: {{VALUE}};',
-
-			'{{WRAPPER}} .elementor-tab-title a'          => 'color: inherit;',
-
-			'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
-
-			'{{WRAPPER}} .elementor-nav-menu--main .elementor-nav-menu a:not(.elementor-sub-item)' => 'color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-nav-menu--main .elementor-nav-menu .elementor-sub-item:not(:hover) a' => 'color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item:hover' => 'background-color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item.elementor-item-active' => 'background-color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-nav-menu--dropdown a' => 'color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item.highlighted' => 'background-color: {{VALUE}};',
-
-			'{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:before,
-			{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:after' => 'background-color: {{VALUE}}',
-			'{{WRAPPER}} .e--pointer-framed .elementor-item:before,
-			{{WRAPPER}} .e--pointer-framed .elementor-item:after' => 'border-color: {{VALUE}}',
-			'{{WRAPPER}} .elementor-sub-item:hover'       => 'background-color: {{VALUE}}; color: #fff;',
-			'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
+			$primary_accent_color_selectors         => 'color: {{VALUE}};',
+			$primary_accent_background_selectors    => 'background-color: {{VALUEE}};',
 		);
 
 		$element->add_control(
@@ -228,6 +236,18 @@ class Colors extends Module {
 			)
 		);
 
+		$accent_secondary_selectors = array(
+			'{{WRAPPER}} .sk-secondary-accent',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h1',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h2',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h3',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h4',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h5',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h6',
+		);
+
+		$accent_secondary_selectors = implode( ',', $accent_secondary_selectors );
+
 		$element->add_control(
 			'ang_color_accent_secondary',
 			array(
@@ -235,19 +255,10 @@ class Colors extends Module {
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_color_accent_secondary',
 				'selectors' => array(
-					'{{WRAPPER}}'                      => '--ang_color_accent_secondary: {{VALUE}};',
+					'{{WRAPPER}}'               => '--ang_color_accent_secondary: {{VALUE}};',
 					'{{WRAPPER}} .elementor-button, {{WRAPPER}} .button, {{WRAPPER}} button, {{WRAPPER}} .sk-accent-2' => 'background-color: {{VALUE}}',
-					'{{WRAPPER}} .sk-secondary-accent' => 'color: {{VALUE}}',
-
-					'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h1,
-					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h2,
-					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h3,
-					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h4,
-					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h5,
-					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h6' => 'color: {{VALUE}}',
-
+					$accent_secondary_selectors => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sk-secondary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
-
 					'{{WRAPPER}} .sk-secondary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
 				),
 			)

@@ -97,6 +97,35 @@ final class BackgroundColorClasses extends Module {
 				),
 			)
 		);
+
+		$light_heading_selectors = array(
+			'{{WRAPPER}} .sk-light-bg h1',
+			'{{WRAPPER}} .sk-light-bg h1.elementor-heading-title',
+			'{{WRAPPER}} .sk-light-bg h2',
+			'{{WRAPPER}} .sk-light-bg h2.elementor-heading-title',
+			'{{WRAPPER}} .sk-light-bg h3',
+			'{{WRAPPER}} .sk-light-bg h3.elementor-heading-title',
+			'{{WRAPPER}} .sk-light-bg h4',
+			'{{WRAPPER}} .sk-light-bg h4.elementor-heading-title',
+			'{{WRAPPER}} .sk-light-bg h5',
+			'{{WRAPPER}} .sk-light-bg h5.elementor-heading-title',
+			'{{WRAPPER}} .sk-light-bg h6',
+			'{{WRAPPER}} .sk-light-bg h6.elementor-heading-title',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h1',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h1.elementor-heading-title',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h2',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h2.elementor-heading-title',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h3',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h3.elementor-heading-title',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h4',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h4.elementor-heading-title',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h5',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h5.elementor-heading-title',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h6',
+			'{{WRAPPER}} .sk-dark-bg .sk-light-bg h6.elementor-heading-title',
+		);
+		$light_heading_selectors = implode( ',', $light_heading_selectors );
+
 		$element->add_control(
 			'ang_background_light_heading',
 			array(
@@ -104,19 +133,8 @@ final class BackgroundColorClasses extends Module {
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_background_light_heading',
 				'selectors' => array(
-					'{{WRAPPER}}' => '--ang_background_light_heading: {{VALUE}};',
-					'{{WRAPPER}} .sk-light-bg h1, {{WRAPPER}} .sk-light-bg h1.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-light-bg h2, {{WRAPPER}} .sk-light-bg h2.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-light-bg h3, {{WRAPPER}} .sk-light-bg h3.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-light-bg h4, {{WRAPPER}} .sk-light-bg h4.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-light-bg h5, {{WRAPPER}} .sk-light-bg h5.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-light-bg h6, {{WRAPPER}} .sk-light-bg h6.elementor-heading-title' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h1, {{WRAPPER}} .sk-dark-bg .sk-light-bg h1.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h2, {{WRAPPER}} .sk-dark-bg .sk-light-bg h2.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h3, {{WRAPPER}} .sk-dark-bg .sk-light-bg h3.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h4, {{WRAPPER}} .sk-dark-bg .sk-light-bg h4.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h5, {{WRAPPER}} .sk-dark-bg .sk-light-bg h5.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-dark-bg .sk-light-bg h6, {{WRAPPER}} .sk-dark-bg .sk-light-bg h6.elementor-heading-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}}'            => '--ang_background_light_heading: {{VALUE}};',
+					$light_heading_selectors => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -165,6 +183,35 @@ final class BackgroundColorClasses extends Module {
 				),
 			)
 		);
+
+		$dark_heading_selectors = array(
+			'{{WRAPPER}} .sk-dark-bg h1',
+			'{{WRAPPER}} .sk-dark-bg h1.elementor-heading-title',
+			'{{WRAPPER}} .sk-dark-bg h2',
+			'{{WRAPPER}} .sk-dark-bg h2.elementor-heading-title',
+			'{{WRAPPER}} .sk-dark-bg h3',
+			'{{WRAPPER}} .sk-dark-bg h3.elementor-heading-title',
+			'{{WRAPPER}} .sk-dark-bg h4',
+			'{{WRAPPER}} .sk-dark-bg h4.elementor-heading-title',
+			'{{WRAPPER}} .sk-dark-bg h5',
+			'{{WRAPPER}} .sk-dark-bg h5.elementor-heading-title',
+			'{{WRAPPER}} .sk-dark-bg h6',
+			'{{WRAPPER}} .sk-dark-bg h6.elementor-heading-title',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h1',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h1.elementor-heading-title',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h2',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h2.elementor-heading-title',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h3',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h3.elementor-heading-title',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h4',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h4.elementor-heading-title',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h5',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h5.elementor-heading-title',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h6',
+			'{{WRAPPER}} .sk-light-bg .sk-dark-bg h6.elementor-heading-title',
+		);
+
+		$dark_heading_selectors = implode( ',', $dark_heading_selectors );
 		$element->add_control(
 			'ang_background_dark_heading',
 			array(
@@ -172,19 +219,8 @@ final class BackgroundColorClasses extends Module {
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_background_dark_heading',
 				'selectors' => array(
-					'{{WRAPPER}}' => '--ang_background_dark_heading: {{VALUE}};',
-					'{{WRAPPER}} .sk-dark-bg h1, {{WRAPPER}} .sk-dark-bg h1.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-dark-bg h2, {{WRAPPER}} .sk-dark-bg h2.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-dark-bg h3, {{WRAPPER}} .sk-dark-bg h3.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-dark-bg h4, {{WRAPPER}} .sk-dark-bg h4.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-dark-bg h5, {{WRAPPER}} .sk-dark-bg h5.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-dark-bg h6, {{WRAPPER}} .sk-dark-bg h6.elementor-heading-title' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h1, {{WRAPPER}} .sk-light-bg .sk-dark-bg h1.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h2, {{WRAPPER}} .sk-light-bg .sk-dark-bg h2.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h3, {{WRAPPER}} .sk-light-bg .sk-dark-bg h3.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h4, {{WRAPPER}} .sk-light-bg .sk-dark-bg h4.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h5, {{WRAPPER}} .sk-light-bg .sk-dark-bg h5.elementor-heading-title,' .
-					'{{WRAPPER}} .sk-light-bg .sk-dark-bg h6, {{WRAPPER}} .sk-light-bg .sk-dark-bg h6.elementor-heading-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}}'           => '--ang_background_dark_heading: {{VALUE}};',
+					$dark_heading_selectors => 'color: {{VALUE}};',
 				),
 			)
 		);

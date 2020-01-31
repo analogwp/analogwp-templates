@@ -249,20 +249,23 @@ class Typography extends Module {
 		);
 
 		foreach ( $settings as $setting ) {
+			$selectors = array(
+				"{{WRAPPER}} h1.elementor-heading-title.elementor-size-{$setting[0]}",
+				"{{WRAPPER}} h2.elementor-heading-title.elementor-size-{$setting[0]}",
+				"{{WRAPPER}} h3.elementor-heading-title.elementor-size-{$setting[0]}",
+				"{{WRAPPER}} h4.elementor-heading-title.elementor-size-{$setting[0]}",
+				"{{WRAPPER}} h5.elementor-heading-title.elementor-size-{$setting[0]}",
+				"{{WRAPPER}} h6.elementor-heading-title.elementor-size-{$setting[0]}",
+			);
+			$selectors = implode( ',', $selectors );
+
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
 				array(
 					'name'           => 'ang_size_' . $setting[0],
 					'label'          => $setting[1],
 					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
-					'selector'       => "
-						{{WRAPPER}} h1.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} h2.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} h3.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} h4.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} h5.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} h6.elementor-heading-title.elementor-size-{$setting[0]}
-					",
+					'selector'       => $selectors,
 					'exclude'        => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
 					'fields_options' => $this->get_default_typography_values( 'ang_size_' . $setting[0] ),
 				)
