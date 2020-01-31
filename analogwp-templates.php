@@ -15,6 +15,8 @@
 
 namespace Analog;
 
+define( 'ANG_ELEMENTOR_REQ_VERSION', '2.9.0' );
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -386,8 +388,9 @@ function analog_fail_wp_version() {
 add_action(
 	'plugins_loaded',
 	function() {
-		if ( ! version_compare( ELEMENTOR_VERSION, '2.9.0', '>=' ) ) {
+		if ( ! version_compare( ELEMENTOR_VERSION, ANG_ELEMENTOR_REQ_VERSION, '>=' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\analog_elementor_error' );
+			return;
 		}
 
 		if ( ! did_action( 'elementor/loaded' ) ) {
