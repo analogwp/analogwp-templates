@@ -55,8 +55,9 @@ class Options extends Base {
 	public function delete( $key ) {
 		$options = $this->get();
 		if ( ! isset( $options[ $key ] ) ) {
-			return false;
+			return;
 		}
+
 		unset( $options[ $key ] );
 		update_option( self::OPTION_KEY, $options );
 	}
