@@ -90,6 +90,9 @@ const Container = styled.div`
 				transform: translateY(20px);
 				opacity: 0;
 			}
+			.ang-promo {
+				text-decoration: none;
+			}
 		}
 	}
 
