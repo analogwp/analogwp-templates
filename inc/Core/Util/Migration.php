@@ -8,6 +8,7 @@
 namespace Analog\Core\Util;
 
 use Analog\Elementor\Kit\Manager;
+use Analog\Options;
 use Analog\Utils;
 use Elementor\TemplateLibrary\Source_Local;
 
@@ -232,6 +233,9 @@ class Migration {
 	 * @return void
 	 */
 	public function convert_all_sk_to_kits() {
+		// Save Elementor's default kit before resetting.
+		Options::get_instance()->set( 'default_kit', Manager::OPTION_ACTIVE );
+
 		$posts = \get_posts(
 			array(
 				'post_type'      => 'ang_tokens',
