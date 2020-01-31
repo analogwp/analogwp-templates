@@ -224,7 +224,7 @@ class Filters extends React.Component {
 
 						{ ( ! this.context.state.group || showingKit ) && ! this.context.state.showing_favorites && (
 							<div className="bottom">
-								{ filters.length > 1 && (
+								{ ! showingKit && filters.length > 1 && (
 									<List>
 										<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
 										<Select
