@@ -316,6 +316,18 @@ function ANG() { // @codingStandardsIgnoreLine
 }
 
 /**
+ * Elementor version requirements are not met.
+ *
+ * @return mixed
+ */
+function analog_elementor_error() {
+	$update_url = wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=elementor/elementor.php' ) );
+	$message = '<p>' . __( 'Style Kits requires Elementor v2.9.0 or greater in order to work. Please update Elementor to the latest version.', 'ang' ) . '</p>';
+	$message       .= '<p>' . sprintf( '<a href="%s" class="button-secondary">%s</a>', $update_url, __( 'Update Elementor Now', 'ang' ) ) . '</p>';
+	echo '<div class="error"><p>' . $message . '</p></div>';
+}
+
+/**
  * Fail plugin initiialization if requirements are not met.
  *
  * @return mixed|bool
@@ -374,6 +386,10 @@ function analog_fail_wp_version() {
 add_action(
 	'plugins_loaded',
 	function() {
+		if ( ! version_compare( ELEMENTOR_VERSION, '2.9.0', '>=' ) ) {
+			add_action( 'admin_notices', __NAMESPACE__ . '\analog_elementor_error' );
+		}
+
 		if ( ! did_action( 'elementor/loaded' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
 			return;
