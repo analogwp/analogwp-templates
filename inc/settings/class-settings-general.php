@@ -74,22 +74,6 @@ class General extends Settings_Page {
 		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
 	}
 
-
-	/**
-	 * Update Elementor Kit Option with respect to GSK.
-	 *
-	 * @return void
-	 */
-	public function update_elementor_kit() {
-		$kit = Options::get_instance()->get( 'global_kit' );
-
-		if ( empty( $kit ) || '-1' === $kit ) {
-			\update_option( \Elementor\Core\Kits\Manager::OPTION_ACTIVE, false );
-		}
-
-		\update_option( \Elementor\Core\Kits\Manager::OPTION_ACTIVE, $kit );
-	}
-
 	/**
 	 * Output the settings.
 	 */
@@ -106,9 +90,6 @@ class General extends Settings_Page {
 		$settings = $this->get_settings();
 
 		Admin_Settings::save_fields( $settings );
-
-		// Trigger Elementor Kit Option update.
-		$this->update_elementor_kit();
 	}
 }
 
