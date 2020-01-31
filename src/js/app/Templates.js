@@ -150,6 +150,7 @@ const TemplatesContainer = styled.div`
 
 			+ button, + .ang-promo {
 				margin-top: 10px;
+				text-decoration: none;
 			}
 		}
 
