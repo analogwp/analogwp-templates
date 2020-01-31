@@ -131,6 +131,7 @@ final class Notice {
 					'a'      => array(
 						'href'   => array(),
 						'target' => array(),
+						'class' => array(),
 					),
 					'br'     => array(),
 					'em'     => array(),
