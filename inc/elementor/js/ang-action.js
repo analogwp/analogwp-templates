@@ -377,13 +377,19 @@ jQuery( window ).on( 'elementor:init', function() {
 			return events;
 		},
 
-		performAction: function( name ) {
+		actions: function() {
 			const actions = {
 				export_css: 'handleCSSExport',
 				reset_css: 'handleCSSReset',
 				save_token: 'handleSaveToken',
+				update_token: 'handleTokenUpdate',
 			};
 
+			return actions;
+		},
+
+		performAction: function( name ) {
+			const actions = this.actions();
 			return this[ actions[ name ] ]();
 		},
 
