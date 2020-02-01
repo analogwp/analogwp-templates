@@ -170,6 +170,15 @@ class Typography extends Module {
 			)
 		);
 
+		// TODO: Remove in v1.6.
+		$main_id  = $element->get_main_id();
+		$type     = get_post_meta( $main_id, '_elementor_template_type', true );
+		$selector = '{{WRAPPER}}';
+
+		if ( 'popup' === $type ) {
+			$selector = '.elementor-' . $main_id;
+		}
+
 		for ( $i = 1; $i < 7; $i++ ) {
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
@@ -177,7 +186,7 @@ class Typography extends Module {
 					'name'           => 'ang_heading_' . $i,
 					/* translators: %s: Heading 1-6 type */
 					'label'          => sprintf( __( 'Heading %s', 'ang' ), $i ),
-					'selector'       => "{{WRAPPER}} h{$i}, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title",
+					'selector'       => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
 					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
 					'fields_options' => $this->get_default_typography_values( 'ang_heading_' . $i ),
 				)
