@@ -755,14 +755,14 @@ class Typography extends Module {
 			)
 		);
 
-		$label = __( 'This will reset all the custom style values added in the Style tab, and detach this page from any Style kits', 'ang' );
+		$label = __( 'This will reset the Style Kit styles and detach the page from the Style Kit.', 'ang' );
 		$element->add_control(
 			'ang_action_reset',
 			array(
-				'label'        => __( 'Reset all styling', 'ang' ) . $this->get_tooltip( $label ),
+				'label'        => __( 'Reset Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'         => 'ang_action',
 				'action'       => 'reset_css',
-				'action_label' => __( 'Reset all', 'ang' ),
+				'action_label' => __( 'Reset', 'ang' ),
 			)
 		);
 
