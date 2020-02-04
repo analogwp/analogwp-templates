@@ -78,17 +78,18 @@ const formatGroupLabel = data => (
 const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyleKitInfo } ) => {
 	const [ step, setStep ] = useState( 1 );
 	const [ title, setTitle ] = useState( __( 'Select a Style Kit to apply on this layout', 'ang' ) );
+
 	const kit = state.kit;
-	const { state: { styleKits } } = useContext( AnalogContext );
+	const { state: { styleKits, installedKits }, dispatch } = useContext( AnalogContext );
 	const { template } = state;
 
-	const filterOptions = AGWP.installed_kits.map( filter => {
+	const filterOptions = installedKits.map( filter => {
 		return { value: filter, label: filter };
 	} );
 
 	const importables = styleKits
 		.filter( k => parseInt( k.site_id ) === parseInt( state.template.site_id ) )
-		.filter( k => ! AGWP.installed_kits.includes( k.title ) );
+		.filter( k => ! installedKits.includes( k.title ) );
 
 	const importableOptions = importables.map( ( k ) => {
 		return { value: k.title, label: k.title };
@@ -192,6 +193,13 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 										className="ang-button"
 										onClick={ () => {
 											handleImport( add, false );
+
+											const kits = [ ...installedKits ];
+											kits.push( state.kit );
+											dispatch( {
+												installedKits: kits,
+											} );
+
 											setStep( 3 );
 										} }
 									>
