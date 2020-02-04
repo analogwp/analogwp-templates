@@ -116,6 +116,10 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
+= 1.5.4 - Feb 04, 2020 =
+* Tweak: Adds compatibility for Style Kits Pro
+* Fix: Importing templates back to back in Elementor editor caused them to import more than once
+
 = 1.5.3 - Feb 01, 2020 =
 - New: Added 'My favorites' for Blocks
 - New: Added Filter, Sorting & Search for blocks (Disabled in grouped view)
