@@ -119,6 +119,14 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 	const importElementor = () => {
 		requestElementorImport( state.template, getStyleKitInfo( state.kit ) ).then( () => {
 			handler( { showingModal: false, importing: false, importingElementor: false } );
+
+			const kits = [ ...installedKits ];
+			kits.push( state.kit );
+			dispatch( {
+				installedKits: kits,
+			} );
+
+			onRequestClose();
 		} );
 	};
 
