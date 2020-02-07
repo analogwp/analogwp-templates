@@ -266,14 +266,14 @@ jQuery( window ).on( 'elementor:init', function() {
 	// analog.StyleKitUpdateModal = analog.styleKitUpdateDialog();
 
 	analog.resetStyles = () => {
-		const historyId = $e.run('document/history/start-log', {
+		const historyId = $e.internal('document/history/start-log', {
 			type: 'reset_settings',
 			title: 'Reset Page Settings'
 		});
 
 		elementor.settings.page.model.set( elementor.documents.getCurrent().container.settings.defaults );
 
-		$e.run('document/history/end-log', { id: historyId });
+		$e.internal('document/history/end-log', { id: historyId });
 	};
 
 	// analog.applyStyleKit = ( value ) => {
