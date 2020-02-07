@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.3.2
-Stable tag: 1.5.3
+Stable tag: 1.5.5
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -23,7 +23,15 @@ https://www.youtube.com/watch?v=FZfTG3l-7T8
 - Headings and text sizes
 - Column Gaps
 - Buttons
-- Colors and more are coming soon
+- Templates Library
+  - 145+ Templates
+  - 15+ Theme Style Kits
+  - 90+ Blocks
+- [Helpers Tools](https://www.youtube.com/watch?v=VmYtvvmQbnI) (Pro) to increase your productivity
+  - Reset inline styles, from any template
+  - Reset Colors and Typography styles
+  - Highlight elements with custom CSS classes on page
+  - Highlight elements with custom CSS on page
 
 #### Typography
 
@@ -115,6 +123,9 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.5.5 - Feb 07, 2020 =
+* Fix: Conflict with Elementor Extras plugin
 
 = 1.5.4 - Feb 04, 2020 =
 * Tweak: Adds compatibility for Style Kits Pro
@@ -401,3 +412,6 @@ Fixes a conflict with Elementor User class, and color picker swatches.
 
 = 1.5.2 =
 Fixes an issue with incorrect Kit selected during Template imports.
+
+= 1.5.5 =
+Fixes a conflict with Elementor Extras plugin
