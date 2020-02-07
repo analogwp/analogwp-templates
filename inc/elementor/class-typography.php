@@ -171,12 +171,15 @@ class Typography extends Module {
 		);
 
 		// TODO: Remove in v1.6.
-		$main_id  = $element->get_main_id();
-		$type     = get_post_meta( $main_id, '_elementor_template_type', true );
 		$selector = '{{WRAPPER}}';
 
-		if ( 'popup' === $type ) {
-			$selector = '.elementor-' . $main_id;
+		if ( method_exists( $element, 'get_main_id' ) ) {
+			$main_id = $element->get_main_id();
+			$type    = get_post_meta( $main_id, '_elementor_template_type', true );
+
+			if ( 'popup' === $type ) {
+				$selector = '.elementor-' . $main_id;
+			}
 		}
 
 		for ( $i = 1; $i < 7; $i++ ) {
