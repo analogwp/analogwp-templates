@@ -606,94 +606,11 @@ jQuery( window ).on( 'elementor:init', function() {
 	// 	}
 	// });
 
-	analog.insertColors = () => {
-		const settings = elementor.settings.page.model.attributes;
-
-		const colors = [
-			settings.ang_color_accent_primary,
-			settings.ang_color_accent_secondary,
-			settings.ang_color_text_light,
-			settings.ang_color_text_dark,
-			settings.ang_color_background_light,
-			settings.ang_color_background_dark,
-			...ANG_Action.palette,
-		];
-
-		// Remove null values.
-		const angColors = jQuery.unique( colors.filter( ( v ) => v !== '' ) );
-
-		// Return early if requirements aren't met.
-		if ( ! jQuery.a8c || ! jQuery.a8c.iris || ! angColors.length ) {
-			return;
+	elementor.on( 'preview:loaded', () => {
+		if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.7.6', '>' ) ) {
+			jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
 		}
-
-		jQuery.a8c.iris.prototype._addPalettes = function() {
-			let container = this.picker.children( '.iris-palette-container' );
-			if ( ! container.length ) {
-				container = jQuery( '<div class="iris-palette-container"/>' ).appendTo( this.picker );
-			}
-
-			const palette = angColors;
-
-			jQuery.each( palette, function( index, val ) {
-				jQuery( '<a class="iris-palette" tabindex="0"/>' )
-					.data( 'color', val )
-					.css( 'backgroundColor', val )
-					.appendTo( container );
-			} );
-
-			this.picker.append( container );
-		};
-	};
-
-	analog.updateColorPicker = () => {
-		const container = jQuery( '.iris-palette-container' );
-		container.empty();
-
-		const settings = elementor.settings.page.model.attributes;
-
-		const colors = [
-			settings.ang_color_accent_primary,
-			settings.ang_color_accent_secondary,
-			settings.ang_color_text_light,
-			settings.ang_color_text_dark,
-			settings.ang_color_background_light,
-			settings.ang_color_background_dark,
-			...ANG_Action.palette,
-		];
-
-		// Remove null values.
-		const angColors = jQuery.unique( colors.filter( ( v ) => v !== '' ) );
-
-		jQuery.each( angColors, function( index, val ) {
-			jQuery( '<a class="iris-palette" tabindex="0"/>' )
-				.data( 'color', val )
-				.css( 'backgroundColor', val )
-				.css( {
-					width: '19.2452px',
-					height: '19.2452px',
-					'margin-right': '3.5805px',
-				} )
-				.appendTo( container );
-		} );
-	};
-
-	if ( Boolean( AGWP.syncColors ) === true ) {
-		elementor.on( 'preview:loaded', () => {
-			analog.insertColors();
-
-			if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.7.6', '>' ) ) {
-				jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
-			}
-		} );
-
-		elementor.settings.page.addChangeCallback( 'ang_color_accent_primary', analog.updateColorPicker );
-		elementor.settings.page.addChangeCallback( 'ang_color_accent_secondary', analog.updateColorPicker );
-		elementor.settings.page.addChangeCallback( 'ang_color_text_light', analog.updateColorPicker );
-		elementor.settings.page.addChangeCallback( 'ang_color_text_dark', analog.updateColorPicker );
-		elementor.settings.page.addChangeCallback( 'ang_color_background_light', analog.updateColorPicker );
-		elementor.settings.page.addChangeCallback( 'ang_color_background_dark', analog.updateColorPicker );
-	}
+	} );
 
 	jQuery('#elementor-panel').on('change', '[data-setting="ui_theme"]', function(e) {
 		const value = e.target.value;

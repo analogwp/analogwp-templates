@@ -56,15 +56,6 @@ class General extends Settings_Page {
 					'options' => $tokens_dropdown,
 				),
 				array(
-					'title'         => esc_html_x( 'Sync Color Palettes', 'settings title', 'ang' ),
-					'desc'          => __( 'Sync Color Palettes and Style Kit colors by default', 'ang' ),
-					'id'            => 'ang_sync_colors',
-					'default'       => false,
-					'type'          => 'checkbox',
-					'checkboxgroup' => 'start',
-					'desc_tip'      => __( 'The Elementor color palette will be populated with the Style Kit’s global colors', 'ang' ),
-				),
-				array(
 					'type' => 'sectionend',
 					'id'   => 'ang_color_palette',
 				),

@@ -50,11 +50,6 @@ class Elementor {
 				$module->register_tag( 'Analog\Elementor\Tags\Dark_Background' );
 			}
 		);
-
-		$sync = Options::get_instance()->get( 'ang_sync_colors' );
-		if ( true === $sync && version_compare( ELEMENTOR_VERSION, '2.8', '>=' ) ) {
-			add_filter( 'elementor/editor/localize_settings', array( $this, 'add_color_scheme_items' ), 200 );
-		}
 	}
 
 	/**
@@ -104,32 +99,11 @@ class Elementor {
 			'analog/app/strings',
 			array(
 				'is_settings_page' => false,
-				'syncColors'       => ( '' !== Options::get_instance()->get( 'ang_sync_colors' ) ? Options::get_instance()->get( 'ang_sync_colors' ) : true ),
 				'stylekit_queue'   => Utils::get_stylekit_queue() ? array_values( Utils::get_stylekit_queue() ) : array(),
 			)
 		);
 
 		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
-	}
-
-	/**
-	 * All colors from Style Kit to Color picker palette in editor.
-	 *
-	 * @param array $config Existing config.
-	 *
-	 * @since 1.5.0
-	 * @return array Modified config.
-	 */
-	public function add_color_scheme_items( $config ) {
-		$config['schemes'] = array(
-			'items' => array(
-				'color-picker' => array(
-					'items' => Utils::get_color_scheme_items( get_the_ID() ),
-				),
-			),
-		);
-
-		return $config;
 	}
 }
 

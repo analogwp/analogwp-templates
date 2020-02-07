@@ -542,8 +542,8 @@ class Utils extends Base {
 	 *
 	 * @param int $id Post ID.
 	 *
-	 * @since 1.5.0
 	 * @return array
+	 * @since 1.5.0
 	 */
 	public static function get_color_scheme_items( int $id ) {
 		$settings = get_post_meta( $id, '_elementor_page_settings', true );
