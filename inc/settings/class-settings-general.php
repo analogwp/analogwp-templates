@@ -7,7 +7,7 @@
  */
 
 namespace Analog\Settings;
-
+use Analog\Options;
 use Analog\Utils;
 
 defined( 'ABSPATH' ) || exit;
