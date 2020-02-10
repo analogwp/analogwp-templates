@@ -490,8 +490,11 @@ class Utils extends Base {
 			return;
 		}
 
-		$preserved_settings = self::remove_stored_kit_keys( $page_settings );
-		$modified_settings  = array_merge( $preserved_settings, $tokens );
+		$preserved_settings = array();
+		if ( is_array( $page_settings ) ) {
+			$preserved_settings = self::remove_stored_kit_keys( $page_settings );
+		}
+		$modified_settings = array_merge( $preserved_settings, $tokens );
 
 		\update_post_meta( $post_id, '_elementor_page_settings', wp_slash( $modified_settings ) );
 	}
