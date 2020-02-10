@@ -55,7 +55,6 @@ const Header = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	position: sticky;
-    top: 0;
     background: #fff;
 
 	.header-center & {
@@ -82,6 +81,7 @@ const Header = styled.div`
 const Content = styled.div`
 	margin: 0;
 	padding: 20px 35px;
+	position: sticky;
 	font-size: 14px;
 	background: #F7F4F4;
 	border-bottom-left-radius: 4px;
@@ -108,7 +108,7 @@ const Content = styled.div`
 	}
 
 	.components-base-control__field {
-		margin: 0;
+		margin: 0 !important;
 	}
 
 	input[type="text"] {
