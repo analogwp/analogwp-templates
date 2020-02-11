@@ -76,7 +76,7 @@ function register_menu() {
 		__( 'Style Kits', 'ang' ),
 		__( 'Manage Style Kits', 'ang' ),
 		'manage_options',
-		'kits',
+		'style-kits',
 		'Analog\Elementor\Kit\ang_kits_list'
 	);
 }
