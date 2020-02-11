@@ -34,7 +34,7 @@ class Migration {
 	 *
 	 * @return array Returns a list of all keys matching the pattern.
 	 */
-	public static function preg_grep_keys( string $key, array $settings, $flags = 0 ) {
+	public static function preg_grep_keys( $key, array $settings, $flags = 0 ) {
 		$pattern = '/^' . $key . '(\w+)/i';
 
 		return array_intersect_key(
@@ -54,7 +54,7 @@ class Migration {
 	 *
 	 * @return array Return modified settings array.
 	 */
-	public function change_key_prefixes( string $find, string $replace, array $settings ) {
+	public function change_key_prefixes( $find, $replace, array $settings ) {
 		foreach ( $settings as $key => $value ) {
 			if ( Utils::string_starts_with( $key, $find ) ) {
 				$new_key = preg_replace( '/^' . preg_quote( $find, '/' ) . '/', $replace, $key );
@@ -100,6 +100,13 @@ class Migration {
 		return $settings;
 	}
 
+	/**
+	 * Migrate Style Kits to Elementor Kits.
+	 *
+	 * @param array $settings Page settings.
+	 *
+	 * @return array Modified settings.
+	 */
 	public function migrate_sk_to_kits( array $settings ) {
 		// Recursive replacements, keys with multiple instances.
 		$settings = $this->change_key_prefixes( 'background_', 'body_background_', $settings );
@@ -196,6 +203,12 @@ class Migration {
 		);
 	}
 
+	/**
+	 * Convert all posts using Style Kits.
+	 *
+	 * @param array $posts Posts using Style Kits.
+	 * @param int   $kit_id Kit ID.
+	 */
 	private function convert_posts_using_sk( $posts, $kit_id ) {
 		if ( is_array( $posts ) ) {
 			foreach ( $posts as $post_id ) {
