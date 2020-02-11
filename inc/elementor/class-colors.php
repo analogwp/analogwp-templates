@@ -282,31 +282,6 @@ class Colors extends Module {
 			)
 		);
 
-		$element->add_control(
-			'ang_color_text',
-			array(
-				'label'     => __( 'Text Color', 'ang' ),
-				'type'      => Controls_Manager::COLOR,
-				'variable'  => 'ang_color_text',
-				'selectors' => array(
-					'{{WRAPPER}}' => '--ang_color_text: {{VALUE}}; color: {{VALUE}};',
-				),
-			)
-		);
-
-		$element->add_control(
-			'ang_color_heading',
-			array(
-				'label'     => __( 'Headings Color', 'ang' ),
-				'type'      => Controls_Manager::COLOR,
-				'variable'  => 'ang_color_heading',
-				'selectors' => array(
-					'{{WRAPPER}}' => '--ang_color_heading: {{VALUE}};',
-					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
-				),
-			)
-		);
-
 		$element->end_controls_section();
 	}
 }

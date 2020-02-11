@@ -974,14 +974,44 @@ class Typography extends Module {
 		}
 
 		$element->add_control(
+			'ang_heading_color_heading',
+			array(
+				'label'     => __( 'Headings', 'ang' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_color_heading',
+			array(
+				'label'     => __( 'Headings Color', 'ang' ),
+				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_heading',
+				'selectors' => array(
+					'{{WRAPPER}}' => '--ang_color_heading: {{VALUE}};',
+					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
+				),
+			)
+		);
+
+		$element->add_control(
 			'ang_default_heading_font_family',
 			array(
-				'label'     => __( 'Default Headings Font', 'ang' ),
+				'label'     => __( 'Headings Font', 'ang' ),
 				'type'      => Controls_Manager::FONT,
 				'selectors' => array(
 					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
 				),
-				'separator' => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_description_default_heading',
+			array(
+				'raw'             => __( 'You can set individual heading font and colors below.', 'ang' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
 			)
 		);
 

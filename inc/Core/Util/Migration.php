@@ -121,17 +121,6 @@ class Migration {
 		$settings = $this->change_key_prefixes( 'ang_heading_5_', 'h5_typography_', $settings );
 		$settings = $this->change_key_prefixes( 'ang_heading_6_', 'h6_typography_', $settings );
 
-		if ( isset( $settings['ang_color_heading'] ) ) {
-			$settings += array(
-				'h1_color' => $settings['ang_color_heading'],
-				'h2_color' => $settings['ang_color_heading'],
-				'h3_color' => $settings['ang_color_heading'],
-				'h4_color' => $settings['ang_color_heading'],
-				'h5_color' => $settings['ang_color_heading'],
-				'h6_color' => $settings['ang_color_heading'],
-			);
-		}
-
 		// Form label typography.
 		$settings = $this->change_key_prefixes( 'ang_form_label_typography_', 'form_label_typography_', $settings );
 		$settings = $this->change_key_prefixes( 'ang_form_field_typography_', 'form_field_typography_', $settings );
@@ -144,6 +133,8 @@ class Migration {
 			'ang_color_heading_h4'            => 'h4_color',
 			'ang_color_heading_h5'            => 'h5_color',
 			'ang_color_heading_h6'            => 'h6_color',
+
+			'ang_color_text'                  => 'body_color',
 
 			// Pro Form.
 			'ang_form_label_color'            => 'form_label_color',
@@ -158,7 +149,6 @@ class Migration {
 		// Copy values to new items but don't remove the old.
 		$copy_items = array(
 			'ang_color_accent_secondary' => 'button_background_color',
-			'ang_color_text'             => 'body_color',
 			'ang_color_accent_primary'   => 'link_normal_color',
 		);
 
