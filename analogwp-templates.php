@@ -131,7 +131,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/Consumer.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notice.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notices.php';
-		require_once ANG_PLUGIN_DIR . 'inc/class-utils.php';
+		require_once ANG_PLUGIN_DIR . 'inc/Utils.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-remote.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-local.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-analog-importer.php';
