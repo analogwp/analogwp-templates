@@ -27,6 +27,8 @@
 					elementor.$previewContents.find('body').removeClass(`elementor-kit-${elementor.config.kit_id}`).addClass(`elementor-kit-${elementor.config.document.id}`);
 					enqueueFonts();
 				}
+
+				elementor.channels.editor.on( 'analog:editKit', () => $e.run( 'panel/global/open' ) );
 			});
 		}
 

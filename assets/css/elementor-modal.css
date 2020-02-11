@@ -146,3 +146,15 @@ button[data-action="save_token"] {
 .elementor-control-ang_action_tokens .select2-container {
 	min-width: 120px;
 }
+
+.elementor-control-ang_edit_kit .elementor-control-input-wrapper {
+	width: 100%;
+	margin-left: 0;
+}
+
+.elementor-control-ang_edit_kit .elementor-button.elementor-button-default {
+	width: 100%;
+	background: #5BC0DE;
+	padding: 10px 20px;
+	height: auto;
+}

@@ -653,6 +653,18 @@ class Typography extends Module {
 		);
 
 		$element->add_control(
+			'ang_edit_kit',
+			array(
+				'type'       => Controls_Manager::BUTTON,
+				'label'      => __( 'Edit Style Kit in Theme Style', 'ang' ),
+				'show_label' => false,
+				'text'       => __( 'Edit Style Kit in Theme Style', 'ang' ),
+				'separator'  => 'after',
+				'event'      => 'analog:editKit',
+			)
+		);
+
+		$element->add_control(
 			'description_ang_stylekit_docs',
 			array(
 				'raw'  => sprintf(
