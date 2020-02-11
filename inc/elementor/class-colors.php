@@ -143,7 +143,7 @@ class Colors extends Module {
 		$element->start_controls_section(
 			'ang_colors',
 			array(
-				'label' => _x( 'Main Colors', 'Section Title', 'ang' ),
+				'label' => _x( 'Accent Colors', 'Section Title', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -231,7 +231,11 @@ class Colors extends Module {
 			'ang_color_accent_primary_desc',
 			array(
 				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'The primary accent color applies on Links.', 'ang' ),
+				'raw'     => sprintf(
+					/* translators: %s: Typography Panel link/text. */
+					__( 'The primary accent color applies on links, icons, and other elements. You can also define the text link color in the %s.', 'ang' ),
+					'<a href="#" onClick="analog.redirectToSection( \'style\', \'section_typography\', \'kit_settings\' )">' . __( 'Typography panel', 'ang' ) . '</a>'
+				),
 				'classes' => 'elementor-descriptor',
 			)
 		);
@@ -268,7 +272,12 @@ class Colors extends Module {
 			'ang_color_accent_secondary_desc',
 			array(
 				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'The default Button color. You can also set button colors in the Buttons tab.', 'ang' ),
+				'raw'     => sprintf(
+					/* translators: %1$s: Button Panel link/text. %2$s: Button sizes panel link/text. */
+					__( 'The default button color. You can also define button colors under the buttons panel %1$s, and individually for each button size under %2$s.', 'ang' ),
+					'<a href="#" onClick="analog.redirectToSection( \'style\', \'section_buttons\', \'kit_settings\' )">' . __( 'Buttons panel', 'ang' ) . '</a>',
+					'<a href="#" onClick="analog.redirectToSection( \'style\', \'ang_buttons\', \'kit_settings\' )">' . __( 'Buttons Sizes panel', 'ang' ) . '</a>'
+				),
 				'classes' => 'elementor-descriptor',
 			)
 		);
