@@ -40,7 +40,17 @@
 
 		function loadDocumentAndEnqueueFonts( id ) {
 			elementor.documents.request(id)
-				.then( ( config ) => elementor.documents.addDocumentByConfig(config))
+				.then( ( config ) => {
+					elementor.documents.addDocumentByConfig(config);
+
+					/**
+					 * If for some reasons, Kit CSS wasn't enqueued.
+					 * This line forces Theme Style window to open, which re-renders the CSS for current kit.
+					 */
+					if ( ! elementor.$previewContents.find( `#elementor-post-${config.id}-css` ).length ) {
+						$e.run( 'panel/global/open' );
+					}
+				})
 				.then( () => {
 					const document = elementor.documents.get(id);
 					const settings = document.config.settings.settings;
@@ -67,12 +77,6 @@
 
 		function refreshKit( id ) {
 			elementor.config.kit_id = id;
-
-			// Required to show correct data in preview window.
-			$e.run( 'document/save/default', {
-				force: true,
-			} );
-
 			fixKitClasses(id);
 			loadDocumentAndEnqueueFonts( id );
 		}

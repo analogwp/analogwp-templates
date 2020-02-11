@@ -71,6 +71,14 @@ function register_menu() {
 		'edit.php?post_type=ang_tokens'
 	);
 
+	add_submenu_page(
+		'analogwp_templates',
+		__( 'Style Kits', 'ang' ),
+		__( 'Manage Style Kits', 'ang' ),
+		'manage_options',
+		'style-kits',
+		'Analog\Elementor\Kit\ang_kits_list'
+	);
 }
 
 add_action( 'admin_menu', 'Analog\Settings\register_menu' );
