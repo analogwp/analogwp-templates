@@ -133,11 +133,14 @@ button[data-action="save_token"] {
 }
 
 .elementor-control[class*="ang_"] .elementor-panel-heading:after {
-	content: '\2B55';
+	content: '';
 	position: absolute;
-	top: 50%;
-	right: 20px;
-	transform: translateY(-50%);
+	top: 0;
+	left: 0;
+	width: 5px;
+	height: 100%;
+	background: #8C649E;
+	opacity: .5;
 }
 
 .elementor-control-ang_action_tokens .select2-container {
