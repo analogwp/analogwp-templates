@@ -142,6 +142,9 @@ class Quick_Edit extends Base {
 	 * @return void
 	 */
 	public function display_custom_quickedit_book( $column_name, $post_type ) {
+		if ( has_filter( 'ang_sk_dashboard_disabled', '__return_true' ) ) {
+			return;
+		}
 		static $print_nonce = true;
 		if ( $print_nonce ) {
 			$print_nonce = false;

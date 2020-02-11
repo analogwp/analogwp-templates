@@ -196,6 +196,9 @@ class Tools extends Base {
 	 * @return mixed
 	 */
 	public function filter_post_row_actions( $actions, $post ) {
+		if ( has_filter( 'ang_sk_dashboard_disabled', '__return_true' ) ) {
+			return $actions;
+		}
 		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::$instance->db->is_built_with_elementor( $post->ID ) ) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
 			$global_kit = (string) Utils::get_global_kit_id();
