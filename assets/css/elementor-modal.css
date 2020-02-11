@@ -127,20 +127,20 @@ button[data-action="save_token"] {
 }
 
 
-/* TODO: Add final styles before release */
-.elementor-control[class*="ang_"].elementor-control-type-section .elementor-control-content {
+#elementor-panel-page-settings-controls > .elementor-control[class*="ang_"],
+#elementor-kit-panel-content-controls > .elementor-control[class*="ang_"] {
 	position: relative;
 }
 
-.elementor-control[class*="ang_"].elementor-control-type-section .elementor-control-content:after {
+#elementor-panel-page-settings-controls > .elementor-control[class*="ang_"]:after,
+#elementor-kit-panel-content-controls > .elementor-control[class*="ang_"]:after {
 	content: '';
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 5px;
 	height: 100%;
-	background: #8C649E;
-	opacity: .5;
+	background: #C5B1CE;
 }
 
 .elementor-control-ang_action_tokens .select2-container {
