@@ -128,11 +128,11 @@ button[data-action="save_token"] {
 
 
 /* TODO: Add final styles before release */
-.elementor-control[class*="ang_"] .elementor-panel-heading {
+.elementor-control[class*="ang_"].elementor-control-type-section .elementor-control-content {
 	position: relative;
 }
 
-.elementor-control[class*="ang_"] .elementor-panel-heading:after {
+.elementor-control[class*="ang_"].elementor-control-type-section .elementor-control-content:after {
 	content: '';
 	position: absolute;
 	top: 0;
