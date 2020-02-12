@@ -3,7 +3,7 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits adds intuitive styling controls in the Elementor editor that power-up your design workflow.
- * Version:     1.5.5
+ * Version:     1.5.6
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -47,7 +47,7 @@ final class Analog_Templates {
 	 *
 	 * @var string
 	 */
-	public static $version = '1.5.5';
+	public static $version = '1.5.6';
 
 	/**
 	 * Main Analog_Templates instance.
@@ -55,8 +55,8 @@ final class Analog_Templates {
 	 * @return void
 	 */
 	public static function instance() {
-		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Analog_Templates ) ) {
-			self::$instance = new Analog_Templates();
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof self ) ) {
+			self::$instance = new self();
 			self::$instance->setup_constants();
 
 			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
@@ -197,7 +197,7 @@ final class Analog_Templates {
 		$i10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
 			array(
-				'is_settings_page'  => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
+				'is_settings_page'  => 'toplevel_page_analogwp_templates' === $hook,
 				'rollback_url'      => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
 				'rollback_versions' => Utils::get_rollback_versions(),
 			)
@@ -221,7 +221,6 @@ final class Analog_Templates {
 
 		$favorites       = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
 		$block_favorites = get_user_meta( get_current_user_id(), self::$user_meta_block_prefix, true );
-		$current_user    = wp_get_current_user();
 
 		if ( ! $favorites ) {
 			$favorites = array();
@@ -242,9 +241,6 @@ final class Analog_Templates {
 			'license'        => array(
 				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 				'message' => get_transient( 'ang_license_message' ),
-			),
-			'user'           => array(
-				'email' => $current_user->user_email,
 			),
 			'installed_kits' => Utils::imported_remote_kits(),
 		);
@@ -354,11 +350,13 @@ function analog_fail_wp_version() {
 // Fire up plugin instance.
 add_action(
 	'plugins_loaded',
-	function() {
+	static function() {
 		if ( ! did_action( 'elementor/loaded' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
 			return;
-		} elseif ( ! version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) ) {
+		}
+
+		if ( ! version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_wp_version' );
 			return;
 		}

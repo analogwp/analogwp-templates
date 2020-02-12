@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.4
 Tested up to: 5.3.2
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -124,12 +124,16 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
+= 1.5.6 - Feb 12, 2020 =
+- Fix: Compatibility with Elementor v2.9
+- Fix: Removed option to Sync Color Palette
+
 = 1.5.5 - Feb 07, 2020 =
-* Fix: Conflict with Elementor Extras plugin
+- Fix: Conflict with Elementor Extras plugin
 
 = 1.5.4 - Feb 04, 2020 =
-* Tweak: Adds compatibility for Style Kits Pro
-* Fix: Importing templates back to back in Elementor editor caused them to import more than once
+- Tweak: Adds compatibility for Style Kits Pro
+- Fix: Importing templates back to back in Elementor editor caused them to import more than once
 
 = 1.5.3 - Feb 01, 2020 =
 - New: Added 'My favorites' for Blocks
