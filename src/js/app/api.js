@@ -211,7 +211,7 @@ export function doElementorInsert( content, context = 'template' ) {
 	let insertIndex = analog.insertIndex || -1;
 
 	if ( typeof $e !== 'undefined' ) {
-		const historyId = $e.run( 'document/history/start-log', {
+		const historyId = $e.internal( 'document/history/start-log', {
 			type: 'add',
 			title: `${ __( 'Add Style Kits', 'ang' ) } ${ contextText }`,
 		} );
@@ -224,7 +224,7 @@ export function doElementorInsert( content, context = 'template' ) {
 			} );
 		}
 
-		$e.run( 'document/history/end-log', {
+		$e.internal( 'document/history/end-log', {
 			id: historyId,
 		} );
 	} else {
