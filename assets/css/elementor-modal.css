@@ -158,3 +158,9 @@ button[data-action="save_token"] {
 	padding: 10px 20px;
 	height: auto;
 }
+
+.elementor-control-ang_edit_kit .elementor-button.elementor-button-default:hover,
+.elementor-control-ang_edit_kit .elementor-button.elementor-button-default:focus {
+	box-shadow: none;
+	background: #5c32b6;
+}
