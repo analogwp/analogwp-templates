@@ -152,7 +152,7 @@ class Colors extends Module {
 			'ang_colors_description',
 			array(
 				/* translators: %1$s: Link to documentation, %2$s: Link text. */
-				'raw'             => __( 'Set the colors for Typography, accents and more.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/574-working-with-colours', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Set the accent colors of your layout.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/574-working-with-colours', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -274,7 +274,7 @@ class Colors extends Module {
 				'type'    => Controls_Manager::RAW_HTML,
 				'raw'     => sprintf(
 					/* translators: %1$s: Button Panel link/text. %2$s: Button sizes panel link/text. */
-					__( 'The default button color. You can also define button colors under the buttons panel %1$s, and individually for each button size under %2$s.', 'ang' ),
+					__( 'The default button color. You can also define button colors under the %1$s, and individually for each button size under %2$s.', 'ang' ),
 					'<a href="#" onClick="analog.redirectToSection( \'style\', \'section_buttons\', \'kit_settings\' )">' . __( 'Buttons panel', 'ang' ) . '</a>',
 					'<a href="#" onClick="analog.redirectToSection( \'style\', \'ang_buttons\', \'kit_settings\' )">' . __( 'Buttons Sizes panel', 'ang' ) . '</a>'
 				),
