@@ -688,7 +688,7 @@ class Typography extends Module {
 			)
 		);
 
-		$label = __( 'A style kit is a collection of all the custom styles added at page styling settings. Your Style Kit is updated every time you click the Update Style Kit Button below.', 'ang' );
+		$label = __( 'A Style Kit is a saved configuration of Theme Styles, that you can optionally apply on any page. This will override the Global theme Styles for this page.', 'ang' );
 		$element->add_control(
 			'ang_action_tokens',
 			array(
