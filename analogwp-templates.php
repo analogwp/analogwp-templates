@@ -303,6 +303,11 @@ final class Analog_Templates {
 
 		array_unshift( $links, $settings_link );
 
+		if ( ! defined( 'ANG_PRO_VERSION' ) ) {
+			/* translators: %1$s: Link to Style Kits Pro. %2$s: Go Pro text. */
+			$links['go_pro'] = sprintf( '<a href="%1$s" style="color: #5c32b6;font-weight: 700;" target="_blank" class="ang-plugins-gopro">%2$s</a>', Utils::get_pro_link(), __( 'Go Pro', 'ang' ) );
+		}
+
 		return $links;
 	}
 }
