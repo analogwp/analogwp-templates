@@ -113,7 +113,7 @@ function handle_external_redirects() {
 
 	if ( 'go_style_kits_pro' === $_GET['page'] ) {
 		wp_redirect( Utils::get_pro_link( array( 'utm_source' => 'wp-menu' ) ) );
-		die;
+		exit();
 	}
 }
 add_action( 'admin_init', __NAMESPACE__ . '\handle_external_redirects' );

@@ -41,6 +41,8 @@ class Manager {
 			'analog_admin_notices',
 			function( $notices ) {
 				$notices[] = $this->get_migration_notice();
+				$notices[] = $this->get_kit_edit_notice();
+
 				return $notices;
 			}
 		);
@@ -243,6 +245,22 @@ class Manager {
 					}
 
 					return true;
+				},
+				'dismissible'     => false,
+			)
+		);
+	}
+
+	public function get_kit_edit_notice() {
+		return new Notice(
+			'kit_migration',
+			array(
+				'content'         => __( 'As of now, Elementor doesn’t allow to edit Kits directly. You can only edit the kit Styles through the Theme Style panel.', 'ang' ),
+				'type'            => Notice::TYPE_WARNING,
+				'active_callback' => static function() {
+					$screen = get_current_screen();
+
+					return ! ( 'style-kits_page_style-kits' !== $screen->id );
 				},
 				'dismissible'     => false,
 			)
