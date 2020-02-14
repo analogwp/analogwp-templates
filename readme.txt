@@ -1,7 +1,7 @@
 === Style Kits for Elementor ===
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
-Requires PHP: 5.4
+Requires PHP: 5.6
 Tested up to: 5.3.2
 Stable tag: 1.5.6
 Tags: elementor, landing page, design, website builder, templates, page builder

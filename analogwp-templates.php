@@ -347,13 +347,25 @@ function analog_fail_wp_version() {
 	echo wp_kses_post( $html_message );
 }
 
-// Fire up plugin instance.
+/**
+ * Fire up plugin instance.
+ *
+ * @since n.e.x.t Add PHP version check.
+ */
 add_action(
 	'plugins_loaded',
 	static function() {
 		if ( ! did_action( 'elementor/loaded' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
 			return;
+		}
+
+		if ( version_compare( PHP_VERSION, '5.6.0', '<' ) ) {
+			wp_die(
+			/* translators: %s: version number */
+				esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'ang' ), '5.6.0' ) ),
+				esc_html__( 'Error Activating', 'ang' )
+			);
 		}
 
 		if ( ! version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) ) {
