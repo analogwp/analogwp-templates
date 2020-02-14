@@ -152,6 +152,18 @@ class Typography extends Module {
 			)
 		);
 
+		// TODO: Remove in v1.6.
+		$selector = '{{WRAPPER}}';
+
+		if ( method_exists( $element, 'get_main_id' ) ) {
+			$main_id = $element->get_main_id();
+			$type    = get_post_meta( $main_id, '_elementor_template_type', true );
+
+			if ( 'popup' === $type ) {
+				$selector = '.elementor-' . $main_id;
+			}
+		}
+
 		for ( $i = 1; $i < 7; $i++ ) {
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
@@ -159,7 +171,7 @@ class Typography extends Module {
 					'name'           => 'ang_heading_' . $i,
 					/* translators: %s: Heading 1-6 type */
 					'label'          => sprintf( __( 'Heading %s', 'ang' ), $i ),
-					'selector'       => "{{WRAPPER}} h{$i}, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title",
+					'selector'       => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
 					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
 					'fields_options' => $this->get_default_typography_values( 'ang_heading_' . $i ),
 				)
@@ -743,14 +755,14 @@ class Typography extends Module {
 			)
 		);
 
-		$label = __( 'This will reset all the custom style values added in the Style tab, and detach this page from any Style kits', 'ang' );
+		$label = __( 'This will reset the Style Kit styles and detach the page from the Style Kit.', 'ang' );
 		$element->add_control(
 			'ang_action_reset',
 			array(
-				'label'        => __( 'Reset all styling', 'ang' ) . $this->get_tooltip( $label ),
+				'label'        => __( 'Reset Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'         => 'ang_action',
 				'action'       => 'reset_css',
-				'action_label' => __( 'Reset all', 'ang' ),
+				'action_label' => __( 'Reset', 'ang' ),
 			)
 		);
 

@@ -8,6 +8,7 @@ import Empty from './helpers/Empty';
 import CustomModal from './modal';
 import ImportTemplate from './popups/ImportTemplate';
 import Template from './Template';
+import ProModal from './ProModal';
 
 const { __ } = wp.i18n;
 
@@ -147,8 +148,9 @@ const TemplatesContainer = styled.div`
 				transform: translateX(20px);
 			}
 
-			+ button {
+			+ button, + .ang-promo {
 				margin-top: 10px;
+				text-decoration: none;
 			}
 		}
 
@@ -249,22 +251,14 @@ class Templates extends React.Component {
 	}
 
 	getStyleKitInfo() {
-		const isKitInstalled = AGWP.installed_kits.filter( ( k ) => this.state.kit === k );
+		const isKitInstalled = this.context.state.installedKits.filter( ( k ) => this.state.kit === k );
 		const method = isKitInstalled.length > 0 ? 'insert' : 'import';
-		let data = false;
 
-		if ( method === 'insert' ) {
-			data = this.state.kit;
-		} else {
-			data = this.context.state.styleKits.find( k => k.title === this.state.kit );
-		}
+		let data = ( method === 'insert' )
+					? this.state.kit
+					: this.context.state.styleKits.find( k => k.title === this.state.kit );
 
-		const info = {
-			method,
-			data,
-		};
-
-		return info;
+		return { method, data };
 	}
 
 	setModalContent = template => {
@@ -275,7 +269,7 @@ class Templates extends React.Component {
 		this.setState( {
 			template: template,
 		} );
-	}
+	};
 
 	makeFavorite = ( id ) => {
 		const favorites = this.context.state.favorites;
@@ -413,6 +407,10 @@ class Templates extends React.Component {
 					/>
 				) }
 
+				{ AGWP.license.status !== 'valid' && (
+					<ProModal type={ __( 'templates', 'ang' ) } />
+				) }
+
 				{ ! this.context.state.isOpen && this.context.state.templates.length < 1 && (
 					<Empty />
 				) }
@@ -430,10 +428,9 @@ class Templates extends React.Component {
 						} ) }
 					>
 						{ ! this.context.state.isOpen && this.context.state.count >= 1 && this.context.state.templates.map( template => {
-							if ( this.context.state.showFree && Boolean( template.is_pro ) ) {
+							if ( AGWP.license.status !== 'valid' && this.context.state.showFree && Boolean( template.is_pro ) ) {
 								return;
 							}
-
 							return (
 								<Template
 									key={ `${template.id}-${template.site_id}` }

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
-import { requestBlockContent } from '../api';
+import { requestBlockContent, doElementorInsert } from '../api';
 import Empty from '../helpers/Empty';
 import Loader from '../icons/loader';
 import Popup from '../popup';
 import BlockList from './BlockList';
 import Filters from './Filters';
+import ProModal from '../ProModal';
 
 const { __ } = wp.i18n;
 const { decodeEntities } = wp.htmlEntities;
@@ -99,17 +100,7 @@ export default class Blocks extends Component {
 				if ( method === 'elementor' ) {
 					const parsedTemplate = response.data;
 
-					const model = new Backbone.Model( {
-						getTitle: function getTitle() {
-							return 'Test';
-						},
-					} );
-
-					elementor.channels.data.trigger( 'template:before:insert', model );
-					for ( let i = 0; i < parsedTemplate.content.length; i++ ) {
-						elementor.getPreviewView().addChildElement( parsedTemplate.content[ i ] );
-					}
-					elementor.channels.data.trigger( 'template:after:insert', {} );
+					doElementorInsert( parsedTemplate.content, 'block' );
 
 					this.setState( {
 						modalActive: false,
@@ -139,7 +130,7 @@ export default class Blocks extends Component {
 		const foundItems =
 			blocks
 				.filter( block => block.tags.indexOf( category ) > -1 )
-				.filter( block => ! ( this.context.state.showFree && Boolean( block.is_pro ) ) );
+				.filter( block => ! ( AGWP.license.status !== 'valid' && this.context.state.showFree && Boolean( block.is_pro ) ) );
 
 		if ( foundItems ) {
 			return foundItems.length;
@@ -147,6 +138,28 @@ export default class Blocks extends Component {
 
 		return false;
 	}
+
+	makeFavorite = ( id ) => {
+		const blockFavorites = this.context.state.blockFavorites;
+
+		this.context.markFavorite( id, ! ( id in blockFavorites ), 'block' );
+
+		if ( id in blockFavorites ) {
+			delete blockFavorites[ id ];
+		} else {
+			blockFavorites[ id ] = ! ( id in blockFavorites );
+		}
+
+		this.context.dispatch( { blockFavorites } );
+
+		if ( this.context.state.showing_favorites ) {
+			const filteredBlocks = this.context.state.blocks.filter( t => t.id in blockFavorites );
+
+			this.context.dispatch( {
+				blocks: filteredBlocks,
+			} );
+		}
+	};
 
 	render() {
 		const categories = [ ...new Set( this.context.state.blocks.map( block => block.tags[ 0 ] ) ) ];
@@ -209,7 +222,15 @@ export default class Blocks extends Component {
 					</Popup>
 				) }
 
-				{ ! this.context.state.syncing && this.context.state.blocks && ! this.state.category && (
+				{ AGWP.license.status !== 'valid' && (
+					<ProModal type={ __( 'blocks', 'ang' ) } />
+				) }
+
+				{ this.context.state.blocks.length < 1 && (
+					<Empty text={ __( 'No blocks found.', 'ang' ) }/>
+				) }
+
+				{ ! this.context.state.syncing && this.context.state.blocks && ! this.state.category && this.context.state.group && (
 					<Categories>
 						{ categories && categories.map( ( category ) => {
 							const count = this.getItemCount( category );
@@ -230,6 +251,8 @@ export default class Blocks extends Component {
 				<BlockList
 					state={ this.state }
 					importBlock={ this.importBlock }
+					favorites={ this.context.state.blockFavorites }
+					makeFavorite={ this.makeFavorite }
 				/>
 			</Fragment>
 		);

@@ -4,8 +4,9 @@ import { getSettings, markFavorite, requestTemplateList } from './api';
 import ThemeContext, { Theme } from './contexts/ThemeContext';
 import Header from './Header';
 import Notifications from './Notifications';
-import { getPageComponents, hasProTemplates } from './utils';
+import { getTime, getPageComponents, hasProTemplates } from './utils';
 const { apiFetch } = wp;
+const { __ } = wp.i18n;
 
 const Analog = styled.div`
 	margin: 0 0 0 -20px;
@@ -47,6 +48,10 @@ const Analog = styled.div`
 		min-width: 100px;
 		text-decoration: none;
 		box-sizing: border-box;
+		a {
+			color: #fff !important;
+			text-decoration: none;
+		}
 
 		&.secondary {
 			background: #000222;
@@ -207,12 +212,14 @@ class App extends React.Component {
 			isOpen: false, // Determines whether modal to preview template is open or not.
 			syncing: false,
 			favorites: AGWP.favorites,
+			blockFavorites: AGWP.blockFavorites,
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
-			filters: [],
-			showFree: true,
+			blockArchive: [], // same as archive above just for blocks.
+			showFree: false,
 			group: true,
 			activeKit: false,
+			installedKits: AGWP.installed_kits || {},
 			tab: 'templates',
 			hasPro: false,
 			settings: {
@@ -235,6 +242,9 @@ class App extends React.Component {
 		if ( validHashes.indexOf( hash ) > -1 && AGWP.is_settings_page ) {
 			this.setState( {
 				tab: hash.substr( 1 ),
+				templates: this.state.archive,
+				blocks: this.state.blockArchive,
+				showing_favorites: false,
 			} );
 		}
 	}
@@ -248,6 +258,7 @@ class App extends React.Component {
 				showFree: false,
 			} );
 		}
+
 		if ( window.localStorage.getItem( 'analog::group-kit' ) === 'false' ) {
 			this.setState( {
 				group: false,
@@ -257,6 +268,8 @@ class App extends React.Component {
 		if ( AGWP.is_settings_page ) {
 			const parentMenu = document.querySelector( '#toplevel_page_analogwp_templates .wp-submenu' );
 			const menuItems = parentMenu.querySelectorAll( 'a' );
+			const angNav = document.querySelector( '#analogwp-templates ul.ang-nav' );
+			const angNavItems = angNav.querySelectorAll( 'a' );
 
 			const removeClasses = () => {
 				const listItems = parentMenu.querySelectorAll( 'li' );
@@ -272,6 +285,21 @@ class App extends React.Component {
 					menu.parentNode.classList.add( 'current' );
 				} );
 			} );
+
+			angNavItems.forEach( ( nav ) => {
+				nav.addEventListener( 'click', () => {
+					removeClasses();
+
+					menuItems.forEach( ( menu ) => {
+						if ( nav.hash === menu.hash ) {
+							menu.parentNode.classList.add( 'current' );
+						}
+						if ( '#templates' === nav.hash && '' === menu.hash && 'wp-first-item' === menu.classList[ 0 ] ) {
+							menu.parentNode.classList.add( 'current' );
+						}
+					} );
+				} );
+			} );
 		}
 
 		const templates = await requestTemplateList();
@@ -281,13 +309,16 @@ class App extends React.Component {
 			templates: library.templates,
 			kits: library.template_kits,
 			archive: library.templates,
+			blockArchive: library.blocks,
 			count: library.templates.length,
 			timestamp: templates.timestamp,
 			hasPro: hasProTemplates( library.templates ),
-			filters: [ ...new Set( library.templates.map( f => f.type ) ) ],
 			styleKits: library.stylekits,
 			blocks: library.blocks,
 		} );
+
+		this.handleSort( 'latest', 'templates' );
+		this.handleSort( 'latest', 'blocks' );
 
 		// Listen for Elementor modal close, so we can reset some states.
 		document.addEventListener( 'modal-close', () => {
@@ -301,26 +332,38 @@ class App extends React.Component {
 		getSettings().then( settings => this.setState( { settings } ) );
 	}
 
-	handleFilter( type ) {
+	handleFilter( type, library = 'templates' ) {
 		const templates = [ ...this.state.archive ];
-		if ( type === 'all' ) {
-			this.setState( { templates: this.state.archive } );
-			return;
-		}
+		const blocks = [ ...this.state.blockArchive ];
 
-		const filtered = templates.filter( template => template.type === type );
-		this.setState( { templates: filtered } );
+		if ( 'blocks' !== library ) {
+			if ( type === 'all' ) {
+				this.setState( { templates: this.state.archive } );
+				return;
+			}
+
+			const filtered = templates.filter( template => template.type === type );
+			this.setState( { templates: filtered } );
+		} else {
+			if ( type === 'all' ) {
+				this.setState( { blocks: this.state.blockArchive } );
+				return;
+			}
+
+			const filtered = blocks.filter( block => block.tags[0] === type );
+			this.setState( { blocks: filtered } );
+		}
 	}
 
-	handleSort( value ) {
+	handleSort( value, library = 'templates' ) {
 		this.setState( {
 			showing_favorites: false,
-			templates: this.state.archive,
 		} );
 
+		const sortData = this.state[ library ];
+
 		if ( 'popular' === value ) {
-			const templates = [ ...this.state.archive ];
-			const sorted = templates.sort( ( a, b ) => {
+			const sorted = sortData.sort( ( a, b ) => {
 				if ( 'popularityIndex' in a ) {
 					if ( parseInt( a.popularityIndex ) < parseInt( b.popularityIndex ) ) {
 						return 1;
@@ -331,49 +374,79 @@ class App extends React.Component {
 				}
 				return 0;
 			} );
-			this.setState( { templates: sorted } );
+
+			this.setState( { [ library ]: sorted } );
 		}
 
 		if ( 'latest' === value ) {
-			this.setState( { templates: this.state.archive } );
+			const sorted = sortData.sort( ( a, b ) => {
+				if ( 'popularityIndex' in a ) {
+					if ( parseInt( getTime( a.published ) ) < parseInt( getTime( b.published ) ) ) {
+						return 1;
+					}
+					if ( parseInt( getTime( a.published ) ) > parseInt( getTime( b.published ) ) ) {
+						return -1;
+					}
+				}
+				return 0;
+			} );
+
+			this.setState( { [ library ]: sorted } );
 		}
 	}
 
-	handleSearch( value ) {
-		const templates = this.state.archive;
+	handleSearch( value, library = 'templates' ) {
+		let searchData = this.state.blockArchive;
+		if ( 'blocks' !== library ) {
+			searchData = this.state.archive;
+		}
 		let filtered = [];
 		let searchTags = [];
 
 		if ( value ) {
-			filtered = templates.filter( template => {
-				if ( template.tags ) {
-					searchTags = template.tags.filter( tag => {
+			filtered = searchData.filter( single => {
+				if ( single.tags ) {
+					searchTags = single.tags.filter( tag => {
 						return tag.toLowerCase().includes( value );
 					} );
 				}
 				return (
-					template.title.toLowerCase().includes( value ) || searchTags.length >= 1
+					single.title.toLowerCase().includes( value ) || searchTags.length >= 1
 				);
 			} );
 
 			if ( filtered.length > 0 ) {
+				if ( 'blocks' !== library ) {
+					this.setState( {
+						templates: filtered,
+					} );
+
+					return;
+				}
+
 				this.setState( {
-					templates: filtered,
+					blocks: filtered,
 				} );
 
 				return;
 			}
 		}
-
-		this.setState( {
-			templates: value ? [] : this.state.archive,
-		} );
+		if ( 'blocks' !== library ) {
+			this.setState( {
+				templates: value ? [] : this.state.archive,
+			} );
+		} else {
+			this.setState( {
+				blocks: value ? [] : this.state.blockArchive,
+			} );
+		}
 	}
 
 	async refreshAPI() {
 		this.setState( {
 			templates: [],
 			archive: [],
+			blockArchive: [],
 			count: null,
 			syncing: true,
 			kits: [],
@@ -391,6 +464,7 @@ class App extends React.Component {
 			this.setState( {
 				templates: library.templates,
 				archive: library.templates,
+				blockArchive: library.blocks,
 				count: library.templates.length,
 				kits: library.template_kits,
 				timestamp: data.timestamp,
@@ -406,8 +480,17 @@ class App extends React.Component {
 	}
 
 	toggleFavorites() {
-		const filteredTemplates = this.state.templates.filter(
+		// Reset group state to false.
+		this.setState( {
+			group: false,
+		} );
+		window.localStorage.setItem( 'analog::group-block', false );
+
+		const filteredTemplates = this.state.archive.filter(
 			template => template.id in this.state.favorites
+		);
+		const filteredBlocks = this.state.blockArchive.filter(
+			block => block.id in this.state.blockFavorites
 		);
 
 		this.setState( {
@@ -415,6 +498,9 @@ class App extends React.Component {
 			templates: ! this.state.showing_favorites ?
 				filteredTemplates :
 				this.state.archive,
+			blocks: ! this.state.showing_favorites ?
+				filteredBlocks :
+				this.state.blockArchive,
 		} );
 	}
 

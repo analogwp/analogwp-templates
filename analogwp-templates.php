@@ -3,7 +3,7 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits adds intuitive styling controls in the Elementor editor that power-up your design workflow.
- * Version:     1.5.1
+ * Version:     1.5.6
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -38,11 +38,18 @@ final class Analog_Templates {
 	public static $user_meta_prefix = 'analog_library_favorites';
 
 	/**
+	 * Holds key for Favorite blocks user meta.
+	 *
+	 * @var string
+	 */
+	public static $user_meta_block_prefix = 'analog_block_favorites';
+
+	/**
 	 * Current plugin version.
 	 *
 	 * @var string
 	 */
-	public static $version = '1.5.1';
+	public static $version = '1.5.6';
 
 	/**
 	 * Main Analog_Templates instance.
@@ -50,8 +57,8 @@ final class Analog_Templates {
 	 * @return void
 	 */
 	public static function instance() {
-		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Analog_Templates ) ) {
-			self::$instance = new Analog_Templates();
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof self ) ) {
+			self::$instance = new self();
 			self::$instance->setup_constants();
 
 			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
@@ -200,37 +207,13 @@ final class Analog_Templates {
 		$i10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
 			array(
-				'is_settings_page'  => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
+				'is_settings_page'  => 'toplevel_page_analogwp_templates' === $hook,
 				'rollback_url'      => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
 				'rollback_versions' => Utils::get_rollback_versions(),
 			)
 		);
 
 		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
-
-		$helpscout = '!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});';
-		wp_add_inline_script( 'analogwp-app', $helpscout );
-		wp_add_inline_script( 'analogwp-app', "window.Beacon('init', 'a7572e82-da95-4f09-880e-5c1f071aaf07')" );
-
-		$version = ANG_VERSION;
-		$url     = home_url();
-
-		$current_user = wp_get_current_user();
-		global $wp_version;
-
-		$identify_customer = "Beacon('identify', {
-			name: '{$current_user->display_name}',
-			email: '{$current_user->user_email}',
-			'Website': '{$url}',
-			'Plugin Version': '{$version}',
-			'WP Version': '{$wp_version}',
-		});
-		Beacon('prefill', {
-			name: '{$current_user->display_name}',
-			email: '{$current_user->user_email}',
-		});";
-
-		wp_add_inline_script( 'analogwp-app', $identify_customer );
 	}
 
 	/**
@@ -246,16 +229,20 @@ final class Analog_Templates {
 			$domains = array();
 		}
 
-		$favorites    = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
-		$current_user = wp_get_current_user();
+		$favorites       = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
+		$block_favorites = get_user_meta( get_current_user_id(), self::$user_meta_block_prefix, true );
 
 		if ( ! $favorites ) {
 			$favorites = array();
+		}
+		if ( ! $block_favorites ) {
+			$block_favorites = array();
 		}
 
 		$new_domains = array(
 			'ajaxurl'        => admin_url( 'admin-ajax.php' ),
 			'favorites'      => $favorites,
+			'blockFavorites' => $block_favorites,
 			'isPro'          => false,
 			'version'        => ANG_VERSION,
 			'elementorURL'   => admin_url( 'edit.php?post_type=elementor_library' ),
@@ -264,9 +251,6 @@ final class Analog_Templates {
 			'license'        => array(
 				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 				'message' => get_transient( 'ang_license_message' ),
-			),
-			'user'           => array(
-				'email' => $current_user->user_email,
 			),
 			'installed_kits' => Utils::imported_remote_kits(),
 		);
@@ -362,7 +346,7 @@ function analog_fail_load() {
 		}
 
 		$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $file_path . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $file_path );
-		$message        = '<p>' . __( 'Analog Templates is not working because you need to activate the Elementor plugin.', 'ang' ) . '</p>';
+		$message        = '<p>' . __( 'Style Kits is not working because you need to activate the Elementor plugin.', 'ang' ) . '</p>';
 		$message       .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $activation_url, __( 'Activate Elementor Now', 'ang' ) ) . '</p>';
 	} else {
 		if ( ! current_user_can( 'install_plugins' ) ) {
@@ -370,7 +354,7 @@ function analog_fail_load() {
 		}
 
 		$install_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=elementor' ), 'install-plugin_elementor' );
-		$message     = '<p>' . __( 'Analog Templates is not working because you need to install the Elementor plugin.', 'ang' ) . '</p>';
+		$message     = '<p>' . __( 'Style Kits is not working because you need to install the Elementor plugin.', 'ang' ) . '</p>';
 		$message    .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $install_url, __( 'Install Elementor Now', 'ang' ) ) . '</p>';
 	}
 
@@ -385,15 +369,19 @@ function analog_fail_load() {
  */
 function analog_fail_wp_version() {
 	/* translators: %s: WordPress version */
-	$message      = sprintf( esc_html__( 'Analog Templates requires WordPress version %s+. Because you are using an earlier version, the plugin is currently NOT RUNNING.', 'ang' ), '5.0' );
+	$message      = sprintf( esc_html__( 'Style Kits requires WordPress version %s+. Because you are using an earlier version, the plugin is currently NOT RUNNING.', 'ang' ), '5.0' );
 	$html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
 	echo wp_kses_post( $html_message );
 }
 
-// Fire up plugin instance.
+/**
+ * Fire up plugin instance.
+ *
+ * @since n.e.x.t Add PHP version check.
+ */
 add_action(
 	'plugins_loaded',
-	function() {
+	static function() {
 		if ( ! version_compare( ELEMENTOR_VERSION, ANG_ELEMENTOR_REQ_VERSION, '>=' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\analog_elementor_error' );
 			return;
@@ -402,7 +390,17 @@ add_action(
 		if ( ! did_action( 'elementor/loaded' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
 			return;
-		} elseif ( ! version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) ) {
+		}
+
+		if ( version_compare( PHP_VERSION, '5.6.0', '<' ) ) {
+			wp_die(
+			/* translators: %s: version number */
+				esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'ang' ), '5.6.0' ) ),
+				esc_html__( 'Error Activating', 'ang' )
+			);
+		}
+
+		if ( ! version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_wp_version' );
 			return;
 		}

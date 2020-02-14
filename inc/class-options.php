@@ -45,4 +45,20 @@ class Options extends Base {
 		$options[ $key ] = $value;
 		update_option( self::OPTION_KEY, $options );
 	}
+
+	/**
+	 * Delete a single option.
+	 *
+	 * @param string $key Option key.
+	 * @return void
+	 */
+	public function delete( $key ) {
+		$options = $this->get();
+		if ( ! isset( $options[ $key ] ) ) {
+			return;
+		}
+
+		unset( $options[ $key ] );
+		update_option( self::OPTION_KEY, $options );
+	}
 }

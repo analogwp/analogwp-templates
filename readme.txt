@@ -1,9 +1,9 @@
 === Style Kits for Elementor ===
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
-Requires PHP: 5.4
+Requires PHP: 5.6
 Tested up to: 5.3.2
-Stable tag: 1.5.1
+Stable tag: 1.5.6
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -23,7 +23,15 @@ https://www.youtube.com/watch?v=FZfTG3l-7T8
 - Headings and text sizes
 - Column Gaps
 - Buttons
-- Colors and more are coming soon
+- Templates Library
+  - 145+ Templates
+  - 15+ Theme Style Kits
+  - 90+ Blocks
+- [Helpers Tools](https://www.youtube.com/watch?v=VmYtvvmQbnI) (Pro) to increase your productivity
+  - Reset inline styles, from any template
+  - Reset Colors and Typography styles
+  - Highlight elements with custom CSS classes on page
+  - Highlight elements with custom CSS on page
 
 #### Typography
 
@@ -115,6 +123,37 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.5.6 - Feb 12, 2020 =
+- Fix: Compatibility with Elementor v2.9
+- Fix: Removed option to Sync Color Palette
+
+= 1.5.5 - Feb 07, 2020 =
+- Fix: Conflict with Elementor Extras plugin
+
+= 1.5.4 - Feb 04, 2020 =
+- Tweak: Adds compatibility for Style Kits Pro
+- Fix: Importing templates back to back in Elementor editor caused them to import more than once
+
+= 1.5.3 - Feb 01, 2020 =
+- New: Added 'My favorites' for Blocks
+- New: Added Filter, Sorting & Search for blocks (Disabled in grouped view)
+- New: Added Preview links for Style Kits
+- Fix: Issue with Pro SKs not showing errors on frontend when occurred
+- Fix: Headings not respecting inline styles in Popup
+- Fix: Show imported SK immediately in Style Kits list
+- Tweak: Style Kits library to match Template kits styles
+- Tweak: Improved loader icon during imports
+
+= 1.5.2 - January 24, 2020 =
+- New: Template/block inserts inside Elementor are now recorded in Elementor history tab
+- New: Insert block/templates at point from where Modal was launched
+- Fix: Issue with installed kits not being set properly on template import
+- Fix: Missing license key info during block import
+- Fix: Hide template list when preview is active
+- Fix: Bug where Pro templates were displayed regardless of option selected
+- Tweak: Style Kits library listing design
+- Tweak: Show Pro notice again if Pro templates are shown
 
 = 1.5.1 - January 18, 2020 =
 - Fix: \Analog\User class conflict with \Elementor\User (props: @midoelhawy)
@@ -374,3 +413,9 @@ Improved performance, fixes issues with Global Style Kit among various fixes.
 
 = 1.5.1 =
 Fixes a conflict with Elementor User class, and color picker swatches.
+
+= 1.5.2 =
+Fixes an issue with incorrect Kit selected during Template imports.
+
+= 1.5.5 =
+Fixes a conflict with Elementor Extras plugin

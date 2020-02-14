@@ -75,19 +75,22 @@ const Nav = () => {
 	const getCount = ( tab ) => {
 		let items = context.state[ tab ];
 
-		if ( ! items ) {
-			return false;
+		if ( tab === 'templates' ) {
+			items = context.state.archive;
+		}
+		if ( tab === 'blocks' ) {
+			items = context.state.blockArchive;
 		}
 
-		if ( context.state.showFree ) {
-			items = items.filter( t => t.is_pro !== true );
+		if ( ! items ) {
+			return false;
 		}
 
 		return items.length;
 	};
 
 	return (
-		<List>
+		<List className="ang-nav">
 			{ ITEMS.map( ( item ) => (
 				<li
 					key={ item.key }

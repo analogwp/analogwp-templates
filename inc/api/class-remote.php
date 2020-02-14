@@ -203,7 +203,7 @@ class Remote extends Base {
 		);
 
 		if ( is_wp_error( $request ) ) {
-			return $request;
+			return new \WP_Error( 'kit_remote_error', $request->get_error_messages() );
 		}
 
 		return json_decode( wp_remote_retrieve_body( $request ), true );

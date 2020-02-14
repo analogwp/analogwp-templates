@@ -141,7 +141,8 @@ class Filters extends React.Component {
 	}
 
 	render() {
-		const filterTypes = [ ...this.context.state.filters ].map( filter => {
+		const filters = [ ...new Set( this.context.state.archive.map( f => f.type ) ) ];
+		const filterTypes = [ ...filters ].map( filter => {
 			return { value: `${ filter }`, label: `${ filter }` };
 		} );
 
@@ -191,7 +192,7 @@ class Filters extends React.Component {
 								</button>
 							) }
 
-							{ this.context.state.hasPro && (
+							{ AGWP.license.status !== 'valid' && (
 								<ToggleControl
 									label={ __( 'Show Pro Templates' ) }
 									checked={ ! this.context.state.showFree }
@@ -205,13 +206,14 @@ class Filters extends React.Component {
 								/>
 							) }
 
-							{ ! showingKit && (
+							{ ! showingKit && ! this.context.state.showing_favorites && (
 								<ToggleControl
 									label={ __( 'Group by Template Kit' ) }
 									checked={ this.context.state.group }
 									onChange={ () => {
 										this.context.dispatch( {
 											group: ! this.context.state.group,
+											templates: this.context.state.archive,
 										} );
 
 										window.localStorage.setItem( 'analog::group-kit', ! this.context.state.group );
@@ -220,43 +222,48 @@ class Filters extends React.Component {
 							) }
 						</div>
 
-						<div className="bottom">
-							{ this.context.state.filters.length > 1 && (
+						{ ( ! this.context.state.group || showingKit ) && ! this.context.state.showing_favorites && (
+							<div className="bottom">
+								{ ! showingKit && filters.length > 1 && (
+									<List>
+										<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
+										<Select
+											inputId="filter"
+											className="dropdown"
+											defaultValue={ filterOptions[ 0 ] }
+											isSearchable={ false }
+											options={ filterOptions }
+											onChange={ e => {
+												this.searchInput.current.value = '';
+												this.context.handleFilter( e.value );
+											} }
+										/>
+									</List>
+								) }
 								<List>
-									<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
+									<label htmlFor="sort">{ __( 'Sort by', 'ang' ) }</label>
 									<Select
-										inputId="filter"
+										inputId="sort"
 										className="dropdown"
-										defaultValue={ filterOptions[ 0 ] }
+										defaultValue={ sortOptions[ 0 ] }
 										isSearchable={ false }
-										options={ filterOptions }
-										onChange={ e => this.context.handleFilter( e.value ) }
+										options={ sortOptions }
+										onChange={ e => this.context.handleSort( e.value ) }
 									/>
 								</List>
-							) }
-							<List>
-								<label htmlFor="sort">{ __( 'Sort by', 'ang' ) }</label>
-								<Select
-									inputId="sort"
-									className="dropdown"
-									defaultValue={ sortOptions[ 0 ] }
-									isSearchable={ false }
-									options={ sortOptions }
-									onChange={ e => this.context.handleSort( e.value ) }
+								{ ! showingKit && <input
+									type="search"
+									placeholder={ __( 'Search templates', 'ang' ) }
+									ref={ this.searchInput }
+									onChange={ () =>
+										this.context.handleSearch(
+											this.searchInput.current.value.toLowerCase()
+										)
+									}
 								/>
-							</List>
-
-							<input
-								type="search"
-								placeholder={ __( 'Search templates', 'ang' ) }
-								ref={ this.searchInput }
-								onChange={ () =>
-									this.context.handleSearch(
-										this.searchInput.current.value.toLowerCase()
-									)
 								}
-							/>
-						</div>
+							</div>
+						) }
 					</FiltersContainer>
 				) }
 			</ThemeConsumer>

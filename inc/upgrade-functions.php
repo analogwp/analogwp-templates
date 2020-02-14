@@ -100,6 +100,10 @@ function do_automatic_upgrades() {
 		version_1_5_1_upgrades();
 	}
 
+	if ( version_compare( $installed_version, '1.5.6', '<' ) ) {
+		Options::get_instance()->set( 'ang_sync_colors', false );
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
