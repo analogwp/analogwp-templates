@@ -17,7 +17,7 @@ use Elementor\TemplateLibrary\Source_Local;
 /**
  * Class Manager.
  *
- * @since 1.6.0
+ * @since n.e.x.t
  * @package Analog\Elementor\Kit
  */
 class Manager {
@@ -52,6 +52,8 @@ class Manager {
 	 * Restore Elementor default if a custom Kit is deleted, if it was global.
 	 *
 	 * @param int $post_id Post ID being deleted.
+	 *
+	 * @since n.e.x.t
 	 * @return void
 	 */
 	public function restore_default_kit( $post_id ) {
@@ -69,6 +71,7 @@ class Manager {
 	/**
 	 * Get current Post object.
 	 *
+	 * @since n.e.x.t
 	 * @return \Elementor\Core\Base\Document|false
 	 */
 	public function get_current_post() {
@@ -78,6 +81,7 @@ class Manager {
 	/**
 	 * Deterrmine if current post is using a custom Kit or not.
 	 *
+	 * @since n.e.x.t
 	 * @return bool
 	 */
 	public function is_using_custom_kit() {
@@ -97,6 +101,7 @@ class Manager {
 	/**
 	 * Remove Global Kit CSS added by Elementor.
 	 *
+	 * @since n.e.x.t
 	 * @return void
 	 */
 	public function remove_global_kit_css() {
@@ -113,6 +118,8 @@ class Manager {
 	 * Fired by `body_class` filter.
 	 *
 	 * @param array $classes Body classes.
+	 *
+	 * @since n.e.x.t
 	 * @return mixed Modified classes.
 	 */
 	public function should_remove_global_kit_class( $classes ) {
@@ -128,9 +135,11 @@ class Manager {
 	}
 
 	/**
+	 * Enqueue front-end styles.
 	 *
 	 * Fired by `elementor/frontend/after_enqueue_global` action.
 	 *
+	 * @since n.e.x.t
 	 * @return void
 	 */
 	public function frontend_before_enqueue_styles() {
@@ -161,6 +170,7 @@ class Manager {
 	/**
 	 * Generate CSS stylesheets for all Kits.
 	 *
+	 * @since n.e.x.t
 	 * @return void
 	 */
 	public function generate_kit_css() {
@@ -177,6 +187,7 @@ class Manager {
 	 *
 	 * Fired by `elementor/preview/enqueue_styles` action.
 	 *
+	 * @since n.e.x.t
 	 * @return void
 	 */
 	public function preview_enqueue_styles() {
@@ -196,9 +207,10 @@ class Manager {
 	 * @param array  $meta Kit meta data. Optional.
 	 *
 	 * @access private
+	 * @since n.e.x.t
 	 * @return string
 	 */
-	public function create_kit( string $title, $meta = array() ) {
+	public function create_kit( $title, $meta = array() ) {
 		$kit = Plugin::$instance->documents->create(
 			'kit',
 			array(
@@ -215,6 +227,7 @@ class Manager {
 	/**
 	 * Display Kit migration notice.
 	 *
+	 * @since n.e.x.t
 	 * @return Notice
 	 */
 	public function get_migration_notice() {
@@ -251,6 +264,12 @@ class Manager {
 		);
 	}
 
+	/**
+	 * Display Kit edit notice, kits can't directly be edited.
+	 *
+	 * @since n.e.x.t
+	 * @return Notice
+	 */
 	public function get_kit_edit_notice() {
 		return new Notice(
 			'kit_migration',

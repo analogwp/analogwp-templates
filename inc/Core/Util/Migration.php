@@ -17,9 +17,18 @@ use Elementor\TemplateLibrary\Source_Local;
  *
  * Migrate "Style Kits" to Elementor Kits.
  *
+ * @since n.e.x.t
  * @package Analog\Core\Util
  */
 class Migration {
+
+	/**
+	 * Holds Kit page content when creating new Kits.
+	 *
+	 * @var string|mixed
+	 */
+	protected $kit_content;
+
 	/**
 	 * Migration constructor.
 	 */
@@ -32,6 +41,7 @@ class Migration {
 	 * @param array  $settings Settings keys.
 	 * @param int    $flags Preg grep filters. Optional.
 	 *
+	 * @since n.e.x.t
 	 * @return array Returns a list of all keys matching the pattern.
 	 */
 	public static function preg_grep_keys( $key, array $settings, $flags = 0 ) {
@@ -51,6 +61,8 @@ class Migration {
 	 * @param string $find Find key prefix.
 	 * @param string $replace Replace key prefix.
 	 * @param array  $settings Settings array.
+	 *
+	 * @since n.e.x.t
 	 *
 	 * @return array Return modified settings array.
 	 */
@@ -75,6 +87,8 @@ class Migration {
 	 *
 	 * @param array $keys An associative array of old and new keys.
 	 * @param array $settings Page settings.
+	 *
+	 * @since n.e.x.t
 	 *
 	 * @return array Modified settings.
 	 */
@@ -104,6 +118,8 @@ class Migration {
 	 * Migrate Style Kits to Elementor Kits.
 	 *
 	 * @param array $settings Page settings.
+	 *
+	 * @since n.e.x.t
 	 *
 	 * @return array Modified settings.
 	 */
@@ -172,6 +188,8 @@ class Migration {
 	 *
 	 * @param int $post_id Style Kit Post ID.
 	 *
+	 * @since n.e.x.t
+	 *
 	 * @return string Kit ID.
 	 */
 	public function create_kit_from_sk( $post_id ) {
@@ -204,6 +222,10 @@ class Migration {
 	 *
 	 * @param array $posts Posts using Style Kits.
 	 * @param int   $kit_id Kit ID.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @return void
 	 */
 	private function convert_posts_using_sk( $posts, $kit_id ) {
 		if ( is_array( $posts ) ) {
@@ -238,6 +260,8 @@ class Migration {
 
 	/**
 	 * Converts existing SKs to Kits.
+	 *
+	 * @since n.e.x.t
 	 *
 	 * @return void
 	 */
@@ -286,4 +310,3 @@ class Migration {
 		return ob_get_clean();
 	}
 }
-
