@@ -178,6 +178,11 @@ class Migration {
 		$settings = get_post_meta( $post_id, '_tokens_data', true );
 		$settings = json_decode( $settings, ARRAY_A );
 
+		// Set Kit content, if doesn't exist.
+		if ( ! $this->kit_content ) {
+			$this->kit_content = $this->get_kit_content();
+		}
+
 		$settings = $this->migrate_sk_to_kits( $settings );
 
 		$kit = new \Analog\Elementor\Kit\Manager();
@@ -185,6 +190,7 @@ class Migration {
 		return $kit->create_kit(
 			get_post_field( 'post_title', $post_id ),
 			array(
+				'_elementor_data'          => $this->kit_content,
 				'_elementor_page_settings' => $settings,
 				'_ang_migrated_from'       => $post_id,
 				'_ang_migrated_on'         => current_time( 'mysql' ),
@@ -264,4 +270,20 @@ class Migration {
 			}
 		}
 	}
+
+	/**
+	 * Get Kit content
+	 *
+	 * @since n.e.x.t
+	 * @return false|string
+	 */
+	public function get_kit_content() {
+		$file = ANG_PLUGIN_DIR . 'inc/elementor/kit/kit-content.json';
+
+		ob_start();
+		include $file;
+
+		return ob_get_clean();
+	}
 }
+
