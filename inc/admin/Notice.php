@@ -160,7 +160,8 @@ final class Notice {
 					margin: 5px 10px 5px 0;
 					box-sizing: border-box;
 					width: 40px;
-					height: 40px;
+					min-width: 40px;
+					min-height: 40px;
 					align-items: center;
 					justify-content: center;
 					background: #5c32b6;
