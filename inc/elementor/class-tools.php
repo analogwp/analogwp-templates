@@ -290,5 +290,4 @@ class Tools extends Base {
 	}
 }
 
-
-new Tools();
+Tools::get_instance();
