@@ -526,40 +526,7 @@ class Admin_Settings {
 					</tr>
 					<?php
 					break;
-
-				case 'checkbox_user_roles':
-					$option_value = $value['value'];
-					?>
-					<tr valign="top">
-						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
-							<fieldset>
-								<?php echo $description; // phpcs:ignore ?>
-								<ul>
-									<?php foreach ( \get_editable_roles() as $role_slug => $role_data ) : ?>
-									<li>
-										<label>
-											<input
-												type="checkbox"
-												name="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $role_slug ); ?>]"
-												id="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $role_slug ); ?>]"
-												value="1"
-												<?php checked( @$option_value[ $role_slug ], true ); //phpcs:ignore ?>
-											/>
-											<span>
-												<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
-											</span>
-											<p><?php echo esc_html( $role_data['name'] ); ?></p>
-										</label>
-									</li>
-									<?php endforeach; ?>
-								</ul>
-							</fieldset>
-						</td>
-					</tr>
-					<?php
-					break;
-
-				case 'checkbox_sk_panels':
+				case 'multi-checkbox':
 					$option_value = $value['value'];
 					?>
 					<tr valign="top">
@@ -567,32 +534,23 @@ class Admin_Settings {
 							<fieldset>
 								<?php
 								echo $description; // phpcs:ignore
-
-								// TODO: $panels data to come from some method or function so the switches can be dynamic.
-								$panels = array(
-									'bg_color_classes' => 'Background Color Classes',
-									'accent_colors'    => 'Accent Colors',
-									'heading_sizes'    => 'Heading Sizes',
-									'text_sizes'       => 'Text Sizes',
-									'button_sizes'     => 'Button Sizes',
-								);
-
 								?>
 								<ul>
-									<?php foreach ( $panels as $panel => $title ) : ?>
+									<?php foreach ( $value['options'] as $key => $val ) : ?>
 									<li>
 										<label>
+											<?php ! isset( $option_value[ $key ] ) ? $option_value[ $key ] = 0 : ''; ?>
 											<input
 												type="checkbox"
-												name="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $panel ); ?>]"
-												id="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $panel ); ?>]"
+												name="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $key ); ?>]"
+												id="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $key ); ?>]"
 												value="1"
-												<?php checked( @$option_value[ $panel ], true ); //phpcs:ignore ?>
+												<?php checked( $option_value[ $key ], true ); ?>
 											/>
 											<span>
 												<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
 											</span>
-											<p><?php echo esc_html( $title ); ?></p>
+											<p><?php echo esc_html( $val ); ?></p>
 										</label>
 									</li>
 									<?php endforeach; ?>
