@@ -48,7 +48,7 @@ final class BackgroundColorClasses extends Module {
 		$element->start_controls_section(
 			'ang_background_color_classes',
 			array(
-				'label' => _x( 'Background Colors', 'Section Title', 'ang' ),
+				'label' => _x( 'Background Color Classes', 'Section Title', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);

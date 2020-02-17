@@ -650,6 +650,41 @@ class Utils extends Base {
 			\WP_CLI::line( $message );
 		}
 	}
+
+	/**
+	 * Get Style Kit Pro link.
+	 *
+	 * @since 1.6.0
+	 * @access public
+	 * @static
+	 *
+	 * @param array $args UTM arguments.
+	 *
+	 * @return string
+	 */
+	public static function get_pro_link( $args = array() ) {
+		static $theme_name = false;
+
+		if ( ! $theme_name ) {
+			$theme_obj = wp_get_theme();
+			if ( $theme_obj->parent() ) {
+				$theme_name = $theme_obj->parent()->get( 'Name' );
+			} else {
+				$theme_name = $theme_obj->get( 'Name' );
+			}
+
+			$theme_name = sanitize_key( $theme_name );
+		}
+
+		$default_args = array(
+			'utm_source'   => 'wp-plugin',
+			'utm_campaign' => 'gopro',
+			'utm_medium'   => 'wp-dash',
+			'utm_term'     => $theme_name,
+		);
+
+		return add_query_arg( wp_parse_args( $args, $default_args ), 'https://analogwp.com/style-kits-pro/' );
+	}
 }
 
 new Utils();

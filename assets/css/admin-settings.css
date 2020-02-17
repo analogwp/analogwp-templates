@@ -81,7 +81,16 @@
 	line-height: 30px;
 }
 
-.ang.gopro .gopro-content p {
+.ang.gopro .gopro-content ul {
+	list-style: disc;
+	list-style-position: inside;
+}
+
+.ang.gopro .gopro-content li {
+	line-height: 1.5;
+}
+
+.ang.gopro .gopro-content p, li {
 	font-size: 15px;
 }
 

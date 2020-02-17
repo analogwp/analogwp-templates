@@ -171,32 +171,36 @@ class Local extends Base {
 	}
 
 	/**
-	 * Mark a template as favorite.
+	 * Mark a template or block as favorite.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 *
 	 * @return WP_REST_Response
 	 */
 	public function mark_as_favorite( WP_REST_Request $request ) {
-		$template_id         = $request->get_param( 'template_id' );
-		$favorite            = $request->get_param( 'favorite' );
-		$favorites_templates = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
+		$type = Analog_Templates::$user_meta_prefix;
+		if ( ! empty( $request->get_param( 'type' ) ) && 'block' === $request->get_param( 'type' ) ) {
+			$type = Analog_Templates::$user_meta_block_prefix;
+		}
+		$id        = $request->get_param( 'id' );
+		$favorite  = $request->get_param( 'favorite' );
+		$favorites = get_user_meta( get_current_user_id(), $type, true );
 
-		if ( ! $favorites_templates ) {
-			$favorites_templates = array();
+		if ( ! $favorites ) {
+			$favorites = array();
 		}
 
 		if ( $favorite ) {
-			$favorites_templates[ $template_id ] = $favorite;
-		} elseif ( isset( $favorites_templates[ $template_id ] ) ) {
-			unset( $favorites_templates[ $template_id ] );
+			$favorites[ $id ] = $favorite;
+		} elseif ( isset( $favorites[ $id ] ) ) {
+			unset( $favorites[ $id ] );
 		}
 
 		$data                  = array();
-		$data['template_id']   = $template_id;
+		$data['id']            = $id;
 		$data['action']        = $favorite;
-		$data['update_status'] = update_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, $favorites_templates );
-		$data['favorites']     = get_user_meta( get_current_user_id(), Analog_Templates::$user_meta_prefix, true );
+		$data['update_status'] = update_user_meta( get_current_user_id(), $type, $favorites );
+		$data['favorites']     = get_user_meta( get_current_user_id(), $type, true );
 
 		return new WP_REST_Response( $data, 200 );
 	}
@@ -312,7 +316,7 @@ class Local extends Base {
 
 		$method = $with_page ? 'page' : 'library';
 
-		if ( $template['is_pro'] && ! Utils::has_valid_license() ) {
+		if ( isset( $template['is_pro'] ) && $template['is_pro'] && ! Utils::has_valid_license() ) {
 			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'ang' ) );
 		}
 
@@ -558,11 +562,15 @@ class Local extends Base {
 	 * @return WP_Error|array
 	 */
 	protected function process_kit_import( $kit ) {
-		if ( $kit['is_pro'] && ! Utils::has_valid_license() ) {
+		if ( isset( $kit['is_pro'] ) && $kit['is_pro'] && ! Utils::has_valid_license() ) {
 			return new WP_Error( 'import_error', 'Invalid license provided.' );
 		}
 
 		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit );
+
+		if ( isset( $remote_kit['message'] ) && isset( $remote_kit['code'] ) ) {
+			return new WP_Error( $remote_kit['code'], $remote_kit['message'] );
+		}
 
 		if ( is_wp_error( $remote_kit ) ) {
 			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'ang' ) );
@@ -612,11 +620,11 @@ class Local extends Base {
 	protected function fetch_kit_content( $kit ) {
 		$post_id = false;
 
-		if ( $kit['is_pro'] && ! Utils::has_valid_license() ) {
-			return new WP_Error( 'import_error', 'Invalid license provided.' );
-		}
-
 		if ( is_array( $kit ) && isset( $kit['id'] ) ) {
+			if ( isset( $kit['is_pro'] ) && $kit['is_pro'] && ! Utils::has_valid_license() ) {
+				return new WP_Error( 'kit_import_error', 'Invalid license provided.' );
+			}
+
 			$import = $this->process_kit_import( $kit );
 
 			if ( ! is_wp_error( $import ) ) {
@@ -681,8 +689,8 @@ class Local extends Base {
 	protected function process_block_import( $block, $method = 'library' ) {
 		$license = Options::get_instance()->get( 'ang_license_key' );
 
-		if ( $block['is_pro'] && ! Utils::has_valid_license() ) {
-			return new WP_Error( 'import_error', 'Invalid license provided.' );
+		if ( isset( $block['is_pro'] ) && $block['is_pro'] && ! Utils::has_valid_license() ) {
+			return new WP_Error( 'block_import_error', 'Invalid license provided.' );
 		}
 
 		$raw_data = Remote::get_instance()->get_block_content( $block['id'], $license, $method, $block['siteID'] );

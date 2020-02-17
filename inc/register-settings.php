@@ -7,6 +7,8 @@
 
 namespace Analog\Settings;
 
+use Analog\Utils;
+
 /**
  * Register plugin menu.
  *
@@ -18,18 +20,20 @@ function register_menu() {
 		$permission = 'read';
 	}
 
+	$menu_slug = 'analogwp_templates';
+
 	add_menu_page(
 		esc_html__( 'Style Kits for Elementor', 'ang' ),
 		esc_html__( 'Style Kits', 'ang' ),
 		$permission,
-		'analogwp_templates',
+		$menu_slug,
 		'Analog\Settings\settings_page',
 		ANG_PLUGIN_URL . 'assets/img/triangle.svg',
 		'58.6'
 	);
 
 	add_submenu_page(
-		'analogwp_templates',
+		$menu_slug,
 		__( 'Style Kits Library', 'ang' ),
 		__( 'Templates', 'ang' ),
 		$permission,
@@ -37,15 +41,15 @@ function register_menu() {
 	);
 
 	add_submenu_page(
-		'analogwp_templates',
+		$menu_slug,
 		__( 'Style Kits', 'ang' ),
-		__( 'Library', 'ang' ),
+		__( 'Style Kits', 'ang' ),
 		$permission,
 		admin_url( 'admin.php?page=analogwp_templates#styleKits' )
 	);
 
 	add_submenu_page(
-		'analogwp_templates',
+		$menu_slug,
 		__( 'Blocks', 'ang' ),
 		__( 'Blocks', 'ang' ),
 		$permission,
@@ -53,7 +57,7 @@ function register_menu() {
 	);
 
 	add_submenu_page(
-		'analogwp_templates',
+		$menu_slug,
 		__( 'Style Kits Settings', 'ang' ),
 		__( 'Settings', 'ang' ),
 		'manage_options',
@@ -64,7 +68,7 @@ function register_menu() {
 	add_action( 'load-style-kits_page_settings', 'Analog\Settings\settings_page_init' );
 
 	add_submenu_page(
-		'analogwp_templates',
+		$menu_slug,
 		__( 'Style Kits', 'ang' ),
 		__( 'Manage Style Kits', 'ang' ),
 		'manage_options',
@@ -72,16 +76,47 @@ function register_menu() {
 	);
 
 	add_submenu_page(
-		'analogwp_templates',
+		$menu_slug,
 		__( 'Style Kits', 'ang' ),
 		__( 'Manage Style Kits', 'ang' ),
 		'manage_options',
 		'style-kits',
 		'Analog\Elementor\Kit\ang_kits_list'
 	);
+
+	if ( ! defined( 'ANG_PRO_VERSION' ) ) {
+		add_submenu_page(
+			$menu_slug,
+			'',
+			'<img width="12" src="' . esc_url( ANG_PLUGIN_URL . 'assets/img/triangle.svg' ) . '"> ' . __( 'Go Pro', 'ang' ),
+			'manage_options',
+			'go_style_kits_pro',
+			__NAMESPACE__ . '\handle_external_redirects'
+		);
+	}
 }
 
-add_action( 'admin_menu', 'Analog\Settings\register_menu' );
+add_action( 'admin_menu', __NAMESPACE__ . '\register_menu' );
+
+/**
+ * Redirect external links.
+ *
+ * Fired by `admin_init` action.
+ *
+ * @since 1.6
+ * @access public
+ */
+function handle_external_redirects() {
+	if ( empty( $_GET['page'] ) ) {
+		return;
+	}
+
+	if ( 'go_style_kits_pro' === $_GET['page'] ) {
+		wp_redirect( Utils::get_pro_link( array( 'utm_source' => 'wp-menu' ) ) );
+		exit();
+	}
+}
+add_action( 'admin_init', __NAMESPACE__ . '\handle_external_redirects' );
 
 /**
  * Loads methods into memory for use within settings.

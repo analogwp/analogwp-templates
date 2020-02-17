@@ -143,7 +143,7 @@ class Colors extends Module {
 		$element->start_controls_section(
 			'ang_colors',
 			array(
-				'label' => _x( 'Main Colors', 'Section Title', 'ang' ),
+				'label' => _x( 'Accent Colors', 'Section Title', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -152,7 +152,7 @@ class Colors extends Module {
 			'ang_colors_description',
 			array(
 				/* translators: %1$s: Link to documentation, %2$s: Link text. */
-				'raw'             => __( 'Set the colors for Typography, accents and more.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/574-working-with-colours', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Set the accent colors of your layout.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/574-working-with-colours', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -231,7 +231,11 @@ class Colors extends Module {
 			'ang_color_accent_primary_desc',
 			array(
 				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'The primary accent color applies on Links.', 'ang' ),
+				'raw'     => sprintf(
+					/* translators: %s: Typography Panel link/text. */
+					__( 'The primary accent color applies on links, icons, and other elements. You can also define the text link color in the %s.', 'ang' ),
+					'<a href="#" onClick="analog.redirectToSection( \'style\', \'section_typography\', \'kit_settings\' )">' . __( 'Typography panel', 'ang' ) . '</a>'
+				),
 				'classes' => 'elementor-descriptor',
 			)
 		);
@@ -268,33 +272,13 @@ class Colors extends Module {
 			'ang_color_accent_secondary_desc',
 			array(
 				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'The default Button color. You can also set button colors in the Buttons tab.', 'ang' ),
+				'raw'     => sprintf(
+					/* translators: %1$s: Button Panel link/text. %2$s: Button sizes panel link/text. */
+					__( 'The default button color. You can also define button colors under the %1$s, and individually for each button size under %2$s.', 'ang' ),
+					'<a href="#" onClick="analog.redirectToSection( \'style\', \'section_buttons\', \'kit_settings\' )">' . __( 'Buttons panel', 'ang' ) . '</a>',
+					'<a href="#" onClick="analog.redirectToSection( \'style\', \'ang_buttons\', \'kit_settings\' )">' . __( 'Buttons Sizes panel', 'ang' ) . '</a>'
+				),
 				'classes' => 'elementor-descriptor',
-			)
-		);
-
-		$element->add_control(
-			'ang_color_text',
-			array(
-				'label'     => __( 'Text Color', 'ang' ),
-				'type'      => Controls_Manager::COLOR,
-				'variable'  => 'ang_color_text',
-				'selectors' => array(
-					'{{WRAPPER}}' => '--ang_color_text: {{VALUE}}; color: {{VALUE}};',
-				),
-			)
-		);
-
-		$element->add_control(
-			'ang_color_heading',
-			array(
-				'label'     => __( 'Headings Color', 'ang' ),
-				'type'      => Controls_Manager::COLOR,
-				'variable'  => 'ang_color_heading',
-				'selectors' => array(
-					'{{WRAPPER}}' => '--ang_color_heading: {{VALUE}};',
-					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
-				),
 			)
 		);
 

@@ -56,7 +56,7 @@ class Tools extends Base {
 	 * @param string $message Error message.
 	 */
 	private function handle_wp_error( $message ) {
-		_default_wp_die_handler( $message, 'Analog Templates' );
+		_default_wp_die_handler( $message, 'Style Kits for Elementor' );
 	}
 
 	/**
@@ -290,5 +290,4 @@ class Tools extends Base {
 	}
 }
 
-
-new Tools();
+Tools::get_instance();

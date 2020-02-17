@@ -17,9 +17,18 @@ use Elementor\TemplateLibrary\Source_Local;
  *
  * Migrate "Style Kits" to Elementor Kits.
  *
+ * @since n.e.x.t
  * @package Analog\Core\Util
  */
 class Migration {
+
+	/**
+	 * Holds Kit page content when creating new Kits.
+	 *
+	 * @var string|mixed
+	 */
+	protected $kit_content;
+
 	/**
 	 * Migration constructor.
 	 */
@@ -32,9 +41,10 @@ class Migration {
 	 * @param array  $settings Settings keys.
 	 * @param int    $flags Preg grep filters. Optional.
 	 *
+	 * @since n.e.x.t
 	 * @return array Returns a list of all keys matching the pattern.
 	 */
-	public static function preg_grep_keys( string $key, array $settings, $flags = 0 ) {
+	public static function preg_grep_keys( $key, array $settings, $flags = 0 ) {
 		$pattern = '/^' . $key . '(\w+)/i';
 
 		return array_intersect_key(
@@ -52,9 +62,11 @@ class Migration {
 	 * @param string $replace Replace key prefix.
 	 * @param array  $settings Settings array.
 	 *
+	 * @since n.e.x.t
+	 *
 	 * @return array Return modified settings array.
 	 */
-	public function change_key_prefixes( string $find, string $replace, array $settings ) {
+	public function change_key_prefixes( $find, $replace, array $settings ) {
 		foreach ( $settings as $key => $value ) {
 			if ( Utils::string_starts_with( $key, $find ) ) {
 				$new_key = preg_replace( '/^' . preg_quote( $find, '/' ) . '/', $replace, $key );
@@ -75,6 +87,8 @@ class Migration {
 	 *
 	 * @param array $keys An associative array of old and new keys.
 	 * @param array $settings Page settings.
+	 *
+	 * @since n.e.x.t
 	 *
 	 * @return array Modified settings.
 	 */
@@ -100,6 +114,15 @@ class Migration {
 		return $settings;
 	}
 
+	/**
+	 * Migrate Style Kits to Elementor Kits.
+	 *
+	 * @param array $settings Page settings.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @return array Modified settings.
+	 */
 	public function migrate_sk_to_kits( array $settings ) {
 		// Recursive replacements, keys with multiple instances.
 		$settings = $this->change_key_prefixes( 'background_', 'body_background_', $settings );
@@ -114,17 +137,6 @@ class Migration {
 		$settings = $this->change_key_prefixes( 'ang_heading_5_', 'h5_typography_', $settings );
 		$settings = $this->change_key_prefixes( 'ang_heading_6_', 'h6_typography_', $settings );
 
-		if ( isset( $settings['ang_color_heading'] ) ) {
-			$settings += array(
-				'h1_color' => $settings['ang_color_heading'],
-				'h2_color' => $settings['ang_color_heading'],
-				'h3_color' => $settings['ang_color_heading'],
-				'h4_color' => $settings['ang_color_heading'],
-				'h5_color' => $settings['ang_color_heading'],
-				'h6_color' => $settings['ang_color_heading'],
-			);
-		}
-
 		// Form label typography.
 		$settings = $this->change_key_prefixes( 'ang_form_label_typography_', 'form_label_typography_', $settings );
 		$settings = $this->change_key_prefixes( 'ang_form_field_typography_', 'form_field_typography_', $settings );
@@ -137,6 +149,8 @@ class Migration {
 			'ang_color_heading_h4'            => 'h4_color',
 			'ang_color_heading_h5'            => 'h5_color',
 			'ang_color_heading_h6'            => 'h6_color',
+
+			'ang_color_text'                  => 'body_color',
 
 			// Pro Form.
 			'ang_form_label_color'            => 'form_label_color',
@@ -151,7 +165,6 @@ class Migration {
 		// Copy values to new items but don't remove the old.
 		$copy_items = array(
 			'ang_color_accent_secondary' => 'button_background_color',
-			'ang_color_text'             => 'body_color',
 			'ang_color_accent_primary'   => 'link_normal_color',
 		);
 
@@ -175,11 +188,18 @@ class Migration {
 	 *
 	 * @param int $post_id Style Kit Post ID.
 	 *
+	 * @since n.e.x.t
+	 *
 	 * @return string Kit ID.
 	 */
 	public function create_kit_from_sk( $post_id ) {
 		$settings = get_post_meta( $post_id, '_tokens_data', true );
 		$settings = json_decode( $settings, ARRAY_A );
+
+		// Set Kit content, if doesn't exist.
+		if ( ! $this->kit_content ) {
+			$this->kit_content = $this->get_kit_content();
+		}
 
 		$settings = $this->migrate_sk_to_kits( $settings );
 
@@ -188,6 +208,7 @@ class Migration {
 		return $kit->create_kit(
 			get_post_field( 'post_title', $post_id ),
 			array(
+				'_elementor_data'          => $this->kit_content,
 				'_elementor_page_settings' => $settings,
 				'_ang_migrated_from'       => $post_id,
 				'_ang_migrated_on'         => current_time( 'mysql' ),
@@ -196,6 +217,16 @@ class Migration {
 		);
 	}
 
+	/**
+	 * Convert all posts using Style Kits.
+	 *
+	 * @param array $posts Posts using Style Kits.
+	 * @param int   $kit_id Kit ID.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @return void
+	 */
 	private function convert_posts_using_sk( $posts, $kit_id ) {
 		if ( is_array( $posts ) ) {
 			foreach ( $posts as $post_id ) {
@@ -230,6 +261,8 @@ class Migration {
 	/**
 	 * Converts existing SKs to Kits.
 	 *
+	 * @since n.e.x.t
+	 *
 	 * @return void
 	 */
 	public function convert_all_sk_to_kits() {
@@ -260,5 +293,20 @@ class Migration {
 				$this->convert_posts_using_sk( $posts_using_global_sk, $kit_id );
 			}
 		}
+	}
+
+	/**
+	 * Get Kit content
+	 *
+	 * @since n.e.x.t
+	 * @return false|string
+	 */
+	public function get_kit_content() {
+		$file = ANG_PLUGIN_DIR . 'inc/elementor/kit/kit-content.json';
+
+		ob_start();
+		include $file;
+
+		return ob_get_clean();
 	}
 }
