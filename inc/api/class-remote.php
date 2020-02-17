@@ -35,7 +35,7 @@ class Remote extends Base {
 	 * @since 1.3.4
 	 * @var string API endpoint for style kits.
 	 */
-	private static $kits_endpoint = 'https://analogwp.com/wp-json/analogwp/v1/stylekits/';
+	private static $kits_endpoint = 'https://analogwp.com/wp-json/analogwp/v2/stylekits/';
 
 	/**
 	 * Blocks API endpoint.
@@ -110,6 +110,7 @@ class Remote extends Base {
 				'timeout'    => $force_update ? 25 : 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
 				'body'       => $body_args,
+				'sslverify'  => false,
 			)
 		);
 
@@ -143,6 +144,7 @@ class Remote extends Base {
 			$url,
 			array(
 				'timeout' => 40,
+				'sslverify' => false,
 				'body'    => $body_args,
 			)
 		);
@@ -199,6 +201,7 @@ class Remote extends Base {
 				'timeout'    => 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
 				'body'       => $body_args,
+				'sslverify'  => false,
 			)
 		);
 
@@ -237,6 +240,7 @@ class Remote extends Base {
 			array(
 				'timeout' => 40,
 				'body'    => $body_args,
+				'sslverify' => false,
 			)
 		);
 
