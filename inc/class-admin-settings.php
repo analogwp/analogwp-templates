@@ -559,6 +559,50 @@ class Admin_Settings {
 					<?php
 					break;
 
+				case 'checkbox_sk_panels':
+					$option_value = $value['value'];
+					?>
+					<tr valign="top">
+						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+							<fieldset>
+								<?php
+								echo $description; // phpcs:ignore
+
+								// TODO: $panels data to come from some method or function so the switches can be dynamic.
+								$panels = array(
+									'bg_color_classes' => 'Background Color Classes',
+									'accent_colors'    => 'Accent Colors',
+									'heading_sizes'    => 'Heading Sizes',
+									'text_sizes'       => 'Text Sizes',
+									'button_sizes'     => 'Button Sizes',
+								);
+
+								?>
+								<ul>
+									<?php foreach ( $panels as $panel => $title ) : ?>
+									<li>
+										<label>
+											<input
+												type="checkbox"
+												name="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $panel ); ?>]"
+												id="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $panel ); ?>]"
+												value="1"
+												<?php checked( @$option_value[ $panel ], true ); //phpcs:ignore ?>
+											/>
+											<span>
+												<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
+											</span>
+											<p><?php echo esc_html( $title ); ?></p>
+										</label>
+									</li>
+									<?php endforeach; ?>
+								</ul>
+							</fieldset>
+						</td>
+					</tr>
+					<?php
+					break;
+
 				// Checkbox input.
 				case 'checkbox':
 					$option_value     = $value['value'];
