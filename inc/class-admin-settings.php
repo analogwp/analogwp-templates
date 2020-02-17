@@ -728,7 +728,7 @@ class Admin_Settings {
 					$value = wp_kses_post( trim( $raw_value ) );
 					break;
 				case 'multiselect':
-				case 'checkbox_user_roles':
+				case 'multi-checkbox':
 					$value = array_filter( array_map( __NAMESPACE__ . '\ang_clean', (array) $raw_value ) );
 					break;
 				case 'select':
