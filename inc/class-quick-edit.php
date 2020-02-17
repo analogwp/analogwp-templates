@@ -19,6 +19,14 @@ class Quick_Edit extends Base {
 	const FIELD_SLUG = 'ang_stylekit';
 
 	/**
+	 * Holds kit data.
+	 *
+	 * @access private
+	 * @var array kits.
+	 */
+	private static $kits = '';
+
+	/**
 	 * QuickEdit constructor.
 	 */
 	public function __construct() {
@@ -35,6 +43,7 @@ class Quick_Edit extends Base {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'quick_edit_scripts' ) );
 		add_action( 'wp_ajax_save_bulk_edit_stylekit', array( $this, 'save_bulk_edit_stylekit' ) );
+		self::$kits = Utils::get_kits();
 	}
 
 	/**
@@ -149,7 +158,7 @@ class Quick_Edit extends Base {
 		}
 
 		?>
-		<?php if ( self::FIELD_SLUG === $column_name && Utils::get_kits() ) : ?>
+		<?php if ( self::FIELD_SLUG === $column_name && self::$kits ) : ?>
 			<fieldset id="ang-stylekit-fieldset" class="inline-edit-col-left" style="clear:both">
 				<style>.column-ang_stylekit{display: none;}</style>
 				<div class="inline-edit-col">
@@ -158,7 +167,7 @@ class Quick_Edit extends Base {
 							<span class="title"><?php esc_html_e( 'Style Kit', 'ang' ); ?></span>
 							<select name="ang_stylekit">
 								<option value="-1">&mdash; Select &mdash;</option>
-								<?php foreach ( Utils::get_kits() as $id => $title ) : ?>
+								<?php foreach ( self::$kits as $id => $title ) : ?>
 									<option value="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $title ); ?></option>
 								<?php endforeach; ?>
 							</select>
