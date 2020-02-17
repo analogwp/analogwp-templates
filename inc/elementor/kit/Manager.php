@@ -244,6 +244,21 @@ class Manager {
 			)
 		);
 	}
+
+	/**
+	 * Get Kit content
+	 *
+	 * @since n.e.x.t
+	 * @return false|string
+	 */
+	public function get_kit_content() {
+		$file = ANG_PLUGIN_DIR . 'inc/elementor/kit/kit-content.json';
+
+		ob_start();
+		include $file;
+
+		return ob_get_clean();
+	}
 }
 
 new Manager();
