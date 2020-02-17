@@ -40,7 +40,6 @@ class Manager {
 		add_filter(
 			'analog_admin_notices',
 			function( $notices ) {
-				$notices[] = $this->get_migration_notice();
 				$notices[] = $this->get_kit_edit_notice();
 
 				return $notices;
@@ -222,46 +221,6 @@ class Manager {
 		);
 
 		return $kit->get_id();
-	}
-
-	/**
-	 * Display Kit migration notice.
-	 *
-	 * @since n.e.x.t
-	 * @return Notice
-	 */
-	public function get_migration_notice() {
-		$style_kits = wp_count_posts( 'ang_tokens' );
-
-		return new Notice(
-			'kit_migration',
-			array(
-				// TODO: Add docs link
-				'content'         => "With the introduction of Theme Styles in Elementor v2.9.0, <strong>Style Kits</strong> has changed how you create and manage Style Kits and need migration.
-					You can also run the migration using <a href='https://docs.analogwp.com/' target='_blank'>CLI</a>.
-					<br>
-					You have {$style_kits->publish} Style Kits, that need migration.
-					Upon running this migration, all your Style Kits will be converted to Elementor Kits. This will only take a few seconds.
-					<br><br>
-					<a href='#' class='button-primary'>Click here to migrate now</a>
-					<a href='https://docs.analogwp.	com/' class='button-secondary' target='_blank'>Learn More</a>
-					",
-				'type'            => Notice::TYPE_ERROR,
-				'active_callback' => function() use ( $style_kits ) {
-					if ( ! current_user_can( 'manage_options' ) ) {
-						return false;
-					}
-
-					// Don't show notice if no SKs are found.
-					if ( $style_kits && $style_kits->publish < 1 ) {
-						return false;
-					}
-
-					return true;
-				},
-				'dismissible'     => false,
-			)
-		);
 	}
 
 	/**
