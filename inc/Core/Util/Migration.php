@@ -287,6 +287,7 @@ class Migration {
 
 			if ( Utils::get_global_kit_id() === $post->ID ) {
 				update_option( Manager::OPTION_ACTIVE, $kit_id );
+				Options::get_instance()->set( 'global_kit', $kit_id );
 
 				Utils::cli_log( "👉 🌐 Kit: {$post->post_title} has been set as Global Kit." );
 
