@@ -62,9 +62,7 @@ class Typography extends Module {
 	 * Typography constructor.
 	 */
 	public function __construct() {
-		$this->tokens            = Utils::get_kits();
-		$this->global_token_data = json_decode( Utils::get_global_token_data(), true );
-		$this->page_settings     = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
+		$this->tokens = Utils::get_kits();
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_typography_sizes' ), 20, 2 );
 
@@ -168,12 +166,11 @@ class Typography extends Module {
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
 				array(
-					'name'           => 'ang_heading_' . $i,
+					'name'     => 'ang_heading_' . $i,
 					/* translators: %s: Heading 1-6 type */
-					'label'          => sprintf( __( 'Heading %s', 'ang' ), $i ),
-					'selector'       => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
-					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
-					'fields_options' => $this->get_default_typography_values( 'ang_heading_' . $i ),
+					'label'    => sprintf( __( 'Heading %s', 'ang' ), $i ),
+					'selector' => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
+					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				)
 			);
 		}
@@ -216,11 +213,10 @@ class Typography extends Module {
 		$element->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'           => 'ang_body',
-				'label'          => __( 'Body Typography', 'ang' ),
-				'selector'       => '{{WRAPPER}}',
-				'scheme'         => Scheme_Typography::TYPOGRAPHY_3,
-				'fields_options' => $this->get_default_typography_values( 'ang_body' ),
+				'name'     => 'ang_body',
+				'label'    => __( 'Body Typography', 'ang' ),
+				'selector' => '{{WRAPPER}}',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
 			)
 		);
 
@@ -273,12 +269,11 @@ class Typography extends Module {
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
 				array(
-					'name'           => 'ang_size_' . $setting[0],
-					'label'          => $setting[1],
-					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
-					'selector'       => $selectors,
-					'exclude'        => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
-					'fields_options' => $this->get_default_typography_values( 'ang_size_' . $setting[0] ),
+					'name'     => 'ang_size_' . $setting[0],
+					'label'    => $setting[1],
+					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'selector' => $selectors,
+					'exclude'  => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
 				)
 			);
 		}
@@ -322,12 +317,11 @@ class Typography extends Module {
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
 				array(
-					'name'           => 'ang_text_size_' . $setting[0],
-					'label'          => $setting[1],
-					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
-					'selector'       => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
-					'exclude'        => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
-					'fields_options' => $this->get_default_typography_values( 'ang_text_size_' . $setting[0] ),
+					'name'     => 'ang_text_size_' . $setting[0],
+					'label'    => $setting[1],
+					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'selector' => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
+					'exclude'  => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
 				)
 			);
 		}
@@ -371,16 +365,13 @@ class Typography extends Module {
 			$element->add_responsive_control(
 				'ang_section_padding_' . $key,
 				array(
-					'label'           => $label,
-					'type'            => Controls_Manager::DIMENSIONS,
-					'default'         => array(
+					'label'      => $label,
+					'type'       => Controls_Manager::DIMENSIONS,
+					'default'    => array(
 						'unit' => 'em',
 					),
-					'desktop_default' => $this->get_default_value( 'ang_section_padding_' . $key, true ),
-					'tablet_default'  => $this->get_default_value( 'ang_section_padding_' . $key . '_tablet', true ),
-					'mobile_default'  => $this->get_default_value( 'ang_section_padding_' . $key . '_mobile', true ),
-					'size_units'      => array( 'px', 'em', '%' ),
-					'selectors'       => array(
+					'size_units' => array( 'px', 'em', '%' ),
+					'selectors'  => array(
 						"{{WRAPPER}} .ang-section-padding-{$key}" =>
 						'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					),
@@ -427,13 +418,10 @@ class Typography extends Module {
 			$element->add_responsive_control(
 				'ang_column_gap_' . $key,
 				array(
-					'label'           => $label,
-					'type'            => Controls_Manager::DIMENSIONS,
-					'desktop_default' => $this->get_default_value( 'ang_column_gap_' . $key, true ),
-					'tablet_default'  => $this->get_default_value( 'ang_column_gap_' . $key . '_tablet', true ),
-					'mobile_default'  => $this->get_default_value( 'ang_column_gap_' . $key . '_mobile', true ),
-					'size_units'      => array( 'px', 'em', '%' ),
-					'selectors'       => array(
+					'label'      => $label,
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => array( 'px', 'em', '%' ),
+					'selectors'  => array(
 						"{{WRAPPER}} .elementor-column-gap-{$key} > .elementor-row > .elementor-column > .elementor-element-populated"
 						=> 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					),
@@ -525,7 +513,6 @@ class Typography extends Module {
 				array(
 					'label'     => __( 'Text Color', 'ang' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => $this->get_default_value( 'ang_button_text_color_' . $size ),
 					'selectors' => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'color: {{VALUE}};',
 					),
@@ -537,7 +524,6 @@ class Typography extends Module {
 				array(
 					'label'     => __( 'Background Color', 'ang' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => $this->get_default_value( 'ang_button_background_color_' . $size ),
 					'selectors' => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'background-color: {{VALUE}};',
 					),
@@ -586,7 +572,6 @@ class Typography extends Module {
 				array(
 					'label'     => __( 'Text Color', 'ang' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => $this->get_default_value( 'ang_button_text_hover_color_' . $size ),
 					'selectors' => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} a.elementor-button.elementor-size-{$size}:focus, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus" => 'color: {{VALUE}};',
 					),
@@ -598,7 +583,6 @@ class Typography extends Module {
 				array(
 					'label'     => __( 'Background Color', 'ang' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => $this->get_default_value( 'ang_button_background_hover_color_' . $size ),
 					'selectors' => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} a.elementor-button.elementor-size-{$size}:focus, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus" => 'background-color: {{VALUE}};',
 					),
@@ -898,6 +882,8 @@ class Typography extends Module {
 	 * @param string $key Setting ID.
 	 * @param bool   $is_array Whether provided key includes set of array.
 	 *
+	 * @deprecated n.e.x.t
+	 *
 	 * @return array|string
 	 */
 	public function get_default_value( $key, $is_array = false ) {
@@ -909,10 +895,8 @@ class Typography extends Module {
 
 		$values = $this->global_token_data;
 
-		if ( $values && ! empty( $values ) ) {
-			if ( isset( $values[ $key ] ) && '' !== $values[ $key ] ) {
-				return $values[ $key ];
-			}
+		if ( count( $values ) && isset( $values[ $key ] ) && '' !== $values[ $key ] ) {
+			return $values[ $key ];
 		}
 
 		return ( $is_array ) ? array() : '';
@@ -922,6 +906,8 @@ class Typography extends Module {
 	 * Get default values for Typography group control.
 	 *
 	 * @param string $key Setting ID.
+	 *
+	 * @deprecated n.e.x.t
 	 *
 	 * @return array
 	 */
