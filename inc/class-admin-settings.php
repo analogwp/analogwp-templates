@@ -539,13 +539,12 @@ class Admin_Settings {
 									<?php foreach ( $value['options'] as $key => $val ) : ?>
 									<li>
 										<label>
-											<?php ! isset( $option_value[ $key ] ) ? $option_value[ $key ] = 0 : ''; ?>
 											<input
 												type="checkbox"
 												name="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $key ); ?>]"
 												id="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $key ); ?>]"
 												value="1"
-												<?php checked( $option_value[ $key ], true ); ?>
+												<?php checked( isset( $option_value[ $key ] ) ? $option_value[ $key ] : 0, true ); ?>
 											/>
 											<span>
 												<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
