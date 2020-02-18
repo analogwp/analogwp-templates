@@ -84,6 +84,8 @@ function register_menu() {
 		'Analog\Elementor\Kit\ang_kits_list'
 	);
 
+	add_submenu_page( null, '', 'Welcome to Style Kits', 'manage_options', 'analog_onboarding', __NAMESPACE__ . '\plugin_onboarding' );
+
 	if ( ! defined( 'ANG_PRO_VERSION' ) ) {
 		add_submenu_page(
 			$menu_slug,
@@ -176,9 +178,6 @@ add_action( 'wp_loaded', 'Analog\Settings\save_settings' );
  * @return void
  */
 function new_settings_page() {
-	if ( is_sk_migration_ready() ) {
-		plugin_onboarding();
-	}
 	Admin_Settings::output();
 }
 
@@ -188,9 +187,6 @@ function new_settings_page() {
  * @return void
  */
 function settings_page() {
-	if ( is_sk_migration_ready() ) {
-		plugin_onboarding();
-	}
 	do_action( 'ang_loaded_templates' );
 	?>
 	<style>body { background: #E3E3E3; }</style>
@@ -280,6 +276,23 @@ function is_sk_migration_ready() {
 	return false;
 }
 
+
+
+/**
+ * Redirect to onboarding screen after activation.
+ *
+ * @since n.e.x.t
+ * @return void
+ */
+function analog_onboarding_redirect() {
+	$onboarding = admin_url( 'admin.php?page=analog_onboarding' );
+	if ( get_option( 'analog_migration_redirect', false ) && is_sk_migration_ready() ) {
+		delete_option( 'analog_migration_redirect' );
+		wp_safe_redirect( $onboarding );
+	}
+}
+add_action( 'admin_init', __NAMESPACE__ . '\analog_onboarding_redirect' );
+
 /**
  * Add onboarding screen.
  *
@@ -305,8 +318,8 @@ function plugin_onboarding() {
  */
 function after_migration_screen() {
 		$settings_page = admin_url( 'admin.php?page=ang-settings' );
-		$wp_embed = new \WP_Embed();
-		?>
+		$wp_embed      = new \WP_Embed();
+	?>
 		<div id="analog-welcome-screen" class="analog-welcome-screen">
 			<div class="after-migration">
 				<div class="entry-header">
@@ -345,6 +358,9 @@ function after_migration_screen() {
 						<a href="<?php echo esc_url( 'https://analogwp.com/support' ); ?>" target="_blank">Send a support ticket</a>
 						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=version-control' ) ); ?>">Rollback to an earlier version</a>
 					</nav>
+				</div>
+				<div class="redirect-btn">
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=analogwp_templates' ) ); ?>">Take me to SK Library >></a>
 				</div>
 			</div>
 		</div>

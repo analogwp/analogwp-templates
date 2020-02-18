@@ -408,3 +408,16 @@ add_action(
 		ANG();
 	}
 );
+
+/**
+ * Analog Activation/Update Checker.
+ *
+ * @since n.e.x.t
+ * @return void
+ */
+function analog_activate_update() {
+	add_option( 'analog_migration_redirect', true );
+}
+
+add_action( 'upgrader_process_complete', __NAMESPACE__ . '\analog_activate_update' );
+register_activation_hook( __FILE__, __NAMESPACE__ . '\analog_activate_update' );
