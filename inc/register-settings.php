@@ -263,13 +263,11 @@ function register_settings() {
  * @return bool
  */
 function is_sk_migration_ready() {
-	$style_kits = \get_posts(
-		array(
-			'post_type'   => 'ang_tokens',
-			'numberposts' => -1,
-			'fields'      => 'ids',
-		)
-	);
+	$style_kits = (array) \wp_count_posts( 'ang_tokens' );
+	if ( empty( $style_kits ) ) {
+		return false;
+	}
+	$style_kits = $style_kits['publish'];
 	if ( version_compare( ANG_VERSION, '1.6.0', '>=' ) && ! empty( $style_kits ) && ! Options::get_instance()->get( 'ang_kits_migrated' ) ) {
 		return true;
 	}
@@ -285,9 +283,10 @@ function is_sk_migration_ready() {
  * @return void
  */
 function analog_onboarding_redirect() {
-	$onboarding = admin_url( 'admin.php?page=analog_onboarding' );
-	if ( get_option( 'analog_migration_redirect', false ) && is_sk_migration_ready() ) {
-		delete_option( 'analog_migration_redirect' );
+	$onboarding        = admin_url( 'admin.php?page=analog_onboarding' );
+	$installed_version = Options::get_instance()->get( 'version' );
+
+	if ( version_compare( $installed_version, ANG_VERSION, '<' ) && is_sk_migration_ready() ) {
 		wp_safe_redirect( $onboarding );
 	}
 }
