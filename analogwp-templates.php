@@ -408,29 +408,3 @@ add_action(
 		ANG();
 	}
 );
-
-/**
- * Redirect to onboarding screen after activation.
- *
- * @since n.e.x.t
- * @return void
- */
-function analog_onboarding_redirect() {
-	$getting_started = admin_url( 'admin.php?page=analog_onboarding' );
-	if ( get_option( 'analog_activation_redirect', false ) ) {
-		delete_option( 'analog_activation_redirect' );
-		wp_safe_redirect( $getting_started );
-	}
-}
-add_action( 'admin_init', __NAMESPACE__ . '\analog_onboarding_redirect' );
-
-/**
- * Analog plugin activation hook.
- *
- * @since n.e.x.t
- * @return void
- */
-function analog_plugin_activation() {
-	add_option( 'analog_activation_redirect', true );
-}
-register_activation_hook( __FILE__, __NAMESPACE__ . '\analog_plugin_activation' );
