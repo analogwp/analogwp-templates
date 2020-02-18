@@ -288,7 +288,7 @@ function after_migration_screen() {
 		)
 	);
 	if ( ! version_compare( ANG_VERSION, '1.6.0', '>=' ) && ! empty( $style_kits ) && ! Options::get_instance()->get( 'ang_kits_migrated' ) ) {
-		// return;
+		return;
 	}
 
 	$settings_page = admin_url( 'admin.php?page=ang-settings' );
