@@ -338,9 +338,15 @@ class Utils extends Base {
 
 		$query = new WP_Query(
 			array(
-				'post_type'              => 'ang_tokens',
+				'post_type'              => 'elementor_library',
 				'post_status'            => 'publish',
 				'posts_per_page'         => -1,
+				'meta_query'     => array( // @codingStandardsIgnoreLine
+					array(
+						'key'   => \Elementor\Core\Base\Document::TYPE_META_KEY,
+						'value' => 'kit',
+					),
+				),
 				'no_found_rows'          => true,
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
