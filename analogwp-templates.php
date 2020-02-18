@@ -144,7 +144,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-remote.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-local.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-analog-importer.php';
-		require_once ANG_PLUGIN_DIR . 'inc/class-google-fonts-data.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/Google_Fonts.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-elementor.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-tracker.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-cron.php';

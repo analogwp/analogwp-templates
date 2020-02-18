@@ -7,7 +7,7 @@
 
 namespace Analog;
 
-use Elementor\Plugin;
+use Analog\Elementor\Google_Fonts;
 use Elementor\Fonts;
 
 /**
@@ -52,14 +52,18 @@ class Elementor {
 			}
 		);
 
-		add_filter( 'elementor/fonts/additional_fonts', function( $additional_fonts ) {
-			$fonts = Google_Fonts_Data::get_google_fonts();
-			$fonts_filtered = array();
-			foreach ( $fonts as $index => $value ) {
-				$fonts_filtered[ $value['label'] ] = Fonts::GOOGLE;
+		add_filter(
+			'elementor/fonts/additional_fonts',
+			static function( $additional_fonts ) {
+				$fonts = Google_Fonts::get_google_fonts();
+
+				if ( count( $fonts ) ) {
+					$additional_fonts = array_merge( $additional_fonts, $fonts );
+				}
+
+				return $additional_fonts;
 			}
-			return array_merge( $additional_fonts, $fonts_filtered );
-		} );
+		);
 	}
 
 	/**
