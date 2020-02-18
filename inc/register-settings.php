@@ -287,7 +287,7 @@ function after_migration_screen() {
 			'fields'      => 'ids',
 		)
 	);
-	if ( ! version_compare( ANG_VERSION, '1.6.0', '>=' ) && ! empty( $style_kits ) && ! Options::get_instance()->get( 'ang_kits_migrated' ) ) {
+	if ( ! version_compare( ANG_VERSION, '1.6.0', '>=' ) && ! empty( $style_kits ) && Options::get_instance()->get( 'ang_kits_migrated' ) ) {
 		return;
 	}
 
