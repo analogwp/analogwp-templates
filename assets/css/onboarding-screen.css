@@ -52,16 +52,3 @@
 	font-size: 16px;
 	line-height: 22px;
 }
-
-.analog-welcome-screen .redirect-btn {
-	position: absolute;
-	bottom: -50px;
-	left: 0;
-	background-color: #6133C1;
-}
-.analog-welcome-screen .redirect-btn a {
-	display: inline-block;
-	color: #fff;
-	padding: 15px;
-	text-decoration: none;
-}
