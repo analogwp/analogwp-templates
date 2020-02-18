@@ -635,8 +635,8 @@ class Local extends Base {
 		} else {
 			$installed_kits = array_flip( Utils::get_kits( false ) );
 
-			if ( isset( $installed_kits[ $kit['title'] ] ) ) {
-				$post_id = $installed_kits[ $kit['title'] ];
+			if ( isset( $installed_kits[ $kit ] ) ) {
+				$post_id = $installed_kits[ $kit ];
 			}
 		}
 

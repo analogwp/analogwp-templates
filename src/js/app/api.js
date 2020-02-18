@@ -175,7 +175,7 @@ export async function requestElementorImport( template, kit ) {
 				}
 				const id = parsedTemplate.tokens.ang_action_tokens.toString();
 
-				_.extend( options, { [id]: kitTitle  });
+				_.extend( options, { [id]: kitTitle });
 
 				elementor.settings.page.model.controls.ang_action_tokens.options = options;
 			}
@@ -188,6 +188,7 @@ export async function requestElementorImport( template, kit ) {
 
 		elementor.once( 'preview:loaded', () => {
 			analog.redirectToSection();
+			elementor.settings.page.model.setExternalChange( 'ang_action_tokens', elementor.config.kit_id.toString() )
 		} );
 	} );
 }
