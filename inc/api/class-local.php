@@ -633,20 +633,18 @@ class Local extends Base {
 				$post_id = $import['id'];
 			}
 		} else {
-			$find    = get_page_by_title( $kit, OBJECT, 'ang_tokens' );
-			$post_id = $find->ID;
+			$installed_kits = array_flip( Utils::get_kits( false ) );
+
+			if ( isset( $installed_kits[ $kit['title'] ] ) ) {
+				$post_id = $installed_kits[ $kit['title'] ];
+			}
 		}
 
-		$tokens = json_decode( get_post_meta( $post_id, '_tokens_data', true ), true );
-		if ( is_array( $tokens ) ) {
-			$tokens += array( 'ang_action_tokens' => $post_id );
-		}
-
-		if ( ! $tokens ) {
+		if ( ! $post_id ) {
 			return new WP_Error( 'invalid_token_data', __( 'Invalid token data returned', 'ang' ) );
-		} else {
-			return $tokens;
 		}
+
+		return array( 'ang_action_tokens' => $post_id );
 	}
 
 	/**
