@@ -43,7 +43,7 @@ class Kits_List_Table extends \WP_List_Table {
 				'post_type'      => Source_Local::CPT,
 				'post_status'    => array( 'publish', 'draft' ),
 				'posts_per_page' => -1,
-				'orderby'        => 'title',
+				'orderby'        => 'date',
 				'order'          => 'DESC',
 				'meta_query'     => array( // @codingStandardsIgnoreLine
 					array(
