@@ -72,10 +72,6 @@ class Kits_List_Table extends \WP_List_Table {
 	public function column_default( $item, $column_name ) {
 		$result = '';
 		switch ( $column_name ) {
-			case 'title':
-				$result = 'This is better';
-				break;
-
 			case 'date':
 				$result = date_i18n( get_option( 'date_format' ), strtotime( $item['date'] ) );
 				break;
