@@ -8,6 +8,7 @@
 namespace Analog;
 
 use Elementor\Plugin;
+use Elementor\Fonts;
 
 /**
  * Intializes scripts/styles needed for AnalogWP modal on Elementor editing page.
@@ -50,6 +51,15 @@ class Elementor {
 				$module->register_tag( 'Analog\Elementor\Tags\Dark_Background' );
 			}
 		);
+
+		add_filter( 'elementor/fonts/additional_fonts', function( $additional_fonts ) {
+			$fonts = Google_Fonts_Data::get_google_fonts();
+			$fonts_filtered = array();
+			foreach ( $fonts as $index => $value ) {
+				$fonts_filtered[ $value['label'] ] = Fonts::GOOGLE;
+			}
+			return array_merge( $additional_fonts, $fonts_filtered );
+		} );
 	}
 
 	/**
