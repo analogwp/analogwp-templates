@@ -539,7 +539,7 @@ jQuery( window ).on( 'elementor:init', function() {
 									url: ANG_Action.saveToken,
 									method: 'post',
 									data: {
-										id: elementor.config.initial_document.id,
+										id: elementor.config.kit_id,
 										title: title,
 									},
 								} ).then( function( response ) {
