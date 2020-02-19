@@ -115,9 +115,10 @@ class Kits_List_Table extends \WP_List_Table {
 
 		// Get actions.
 		$actions = array(
-//			'edit'                => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'ang' ) . '</a>',
-			'trash'               => '<a href="' . esc_url( get_delete_post_link( $item['id'] ) ) . '" class="submitdelete">' . __( 'Trash', 'ang' ) . '</a>',
-//			'edit_with_elementor' => '<a href="' . esc_url( $document->get_edit_url() ) . '">' . __( 'Edit with Elementor', 'ang' ) . '</a>',
+			// 'edit'                => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'ang' ) . '</a>',
+			'trash'           => '<a href="' . esc_url( get_delete_post_link( $item['id'] ) ) . '" class="submitdelete">' . __( 'Trash', 'ang' ) . '</a>',
+			'export-template' => '<a href="' . esc_url( $this->get_export_link( $item['id'] ) ) . '">' . __( 'Export Template', 'ang' ) . '</a>',
+// 'edit_with_elementor' => '<a href="' . esc_url( $document->get_edit_url() ) . '">' . __( 'Edit with Elementor', 'ang' ) . '</a>',
 		);
 
 		$row_actions = array();
@@ -166,6 +167,19 @@ class Kits_List_Table extends \WP_List_Table {
 		}
 
 		$this->items = $data;
+	}
+
+	private function get_export_link( $id ) {
+		return add_query_arg(
+			array(
+				'action'         => 'elementor_library_direct_actions',
+				'library_action' => 'export_template',
+				'source'         => 'local',
+				'_nonce'         => wp_create_nonce( 'elementor_ajax' ),
+				'template_id'    => $id,
+			),
+			admin_url( 'admin-ajax.php' )
+		);
 	}
 }
 
