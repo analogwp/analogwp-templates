@@ -177,6 +177,10 @@ class Tools extends Base {
 			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
 				$kit_id = $settings['ang_action_tokens'];
 
+				if ( ! in_array( (int) $kit_id, Utils::get_kits(), true ) ) {
+					return $post_states;
+				}
+
 				if ( $global_kit !== $kit_id && '' !== $global_kit && post_exists( get_the_title( $kit_id ) ) && 'publish' === get_post_status( $kit_id ) ) {
 					/* translators: %s: Style kit title. */
 					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#5C32B6;">&#9679;</span>', 'ang' ), get_the_title( $kit_id ) );
