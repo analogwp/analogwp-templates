@@ -181,7 +181,8 @@ class Manager {
 		if ( Plugin::$instance->preview->is_preview_mode() ) {
 			$this->generate_kit_css();
 		} else {
-			$this->remove_global_kit_css();
+			// TODO: 1.6.1 header/footer make use of this so its not safe to remove.
+			// $this->remove_global_kit_css();
 		}
 
 		$css = Post_CSS::create( $custom_kit );
