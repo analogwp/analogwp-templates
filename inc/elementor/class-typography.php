@@ -734,27 +734,27 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_tools',
 			array(
-				'label' => __( 'Tools', 'ang' ),
+				'label' => __( 'Theme Style Kit', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 
-		$label = __( 'This will reset the Style Kit styles and detach the page from the Style Kit.', 'ang' );
+		$label = __( 'This will reset the Theme Style Kit and clean up any values.', 'ang' );
 		$element->add_control(
 			'ang_action_reset',
 			array(
-				'label'        => __( 'Reset Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'label'        => __( 'Reset Theme Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'         => 'ang_action',
 				'action'       => 'reset_css',
 				'action_label' => __( 'Reset', 'ang' ),
 			)
 		);
 
-		$label = __( 'Save all the styles as a Style Kit that you can apply on other pages or globally. Please note that only the custom styles added in the styles page are saved with the stylekit.', 'ang' );
+		$label = __( 'Save the current styles as a different Theme Style Kit. You can then apply it on other pages, or globally.', 'ang' );
 		$element->add_control(
 			'ang_action_save_token',
 			array(
-				'label'        => __( 'Save Style Kit as...', 'ang' ) . $this->get_tooltip( $label ),
+				'label'        => __( 'Save Theme Style Kit as...', 'ang' ) . $this->get_tooltip( $label ),
 				'type'         => 'ang_action',
 				'action'       => 'save_token',
 				'action_label' => __( 'Save as...', 'ang' ),
@@ -764,7 +764,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_export_css',
 			array(
-				'label'        => __( 'Export Style Kit CSS', 'ang' ),
+				'label'        => __( 'Export Theme Style Kit CSS', 'ang' ),
 				'type'         => 'ang_action',
 				'action'       => 'export_css',
 				'action_label' => __( 'Export CSS', 'ang' ),
