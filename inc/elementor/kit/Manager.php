@@ -28,7 +28,7 @@ class Manager {
 
 	const OPTION_CUSTOM_KIT = '_elementor_page_settings';
 
-	protected $kits;
+	public $kits;
 
 	/**
 	 * Manager constructor.
@@ -94,11 +94,23 @@ class Manager {
 
 		$kit = $this->get_current_post()->get_meta( self::OPTION_CUSTOM_KIT );
 
-		if ( Options::get_instance()->get( 'global_kit' ) === $kit['ang_action_tokens'] ) {
+		if ( ! isset( $kit['ang_action_tokens'] ) ) {
 			return false;
 		}
 
-		if ( isset( $kit['ang_action_tokens'] ) && '' !== $kit['ang_action_tokens'] ) {
+		$kit_id = $kit['ang_action_tokens'];
+
+		// Return early if Global kit and current kit is same.
+		if ( Options::get_instance()->get( 'global_kit' ) === $kit_id ) {
+			return false;
+		}
+
+		// Return if current kit doesn't exists in Kits list.
+		if ( ! array_key_exists( (int) $kit['ang_action_tokens'], $this->kits ) ) {
+			return false;
+		}
+
+		if ( isset( $kit_id ) && '' !== $kit_id ) {
 			return true;
 		}
 
