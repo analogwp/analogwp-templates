@@ -699,9 +699,9 @@ class Typography extends Module {
 			'ang_edit_kit',
 			array(
 				'type'       => Controls_Manager::BUTTON,
-				'label'      => __( 'Edit Style Kit in Theme Style', 'ang' ),
+				'label'      => __( 'Edit Theme Style Kit', 'ang' ),
 				'show_label' => false,
-				'text'       => __( 'Edit Style Kit in Theme Style', 'ang' ),
+				'text'       => __( 'Edit Theme Style Kit', 'ang' ),
 				'separator'  => 'after',
 				'event'      => 'analog:editKit',
 			)
