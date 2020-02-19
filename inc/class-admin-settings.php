@@ -526,29 +526,30 @@ class Admin_Settings {
 					</tr>
 					<?php
 					break;
-
-				case 'checkbox_user_roles':
+				case 'multi-checkbox':
 					$option_value = $value['value'];
 					?>
 					<tr valign="top">
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<fieldset>
-								<?php echo $description; // phpcs:ignore ?>
+								<?php
+								echo $description; // phpcs:ignore
+								?>
 								<ul>
-									<?php foreach ( \get_editable_roles() as $role_slug => $role_data ) : ?>
+									<?php foreach ( $value['options'] as $key => $val ) : ?>
 									<li>
 										<label>
 											<input
 												type="checkbox"
-												name="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $role_slug ); ?>]"
-												id="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $role_slug ); ?>]"
+												name="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $key ); ?>]"
+												id="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $key ); ?>]"
 												value="1"
-												<?php checked( @$option_value[ $role_slug ], true ); //phpcs:ignore ?>
+												<?php checked( isset( $option_value[ $key ] ) ? $option_value[ $key ] : 0, true ); ?>
 											/>
 											<span>
 												<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
 											</span>
-											<p><?php echo esc_html( $role_data['name'] ); ?></p>
+											<p><?php echo esc_html( $val ); ?></p>
 										</label>
 									</li>
 									<?php endforeach; ?>
@@ -726,7 +727,7 @@ class Admin_Settings {
 					$value = wp_kses_post( trim( $raw_value ) );
 					break;
 				case 'multiselect':
-				case 'checkbox_user_roles':
+				case 'multi-checkbox':
 					$value = array_filter( array_map( __NAMESPACE__ . '\ang_clean', (array) $raw_value ) );
 					break;
 				case 'select':

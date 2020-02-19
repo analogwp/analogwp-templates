@@ -7,6 +7,7 @@
  */
 
 namespace Analog\Settings;
+
 use Analog\Options;
 use Analog\Utils;
 
@@ -28,59 +29,72 @@ class General extends Settings_Page {
 	}
 
 	/**
+	 * Get sections.
+	 *
+	 * @return array
+	 */
+	public function get_sections() {
+		$sections = array(
+			'' => __( 'General', 'ang' ),
+		);
+		return apply_filters( 'ang_get_sections_' . $this->id, $sections );
+	}
+
+	/**
 	 * Get settings array.
 	 *
 	 * @return array
 	 */
-	public function get_settings() {
-		$tokens_dropdown = array( '-1' => __( '— Select a Style Kit —', 'ang' ) ) + Utils::get_kits( false );
+	public function get_settings( $current_section = '' ) {
+		global $current_section;
+		$sections = $this->get_sections();
 
-		$settings = apply_filters(
-			'ang_general_settings',
-			array(
+		$tokens_dropdown = array( '-1' => __( '— Select a Style Kit —', 'ang' ) ) + Utils::get_kits( false );
+		$settings        = array();
+		if ( '' === $current_section ) {
+			$settings = apply_filters(
+				'ang_general_settings',
 				array(
-					'title' => __( 'Elementor Settings', 'ang' ),
-					'type'  => 'title',
-					'id'    => 'ang_color_palette',
-				),
-				array(
-					'title'   => esc_html_x( 'Global Style Kit', 'settings title', 'ang' ),
-					'desc'    => sprintf(
-						/* translators: %s: Style Kit Documentation link */
-						__( 'Choosing a Style Kit will make it global and apply site-wide. Learn more about %s.', 'ang' ),
-						'<a href="https://docs.analogwp.com/article/554-what-are-style-kits" target="_blank">' . __( 'Style kits', 'ang' ) . '</a>'
+					array(
+						'title' => __( 'Elementor Settings', 'ang' ),
+						'type'  => 'title',
+						'id'    => 'ang_color_palette',
 					),
-					'id'      => 'global_kit',
-					'default' => ( '' !== get_option( 'elementor_active_kit' ) ) ? get_option( 'elementor_active_kit' ) : '-1',
-					'type'    => 'select',
-					'options' => $tokens_dropdown,
-				),
-				array(
-					'type' => 'sectionend',
-					'id'   => 'ang_color_palette',
-				),
-			)
-		);
+					array(
+						'title'   => esc_html_x( 'Global Style Kit', 'settings title', 'ang' ),
+						'desc'    => sprintf(
+							/* translators: %s: Style Kit Documentation link */
+							__( 'Choosing a Style Kit will make it global and apply site-wide. Learn more about %s.', 'ang' ),
+							'<a href="https://docs.analogwp.com/article/554-what-are-style-kits" target="_blank">' . __( 'Style kits', 'ang' ) . '</a>'
+						),
+						'id'      => 'global_kit',
+						'default' => ( '' !== get_option( 'elementor_active_kit' ) ) ? get_option( 'elementor_active_kit' ) : '-1',
+						'type'    => 'select',
+						'options' => $tokens_dropdown,
+					),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'ang_color_palette',
+					),
+				)
+			);
+		}
 
 		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
-	}
-
-	/**
-	 * Output the settings.
-	 */
-	public function output() {
-		$settings = $this->get_settings();
-
-		Admin_Settings::output_fields( $settings );
 	}
 
 	/**
 	 * Save settings.
 	 */
 	public function save() {
-		$settings = $this->get_settings();
+		global $current_section;
+
+		$settings = $this->get_settings( $current_section );
 
 		Admin_Settings::save_fields( $settings );
+		if ( $current_section ) {
+			do_action( 'ang_update_options_' . $this->id . '_' . $current_section );
+		}
 	}
 }
 
