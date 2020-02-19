@@ -471,7 +471,7 @@ class Local extends Base {
 				array(
 					'id'      => $post_id,
 					'url'     => Plugin::$instance->documents->get( $post_id )->get_edit_url(),
-					'message' => __( 'Kit saved.', 'ang' ),
+					'message' => __( 'The new Theme Style Kit has been saved and applied on this page.', 'ang' ),
 				),
 				200
 			);
