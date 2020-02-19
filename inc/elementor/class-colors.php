@@ -53,7 +53,14 @@ class Colors extends Module {
 	public function tweak_divider_style( Element_Base $element ) {
 		$page_settings_manager = Manager::get_settings_managers( 'page' );
 		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
-		$default_color         = $page_settings_model->get_settings( 'ang_color_accent_primary' );
+
+		$default_color = null;
+
+		$kit_id = $page_settings_model->get_settings( 'ang_action_tokens' );
+		if ( '' !== $kit_id ) {
+			$kit_model     = $page_settings_manager->get_model( $kit_id );
+			$default_color = $kit_model->get_settings( 'ang_color_accent_primary' );
+		}
 
 		if ( $default_color ) {
 			$element->update_control(
