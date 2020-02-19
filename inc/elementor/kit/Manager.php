@@ -28,6 +28,8 @@ class Manager {
 
 	const OPTION_CUSTOM_KIT = '_elementor_page_settings';
 
+	protected $kits;
+
 	/**
 	 * Manager constructor.
 	 */
@@ -45,6 +47,8 @@ class Manager {
 				return $notices;
 			}
 		);
+
+		$this->kits = Utils::get_kits();
 	}
 
 	/**
@@ -89,6 +93,10 @@ class Manager {
 		}
 
 		$kit = $this->get_current_post()->get_meta( self::OPTION_CUSTOM_KIT );
+
+		if ( Options::get_instance()->get( 'global_kit' ) === $kit['ang_action_tokens'] ) {
+			return false;
+		}
 
 		if ( isset( $kit['ang_action_tokens'] ) && '' !== $kit['ang_action_tokens'] ) {
 			return true;
@@ -148,6 +156,10 @@ class Manager {
 
 		$custom_kit = $this->get_current_post()->get_meta( self::OPTION_CUSTOM_KIT );
 		$custom_kit = $custom_kit['ang_action_tokens'];
+
+		if ( Options::get_instance()->get( 'global_kit' ) === $custom_kit ) {
+			return;
+		}
 
 		$post_status = get_post_status( $custom_kit );
 		if ( 'publish' !== $post_status ) {
