@@ -550,7 +550,6 @@ jQuery( window ).on( 'elementor:init', function() {
 										buttons: [
 											{
 												name: 'view_page',
-												text: elementor.translate( 'have_a_look' ),
 												callback() {
 													open( response.url );
 												},
