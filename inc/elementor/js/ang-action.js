@@ -277,7 +277,10 @@ jQuery( window ).on( 'elementor:init', function() {
 			title: 'Reset Page Settings'
 		});
 
-		elementor.settings.page.model.set( elementor.documents.getCurrent().container.settings.defaults );
+		const container = elementor.documents.documents[elementor.config.kit_id].container;
+		container.settings.attributes = container.settings.defaults;
+
+		$e.internal('document/save/save');
 
 		$e.internal('document/history/end-log', { id: historyId });
 	};

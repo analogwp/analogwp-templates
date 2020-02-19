@@ -739,7 +739,7 @@ class Typography extends Module {
 			)
 		);
 
-		$label = __( 'This will reset the Style Kit styles and detach the page from the Style Kit.', 'ang' );
+		$label = __( 'This will reset the Theme Style Kit and clean up any values.', 'ang' );
 		$element->add_control(
 			'ang_action_reset',
 			array(
