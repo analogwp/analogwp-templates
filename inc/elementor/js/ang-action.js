@@ -547,14 +547,6 @@ jQuery( window ).on( 'elementor:init', function() {
 
 									elementor.notifications.showToast( {
 										message: response.message,
-										buttons: [
-											{
-												name: 'view_page',
-												callback() {
-													open( response.url );
-												},
-											},
-										],
 									} );
 								} ).catch( function( error ) {
 									elementorCommon.dialogsManager.createWidget( 'alert', {
