@@ -219,6 +219,7 @@ class App extends React.Component {
 			showFree: false,
 			group: true,
 			activeKit: false,
+			installedKits: AGWP.installed_kits || {},
 			tab: 'templates',
 			hasPro: false,
 			settings: {

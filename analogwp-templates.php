@@ -3,7 +3,7 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits adds intuitive styling controls in the Elementor editor that power-up your design workflow.
- * Version:     1.5.3
+ * Version:     1.5.6
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -14,6 +14,8 @@
  */
 
 namespace Analog;
+
+define( 'ANG_ELEMENTOR_REQ_VERSION', '2.9.0' );
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,7 +49,7 @@ final class Analog_Templates {
 	 *
 	 * @var string
 	 */
-	public static $version = '1.5.3';
+	public static $version = '1.5.6';
 
 	/**
 	 * Main Analog_Templates instance.
@@ -55,8 +57,8 @@ final class Analog_Templates {
 	 * @return void
 	 */
 	public static function instance() {
-		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Analog_Templates ) ) {
-			self::$instance = new Analog_Templates();
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof self ) ) {
+			self::$instance = new self();
 			self::$instance->setup_constants();
 
 			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
@@ -138,7 +140,7 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/Consumer.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notice.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notices.php';
-		require_once ANG_PLUGIN_DIR . 'inc/class-utils.php';
+		require_once ANG_PLUGIN_DIR . 'inc/Utils.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-remote.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-local.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-analog-importer.php';
@@ -161,6 +163,14 @@ final class Analog_Templates {
 		require_once ANG_PLUGIN_DIR . 'inc/class-beta-testers.php';
 
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/sections/background-color-classes.php';
+
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Manager.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Kits_List_Table.php';
+		require_once ANG_PLUGIN_DIR . 'inc/Core/Util/Migration.php';
+
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			require_once ANG_PLUGIN_DIR . 'inc/cli/commands.php';
+		}
 	}
 
 	/**
@@ -197,7 +207,7 @@ final class Analog_Templates {
 		$i10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
 			array(
-				'is_settings_page'  => ( 'toplevel_page_analogwp_templates' === $hook ) ? true : false,
+				'is_settings_page'  => 'toplevel_page_analogwp_templates' === $hook,
 				'rollback_url'      => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
 				'rollback_versions' => Utils::get_rollback_versions(),
 			)
@@ -221,7 +231,6 @@ final class Analog_Templates {
 
 		$favorites       = get_user_meta( get_current_user_id(), self::$user_meta_prefix, true );
 		$block_favorites = get_user_meta( get_current_user_id(), self::$user_meta_block_prefix, true );
-		$current_user    = wp_get_current_user();
 
 		if ( ! $favorites ) {
 			$favorites = array();
@@ -242,9 +251,6 @@ final class Analog_Templates {
 			'license'        => array(
 				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 				'message' => get_transient( 'ang_license_message' ),
-			),
-			'user'           => array(
-				'email' => $current_user->user_email,
 			),
 			'installed_kits' => Utils::imported_remote_kits(),
 		);
@@ -283,6 +289,11 @@ final class Analog_Templates {
 
 		array_unshift( $links, $settings_link );
 
+		if ( ! defined( 'ANG_PRO_VERSION' ) ) {
+			/* translators: %1$s: Link to Style Kits Pro. %2$s: Go Pro text. */
+			$links['go_pro'] = sprintf( '<a href="%1$s" style="color: #5c32b6;font-weight: 700;" target="_blank" class="ang-plugins-gopro">%2$s</a>', Utils::get_pro_link(), __( 'Go Pro', 'ang' ) );
+		}
+
 		return $links;
 	}
 }
@@ -294,6 +305,18 @@ final class Analog_Templates {
  */
 function ANG() { // @codingStandardsIgnoreLine
 	return Analog_Templates::instance();
+}
+
+/**
+ * Elementor version requirements are not met.
+ *
+ * @return mixed
+ */
+function analog_elementor_error() {
+	$update_url = wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=elementor/elementor.php' ) );
+	$message = '<p>' . __( 'Style Kits requires Elementor v2.9.0 or greater in order to work. Please update Elementor to the latest version.', 'ang' ) . '</p>';
+	$message       .= '<p>' . sprintf( '<a href="%s" class="button-secondary">%s</a>', $update_url, __( 'Update Elementor Now', 'ang' ) ) . '</p>';
+	echo '<div class="error"><p>' . $message . '</p></div>';
 }
 
 /**
@@ -351,14 +374,33 @@ function analog_fail_wp_version() {
 	echo wp_kses_post( $html_message );
 }
 
-// Fire up plugin instance.
+/**
+ * Fire up plugin instance.
+ *
+ * @since n.e.x.t Add PHP version check.
+ */
 add_action(
 	'plugins_loaded',
-	function() {
+	static function() {
+		if ( ! version_compare( ELEMENTOR_VERSION, ANG_ELEMENTOR_REQ_VERSION, '>=' ) ) {
+			add_action( 'admin_notices', __NAMESPACE__ . '\analog_elementor_error' );
+			return;
+		}
+
 		if ( ! did_action( 'elementor/loaded' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_load' );
 			return;
-		} elseif ( ! version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) ) {
+		}
+
+		if ( version_compare( PHP_VERSION, '5.6.0', '<' ) ) {
+			wp_die(
+			/* translators: %s: version number */
+				esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'ang' ), '5.6.0' ) ),
+				esc_html__( 'Error Activating', 'ang' )
+			);
+		}
+
+		if ( ! version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\analog_fail_wp_version' );
 			return;
 		}

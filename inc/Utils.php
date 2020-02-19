@@ -7,8 +7,8 @@
 
 namespace Analog;
 
-use Elementor\Core\Settings\Manager;
 use Elementor\Plugin;
+use Elementor\TemplateLibrary\Source_Local;
 use WP_Query;
 
 /**
@@ -338,9 +338,15 @@ class Utils extends Base {
 
 		$query = new WP_Query(
 			array(
-				'post_type'              => 'ang_tokens',
+				'post_type'              => 'elementor_library',
 				'post_status'            => 'publish',
 				'posts_per_page'         => -1,
+				'meta_query'     => array( // @codingStandardsIgnoreLine
+					array(
+						'key'   => \Elementor\Core\Base\Document::TYPE_META_KEY,
+						'value' => 'kit',
+					),
+				),
 				'no_found_rows'          => true,
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
@@ -542,8 +548,8 @@ class Utils extends Base {
 	 *
 	 * @param int $id Post ID.
 	 *
-	 * @since 1.5.0
 	 * @return array
+	 * @since 1.5.0
 	 */
 	public static function get_color_scheme_items( int $id ) {
 		$settings = get_post_meta( $id, '_elementor_page_settings', true );
@@ -575,6 +581,112 @@ class Utils extends Base {
 		}
 
 		return $formatted_colors;
+	}
+
+	/**
+	 * Check if a string starts with certain character.
+	 *
+	 * @param string $string String to search into.
+	 * @param string $start_string String to search for.
+	 *
+	 * @return bool
+	 */
+	public static function string_starts_with( $string, $start_string ) {
+		$len = strlen( $start_string );
+
+		return ( substr( $string, 0, $len ) === $start_string );
+	}
+
+	/**
+	 * Get a list of all Elementor Kits.
+	 * Returns an associative arrray with [id] => [title].
+	 *
+	 * @param bool $prefix Whether to prefix Global Kit with "Global :".
+	 *
+	 * @since 1.6.0
+	 * @return array
+	 */
+	public static function get_kits( $prefix = true ) {
+		$posts = \get_posts(
+			array(
+				'post_type'      => Source_Local::CPT,
+				'post_status'    => array( 'publish', 'draft' ),
+				'posts_per_page' => -1,
+				'orderby'        => 'title',
+				'order'          => 'DESC',
+				'meta_query'     => array( // @codingStandardsIgnoreLine
+					array(
+						'key'   => \Elementor\Core\Base\Document::TYPE_META_KEY,
+						'value' => 'kit',
+					),
+				),
+			)
+		);
+
+		$kits = array();
+
+		foreach ( $posts as $post ) {
+			$global_kit = (int) get_option( \Elementor\Core\Kits\Manager::OPTION_ACTIVE );
+
+			$title = $post->post_title;
+
+			if ( $global_kit && $post->ID === $global_kit && $prefix ) {
+				/* translators: Global Style Kit post title. */
+				$title = sprintf( __( 'Global: %s', 'ang' ), $title );
+			}
+
+			$kits[ $post->ID ] = $title;
+		}
+
+		return $kits;
+	}
+
+	/**
+	 * Log a message to CLI.
+	 *
+	 * @param string $message CLI message to output.
+	 * @since 1.6.0
+	 * @return string|void Return message if in CLI, or void.
+	 */
+	public static function cli_log( $message ) {
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			\WP_CLI::line( $message );
+		}
+	}
+
+	/**
+	 * Get Style Kit Pro link.
+	 *
+	 * @since 1.6.0
+	 * @access public
+	 * @static
+	 *
+	 * @param array $args UTM arguments.
+	 *
+	 * @return string
+	 */
+	public static function get_pro_link( $args = array() ) {
+		static $theme_name = false;
+
+		if ( ! $theme_name ) {
+			$theme_obj = wp_get_theme();
+			if ( $theme_obj->parent() ) {
+				$theme_name = $theme_obj->parent()->get( 'Name' );
+			} else {
+				$theme_name = $theme_obj->get( 'Name' );
+			}
+
+			$theme_name = sanitize_key( $theme_name );
+		}
+
+		$default_args = array(
+			'utm_source'   => 'wp-plugin',
+			'utm_campaign' => 'gopro',
+			'utm_medium'   => 'wp-dash',
+			'utm_term'     => $theme_name,
+		);
+
+		return add_query_arg( wp_parse_args( $args, $default_args ), 'https://analogwp.com/style-kits-pro/' );
 	}
 }
 

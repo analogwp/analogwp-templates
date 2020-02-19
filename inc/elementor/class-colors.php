@@ -27,7 +27,7 @@ class Colors extends Module {
 	 * Colors constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/element/after_section_end', array( $this, 'register_color_settings' ), 170, 2 );
+		add_action( 'elementor/element/kit/section_body/after_section_end', array( $this, 'register_color_settings' ), 40, 2 );
 		add_action( 'elementor/element/divider/section_divider_style/before_section_end', array( $this, 'tweak_divider_style' ) );
 		add_action( 'elementor/element/icon-box/section_style_content/before_section_end', array( $this, 'tweak_icon_box' ) );
 		add_action( 'elementor/element/image-box/section_style_content/before_section_end', array( $this, 'tweak_image_box' ) );
@@ -53,7 +53,14 @@ class Colors extends Module {
 	public function tweak_divider_style( Element_Base $element ) {
 		$page_settings_manager = Manager::get_settings_managers( 'page' );
 		$page_settings_model   = $page_settings_manager->get_model( get_the_ID() );
-		$default_color         = $page_settings_model->get_settings( 'ang_color_accent_primary' );
+
+		$default_color = null;
+
+		$kit_id = $page_settings_model->get_settings( 'ang_action_tokens' );
+		if ( '' !== $kit_id ) {
+			$kit_model     = $page_settings_manager->get_model( $kit_id );
+			$default_color = $kit_model->get_settings( 'ang_color_accent_primary' );
+		}
 
 		if ( $default_color ) {
 			$element->update_control(
@@ -140,14 +147,10 @@ class Colors extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_color_settings( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$element->start_controls_section(
 			'ang_colors',
 			array(
-				'label' => _x( 'Main Colors', 'Section Title', 'ang' ),
+				'label' => _x( 'Accent Colors', 'Section Title', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -156,61 +159,69 @@ class Colors extends Module {
 			'ang_colors_description',
 			array(
 				/* translators: %1$s: Link to documentation, %2$s: Link text. */
-				'raw'             => __( 'Set the colors for Typography, accents and more.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/574-working-with-colours', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Set the accent colors of your layout.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/574-working-with-colours', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
+		$primary_accent_color_selectors = array(
+			'{{WRAPPER}} .sk-accent-1',
+			'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon',
+			'{{WRAPPER}} .elementor-icon-list-icon',
+			'{{WRAPPER}} .elementor-view-framed .elementor-icon',
+			'{{WRAPPER}} .elementor-view-default .elementor-icon',
+			'{{WRAPPER}} .sk-primary-accent',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h2',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h3',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h4',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5',
+			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6',
+			'{{WRAPPER}} *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-icon-box-icon):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item):not([role="link"])',
+			'{{WRAPPER}} a:not([class])',
+			'{{WRAPPER}} .elementor-tab-title.elementor-active',
+			'{{WRAPPER}} .elementor-post-info__terms-list-item',
+			'{{WRAPPER}} .elementor-post__title',
+			'{{WRAPPER}} .elementor-post__title a',
+			'{{WRAPPER}} .elementor-heading-title a',
+			'{{WRAPPER}} .elementor-post__read-more',
+			'{{WRAPPER}} .elementor-image-box-title a',
+			'{{WRAPPER}} .elementor-icon-box-icon a',
+			'{{WRAPPER}} .elementor-icon-box-title a',
+			'{{WRAPPER}} .elementor-nav-menu--main .elementor-nav-menu a:not(.elementor-sub-item)',
+			'{{WRAPPER}} .elementor-nav-menu--main .elementor-nav-menu .elementor-sub-item:not(:hover) a',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown a',
+		);
+
+		$primary_accent_background_selectors = array(
+			'{{WRAPPER}} .elementor-view-stacked .elementor-icon',
+			'{{WRAPPER}} .elementor-progress-bar',
+			'{{WRAPPER}} .comment-form input#submit',
+			'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item:hover',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item.elementor-item-active',
+			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item.highlighted',
+			'{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:before',
+			'{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:after',
+			'{{WRAPPER}} .elementor-sub-item:hover',
+			'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated',
+		);
+
+		$primary_accent_color_selectors      = implode( ',', $primary_accent_color_selectors );
+		$primary_accent_background_selectors = implode( ',', $primary_accent_background_selectors );
+
 		$selectors = array(
-			'{{WRAPPER}}'                                 => '--ang_color_accent_primary: {{VALUE}}',
-			'{{WRAPPER}} .sk-accent-1'                    => 'color: {{VALUE}}',
-			'{{WRAPPER}} .elementor-icon-box-icon .elementor-icon, {{WRAPPER}} .elementor-icon-list-icon' => 'color: {{VALUE}}',
-			'{{WRAPPER}} .elementor-icon-list-icon'       => 'color: {{VALUE}}',
-			'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'background-color: {{VALUE}}; color: #fff;',
-			'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'color: {{VALUE}}; border-color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-progress-bar'         => 'background-color: {{VALUE}}',
-			'{{WRAPPER}} .sk-primary-accent'              => 'color: {{VALUE}}',
-
-			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h1,
-			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h2,
-			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h3,
-			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h4,
-			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5,
-			{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6' => 'color: {{VALUE}}',
-
-			'{{WRAPPER}} .comment-form input#submit'      => 'background-color: {{VALUE}};',
+			'{{WRAPPER}}'                           => '--ang_color_accent_primary: {{VALUE}};',
+			'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'color: #fff;',
+			'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'border-color: {{VALUE}};',
 			'.theme-hello-elementor .comment-form input#submit' => 'color: #fff; border: none;',
+			'{{WRAPPER}} .elementor-tab-title a'    => 'color: inherit;',
+			'{{WRAPPER}} .e--pointer-framed .elementor-item:before,{{WRAPPER}} .e--pointer-framed .elementor-item:after' => 'border-color: {{VALUE}};',
+			'{{WRAPPER}} .elementor-sub-item:hover' => 'color: #fff;',
 
-			'{{WRAPPER}} *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-icon-box-icon):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item):not([role="link"]),
-			{{WRAPPER}} a:not([class]),
-			{{WRAPPER}} .elementor-tab-title.elementor-active,
-			{{WRAPPER}} .elementor-post-info__terms-list-item,
-			{{WRAPPER}} .elementor-post__title,
-			{{WRAPPER}} .elementor-post__title a,
-			{{WRAPPER}} .elementor-heading-title a,
-			{{WRAPPER}} .elementor-post__read-more,
-			{{WRAPPER}} .elementor-image-box-title a,
-			{{WRAPPER}} .elementor-icon-box-icon a,
-			{{WRAPPER}} .elementor-icon-box-title a'      => 'color: {{VALUE}};',
-
-			'{{WRAPPER}} .elementor-tab-title a'          => 'color: inherit;',
-
-			'{{WRAPPER}} .sk-primary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
-
-			'{{WRAPPER}} .elementor-nav-menu--main .elementor-nav-menu a:not(.elementor-sub-item)' => 'color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-nav-menu--main .elementor-nav-menu .elementor-sub-item:not(:hover) a' => 'color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item:hover' => 'background-color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item.elementor-item-active' => 'background-color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-nav-menu--dropdown a' => 'color: {{VALUE}};',
-			'{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item.highlighted' => 'background-color: {{VALUE}};',
-
-			'{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:before,
-			{{WRAPPER}} .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:after' => 'background-color: {{VALUE}}',
-			'{{WRAPPER}} .e--pointer-framed .elementor-item:before,
-			{{WRAPPER}} .e--pointer-framed .elementor-item:after' => 'border-color: {{VALUE}}',
-			'{{WRAPPER}} .elementor-sub-item:hover'       => 'background-color: {{VALUE}}; color: #fff;',
-			'{{WRAPPER}} .sk-primary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
+			$primary_accent_color_selectors         => 'color: {{VALUE}};',
+			$primary_accent_background_selectors    => 'background-color: {{VALUEE}};',
 		);
 
 		$element->add_control(
@@ -227,10 +238,26 @@ class Colors extends Module {
 			'ang_color_accent_primary_desc',
 			array(
 				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'The primary accent color applies on Links.', 'ang' ),
+				'raw'     => sprintf(
+					/* translators: %s: Typography Panel link/text. */
+					__( 'The primary accent color applies on links, icons, and other elements. You can also define the text link color in the %s.', 'ang' ),
+					'<a href="#" onClick="analog.redirectToSection( \'style\', \'section_typography\', \'kit_settings\' )">' . __( 'Typography panel', 'ang' ) . '</a>'
+				),
 				'classes' => 'elementor-descriptor',
 			)
 		);
+
+		$accent_secondary_selectors = array(
+			'{{WRAPPER}} .sk-secondary-accent',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h1',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h2',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h3',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h4',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h5',
+			'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h6',
+		);
+
+		$accent_secondary_selectors = implode( ',', $accent_secondary_selectors );
 
 		$element->add_control(
 			'ang_color_accent_secondary',
@@ -239,19 +266,10 @@ class Colors extends Module {
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_color_accent_secondary',
 				'selectors' => array(
-					'{{WRAPPER}}'                      => '--ang_color_accent_secondary: {{VALUE}};',
+					'{{WRAPPER}}'               => '--ang_color_accent_secondary: {{VALUE}};',
 					'{{WRAPPER}} .elementor-button, {{WRAPPER}} .button, {{WRAPPER}} button, {{WRAPPER}} .sk-accent-2' => 'background-color: {{VALUE}}',
-					'{{WRAPPER}} .sk-secondary-accent' => 'color: {{VALUE}}',
-
-					'{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h1,
-					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h2,
-					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h3,
-					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h4,
-					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h5,
-					{{WRAPPER}} .sk-secondary-accent.sk-secondary-accent h6' => 'color: {{VALUE}}',
-
+					$accent_secondary_selectors => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sk-secondary-bg:not(.elementor-column)' => 'background-color: {{VALUE}}',
-
 					'{{WRAPPER}} .sk-secondary-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}};',
 				),
 			)
@@ -261,33 +279,13 @@ class Colors extends Module {
 			'ang_color_accent_secondary_desc',
 			array(
 				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'The default Button color. You can also set button colors in the Buttons tab.', 'ang' ),
+				'raw'     => sprintf(
+					/* translators: %1$s: Button Panel link/text. %2$s: Button sizes panel link/text. */
+					__( 'The default button color. You can also define button colors under the %1$s, and individually for each button size under %2$s.', 'ang' ),
+					'<a href="#" onClick="analog.redirectToSection( \'style\', \'section_buttons\', \'kit_settings\' )">' . __( 'Buttons panel', 'ang' ) . '</a>',
+					'<a href="#" onClick="analog.redirectToSection( \'style\', \'ang_buttons\', \'kit_settings\' )">' . __( 'Buttons Sizes panel', 'ang' ) . '</a>'
+				),
 				'classes' => 'elementor-descriptor',
-			)
-		);
-
-		$element->add_control(
-			'ang_color_text',
-			array(
-				'label'     => __( 'Text Color', 'ang' ),
-				'type'      => Controls_Manager::COLOR,
-				'variable'  => 'ang_color_text',
-				'selectors' => array(
-					'{{WRAPPER}}' => '--ang_color_text: {{VALUE}}; color: {{VALUE}};',
-				),
-			)
-		);
-
-		$element->add_control(
-			'ang_color_heading',
-			array(
-				'label'     => __( 'Headings Color', 'ang' ),
-				'type'      => Controls_Manager::COLOR,
-				'variable'  => 'ang_color_heading',
-				'selectors' => array(
-					'{{WRAPPER}}' => '--ang_color_heading: {{VALUE}};',
-					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
-				),
 			)
 		);
 

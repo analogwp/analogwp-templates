@@ -251,7 +251,7 @@ class Templates extends React.Component {
 	}
 
 	getStyleKitInfo() {
-		const isKitInstalled = AGWP.installed_kits.filter( ( k ) => this.state.kit === k );
+		const isKitInstalled = this.context.state.installedKits.filter( ( k ) => this.state.kit === k );
 		const method = isKitInstalled.length > 0 ? 'insert' : 'import';
 
 		let data = ( method === 'insert' )
@@ -269,7 +269,7 @@ class Templates extends React.Component {
 		this.setState( {
 			template: template,
 		} );
-	}
+	};
 
 	makeFavorite = ( id ) => {
 		const favorites = this.context.state.favorites;

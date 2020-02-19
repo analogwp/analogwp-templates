@@ -99,6 +99,7 @@ class ANG_Action extends Base_Data_Control {
 			array(
 				'saveToken'       => rest_url( 'agwp/v1/tokens/save' ),
 				'palette'         => $central_color_palette,
+				'cssDir'          => \Elementor\Core\Files\Base::get_base_uploads_url() . \Elementor\Core\Files\Base::DEFAULT_FILES_DIR,
 				'translate'       => array(
 					'resetMessage'    => __( 'This will reset all the settings you configured previously under Page Style Settings from Style Kits.', 'ang' ),
 					'resetHeader'     => __( 'Are you sure?', 'ang' ),
@@ -141,10 +142,23 @@ class ANG_Action extends Base_Data_Control {
 	}
 
 	/**
+	 * Get default control settings.
+	 *
+	 * @since 1.6.0
+	 * @return array
+	 */
+	protected function get_default_settings() {
+		return array(
+			'button_type' => 'success',
+		);
+	}
+
+	/**
 	 * Control Content template.
 	 *
 	 * {@inheritDoc}
 	 *
+	 * @since 1.6.0 Added data.button_type class to button.
 	 * @return void
 	 */
 	public function content_template() {
@@ -156,7 +170,7 @@ class ANG_Action extends Base_Data_Control {
 				<button
 					data-action="{{ data.action }}"
 					style="padding:7px 10px"
-					class="elementor-button elementor-button-success"
+					class="elementor-button elementor-button-{{{ data.button_type }}}"
 				>
 				{{{ data.action_label }}}</button>
 			</div>

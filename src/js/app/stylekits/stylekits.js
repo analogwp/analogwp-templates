@@ -182,7 +182,6 @@ export default class StyleKits extends React.Component {
 		super( ...arguments );
 
 		this.state = {
-			installedKits: AGWP.installed_kits,
 			...initialState,
 		};
 	}
@@ -198,7 +197,7 @@ export default class StyleKits extends React.Component {
 		} );
 
 		if ( checkKitStatus ) {
-			const kitExists = this.state.installedKits.indexOf( this.state.kitname || kit.title ) > -1;
+			const kitExists = this.context.state.installedKits.indexOf( this.state.kitname || kit.title ) > -1;
 			if ( kitExists ) {
 				this.setState( { hasError: true } );
 				return;
@@ -215,12 +214,16 @@ export default class StyleKits extends React.Component {
 					return;
 				}
 
-				const kits = [ ...this.state.installedKits ];
+				const kits = [ ...this.context.state.installedKits ];
 				kits.push( kit.title );
 				this.setState( {
 					importedKit: true,
+				} );
+
+				this.context.dispatch( {
 					installedKits: kits,
 				} );
+
 				add( response.message );
 
 				if ( ! AGWP.is_settings_page && elementor ) {
@@ -340,7 +343,7 @@ export default class StyleKits extends React.Component {
 									{ __( 'A Style Kit already exists with the same name. To import it again please enter a new name below:', 'ang' ) }
 								</p>
 
-								{ this.state.installedKits.indexOf( this.state.kitname ) > -1 && (
+								{ this.context.state.installedKits.indexOf( this.state.kitname ) > -1 && (
 									<p className="error">{ __( 'Please try a different as a Style Kit with same name already exists.', 'ang' ) }</p>
 								) }
 								<div className="form-row">
@@ -354,7 +357,7 @@ export default class StyleKits extends React.Component {
 										{ ( { add } ) => (
 											<Button
 												className="ang-button"
-												disabled={ ! this.state.kitname || this.state.installedKits.indexOf( this.state.kitname ) > -1 }
+												disabled={ ! this.state.kitname || this.context.state.installedKits.indexOf( this.state.kitname ) > -1 }
 												style={ {
 													marginLeft: '15px',
 												} }
