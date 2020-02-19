@@ -9,7 +9,8 @@
     "dev": "cross-env BABEL_ENV=default webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "makepot": "wp i18n make-pot . ./languages/ang.pot --merge=languages/ang-js.pot --skip-js",
-    "makepot:php": "npx pot-to-php languages/ang.pot languages/ang-translations.php ang"
+    "makepot:php": "npx pot-to-php languages/ang.pot languages/ang-translations.php ang",
+    "fonts": "gulp googleFonts"
   },
   "repository": {
     "type": "git",
@@ -57,12 +58,16 @@
     "gulp-babel": "8.0.0",
     "gulp-checktextdomain": "^2.2.0",
     "gulp-copy": "^4.0.1",
+    "gulp-download": "^0.0.1",
+    "gulp-exec": "^4.0.0",
+    "gulp-json-editor": "^2.5.4",
     "gulp-rename": "^1.4.0",
     "gulp-rsync": "^0.0.8",
     "gulp-run-command": "^0.0.9",
     "gulp-uglify": "^3.0.2",
     "gulp-wp-pot": "^2.3.3",
     "gulp-zip": "^5.0.1",
+    "lodash": "^4.17.15",
     "node-sass": "^4.9.4",
     "postcss-loader": "^3.0.0",
     "prettier": "^1.9.1",
