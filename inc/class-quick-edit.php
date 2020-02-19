@@ -19,6 +19,14 @@ class Quick_Edit extends Base {
 	const FIELD_SLUG = 'ang_stylekit';
 
 	/**
+	 * Holds kit data.
+	 *
+	 * @access private
+	 * @var array kits.
+	 */
+	private static $kits = '';
+
+	/**
 	 * QuickEdit constructor.
 	 */
 	public function __construct() {
@@ -35,6 +43,7 @@ class Quick_Edit extends Base {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'quick_edit_scripts' ) );
 		add_action( 'wp_ajax_save_bulk_edit_stylekit', array( $this, 'save_bulk_edit_stylekit' ) );
+		self::$kits = Utils::get_kits();
 	}
 
 	/**
@@ -50,9 +59,8 @@ class Quick_Edit extends Base {
 			return;
 		}
 
-		$token = get_post_meta( $kit_id, '_tokens_data', true );
-		$token = json_decode( $token, ARRAY_A );
-		$token = array_merge( $token, array( 'ang_action_tokens' => $kit_id ) );
+		$token = get_post_meta( $kit_id, '_elementor_page_settings', true );
+		$token = array_merge( $token, array( 'ang_action_tokens' => (string) $kit_id ) );
 
 		$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
 		if ( ! is_array( $settings ) ) {
@@ -149,10 +157,8 @@ class Quick_Edit extends Base {
 			wp_nonce_field( plugin_basename( __FILE__ ), 'ang_sk_update_nonce' );
 		}
 
-		$global_kit = Options::get_instance()->get( 'global_kit' );
-
 		?>
-		<?php if ( self::FIELD_SLUG === $column_name && $this->get_stylekits() ) : ?>
+		<?php if ( self::FIELD_SLUG === $column_name && self::$kits ) : ?>
 			<fieldset id="ang-stylekit-fieldset" class="inline-edit-col-left" style="clear:both">
 				<style>.column-ang_stylekit{display: none;}</style>
 				<div class="inline-edit-col">
@@ -161,8 +167,8 @@ class Quick_Edit extends Base {
 							<span class="title"><?php esc_html_e( 'Style Kit', 'ang' ); ?></span>
 							<select name="ang_stylekit">
 								<option value="-1">&mdash; Select &mdash;</option>
-								<?php foreach ( $this->get_stylekits() as $id ) : ?>
-									<option value="<?php echo esc_attr( $id ); ?>"<?php if ( $id === $global_kit ) echo ' selected'; ?>><?php echo esc_html( get_the_title( $id ) ); ?></option>
+								<?php foreach ( self::$kits as $id => $title ) : ?>
+									<option value="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $title ); ?></option>
 								<?php endforeach; ?>
 							</select>
 						</label>
