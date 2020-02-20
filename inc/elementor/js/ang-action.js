@@ -546,7 +546,16 @@ jQuery( window ).on( 'elementor:init', function() {
 										title: title,
 									},
 								} ).then( function( response ) {
+									const options = elementor.documents.documents[elementor.config.initial_document.id].container.controls.ang_action_tokens.options;
+									options[ response.id ] = title;
+
+									elementor.config.kit_id = response.id;
+
 									modal.destroy();
+
+									$e.run( 'panel/global/close' ).then( () => {
+										elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
+									} );
 
 									elementor.notifications.showToast( {
 										message: response.message,
