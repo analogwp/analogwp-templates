@@ -132,6 +132,8 @@ final class Analog_Templates {
 	 * @return void
 	 */
 	private function includes() {
+		require_once ANG_PLUGIN_DIR . 'inc/Core/Storage/Transients.php';
+
 		require_once ANG_PLUGIN_DIR . 'inc/register-settings.php';
 		require_once ANG_PLUGIN_DIR . 'inc/settings-helpers.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
