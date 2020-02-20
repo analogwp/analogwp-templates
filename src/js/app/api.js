@@ -163,7 +163,6 @@ export async function requestElementorImport( template, kit ) {
 		const kitTitle = ( 'string' === typeof kit.data ) ? kit.data : kit.data.title;
 
 		if ( parsedTemplate.tokens ) {
-			analog.resetStyles();
 			elementor.settings.page.model.set( parsedTemplate.tokens );
 
 			let options = elementor.settings.page.model.controls.ang_action_tokens.options;
