@@ -108,11 +108,12 @@ jQuery( window ).on( 'elementor:init', function() {
 	}
 
 	analog.setPanelTitle = ( id = false ) => {
+		const container = elementor.documents.documents[elementor.config.initial_document.id].container;
 		if ( ! id ) {
-			id = elementor.settings.page.model.attributes.ang_action_tokens;
+			id = container.settings.attributes.ang_action_tokens;
 		}
 
-		const options = elementor.settings.page.model.controls.ang_action_tokens.options;
+		const options = container.controls.ang_action_tokens.options;
 		const title = options[id];
 
 		if ( '' !== title && 'undefined' !== title && 'undefined' !== typeof( title ) ) {
