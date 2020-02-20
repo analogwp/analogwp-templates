@@ -68,7 +68,14 @@ function register_menu() {
 		'Analog\Elementor\Kit\ang_kits_list'
 	);
 
-	add_submenu_page( null, '', 'Welcome to Style Kits', 'manage_options', 'analog_onboarding', __NAMESPACE__ . '\theme_style_kit_onboarding' );
+	add_submenu_page(
+		null,
+		__( 'Welcome to Style Kits', 'ang' ),
+		__( 'Welcome to Style Kits', 'ang' ),
+		'manage_options',
+		'analog_onboarding',
+		__NAMESPACE__ . '\theme_style_kit_onboarding'
+	);
 
 	if ( ! defined( 'ANG_PRO_VERSION' ) ) {
 		add_submenu_page(

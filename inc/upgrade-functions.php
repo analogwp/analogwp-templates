@@ -104,6 +104,10 @@ function do_automatic_upgrades() {
 		Options::get_instance()->set( 'ang_sync_colors', false );
 	}
 
+	if ( version_compare( $installed_version, '1.6.0', '<' ) ) {
+		version_1_6_0_upgrades();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
@@ -463,4 +467,15 @@ function version_1_5_1_upgrades() {
 	update_option( 'elementor_scheme_color-picker', $color_items );
 
 	delete_transient( 'analogwp_template_info' );
+}
+
+/**
+ * Version 1.6.0 upgrades.
+ *
+ * @since 1.6.0
+ */
+function version_1_6_0_upgrades() {
+	// TODO: Perform migration.
+
+	// wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
 }
