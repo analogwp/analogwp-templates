@@ -68,7 +68,7 @@ function register_menu() {
 		'Analog\Elementor\Kit\ang_kits_list'
 	);
 
-	add_submenu_page( null, '', 'Welcome to Style Kits', 'manage_options', 'analog_onboarding', __NAMESPACE__ . '\plugin_onboarding' );
+	add_submenu_page( null, '', 'Welcome to Style Kits', 'manage_options', 'analog_onboarding', __NAMESPACE__ . '\theme_style_kit_onboarding' );
 
 	if ( ! defined( 'ANG_PRO_VERSION' ) ) {
 		add_submenu_page(
@@ -241,65 +241,19 @@ function register_settings() {
 }
 
 /**
- * Check for Style Kits migration.
- *
- * @since n.e.x.t
- * @return bool
- */
-function is_sk_migration_ready() {
-	$style_kits = (array) \wp_count_posts( 'ang_tokens' );
-	if ( empty( $style_kits ) ) {
-		return false;
-	}
-	$style_kits = $style_kits['publish'];
-	if ( version_compare( ANG_VERSION, '1.6.0', '>=' ) && ! empty( $style_kits ) && ! Options::get_instance()->get( 'ang_kits_migrated' ) ) {
-		return true;
-	}
-	return false;
-}
-
-
-
-/**
- * Redirect to onboarding screen after activation.
+ * Admin page contents for Theme Style Kit migration screen.
  *
  * @since n.e.x.t
  * @return void
  */
-function analog_onboarding_redirect() {
-	$onboarding        = admin_url( 'admin.php?page=analog_onboarding' );
-	$installed_version = Options::get_instance()->get( 'version' );
-
-	if ( version_compare( $installed_version, ANG_VERSION, '<' ) && is_sk_migration_ready() ) {
-		wp_safe_redirect( $onboarding );
-	}
-}
-add_action( 'admin_init', __NAMESPACE__ . '\analog_onboarding_redirect' );
-
-/**
- * Add onboarding screen.
- *
- * @since n.e.x.t
- * @return void
- */
-function plugin_onboarding() {
+function theme_style_kit_onboarding() {
 	wp_enqueue_style(
 		'analog-onboarding-screen',
 		ANG_PLUGIN_URL . 'assets/css/onboarding-screen.css',
 		array(),
-		filemtime( ANG_PLUGIN_DIR . 'assets/css/onboarding-screen.css' )
+		ANG_VERSION
 	);
-	do_action( 'analog_onboarding_screen' );
-	after_migration_screen();
-}
 
-/**
- * Add Style Kits to Kits Migration screen.
- *
- * @since n.e.x.t
- * @return void
- */
-function after_migration_screen() {
 	$wp_embed = new \WP_Embed();
 
 	?>
