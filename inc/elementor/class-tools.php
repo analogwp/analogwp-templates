@@ -176,7 +176,7 @@ class Tools extends Base {
 			$global_kit = (string) Utils::get_global_kit_id();
 
 			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
-				$kit_id = $settings['ang_action_tokens'];
+				$kit_id = (string) $settings['ang_action_tokens'];
 
 				if ( Source_Local::CPT !== get_post_type( $kit_id ) ) {
 					return $post_states;
