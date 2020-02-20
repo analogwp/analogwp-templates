@@ -154,15 +154,7 @@ jQuery( window ).on( 'elementor:init', function() {
 	 * @return {boolean} True, or false.
 	 */
 	const eligibleKey = ( key ) => {
-		if ( key.startsWith( 'ang_action' ) || key.startsWith( 'post' ) || key.startsWith( 'preview' ) || key.startsWith( 'template' )  || key.startsWith( 'background_image' ) ) {
-			return false;
-		}
-
-		if ( key in elementor.settings.page.model.controls ) {
-			return true;
-		}
-
-		return ( key.startsWith( 'ang_' ) || key.startsWith( 'background' ) || key.startsWith( 'hide' ) );
+		return ! ( key.startsWith( 'ang_action' ) || key.startsWith( 'post' ) || key.startsWith( 'preview' ) );
 	};
 
 	analog.redirectToSection = function redirectToSection( tab = 'style', section = 'ang_style_settings', page = 'page_settings' ) {
@@ -518,12 +510,6 @@ jQuery( window ).on( 'elementor:init', function() {
 		},
 
 		handleSaveToken: function() {
-			/**
-			 * Save settings before sending request,
-			 * so we can copy the latest data directly from post meta.
-			 */
-			$e.run( 'document/save/default' );
-
 			const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
 				id: 'ang-modal-save-token',
 				headerMessage: ANG_Action.translate.saveToken,
@@ -572,7 +558,15 @@ jQuery( window ).on( 'elementor:init', function() {
 
 									modal.destroy();
 
+									analog.setPanelTitle(response.id);
+
+									// Ensure current changes are not saved to active document.
 									$e.run( 'document/save/discard' );
+
+									/**
+									 * Open Document is not accessible while Kit is active.
+									 * So we close the Kit panel and then save Style Kit value.
+									 */
 									$e.run( 'panel/global/close' ).then( () => {
 										elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
 									} );
