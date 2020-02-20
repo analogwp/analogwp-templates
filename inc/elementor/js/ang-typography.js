@@ -31,6 +31,13 @@ jQuery( document ).ready( function() {
 					title: ANG_Action.translate.pageStyles,
 					callback: switchToStyleTab,
 				},
+				{
+					name: 'theme_style',
+					title: elementor.translate( 'Theme Style' ),
+					callback: function() {
+						$e.run( 'panel/global/open' );
+					},
+				},
 			],
 		};
 
