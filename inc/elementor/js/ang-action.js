@@ -20,6 +20,7 @@
 					if ( undefined !== activeKit ) {
 						elementor.config.kit_id = activeKit;
 						fixKitClasses();
+						setPanelTitle( activeKit );
 					}
 					enqueueFonts();
 					loadDocumentAndEnqueueFonts( elementor.config.kit_id );
@@ -78,9 +79,23 @@
 		}
 
 		function refreshKit( id ) {
+			setPanelTitle(id);
 			elementor.config.kit_id = id;
 			fixKitClasses(id);
 			loadDocumentAndEnqueueFonts( id );
+		}
+
+		function setPanelTitle( id = false ) {
+			if ( ! id ) {
+				id = elementor.settings.page.model.attributes.ang_action_tokens;
+			}
+
+			const options = elementor.settings.page.model.controls.ang_action_tokens.options;
+			const title = options[id];
+
+			if ( '' !== title ) {
+				elementor.getPanelView().getPages().kit_settings.title = elementor.translate( 'Theme Style' ) + ' - ' + title;
+			}
 		}
 
 		init();
