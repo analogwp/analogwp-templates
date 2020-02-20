@@ -73,7 +73,18 @@ class Kits_List_Table extends \WP_List_Table {
 		$result = '';
 		switch ( $column_name ) {
 			case 'date':
-				$result = date_i18n( get_option( 'date_format' ), strtotime( $item['date'] ) );
+				$t_time    = get_the_time( 'Y/m/d g:i:s a', $item['id'] );
+				$time      = get_post_timestamp( $item['id'] );
+				$time_diff = time() - $time;
+
+				if ( $time && $time_diff > 0 && $time_diff < DAY_IN_SECONDS ) {
+					/* translators: %s: Human-readable time difference. */
+					$h_time = sprintf( __( '%s ago', 'ang' ), human_time_diff( $time ) );
+				} else {
+					$h_time = get_the_time( 'Y/m/d', $item['id'] );
+				}
+
+				$result = __( 'Published', 'ang' ) . '<br><span title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $item['id'], 'date', 'list' ) . '</span>';
 				break;
 		}
 
@@ -89,7 +100,7 @@ class Kits_List_Table extends \WP_List_Table {
 		return array(
 			'cb'    => '<input type="checkbox"/>',
 			'title' => __( 'Title', 'ang' ),
-			'date'  => __( 'Published', 'ang' ),
+			'date'  => __( 'Date', 'ang' ),
 		);
 	}
 
@@ -157,6 +168,7 @@ class Kits_List_Table extends \WP_List_Table {
 		$data                  = array();
 
 		$kits = $this->get_kits();
+
 
 		foreach ( $kits as $kit ) {
 			$data[ $kit->ID ] = array(
