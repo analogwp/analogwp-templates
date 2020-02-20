@@ -20,7 +20,7 @@
 					if ( undefined !== activeKit ) {
 						elementor.config.kit_id = activeKit;
 						fixKitClasses();
-						setPanelTitle( activeKit );
+						analog.setPanelTitle( activeKit );
 					}
 					enqueueFonts();
 					loadDocumentAndEnqueueFonts( elementor.config.kit_id );
@@ -79,23 +79,10 @@
 		}
 
 		function refreshKit( id ) {
-			setPanelTitle(id);
+			analog.setPanelTitle(id);
 			elementor.config.kit_id = id;
 			fixKitClasses(id);
 			loadDocumentAndEnqueueFonts( id );
-		}
-
-		function setPanelTitle( id = false ) {
-			if ( ! id ) {
-				id = elementor.settings.page.model.attributes.ang_action_tokens;
-			}
-
-			const options = elementor.settings.page.model.controls.ang_action_tokens.options;
-			const title = options[id];
-
-			if ( '' !== title ) {
-				elementor.getPanelView().getPages().kit_settings.title = elementor.translate( 'Theme Style' ) + ' - ' + title;
-			}
 		}
 
 		init();
@@ -118,6 +105,19 @@ jQuery( window ).on( 'elementor:init', function() {
 		jQuery('head').append(
 			'<style id="sk-panels-allowed">.elementor-panel [class*="elementor-control-ang_"], .elementor-panel [class*="elementor-control-description_ang_"] {display:none;}</style>'
 		);
+	}
+
+	analog.setPanelTitle = ( id = false ) => {
+		if ( ! id ) {
+			id = elementor.settings.page.model.attributes.ang_action_tokens;
+		}
+
+		const options = elementor.settings.page.model.controls.ang_action_tokens.options;
+		const title = options[id];
+
+		if ( '' !== title && 'undefined' !== title && 'undefined' !== typeof( title ) ) {
+			elementor.getPanelView().getPages().kit_settings.title = elementor.translate( 'Theme Style' ) + ' - ' + title;
+		}
 	}
 
 	/**
