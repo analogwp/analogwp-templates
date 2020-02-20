@@ -1,5 +1,5 @@
 .analog-welcome-screen .after-migration {
-	margin: 20px 40px 60px;
+	margin: 20px auto 60px;
 	border: 1px solid #DCDCDC;
 	max-width: 526px;
 	background-color: #fff;
@@ -54,14 +54,21 @@
 }
 
 .analog-welcome-screen .redirect-btn {
-	position: absolute;
-	bottom: -50px;
-	left: 0;
 	background-color: #6133C1;
+	padding: 10px 20px;
+	color: white;
+	text-decoration: none;
+	font-weight: 600;
+	transform: translateY(60px);
+	display: inline-block;
 }
 .analog-welcome-screen .redirect-btn a {
 	display: inline-block;
 	color: #fff;
 	padding: 15px;
 	text-decoration: none;
+}
+
+.analog-welcome-screen .actions {
+	text-align: center;
 }

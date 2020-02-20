@@ -300,8 +300,8 @@ function plugin_onboarding() {
  * @return void
  */
 function after_migration_screen() {
-		$settings_page = admin_url( 'admin.php?page=ang-settings' );
-		$wp_embed      = new \WP_Embed();
+	$wp_embed = new \WP_Embed();
+
 	?>
 		<div id="analog-welcome-screen" class="analog-welcome-screen">
 			<div class="after-migration">
@@ -327,23 +327,30 @@ function after_migration_screen() {
 					</div>
 				</div>
 				<div class="content-wrapper">
-					<h3 class="entry-title">Style Kits are now integrated into Elementor Theme Styles</h3>
+					<h3 class="entry-title"><?php esc_html_e( 'Style Kits are now integrated into Elementor Theme Styles', 'ang' ); ?></h3>
 					<div class="entry-content">
-						<p class="intro">With the introduction of Theme Styles in Elementor v2.9.0, Style Kits are now <strong>integrated into the Theme Styles panel</strong>, bringing you a consistent, native experience. <a href="<?php echo esc_url( 'https://analogwp.com/' ); ?>" target="_blank">Read More about this</a>.</p>
-						<div class="video-wrapper"><?php echo $wp_embed->autoembed( 'https://www.youtube.com/watch?v=a6KGPBflhiM' ); //phpcs:ignore ?></div>
-						<p>See what’s different in this quick video above.</p>
+						<p class="intro">
+							<?php echo __( 'With the introduction of Theme Styles in Elementor v2.9.0, Style Kits are now <strong>integrated into the Theme Styles panel</strong>, bringing you a consistent, native experience.', 'ang' ); ?>
+							<a href="<?php echo esc_url( 'https://analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Read More about this', 'ang' ); ?></a>.
+						</p>
+						<div class="video-wrapper">
+							<?php echo $wp_embed->autoembed( 'https://www.youtube.com/watch?v=a6KGPBflhiM' ); //phpcs:ignore ?>
+						</div>
+						<p><?php esc_html_e( 'See what’s different in this quick video above.', 'ang' ); ?></p>
 					</div>
 				</div>
 				<div class="entry-footer">
-					<h3>Need help?</h3>
+					<h3><?php esc_html_e( 'Need help?', 'ang' ); ?></h3>
 					<nav>
-						<a href="<?php echo esc_url( 'https://docs.analogwp.com' ); ?>" target="_blank">Go to docs</a>
-						<a href="<?php echo esc_url( 'https://analogwp.com/support' ); ?>" target="_blank">Send a support ticket</a>
-						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=version-control' ) ); ?>">Rollback to an earlier version</a>
+						<a href="<?php echo esc_url( 'https://docs.analogwp.com' ); ?>" target="_blank"><?php esc_html_e( 'Go to docs', 'ang' ); ?></a>
+						<a href="<?php echo esc_url( 'https://analogwp.com/support' ); ?>" target="_blank"><?php esc_html_e( 'Send a support ticket', 'ang' ); ?></a>
+						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=version-control' ) ); ?>"><?php esc_html_e( 'Rollback to an earlier version', 'ang' ); ?></a>
 					</nav>
 				</div>
-				<div class="redirect-btn">
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=analogwp_templates' ) ); ?>">Take me to SK Library >></a>
+				<div class="actions">
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=analogwp_templates' ) ); ?>" class="redirect-btn">
+						<?php esc_html_e( 'Take me to SK Library', 'ang' ); ?> &rarr;
+					</a>
 				</div>
 			</div>
 		</div>
