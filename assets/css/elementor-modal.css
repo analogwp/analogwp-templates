@@ -164,3 +164,7 @@ button[data-action="save_token"] {
 	box-shadow: none;
 	background: #5c32b6;
 }
+
+.sub-arrow + .sub-arrow {
+	display: none;
+}
