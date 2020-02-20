@@ -447,17 +447,23 @@ class Local extends Base {
 	public function save_tokens( WP_REST_Request $request ) {
 		$belongs_to = $request->get_param( 'id' );
 		$title      = $request->get_param( 'title' );
+		$settings   = $request->get_param( 'settings' );
 
-		if ( ! $title ) {
-			return new WP_Error( 'kit_title_error', 'Please provide a title.' );
+		if ( ! isset( $belongs_to, $title, $settings ) ) {
+			return new WP_Error( 'kit_params_error', __( 'Invalid param(s).', 'ang' ) );
 		}
 
-		$tokens = get_post_meta( $belongs_to, '_elementor_page_settings', true );
+		if ( ! $title ) {
+			return new WP_Error( 'kit_title_error', __( 'Please provide a title.', 'ang' ) );
+		}
+
+		$tokens = json_decode( $settings, true );
 		$kit    = new Manager();
 
 		$post_id = $kit->create_kit(
 			$title,
 			array(
+				'_elementor_data'          => $kit->get_kit_content(),
 				'_elementor_page_settings' => $tokens,
 				'_duplicate_of'            => $belongs_to,
 				'_is_analog_user_kit'      => true,
@@ -466,16 +472,15 @@ class Local extends Base {
 
 		if ( is_wp_error( $post_id ) ) {
 			return new WP_Error( 'tokens_error', __( 'Unable to create a Kit', 'ang' ) );
-		} else {
-			return new WP_REST_Response(
-				array(
-					'id'      => $post_id,
-					'url'     => Plugin::$instance->documents->get( $post_id )->get_edit_url(),
-					'message' => __( 'The new Theme Style Kit has been saved and applied on this page.', 'ang' ),
-				),
-				200
-			);
 		}
+
+		return new WP_REST_Response(
+			array(
+				'id'      => $post_id,
+				'message' => __( 'The new Theme Style Kit has been saved and applied on this page.', 'ang' ),
+			),
+			200
+		);
 	}
 
 	/**

@@ -546,12 +546,22 @@ jQuery( window ).on( 'elementor:init', function() {
 							const title = widget.getElements( 'content' ).find( '#ang_token_title' ).val();
 
 							if ( title ) {
+								const angSettings = {};
+								const settings = elementor.documents.documents[elementor.config.kit_id].container.settings.attributes;
+
+								_.map( settings, function( value, key ) {
+									if ( eligibleKey( key ) ) {
+										angSettings[ key ] = value;
+									}
+								} );
+
 								wp.apiFetch( {
 									url: ANG_Action.saveToken,
 									method: 'post',
 									data: {
 										id: elementor.config.kit_id,
 										title: title,
+										settings: JSON.stringify( angSettings ),
 									},
 								} ).then( function( response ) {
 									const options = elementor.documents.documents[elementor.config.initial_document.id].container.controls.ang_action_tokens.options;
