@@ -205,12 +205,22 @@ class Tools extends Base {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
 			$global_kit = (string) Utils::get_global_kit_id();
 
-			if ( isset( $settings['ang_action_tokens'] ) && $global_kit !== $settings['ang_action_tokens'] ) {
-				$actions['apply_global_kit'] = sprintf(
-					'<a href="%1$s">%2$s</a>',
-					wp_nonce_url( $this->get_stylekit_global_link(), 'ang_make_global' ),
-					__( 'Apply Global Style Kit', 'ang' )
-				);
+			$display = true;
+
+			if ( isset( $settings['ang_action_tokens'] ) ) {
+				$kit_id = (string) $settings['ang_action_tokens'];
+
+				if ( ! array_key_exists( (int) $kit_id, Utils::get_kits() ) ) {
+					$display = false;
+				}
+
+				if ( $global_kit !== $kit_id && $display ) {
+					$actions['apply_global_kit'] = sprintf(
+						'<a href="%1$s">%2$s</a>',
+						wp_nonce_url( $this->get_stylekit_global_link(), 'ang_make_global' ),
+						__( 'Apply Global Style Kit', 'ang' )
+					);
+				}
 			}
 		}
 
