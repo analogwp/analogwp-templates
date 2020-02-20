@@ -43,7 +43,6 @@ class Utils extends Base {
 
 			if ( 'kit' === $type ) {
 				$this->transients->delete( 'analog_get_kits' );
-				do_action( 'logger', 'transient cleared' );
 			}
 		};
 
