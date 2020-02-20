@@ -568,6 +568,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 									modal.destroy();
 
+									$e.run( 'document/save/discard' );
 									$e.run( 'panel/global/close' ).then( () => {
 										elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
 									} );
