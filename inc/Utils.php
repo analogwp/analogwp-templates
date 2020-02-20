@@ -7,6 +7,7 @@
 
 namespace Analog;
 
+use Analog\Core\Storage\Transients;
 use Elementor\Plugin;
 use Elementor\TemplateLibrary\Source_Local;
 use WP_Query;
@@ -17,6 +18,39 @@ use WP_Query;
  * @package Analog
  */
 class Utils extends Base {
+
+	/**
+	 * Transients object.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @var Transients
+	 */
+	private $transients;
+
+	/**
+	 * Utils constructor.
+	 *
+	 * @since n.e.x.t
+	 */
+	public function __construct() {
+		if ( ! $this->transients ) {
+			$this->transients = new Transients();
+		}
+
+		$delete_kit_cache = function ( $post_id ) {
+			$type = get_post_meta( $post_id, '_elementor_template_type', true );
+
+			if ( 'kit' === $type ) {
+				$this->transients->delete( 'analog_get_kits' );
+				do_action( 'logger', 'transient cleared' );
+			}
+		};
+
+		add_action( 'delete_post', $delete_kit_cache );
+		add_action( 'save_post', $delete_kit_cache );
+	}
+
 	/**
 	 * Debugging log.
 	 *
@@ -610,21 +644,28 @@ class Utils extends Base {
 	 * @return array
 	 */
 	public static function get_kits( $prefix = true ) {
-		$posts = \get_posts(
-			array(
-				'post_type'      => Source_Local::CPT,
-				'post_status'    => array( 'publish', 'draft' ),
-				'posts_per_page' => -1,
-				'orderby'        => 'title',
-				'order'          => 'DESC',
-				'meta_query'     => array( // @codingStandardsIgnoreLine
-					array(
-						'key'   => \Elementor\Core\Base\Document::TYPE_META_KEY,
-						'value' => 'kit',
+		$transients = self::get_instance()->transients;
+		$posts      = $transients->get( 'analog_get_kits' );
+
+		if ( ! $posts ) {
+			$posts = \get_posts(
+				array(
+					'post_type'      => Source_Local::CPT,
+					'post_status'    => array( 'publish', 'draft' ),
+					'posts_per_page' => -1,
+					'orderby'        => 'title',
+					'order'          => 'DESC',
+					'meta_query'     => array( // @codingStandardsIgnoreLine
+						array(
+							'key'   => \Elementor\Core\Base\Document::TYPE_META_KEY,
+							'value' => 'kit',
+						),
 					),
-				),
-			)
-		);
+				)
+			);
+
+			$transients->set( 'analog_get_kits', $posts, WEEK_IN_SECONDS );
+		}
 
 		$kits = array();
 
