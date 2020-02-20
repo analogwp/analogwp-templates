@@ -28,7 +28,19 @@ class Manager {
 
 	const OPTION_CUSTOM_KIT = '_elementor_page_settings';
 
+	/**
+	 * Holds Elementor kits list.
+	 *
+	 * @var array
+	 */
 	public $kits;
+
+	/**
+	 * Holds current document.
+	 *
+	 * @var mixed
+	 */
+	public $document;
 
 	/**
 	 * Manager constructor.
@@ -48,7 +60,9 @@ class Manager {
 			}
 		);
 
-		$this->kits = Utils::get_kits();
+		if ( ! $this->kits ) {
+			$this->kits = Utils::get_kits();
+		}
 	}
 
 	/**
@@ -78,7 +92,11 @@ class Manager {
 	 * @return \Elementor\Core\Base\Document|false
 	 */
 	public function get_current_post() {
-		return Plugin::$instance->documents->get( get_the_ID() );
+		if ( ! $this->document ) {
+			$this->document = Plugin::$instance->documents->get_doc_for_frontend( get_the_ID() );
+		}
+
+		return $this->document;
 	}
 
 	/**
@@ -92,13 +110,11 @@ class Manager {
 			return false;
 		}
 
-		$kit = $this->get_current_post()->get_meta( self::OPTION_CUSTOM_KIT );
+		$kit_id = $this->get_current_post()->get_settings_for_display( 'ang_action_tokens' );
 
-		if ( ! isset( $kit['ang_action_tokens'] ) ) {
+		if ( ! $kit_id || '' === $kit_id ) {
 			return false;
 		}
-
-		$kit_id = $kit['ang_action_tokens'];
 
 		// Return early if Global kit and current kit is same.
 		if ( Options::get_instance()->get( 'global_kit' ) === $kit_id ) {
@@ -106,7 +122,7 @@ class Manager {
 		}
 
 		// Return if current kit doesn't exists in Kits list.
-		if ( ! array_key_exists( (int) $kit['ang_action_tokens'], $this->kits ) ) {
+		if ( ! array_key_exists( (int) $kit_id, $this->kits ) ) {
 			return false;
 		}
 
@@ -166,8 +182,7 @@ class Manager {
 			return;
 		}
 
-		$custom_kit = $this->get_current_post()->get_meta( self::OPTION_CUSTOM_KIT );
-		$custom_kit = $custom_kit['ang_action_tokens'];
+		$custom_kit = $this->get_current_post()->get_settings_for_display( 'ang_action_tokens' );
 
 		if ( Options::get_instance()->get( 'global_kit' ) === $custom_kit ) {
 			return;
@@ -182,7 +197,7 @@ class Manager {
 			$this->generate_kit_css();
 		} else {
 			// TODO: 1.6.1 header/footer make use of this so its not safe to remove.
-			// $this->remove_global_kit_css();
+			  // $this->remove_global_kit_css();
 		}
 
 		$css = Post_CSS::create( $custom_kit );
