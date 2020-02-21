@@ -207,7 +207,7 @@ function create_options() {
 
 		foreach ( $subsections as $subsection ) {
 			foreach ( $section->get_settings( $subsection ) as $value ) {
-				if ( isset( $value['default'] ) && isset( $value['id'] ) ) {
+				if ( isset( $value['default'], $value['id'] ) ) {
 					$autoload = isset( $value['autoload'] ) ? (bool) $value['autoload'] : true;
 					add_option( $value['id'], $value['default'], '', ( $autoload ? 'yes' : 'no' ) );
 				}

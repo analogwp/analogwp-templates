@@ -8,6 +8,7 @@
 
 namespace Analog\Upgrade;
 
+use Analog\Core\Util\Migration;
 use Analog\Utils;
 
 defined( 'ABSPATH' ) || exit;
@@ -105,7 +106,7 @@ function do_automatic_upgrades() {
 	}
 
 	if ( version_compare( $installed_version, '1.6.0', '<' ) ) {
-		version_1_6_0_upgrades();
+		// version_1_6_0_upgrades();
 	}
 
 	if ( $did_upgrade ) {
@@ -475,7 +476,16 @@ function version_1_5_1_upgrades() {
  * @since 1.6.0
  */
 function version_1_6_0_upgrades() {
-	// TODO: Perform migration.
+	// Perform Kits migration.
+	$migration = new Migration();
+	$migration->convert_all_sk_to_kits();
 
-	// wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
+	// Set Kit migrated flag.
+	Options::get_instance()->set( 'theme_style_kit_migrated', true );
+
+	// Clear cache.
+	Utils::clear_elementor_cache();
+
+	// Redirect to onboarding page.
+	wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
 }
