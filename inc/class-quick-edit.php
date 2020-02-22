@@ -101,7 +101,7 @@ class Quick_Edit extends Base {
 				$is_elementor = get_post_meta( $id, '_elementor_edit_mode', true );
 
 				if ( 'builder' === $is_elementor ) {
-					$value = 'elementor';
+					$value = Options::get_instance()->get( 'global_kit' );
 					if ( is_array( $settings ) && isset( $settings['ang_action_tokens'] ) ) {
 						$value = esc_html( $settings['ang_action_tokens'] );
 					}
@@ -208,6 +208,15 @@ class Quick_Edit extends Base {
 	public function quick_edit_scripts( $hook ) {
 		if ( 'edit.php' === $hook ) {
 			wp_enqueue_script( 'ang-quick-edit', ANG_PLUGIN_URL . 'assets/js/quick-edit.js', array( 'jquery' ), ANG_VERSION, true );
+
+			wp_localize_script(
+				'ang-quick-edit',
+				'angQuickEdit',
+				array(
+					'kits'      => Utils::get_kits( false ),
+					'globalKit' => Utils::get_global_kit_id(),
+				)
+			);
 		}
 	}
 
