@@ -12,6 +12,10 @@
 
 		function bindEvents() {
 			elementor.once( 'preview:loaded', function() {
+				if ( ANG_Action.globalKit && ! ( parseInt( elementor.settings.page.model.attributes.ang_action_tokens ) in elementor.settings.page.model.controls.ang_action_tokens.options ) ) {
+					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', ANG_Action.globalKit );
+				}
+
 				elementor.settings.page.addChangeCallback( 'ang_action_tokens', refreshKit );
 
 				if ( elementor.config.initial_document.type !== 'kit' ) {

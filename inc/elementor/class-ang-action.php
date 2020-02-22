@@ -7,6 +7,7 @@
 
 namespace Analog\Elementor;
 
+use Analog\Options;
 use Elementor\Base_Data_Control;
 
 /**
@@ -100,6 +101,7 @@ class ANG_Action extends Base_Data_Control {
 				'saveToken'       => rest_url( 'agwp/v1/tokens/save' ),
 				'palette'         => $central_color_palette,
 				'cssDir'          => \Elementor\Core\Files\Base::get_base_uploads_url() . \Elementor\Core\Files\Base::DEFAULT_FILES_DIR,
+				'globalKit'       => Options::get_instance()->get( 'global_kit' ),
 				'translate'       => array(
 					'resetMessage'    => __( 'This will clean-up all the values from the current Theme Style kit. If you need to revert, you can do so at the Revisions tab.', 'ang' ),
 					'resetHeader'     => __( 'Are you sure?', 'ang' ),
