@@ -4,6 +4,7 @@ Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.3.2
 Stable tag: 1.5.6
+Beta tag: 1.6.0-beta1
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -123,6 +124,17 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.6.0 - Feb 22, 2020 =
+- New: Style Kits panels are now migrated to Theme Styles. All your existing Kits, are automatically migrated to Theme Styles
+- New: Added welcome screen for Theme Styles
+- New: Added latest Google fonts missing in Elementor
+- New: Added context menu to switch to Theme Style
+- New: When resetting a Kit, you can revert from History screen
+- Tweak: Theme Style panel title to show Kit name
+- Tweak: Style Kits menu to show Theme Style Kits
+- Tweak: Use transient cache when fetching Kits
+- Tweak: Admin notices to show Analog logo
 
 = 1.5.6 - Feb 12, 2020 =
 - Fix: Compatibility with Elementor v2.9
