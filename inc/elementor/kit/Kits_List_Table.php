@@ -2,8 +2,8 @@
 
 namespace Analog\Elementor\Kit;
 
+use Analog\Utils;
 use Elementor\Core\Base\Document;
-use Elementor\Plugin;
 use Elementor\TemplateLibrary\Source_Local;
 
 if ( ! class_exists( \WP_List_Table::class ) ) {
@@ -158,7 +158,7 @@ class Kits_List_Table extends \WP_List_Table {
 		return sprintf(
 			'<input type="checkbox" name="%1$s_id[]" value="%2$s" />',
 			esc_attr( $this->_args['singular'] ),
-			esc_attr( $item['title'] )
+			esc_attr( $item['id'] )
 		);
 	}
 
@@ -172,6 +172,8 @@ class Kits_List_Table extends \WP_List_Table {
 		$this->_column_headers = array( $columns, array(), array(), 'title' );
 		$data                  = array();
 
+		$this->process_bulk_action();
+
 		$kits = $this->get_kits();
 
 		foreach ( $kits as $kit ) {
@@ -183,7 +185,20 @@ class Kits_List_Table extends \WP_List_Table {
 			);
 		}
 
+		$current_page = $this->get_pagenum();
+		$max          = count( $data );
+		$per_page     = 20;
+		$data         = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
+
 		$this->items = $data;
+
+		$this->set_pagination_args(
+			array(
+				'total_items' => $max,
+				'per_page'    => $per_page,
+				'total_pages' => ceil( $max / $per_page ),
+			)
+		);
 	}
 
 	/**
@@ -206,6 +221,66 @@ class Kits_List_Table extends \WP_List_Table {
 			admin_url( 'admin-ajax.php' )
 		);
 	}
+
+	/**
+	 * Get bulk actions.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @return array
+	 */
+	public function get_bulk_actions() {
+		return array(
+			'trash' => __( 'Move to Trash', 'ang' ),
+		);
+	}
+
+	/**
+	 * Gets links to filter posts by status.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @return array
+	 */
+	protected function get_views() {
+		$total_posts = count( Utils::get_kits( false ) );
+
+		$status_links = array();
+
+		$all_inner_html = sprintf(
+		/* translators: %s: Number of posts. */
+			_nx(
+				'All <span class="count">(%s)</span>',
+				'All <span class="count">(%s)</span>',
+				$total_posts,
+				'posts',
+				'ang'
+			),
+			number_format_i18n( $total_posts )
+		);
+
+		$status_links['all'] = $all_inner_html;
+
+		return $status_links;
+	}
+
+	/**
+	 * Get bulk actions.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @return void
+	 */
+	public function process_bulk_action() {
+		if ( 'trash' === $this->current_action() ) {
+			$kit_ids = filter_input( INPUT_GET, 'kit_id', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+			$kit_ids = array_map( 'intval', $kit_ids );
+
+			if ( count( $kit_ids ) ) {
+				array_map( 'wp_trash_post', $kit_ids );
+			}
+		}
+	}
 }
 
 /**
@@ -220,13 +295,13 @@ function ang_kits_list() {
 	<div class="wrap">
 		<h2><?php esc_html_e( 'Style Kits', 'ang' ); ?></h2>
 
-		<form id="kits-list" method="get">
-			<input type="hidden" name="page" value="kits-list" />
+		<form id="style-kits" method="get">
+			<input type="hidden" name="page" value="style-kits" />
 
 			<?php
 			$kits_table = new Kits_List_Table();
 			$kits_table->prepare_items();
-			$kits_table->views();
+			// $kits_table->views();
 			$kits_table->display();
 			?>
 		</form>
