@@ -256,6 +256,7 @@ class Manager {
 				'post_type'   => Source_Local::CPT,
 				'post_title'  => $title,
 				'post_status' => 'publish',
+				'post_author' => get_current_user_id(),
 			),
 			$meta
 		);

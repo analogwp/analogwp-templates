@@ -2,7 +2,7 @@
 
 namespace Analog\Elementor\Kit;
 
-use Analog\Utils;
+use Elementor\Core\Base\Document;
 use Elementor\Plugin;
 use Elementor\TemplateLibrary\Source_Local;
 
@@ -47,7 +47,7 @@ class Kits_List_Table extends \WP_List_Table {
 				'order'          => 'DESC',
 				'meta_query'     => array( // @codingStandardsIgnoreLine
 					array(
-						'key'   => \Elementor\Core\Base\Document::TYPE_META_KEY,
+						'key'   => Document::TYPE_META_KEY,
 						'value' => 'kit',
 					),
 				),
@@ -86,6 +86,10 @@ class Kits_List_Table extends \WP_List_Table {
 
 				$result = __( 'Published', 'ang' ) . '<br><span title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $item['id'], 'date', 'list' ) . '</span>';
 				break;
+
+			case 'author':
+				$result = get_the_author_meta( 'display_name', $item['author'] );
+				break;
 		}
 
 		return $result;
@@ -98,9 +102,10 @@ class Kits_List_Table extends \WP_List_Table {
 	 */
 	public function get_columns() {
 		return array(
-			'cb'    => '<input type="checkbox"/>',
-			'title' => __( 'Title', 'ang' ),
-			'date'  => __( 'Date', 'ang' ),
+			'cb'     => '<input type="checkbox"/>',
+			'title'  => __( 'Title', 'ang' ),
+			'author' => __( 'Author', 'ang' ),
+			'date'   => __( 'Date', 'ang' ),
 		);
 	}
 
@@ -111,7 +116,7 @@ class Kits_List_Table extends \WP_List_Table {
 	 * @return string
 	 */
 	public function column_title( $item ) {
-		$document = Plugin::$instance->documents->get( $item['id'] );
+		// $document = Plugin::$instance->documents->get( $item['id'] );
 		$edit_url = get_edit_post_link( $item['id'] );
 
 		$output = '<strong>';
@@ -126,7 +131,7 @@ class Kits_List_Table extends \WP_List_Table {
 
 		// Get actions.
 		$actions = array(
-			// 'edit'                => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'ang' ) . '</a>',
+			// 'edit'            => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'ang' ) . '</a>',
 			'trash'           => '<a href="' . esc_url( get_delete_post_link( $item['id'] ) ) . '" class="submitdelete">' . __( 'Trash', 'ang' ) . '</a>',
 			'export-template' => '<a href="' . esc_url( $this->get_export_link( $item['id'] ) ) . '">' . __( 'Export Theme Style Kit', 'ang' ) . '</a>',
 		// 'edit_with_elementor' => '<a href="' . esc_url( $document->get_edit_url() ) . '">' . __( 'Edit with Elementor', 'ang' ) . '</a>',
@@ -169,18 +174,26 @@ class Kits_List_Table extends \WP_List_Table {
 
 		$kits = $this->get_kits();
 
-
 		foreach ( $kits as $kit ) {
 			$data[ $kit->ID ] = array(
-				'id'    => $kit->ID,
-				'title' => $kit->post_title,
-				'date'  => $kit->post_date,
+				'id'     => $kit->ID,
+				'title'  => $kit->post_title,
+				'date'   => $kit->post_date,
+				'author' => $kit->post_author,
 			);
 		}
 
 		$this->items = $data;
 	}
 
+	/**
+	 * Get Elementor export link.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @param int $id Post ID.
+	 * @return string
+	 */
 	private function get_export_link( $id ) {
 		return add_query_arg(
 			array(
@@ -195,14 +208,17 @@ class Kits_List_Table extends \WP_List_Table {
 	}
 }
 
+/**
+ * Generates page HTML for Kits listing page.
+ *
+ * @since n.e.x.t
+ *
+ * @return void
+ */
 function ang_kits_list() {
 	?>
 	<div class="wrap">
 		<h2><?php esc_html_e( 'Style Kits', 'ang' ); ?></h2>
-
-		<style>
-			.fixed .column-date { width: 150px; }
-		</style>
 
 		<form id="kits-list" method="get">
 			<input type="hidden" name="page" value="kits-list" />
