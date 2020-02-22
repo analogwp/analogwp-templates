@@ -113,35 +113,6 @@ class Quick_Edit extends Base {
 	}
 
 	/**
-	 * Get Style Kit IDs.
-	 *
-	 * @return array|bool Style Kit IDs, false if empty.
-	 */
-	public function get_stylekits() {
-		/**
-		 * Remove Elementor's filter on `parse_query` which prevents other posts types from returning posts.
-		 *
-		 * @since 1.5.0
-		 */
-		remove_all_filters( 'parse_query' );
-
-		$posts = get_posts(
-			array(
-				'post_type'   => 'ang_tokens',
-				'numberposts' => -1,
-				'fields'      => 'ids',
-			)
-		);
-
-		/**
-		 * Add back the filter.
-		 */
-		add_action( 'parse_query', array( '\Elementor\TemplateLibrary\Source_Local', 'admin_query_filter_types' ) );
-
-		return $posts;
-	}
-
-	/**
 	 * Display Style Kit dropdown in quick edit box.
 	 *
 	 * @param string $column_name Column name.
