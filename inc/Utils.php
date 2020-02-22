@@ -39,11 +39,16 @@ class Utils extends Base {
 		}
 
 		$delete_kit_cache = function ( $post_id ) {
-			$type = get_post_meta( $post_id, '_elementor_template_type', true );
-
-			if ( 'kit' === $type ) {
-				$this->transients->delete( 'analog_get_kits' );
+			if ( Source_Local::CPT !== get_post_type( $post_id ) ) {
+				return;
 			}
+
+			$type = get_post_meta( $post_id, '_elementor_template_type', true );
+			if ( 'kit' !== $type ) {
+				return;
+			}
+
+			$this->transients->delete( 'analog_get_kits' );
 		};
 
 		add_action( 'delete_post', $delete_kit_cache );
