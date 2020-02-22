@@ -143,9 +143,9 @@ class Remote extends Base {
 		$response = wp_remote_get(
 			$url,
 			array(
-				'timeout' => 40,
+				'timeout'   => 40,
 				'sslverify' => false,
-				'body'    => $body_args,
+				'body'      => $body_args,
 			)
 		);
 
@@ -238,8 +238,8 @@ class Remote extends Base {
 		$response = wp_remote_get(
 			$url,
 			array(
-				'timeout' => 40,
-				'body'    => $body_args,
+				'timeout'   => 40,
+				'body'      => $body_args,
 				'sslverify' => false,
 			)
 		);

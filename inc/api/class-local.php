@@ -13,7 +13,6 @@ use Analog\Classes\Import_Image;
 use Analog\Elementor\Kit\Manager;
 use Analog\Options;
 use Analog\Utils;
-use Elementor\Plugin;
 use Elementor\TemplateLibrary\Analog_Importer;
 use WP_Error;
 use WP_Query;
@@ -599,21 +598,21 @@ class Local extends Base {
 
 		if ( is_wp_error( $kit_id ) ) {
 			return new WP_Error( 'kit_post_error', $kit_id->get_error_message() );
-		} else {
-			$attachment = Import_Image::get_instance()->import(
-				array(
-					'id'  => wp_rand( 000, 999 ),
-					'url' => $kit['image'],
-				)
-			);
-
-			update_post_meta( $kit_id, '_thumbnail_id', $attachment['id'] );
-
-			return array(
-				'message' => __( 'Style Kit imported', 'ang' ),
-				'id'      => $kit_id,
-			);
 		}
+
+		$attachment = Import_Image::get_instance()->import(
+			array(
+				'id'  => wp_rand( 000, 999 ),
+				'url' => $kit['image'],
+			)
+		);
+
+		update_post_meta( $kit_id, '_thumbnail_id', $attachment['id'] );
+
+		return array(
+			'message' => __( 'Style Kit imported', 'ang' ),
+			'id'      => $kit_id,
+		);
 	}
 
 	/**

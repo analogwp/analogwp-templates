@@ -51,7 +51,7 @@ final class Notice {
 	 *
 	 * @var array
 	 */
-	private $args = array();
+	private $args;
 
 	/**
 	 * Constructor.

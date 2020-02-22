@@ -8,6 +8,8 @@
 namespace Analog;
 
 use Analog\Core\Storage\Transients;
+use Elementor\Core\Base\Document;
+use Elementor\Core\Kits\Manager;
 use Elementor\Plugin;
 use Elementor\TemplateLibrary\Source_Local;
 use WP_Query;
@@ -381,7 +383,7 @@ class Utils extends Base {
 				'posts_per_page'         => -1,
 				'meta_query'     => array( // @codingStandardsIgnoreLine
 					array(
-						'key'   => \Elementor\Core\Base\Document::TYPE_META_KEY,
+						'key'   => Document::TYPE_META_KEY,
 						'value' => 'kit',
 					),
 				),
@@ -523,7 +525,7 @@ class Utils extends Base {
 	 * @since 1.3.15
 	 * @return void
 	 */
-	public static function update_style_kit_for_post( int $post_id, array $tokens ) {
+	public static function update_style_kit_for_post( $post_id, array $tokens ) {
 		$page_settings = \get_post_meta( $post_id, '_elementor_page_settings', true );
 
 		$allowed_types = array( 'post', 'wp-post', 'page', 'wp-page', 'global-widget', 'popup', 'section', 'header', 'footer', 'single', 'archive' );
@@ -554,11 +556,7 @@ class Utils extends Base {
 		$license = Options::get_instance()->get( 'ang_license_key' );
 		$message = Options::get_instance()->get( 'ang_license_key_status' );
 
-		if ( ! empty( $license ) && 'valid' === $message ) {
-			return true;
-		}
-
-		return false;
+		return ! empty( $license ) && 'valid' === $message;
 	}
 
 	/**
@@ -592,7 +590,7 @@ class Utils extends Base {
 	 * @return array
 	 * @since 1.5.0
 	 */
-	public static function get_color_scheme_items( int $id ) {
+	public static function get_color_scheme_items( $id ) {
 		$settings = get_post_meta( $id, '_elementor_page_settings', true );
 
 		$keys = self::get_keys_for_color_controls();
@@ -661,7 +659,7 @@ class Utils extends Base {
 					'order'          => 'DESC',
 					'meta_query'     => array( // @codingStandardsIgnoreLine
 						array(
-							'key'   => \Elementor\Core\Base\Document::TYPE_META_KEY,
+							'key'   => Document::TYPE_META_KEY,
 							'value' => 'kit',
 						),
 					),
@@ -674,7 +672,7 @@ class Utils extends Base {
 		$kits = array();
 
 		foreach ( $posts as $post ) {
-			$global_kit = (int) get_option( \Elementor\Core\Kits\Manager::OPTION_ACTIVE );
+			$global_kit = (int) get_option( Manager::OPTION_ACTIVE );
 
 			$title = $post->post_title;
 

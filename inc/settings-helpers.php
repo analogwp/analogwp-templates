@@ -9,6 +9,7 @@
 namespace Analog\Settings;
 
 use Analog\Options;
+use Elementor\Core\Kits\Manager;
 
 /**
  * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
@@ -20,9 +21,9 @@ use Analog\Options;
 function ang_clean( $var ) {
 	if ( is_array( $var ) ) {
 		return array_map( __NAMESPACE__ . '\ang_clean', $var );
-	} else {
-		return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
 	}
+
+	return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
 }
 
 /**
@@ -85,7 +86,7 @@ function ang_update_elementor_kit() {
 
 	$data              = $_POST; // phpcs:ignore
 	$key               = 'global_kit';
-	$elementor_kit_key = \Elementor\Core\Kits\Manager::OPTION_ACTIVE;
+	$elementor_kit_key = Manager::OPTION_ACTIVE;
 	$kit_id            = Options::get_instance()->get( 'global_kit' );
 
 	$raw_value     = isset( $data[ $key ] ) ? wp_unslash( $data[ $key ] ) : $kit_id;

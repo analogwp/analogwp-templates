@@ -71,11 +71,7 @@ final class Consumer {
 	public static function is_user_notice_viewed( $notice_id ) {
 		$notices = self::get_user_notices();
 
-		if ( empty( $notices ) || empty( $notices[ $notice_id ] ) ) {
-			return false;
-		}
-
-		return true;
+		return ! ( empty( $notices ) || empty( $notices[ $notice_id ] ) );
 	}
 
 	/**
