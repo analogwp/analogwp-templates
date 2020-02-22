@@ -105,8 +105,15 @@ function do_automatic_upgrades() {
 		Options::get_instance()->set( 'ang_sync_colors', false );
 	}
 
-	if ( version_compare( $installed_version, '1.6.0', '<' ) ) {
-		// version_1_6_0_upgrades();
+	if (
+		version_compare( $installed_version, '1.6.0-beta1', '<' )
+		 && ! Options::get_instance()->get( 'theme_style_kit_migrated' )
+	) {
+		version_1_6_0_upgrades();
+
+		// Redirect to onboarding page.
+		wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
+		exit;
 	}
 
 	if ( $did_upgrade ) {
@@ -483,9 +490,8 @@ function version_1_6_0_upgrades() {
 	// Set Kit migrated flag.
 	Options::get_instance()->set( 'theme_style_kit_migrated', true );
 
+	Options::get_instance()->set( 'version', ANG_VERSION );
+
 	// Clear cache.
 	Utils::clear_elementor_cache();
-
-	// Redirect to onboarding page.
-	wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
 }
