@@ -54,14 +54,6 @@ function register_menu() {
 	add_submenu_page(
 		$menu_slug,
 		__( 'Style Kits', 'ang' ),
-		__( 'Manage Style Kits', 'ang' ),
-		'manage_options',
-		'edit.php?post_type=ang_tokens'
-	);
-
-	add_submenu_page(
-		$menu_slug,
-		__( 'Style Kits', 'ang' ),
 		__( 'Theme Style Kits', 'ang' ),
 		'manage_options',
 		'style-kits',
