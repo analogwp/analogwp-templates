@@ -43,14 +43,16 @@ class General extends Settings_Page {
 	/**
 	 * Get settings array.
 	 *
+	 * @param string $current_section Current section ID.
+	 *
 	 * @return array
 	 */
 	public function get_settings( $current_section = '' ) {
 		global $current_section;
-		$sections = $this->get_sections();
 
-		$tokens_dropdown = array( '-1' => __( '— Select a Style Kit —', 'ang' ) ) + Utils::get_kits( false );
-		$settings        = array();
+		$sections = $this->get_sections();
+		$settings = array();
+
 		if ( '' === $current_section ) {
 			$settings = apply_filters(
 				'ang_general_settings',
@@ -68,9 +70,9 @@ class General extends Settings_Page {
 							'<a href="https://docs.analogwp.com/article/554-what-are-style-kits" target="_blank">' . __( 'Style kits', 'ang' ) . '</a>'
 						),
 						'id'      => 'global_kit',
-						'default' => ( '' !== get_option( 'elementor_active_kit' ) ) ? get_option( 'elementor_active_kit' ) : '-1',
+						'default' => get_option( 'elementor_active_kit' ),
 						'type'    => 'select',
-						'options' => $tokens_dropdown,
+						'options' => Utils::get_kits( false ),
 					),
 					array(
 						'type' => 'sectionend',
