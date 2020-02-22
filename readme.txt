@@ -126,10 +126,10 @@ Our dedicated support team has your back. Please reach out via our website at ht
 == Changelog ==
 
 = 1.6.0 - Feb 22, 2020 =
-- New: Style Kits panels are now migrated to Theme Styles. All your existing Kits, are automatically migrated to Theme Styles
+- New: Style Kits integrated into Theme Styles. All existing Style Kits, are automatically converted to native Theme Style Kits
 - New: Added welcome screen for Theme Styles
 - New: Added latest Google fonts missing in Elementor
-- New: Added context menu to switch to Theme Style
+- New: Added link to Theme Style panel in right-click menu
 - New: When resetting a Kit, you can revert from History screen
 - Tweak: Theme Style panel title to show Kit name
 - Tweak: Style Kits menu to show Theme Style Kits
