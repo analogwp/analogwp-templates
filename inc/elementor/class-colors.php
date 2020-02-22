@@ -167,7 +167,8 @@ class Colors extends Module {
 
 		$primary_accent_color_selectors = array(
 			'{{WRAPPER}} .sk-accent-1',
-			'{{WRAPPER}} .elementor-widget:not(.elementor-view-stacked) .elementor-icon-box-icon .elementor-icon',
+			'{{WRAPPER}} .elementor-view-default .elementor-icon-box-icon .elementor-icon',
+			'{{WRAPPER}} .elementor-view-framed .elementor-icon-box-icon .elementor-icon',
 			'{{WRAPPER}} .elementor-icon-list-icon',
 			'{{WRAPPER}} .elementor-view-framed .elementor-icon',
 			'{{WRAPPER}} .elementor-view-default .elementor-icon',
