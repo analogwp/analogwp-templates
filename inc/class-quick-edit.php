@@ -166,7 +166,6 @@ class Quick_Edit extends Base {
 						<label class="inline-edit-group">
 							<span class="title"><?php esc_html_e( 'Style Kit', 'ang' ); ?></span>
 							<select name="ang_stylekit">
-								<option value="-1">&mdash; Select &mdash;</option>
 								<?php foreach ( self::$kits as $id => $title ) : ?>
 									<option value="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $title ); ?></option>
 								<?php endforeach; ?>
