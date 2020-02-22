@@ -276,8 +276,6 @@ class Migration {
 		// Save Elementor's default kit before resetting.
 		Options::get_instance()->set( 'default_kit', $default_kit );
 
-		Options::get_instance()->set( 'global_kit', $default_kit );
-
 		$posts = \get_posts(
 			array(
 				'post_type'      => 'ang_tokens',
@@ -304,5 +302,7 @@ class Migration {
 				$this->convert_posts_using_sk( $posts_using_global_sk, $kit_id );
 			}
 		}
+
+		Options::get_instance()->set( 'global_kit', $default_kit );
 	}
 }
