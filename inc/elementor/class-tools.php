@@ -63,6 +63,8 @@ class Tools extends Base {
 	/**
 	 * Checks if current screen is Style Kits CPT screen.
 	 *
+	 * @deprecated n.e.x.t
+	 *
 	 * @return bool
 	 */
 	public static function is_tokens_screen() {
