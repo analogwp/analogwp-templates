@@ -10,6 +10,7 @@ namespace Analog\Core\Util;
 use Analog\Elementor\Kit\Manager;
 use Analog\Options;
 use Analog\Utils;
+use Elementor\Core\Base\Document;
 use Elementor\TemplateLibrary\Source_Local;
 
 /**
@@ -196,7 +197,11 @@ class Migration {
 		$settings = get_post_meta( $post_id, '_tokens_data', true );
 		$settings = json_decode( $settings, ARRAY_A );
 
-		$kit = new \Analog\Elementor\Kit\Manager();
+		if ( ! is_array( $settings ) ) {
+			return;
+		}
+
+		$kit = new Manager();
 
 		// Set Kit content, if doesn't exist.
 		if ( ! $this->kit_content ) {
@@ -204,7 +209,6 @@ class Migration {
 		}
 
 		$settings = $this->migrate_sk_to_kits( $settings );
-
 
 		return $kit->create_kit(
 			get_post_field( 'post_title', $post_id ),
@@ -237,7 +241,7 @@ class Migration {
 				}
 
 				if ( Source_Local::CPT === $post_type ) {
-					$type = get_post_meta( $post_id, \Elementor\Core\Base\Document::TYPE_META_KEY, true );
+					$type = get_post_meta( $post_id, Document::TYPE_META_KEY, true );
 					if ( 'kit' === $type || 'section' === $type ) {
 						continue;
 					}
@@ -267,12 +271,15 @@ class Migration {
 	 * @return void
 	 */
 	public function convert_all_sk_to_kits() {
+		$default_kit = get_option( Manager::OPTION_ACTIVE );
+
 		// Save Elementor's default kit before resetting.
-		Options::get_instance()->set( 'default_kit', Manager::OPTION_ACTIVE );
+		Options::get_instance()->set( 'default_kit', $default_kit );
 
 		$posts = \get_posts(
 			array(
 				'post_type'      => 'ang_tokens',
+				'post_status'    => 'publish',
 				'posts_per_page' => -1,
 			)
 		);
@@ -293,6 +300,8 @@ class Migration {
 
 				$posts_using_global_sk = Utils::posts_using_stylekit();
 				$this->convert_posts_using_sk( $posts_using_global_sk, $kit_id );
+			} else {
+				Options::get_instance()->set( 'global_kit', $default_kit );
 			}
 		}
 	}
