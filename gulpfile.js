@@ -44,6 +44,7 @@ const buildFiles = [
 	'!codeception.dist.yml',
 	'!tests/**',
 	'!vendor/**',
+	'!fonts-massager.php',
 ];
 
 const buildDestination = `./build/${ project }/`;
