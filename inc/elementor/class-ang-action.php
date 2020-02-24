@@ -84,11 +84,6 @@ class ANG_Action extends Base_Data_Control {
 			false
 		);
 
-		$central_color_palette = array();
-		if ( class_exists( 'kt_Central_Palette' ) ) {
-			$central_color_palette = \kt_Central_Palette::instance()->get_colors();
-		}
-
 		$sk_panels_allowed = true;
 		if ( has_filter( 'ang_sk_elementor_disabled', '__return_true' ) ) {
 			$sk_panels_allowed = false;
@@ -99,7 +94,6 @@ class ANG_Action extends Base_Data_Control {
 			'ANG_Action',
 			array(
 				'saveToken'       => rest_url( 'agwp/v1/tokens/save' ),
-				'palette'         => $central_color_palette,
 				'cssDir'          => \Elementor\Core\Files\Base::get_base_uploads_url() . \Elementor\Core\Files\Base::DEFAULT_FILES_DIR,
 				'globalKit'       => Options::get_instance()->get( 'global_kit' ),
 				'translate'       => array(
