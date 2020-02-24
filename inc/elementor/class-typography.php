@@ -688,10 +688,13 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_tokens',
 			array(
-				'label'   => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
-				'type'    => Controls_Manager::SELECT2,
-				'options' => $this->tokens,
-				'default' => get_option( 'elementor_active_kit' ),
+				'label'          => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'type'           => Controls_Manager::SELECT2,
+				'select2options' => array(
+					'allowClear' => false,
+				),
+				'options'        => $this->tokens,
+				'default'        => get_option( 'elementor_active_kit' ),
 			)
 		);
 
