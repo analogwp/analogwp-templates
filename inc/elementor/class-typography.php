@@ -743,10 +743,10 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_reset',
 			array(
-				'label'        => __( 'Reset Theme Style Kit', 'ang' ) . $this->get_tooltip( $label ),
-				'type'         => 'ang_action',
-				'action'       => 'reset_css',
-				'action_label' => __( 'Reset', 'ang' ),
+				'label' => __( 'Reset Theme Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'type'  => 'button',
+				'text'  => __( 'Reset', 'ang' ),
+				'event' => 'analog:resetKit',
 			)
 		);
 
@@ -754,20 +754,20 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_save_token',
 			array(
-				'label'        => __( 'Save Theme Style Kit as...', 'ang' ) . $this->get_tooltip( $label ),
-				'type'         => 'ang_action',
-				'action'       => 'save_token',
-				'action_label' => __( 'Save as...', 'ang' ),
+				'label' => __( 'Save Theme Style Kit as', 'ang' ) . $this->get_tooltip( $label ),
+				'type'  => 'button',
+				'text'  => __( 'Save as&hellip;', 'ang' ),
+				'event' => 'analog:saveKit',
 			)
 		);
 
 		$element->add_control(
 			'ang_action_export_css',
 			array(
-				'label'        => __( 'Export Theme Style Kit CSS', 'ang' ),
-				'type'         => 'ang_action',
-				'action'       => 'export_css',
-				'action_label' => __( 'Export CSS', 'ang' ),
+				'label' => __( 'Export Theme Style Kit CSS', 'ang' ),
+				'type'  => 'button',
+				'text'  => __( 'Export', 'ang' ),
+				'event' => 'analog:exportCSS',
 			)
 		);
 

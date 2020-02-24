@@ -123,7 +123,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		if ( '' !== title && 'undefined' !== title && 'undefined' !== typeof( title ) ) {
 			elementor.getPanelView().getPages().kit_settings.title = elementor.translate( 'Theme Style' ) + ' - ' + title;
 		}
-	}
+	};
 
 	/**
 	 * Escape charcters in during Regexp.
@@ -393,9 +393,6 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		actions: function() {
 			const actions = {
-				export_css: 'handleCSSExport',
-				reset_css: 'handleCSSReset',
-				save_token: 'handleSaveToken',
 				update_token: 'handleTokenUpdate',
 			};
 
@@ -413,195 +410,8 @@ jQuery( window ).on( 'elementor:init', function() {
 
 			this.performAction( action );
 		},
-
-		handleCSSExport: function() {
-			// Get the whole Page CSS
-			const allStyles = elementor.settings.page.getControlsCSS().elements.$stylesheetElement[ 0 ].textContent;
-
-			// Then remove Page's custom CSS.
-			const pageCSS = elementor.settings.page.model.get( 'custom_css' );
-			const strippedCSS = allStyles.replace( pageCSS, '' );
-			const formattedCSS = cssbeautify( strippedCSS, {
-				indent: '  ',
-				openbrace: 'end-of-line',
-				autosemicolon: true,
-			} );
-
-			const replacer = (e) => {
-				const checked = e.target.checked;
-				const elBody = `body.elementor-kit-${elementor.config.document.id}`;
-				const elSelector = 'body.elementor-page';
-				const elTextarea = jQuery('#ang-export-css');
-
-				if ( checked ) {
-					let stripped = replaceAll( formattedCSS, elBody + ' ', elSelector + ' ' );
-					stripped = replaceAll( stripped, elBody + ':', elSelector + ':' );
-					stripped = replaceAll( stripped, elBody + ',', elSelector + ',' );
-
-					jQuery(elTextarea).html(stripped);
-				} else {
-					let stripped = replaceAll( formattedCSS, elSelector + ' ', elBody + ' ' );
-					stripped = replaceAll( stripped, elSelector + ':', elBody + ':' );
-					stripped = replaceAll( stripped, elSelector + ',', elBody + ',' );
-
-					jQuery(elTextarea).html(stripped);
-				}
-			};
-
-			const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
-				id: 'ang-modal-export-css',
-				headerMessage: ANG_Action.translate.exportCSS,
-				message: '',
-				position: {
-					my: 'center',
-					at: 'center',
-				},
-				onReady: function() {
-					this.addButton( {
-						name: 'cancel',
-						text: elementor.translate( 'cancel' ),
-						callback: function() {
-							modal.destroy();
-						},
-					} );
-
-					this.addButton( {
-						name: 'ok',
-						text: ANG_Action.translate.copyCSS,
-						callback: function() {
-							const content = modal.getElements( 'content' );
-							jQuery( content.find( 'textarea' ) ).select();
-							document.execCommand( 'copy' );
-						},
-					} );
-				},
-
-				onShow: function() {
-					const content = modal.getElements( 'content' );
-					content.append( `
-						<textarea id="ang-export-css" rows="10">${formattedCSS}</textarea>
-						<div style="text-align:left;">
-							<input type="checkbox" id="ang-switch-selector" />
-							<label for="ang-switch-selector">${ANG_Action.translate.cssSelector}</label>
-						</div>
-					` );
-
-					jQuery('#ang-switch-selector').bind('change', replacer);
-				},
-				onHide: function() {
-					setTimeout(function(){
-						modal.destroy();
-					}, 200 );
-				},
-			} );
-
-			modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
-			modal.show();
-			jQuery( window ).resize();
-		},
-
-		handleCSSReset: function() {
-			elementorCommon.dialogsManager.createWidget( 'confirm', {
-				message: ANG_Action.translate.resetMessage,
-				headerMessage: ANG_Action.translate.resetHeader,
-				strings: {
-					confirm: elementor.translate( 'yes' ),
-					cancel: elementor.translate( 'cancel' ),
-				},
-				defaultOption: 'cancel',
-				onConfirm: analog.resetStyles,
-			} ).show();
-		},
-
-		handleSaveToken: function() {
-			const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
-				id: 'ang-modal-save-token',
-				headerMessage: ANG_Action.translate.saveToken,
-				message: '',
-				position: {
-					my: 'center',
-					at: 'center',
-				},
-				onReady: function() {
-					this.addButton( {
-						name: 'cancel',
-						text: ANG_Action.translate.cancel,
-						callback: function() {
-							modal.destroy();
-						},
-					} );
-					this.addButton( {
-						name: 'ok',
-						text: ANG_Action.translate.saveToken2,
-						callback: function( widget ) {
-							const title = widget.getElements( 'content' ).find( '#ang_token_title' ).val();
-
-							if ( title ) {
-								const angSettings = {};
-								const settings = elementor.documents.documents[elementor.config.kit_id].container.settings.attributes;
-
-								_.map( settings, function( value, key ) {
-									if ( eligibleKey( key ) ) {
-										angSettings[ key ] = value;
-									}
-								} );
-
-								wp.apiFetch( {
-									url: ANG_Action.saveToken,
-									method: 'post',
-									data: {
-										id: elementor.config.kit_id,
-										title: title,
-										settings: JSON.stringify( angSettings ),
-									},
-								} ).then( function( response ) {
-									const options = elementor.documents.documents[elementor.config.initial_document.id].container.controls.ang_action_tokens.options;
-									options[ response.id ] = title;
-
-									elementor.config.kit_id = response.id;
-
-									modal.destroy();
-
-									analog.setPanelTitle(response.id);
-
-									// Ensure current changes are not saved to active document.
-									$e.run( 'document/save/discard' );
-
-									/**
-									 * Open Document is not accessible while Kit is active.
-									 * So we close the Kit panel and then save Style Kit value.
-									 */
-									$e.run( 'panel/global/close' ).then( () => {
-										elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
-									} );
-
-									elementor.notifications.showToast( {
-										message: response.message,
-									} );
-								} ).catch( function( error ) {
-									elementorCommon.dialogsManager.createWidget( 'alert', {
-										headerMessage: error.code,
-										message: error.message,
-									} ).show();
-								} );
-							} else {
-								elementor.notifications.showToast( { message: 'Please enter a title to save your Kit.' } );
-							}
-						},
-					} );
-				},
-
-				onShow: function() {
-					const content = modal.getElements( 'content' );
-					content.append( `<input id="ang_token_title" type="text" value="" placeholder="${ ANG_Action.translate.enterTitle }" />` );
-				},
-			} );
-
-			modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
-			modal.show();
-			jQuery( window ).resize();
-		},
 	} );
+
 	elementor.addControlView( 'ang_action', ControlANGAction );
 
 	// jQuery( document ).on( 'heartbeat-tick', function( event, response ) {
@@ -644,4 +454,196 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		jQuery('body').toggleClass( 'dark-mode', value === 'dark' );
 	});
+
+	analog.handleCSSReset = () => {
+		elementorCommon.dialogsManager.createWidget( 'confirm', {
+			message: ANG_Action.translate.resetMessage,
+			headerMessage: ANG_Action.translate.resetHeader,
+			strings: {
+				confirm: elementor.translate( 'yes' ),
+				cancel: elementor.translate( 'cancel' ),
+			},
+			defaultOption: 'cancel',
+			onConfirm: analog.resetStyles,
+		} ).show();
+	};
+
+	analog.handleSaveToken = () => {
+		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
+			id: 'ang-modal-save-token',
+			headerMessage: ANG_Action.translate.saveToken,
+			message: '',
+			position: {
+				my: 'center',
+				at: 'center',
+			},
+			onReady: function() {
+				this.addButton( {
+					name: 'cancel',
+					text: ANG_Action.translate.cancel,
+					callback: function() {
+						modal.destroy();
+					},
+				} );
+				this.addButton( {
+					name: 'ok',
+					text: ANG_Action.translate.saveToken2,
+					callback: function( widget ) {
+						const title = widget.getElements( 'content' ).find( '#ang_token_title' ).val();
+
+						if ( title ) {
+							const angSettings = {};
+							const settings = elementor.documents.documents[elementor.config.kit_id].container.settings.attributes;
+
+							_.map( settings, function( value, key ) {
+								if ( eligibleKey( key ) ) {
+									angSettings[ key ] = value;
+								}
+							} );
+
+							wp.apiFetch( {
+								url: ANG_Action.saveToken,
+								method: 'post',
+								data: {
+									id: elementor.config.kit_id,
+									title: title,
+									settings: JSON.stringify( angSettings ),
+								},
+							} ).then( function( response ) {
+								const options = elementor.documents.documents[elementor.config.initial_document.id].container.controls.ang_action_tokens.options;
+								options[ response.id ] = title;
+
+								elementor.config.kit_id = response.id;
+
+								modal.destroy();
+
+								analog.setPanelTitle(response.id);
+
+								// Ensure current changes are not saved to active document.
+								$e.run( 'document/save/discard' );
+
+								/**
+								 * Open Document is not accessible while Kit is active.
+								 * So we close the Kit panel and then save Style Kit value.
+								 */
+								$e.run( 'panel/global/close' ).then( () => {
+									elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
+								} );
+
+								elementor.notifications.showToast( {
+									message: response.message,
+								} );
+							} ).catch( function( error ) {
+								elementorCommon.dialogsManager.createWidget( 'alert', {
+									headerMessage: error.code,
+									message: error.message,
+								} ).show();
+							} );
+						} else {
+							elementor.notifications.showToast( { message: 'Please enter a title to save your Kit.' } );
+						}
+					},
+				} );
+			},
+
+			onShow: function() {
+				const content = modal.getElements( 'content' );
+				content.append( `<input id="ang_token_title" type="text" value="" placeholder="${ ANG_Action.translate.enterTitle }" />` );
+			},
+		} );
+
+		modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
+		modal.show();
+		jQuery( window ).resize();
+	};
+
+	analog.handleCSSExport = () => {
+		// Get the whole Page CSS
+		const allStyles = elementor.settings.page.getControlsCSS().elements.$stylesheetElement[ 0 ].textContent;
+
+		// Then remove Page's custom CSS.
+		const pageCSS = elementor.settings.page.model.get( 'custom_css' );
+		const strippedCSS = allStyles.replace( pageCSS, '' );
+		const formattedCSS = cssbeautify( strippedCSS, {
+			indent: '  ',
+			openbrace: 'end-of-line',
+			autosemicolon: true,
+		} );
+
+		const replacer = (e) => {
+			const checked = e.target.checked;
+			const elBody = `body.elementor-kit-${elementor.config.document.id}`;
+			const elSelector = 'body.elementor-page';
+			const elTextarea = jQuery('#ang-export-css');
+
+			if ( checked ) {
+				let stripped = replaceAll( formattedCSS, elBody + ' ', elSelector + ' ' );
+				stripped = replaceAll( stripped, elBody + ':', elSelector + ':' );
+				stripped = replaceAll( stripped, elBody + ',', elSelector + ',' );
+
+				jQuery(elTextarea).html(stripped);
+			} else {
+				let stripped = replaceAll( formattedCSS, elSelector + ' ', elBody + ' ' );
+				stripped = replaceAll( stripped, elSelector + ':', elBody + ':' );
+				stripped = replaceAll( stripped, elSelector + ',', elBody + ',' );
+
+				jQuery(elTextarea).html(stripped);
+			}
+		};
+
+		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
+			id: 'ang-modal-export-css',
+			headerMessage: ANG_Action.translate.exportCSS,
+			message: '',
+			position: {
+				my: 'center',
+				at: 'center',
+			},
+			onReady: function() {
+				this.addButton( {
+					name: 'cancel',
+					text: elementor.translate( 'cancel' ),
+					callback: function() {
+						modal.destroy();
+					},
+				} );
+
+				this.addButton( {
+					name: 'ok',
+					text: ANG_Action.translate.copyCSS,
+					callback: function() {
+						const content = modal.getElements( 'content' );
+						jQuery( content.find( 'textarea' ) ).select();
+						document.execCommand( 'copy' );
+					},
+				} );
+			},
+
+			onShow: function() {
+				const content = modal.getElements( 'content' );
+				content.append( `
+						<textarea id="ang-export-css" rows="10">${formattedCSS}</textarea>
+						<div style="text-align:left;">
+							<input type="checkbox" id="ang-switch-selector" />
+							<label for="ang-switch-selector">${ANG_Action.translate.cssSelector}</label>
+						</div>
+					` );
+
+				jQuery('#ang-switch-selector').bind('change', replacer);
+			},
+			onHide: function() {
+				setTimeout(function(){
+					modal.destroy();
+				}, 200 );
+			},
+		} );
+
+		modal.getElements( 'message' ).append( modal.addElement( 'content' ) );
+		modal.show();
+		jQuery( window ).resize();
+	}
+
+	elementor.channels.editor.on( 'analog:resetKit', analog.handleCSSReset );
+	elementor.channels.editor.on( 'analog:saveKit', analog.handleSaveToken );
+	elementor.channels.editor.on( 'analog:exportCSS', analog.handleCSSExport );
 } );
