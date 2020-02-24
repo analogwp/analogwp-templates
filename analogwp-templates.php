@@ -167,13 +167,13 @@ add_action(
 			);
 		}
 
-		if ( defined( 'ELEMENTOR_VERSION' ) && ! version_compare( ELEMENTOR_VERSION, ANG_ELEMENTOR_MINIMUM, '>=' ) ) {
-			add_action( 'admin_notices', 'analog_require_minimum_elementor' );
+		if ( ! did_action( 'elementor/loaded' ) ) {
+			add_action( 'admin_notices', 'analog_fail_load' );
 			return;
 		}
 
-		if ( ! did_action( 'elementor/loaded' ) ) {
-			add_action( 'admin_notices', 'analog_fail_load' );
+		if ( ! version_compare( ELEMENTOR_VERSION, ANG_ELEMENTOR_MINIMUM, '>=' ) ) {
+			add_action( 'admin_notices', 'analog_require_minimum_elementor' );
 			return;
 		}
 
