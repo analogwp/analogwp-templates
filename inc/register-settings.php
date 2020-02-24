@@ -287,7 +287,7 @@ function theme_style_kit_onboarding() {
 							<a href="<?php echo esc_url( 'https://analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Read More about this', 'ang' ); ?></a>.
 						</p>
 						<div class="video-wrapper">
-							<?php echo $wp_embed->autoembed( 'https://www.youtube.com/watch?v=a6KGPBflhiM' ); //phpcs:ignore ?>
+							<?php echo $wp_embed->autoembed( 'https://www.youtube.com/watch?v=XUOzehfH7bI' ); //phpcs:ignore ?>
 						</div>
 						<p><?php esc_html_e( 'See what’s different in this quick video above.', 'ang' ); ?></p>
 					</div>
@@ -299,11 +299,6 @@ function theme_style_kit_onboarding() {
 						<a href="<?php echo esc_url( 'https://analogwp.com/support' ); ?>" target="_blank"><?php esc_html_e( 'Send a support ticket', 'ang' ); ?></a>
 						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=version-control' ) ); ?>"><?php esc_html_e( 'Rollback to an earlier version', 'ang' ); ?></a>
 					</nav>
-				</div>
-				<div class="actions">
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=analogwp_templates' ) ); ?>" class="redirect-btn">
-						<?php esc_html_e( 'Take me to SK Library', 'ang' ); ?> &rarr;
-					</a>
 				</div>
 			</div>
 		</div>

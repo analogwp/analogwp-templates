@@ -125,7 +125,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
-= 1.6.0 - Feb 22, 2020 =
+= 1.6.0 - Feb 24, 2020 =
 - New: Style Kits integrated into Theme Styles. All existing Style Kits, are automatically converted to native Theme Style Kits
 - New: Added welcome screen for Theme Styles
 - New: Added latest Google fonts missing in Elementor
