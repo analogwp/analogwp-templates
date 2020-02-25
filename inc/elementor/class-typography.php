@@ -17,6 +17,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
 use Analog\Utils;
+use Elementor\Plugin;
 
 if ( version_compare( ELEMENTOR_VERSION, '2.8.0', '<' ) ) {
 	class_alias( 'Elementor\Scheme_Typography', 'Analog\Elementor\Scheme_Typography' );
@@ -650,6 +651,16 @@ class Typography extends Module {
 	public function register_styling_settings( Controls_Stack $element, $section_id ) {
 		if ( 'section_page_style' !== $section_id ) {
 			return;
+		}
+
+		$id = get_the_ID();
+		if ( $id ) {
+			$document = Plugin::$instance->documents->get_doc_or_auto_save( $id );
+			$config   = $document::get_editor_panel_config();
+
+			if ( isset( $config['support_kit'] ) && ! $config['support_kit'] ) {
+				return;
+			}
 		}
 
 		$element->start_controls_section(
