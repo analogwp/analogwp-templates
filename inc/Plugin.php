@@ -56,7 +56,7 @@ final class Plugin {
 	 * @since n.e.x.t
 	 */
 	public function register() {
-		add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
+		add_action( 'init', array( self::$instance, 'load_textdomain' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( ANG_PLUGIN_FILE ), array( self::$instance, 'plugin_action_links' ) );
 		add_action( 'admin_enqueue_scripts', array( self::$instance, 'scripts' ) );
 		add_filter( 'analog/app/strings', array( self::$instance, 'send_strings_to_app' ) );
