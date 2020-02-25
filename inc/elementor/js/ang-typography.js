@@ -47,7 +47,7 @@ jQuery( document ).ready( function() {
 		return groups;
 	}
 
-	if ( ANG_Action.skPanelsAllowed ) {
+	if ( ANG_Action.skPanelsAllowed && elementor.config.initial_document.panel.support_kit ) {
 		elementor.hooks.addFilter( 'elements/widget/contextMenuGroups', addPageStyleSettings );
 		elementor.hooks.addFilter( 'elements/section/contextMenuGroups', addPageStyleSettings );
 		elementor.hooks.addFilter( 'elements/column/contextMenuGroups', addPageStyleSettings );
