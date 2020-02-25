@@ -12,6 +12,7 @@ const externals = {
 	react: 'React',
 	moment: 'moment',
 	'react-dom': 'ReactDOM',
+	'@wordpress/i18n': { this: [ 'wp', 'i18n' ] },
 };
 
 // Webpack config
@@ -49,7 +50,7 @@ const config = {
 
 // For Productions
 if ( inProduction ) {
-	config.plugins.push( new webpack.optimize.UglifyJsPlugin( { sourceMap: true } ) );
+	config.plugins.push( new webpack.optimize.UglifyJsPlugin( { sourceMap: true, mangle: false } ) );
 	config.plugins.push( new webpack.LoaderOptionsPlugin( { minimize: true } ) );
 }
 
