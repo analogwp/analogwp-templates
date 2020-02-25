@@ -322,7 +322,7 @@ final class Plugin {
 	 * @return void
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'ang', false, dirname( plugin_basename( ANG_PLUGIN_DIR ) ) . '/languages/' );
+		load_plugin_textdomain( 'ang', false, plugin_basename( ANG_PLUGIN_DIR ) . '/languages/' );
 	}
 
 	/**
