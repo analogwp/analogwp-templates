@@ -12,6 +12,14 @@
 
 		function bindEvents() {
 			elementor.once( 'preview:loaded', function() {
+				if ( ! elementor.config.initial_document.panel.support_kit ) {
+					return;
+				}
+
+				if ( ! elementor.config.user.can_edit_kit ) {
+					return;
+				}
+
 				elementor.settings.page.addChangeCallback( 'ang_action_tokens', refreshKit );
 
 				if ( elementor.config.initial_document.type !== 'kit' ) {
