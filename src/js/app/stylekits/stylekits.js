@@ -285,7 +285,7 @@ export default class StyleKits extends React.Component {
 				<ChildContainer>
 					{ this.context.state.styleKits.length > 0 && this.context.state.styleKits.map( ( kit ) => {
 						return (
-							<li key={ kit.id }>
+							<li key={ kit.id + '-' + kit.site_id }>
 								<figure>
 									<img src={ kit.image } alt={ kit.title } />
 
