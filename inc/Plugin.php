@@ -139,7 +139,7 @@ final class Plugin {
 			'version'        => ANG_VERSION,
 			'elementorURL'   => admin_url( 'edit.php?post_type=elementor_library' ),
 			'debugMode'      => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
-			'pluginURL'      => plugin_dir_url( __FILE__ ),
+			'pluginURL'      => ANG_PLUGIN_URL,
 			'license'        => array(
 				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 				'message' => get_transient( 'ang_license_message' ),
