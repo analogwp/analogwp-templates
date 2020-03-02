@@ -13,20 +13,24 @@
 			elementor.once( 'preview:loaded', function() {
 				elementor.channels.editor.on( 'analog:editKit', () => $e.run( 'panel/global/open' ) );
 
-				const pageContainer = elementor.documents.documents[elementor.config.initial_document.id].container;
-				const styleKitId = pageContainer.settings.attributes.ang_action_tokens;
-				const options = pageContainer.controls.ang_action_tokens.options;
-
-				if ( '' === styleKitId || ! ( parseInt(styleKitId) in options ) ) {
-					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', AGWP.global_kit );
-				}
-
 				if ( 'undefined' === typeof (elementor.config.initial_document.panel) || ! elementor.config.initial_document.panel.support_kit ) {
 					return;
 				}
 
 				if ( ! elementor.config.user.can_edit_kit ) {
 					return;
+				}
+
+				if ( elementor.config.initial_document.type === 'kit' ) {
+					return;
+				}
+
+				const pageContainer = elementor.documents.documents[elementor.config.initial_document.id].container;
+				const styleKitId = pageContainer.settings.attributes.ang_action_tokens;
+				const options = pageContainer.controls.ang_action_tokens.options;
+
+				if ( '' === styleKitId || ! ( parseInt(styleKitId) in options ) ) {
+					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', AGWP.global_kit );
 				}
 
 				elementor.settings.page.addChangeCallback( 'ang_action_tokens', refreshKit );
