@@ -256,7 +256,7 @@ function theme_style_kit_onboarding() {
 							<?php echo __( 'With the introduction of Theme Styles in Elementor v2.9.0, 	Style Kits are now <strong>integrated into the Theme Styles panel</strong>, bringing you a consistent, native experience.', 'ang' ); ?>
 						</p>
 						<div class="video-wrapper">
-							<?php echo $wp_embed->autoembed( 'https://www.youtube.com/watch?v=XUOzehfH7bI' ); //phpcs:ignore ?>
+							<?php echo $wp_embed->autoembed( 'https://www.youtube.com/watch?v=ItcKsNztJJU' ); //phpcs:ignore ?>
 						</div>
 						<p><?php esc_html_e( 'See what’s different in this quick video above.', 'ang' ); ?></p>
 					</div>
