@@ -15,11 +15,6 @@
 	padding: 18px;
 }
 
-.analog-welcome-screen .entry-footer nav {
-	display: flex;
-	justify-content: space-between;
-}
-
 .analog-welcome-screen .entry-header {
 	padding: 16px 16px;
 	background-color: #6133C1;
