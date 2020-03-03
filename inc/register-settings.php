@@ -210,36 +210,6 @@ function create_options() {
 add_action( 'init', 'Analog\Settings\create_options' );
 
 /**
- * Register plugin settings.
- *
- * @return void
- */
-function register_settings() {
-	register_setting(
-		'ang',
-		'ang_import_count',
-		array(
-			'type'              => 'number',
-			'description'       => esc_html__( 'Imported Count', 'ang' ),
-			'sanitize_callback' => 'absint',
-			'show_in_rest'      => true,
-			'default'           => 0,
-		)
-	);
-
-	register_setting(
-		'ang',
-		'ang_imported_templates',
-		array(
-			'type'         => 'string',
-			'description'  => esc_html__( 'Imported templates', 'ang' ),
-			'show_in_rest' => true,
-			'default'      => '',
-		)
-	);
-}
-
-/**
  * Admin page contents for Theme Style Kit migration screen.
  *
  * @since n.e.x.t
@@ -283,8 +253,7 @@ function theme_style_kit_onboarding() {
 					<h3 class="entry-title"><?php esc_html_e( 'Style Kits are now integrated into Elementor Theme Styles', 'ang' ); ?></h3>
 					<div class="entry-content">
 						<p class="intro">
-							<?php echo __( 'With the introduction of Theme Styles in Elementor v2.9.0, Style Kits are now <strong>integrated into the Theme Styles panel</strong>, bringing you a consistent, native experience.', 'ang' ); ?>
-							<a href="<?php echo esc_url( 'https://analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Read More about this', 'ang' ); ?></a>.
+							<?php echo __( 'With the introduction of Theme Styles in Elementor v2.9.0, 	Style Kits are now <strong>integrated into the Theme Styles panel</strong>, bringing you a consistent, native experience.', 'ang' ); ?>
 						</p>
 						<div class="video-wrapper">
 							<?php echo $wp_embed->autoembed( 'https://www.youtube.com/watch?v=XUOzehfH7bI' ); //phpcs:ignore ?>
@@ -295,9 +264,8 @@ function theme_style_kit_onboarding() {
 				<div class="entry-footer">
 					<h3><?php esc_html_e( 'Need help?', 'ang' ); ?></h3>
 					<nav>
-						<a href="<?php echo esc_url( 'https://docs.analogwp.com' ); ?>" target="_blank"><?php esc_html_e( 'Go to docs', 'ang' ); ?></a>
+						<a href="<?php echo esc_url( 'https://docs.analogwp.com' ); ?>" target="_blank"><?php esc_html_e( 'Go to docs', 'ang' ); ?></a>&nbsp;&#124;&nbsp;
 						<a href="<?php echo esc_url( 'https://analogwp.com/support' ); ?>" target="_blank"><?php esc_html_e( 'Send a support ticket', 'ang' ); ?></a>
-						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=version-control' ) ); ?>"><?php esc_html_e( 'Rollback to an earlier version', 'ang' ); ?></a>
 					</nav>
 				</div>
 			</div>
