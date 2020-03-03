@@ -24,7 +24,7 @@ class Utils extends Base {
 	/**
 	 * Transients object.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @var Transients
 	 */
@@ -33,7 +33,7 @@ class Utils extends Base {
 	/**
 	 * Utils constructor.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 */
 	public function __construct() {
 		if ( ! $this->transients ) {
@@ -738,7 +738,7 @@ class Utils extends Base {
 	/**
 	 * Allow to remove method for an hook when, it's a class method used and class don't have variable, but you know the class name.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @param string $hook_name Hook/action name to remove.
 	 * @param string $class_name Class name. `Colors::class` for example.

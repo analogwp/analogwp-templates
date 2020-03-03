@@ -16,7 +16,7 @@ class Options extends Base {
 	/**
 	 * Checks whether or not a value is set for the given option.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @param string $option Option name.
 	 * @return bool True if value set, false otherwise.

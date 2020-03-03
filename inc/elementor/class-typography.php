@@ -896,7 +896,7 @@ class Typography extends Module {
 	 * @param string $key Setting ID.
 	 * @param bool   $is_array Whether provided key includes set of array.
 	 *
-	 * @deprecated n.e.x.t
+	 * @deprecated 1.6.0
 	 *
 	 * @return array|string
 	 */
@@ -921,7 +921,7 @@ class Typography extends Module {
 	 *
 	 * @param string $key Setting ID.
 	 *
-	 * @deprecated n.e.x.t
+	 * @deprecated 1.6.0
 	 *
 	 * @return array
 	 */

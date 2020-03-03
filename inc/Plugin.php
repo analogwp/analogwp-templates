@@ -13,14 +13,14 @@ use Analog\Admin\Notices;
 /**
  * Main class for the plugin.
  *
- * @since n.e.x.t
+ * @since 1.6.0
  */
 final class Plugin {
 
 	/**
 	 * Main instance of the plugin.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 * @var Plugin|null
 	 */
 	private static $instance;
@@ -42,7 +42,7 @@ final class Plugin {
 	/**
 	 * Sets the plugin main file.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @param string $main_file Absolute path to the plugin main file.
 	 */
@@ -53,7 +53,7 @@ final class Plugin {
 	/**
 	 * Registers the plugin with WordPress.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 */
 	public function register() {
 		add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
@@ -182,7 +182,7 @@ final class Plugin {
 	/**
 	 * Include required files.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @access private
 	 * @return void
@@ -249,7 +249,7 @@ final class Plugin {
 	/**
 	 * Retrieves the main instance of the plugin.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @return Plugin Plugin main instance.
 	 */
@@ -260,7 +260,7 @@ final class Plugin {
 	/**
 	 * Loads the plugin main instance and initializes it.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @param string $main_file Absolute path to the plugin main file.
 	 * @return bool True if the plugin main instance could be loaded, false otherwise.

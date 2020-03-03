@@ -10,7 +10,7 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits adds intuitive styling controls in the Elementor editor that power-up your design workflow.
- * Version:     1.6.0-beta1
+ * Version:     1.6.0
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 define( 'ANG_ELEMENTOR_MINIMUM', '2.9.0' );
 define( 'ANG_PHP_MINIMUM', '5.6.0' );
 define( 'ANG_WP_MINIMUM', '5.0' );
-define( 'ANG_VERSION', '1.6.0-beta1' );
+define( 'ANG_VERSION', '1.6.0' );
 define( 'ANG_PLUGIN_FILE', __FILE__ );
 define( 'ANG_PLUGIN_URL', plugin_dir_url( ANG_PLUGIN_FILE ) );
 define( 'ANG_PLUGIN_DIR', plugin_dir_path( ANG_PLUGIN_FILE ) );
@@ -34,7 +34,7 @@ define( 'ANG_PLUGIN_BASE', plugin_basename( ANG_PLUGIN_FILE ) );
  *
  * Throws an error if the plugin is activated on an older version than PHP 5.6.
  *
- * @since n.e.x.t
+ * @since 1.6.0
  * @access private
  * @return void
  */
@@ -55,7 +55,7 @@ register_activation_hook( __FILE__, 'analog_activate_plugin' );
 /**
  * Handles plugin deactivation.
  *
- * @since n.e.x.t
+ * @since 1.6.0
  * @access private
  * @return void
  */
@@ -154,7 +154,7 @@ function analog_fail_load() {
 /**
  * Fire up plugin instance.
  *
- * @since n.e.x.t Add PHP version check.
+ * @since 1.6.0 Add PHP version check.
  */
 add_action(
 	'plugins_loaded',

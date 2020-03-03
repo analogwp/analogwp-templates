@@ -105,7 +105,7 @@ function do_automatic_upgrades() {
 	}
 
 	if (
-		version_compare( $installed_version, '1.6.0-beta1', '<' )
+		version_compare( $installed_version, '1.6.0', '<' )
 		 && ! Options::get_instance()->get( 'theme_style_kit_migrated' )
 	) {
 		version_1_6_0_upgrades();

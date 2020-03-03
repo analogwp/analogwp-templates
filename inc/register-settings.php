@@ -212,7 +212,7 @@ add_action( 'init', 'Analog\Settings\create_options' );
 /**
  * Admin page contents for Theme Style Kit migration screen.
  *
- * @since n.e.x.t
+ * @since 1.6.0
  * @return void
  */
 function theme_style_kit_onboarding() {

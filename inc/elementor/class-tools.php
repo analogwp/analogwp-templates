@@ -63,7 +63,7 @@ class Tools extends Base {
 	/**
 	 * Checks if current screen is Style Kits CPT screen.
 	 *
-	 * @deprecated n.e.x.t
+	 * @deprecated 1.6.0
 	 *
 	 * @return bool
 	 */

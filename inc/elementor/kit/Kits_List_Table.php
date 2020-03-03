@@ -204,7 +204,7 @@ class Kits_List_Table extends \WP_List_Table {
 	/**
 	 * Get Elementor export link.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @param int $id Post ID.
 	 * @return string
@@ -225,7 +225,7 @@ class Kits_List_Table extends \WP_List_Table {
 	/**
 	 * Get bulk actions.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @return array
 	 */
@@ -238,7 +238,7 @@ class Kits_List_Table extends \WP_List_Table {
 	/**
 	 * Gets links to filter posts by status.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @return array
 	 */
@@ -267,7 +267,7 @@ class Kits_List_Table extends \WP_List_Table {
 	/**
 	 * Get bulk actions.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @return void
 	 */
@@ -286,7 +286,7 @@ class Kits_List_Table extends \WP_List_Table {
 /**
  * Generates page HTML for Kits listing page.
  *
- * @since n.e.x.t
+ * @since 1.6.0
  *
  * @return void
  */

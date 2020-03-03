@@ -15,7 +15,7 @@ use Elementor\Controls_Stack;
 /**
  * Class Promotions
  *
- * @since n.e.x.t
+ * @since 1.6.0
  *
  * @package Analog\Elementor
  */
@@ -31,7 +31,7 @@ final class Promotions extends Base {
 	/**
 	 * Register Layout Tools panel.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @param Controls_Stack $element Controls object.
 	 * @param string         $section_id Section ID.
@@ -72,7 +72,7 @@ final class Promotions extends Base {
 	/**
 	 * Register Form (Extended) panel.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 *
 	 * @param Controls_Stack $element Controls object.
 	 * @param string         $section_id Section ID.
@@ -109,7 +109,7 @@ final class Promotions extends Base {
 	/**
 	 * Get promotional teaser template.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.0
 	 * @param array $texts Text arguments.
 	 *
 	 * @return false|string
