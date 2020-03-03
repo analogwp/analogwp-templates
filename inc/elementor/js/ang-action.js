@@ -22,6 +22,8 @@
 				}
 
 				if ( elementor.config.initial_document.type === 'kit' ) {
+					elementor.$previewContents.find('body').removeClass(`elementor-kit-${elementor.config.kit_id}`).addClass(`elementor-kit-${elementor.config.document.id}`);
+					enqueueFonts();
 					return;
 				}
 
@@ -35,24 +37,19 @@
 
 				elementor.settings.page.addChangeCallback( 'ang_action_tokens', refreshKit );
 
-				if ( elementor.config.initial_document.type !== 'kit' ) {
-					if ( ANG_Action.globalKit && ! ( parseInt( elementor.settings.page.model.attributes.ang_action_tokens ) in elementor.settings.page.model.controls.ang_action_tokens.options ) ) {
-						elementor.settings.page.model.setExternalChange( 'ang_action_tokens', ANG_Action.globalKit );
-					}
-
-					const activeKit = elementor.settings.page.model.attributes.ang_action_tokens;
-
-					if ( undefined !== activeKit ) {
-						elementor.config.kit_id = activeKit;
-						fixKitClasses();
-						analog.setPanelTitle( activeKit );
-					}
-					enqueueFonts();
-					loadDocumentAndEnqueueFonts( elementor.config.kit_id );
-				} else {
-					elementor.$previewContents.find('body').removeClass(`elementor-kit-${elementor.config.kit_id}`).addClass(`elementor-kit-${elementor.config.document.id}`);
-					enqueueFonts();
+				if ( ANG_Action.globalKit && ! ( parseInt( elementor.settings.page.model.attributes.ang_action_tokens ) in elementor.settings.page.model.controls.ang_action_tokens.options ) ) {
+					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', ANG_Action.globalKit );
 				}
+
+				const activeKit = elementor.settings.page.model.attributes.ang_action_tokens;
+
+				if ( undefined !== activeKit ) {
+					elementor.config.kit_id = activeKit;
+					fixKitClasses();
+					analog.setPanelTitle( activeKit );
+				}
+				enqueueFonts();
+				loadDocumentAndEnqueueFonts( elementor.config.kit_id );
 			});
 		}
 
