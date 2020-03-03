@@ -227,6 +227,10 @@ final class Plugin {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Kits_List_Table.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Core/Util/Migration.php';
 
+		if ( ! defined( 'ANG_PRO_VERSION' ) ) {
+			require_once ANG_PLUGIN_DIR . 'inc/elementor/Promotions.php';
+		}
+
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			require_once ANG_PLUGIN_DIR . 'inc/cli/commands.php';
 		}
