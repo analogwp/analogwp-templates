@@ -2,7 +2,8 @@
 
 namespace Analog\Elementor\Tags;
 
-use Elementor\Core\DynamicTags\Tag as Tag;
+use Elementor\Core\DynamicTags\Tag;
+use Elementor\Modules\DynamicTags\Module;
 
 class Light_Background extends Tag {
 	public function get_name() {
@@ -18,7 +19,7 @@ class Light_Background extends Tag {
 	}
 
 	public function get_categories() {
-		return [ \Elementor\Modules\DynamicTags\Module::TEXT_CATEGORY ];
+		return array( Module::TEXT_CATEGORY );
 	}
 
 	public function render() {

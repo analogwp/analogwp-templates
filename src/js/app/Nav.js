@@ -29,7 +29,7 @@ const List = styled.ul`
 			bottom: -29px;
 			border-style: solid;
 			border-width: 0 10px 10px 10px;
-			border-color: transparent transparent #E3E3E3 transparent;
+			border-color: transparent transparent #fff transparent;
 			left: 50%;
 			transform: translateX(-50%);
 
@@ -63,41 +63,49 @@ const Count = styled.span`
 `;
 
 const ITEMS = [
-	{ key: 'templates', label: __( 'Templates', 'ang' ), show: true },
-	{ key: 'stylekits', label: __( 'Style Kits', 'ang' ), show: true },
+	{ key: 'templates', label: __( 'Templates', 'ang' ) },
+	// dont change the "styleKits" casing here
+	{ key: 'styleKits', label: __( 'Style Kits', 'ang' ) },
+	{ key: 'blocks', label: __( 'Blocks', 'ang' ) },
 ];
 
-// Filter nav items to show/hide between App and Elementor page.
-// const filteredItems = ITEMS.filter( item => Boolean( item.show ) === true );
+const Nav = () => {
+	const context = React.useContext( AnalogContext );
 
-const Nav = () => (
-	<List>
-		<AnalogContext.Consumer>
-			{ ( { state, dispatch } ) => (
-				ITEMS.map( ( item ) => (
-					<li
-						key={ item.key }
-						className={ classnames( 'button-plain', {
-							active: item.key === state.tab,
-						} ) }
-					>
-						<a href={ `#${ item.key }` } onClick={ () => dispatch( { tab: item.key } ) }>{ item.label }</a>
-						{ state.templates && item.key === 'templates' && (
-							<Count>
-								{ state.showFree ? Object.keys( state.templates.filter( t => t.is_pro !== true ) ).length : Object.keys( state.templates ).length }
-							</Count>
-						) }
+	const getCount = ( tab ) => {
+		let items = context.state[ tab ];
 
-						{ item.key === 'stylekits' && state.styleKits && (
-							<Count>
-								{ state.showFree ? state.styleKits.filter( k => k.is_pro !== true ).length : Object.keys( state.styleKits ).length }
-							</Count>
-						) }
-					</li>
-				) )
-			) }
-		</AnalogContext.Consumer>
-	</List>
-);
+		if ( tab === 'templates' ) {
+			items = context.state.archive;
+		}
+		if ( tab === 'blocks' ) {
+			items = context.state.blockArchive;
+		}
+
+		if ( ! items ) {
+			return false;
+		}
+
+		return items.length;
+	};
+
+	return (
+		<List className="ang-nav">
+			{ ITEMS.map( ( item ) => (
+				<li
+					key={ item.key }
+					className={ classnames( 'button-plain', {
+						active: item.key === context.state.tab,
+					} ) }
+				>
+					<a href={ `#${ item.key }` } onClick={ () => context.dispatch( { tab: item.key } ) }>
+						{ item.label }
+						{ getCount( item.key ) > 0 && <Count>{ getCount( item.key ) }</Count> }
+					</a>
+				</li>
+			) ) }
+		</List>
+	);
+};
 
 export default Nav;

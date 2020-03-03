@@ -20,7 +20,7 @@ class Import_Image extends Base {
 	 *
 	 * @var array   The Array of already image IDs.
 	 */
-	private $already_imported_ids = [];
+	private $already_imported_ids = array();
 
 	/**
 	 * Constructor
@@ -94,21 +94,21 @@ class Import_Image extends Base {
 
 			$post_id = $wpdb->get_var(
 				$wpdb->prepare(
-				 "
+					"
 					SELECT post_id FROM {$wpdb->postmeta}
 					WHERE meta_key = '_wp_attached_file'
 					AND meta_value LIKE %s
 				",
-				'%/' . $filename . '%'
+					'%/' . $filename . '%'
 				)
 			);
 		}
 
 		if ( $post_id ) {
-			$new_attachment = [
+			$new_attachment = array(
 				'id'  => $post_id,
 				'url' => \wp_get_attachment_url( $post_id ),
-			];
+			);
 
 			$this->already_imported_ids[ $attachment['id'] ] = $new_attachment;
 

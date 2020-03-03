@@ -7,12 +7,15 @@
 
 namespace Analog\Elementor;
 
+use Analog\Options;
+use Elementor\Base_Data_Control;
+
 /**
  * ANG_Action class.
  *
  * @since 1.2
  */
-class ANG_Action extends \Elementor\Base_Data_Control {
+class ANG_Action extends Base_Data_Control {
 	/**
 	 * Get control type.
 	 * Retrieve the control type.
@@ -60,12 +63,12 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 
 		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_enqueue_style( 'hint-css', ANG_PLUGIN_URL . 'inc/elementor/css/hint.min.css', [], '2.5.1' );
+		wp_enqueue_style( 'hint-css', ANG_PLUGIN_URL . 'inc/elementor/css/hint.min.css', array(), '2.5.1' );
 
 		wp_enqueue_script(
 			'cssbeautify',
 			ANG_PLUGIN_URL . 'inc/elementor/js/cssbeautify.min.js',
-			[],
+			array(),
 			'0.3.1',
 			false
 		);
@@ -73,27 +76,28 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 		wp_enqueue_script(
 			'ang_action',
 			ANG_PLUGIN_URL . "inc/elementor/js/ang-action{$script_suffix}.js",
-			[
+			array(
 				'jquery',
 				'cssbeautify',
-			],
-			ANG_VERSION,
+			),
+			filemtime( ANG_PLUGIN_DIR . "inc/elementor/js/ang-action{$script_suffix}.js" ),
 			false
 		);
 
-		$central_color_palette = [];
-		if ( class_exists( 'kt_Central_Palette' ) ) {
-			$central_color_palette = \kt_Central_Palette::instance()->get_colors();
+		$sk_panels_allowed = true;
+		if ( has_filter( 'ang_sk_elementor_disabled', '__return_true' ) ) {
+			$sk_panels_allowed = false;
 		}
 
 		wp_localize_script(
 			'ang_action',
 			'ANG_Action',
-			[
-				'saveToken' => rest_url( 'agwp/v1/tokens/save' ),
-				'palette'   => $central_color_palette,
-				'translate' => [
-					'resetMessage'    => __( 'This will reset all the settings you configured previously under Page Style Settings from Analog Templates.', 'ang' ),
+			array(
+				'saveToken'       => rest_url( 'agwp/v1/tokens/save' ),
+				'cssDir'          => \Elementor\Core\Files\Base::get_base_uploads_url() . \Elementor\Core\Files\Base::DEFAULT_FILES_DIR,
+				'globalKit'       => Options::get_instance()->get( 'global_kit' ),
+				'translate'       => array(
+					'resetMessage'    => __( 'This will clean-up all the values from the current Theme Style kit. If you need to revert, you can do so at the Revisions tab.', 'ang' ),
 					'resetHeader'     => __( 'Are you sure?', 'ang' ),
 					'saveToken'       => __( 'Save Style Kit as', 'ang' ),
 					'saveToken2'      => __( 'Save', 'ang' ),
@@ -124,10 +128,24 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 					'got_it'          => __( 'Ok, got it.', 'ang' ),
 					'gotoPageStyle'   => __( 'Go to Page Style', 'ang' ),
 					'pageStyleHeader' => __( 'This template offers global typography and spacing control, through the Page Style tab.', 'ang' ),
-					/* todo: Add the correct link. */
 					'pageStyleDesc'   => __( 'Typography, column gaps and more, are controlled layout-wide at Page Styles Panel, giving you the flexibility you need over the design of this template. You can save the styles and apply them to any other page. <a href="#" target="_blank">Learn More.</a>', 'ang' ),
-				],
-			]
+					'cssVariables'    => __( 'CSS Variables', 'ang' ),
+					'cssSelector'     => __( 'Remove Page ID from the CSS', 'ang' ),
+				),
+				'skPanelsAllowed' => $sk_panels_allowed,
+			)
+		);
+	}
+
+	/**
+	 * Get default control settings.
+	 *
+	 * @since 1.6.0
+	 * @return array
+	 */
+	protected function get_default_settings() {
+		return array(
+			'button_type' => 'success',
 		);
 	}
 
@@ -136,6 +154,7 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 	 *
 	 * {@inheritDoc}
 	 *
+	 * @since 1.6.0 Added data.button_type class to button.
 	 * @return void
 	 */
 	public function content_template() {
@@ -147,7 +166,7 @@ class ANG_Action extends \Elementor\Base_Data_Control {
 				<button
 					data-action="{{ data.action }}"
 					style="padding:7px 10px"
-					class="elementor-button elementor-button-success"
+					class="elementor-button elementor-button-{{{ data.button_type }}}"
 				>
 				{{{ data.action_label }}}</button>
 			</div>

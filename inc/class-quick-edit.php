@@ -1,30 +1,49 @@
 <?php
+/**
+ * Class Analog\QuickEdit.
+ *
+ * @package Analog
+ */
 
 namespace Analog;
 
 use Elementor\Plugin;
 use Elementor\User;
 
+/**
+ * Class Quick_Edit
+ *
+ * @package Analog
+ */
 class Quick_Edit extends Base {
 	const FIELD_SLUG = 'ang_stylekit';
+
+	/**
+	 * Holds kit data.
+	 *
+	 * @access private
+	 * @var array kits.
+	 */
+	private static $kits = '';
 
 	/**
 	 * QuickEdit constructor.
 	 */
 	public function __construct() {
-		add_filter( 'manage_post_posts_columns', [ $this, 'add_sk_column' ], 10, 2 );
-		add_filter( 'manage_page_posts_columns', [ $this, 'add_sk_column' ], 10, 2 );
-		add_filter( 'manage_elementor_library_posts_columns', [ $this, 'add_sk_column' ], 10, 2 );
+		add_filter( 'manage_post_posts_columns', array( $this, 'add_sk_column' ), 10, 2 );
+		add_filter( 'manage_page_posts_columns', array( $this, 'add_sk_column' ), 10, 2 );
+		add_filter( 'manage_elementor_library_posts_columns', array( $this, 'add_sk_column' ), 10, 2 );
 
-		add_action( 'manage_posts_custom_column', [ $this, 'populate_columns' ], 10, 2 );
-		add_action( 'manage_page_posts_custom_column', [ $this, 'populate_columns' ], 10, 2 );
+		add_action( 'manage_posts_custom_column', array( $this, 'populate_columns' ), 10, 2 );
+		add_action( 'manage_page_posts_custom_column', array( $this, 'populate_columns' ), 10, 2 );
 
-		add_action( 'quick_edit_custom_box', [ $this, 'display_custom_quickedit_book' ], 10, 2 );
-		add_action( 'bulk_edit_custom_box', [ $this, 'display_custom_quickedit_book' ], 10, 2 );
-		add_action( 'save_post', [ $this, 'quick_edit_save' ] );
+		add_action( 'quick_edit_custom_box', array( $this, 'display_custom_quickedit_book' ), 10, 2 );
+		add_action( 'bulk_edit_custom_box', array( $this, 'display_custom_quickedit_book' ), 10, 2 );
+		add_action( 'save_post', array( $this, 'quick_edit_save' ) );
 
-		add_action( 'admin_enqueue_scripts', [ $this, 'quick_edit_scripts' ] );
-		add_action( 'wp_ajax_save_bulk_edit_stylekit', [ $this, 'save_bulk_edit_stylekit' ] );
+		add_action( 'admin_enqueue_scripts', array( $this, 'quick_edit_scripts' ) );
+		add_action( 'wp_ajax_save_bulk_edit_stylekit', array( $this, 'save_bulk_edit_stylekit' ) );
+		self::$kits = Utils::get_kits();
 	}
 
 	/**
@@ -36,18 +55,21 @@ class Quick_Edit extends Base {
 	 * @return void
 	 */
 	protected function update_posts_stylekit( $post_id, $kit_id ) {
-		$token = get_post_meta( $kit_id, '_tokens_data', true );
-		$token = json_decode( $token, ARRAY_A );
-		$token = array_merge( $token, [ 'ang_action_tokens' => $kit_id ] );
+		if ( ! $kit_id || '-1' === $kit_id ) {
+			return;
+		}
+
+		$token = get_post_meta( $kit_id, '_elementor_page_settings', true );
+		$token = array_merge( $token, array( 'ang_action_tokens' => (string) $kit_id ) );
 
 		$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
 		if ( ! is_array( $settings ) ) {
-			$settings = [];
+			$settings = array();
 		}
 
 		$settings = array_merge( $settings, $token );
 
-		update_post_meta( $post_id, '_elementor_page_settings', $settings );
+		Utils::update_style_kit_for_post( $post_id, $settings );
 		Utils::clear_elementor_cache();
 	}
 
@@ -79,32 +101,15 @@ class Quick_Edit extends Base {
 				$is_elementor = get_post_meta( $id, '_elementor_edit_mode', true );
 
 				if ( 'builder' === $is_elementor ) {
-					$value = 'elementor';
+					$value = Options::get_instance()->get( 'global_kit' );
 					if ( is_array( $settings ) && isset( $settings['ang_action_tokens'] ) ) {
 						$value = esc_html( $settings['ang_action_tokens'] );
 					}
 
-					echo $value;
+					echo $value; // phpcs:ignore
 				}
 				break;
-		endswitch;
-	}
-
-	/**
-	 * Get Style Kit IDs.
-	 *
-	 * @return array|bool Style Kit IDs, false if empty.
-	 */
-	public function get_stylekits() {
-		$posts = get_posts(
-			[
-				'post_type'   => 'ang_tokens',
-				'numberposts' => -1,
-				'fields'      => 'ids',
-			]
-		);
-
-		return $posts;
+		endswitch;  // phpcs:ignore
 	}
 
 	/**
@@ -124,7 +129,7 @@ class Quick_Edit extends Base {
 		}
 
 		?>
-		<?php if ( self::FIELD_SLUG === $column_name && $this->get_stylekits() ) : ?>
+		<?php if ( self::FIELD_SLUG === $column_name && self::$kits ) : ?>
 			<fieldset id="ang-stylekit-fieldset" class="inline-edit-col-left" style="clear:both">
 				<style>.column-ang_stylekit{display: none;}</style>
 				<div class="inline-edit-col">
@@ -132,16 +137,15 @@ class Quick_Edit extends Base {
 						<label class="inline-edit-group">
 							<span class="title"><?php esc_html_e( 'Style Kit', 'ang' ); ?></span>
 							<select name="ang_stylekit">
-								<option value="-1">&mdash; Select &mdash;</option>
-								<?php foreach ( $this->get_stylekits() as $id ) : ?>
-									<option value="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( get_the_title( $id ) ); ?></option>
+								<?php foreach ( self::$kits as $id => $title ) : ?>
+									<option value="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $title ); ?></option>
 								<?php endforeach; ?>
 							</select>
 						</label>
 					</div>
 				</div>
 			</fieldset>
-		<?php
+			<?php
 		endif;
 	}
 
@@ -173,7 +177,16 @@ class Quick_Edit extends Base {
 	 */
 	public function quick_edit_scripts( $hook ) {
 		if ( 'edit.php' === $hook ) {
-			wp_enqueue_script( 'ang-quick-edit', ANG_PLUGIN_URL . 'assets/js/quick-edit.js', [ 'jquery' ], ANG_VERSION, true );
+			wp_enqueue_script( 'ang-quick-edit', ANG_PLUGIN_URL . 'assets/js/quick-edit.js', array( 'jquery' ), ANG_VERSION, true );
+
+			wp_localize_script(
+				'ang-quick-edit',
+				'angQuickEdit',
+				array(
+					'kits'      => Utils::get_kits( false ),
+					'globalKit' => Utils::get_global_kit_id(),
+				)
+			);
 		}
 	}
 

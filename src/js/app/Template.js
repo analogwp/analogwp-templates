@@ -7,6 +7,8 @@ const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
 
 const Template = ( { template, setModalContent, importLayout, favorites, makeFavorite } ) => {
+	const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
+
 	return (
 		<li>
 			{ ( isNewTheme( template.published ) > -14 ) && (
@@ -19,7 +21,10 @@ const Template = ( { template, setModalContent, importLayout, favorites, makeFav
 					<button className="ang-button" onClick={ () => setModalContent( template ) }>
 						{ __( 'Preview', 'ang' ) }
 					</button>
-					{ ! template.is_pro && (
+					{ ! isValid( template.is_pro ) && (
+						<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank"><button className="ang-button">{ __( 'Go Pro', 'ang' ) }</button></a>
+					) }
+					{ isValid( template.is_pro ) && (
 						<button className="ang-button" onClick={ () => importLayout( template ) }>
 							{ __( 'Import', 'ang' ) }
 						</button>

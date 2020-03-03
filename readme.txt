@@ -1,10 +1,10 @@
-=== Style Kits for Elementor ===
+=== Style Kits - Advanced Theme Styles for Elementor ===
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
-Requires PHP: 5.4
-Tested up to: 5.3
-Stable tag: 1.3.8
-Tags: elementor, landing page, design, website builder, templates
+Requires PHP: 5.6
+Tested up to: 5.3.2
+Stable tag: 1.6.0
+Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,53 +12,47 @@ Style Kits adds intuitive styling controls in the Elementor editor that power-up
 
 == Description ==
 
-[Style Kits for Elementor](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) (formerly Analog Templates for Elementor) adds a number of intuitive styling controls in the Elementor editor that allow you to apply styles globally or per page.
+[Style Kits](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) extends the flexibility of Elementor Theme Styles and introduces the first library of Theme-Style-ready template kits and blocks.
 
-Stop manually adding / copying / pasting styles across layouts and experience macro control of the most essential aspects of your layout system:
+https://www.youtube.com/watch?v=ItcKsNztJJU
 
-https://www.youtube.com/watch?v=FZfTG3l-7T8
+### Advanced Theme Styles
 
-- Body text
-- Headings
-- Headings and text sizes
+Style Kits adds meaningful UI controls to Theme Styles for the most important variables of your layout system in Elementor:
+
 - Column Gaps
-- Buttons
-- Colors and more are coming soon
+- Outer Section Padding
+- Buttons Colors (per size)
+- Accent colors
+- Background classes and many more...
 
-#### Typography
+#### Theme Style Presets
 
-Edit the styles for Body and Headings and see the effect taking place in your design immediately, right from within the Editor.
+Get an unfair design advantage by importing read-made theme style presets for pre-configured styling on typography, colors, forms, spacing and more. Design more consistent layouts through global styling.
 
-#### Column Gap controls
+#### Theme-style-ready template kits and blocks library
 
-Achieve site-wide spacing consistency through the column gap controls.
+The first-of-it's-kind template library for Elementor.
 
-Apply the native column gaps on your outer and inner sections and manage the spacing of your layout system from a single place.
+In the Style Kits library, each template kit comes with its own theme style preset. Mix-and-match theme styles and layouts and enjoy built-in design consistency.
 
-#### Save your page Styles as a Style Kit and apply on any page, or globally
+### Boost your design workflow with Style Kits Pro
 
-All your custom page styles can be saved as a Stylekit and then apply it on any page.
-
-You can also make a Global Stylekit, and it will apply on your entire site.
-
-#### Button Styles
-
-Now you have a single source of control for your different button sizes. Set the button styles on your Style kit and enjoy consistent, site-wide button control.
-
-#### A collection of fine-tuned, Style-kit powered templates. For free.
-
-Trigger the template gallery popup, preview and import any of the templates in our collection.
-
-In most of the templates, styles are managed from the Style Kit panel, so you can experience design-macro control right away.
-
-#### The perfect addition to Elementor Hello Theme
-
-Hello Elementor is a great, lightweight theme but it lacks basic typography controls. Now with Style Kits, you can set the rules for your Typography save them as a global Style Kit and enjoy site-wide typographic control.
+- **Unlimited access** to a hand-made library of premium Template Kits, Theme Style Presets and Blocks that adapt to your existing Theme Styles.
+- **Inline style cleanup tools** that reset your layouts from inline styles. Turn your existing pages into theme-style-friendly layouts with a few clicks.
+- **Smart highlight tools** that help you identify elements with custom classes or custom CSS applied to them.
+- **Advanced Theme Style tools.** Enjoy more design flexibility in the editor with more UI controls in theme styles.
+- **User Role management**
+- **Unsplash integration**
+- **Dynamic colors** (Requires Elementor Pro v2.9+)
+- **Cards** (Soon)
 
 **Find us**:
 - [Visit the AnalogWP Website](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp)
 - [Follow on Twitter](https://twitter.com/AnalogWP/)
 - [Like us on Facebook](https://www.facebook.com/analogwp)
+- [Join our Facebook community](https://www.facebook.com/groups/analogwp/)
+- [Documentation](https://docs.analogwp.com/)
 
 == Installation ==
 
@@ -93,11 +87,162 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Screenshots ==
 
-1. Style Kits Settings page.
-2. Import screen: import to Elementor library or create a new page.
-3. Access Style Kits templates directly under Elementor.
+1. Main Plugin screen, displaying grouped templates.
+2. Template import modal.
+3. Style Kits tab
+4. Blocks tab, grouped by kind.
+5. Expanded Templates group view.
+6. Expanded Blocks group view.
+7. Analog Modal launcher inside Elementor editor.
+8. Plugin settings page.
+9. Style kit panel inside Elementor style tab.
+10. "Body Typography" panel inside Elementor style tab.
+11. "Headings Typography" panel inside Elementor style tab.
+12. "Headings Sizes" panel inside Elementor style tab.
+13. "Text Sizes" panel inside Elementor style tab.
+14. "Main Colors" panel inside Elementor style tab.
+15. "Background Colors" panel inside Elementor style tab.
+16. "Buttons" panel inside Elementor style tab.
+17. "Outer Section Padding" panel inside Elementor style tab.
+18. "Columns Gaps" panel inside Elementor style tab.
+19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.6.0 - March 03, 2020 =
+- New: Style Kits integrated into Theme Styles. All existing Style Kits, are automatically converted to native Theme Style Kits
+- New: Added welcome screen for Theme Styles
+- New: Added latest Google fonts missing in Elementor
+- New: Added link to Theme Style panel in right-click menu
+- New: When resetting a Kit, you can revert from History screen
+- Tweak: Theme Style panel title to show Kit name
+- Tweak: Style Kits menu to show Theme Style Kits
+- Tweak: Use transient cache when fetching Kits
+- Tweak: Admin notices to show Analog logo
+- Tweak: Remove x button from Style Kit selector
+- Improve: Remove custom control for SK actions, now uses default Elementor button control
+
+= 1.5.6 - Feb 12, 2020 =
+- Fix: Compatibility with Elementor v2.9
+- Fix: Removed option to Sync Color Palette
+
+= 1.5.5 - Feb 07, 2020 =
+- Fix: Conflict with Elementor Extras plugin
+
+= 1.5.4 - Feb 04, 2020 =
+- Tweak: Adds compatibility for Style Kits Pro
+- Fix: Importing templates back to back in Elementor editor caused them to import more than once
+
+= 1.5.3 - Feb 01, 2020 =
+- New: Added 'My favorites' for Blocks
+- New: Added Filter, Sorting & Search for blocks (Disabled in grouped view)
+- New: Added Preview links for Style Kits
+- Fix: Issue with Pro SKs not showing errors on frontend when occurred
+- Fix: Headings not respecting inline styles in Popup
+- Fix: Show imported SK immediately in Style Kits list
+- Tweak: Style Kits library to match Template kits styles
+- Tweak: Improved loader icon during imports
+
+= 1.5.2 - January 24, 2020 =
+- New: Template/block inserts inside Elementor are now recorded in Elementor history tab
+- New: Insert block/templates at point from where Modal was launched
+- Fix: Issue with installed kits not being set properly on template import
+- Fix: Missing license key info during block import
+- Fix: Hide template list when preview is active
+- Fix: Bug where Pro templates were displayed regardless of option selected
+- Tweak: Style Kits library listing design
+- Tweak: Show Pro notice again if Pro templates are shown
+
+= 1.5.1 - January 18, 2020 =
+- Fix: \Analog\User class conflict with \Elementor\User (props: @midoelhawy)
+- Fix: SK color interferring with Color picker. A null color item results in broken color picker
+- Tweak: Show Pro badge for Style Kits
+
+= 1.5.0 - January 16, 2020 =
+- New: All new Blocks tab to import blocks
+- New: Save template filter values in local storage to keep them same on refresh
+- New: Separated Text and Heading colors
+- New: Moved background colors to their own tab, now divided by Light/Dark color tabs
+- New: Added option to replace page ID while exporting Style Kit CSS
+- New: Updated settings page design
+- Fix: Added close button on SK import popup
+- Fix: Issue with Heading sizes not respecting inline styles in some cases
+- Fix: Show SK colors as swatches in Color Picker, bugged since Elementor v2.8
+- Tweak: Rename Global Colors section to Main Colors
+- Improve: A more consistent way to show admin notices
+- Improve: Removed redundant setting "Remove Styling from typographic elements"
+- Improve: New library endpoint for cumulative library data
+- Improve: All color controls in Main/Background Color now generate a CSS variable on page
+
+= 1.4.0 - January 06, 2020 =
+* New: Added Version Control tab under Settings
+* New: Option to become a Beta Tester
+* Fix: Minor issue with Settings page [footer links](https://github.com/mauryaratan/analogwp-templates/issues/233) inherting Settings styles
+* Fix: Critical error caused sometimes during [Quick Post](https://github.com/mauryaratan/analogwp-templates/issues/251) update
+* Fix: Global SK values not updating properly due to a recent change
+* Improve: Added [backward compatibility](https://github.com/mauryaratan/analogwp-templates/issues/249) with < Elementor v2.8.0
+* Improve: Added [Close link](https://github.com/mauryaratan/analogwp-templates/issues/250) to Style Kit import popup.
+* Improve: Heavily improved performance, caused due to a memory leak
+
+= 1.3.17 - December 12, 2019 =
+* Fix: Added backwards compatibility for SK contextual menu
+* Fix: Icons box links not respecting inline colors
+
+= 1.3.16 - December 10, 2019 =
+* Fix: Issue with Style Kits tab not showing up
+* Fix: Issue with templates imported directly from Settings page
+* Fix: Accordion/counter widget not respecting inline colors with custom classes
+* Tweak: Styled updated for better compatibility with Dark Mode
+* Improve: Move Global Style Kit setting from Elementor to plugin settings
+* Improve: Tweak rollback versions to be ordered numerically
+
+= 1.3.15 - November 29, 2019 =
+* Fix: Custom CSS inconsistency between saving SKs, properly slash data before saving in post meta
+* Fix: Remove stored template values from existing SKs
+* Fix: Issue with undefined array key in a rare cases
+* Fix: Link color within content not respecting inline color
+* Fix: Global color not overridding colors as expected when using multiple templates on page
+* Improve: Added new method for updating SKs, preserve settings not related to SK
+
+= 1.3.14 - November 11, 2019 =
+* Fix: Don't save template value from in SK
+* Fix: Post meta terms accent color
+* Tweak: Added SK accent color on Comment submit button
+* Tweak: Change SK imported popup text, redirect to SK panel after import
+* Improve: Update Style Kit button is now more consistent
+* Improve: Clear Elementor cache on uninstall
+* Improve: Use core version of React and ReactDOM
+
+= 1.3.13 - November 04, 2019 =
+* Fix: Issue with buttons taking accent color
+
+= 1.3.12 - November 04, 2019 =
+* Fix: Added back selectors to apply accent colors on titles
+* Fix: Show SK updated popup only on open editors
+* Fix: Rare issue where SK dropdown would insert invalid items when no items exist
+* Tweak: Include all page settings as part of SK
+* Tweak: Update Column padding selectors to remove !important
+* Tweak: Better compatibility with Nav styles
+
+= 1.3.11 - October 31, 2019 =
+* Fix: Templates not being imported due to a bug introduced in v1.3.10
+* Fix: Style Kit panels/settings not showing up on some template types, as a result, the setting "Do not apply link color on active titles" has been removed
+* Tweak: Better compatibility with Nav widget and Style Kits
+* Improve: Popups, once again can have a Style Kit
+
+= 1.3.10 - October 29, 2019 =
+* New: Make Nav item/pointer inherit SK accent color
+* Fix: Image/Icon box widget selectors accent color override
+* Fix: Heading widget selectors accent color override
+* Improve: Ensure “Do not apply link” setting is respected
+
+= 1.3.9 - October 26, 2019 =
+* Fix: Disable Style Kit settings from [Popups](https://github.com/mauryaratan/analogwp-templates/issues/202)
+* Fix: Divider widget not being able to [override accent color](https://github.com/mauryaratan/analogwp-templates/issues/207)
+* Fix: Icon/Image box not being able to [override accent color](https://github.com/mauryaratan/analogwp-templates/issues/203)
+* Fix: All Style Kits not being [listed](https://github.com/mauryaratan/analogwp-templates/issues/200) during import
+* Fix: A rare case with undefined jQuery error within Elementor editor
+* Improve: Tweak Settings page styles
 
 = 1.3.8 - October 22, 2019 =
 * New: Added new [Template Collection](https://github.com/mauryaratan/analogwp-templates/issues/176) interface.
@@ -260,3 +405,15 @@ Introducing Style Kits for Elementor, added a bunch of QoL improvements.
 
 = 1.3.4 =
 Fixed a critical bug inside Elementor when attempting to import a template.
+
+= 1.4.0 =
+Improved performance, fixes issues with Global Style Kit among various fixes.
+
+= 1.5.1 =
+Fixes a conflict with Elementor User class, and color picker swatches.
+
+= 1.5.2 =
+Fixes an issue with incorrect Kit selected during Template imports.
+
+= 1.5.5 =
+Fixes a conflict with Elementor Extras plugin

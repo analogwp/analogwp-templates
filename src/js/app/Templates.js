@@ -7,8 +7,8 @@ import { Theme } from './contexts/ThemeContext';
 import Empty from './helpers/Empty';
 import CustomModal from './modal';
 import ImportTemplate from './popups/ImportTemplate';
-import ProModal from './ProModal';
 import Template from './Template';
+import ProModal from './ProModal';
 
 const { __ } = wp.i18n;
 
@@ -148,8 +148,9 @@ const TemplatesContainer = styled.div`
 				transform: translateX(20px);
 			}
 
-			+ button {
+			+ button, + .ang-promo {
 				margin-top: 10px;
+				text-decoration: none;
 			}
 		}
 
@@ -250,22 +251,14 @@ class Templates extends React.Component {
 	}
 
 	getStyleKitInfo() {
-		const isKitInstalled = AGWP.installed_kits.filter( ( k ) => this.state.kit === k );
+		const isKitInstalled = this.context.state.installedKits.filter( ( k ) => this.state.kit === k );
 		const method = isKitInstalled.length > 0 ? 'insert' : 'import';
-		let data = false;
 
-		if ( method === 'insert' ) {
-			data = this.state.kit;
-		} else {
-			data = this.context.state.styleKits.find( k => k.title === this.state.kit );
-		}
+		let data = ( method === 'insert' )
+					? this.state.kit
+					: this.context.state.styleKits.find( k => k.title === this.state.kit );
 
-		const info = {
-			method,
-			data,
-		};
-
-		return info;
+		return { method, data };
 	}
 
 	setModalContent = template => {
@@ -276,7 +269,7 @@ class Templates extends React.Component {
 		this.setState( {
 			template: template,
 		} );
-	}
+	};
 
 	makeFavorite = ( id ) => {
 		const favorites = this.context.state.favorites;
@@ -312,7 +305,7 @@ class Templates extends React.Component {
 		const kit = this.getStyleKitInfo();
 		const version = this.state.template.version;
 
-		if ( version && AGWP.version < version ) {
+		if ( version && parseFloat( AGWP.version ) < parseFloat( version ) ) {
 			this.resetState();
 			add(
 				__( 'This template requires an updated version, please update your plugin to latest version.', 'ang' ),
@@ -346,7 +339,7 @@ class Templates extends React.Component {
 	 * Mainly to check pro template capabilities.
 	 *
 	 * @param {object} template Template data.
-	 * @return {bool} True if Pro and license is valid, else false.
+	 * @return {boolean} True if Pro and license is valid, else false.
 	 */
 	canImportTemplate = ( template ) => {
 		if ( ! template ) {
@@ -391,6 +384,10 @@ class Templates extends React.Component {
 					position: 'relative',
 					minHeight: '80vh',
 				} }
+				className={ classnames( {
+					hide: ( this.state.template && this.state.showingModal && ! this.canImportTemplate() ),
+					'preview-active': this.context.state.isOpen,
+				} ) }
 			>
 				{ this.context.state.isOpen && (
 					<CustomModal
@@ -410,9 +407,9 @@ class Templates extends React.Component {
 					/>
 				) }
 
-				{ ! this.context.state.showFree &&
-					<ProModal onDimiss={ () => this.resetState() } />
-				}
+				{ AGWP.license.status !== 'valid' && (
+					<ProModal type={ __( 'templates', 'ang' ) } />
+				) }
 
 				{ ! this.context.state.isOpen && this.context.state.templates.length < 1 && (
 					<Empty />
@@ -431,13 +428,12 @@ class Templates extends React.Component {
 						} ) }
 					>
 						{ ! this.context.state.isOpen && this.context.state.count >= 1 && this.context.state.templates.map( template => {
-							if ( this.context.state.showFree && Boolean( template.is_pro ) ) {
+							if ( AGWP.license.status !== 'valid' && this.context.state.showFree && Boolean( template.is_pro ) ) {
 								return;
 							}
-
 							return (
 								<Template
-									key={ template.id }
+									key={ `${template.id}-${template.site_id}` }
 									template={ template }
 									favorites={ this.context.state.favorites }
 									setModalContent={ this.setModalContent }

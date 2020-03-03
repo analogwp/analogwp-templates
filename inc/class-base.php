@@ -7,8 +7,6 @@
 
 namespace Analog;
 
-use \Elementor\Core\Files\CSS\Post;
-
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -26,7 +24,7 @@ class Base {
 	 *
 	 * @var Base
 	 */
-	private static $instances = [];
+	private static $instances = array();
 
 	/**
 	 * Disable class cloning and throw an error on object clone.
@@ -77,7 +75,7 @@ class Base {
 	 */
 	public function check_memory_limit() {
 		$memory_limit = ini_get( 'memory_limit' );
-		if ( $memory_limit != - 1 ) { // @codingStandardsIgnoreLine
+		if ( $memory_limit !== - 1 ) { // @codingStandardsIgnoreLine
 			$last = $memory_limit[ strlen( $memory_limit ) - 1 ];
 			$val  = rtrim( $memory_limit, $last );
 			switch ( strtolower( $last ) ) {

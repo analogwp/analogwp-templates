@@ -29,7 +29,16 @@ jQuery( document ).ready( function() {
 				{
 					name: 'page_styles',
 					title: ANG_Action.translate.pageStyles,
-					callback: switchToStyleTab,
+					callback: function() {
+						$e.route( 'panel/page-settings/style' );
+					},
+				},
+				{
+					name: 'theme_style',
+					title: elementor.translate( 'Theme Style' ),
+					callback: function() {
+						$e.run( 'panel/global/open' );
+					},
 				},
 			],
 		};
@@ -40,20 +49,9 @@ jQuery( document ).ready( function() {
 		return groups;
 	}
 
-	elementor.hooks.addFilter( 'elements/widget/contextMenuGroups', addPageStyleSettings );
-	elementor.hooks.addFilter( 'elements/section/contextMenuGroups', addPageStyleSettings );
-	elementor.hooks.addFilter( 'elements/column/contextMenuGroups', addPageStyleSettings );
-
-	function switchToStyleTab() {
-		if ( elementor.helpers.compareVersions( ElementorConfig.document.version, '2.7.0', '<' ) ) {
-			const currentView = elementor.panel.currentView;
-
-			currentView.setPage( 'page_settings' );
-			currentView.getCurrentPageView().activateTab( 'style' );
-			currentView.getCurrentPageView().activateSection( 'ang_style_settings' );
-			currentView.getCurrentPageView().render();
-		} else {
-			$e.route( 'panel/page-settings/style' );
-		}
+	if ( ANG_Action.skPanelsAllowed && elementor.config.initial_document.panel.support_kit ) {
+		elementor.hooks.addFilter( 'elements/widget/contextMenuGroups', addPageStyleSettings );
+		elementor.hooks.addFilter( 'elements/section/contextMenuGroups', addPageStyleSettings );
+		elementor.hooks.addFilter( 'elements/column/contextMenuGroups', addPageStyleSettings );
 	}
 } );

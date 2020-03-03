@@ -25,13 +25,18 @@
 
 			// get the data
 			var $style_kit = $( '.column-ang_stylekit', $post_row ).text();
+			var globalKit = parseInt( angQuickEdit.globalKit );
 
 			// Hide Style Kit dropdown for posts without Stylekit.
 			if ( $style_kit === '' && ! $post_row.hasClass('type-elementor_library') ) {
 				$('#ang-stylekit-fieldset').hide();
 			}
 
-			if ( $style_kit !== 'elementor' && $style_kit !== '' ) {
+			if ( $style_kit !== '' ) {
+				if ( ! ( parseInt( $style_kit ) in angQuickEdit.kits ) ) {
+					$style_kit = globalKit;
+				}
+
 				$('select[name=ang_stylekit]').val( $style_kit );
 			}
 		}
@@ -63,5 +68,21 @@
 			}
 		});
 	});
+
+	$( document ).ready( function() {
+		if ( '?post_type=elementor_library' !== window.location.search ) {
+			return;
+		}
+
+		$( document ).on( 'click', '.editinline', function() {
+			var data = this.parentElement.parentElement.parentElement.parentElement;
+			var $type = $( '.column-elementor_library_type', data ).text();
+			if ( 'Section' === $type ) {
+				var id = data.id;
+				id = id.split( '-' );
+				$( '#edit-' + id[1] + ' #ang-stylekit-fieldset' ).hide();
+			}
+		} );
+	} );
 
 })(jQuery);

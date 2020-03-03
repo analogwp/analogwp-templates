@@ -50,6 +50,8 @@ class Admin_Settings {
 
 			$settings[] = include 'settings/class-settings-general.php';
 			$settings[] = include 'settings/class-settings-misc.php';
+			$settings[] = include 'settings/class-settings-extensions.php';
+			$settings[] = include 'settings/class-settings-version-control.php';
 			$settings[] = include 'settings/class-settings-gopro.php';
 
 			self::$settings = apply_filters( 'ang_get_settings_pages', $settings );
@@ -121,9 +123,8 @@ class Admin_Settings {
 		global $current_section, $current_tab;
 
 		do_action( 'ang_settings_start' );
-		wp_enqueue_style( 'ang-poppins', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap', [], '20191009' );
-		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', [ 'ang-poppins', 'dashicons' ], ANG_VERSION );
-		wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n', 'wp-api-fetch' ), ANG_VERSION, true );
+		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/admin-settings.css' ) );
+		wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n', 'wp-api-fetch' ), filemtime( ANG_PLUGIN_DIR . 'assets/js/admin-settings.js' ), true );
 
 		wp_localize_script(
 			'ang_settings',
@@ -275,6 +276,20 @@ class Admin_Settings {
 					}
 					break;
 
+				// Collapsible content starts.
+				case 'collapsiblestart':
+					if ( ! empty( $value['title'] ) ) {
+						echo '<button class="button-title ' . esc_attr( $value['class'] ) . '">' . esc_html( $value['title'] ) . '</button>';
+					}
+					if ( ! empty( $value['id'] ) ) {
+						echo '<div class="collapsible-content" id="' . esc_attr( $value['id'] ) . '">';
+					}
+					break;
+
+				case 'collapsibleend':
+					echo '</div>';
+					break;
+
 				// Section Ends.
 				case 'sectionend':
 					if ( ! empty( $value['id'] ) ) {
@@ -356,13 +371,51 @@ class Admin_Settings {
 						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) );
 					}
 					?>
-					<tr valign="top">
+					<tr valign="top" id="<?php echo esc_attr( $value['id'] ); ?>">
 						<th scope="row" class="titledesc">
 							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?></label>
 						</th>
 						<td class="forminwp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+							<?php if ( ! empty( $value['desc'] ) ) : ?>
+								<span class="description"><?php echo esc_html( $value['desc'] ); ?></span>
+							<?php endif; ?>
 							<?php wp_nonce_field( 'ang_nonce', 'ang_nonce' ); ?>
 							<input type="submit" class="<?php echo esc_attr( $value['class'] ); ?>" name="<?php echo esc_attr( $value['id'] ); ?>" value="<?php echo esc_attr( $option_value ); ?>"/>
+						</td>
+					</tr>
+					<?php
+					break;
+				case 'license_text':
+					$option_value = $value['value'];
+
+					?>
+					<tr valign="top">
+						<th scope="row" class="titledesc">
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+						</th>
+						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+							<?php if ( ! empty( $option_value ) ) : ?>
+								<input
+								name="<?php echo esc_attr( $value['id'] ); ?>"
+								id="<?php echo esc_attr( $value['id'] ); ?>"
+								type="password"
+								value="<?php echo esc_attr( str_repeat( '*', strlen( $option_value ) ) ); ?>"
+								readonly="readonly"
+								disabled
+								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+								/><?php echo esc_html( $value['suffix'] ); ?>
+							<?php else : ?>
+							<input
+								name="<?php echo esc_attr( $value['id'] ); ?>"
+								id="<?php echo esc_attr( $value['id'] ); ?>"
+								type="text"
+								style="<?php echo esc_attr( $value['css'] ); ?>"
+								value="<?php echo esc_attr( $option_value ); ?>"
+								class="<?php echo esc_attr( $value['class'] ); ?>"
+								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
+								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // WPCS: XSS ok. ?>
+							<?php endif; ?>
 						</td>
 					</tr>
 					<?php
@@ -467,6 +520,39 @@ class Admin_Settings {
 									<?php
 								}
 								?>
+								</ul>
+							</fieldset>
+						</td>
+					</tr>
+					<?php
+					break;
+				case 'multi-checkbox':
+					$option_value = $value['value'];
+					?>
+					<tr valign="top">
+						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+							<fieldset>
+								<?php
+								echo $description; // phpcs:ignore
+								?>
+								<ul>
+									<?php foreach ( $value['options'] as $key => $val ) : ?>
+									<li>
+										<label>
+											<input
+												type="checkbox"
+												name="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $key ); ?>]"
+												id="<?php echo esc_attr( $value['id'] ); ?>[<?php echo esc_attr( $key ); ?>]"
+												value="1"
+												<?php checked( isset( $option_value[ $key ] ) ? $option_value[ $key ] : 0, true ); ?>
+											/>
+											<span>
+												<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
+											</span>
+											<p><?php echo esc_html( $val ); ?></p>
+										</label>
+									</li>
+									<?php endforeach; ?>
 								</ul>
 							</fieldset>
 						</td>
@@ -578,7 +664,7 @@ class Admin_Settings {
 		} elseif ( $description && in_array( $value['type'], array( 'checkbox' ), true ) ) {
 			$description = wp_kses_post( $description );
 		} elseif ( $description ) {
-			$description = '<span class="description">' . wp_kses_post( $description ) . '</span>';
+			$description = '<p class="description">' . wp_kses_post( $description ) . '</p>';
 		}
 
 		if ( $tooltip_html && in_array( $value['type'], array( 'checkbox' ), true ) ) {
@@ -641,7 +727,8 @@ class Admin_Settings {
 					$value = wp_kses_post( trim( $raw_value ) );
 					break;
 				case 'multiselect':
-					$value = array_filter( array_map( 'ang_clean', (array) $raw_value ) );
+				case 'multi-checkbox':
+					$value = array_filter( array_map( __NAMESPACE__ . '\ang_clean', (array) $raw_value ) );
 					break;
 				case 'select':
 					$allowed_values = empty( $option['options'] ) ? array() : array_map( 'strval', array_keys( $option['options'] ) );

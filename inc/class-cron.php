@@ -22,8 +22,8 @@ class Cron {
 	 * @see Cron::weekly_events()
 	 */
 	public function __construct() {
-		add_filter( 'cron_schedules', [ $this, 'add_schedules' ] );
-		add_action( 'init', [ $this, 'schedule_events' ] );
+		add_filter( 'cron_schedules', array( $this, 'add_schedules' ) );
+		add_action( 'init', array( $this, 'schedule_events' ) );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Cron {
 	public function add_schedules( $schedules = array() ) {
 		// Adds once weekly to the existing schedules.
 		$schedules['weekly'] = array(
-			'interval' => 604800,
+			'interval' => WEEK_IN_SECONDS,
 			'display'  => __( 'Once Weekly', 'ang' ),
 		);
 
@@ -63,7 +63,7 @@ class Cron {
 	 */
 	private function weekly_events() {
 		if ( ! wp_next_scheduled( 'analog/tracker/send_event' ) ) {
-			wp_schedule_event( current_time( 'timestamp', true ), 'weekly', 'analog/tracker/send_event' );
+			wp_schedule_event( time(), 'weekly', 'analog/tracker/send_event' );
 		}
 	}
 }

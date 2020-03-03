@@ -13,10 +13,17 @@ use Elementor\Controls_Stack;
 use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Scheme_Typography;
+use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
 use Analog\Utils;
+use Elementor\Plugin;
+
+if ( version_compare( ELEMENTOR_VERSION, '2.8.0', '<' ) ) {
+	class_alias( 'Elementor\Scheme_Typography', 'Analog\Elementor\Scheme_Typography' );
+} else {
+	class_alias( 'Elementor\Core\Schemes\Typography', 'Analog\Elementor\Scheme_Typography' );
+}
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,30 +33,58 @@ defined( 'ABSPATH' ) || exit;
  * @package Analog\Elementor
  */
 class Typography extends Module {
+	use Document;
+
+	/**
+	 * Holds Style Kits.
+	 *
+	 * @since 1.4.0
+	 * @var array
+	 */
+	protected $tokens;
+
+	/**
+	 * Holds Global Kit token data.
+	 *
+	 * @since 1.4.0
+	 * @var mixed
+	 */
+	protected $global_token_data;
+
+	/**
+	 * Holds current page's Elementor settings.
+	 *
+	 * @since 1.4.0
+	 * @var mixed
+	 */
+	protected $page_settings;
+
 	/**
 	 * Typography constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_body_and_paragraph_typography' ], 100, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_heading_typography' ], 120, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_typography_sizes' ], 140, 2 );
+		$this->tokens = Utils::get_kits();
+
+		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_typography_sizes' ), 20, 2 );
 
 		// Color section is hooked at 170 Priority.
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_text_sizes' ], 160, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_buttons' ], 180, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_outer_section_padding' ], 200, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_columns_gap' ], 220, 2 );
-		add_action( 'elementor/element/before_section_start', [ $this, 'register_styling_settings' ], 240, 2 );
-		add_action( 'elementor/element/after_section_end', [ $this, 'register_tools' ], 260, 2 );
+		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_text_sizes' ), 40, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 20, 2 );
+		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_outer_section_padding' ), 20, 2 );
+		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_columns_gap' ), 40, 2 );
+		add_action( 'elementor/element/before_section_start', array( $this, 'register_styling_settings' ), 240, 2 );
+		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_tools' ), 999, 2 );
 
-		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_scripts' ] );
-		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ], 999 );
+		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_preview_scripts' ) );
+		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'enqueue_editor_scripts' ), 999 );
 
-		add_action( 'elementor/element/before_section_end', [ $this, 'update_padding_control_selector' ], 10, 2 );
+		add_action( 'elementor/element/before_section_end', array( $this, 'update_padding_control_selector' ), 10, 2 );
 
-		add_filter( 'display_post_states', [ $this, 'add_token_state' ], 10, 2 );
+		add_filter( 'display_post_states', array( $this, 'add_token_state' ), 10, 2 );
 
-		add_action( 'elementor/element/section/section_layout/before_section_end', [ $this, 'tweak_section_widget' ] );
+		add_action( 'elementor/element/section/section_layout/before_section_end', array( $this, 'tweak_section_widget' ) );
+
+		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
 	}
 
 	/**
@@ -68,11 +103,11 @@ class Typography extends Module {
 
 		if ( 'section_advanced' === $control['section'] ) {
 			if ( isset( $control['selectors']['{{WRAPPER}} > .elementor-element-populated'] ) ) {
-				$control['selectors'] = [
-					'{{WRAPPER}} > .elementor-element-populated.elementor-element-populated' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
-					'(tablet) {{WRAPPER}} > .elementor-element-populated.elementor-element-populated' => 'padding: {{padding_tablet.TOP}}{{padding_tablet.UNIT}} {{padding_tablet.RIGHT}}{{padding_tablet.UNIT}} {{padding_tablet.BOTTOM}}{{padding_tablet.UNIT}} {{padding_tablet.LEFT}}{{padding_tablet.UNIT}} !important;',
-					'(mobile) {{WRAPPER}} > .elementor-element-populated.elementor-element-populated' => 'padding: {{padding_mobile.TOP}}{{padding_mobile.UNIT}} {{padding_mobile.RIGHT}}{{padding_mobile.UNIT}} {{padding_mobile.BOTTOM}}{{padding_mobile.UNIT}} {{padding_mobile.LEFT}}{{padding_mobile.UNIT}} !important;',
-				];
+				$control['selectors'] = array(
+					'{{WRAPPER}} > .elementor-element-populated.elementor-element-populated.elementor-element-populated' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'(tablet) {{WRAPPER}} > .elementor-element-populated.elementor-element-populated.elementor-element-populated' => 'padding: {{padding_tablet.TOP}}{{padding_tablet.UNIT}} {{padding_tablet.RIGHT}}{{padding_tablet.UNIT}} {{padding_tablet.BOTTOM}}{{padding_tablet.UNIT}} {{padding_tablet.LEFT}}{{padding_tablet.UNIT}};',
+					'(mobile) {{WRAPPER}} > .elementor-element-populated.elementor-element-populated.elementor-element-populated' => 'padding: {{padding_mobile.TOP}}{{padding_mobile.UNIT}} {{padding_mobile.RIGHT}}{{padding_mobile.UNIT}} {{padding_mobile.BOTTOM}}{{padding_mobile.UNIT}} {{padding_mobile.LEFT}}{{padding_mobile.UNIT}};',
+				);
 
 				$control_stack->update_control( 'padding', $control );
 			}
@@ -101,69 +136,44 @@ class Typography extends Module {
 
 		$element->start_controls_section(
 			'ang_headings_typography',
-			[
+			array(
 				'label' => __( 'Headings Typography', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$element->add_control(
 			'ang_headings_typography_description',
-			[
+			array(
 				'raw'             => __( 'These settings apply to all Headings in your layout. You can still override individual values at each element.', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
-			]
+			)
 		);
 
-		$default_fonts = Manager::get_settings_managers( 'general' )->get_model()->get_settings( 'elementor_default_generic_fonts' );
+		// TODO: Remove in v1.6.
+		$selector = '{{WRAPPER}}';
 
-		if ( $default_fonts ) {
-			$default_fonts = ', ' . $default_fonts;
+		if ( method_exists( $element, 'get_main_id' ) ) {
+			$main_id = $element->get_main_id();
+			$type    = get_post_meta( $main_id, '_elementor_template_type', true );
+
+			if ( 'popup' === $type ) {
+				$selector = '.elementor-' . $main_id;
+			}
 		}
-
-		$element->add_control(
-			'ang_default_heading_font_family',
-			[
-				'label'     => __( 'Default Headings Font', 'ang' ),
-				'type'      => Controls_Manager::FONT,
-				'default'   => $this->get_default_value( 'ang_default_heading_font_family' ),
-				'selectors' => [
-					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
-				],
-			]
-		);
 
 		for ( $i = 1; $i < 7; $i++ ) {
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
-				[
-					'name'           => 'ang_heading_' . $i,
+				array(
+					'name'     => 'ang_heading_' . $i,
 					/* translators: %s: Heading 1-6 type */
-					'label'          => sprintf( __( 'Heading %s', 'ang' ), $i ),
-					'selector'       => "{{WRAPPER}} h{$i}, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title",
-					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
-					'fields_options' => $this->get_default_typography_values( 'ang_heading_' . $i ),
-				]
+					'label'    => sprintf( __( 'Heading %s', 'ang' ), $i ),
+					'selector' => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
+					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+				)
 			);
-
-// $margin_settings = [
-// 'label'      => __( 'Margin', 'ang' ),
-// 'type'       => Controls_Manager::DIMENSIONS,
-// 'size_units' => [ 'px', '%', 'em' ],
-// 'selectors'  => [
-// "{{WRAPPER}} h{$i}, {{WRAPPER}} .elementor-widget-heading h{$i}.elementor-heading-title" => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-// ],
-// ];
-//
-// if ( 6 !== $i ) {
-// $margin_settings['separator'] = 'after';
-// }
-//
-// $element->add_responsive_control(
-// 'ang_heading_' . $i . '_margin',
-// $margin_settings
-// );
 		}
 
 		$element->end_controls_section();
@@ -182,33 +192,33 @@ class Typography extends Module {
 
 		$element->start_controls_section(
 			'ang_body_and_paragraph_typography',
-			[
+			array(
 				'label' => __( 'Body Typography', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$element->add_control(
 			'ang_recently_imported',
-			[
+			array(
 				'label'     => __( 'Recently Imported', 'ang' ),
 				'type'      => Controls_Manager::HIDDEN,
 				'default'   => 'no',
-				'selectors' => [
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-heading-title' => 'line-height: inherit;',
-				],
-			]
+					'{{WRAPPER}} .dialog-message'          => 'font-size: inherit;',
+				),
+			)
 		);
 
 		$element->add_group_control(
 			Group_Control_Typography::get_type(),
-			[
-				'name'           => 'ang_body',
-				'label'          => __( 'Body Typography', 'ang' ),
-				'selector'       => '{{WRAPPER}}',
-				'scheme'         => Scheme_Typography::TYPOGRAPHY_3,
-				'fields_options' => $this->get_default_typography_values( 'ang_body' ),
-			]
+			array(
+				'name'     => 'ang_body',
+				'label'    => __( 'Body Typography', 'ang' ),
+				'selector' => '{{WRAPPER}}',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
+			)
 		);
 
 		$element->end_controls_section();
@@ -221,53 +231,51 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_typography_sizes( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$element->start_controls_section(
 			'ang_typography_sizes',
-			[
+			array(
 				'label' => __( 'Heading Sizes', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$element->add_control(
 			'ang_typography_sizes_description',
-			[
+			array(
 				'raw'             => __( 'Tweak the size of your Heading elements using these presets.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
-			]
+			)
 		);
 
-		$settings = [
-			[ 'xxl', __( 'XXL', 'ang' ), 59 ],
-			[ 'xl', __( 'XL', 'ang' ), 39 ],
-			[ 'large', __( 'Large', 'ang' ), 29 ],
-			[ 'medium', __( 'Medium', 'ang' ), 19 ],
-			[ 'small', __( 'Small', 'ang' ), 15 ],
-		];
+		$settings = array(
+			array( 'xxl', __( 'XXL', 'ang' ), 59 ),
+			array( 'xl', __( 'XL', 'ang' ), 39 ),
+			array( 'large', __( 'Large', 'ang' ), 29 ),
+			array( 'medium', __( 'Medium', 'ang' ), 19 ),
+			array( 'small', __( 'Small', 'ang' ), 15 ),
+		);
 
 		foreach ( $settings as $setting ) {
+			$selectors = array(
+				"{{WRAPPER}} h1.elementor-heading-title.elementor-size-{$setting[0]}",
+				"{{WRAPPER}} h2.elementor-heading-title.elementor-size-{$setting[0]}",
+				"{{WRAPPER}} h3.elementor-heading-title.elementor-size-{$setting[0]}",
+				"{{WRAPPER}} h4.elementor-heading-title.elementor-size-{$setting[0]}",
+				"{{WRAPPER}} h5.elementor-heading-title.elementor-size-{$setting[0]}",
+				"{{WRAPPER}} h6.elementor-heading-title.elementor-size-{$setting[0]}",
+			);
+			$selectors = implode( ',', $selectors );
+
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
-				[
-					'name'           => 'ang_size_' . $setting[0],
-					'label'          => $setting[1],
-					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
-					'selector'       => "
-						{{WRAPPER}} .elementor-widget-heading h1.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h2.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h3.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h4.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h5.elementor-heading-title.elementor-size-{$setting[0]},
-						{{WRAPPER}} .elementor-widget-heading h6.elementor-heading-title.elementor-size-{$setting[0]}
-					",
-					'exclude'        => [ 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ],
-					'fields_options' => $this->get_default_typography_values( 'ang_size_' . $setting[0] ),
-				]
+				array(
+					'name'     => 'ang_size_' . $setting[0],
+					'label'    => $setting[1],
+					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'selector' => $selectors,
+					'exclude'  => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
+				)
 			);
 		}
 
@@ -281,46 +289,41 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_text_sizes( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$element->start_controls_section(
 			'ang_text_sizes',
-			[
+			array(
 				'label' => __( 'Text Sizes', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$element->add_control(
 			'ang_text_sizes_description',
-			[
+			array(
 				'raw'             => __( 'Tweak the size of text elements using these presets.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
-			]
+			)
 		);
 
-		$settings = [
-			[ 'xxl', __( 'XXL', 'ang' ), 59 ],
-			[ 'xl', __( 'XL', 'ang' ), 39 ],
-			[ 'large', __( 'Large', 'ang' ), 29 ],
-			[ 'medium', __( 'Medium', 'ang' ), 19 ],
-			[ 'small', __( 'Small', 'ang' ), 15 ],
-		];
+		$settings = array(
+			array( 'xxl', __( 'XXL', 'ang' ), 59 ),
+			array( 'xl', __( 'XL', 'ang' ), 39 ),
+			array( 'large', __( 'Large', 'ang' ), 29 ),
+			array( 'medium', __( 'Medium', 'ang' ), 19 ),
+			array( 'small', __( 'Small', 'ang' ), 15 ),
+		);
 
 		foreach ( $settings as $setting ) {
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
-				[
-					'name'           => 'ang_text_size_' . $setting[0],
-					'label'          => $setting[1],
-					'scheme'         => Scheme_Typography::TYPOGRAPHY_1,
-					'selector'       => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
-					'exclude'        => [ 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ],
-					'fields_options' => $this->get_default_typography_values( 'ang_text_size_' . $setting[0] ),
-				]
+				array(
+					'name'     => 'ang_text_size_' . $setting[0],
+					'label'    => $setting[1],
+					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'selector' => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
+					'exclude'  => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
+				)
 			);
 		}
 
@@ -334,53 +337,46 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_outer_section_padding( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
-		$gaps = [
+		$gaps = array(
 			'default'  => __( 'Normal', 'ang' ),
 			'narrow'   => __( 'Small', 'ang' ),
 			'extended' => __( 'Medium', 'ang' ),
 			'wide'     => __( 'Large', 'ang' ),
 			'wider'    => __( 'Extra Large', 'ang' ),
-		];
+		);
 
 		$element->start_controls_section(
 			'ang_section_padding',
-			[
+			array(
 				'label' => __( 'Outer Section Padding', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$element->add_control(
 			'ang_section_padding_description',
-			[
+			array(
 				'raw'             => __( 'Add padding to the outer sections of your layouts by using these controls.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/587-outer-section-padding', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
-			]
+			)
 		);
 
 		foreach ( $gaps as $key => $label ) {
 			$element->add_responsive_control(
 				'ang_section_padding_' . $key,
-				[
-					'label'           => $label,
-					'type'            => Controls_Manager::DIMENSIONS,
-					'default'         => [
+				array(
+					'label'      => $label,
+					'type'       => Controls_Manager::DIMENSIONS,
+					'default'    => array(
 						'unit' => 'em',
-					],
-					'desktop_default' => $this->get_default_value( 'ang_section_padding_' . $key, true ),
-					'tablet_default'  => $this->get_default_value( 'ang_section_padding_' . $key . '_tablet', true ),
-					'mobile_default'  => $this->get_default_value( 'ang_section_padding_' . $key . '_mobile', true ),
-					'size_units'      => [ 'px', 'em', '%' ],
-					'selectors'       => [
-						".ang-section-padding-{$key}:not(.elementor-inner-section)" =>
+					),
+					'size_units' => array( 'px', 'em', '%' ),
+					'selectors'  => array(
+						"{{WRAPPER}} .ang-section-padding-{$key}" =>
 						'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-					],
-				]
+					),
+				)
 			);
 		}
 
@@ -394,63 +390,56 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_columns_gap( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
-		$gaps = [
+		$gaps = array(
 			'default'  => __( 'Default Padding', 'ang' ),
 			'narrow'   => __( 'Narrow Padding', 'ang' ),
 			'extended' => __( 'Extended Padding', 'ang' ),
 			'wide'     => __( 'Wide Padding', 'ang' ),
 			'wider'    => __( 'Wider Padding', 'ang' ),
-		];
+		);
 
 		$element->start_controls_section(
 			'ang_column_gaps',
-			[
+			array(
 				'label' => __( 'Column Gaps', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$element->add_control(
 			'ang_column_gaps_description',
-			[
+			array(
 				'raw'             => __( 'Column Gap presets add padding to the columns of a section.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/588-working-with-column-gaps', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
-			]
+			)
 		);
 
 		foreach ( $gaps as $key => $label ) {
 			$element->add_responsive_control(
 				'ang_column_gap_' . $key,
-				[
-					'label'           => $label,
-					'type'            => Controls_Manager::DIMENSIONS,
-					'desktop_default' => $this->get_default_value( 'ang_column_gap_' . $key, true ),
-					'tablet_default'  => $this->get_default_value( 'ang_column_gap_' . $key . '_tablet', true ),
-					'mobile_default'  => $this->get_default_value( 'ang_column_gap_' . $key . '_mobile', true ),
-					'size_units'      => [ 'px', 'em', '%' ],
-					'selectors'       => [
+				array(
+					'label'      => $label,
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => array( 'px', 'em', '%' ),
+					'selectors'  => array(
 						"{{WRAPPER}} .elementor-column-gap-{$key} > .elementor-row > .elementor-column > .elementor-element-populated"
 						=> 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-					],
-				]
+					),
+				)
 			);
 		}
 
 		$element->add_responsive_control(
 			'ang_widget_spacing',
-			[
+			array(
 				'label'       => __( 'Space Between Widgets', 'ang' ),
 				'description' => __( 'Sets the default space between widgets, overrides the default value set in Elementor > Style > Space Between Widgets.', 'ang' ),
 				'type'        => Controls_Manager::NUMBER,
-				'selectors'   => [
+				'selectors'   => array(
 					'{{WRAPPER}} .elementor-widget:not(:last-child)' => 'margin-bottom: {{VALUE}}px',
-				],
-			]
+				),
+			)
 		);
 
 		$element->end_controls_section();
@@ -464,143 +453,183 @@ class Typography extends Module {
 	 * @since 1.3
 	 */
 	public function register_buttons( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$element->start_controls_section(
 			'ang_buttons',
-			[
-				'label' => __( 'Buttons', 'ang' ),
+			array(
+				'label' => __( 'Button Sizes', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$element->add_control(
 			'ang_buttons_description',
-			[
+			array(
 				'raw'             => __( 'Define the default styles for every button size.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/586-button-styles-and-sizes', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
-			]
+			)
 		);
 
-		$sizes = [
+		$sizes = array(
 			'xs' => __( 'XS', 'ang' ),
 			'sm' => __( 'S', 'ang' ),
 			'md' => __( 'M', 'ang' ),
 			'lg' => __( 'L', 'ang' ),
 			'xl' => __( 'XL', 'ang' ),
-		];
+		);
 
 		$element->start_controls_tabs( 'ang_button_sizes' );
 
 		foreach ( $sizes as $size => $label ) {
-			$element->start_controls_tab( 'ang_button_' . $size, [ 'label' => $label ] );
+			$element->start_controls_tab( 'ang_button_' . $size, array( 'label' => $label ) );
 
 			$element->add_group_control(
 				Group_Control_Typography::get_type(),
-				[
+				array(
 					'name'     => 'ang_button_' . $size,
 					'label'    => __( 'Typography', 'ang' ),
 					'selector' => "{{WRAPPER}} .elementor-button.elementor-size-{$size}",
-					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
-					'default'  => $this->get_default_typography_values( 'ang_button_' . $size ),
-				]
+				)
+			);
+
+			$element->add_group_control(
+				Group_Control_Text_Shadow::get_type(),
+				array(
+					'name'     => 'ang_button_text_shadow_' . $size,
+					'selector' => "{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}",
+				)
+			);
+
+			$element->add_control(
+				'ang_normal_state_' . $size,
+				array(
+					'type'      => Controls_Manager::HEADING,
+					'label'     => __( 'Normal Styling', 'ang' ),
+					'separator' => 'before',
+				)
 			);
 
 			$element->add_control(
 				'ang_button_text_color_' . $size,
-				[
+				array(
 					'label'     => __( 'Text Color', 'ang' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => $this->get_default_value( 'ang_button_text_color_' . $size ),
-					'selectors' => [
+					'selectors' => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'color: {{VALUE}};',
-					],
-				]
-			);
-
-			$element->add_control(
-				'ang_button_text_hover_color_' . $size,
-				[
-					'label'     => __( 'Text Hover Color', 'ang' ),
-					'type'      => Controls_Manager::COLOR,
-					'default'   => $this->get_default_value( 'ang_button_text_hover_color_' . $size ),
-					'selectors' => [
-						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} a.elementor-button.elementor-size-{$size}:focus, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus" => 'color: {{VALUE}};',
-					],
-				]
+					),
+				)
 			);
 
 			$element->add_control(
 				'ang_button_background_color_' . $size,
-				[
+				array(
 					'label'     => __( 'Background Color', 'ang' ),
 					'type'      => Controls_Manager::COLOR,
-					'default'   => $this->get_default_value( 'ang_button_background_color_' . $size ),
-					'selectors' => [
+					'selectors' => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'background-color: {{VALUE}};',
-					],
-				]
-			);
-
-			$element->add_control(
-				'ang_button_background_hover_color_' . $size,
-				[
-					'label'     => __( 'Background Hover Color', 'ang' ),
-					'type'      => Controls_Manager::COLOR,
-					'default'   => $this->get_default_value( 'ang_button_background_hover_color_' . $size ),
-					'selectors' => [
-						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} a.elementor-button.elementor-size-{$size}:focus, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus" => 'background-color: {{VALUE}};',
-					],
-				]
-			);
-
-			$element->add_group_control(
-				Group_Control_Border::get_type(),
-				[
-					'name'      => 'ang_button_border_' . $size,
-					'selector'  => "{{WRAPPER}} .elementor-button.elementor-size-{$size}",
-					'separator' => 'before',
-					'default'   => $this->get_default_value( 'ang_button_border_' . $size ),
-				]
-			);
-
-			$element->add_control(
-				'ang_button_border_radius_' . $size,
-				[
-					'label'      => __( 'Border Radius', 'ang' ),
-					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => [ 'px', '%' ],
-					'selectors'  => [
-						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					],
-					'default'    => $this->get_default_value( 'ang_button_border_radius_' . $size, true ),
-				]
+					),
+				)
 			);
 
 			$element->add_group_control(
 				Group_Control_Box_Shadow::get_type(),
-				[
+				array(
 					'name'     => 'ang_button_box_shadow_' . $size,
 					'selector' => "{{WRAPPER}} .elementor-button.elementor-size-{$size}",
-					'default'  => $this->get_default_value( 'ang_button_box_shadow_' . $size ),
-				]
+				)
+			);
+
+			$element->add_group_control(
+				Group_Control_Border::get_type(),
+				array(
+					'name'     => 'ang_button_border_' . $size,
+					'selector' => "{{WRAPPER}} .elementor-button.elementor-size-{$size}",
+				)
+			);
+
+			$element->add_control(
+				'ang_button_border_radius_' . $size,
+				array(
+					'label'      => __( 'Border Radius', 'ang' ),
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => array( 'px', '%' ),
+					'selectors'  => array(
+						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					),
+				)
+			);
+
+			$element->add_control(
+				'ang_hover_state_' . $size,
+				array(
+					'type'      => Controls_Manager::HEADING,
+					'label'     => __( 'Hover Styling', 'ang' ),
+					'separator' => 'before',
+				)
+			);
+
+			$element->add_control(
+				'ang_button_text_hover_color_' . $size,
+				array(
+					'label'     => __( 'Text Color', 'ang' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} a.elementor-button.elementor-size-{$size}:focus, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus" => 'color: {{VALUE}};',
+					),
+				)
+			);
+
+			$element->add_control(
+				'ang_button_background_hover_color_' . $size,
+				array(
+					'label'     => __( 'Background Color', 'ang' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array(
+						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} a.elementor-button.elementor-size-{$size}:focus, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus" => 'background-color: {{VALUE}};',
+					),
+				)
+			);
+
+			$element->add_group_control(
+				Group_Control_Box_Shadow::get_type(),
+				array(
+					'name'     => 'ang_button_box_shadow_hover_' . $size,
+					'selector' => "{{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus",
+				)
+			);
+
+			$element->add_group_control(
+				Group_Control_Border::get_type(),
+				array(
+					'name'     => 'ang_button_border_hover_' . $size,
+					'selector' => "{{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus",
+				)
+			);
+
+			$element->add_control(
+				'ang_button_border_radius_hover_' . $size,
+				array(
+					'label'      => __( 'Border Radius', 'ang' ),
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => array( 'px', '%' ),
+					'selectors'  => array(
+						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:hover" => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:focus, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus" => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					),
+				)
 			);
 
 			$element->add_responsive_control(
 				'ang_button_padding_' . $size,
-				[
+				array(
 					'label'      => __( 'Padding', 'ang' ),
 					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => [ 'px', 'em', '%' ],
-					'selectors'  => [
+					'size_units' => array( 'px', 'em', '%' ),
+					'selectors'  => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					],
+					),
 					'separator'  => 'before',
-					'default'    => $this->get_default_value( 'ang_button_padding_' . $size, true ),
-				]
+				)
 			);
 
 			$element->end_controls_tab();
@@ -624,15 +653,31 @@ class Typography extends Module {
 			return;
 		}
 
+		$id = get_the_ID();
+		if ( $id ) {
+			$document = Plugin::$instance->documents->get_doc_or_auto_save( $id );
+			$config   = $document::get_editor_panel_config();
+
+			if ( isset( $config['support_kit'] ) && ! $config['support_kit'] ) {
+				return;
+			}
+		}
+
 		$element->start_controls_section(
 			'ang_style_settings',
-			[
+			array(
 				'label' => __( 'Style Kits', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
-		$global_token = get_option( 'elementor_ang_global_kit' );
+		/**
+		 * Important:
+		 *
+		 * Setting Kit ID to "string" here on purpose. Elementor's condition arg expects the matching option to be a
+		 * string, where our option returns an integer.
+		 */
+		$global_token = Utils::get_global_kit_id();
 
 		if ( ! $global_token ) {
 			$global_token = -1;
@@ -640,61 +685,52 @@ class Typography extends Module {
 
 		$element->add_control(
 			'description_ang_global_stylekit',
-			[
-				'raw'             => __( '<strong>You are editing the style kit that has been set as global.</strong> You can optionally choose a different Style Kit for this page below.', 'ang' ),
+			array(
+				'raw'             => __( 'You are editing the Global Style Kit.', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'ang-notice',
-				'condition'       => [
-					'ang_action_tokens' => $global_token,
-				],
-			]
+				'condition'       => array(
+					'ang_action_tokens' => (string) $global_token,
+				),
+			)
 		);
 
-		$label = __( 'A style kit is a collection of all the custom styles added at page styling settings. Your Style Kit is updated every time you click the Update Style Kit Button below.', 'ang' );
+		$label = __( 'A Style Kit is a saved configuration of Theme Styles, that you can optionally apply on any page. This will override the Global theme Styles for this page.', 'ang' );
 		$element->add_control(
 			'ang_action_tokens',
-			[
-				'label'   => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
-				'type'    => Controls_Manager::SELECT2,
-				'options' => Utils::get_tokens(),
-				'default' => get_option( 'elementor_ang_global_kit' ),
-			]
+			array(
+				'label'          => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'type'           => Controls_Manager::SELECT2,
+				'select2options' => array(
+					'allowClear' => false,
+				),
+				'options'        => $this->tokens,
+				'default'        => get_option( 'elementor_active_kit' ),
+			)
 		);
 
 		$element->add_control(
-			'ang_action_update_token',
-			[
-				'label'        => __( 'Update Your Style Kit', 'ang' ),
-				'type'         => 'ang_action',
-				'action'       => 'update_token',
-				'action_label' => __( 'Update Style Kit', 'ang' ),
-				'condition'    => [
-					'ang_action_tokens!' => '',
-				],
-			]
-		);
-
-		$label = __( 'Save all the styles as a Style Kit that you can apply on other pages or globally. Please note that only the custom styles added in the styles page are saved with the stylekit.', 'ang' );
-		$element->add_control(
-			'ang_action_save_token',
-			[
-				'label'        => __( 'Save Style Kit as...', 'ang' ) . $this->get_tooltip( $label ),
-				'type'         => 'ang_action',
-				'action'       => 'save_token',
-				'action_label' => __( 'Save as...', 'ang' ),
-			]
+			'ang_edit_kit',
+			array(
+				'type'       => Controls_Manager::BUTTON,
+				'label'      => __( 'Edit Theme Style Kit', 'ang' ),
+				'show_label' => false,
+				'text'       => __( 'Edit Theme Style Kit', 'ang' ),
+				'separator'  => 'after',
+				'event'      => 'analog:editKit',
+			)
 		);
 
 		$element->add_control(
 			'description_ang_stylekit_docs',
-			[
+			array(
 				'raw'  => sprintf(
 					/* translators: %s: Link to Style Kits */
 					__( 'You can set a Global Style Kit <a href="%s" target="_blank">here</a>.', 'ang' ),
-					admin_url( 'admin.php?page=elementor#tab-style' )
+					admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' )
 				),
 				'type' => Controls_Manager::RAW_HTML,
-			]
+			)
 		);
 
 		$element->end_controls_section();
@@ -709,50 +745,44 @@ class Typography extends Module {
 	 * @return void
 	 */
 	public function register_tools( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
-			return;
-		}
-
 		$element->start_controls_section(
 			'ang_tools',
-			[
-				'label' => __( 'Tools', 'ang' ),
+			array(
+				'label' => __( 'Theme Style Kit', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
-		$label = __( 'This will reset all the custom style values added in the Style tab, and detach this page from any Style kits', 'ang' );
+		$label = __( 'This will reset the Theme Style Kit and clean up any values.', 'ang' );
 		$element->add_control(
 			'ang_action_reset',
-			[
-				'label'        => __( 'Reset all styling', 'ang' ) . $this->get_tooltip( $label ),
-				'type'         => 'ang_action',
-				'action'       => 'reset_css',
-				'action_label' => __( 'Reset all', 'ang' ),
-			]
+			array(
+				'label' => __( 'Reset Theme Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'type'  => 'button',
+				'text'  => __( 'Reset', 'ang' ),
+				'event' => 'analog:resetKit',
+			)
 		);
 
-		$label = __( 'Export styles as custom CSS text.', 'ang' );
+		$label = __( 'Save the current styles as a different Theme Style Kit. You can then apply it on other pages, or globally.', 'ang' );
+		$element->add_control(
+			'ang_action_save_token',
+			array(
+				'label' => __( 'Save Theme Style Kit as', 'ang' ) . $this->get_tooltip( $label ),
+				'type'  => 'button',
+				'text'  => __( 'Save as&hellip;', 'ang' ),
+				'event' => 'analog:saveKit',
+			)
+		);
+
 		$element->add_control(
 			'ang_action_export_css',
-			[
-				'label'        => __( 'Export Custom CSS', 'ang' ) . $this->get_tooltip( $label ),
-				'type'         => 'ang_action',
-				'action'       => 'export_css',
-				'action_label' => __( 'Export CSS', 'ang' ),
-			]
-		);
-
-		$element->add_control(
-			'ang_remove_title_link_color',
-			[
-				'label'     => __( 'Do not apply link color on active titles', 'ang' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'selectors' => [
-					'{{WRAPPER}} .elementor-post__title.elementor-post__title a' => 'color: currentColor;',
-					'{{WRAPPER}} .elementor-tab-title a' => 'color: currentColor;',
-				],
-			]
+			array(
+				'label' => __( 'Export Theme Style Kit CSS', 'ang' ),
+				'type'  => 'button',
+				'text'  => __( 'Export', 'ang' ),
+				'event' => 'analog:exportCSS',
+			)
 		);
 
 		$element->end_controls_section();
@@ -765,30 +795,30 @@ class Typography extends Module {
 	 */
 	public function tweak_section_widget( Element_Base $element ) {
 		$element->start_injection(
-			[
+			array(
 				'of' => 'height',
 				'at' => 'before',
-			]
+			)
 		);
 
 		$element->add_control(
 			'ang_outer_gap',
-			[
+			array(
 				'label'         => __( 'Outer Section Padding', 'ang' ),
 				'description'   => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToSection( 'style', 'ang_section_padding', 'page_settings' )", ' here.' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'no',
-				'options'       => [
+				'options'       => array(
 					'no'       => __( 'No Padding', 'ang' ),
 					'default'  => __( 'Normal', 'ang' ),
 					'narrow'   => __( 'Small', 'ang' ),
 					'extended' => __( 'Medium', 'ang' ),
 					'wide'     => __( 'Large', 'ang' ),
 					'wider'    => __( 'Extra Large', 'ang' ),
-				],
+				),
 				'prefix_class'  => 'ang-section-padding-',
-			]
+			)
 		);
 
 		$element->end_injection();
@@ -808,7 +838,7 @@ class Typography extends Module {
 
 		$keys = apply_filters(
 			'analog/elementor/typography/keys',
-			[
+			array(
 				'ang_heading_1',
 				'ang_heading_2',
 				'ang_heading_3',
@@ -818,10 +848,10 @@ class Typography extends Module {
 				'ang_default_heading',
 				'ang_body',
 				'ang_paragraph',
-			]
+			)
 		);
 
-		$font_families = [];
+		$font_families = array();
 
 		foreach ( $keys as $key ) {
 			$font_families[] = $page_settings_model->get_settings( $key . '_font_family' );
@@ -834,7 +864,7 @@ class Typography extends Module {
 			wp_enqueue_style(
 				'ang_typography_fonts',
 				'https://fonts.googleapis.com/css?family=' . implode( ':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic|', $font_families ),
-				[],
+				array(),
 				get_the_modified_time( 'U', $post_id )
 			);
 		}
@@ -851,10 +881,10 @@ class Typography extends Module {
 		wp_enqueue_script(
 			'ang_typography_script',
 			ANG_PLUGIN_URL . "inc/elementor/js/ang-typography{$script_suffix}.js",
-			[
+			array(
 				'jquery',
 				'editor',
-			],
+			),
 			ANG_VERSION,
 			true
 		);
@@ -866,25 +896,24 @@ class Typography extends Module {
 	 * @param string $key Setting ID.
 	 * @param bool   $is_array Whether provided key includes set of array.
 	 *
+	 * @deprecated 1.6.0
+	 *
 	 * @return array|string
 	 */
 	public function get_default_value( $key, $is_array = false ) {
-		$global_token = Utils::get_global_token_data();
+		$recently_imported = $this->page_settings;
 
-		$recently_imported = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 		if ( isset( $recently_imported['ang_recently_imported'] ) && 'yes' === $recently_imported['ang_recently_imported'] ) {
-			return ( $is_array ) ? [] : '';
+			return ( $is_array ) ? array() : '';
 		}
 
-		if ( $global_token && ! empty( $global_token ) ) {
-			$values = json_decode( $global_token, true );
+		$values = $this->global_token_data;
 
-			if ( isset( $values[ $key ] ) && '' !== $values[ $key ] ) {
-				return $values[ $key ];
-			}
+		if ( count( $values ) && isset( $values[ $key ] ) && '' !== $values[ $key ] ) {
+			return $values[ $key ];
 		}
 
-		return ( $is_array ) ? [] : '';
+		return ( $is_array ) ? array() : '';
 	}
 
 	/**
@@ -892,67 +921,68 @@ class Typography extends Module {
 	 *
 	 * @param string $key Setting ID.
 	 *
+	 * @deprecated 1.6.0
+	 *
 	 * @return array
 	 */
 	public function get_default_typography_values( $key ) {
-		$global_token = Utils::get_global_token_data();
+		$recently_imported = $this->page_settings;
 
-		$recently_imported = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
 		if ( isset( $recently_imported['ang_recently_imported'] ) && 'yes' === $recently_imported['ang_recently_imported'] ) {
-			return [];
+			return array();
 		}
 
-		if ( empty( $global_token ) || 'yes' === $recently_imported ) {
-			return [];
+		if ( empty( $this->global_token_data ) ) {
+			return array();
 		}
 
-		return [
-			'typography'            => [
+		return array(
+			'typography'            => array(
 				'default' => $this->get_default_value( $key . '_typography' ),
-			],
-			'font_size'             => [
+			),
+			'font_size'             => array(
 				'default' => $this->get_default_value( $key . '_font_size', true ),
-			],
-			'font_size_tablet'      => [
+			),
+			'font_size_tablet'      => array(
 				'default' => $this->get_default_value( $key . '_font_size_tablet', true ),
-			],
-			'font_size_mobile'      => [
+			),
+			'font_size_mobile'      => array(
 				'default' => $this->get_default_value( $key . '_font_size_mobile', true ),
-			],
-			'line_height'           => [
+			),
+			'line_height'           => array(
 				'default' => $this->get_default_value( $key . '_line_height', true ),
-			],
-			'line_height_mobile'    => [
+			),
+			'line_height_mobile'    => array(
 				'default' => $this->get_default_value( $key . '_line_height_mobile', true ),
-			],
-			'line_height_tablet'    => [
+			),
+			'line_height_tablet'    => array(
 				'default' => $this->get_default_value( $key . '_line_height_tablet', true ),
-			],
-			'letter_spacing'        => [
+			),
+			'letter_spacing'        => array(
 				'default' => $this->get_default_value( $key . '_letter_spacing', true ),
-			],
-			'letter_spacing_mobile' => [
+			),
+			'letter_spacing_mobile' => array(
 				'default' => $this->get_default_value( $key . '_letter_spacing_mobile', true ),
-			],
-			'letter_spacing_tablet' => [
+			),
+			'letter_spacing_tablet' => array(
 				'default' => $this->get_default_value( $key . '_letter_spacing_tablet', true ),
-			],
-			'font_family'           => [
+			),
+			'font_family'           => array(
 				'default' => $this->get_default_value( $key . '_font_family' ),
-			],
-			'font_weight'           => [
+			),
+			'font_weight'           => array(
 				'default' => $this->get_default_value( $key . '_font_weight' ),
-			],
-			'text_transform'        => [
+			),
+			'text_transform'        => array(
 				'default' => $this->get_default_value( $key . '_text_transform' ),
-			],
-			'font_style'            => [
+			),
+			'font_style'            => array(
 				'default' => $this->get_default_value( $key . '_font_style' ),
-			],
-			'text_decoration'       => [
+			),
+			'text_decoration'       => array(
 				'default' => $this->get_default_value( $key . '_text_decoration' ),
-			],
-		];
+			),
+		);
 	}
 
 	/**
@@ -974,12 +1004,77 @@ class Typography extends Module {
 	 * @return array
 	 */
 	public function add_token_state( $post_states, $post ) {
-		$global_token = (int) get_option( 'elementor_ang_global_kit' );
+		$global_token = (int) Utils::get_global_kit_id();
 		if ( $global_token && $post->ID === $global_token ) {
 			$post_states[] = '<span style="color:#32b644;">&#9679; Global Style Kit</span>';
 		}
 
 		return $post_states;
+	}
+
+	/**
+	 * Tweak default Section widget.
+	 *
+	 * @since 1.6.0
+	 * @param $element Element_Base Class.
+	 */
+	public function tweak_typography_section( $element ) {
+		$element->start_injection(
+			array(
+				'of' => 'h1_heading',
+				'at' => 'before',
+			)
+		);
+
+		$default_fonts = Manager::get_settings_managers( 'general' )->get_model()->get_settings( 'elementor_default_generic_fonts' );
+
+		if ( $default_fonts ) {
+			$default_fonts = ', ' . $default_fonts;
+		}
+
+		$element->add_control(
+			'ang_heading_color_heading',
+			array(
+				'label'     => __( 'Headings', 'ang' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_color_heading',
+			array(
+				'label'     => __( 'Headings Color', 'ang' ),
+				'type'      => Controls_Manager::COLOR,
+				'variable'  => 'ang_color_heading',
+				'selectors' => array(
+					'{{WRAPPER}}' => '--ang_color_heading: {{VALUE}};',
+					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}}',
+				),
+			)
+		);
+
+		$element->add_control(
+			'ang_default_heading_font_family',
+			array(
+				'label'     => __( 'Headings Font', 'ang' ),
+				'type'      => Controls_Manager::FONT,
+				'selectors' => array(
+					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
+				),
+			)
+		);
+
+		$element->add_control(
+			'ang_description_default_heading',
+			array(
+				'raw'             => __( 'You can set individual heading font and colors below.', 'ang' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->end_injection();
 	}
 }
 

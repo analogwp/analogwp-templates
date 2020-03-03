@@ -10,6 +10,10 @@ namespace Analog\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
+if ( class_exists( '\AnalogPro\Plugin' ) ) {
+	return;
+}
+
 /**
  * GoPro.
  */
@@ -23,7 +27,7 @@ class GoPro extends Settings_Page {
 		$this->label = __( 'Style Kits Pro', 'ang' );
 		parent::__construct();
 
-		add_action( 'ang_settings_' . $this->id, [ $this, 'get_pro' ] );
+		add_action( 'ang_settings_' . $this->id, array( $this, 'get_pro' ) );
 	}
 
 	/**

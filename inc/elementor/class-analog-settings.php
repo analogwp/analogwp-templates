@@ -10,33 +10,21 @@ namespace Analog\Elementor;
 defined( 'ABSPATH' ) || exit;
 
 use Elementor\Settings;
-use Analog\Utils;
 
 /**
  * Analog Settings.
  *
+ * @deprecated
  * @since 1.2.0
  */
 class Analog_Settings {
-	const ANG_GLOBAL_KIT_OPTION_NAME = 'ang_global_kit';
+	const ANG_GLOBAL_KIT_OPTION_NAME = 'ang_global_kit_deprecated';
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/admin/after_create_settings/' . Settings::PAGE_ID, [ $this, 'register_admin_fields' ], 100 );
-
-		add_action(
-			'update_option_elementor_ang_global_kit',
-			function() {
-				Utils::add_notice(
-					__( 'Global Stylekit Settings Saved. It\'s recommended to close any open elementor tabs in your browser, and re-open them, for the effect to apply.', 'ang' ),
-					'info'
-				);
-
-				Utils::clear_elementor_cache();
-			}
-		);
+		add_action( 'elementor/admin/after_create_settings/' . Settings::PAGE_ID, array( $this, 'register_admin_fields' ), 100 );
 	}
 
 	/**
@@ -46,33 +34,27 @@ class Analog_Settings {
 	 * @return void
 	 */
 	public function register_admin_fields( Settings $settings ) {
-		$tokens_dropdown = [ '' => __( '— Select a Style Kit —', 'ang' ) ] + Utils::get_tokens( false );
-
 		$settings->add_section(
 			Settings::TAB_STYLE,
 			'analogwp',
-			[
+			array(
 				'callback' => function() {
 					echo '<hr><h2>' . esc_html__( 'Style Kits for Elementor Settings', 'ang' ) . '</h2>';
 				},
-				'fields'   => [
-					self::ANG_GLOBAL_KIT_OPTION_NAME => [
-						'label'        => __( 'Global Style Kit', 'ang' ),
-						'field_args'   => [
-							'type'    => 'select',
-							'options' => $tokens_dropdown,
-							'desc'    => sprintf(
+				'fields'   => array(
+					self::ANG_GLOBAL_KIT_OPTION_NAME => array(
+						'label'      => __( 'Global Style Kit', 'ang' ),
+						'field_args' => array(
+							'type' => 'raw_html',
+							'html' => sprintf(
 								/* translators: %s: Style Kit Documentation link */
-								__( 'Choosing a Style Kit will make it global and apply site-wide. Learn more about <a href="%s" target="_blank">Style kits</a>.', 'ang' ),
-								'https://docs.analogwp.com/article/554-what-are-style-kits'
+								__( 'This setting has been moved to %s.', 'ang' ),
+								'<a href="' . admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' ) . '">' . __( 'Style Kit settings', 'ang' ) . '</a>'
 							),
-						],
-						'setting_args' => [
-							'sanitize_callback' => [ $this, 'sanitize_global_kit' ],
-						],
-					],
-				],
-			]
+						),
+					),
+				),
+			)
 		);
 	}
 

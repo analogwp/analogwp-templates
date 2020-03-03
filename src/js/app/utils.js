@@ -1,12 +1,17 @@
 import { requestSettingUpdate } from './api';
 import Filters from './filters';
 import StyleKits from './stylekits/stylekits';
+import Blocks from './blocks/blocks';
 import Templates from './Templates';
 const { Fragment } = React;
 
 export const getPageComponents = ( state ) => {
-	if ( state.tab === 'stylekits' ) {
+	if ( state.tab === 'styleKits' ) {
 		return <StyleKits />;
+	}
+
+	if ( state.tab === 'blocks' ) {
+		return <Blocks />;
 	}
 
 	return (
@@ -66,6 +71,14 @@ export function isNewTheme( date ) {
 	const start = moment.unix( date );
 	const end = moment.now();
 	const diff = Math.ceil( moment.duration( start.diff( end ) ).asDays() );
+
+	return diff;
+}
+
+export function getTime( date ) {
+	const start = moment.unix( date );
+	const end = moment.now();
+	const diff = Math.ceil( moment.duration( start.diff( end ) ).asMinutes() );
 
 	return diff;
 }
