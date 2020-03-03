@@ -7,8 +7,11 @@
 
 namespace Analog;
 
-use Elementor\Core\Settings\Manager;
+use Analog\Core\Storage\Transients;
+use Elementor\Core\Base\Document;
+use Elementor\Core\Kits\Manager;
 use Elementor\Plugin;
+use Elementor\TemplateLibrary\Source_Local;
 use WP_Query;
 
 /**
@@ -17,6 +20,43 @@ use WP_Query;
  * @package Analog
  */
 class Utils extends Base {
+
+	/**
+	 * Transients object.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @var Transients
+	 */
+	private $transients;
+
+	/**
+	 * Utils constructor.
+	 *
+	 * @since 1.6.0
+	 */
+	public function __construct() {
+		if ( ! $this->transients ) {
+			$this->transients = new Transients();
+		}
+
+		$delete_kit_cache = function ( $post_id ) {
+			if ( Source_Local::CPT !== get_post_type( $post_id ) ) {
+				return;
+			}
+
+			$type = get_post_meta( $post_id, '_elementor_template_type', true );
+			if ( 'kit' !== $type ) {
+				return;
+			}
+
+			$this->transients->delete( 'analog_get_kits' );
+		};
+
+		add_action( 'delete_post', $delete_kit_cache );
+		add_action( 'save_post', $delete_kit_cache );
+	}
+
 	/**
 	 * Debugging log.
 	 *
@@ -338,9 +378,15 @@ class Utils extends Base {
 
 		$query = new WP_Query(
 			array(
-				'post_type'              => 'ang_tokens',
+				'post_type'              => 'elementor_library',
 				'post_status'            => 'publish',
 				'posts_per_page'         => -1,
+				'meta_query'     => array( // @codingStandardsIgnoreLine
+					array(
+						'key'   => Document::TYPE_META_KEY,
+						'value' => 'kit',
+					),
+				),
 				'no_found_rows'          => true,
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
@@ -479,7 +525,7 @@ class Utils extends Base {
 	 * @since 1.3.15
 	 * @return void
 	 */
-	public static function update_style_kit_for_post( int $post_id, array $tokens ) {
+	public static function update_style_kit_for_post( $post_id, array $tokens ) {
 		$page_settings = \get_post_meta( $post_id, '_elementor_page_settings', true );
 
 		$allowed_types = array( 'post', 'wp-post', 'page', 'wp-page', 'global-widget', 'popup', 'section', 'header', 'footer', 'single', 'archive' );
@@ -490,8 +536,11 @@ class Utils extends Base {
 			return;
 		}
 
-		$preserved_settings = self::remove_stored_kit_keys( $page_settings );
-		$modified_settings  = array_merge( $preserved_settings, $tokens );
+		$preserved_settings = array();
+		if ( is_array( $page_settings ) ) {
+			$preserved_settings = self::remove_stored_kit_keys( $page_settings );
+		}
+		$modified_settings = array_merge( $preserved_settings, $tokens );
 
 		\update_post_meta( $post_id, '_elementor_page_settings', wp_slash( $modified_settings ) );
 	}
@@ -507,11 +556,7 @@ class Utils extends Base {
 		$license = Options::get_instance()->get( 'ang_license_key' );
 		$message = Options::get_instance()->get( 'ang_license_key_status' );
 
-		if ( ! empty( $license ) && 'valid' === $message ) {
-			return true;
-		}
-
-		return false;
+		return ! empty( $license ) && 'valid' === $message;
 	}
 
 	/**
@@ -542,10 +587,10 @@ class Utils extends Base {
 	 *
 	 * @param int $id Post ID.
 	 *
-	 * @since 1.5.0
 	 * @return array
+	 * @since 1.5.0
 	 */
-	public static function get_color_scheme_items( int $id ) {
+	public static function get_color_scheme_items( $id ) {
 		$settings = get_post_meta( $id, '_elementor_page_settings', true );
 
 		$keys = self::get_keys_for_color_controls();
@@ -575,6 +620,156 @@ class Utils extends Base {
 		}
 
 		return $formatted_colors;
+	}
+
+	/**
+	 * Check if a string starts with certain character.
+	 *
+	 * @param string $string String to search into.
+	 * @param string $start_string String to search for.
+	 *
+	 * @return bool
+	 */
+	public static function string_starts_with( $string, $start_string ) {
+		$len = strlen( $start_string );
+
+		return ( substr( $string, 0, $len ) === $start_string );
+	}
+
+	/**
+	 * Get a list of all Elementor Kits.
+	 * Returns an associative arrray with [id] => [title].
+	 *
+	 * @param bool $prefix Whether to prefix Global Kit with "Global :".
+	 *
+	 * @since 1.6.0
+	 * @return array
+	 */
+	public static function get_kits( $prefix = true ) {
+		$transients = self::get_instance()->transients;
+		$posts      = $transients->get( 'analog_get_kits' );
+
+		if ( ! $posts ) {
+			$posts = \get_posts(
+				array(
+					'post_type'      => Source_Local::CPT,
+					'post_status'    => array( 'publish', 'draft' ),
+					'posts_per_page' => -1,
+					'orderby'        => 'title',
+					'order'          => 'DESC',
+					'meta_query'     => array( // @codingStandardsIgnoreLine
+						array(
+							'key'   => Document::TYPE_META_KEY,
+							'value' => 'kit',
+						),
+					),
+				)
+			);
+
+			$transients->set( 'analog_get_kits', $posts, WEEK_IN_SECONDS );
+		}
+
+		$kits = array();
+
+		foreach ( $posts as $post ) {
+			$global_kit = (int) get_option( Manager::OPTION_ACTIVE );
+
+			$title = $post->post_title;
+
+			if ( $global_kit && $post->ID === $global_kit && $prefix ) {
+				/* translators: Global Style Kit post title. */
+				$title = sprintf( __( 'Global: %s', 'ang' ), $title );
+			}
+
+			$kits[ $post->ID ] = $title;
+		}
+
+		return $kits;
+	}
+
+	/**
+	 * Log a message to CLI.
+	 *
+	 * @param string $message CLI message to output.
+	 * @since 1.6.0
+	 * @return string|void Return message if in CLI, or void.
+	 */
+	public static function cli_log( $message ) {
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			\WP_CLI::line( $message );
+		}
+	}
+
+	/**
+	 * Get Style Kit Pro link.
+	 *
+	 * @since 1.6.0
+	 * @access public
+	 * @static
+	 *
+	 * @param array $args UTM arguments.
+	 *
+	 * @return string
+	 */
+	public static function get_pro_link( $args = array() ) {
+		static $theme_name = false;
+
+		if ( ! $theme_name ) {
+			$theme_obj = wp_get_theme();
+			if ( $theme_obj->parent() ) {
+				$theme_name = $theme_obj->parent()->get( 'Name' );
+			} else {
+				$theme_name = $theme_obj->get( 'Name' );
+			}
+
+			$theme_name = sanitize_key( $theme_name );
+		}
+
+		$default_args = array(
+			'utm_source'   => 'wp-plugin',
+			'utm_campaign' => 'gopro',
+			'utm_medium'   => 'wp-dash',
+			'utm_term'     => $theme_name,
+		);
+
+		return add_query_arg( wp_parse_args( $args, $default_args ), 'https://analogwp.com/style-kits-pro/' );
+	}
+
+	/**
+	 * Allow to remove method for an hook when, it's a class method used and class don't have variable, but you know the class name.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string $hook_name Hook/action name to remove.
+	 * @param string $class_name Class name. `Colors::class` for example.
+	 * @param string $method_name Class method name.
+	 * @param int    $priority Action priority.
+	 *
+	 * @return bool
+	 */
+	public static function remove_filters_for_anonymous_class( $hook_name = '', $class_name = '', $method_name = '', $priority = 0 ) {
+		global $wp_filter;
+
+		// Take only filters on right hook name and priority.
+		if ( ! isset( $wp_filter[ $hook_name ][ $priority ] ) || ! is_array( $wp_filter[ $hook_name ][ $priority ] ) ) {
+			return false;
+		}
+
+		// Loop on filters registered.
+		foreach ( $wp_filter[ $hook_name ][ $priority ] as $unique_id => $filter_array ) {
+			// Test if filter is an array ! (always for class/method).
+			// Test if object is a class, class and method is equal to param !
+			if ( isset( $filter_array['function'] ) && is_array( $filter_array['function'] ) && is_object( $filter_array['function'][0] ) && get_class( $filter_array['function'][0] ) && get_class( $filter_array['function'][0] ) === $class_name && $filter_array['function'][1] === $method_name ) {
+				// Test for WordPress >= 4.7 WP_Hook class (https://make.wordpress.org/core/2016/09/08/wp_hook-next-generation-actions-and-filters/).
+				if ( $wp_filter[ $hook_name ] instanceof \WP_Hook ) {
+					unset( $wp_filter[ $hook_name ]->callbacks[ $priority ][ $unique_id ] );
+				} else {
+					unset( $wp_filter[ $hook_name ][ $priority ][ $unique_id ] );
+				}
+			}
+		}
+
+		return false;
 	}
 }
 

@@ -7,7 +7,12 @@
 
 namespace Analog;
 
+use Analog\Elementor\Google_Fonts;
+use Elementor\Core\Common\Modules\Finder\Categories_Manager;
+use Elementor\Core\DynamicTags\Manager;
 use Elementor\Plugin;
+use Analog\Elementor\Tags\Light_Background;
+use Analog\Elementor\Tags\Dark_Background;
 
 /**
  * Intializes scripts/styles needed for AnalogWP modal on Elementor editing page.
@@ -22,7 +27,7 @@ class Elementor {
 
 		add_action(
 			'elementor/finder/categories/init',
-			function ( $categories_manager ) {
+			static function ( Categories_Manager $categories_manager ) {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
 
 				$categories_manager->add_category( 'ang-shortcuts', new Finder_Shortcuts() );
@@ -33,10 +38,9 @@ class Elementor {
 
 		add_action(
 			'elementor/dynamic_tags/register_tags',
-			function( $dynamic_tags ) {
-				$module = \Elementor\Plugin::$instance->dynamic_tags;
+			static function( Manager $dynamic_tags ) {
 
-				$module->register_group(
+				$dynamic_tags->register_group(
 					'ang_classes',
 					array(
 						'title' => __( 'AnalogWP Classes', 'ang' ),
@@ -46,8 +50,21 @@ class Elementor {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-dark-background.php';
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-light-background.php';
 
-				$module->register_tag( 'Analog\Elementor\Tags\Light_Background' );
-				$module->register_tag( 'Analog\Elementor\Tags\Dark_Background' );
+				$dynamic_tags->register_tag( Light_Background::class );
+				$dynamic_tags->register_tag( Dark_Background::class );
+			}
+		);
+
+		add_filter(
+			'elementor/fonts/additional_fonts',
+			static function( $additional_fonts ) {
+				$fonts = Google_Fonts::get_google_fonts();
+
+				if ( count( $fonts ) ) {
+					$additional_fonts = array_merge( $additional_fonts, $fonts );
+				}
+
+				return $additional_fonts;
 			}
 		);
 	}
@@ -58,7 +75,7 @@ class Elementor {
 	public function register_controls() {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-ang-action.php';
 
-		$controls_manager = \Elementor\Plugin::$instance->controls_manager;
+		$controls_manager = Plugin::$instance->controls_manager;
 		$controls_manager->register_control( 'ang_action', new \Analog\Elementor\ANG_Action() );
 	}
 
@@ -99,7 +116,7 @@ class Elementor {
 			'analog/app/strings',
 			array(
 				'is_settings_page' => false,
-				'syncColors'       => ( '' !== Options::get_instance()->get( 'ang_sync_colors' ) ? Options::get_instance()->get( 'ang_sync_colors' ) : true ),
+				'global_kit'       => get_option( 'elementor_active_kit' ),
 				'stylekit_queue'   => Utils::get_stylekit_queue() ? array_values( Utils::get_stylekit_queue() ) : array(),
 			)
 		);

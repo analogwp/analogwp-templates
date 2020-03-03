@@ -7,6 +7,7 @@
 
 namespace Analog\Elementor;
 
+use Analog\Options;
 use Elementor\Base_Data_Control;
 
 /**
@@ -83,11 +84,6 @@ class ANG_Action extends Base_Data_Control {
 			false
 		);
 
-		$central_color_palette = array();
-		if ( class_exists( 'kt_Central_Palette' ) ) {
-			$central_color_palette = \kt_Central_Palette::instance()->get_colors();
-		}
-
 		$sk_panels_allowed = true;
 		if ( has_filter( 'ang_sk_elementor_disabled', '__return_true' ) ) {
 			$sk_panels_allowed = false;
@@ -98,9 +94,10 @@ class ANG_Action extends Base_Data_Control {
 			'ANG_Action',
 			array(
 				'saveToken'       => rest_url( 'agwp/v1/tokens/save' ),
-				'palette'         => $central_color_palette,
+				'cssDir'          => \Elementor\Core\Files\Base::get_base_uploads_url() . \Elementor\Core\Files\Base::DEFAULT_FILES_DIR,
+				'globalKit'       => Options::get_instance()->get( 'global_kit' ),
 				'translate'       => array(
-					'resetMessage'    => __( 'This will reset all the settings you configured previously under Page Style Settings from Style Kits.', 'ang' ),
+					'resetMessage'    => __( 'This will clean-up all the values from the current Theme Style kit. If you need to revert, you can do so at the Revisions tab.', 'ang' ),
 					'resetHeader'     => __( 'Are you sure?', 'ang' ),
 					'saveToken'       => __( 'Save Style Kit as', 'ang' ),
 					'saveToken2'      => __( 'Save', 'ang' ),
@@ -141,10 +138,23 @@ class ANG_Action extends Base_Data_Control {
 	}
 
 	/**
+	 * Get default control settings.
+	 *
+	 * @since 1.6.0
+	 * @return array
+	 */
+	protected function get_default_settings() {
+		return array(
+			'button_type' => 'success',
+		);
+	}
+
+	/**
 	 * Control Content template.
 	 *
 	 * {@inheritDoc}
 	 *
+	 * @since 1.6.0 Added data.button_type class to button.
 	 * @return void
 	 */
 	public function content_template() {
@@ -156,7 +166,7 @@ class ANG_Action extends Base_Data_Control {
 				<button
 					data-action="{{ data.action }}"
 					style="padding:7px 10px"
-					class="elementor-button elementor-button-success"
+					class="elementor-button elementor-button-{{{ data.button_type }}}"
 				>
 				{{{ data.action_label }}}</button>
 			</div>

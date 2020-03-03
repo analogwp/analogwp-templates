@@ -19,6 +19,14 @@ class Quick_Edit extends Base {
 	const FIELD_SLUG = 'ang_stylekit';
 
 	/**
+	 * Holds kit data.
+	 *
+	 * @access private
+	 * @var array kits.
+	 */
+	private static $kits = '';
+
+	/**
 	 * QuickEdit constructor.
 	 */
 	public function __construct() {
@@ -35,6 +43,7 @@ class Quick_Edit extends Base {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'quick_edit_scripts' ) );
 		add_action( 'wp_ajax_save_bulk_edit_stylekit', array( $this, 'save_bulk_edit_stylekit' ) );
+		self::$kits = Utils::get_kits();
 	}
 
 	/**
@@ -50,9 +59,8 @@ class Quick_Edit extends Base {
 			return;
 		}
 
-		$token = get_post_meta( $kit_id, '_tokens_data', true );
-		$token = json_decode( $token, ARRAY_A );
-		$token = array_merge( $token, array( 'ang_action_tokens' => $kit_id ) );
+		$token = get_post_meta( $kit_id, '_elementor_page_settings', true );
+		$token = array_merge( $token, array( 'ang_action_tokens' => (string) $kit_id ) );
 
 		$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
 		if ( ! is_array( $settings ) ) {
@@ -93,7 +101,7 @@ class Quick_Edit extends Base {
 				$is_elementor = get_post_meta( $id, '_elementor_edit_mode', true );
 
 				if ( 'builder' === $is_elementor ) {
-					$value = 'elementor';
+					$value = Options::get_instance()->get( 'global_kit' );
 					if ( is_array( $settings ) && isset( $settings['ang_action_tokens'] ) ) {
 						$value = esc_html( $settings['ang_action_tokens'] );
 					}
@@ -102,35 +110,6 @@ class Quick_Edit extends Base {
 				}
 				break;
 		endswitch;  // phpcs:ignore
-	}
-
-	/**
-	 * Get Style Kit IDs.
-	 *
-	 * @return array|bool Style Kit IDs, false if empty.
-	 */
-	public function get_stylekits() {
-		/**
-		 * Remove Elementor's filter on `parse_query` which prevents other posts types from returning posts.
-		 *
-		 * @since 1.5.0
-		 */
-		remove_all_filters( 'parse_query' );
-
-		$posts = get_posts(
-			array(
-				'post_type'   => 'ang_tokens',
-				'numberposts' => -1,
-				'fields'      => 'ids',
-			)
-		);
-
-		/**
-		 * Add back the filter.
-		 */
-		add_action( 'parse_query', array( '\Elementor\TemplateLibrary\Source_Local', 'admin_query_filter_types' ) );
-
-		return $posts;
 	}
 
 	/**
@@ -149,10 +128,8 @@ class Quick_Edit extends Base {
 			wp_nonce_field( plugin_basename( __FILE__ ), 'ang_sk_update_nonce' );
 		}
 
-		$global_kit = Options::get_instance()->get( 'global_kit' );
-
 		?>
-		<?php if ( self::FIELD_SLUG === $column_name && $this->get_stylekits() ) : ?>
+		<?php if ( self::FIELD_SLUG === $column_name && self::$kits ) : ?>
 			<fieldset id="ang-stylekit-fieldset" class="inline-edit-col-left" style="clear:both">
 				<style>.column-ang_stylekit{display: none;}</style>
 				<div class="inline-edit-col">
@@ -160,9 +137,8 @@ class Quick_Edit extends Base {
 						<label class="inline-edit-group">
 							<span class="title"><?php esc_html_e( 'Style Kit', 'ang' ); ?></span>
 							<select name="ang_stylekit">
-								<option value="-1">&mdash; Select &mdash;</option>
-								<?php foreach ( $this->get_stylekits() as $id ) : ?>
-									<option value="<?php echo esc_attr( $id ); ?>"<?php if ( $id === $global_kit ) echo ' selected'; ?>><?php echo esc_html( get_the_title( $id ) ); ?></option>
+								<?php foreach ( self::$kits as $id => $title ) : ?>
+									<option value="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $title ); ?></option>
 								<?php endforeach; ?>
 							</select>
 						</label>
@@ -202,6 +178,15 @@ class Quick_Edit extends Base {
 	public function quick_edit_scripts( $hook ) {
 		if ( 'edit.php' === $hook ) {
 			wp_enqueue_script( 'ang-quick-edit', ANG_PLUGIN_URL . 'assets/js/quick-edit.js', array( 'jquery' ), ANG_VERSION, true );
+
+			wp_localize_script(
+				'ang-quick-edit',
+				'angQuickEdit',
+				array(
+					'kits'      => Utils::get_kits( false ),
+					'globalKit' => Utils::get_global_kit_id(),
+				)
+			);
 		}
 	}
 

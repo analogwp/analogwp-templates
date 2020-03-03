@@ -51,7 +51,7 @@ final class Notice {
 	 *
 	 * @var array
 	 */
-	private $args = array();
+	private $args;
 
 	/**
 	 * Constructor.
@@ -131,6 +131,7 @@ final class Notice {
 					'a'      => array(
 						'href'   => array(),
 						'target' => array(),
+						'class'  => array(),
 					),
 					'br'     => array(),
 					'em'     => array(),
@@ -149,6 +150,27 @@ final class Notice {
 
 		?>
 		<div id="<?php echo esc_attr( 'analog-notice-' . $this->slug ); ?>" class="analog-notice <?php echo esc_attr( $class ); ?>" data-key="<?php echo esc_attr( $this->slug ); ?>">
+			<style>
+				.analog-notice {
+					display: flex;
+					align-items: center;
+				}
+				.analog-notice .logo {
+					display: inline-flex;
+					margin: 5px 10px 5px 0;
+					box-sizing: border-box;
+					width: 40px;
+					min-width: 40px;
+					min-height: 40px;
+					align-items: center;
+					justify-content: center;
+					background: #5c32b6;
+					border-radius: 50%;
+				}
+			</style>
+			<div class="logo">
+				<img src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/triangle.svg' ); ?>" alt="<?php esc_attr_e( 'Style Kits for Elementor Logo', 'ang' ); ?>" />
+			</div>
 			<?php echo $content; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
 			<?php echo self::$nonce_field; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
 		</div>

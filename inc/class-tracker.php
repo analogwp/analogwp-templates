@@ -132,7 +132,7 @@ class Tracker {
 					'<a href="https://analogwp.com/admin-review" target="_blank">' . __( 'review on WordPress.org', 'ang' ) . '</a>'
 				),
 				'type'            => Notice::TYPE_INFO,
-				'active_callback' => function() {
+				'active_callback' => static function() {
 					return current_user_can( 'manage_options' ) && ( self::$intalled_time < strtotime( '-2 week' ) );
 				},
 				'dismissible'     => true,

@@ -25,13 +25,18 @@
 
 			// get the data
 			var $style_kit = $( '.column-ang_stylekit', $post_row ).text();
+			var globalKit = parseInt( angQuickEdit.globalKit );
 
 			// Hide Style Kit dropdown for posts without Stylekit.
 			if ( $style_kit === '' && ! $post_row.hasClass('type-elementor_library') ) {
 				$('#ang-stylekit-fieldset').hide();
 			}
 
-			if ( $style_kit !== 'elementor' && $style_kit !== '' ) {
+			if ( $style_kit !== '' ) {
+				if ( ! ( parseInt( $style_kit ) in angQuickEdit.kits ) ) {
+					$style_kit = globalKit;
+				}
+
 				$('select[name=ang_stylekit]').val( $style_kit );
 			}
 		}

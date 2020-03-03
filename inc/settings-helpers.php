@@ -8,6 +8,9 @@
 
 namespace Analog\Settings;
 
+use Analog\Options;
+use Elementor\Core\Kits\Manager;
+
 /**
  * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
  * Non-scalar values are ignored.
@@ -18,9 +21,9 @@ namespace Analog\Settings;
 function ang_clean( $var ) {
 	if ( is_array( $var ) ) {
 		return array_map( __NAMESPACE__ . '\ang_clean', $var );
-	} else {
-		return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
 	}
+
+	return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
 }
 
 /**
@@ -69,3 +72,32 @@ function ang_settings_get_option( $option_name, $default = '' ) {
 
 	return Admin_Settings::get_option( $option_name, $default );
 }
+
+
+/**
+ * Update Elementor Kit Option with respect to GSK.
+ *
+ * @return void
+ */
+function ang_update_elementor_kit() {
+	if ( empty( $_POST ) ) { // phpcs:ignore
+		return;
+	}
+
+	$data              = $_POST; // phpcs:ignore
+	$key               = 'global_kit';
+	$elementor_kit_key = Manager::OPTION_ACTIVE;
+	$kit_id            = Options::get_instance()->get( 'global_kit' );
+
+	$raw_value     = isset( $data[ $key ] ) ? wp_unslash( $data[ $key ] ) : $kit_id;
+	$elementor_kit = \get_option( $elementor_kit_key );
+
+	if ( $raw_value !== $kit_id || $raw_value !== $elementor_kit ) {
+		if ( empty( $raw_value ) || '-1' === $raw_value ) {
+			\update_option( $elementor_kit_key, Options::get_instance()->get( 'default_kit' ) );
+		}
+
+		\update_option( $elementor_kit_key, $raw_value );
+	}
+}
+add_action( 'ang_update_option', __NAMESPACE__ . '\ang_update_elementor_kit' );

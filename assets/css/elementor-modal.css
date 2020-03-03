@@ -125,3 +125,46 @@ button[data-action="save_token"] {
 #analogwp-templates-modal .dialog-content {
 	height: 100%;
 }
+
+
+#elementor-panel-page-settings-controls > .elementor-control[class*="ang_"],
+#elementor-kit-panel-content-controls > .elementor-control[class*="ang_"] {
+	position: relative;
+}
+
+#elementor-panel-page-settings-controls > .elementor-control[class*="ang_"]:after,
+#elementor-kit-panel-content-controls > .elementor-control[class*="ang_"]:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 5px;
+	height: 100%;
+	background: #C5B1CE;
+}
+
+.elementor-control-ang_action_tokens .select2-container {
+	min-width: 120px;
+}
+
+.elementor-control-ang_edit_kit .elementor-control-input-wrapper {
+	width: 100%;
+	margin-left: 0;
+}
+
+.elementor-control-ang_edit_kit .elementor-button.elementor-button-default {
+	width: 100%;
+	background: #5BC0DE;
+	padding: 10px 20px;
+	height: auto;
+}
+
+.elementor-control-ang_edit_kit .elementor-button.elementor-button-default:hover,
+.elementor-control-ang_edit_kit .elementor-button.elementor-button-default:focus {
+	box-shadow: none;
+	background: #5c32b6;
+}
+
+.sub-arrow + .sub-arrow {
+	display: none;
+}

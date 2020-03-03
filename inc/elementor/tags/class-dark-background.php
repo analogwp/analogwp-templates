@@ -2,7 +2,7 @@
 
 namespace Analog\Elementor\Tags;
 
-use Elementor\Core\DynamicTags\Tag as Tag;
+use Elementor\Core\DynamicTags\Tag;
 use Elementor\Modules\DynamicTags\Module;
 
 class Dark_Background extends Tag {

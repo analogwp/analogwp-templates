@@ -8,12 +8,12 @@
 
 namespace Analog\Upgrade;
 
+use Analog\Core\Util\Migration;
 use Analog\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
 use Analog\Options;
-use Analog\Install_Stylekits as StyleKits;
 
 /**
  * Perform automatic upgrades when necessary.
@@ -104,31 +104,23 @@ function do_automatic_upgrades() {
 		Options::get_instance()->set( 'ang_sync_colors', false );
 	}
 
+	if (
+		version_compare( $installed_version, '1.6.0', '<' )
+		 && ! Options::get_instance()->get( 'theme_style_kit_migrated' )
+	) {
+		version_1_6_0_upgrades();
+
+		// Redirect to onboarding page.
+		wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
+		exit;
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
 	}
 }
 add_action( 'admin_init', __NAMESPACE__ . '\do_automatic_upgrades' );
-
-/**
- * Install Sample Stylekits.
- *
- * @return void
- */
-function install_stylekits() {
-	$stylekits_installed = Options::get_instance()->get( 'installed_stylekits' );
-
-	if ( ! $stylekits_installed ) {
-		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-install-stylekits.php';
-
-		$did_fail = StyleKits::get_instance()->perform_install();
-
-		if ( ! $did_fail ) {
-			Options::get_instance()->set( 'installed_stylekits', true );
-		}
-	}
-}
 
 /**
  * Check if a string ends with certain characters.
@@ -463,4 +455,23 @@ function version_1_5_1_upgrades() {
 	update_option( 'elementor_scheme_color-picker', $color_items );
 
 	delete_transient( 'analogwp_template_info' );
+}
+
+/**
+ * Version 1.6.0 upgrades.
+ *
+ * @since 1.6.0
+ */
+function version_1_6_0_upgrades() {
+	// Perform Kits migration.
+	$migration = new Migration();
+	$migration->convert_all_sk_to_kits();
+
+	// Set Kit migrated flag.
+	Options::get_instance()->set( 'theme_style_kit_migrated', true );
+
+	Options::get_instance()->set( 'version', ANG_VERSION );
+
+	// Clear cache.
+	Utils::clear_elementor_cache();
 }

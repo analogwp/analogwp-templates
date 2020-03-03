@@ -163,7 +163,6 @@ export async function requestElementorImport( template, kit ) {
 		const kitTitle = ( 'string' === typeof kit.data ) ? kit.data : kit.data.title;
 
 		if ( parsedTemplate.tokens ) {
-			analog.resetStyles();
 			elementor.settings.page.model.set( parsedTemplate.tokens );
 
 			let options = elementor.settings.page.model.controls.ang_action_tokens.options;
@@ -175,7 +174,7 @@ export async function requestElementorImport( template, kit ) {
 				}
 				const id = parsedTemplate.tokens.ang_action_tokens.toString();
 
-				_.extend( options, { [id]: kitTitle  });
+				_.extend( options, { [id]: kitTitle });
 
 				elementor.settings.page.model.controls.ang_action_tokens.options = options;
 			}
@@ -188,6 +187,7 @@ export async function requestElementorImport( template, kit ) {
 
 		elementor.once( 'preview:loaded', () => {
 			analog.redirectToSection();
+			elementor.settings.page.model.setExternalChange( 'ang_action_tokens', elementor.config.kit_id.toString() )
 		} );
 	} );
 }

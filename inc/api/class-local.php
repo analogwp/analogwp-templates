@@ -10,6 +10,7 @@ namespace Analog\API;
 use Analog\Analog_Templates;
 use Analog\Base;
 use Analog\Classes\Import_Image;
+use Analog\Elementor\Kit\Manager;
 use Analog\Options;
 use Analog\Utils;
 use Elementor\TemplateLibrary\Analog_Importer;
@@ -445,48 +446,40 @@ class Local extends Base {
 	public function save_tokens( WP_REST_Request $request ) {
 		$belongs_to = $request->get_param( 'id' );
 		$title      = $request->get_param( 'title' );
-		$tokens     = $request->get_param( 'tokens' );
+		$settings   = $request->get_param( 'settings' );
 
-		if ( ! $tokens ) {
-			return new WP_Error( 'tokens_error', 'No tokens data found.' );
+		if ( ! isset( $belongs_to, $title, $settings ) ) {
+			return new WP_Error( 'kit_params_error', __( 'Invalid param(s).', 'ang' ) );
 		}
+
 		if ( ! $title ) {
-			return new WP_Error( 'tokens_error', 'Please provide a title.' );
+			return new WP_Error( 'kit_title_error', __( 'Please provide a title.', 'ang' ) );
 		}
 
-		$args = array(
-			'post_type'   => 'ang_tokens',
-			'post_title'  => $title,
-			'post_status' => 'publish',
-			'meta_input'  => array(
-				'belongs_to'   => $belongs_to,
-				'_tokens_data' => $tokens,
-			),
+		$tokens = json_decode( $settings, true );
+		$kit    = new Manager();
+
+		$post_id = $kit->create_kit(
+			$title,
+			array(
+				'_elementor_data'          => $kit->get_kit_content(),
+				'_elementor_page_settings' => $tokens,
+				'_duplicate_of'            => $belongs_to,
+				'_is_analog_user_kit'      => true,
+			)
 		);
 
-		/**
-		 * Save token arguments. Filters the arguments for wp_insert_post().
-		 *
-		 * @param string $args Arguments.
-		 * @param string $title Post Title.
-		 * @param string $tokens Tokens data.
-		 * @param string $belongs_to Post/Page ID of the page tokens are being saved from.
-		 */
-		$args = apply_filters( 'analog/elementor/save/tokens/args', $args, $title, $tokens, $belongs_to );
-
-		$post_id = wp_insert_post( $args );
-
 		if ( is_wp_error( $post_id ) ) {
-			return new WP_Error( 'tokens_error', __( 'Unable to create a post', 'ang' ) );
-		} else {
-			return new WP_REST_Response(
-				array(
-					'id'      => $post_id,
-					'message' => __( 'Token saved.', 'ang' ),
-				),
-				200
-			);
+			return new WP_Error( 'tokens_error', __( 'Unable to create a Kit', 'ang' ) );
 		}
+
+		return new WP_REST_Response(
+			array(
+				'id'      => $post_id,
+				'message' => __( 'The new Theme Style Kit has been saved and applied on this page.', 'ang' ),
+			),
+			200
+		);
 	}
 
 	/**
@@ -570,6 +563,8 @@ class Local extends Base {
 	 *
 	 * @since 1.3.8
 	 *
+	 * @uses \Analog\Elementor\Kit\Manager
+	 *
 	 * @param array $kit Array containing Style Kit info to import.
 	 * @return WP_Error|array
 	 */
@@ -580,7 +575,7 @@ class Local extends Base {
 
 		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit );
 
-		if ( isset( $remote_kit['message'] ) && isset( $remote_kit['code'] ) ) {
+		if ( isset( $remote_kit['message'], $remote_kit['code'] ) ) {
 			return new WP_Error( $remote_kit['code'], $remote_kit['message'] );
 		}
 
@@ -588,37 +583,36 @@ class Local extends Base {
 			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'ang' ) );
 		}
 
-		$tokens_data = $remote_kit['data'];
+		$kit_data     = $remote_kit['data'];
+		$kit_manager  = new Manager();
+		$kit_settings = maybe_unserialize( $kit_data );
 
-		$post_args = array(
-			'post_type'   => 'ang_tokens',
-			'post_title'  => $kit['title'],
-			'post_status' => 'publish',
-			'meta_input'  => array(
-				'_tokens_data' => $tokens_data,
-				'_import_type' => 'remote',
-			),
+		$kit_id = $kit_manager->create_kit(
+			$kit['title'],
+			array(
+				'_elementor_data'          => $kit_manager->get_kit_content(),
+				'_elementor_page_settings' => $kit_settings,
+				'_is_analog_kit'           => true,
+			)
 		);
 
-		$post = wp_insert_post( apply_filters( 'analog/kits/remote/create', $post_args ) );
-
-		if ( is_wp_error( $post ) ) {
-			return new WP_Error( 'kit_post_error', $post->get_error_message() );
-		} else {
-			$attachment = Import_Image::get_instance()->import(
-				array(
-					'id'  => wp_rand( 000, 999 ),
-					'url' => $kit['image'],
-				)
-			);
-
-			update_post_meta( $post, '_thumbnail_id', $attachment['id'] );
-
-			return array(
-				'message' => __( 'Style Kit imported', 'ang' ),
-				'id'      => $post,
-			);
+		if ( is_wp_error( $kit_id ) ) {
+			return new WP_Error( 'kit_post_error', $kit_id->get_error_message() );
 		}
+
+		$attachment = Import_Image::get_instance()->import(
+			array(
+				'id'  => wp_rand( 000, 999 ),
+				'url' => $kit['image'],
+			)
+		);
+
+		update_post_meta( $kit_id, '_thumbnail_id', $attachment['id'] );
+
+		return array(
+			'message' => __( 'Style Kit imported', 'ang' ),
+			'id'      => $kit_id,
+		);
 	}
 
 	/**
@@ -643,20 +637,18 @@ class Local extends Base {
 				$post_id = $import['id'];
 			}
 		} else {
-			$find    = get_page_by_title( $kit, OBJECT, 'ang_tokens' );
-			$post_id = $find->ID;
+			$installed_kits = array_flip( Utils::get_kits( false ) );
+
+			if ( isset( $installed_kits[ $kit ] ) ) {
+				$post_id = $installed_kits[ $kit ];
+			}
 		}
 
-		$tokens = json_decode( get_post_meta( $post_id, '_tokens_data', true ), true );
-		if ( is_array( $tokens ) ) {
-			$tokens += array( 'ang_action_tokens' => $post_id );
-		}
-
-		if ( ! $tokens ) {
+		if ( ! $post_id ) {
 			return new WP_Error( 'invalid_token_data', __( 'Invalid token data returned', 'ang' ) );
-		} else {
-			return $tokens;
 		}
+
+		return array( 'ang_action_tokens' => $post_id );
 	}
 
 	/**

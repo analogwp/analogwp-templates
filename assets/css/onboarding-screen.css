@@ -1,0 +1,69 @@
+.analog-welcome-screen .after-migration {
+	margin: 20px auto 60px;
+	border: 1px solid #DCDCDC;
+	max-width: 526px;
+	background-color: #fff;
+	position: relative;
+}
+
+.analog-welcome-screen .content-wrapper {
+	padding: 18px 18px 0;
+}
+
+.analog-welcome-screen .entry-footer {
+	border-top: 1px solid #DCDCDC;
+	padding: 18px;
+}
+
+.analog-welcome-screen .entry-header {
+	padding: 16px 16px;
+	background-color: #6133C1;
+}
+
+.analog-welcome-screen .logo {
+	display: inline-flex;
+}
+
+.analog-welcome-screen .logo > span {
+	align-self: center;
+}
+
+.analog-welcome-screen .brand-icon {
+	background-color: #7B3DFD;
+	display: inline-block;
+	padding: 7px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.analog-welcome-screen iframe {
+	padding: 18px 0 0;
+	max-width: 100%;
+}
+
+.analog-welcome-screen h3 {
+	margin-top: 0;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 22px;
+}
+
+.analog-welcome-screen .redirect-btn {
+	background-color: #6133C1;
+	padding: 10px 20px;
+	color: white;
+	text-decoration: none;
+	font-weight: 600;
+	transform: translateY(60px);
+	display: inline-block;
+}
+.analog-welcome-screen .redirect-btn a {
+	display: inline-block;
+	color: #fff;
+	padding: 15px;
+	text-decoration: none;
+}
+
+.analog-welcome-screen .actions {
+	text-align: center;
+}

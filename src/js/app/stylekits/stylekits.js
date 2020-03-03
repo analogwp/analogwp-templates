@@ -170,7 +170,7 @@ const initialState = {
 const footer = sprintf(
 	__( '%s in WordPress dashboard.', 'ang' ),
 	sprintf(
-		`<a href="${ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }" target="_blank" rel="noopener noreferer">%s</a>`,
+		`<a href="${ addQueryArgs( 'admin.php', { page: 'style-kits' } ) }" target="_blank" rel="noopener noreferer">%s</a>`,
 		__( 'Manage your Style Kits', 'ang' )
 	)
 );
@@ -249,7 +249,7 @@ export default class StyleKits extends React.Component {
 		let successButtonProps = {
 			target: '_blank',
 			rel: 'noopener noreferrer',
-			href: addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ),
+			href: addQueryArgs( 'admin.php', { page: 'style-kits' } ),
 		};
 
 		if ( ! Boolean( AGWP.is_settings_page ) ) {
@@ -261,7 +261,7 @@ export default class StyleKits extends React.Component {
 		return (
 			<Container>
 				<p className="tab-description">
-					{ __( 'These are some Style Kit presets that you can use as a starting point. Once you import a Style Kit, it will be added to your', 'ang' ) } <a href={ addQueryArgs( 'edit.php', { post_type: 'ang_tokens' } ) }>{ __( 'Style Kits list', 'ang' ) }</a>.
+					{ __( 'These are some Style Kit presets that you can use as a starting point. Once you import a Style Kit, it will be added to your', 'ang' ) } <a href={ addQueryArgs( 'admin.php', { page: 'style-kits' } ) }>{ __( 'Style Kits list', 'ang' ) }</a>.
 					&nbsp;{ __( 'You will then be able to apply it on any Elementor page.', 'ang' ) }
 					&nbsp;<a href="https://docs.analogwp.com/article/590-style-kit-library" target="_blank" rel="noopener noreferrer">{ __( 'Learn more', 'ang' ) }</a>.
 				</p>
@@ -285,7 +285,7 @@ export default class StyleKits extends React.Component {
 				<ChildContainer>
 					{ this.context.state.styleKits.length > 0 && this.context.state.styleKits.map( ( kit ) => {
 						return (
-							<li key={ kit.id }>
+							<li key={ kit.id + '-' + kit.site_id }>
 								<figure>
 									<img src={ kit.image } alt={ kit.title } />
 

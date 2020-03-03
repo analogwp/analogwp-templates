@@ -82,7 +82,7 @@ final class Notices {
 
 		return array_filter(
 			$notices,
-			function( $notice ) {
+			static function( $notice ) {
 				return $notice instanceof Notice;
 			}
 		);
