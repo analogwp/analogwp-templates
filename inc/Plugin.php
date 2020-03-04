@@ -239,7 +239,7 @@ final class Plugin {
 	/**
 	 * Returns Elementor instance.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.1
 	 * @return \Elementor\Plugin
 	 */
 	public static function elementor() {

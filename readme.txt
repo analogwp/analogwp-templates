@@ -2,13 +2,13 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 5.3.2
-Stable tag: 1.6.0
+Tested up to: 5.4
+Stable tag: 1.6.1
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Style Kits adds intuitive styling controls in the Elementor editor that power-up your design workflow with unparalleled flexibility.
+Style Kits extends the flexibility of Elementor Theme Styles and introduces the first library of Theme-Style-ready template kits and blocks that will transform your design workflow in Elementor.
 
 == Description ==
 
@@ -108,6 +108,10 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.6.1 - March 04, 2020 =
+- Fix: Fatal error with PHP5.6
+- Fix: Avoid duplicate queries in Post state
 
 = 1.6.0 - March 03, 2020 =
 - New: Style Kits integrated into Theme Styles. All existing Style Kits, are automatically converted to native Theme Style Kits
@@ -417,3 +421,9 @@ Fixes an issue with incorrect Kit selected during Template imports.
 
 = 1.5.5 =
 Fixes a conflict with Elementor Extras plugin
+
+= 1.6.0 =
+Integrates with Elementor Theme Styles
+
+= 1.6.1 =
+Fixes an error with PHP5.6 or earlier

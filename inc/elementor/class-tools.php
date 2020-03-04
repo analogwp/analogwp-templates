@@ -169,7 +169,7 @@ class Tools extends Base {
 	/**
 	 * Fetch a post.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.1
 	 * @param int|string $id Post ID.
 	 *
 	 * @return mixed
