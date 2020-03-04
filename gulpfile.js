@@ -162,7 +162,7 @@ gulp.task( 'phpMassager', () => {
 	return gulp
 		.src( jsonMassagerSRC )
 		.pipe( exec( 'php -f fonts-massager.php' ) )
-		.pipe( exec( 'phpcbf -s ./inc/elementor/Google_Fonts.php' ) );
+		.pipe( exec( 'phpcbf ./inc/elementor/Google_Fonts.php' ) );
 });
 
 /**
