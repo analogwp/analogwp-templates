@@ -10,7 +10,6 @@ namespace Analog;
 use Analog\Core\Storage\Transients;
 use Elementor\Core\Base\Document;
 use Elementor\Core\Kits\Manager;
-use Elementor\Plugin;
 use Elementor\TemplateLibrary\Source_Local;
 use WP_Query;
 
@@ -175,7 +174,7 @@ class Utils extends Base {
 	 * @access public
 	 */
 	public static function clear_elementor_cache() {
-		Plugin::$instance->files_manager->clear_cache();
+		Plugin::elementor()->files_manager->clear_cache();
 	}
 
 	/**

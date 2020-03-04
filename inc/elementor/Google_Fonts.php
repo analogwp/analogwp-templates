@@ -14,9 +14,9 @@ class Google_Fonts {
 	/**
 	 * Return an array of all available Google Fonts.
 	 *
-	 * Last updated on: 2020/02/18
+	 * Last updated on: 2020/03/04
 	 *
-	 * Total 77 Fonts.
+	 * Total 80 Fonts.
 	 *
 	 * @since 1.6.0
 	 *
@@ -46,6 +46,7 @@ class Google_Fonts {
 				'Big Shoulders Display' => 'googlefonts',
 				'Big Shoulders Text'    => 'googlefonts',
 				'Blinker'               => 'googlefonts',
+				'Caladea'               => 'googlefonts',
 				'Calistoga'             => 'googlefonts',
 				'Charm'                 => 'googlefonts',
 				'Chilanka'              => 'googlefonts',
@@ -91,6 +92,7 @@ class Google_Fonts {
 				'Noto Serif SC'         => 'googlefonts',
 				'Noto Serif TC'         => 'googlefonts',
 				'Odibee Sans'           => 'googlefonts',
+				'Oxanium'               => 'googlefonts',
 				'Public Sans'           => 'googlefonts',
 				'Red Hat Display'       => 'googlefonts',
 				'Red Hat Text'          => 'googlefonts',
@@ -98,6 +100,7 @@ class Google_Fonts {
 				'Sarabun'               => 'googlefonts',
 				'Single Day'            => 'googlefonts',
 				'Solway'                => 'googlefonts',
+				'Spartan'               => 'googlefonts',
 				'Staatliches'           => 'googlefonts',
 				'Sulphur Point'         => 'googlefonts',
 				'Thasadith'             => 'googlefonts',

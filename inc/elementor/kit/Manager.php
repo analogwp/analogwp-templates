@@ -9,8 +9,8 @@ namespace Analog\Elementor\Kit;
 
 use Analog\Admin\Notice;
 use Analog\Options;
+use Analog\Plugin;
 use Analog\Utils;
-use Elementor\Plugin;
 use Elementor\Core\Files\CSS\Post as Post_CSS;
 use Elementor\TemplateLibrary\Source_Local;
 
@@ -93,7 +93,7 @@ class Manager {
 	 */
 	public function get_current_post() {
 		if ( ! $this->document ) {
-			$this->document = Plugin::$instance->documents->get_doc_for_frontend( get_the_ID() );
+			$this->document = Plugin::elementor()->documents->get_doc_for_frontend( get_the_ID() );
 		}
 
 		return $this->document;
@@ -193,7 +193,7 @@ class Manager {
 			return;
 		}
 
-		if ( Plugin::$instance->preview->is_preview_mode() ) {
+		if ( Plugin::elementor()->preview->is_preview_mode() ) {
 			$this->generate_kit_css();
 		} else {
 			// TODO: 1.6.1 header/footer make use of this so its not safe to remove.
@@ -203,7 +203,7 @@ class Manager {
 		$css = Post_CSS::create( $custom_kit );
 		$css->enqueue();
 
-		Plugin::$instance->frontend->add_body_class( 'elementor-kit-' . $custom_kit );
+		Plugin::elementor()->frontend->add_body_class( 'elementor-kit-' . $custom_kit );
 	}
 
 	/**
@@ -234,7 +234,7 @@ class Manager {
 			return;
 		}
 
-		Plugin::$instance->frontend->print_fonts_links();
+		Plugin::elementor()->frontend->print_fonts_links();
 
 		$this->frontend_before_enqueue_styles();
 	}
@@ -250,7 +250,7 @@ class Manager {
 	 * @return string
 	 */
 	public function create_kit( $title, $meta = array() ) {
-		$kit = Plugin::$instance->documents->create(
+		$kit = Plugin::elementor()->documents->create(
 			'kit',
 			array(
 				'post_type'   => Source_Local::CPT,
