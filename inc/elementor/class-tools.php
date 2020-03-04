@@ -27,6 +27,15 @@ class Tools extends Base {
 	const TEMP_FILES_DIR = 'elementor/tmp';
 
 	/**
+	 * Fetch documents.
+	 *
+	 * Holds the list of all documents fetched currently.
+	 *
+	 * @var array
+	 */
+	protected $documents;
+
+	/**
 	 * Tools constructor.
 	 */
 	public function __construct() {
@@ -158,6 +167,22 @@ class Tools extends Base {
 	}
 
 	/**
+	 * Fetch a post.
+	 *
+	 * @since n.e.x.t
+	 * @param int|string $id Post ID.
+	 *
+	 * @return mixed
+	 */
+	protected function get_post( $id ) {
+		if ( ! isset( $this->documents[ $id ] ) ) {
+			$this->documents[ $id ] = get_post( $id );
+		}
+
+		return $this->documents[ $id ];
+	}
+
+	/**
 	 * Add Style Kit post state.
 	 *
 	 * Adds a new "Style Kit: %s" post state to the post table.
@@ -173,20 +198,32 @@ class Tools extends Base {
 	 */
 	public function stylekit_post_state( $post_states, $post ) {
 		global $pagenow;
-		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::elementor()->db->is_built_with_elementor( $post->ID ) && 'edit.php' === $pagenow ) {
+
+		if (
+			User::is_current_user_can_edit( $post->ID ) &&
+			Plugin::elementor()->db->is_built_with_elementor( $post->ID ) &&
+			'edit.php' === $pagenow
+		) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
 			$global_kit = (string) Utils::get_global_kit_id();
 
 			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
 				$kit_id = (string) $settings['ang_action_tokens'];
 
-				if ( Source_Local::CPT !== get_post_type( $kit_id ) ) {
+				// Return early, if Page Kit and Global Kit are same.
+				if ( $global_kit === $kit_id ) {
 					return $post_states;
 				}
 
-				if ( $global_kit !== $kit_id && '' !== $global_kit && post_exists( get_the_title( $kit_id ) ) && 'publish' === get_post_status( $kit_id ) ) {
+				$kit = $this->get_post( $kit_id );
+
+				if ( ! $kit || Source_Local::CPT !== $kit->post_type ) {
+					return $post_states;
+				}
+
+				if ( '' !== $global_kit && 'publish' === $kit->post_status ) {
 					/* translators: %s: Style kit title. */
-					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#5C32B6;">&#9679;</span>', 'ang' ), get_the_title( $kit_id ) );
+					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#5C32B6;">&#9679;</span>', 'ang' ), $kit->post_title );
 				}
 			}
 		}
