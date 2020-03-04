@@ -8,7 +8,7 @@
 
 namespace Analog\Elementor;
 
-use Elementor\Plugin;
+use Analog\Plugin;
 use Elementor\Core\Settings\Manager;
 
 trait Document {
@@ -35,8 +35,8 @@ trait Document {
 	 * @return false|int
 	 */
 	public function get_post_id() {
-		if ( Plugin::$instance->editor->is_edit_mode() ) {
-			$post_id = Plugin::$instance->editor->get_post_id();
+		if ( Plugin::elementor()->editor->is_edit_mode() ) {
+			$post_id = Plugin::elementor()->editor->get_post_id();
 		} else {
 			$post_id = get_the_ID();
 		}
@@ -50,7 +50,7 @@ trait Document {
 	 * @return mixed
 	 */
 	public function get_document_type() {
-		$document = Plugin::$instance->documents->get_doc_or_auto_save( $this->get_post_id() );
+		$document = Plugin::elementor()->documents->get_doc_or_auto_save( $this->get_post_id() );
 		if ( $document ) {
 			$config = $document->get_config();
 

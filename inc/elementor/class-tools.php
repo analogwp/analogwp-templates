@@ -8,11 +8,11 @@
 namespace Analog\Elementor;
 
 use Analog\Base;
+use Analog\Plugin;
 use Analog\Utils;
 use Elementor\Rollback;
 use Elementor\TemplateLibrary\Source_Local;
 use Elementor\User;
-use Elementor\Plugin;
 use WP_Post;
 
 /**
@@ -173,7 +173,7 @@ class Tools extends Base {
 	 */
 	public function stylekit_post_state( $post_states, $post ) {
 		global $pagenow;
-		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::$instance->db->is_built_with_elementor( $post->ID ) && 'edit.php' === $pagenow ) {
+		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::elementor()->db->is_built_with_elementor( $post->ID ) && 'edit.php' === $pagenow ) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
 			$global_kit = (string) Utils::get_global_kit_id();
 
@@ -203,7 +203,7 @@ class Tools extends Base {
 	 * @return mixed
 	 */
 	public function filter_post_row_actions( $actions, $post ) {
-		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::$instance->db->is_built_with_elementor( $post->ID ) ) {
+		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::elementor()->db->is_built_with_elementor( $post->ID ) ) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
 			$global_kit = (string) Utils::get_global_kit_id();
 

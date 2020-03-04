@@ -7,10 +7,10 @@
 
 namespace Analog;
 
+use Analog\Elementor\ANG_Action;
 use Analog\Elementor\Google_Fonts;
 use Elementor\Core\Common\Modules\Finder\Categories_Manager;
 use Elementor\Core\DynamicTags\Manager;
-use Elementor\Plugin;
 use Analog\Elementor\Tags\Light_Background;
 use Analog\Elementor\Tags\Dark_Background;
 
@@ -75,8 +75,8 @@ class Elementor {
 	public function register_controls() {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-ang-action.php';
 
-		$controls_manager = Plugin::$instance->controls_manager;
-		$controls_manager->register_control( 'ang_action', new \Analog\Elementor\ANG_Action() );
+		$controls_manager = Plugin::elementor()->controls_manager;
+		$controls_manager->register_control( 'ang_action', new ANG_Action() );
 	}
 
 	/**

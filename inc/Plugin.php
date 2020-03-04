@@ -237,6 +237,16 @@ final class Plugin {
 	}
 
 	/**
+	 * Returns Elementor instance.
+	 *
+	 * @since n.e.x.t
+	 * @return \Elementor\Plugin
+	 */
+	public static function elementor() {
+		return \Elementor\Plugin::$instance;
+	}
+
+	/**
 	 * Load plugin language files.
 	 *
 	 * @access public
