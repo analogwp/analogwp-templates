@@ -30,7 +30,7 @@ jQuery( document ).ready( function() {
 					name: 'page_styles',
 					title: ANG_Action.translate.pageStyles,
 					callback: function() {
-						$e.route( 'panel/page-settings/style' );
+						analog.redirectToSection();
 					},
 				},
 				{

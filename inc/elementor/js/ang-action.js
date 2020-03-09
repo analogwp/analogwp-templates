@@ -177,18 +177,11 @@ jQuery( window ).on( 'elementor:init', function() {
 		return ! ( key.startsWith( 'ang_action' ) || key.startsWith( 'post' ) || key.startsWith( 'preview' ) );
 	};
 
-	analog.redirectToSection = function redirectToSection( tab = 'style', section = 'ang_style_settings', page = 'page_settings' ) {
-		if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.7.0', '<' ) ) {
-			const currentView = elementor.panel.currentView;
+	analog.redirectToSection = function redirectToSection( tab = 'settings', section = 'ang_style_settings', page = 'page_settings' ) {
+		$e.route( `panel/page-settings/${ tab }` );
+		elementor.getPanelView().currentPageView.activateSection('ang_style_settings').render();
 
-			currentView.setPage( page );
-			currentView.getCurrentPageView().activateTab( tab );
-			currentView.getCurrentPageView().activateSection( section );
-			currentView.getCurrentPageView().render();
-		} else {
-			$e.route( `panel/page-settings/${ tab }` );
-			elementor.getPanelView().getCurrentPageView().activateSection( section )._renderChildren();
-		}
+		return false;
 	};
 
 	// analog.showStyleKitAttentionDialog = () => {
