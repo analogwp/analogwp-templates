@@ -14,9 +14,9 @@ class Google_Fonts {
 	/**
 	 * Return an array of all available Google Fonts.
 	 *
-	 * Last updated on: 2020/03/04
+	 * Last updated on: 2020/03/09
 	 *
-	 * Total 80 Fonts.
+	 * Total 96 Fonts.
 	 *
 	 * @since 1.6.0
 	 *
@@ -38,10 +38,21 @@ class Google_Fonts {
 				'B612'                  => 'googlefonts',
 				'B612 Mono'             => 'googlefonts',
 				'Bahianita'             => 'googlefonts',
+				'Baloo 2'               => 'googlefonts',
+				'Baloo Bhai 2'          => 'googlefonts',
+				'Baloo Bhaina 2'        => 'googlefonts',
+				'Baloo Chettan 2'       => 'googlefonts',
+				'Baloo Da 2'            => 'googlefonts',
+				'Baloo Paaji 2'         => 'googlefonts',
+				'Baloo Tamma 2'         => 'googlefonts',
+				'Baloo Tammudu 2'       => 'googlefonts',
+				'Baloo Thambi 2'        => 'googlefonts',
 				'Barriecito'            => 'googlefonts',
 				'Baskervville'          => 'googlefonts',
 				'Be Vietnam'            => 'googlefonts',
 				'Bebas Neue'            => 'googlefonts',
+				'Bellota'               => 'googlefonts',
+				'Bellota Text'          => 'googlefonts',
 				'Beth Ellen'            => 'googlefonts',
 				'Big Shoulders Display' => 'googlefonts',
 				'Big Shoulders Text'    => 'googlefonts',
@@ -61,11 +72,14 @@ class Google_Fonts {
 				'Gayathri'              => 'googlefonts',
 				'Gelasio'               => 'googlefonts',
 				'Girassol'              => 'googlefonts',
+				'Gotu'                  => 'googlefonts',
 				'Grenze'                => 'googlefonts',
 				'Gupter'                => 'googlefonts',
 				'Hepta Slab'            => 'googlefonts',
 				'Ibarra Real Nova'      => 'googlefonts',
+				'Inria Sans'            => 'googlefonts',
 				'Inria Serif'           => 'googlefonts',
+				'Inter'                 => 'googlefonts',
 				'Jomolhari'             => 'googlefonts',
 				'Kulim Park'            => 'googlefonts',
 				'Lacquer'               => 'googlefonts',
@@ -98,6 +112,7 @@ class Google_Fonts {
 				'Red Hat Text'          => 'googlefonts',
 				'Saira Stencil One'     => 'googlefonts',
 				'Sarabun'               => 'googlefonts',
+				'Sen'                   => 'googlefonts',
 				'Single Day'            => 'googlefonts',
 				'Solway'                => 'googlefonts',
 				'Spartan'               => 'googlefonts',
@@ -106,6 +121,7 @@ class Google_Fonts {
 				'Thasadith'             => 'googlefonts',
 				'Tomorrow'              => 'googlefonts',
 				'Turret Road'           => 'googlefonts',
+				'Viaoda Libre'          => 'googlefonts',
 				'Vibes'                 => 'googlefonts',
 				'ZCOOL KuaiLe'          => 'googlefonts',
 				'ZCOOL QingKe HuangYou' => 'googlefonts',

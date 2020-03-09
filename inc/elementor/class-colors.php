@@ -242,7 +242,7 @@ class Colors extends Module {
 				'raw'     => sprintf(
 					/* translators: %s: Typography Panel link/text. */
 					__( 'The primary accent color applies on links, icons, and other elements. You can also define the text link color in the %s.', 'ang' ),
-					'<a href="#" onClick="analog.redirectToSection( \'style\', \'section_typography\', \'kit_settings\' )">' . __( 'Typography panel', 'ang' ) . '</a>'
+					'<a href="#" onClick="analog.switchKitSection( \'section_typography\' )">' . __( 'Typography panel', 'ang' ) . '</a>'
 				),
 				'classes' => 'elementor-descriptor',
 			)
@@ -283,8 +283,8 @@ class Colors extends Module {
 				'raw'     => sprintf(
 					/* translators: %1$s: Button Panel link/text. %2$s: Button sizes panel link/text. */
 					__( 'The default button color. You can also define button colors under the %1$s, and individually for each button size under %2$s.', 'ang' ),
-					'<a href="#" onClick="analog.redirectToSection( \'style\', \'section_buttons\', \'kit_settings\' )">' . __( 'Buttons panel', 'ang' ) . '</a>',
-					'<a href="#" onClick="analog.redirectToSection( \'style\', \'ang_buttons\', \'kit_settings\' )">' . __( 'Buttons Sizes panel', 'ang' ) . '</a>'
+					'<a href="#" onClick="analog.switchKitSection( \'section_buttons\' )">' . __( 'Buttons panel', 'ang' ) . '</a>',
+					'<a href="#" onClick="analog.switchKitSection( \'ang_buttons\' )">' . __( 'Buttons Sizes panel', 'ang' ) . '</a>'
 				),
 				'classes' => 'elementor-descriptor',
 			)

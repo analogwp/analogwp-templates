@@ -51,15 +51,6 @@ class Manager {
 		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ), 999 );
 		add_action( 'delete_post', array( $this, 'restore_default_kit' ) );
 
-		add_filter(
-			'analog_admin_notices',
-			function( $notices ) {
-				$notices[] = $this->get_kit_edit_notice();
-
-				return $notices;
-			}
-		);
-
 		if ( ! $this->kits ) {
 			$this->kits = Utils::get_kits();
 		}
@@ -262,28 +253,6 @@ class Manager {
 		);
 
 		return $kit->get_id();
-	}
-
-	/**
-	 * Display Kit edit notice, kits can't directly be edited.
-	 *
-	 * @since 1.6.0
-	 * @return Notice
-	 */
-	public function get_kit_edit_notice() {
-		return new Notice(
-			'kit_migration',
-			array(
-				'content'         => __( 'As of now, Elementor doesn’t allow to edit Kits directly. You can only edit the kit Styles through the Theme Style panel.', 'ang' ),
-				'type'            => Notice::TYPE_WARNING,
-				'active_callback' => static function() {
-					$screen = get_current_screen();
-
-					return ! ( 'style-kits_page_style-kits' !== $screen->id );
-				},
-				'dismissible'     => false,
-			)
-		);
 	}
 
 	/**

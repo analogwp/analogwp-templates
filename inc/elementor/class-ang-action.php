@@ -110,7 +110,7 @@ class ANG_Action extends Base_Data_Control {
 					'selectToken'     => __( 'Please select a Style Kit first.', 'ang' ),
 					'updateKit'       => __( 'Update Style Kit', 'ang' ),
 					'updateMessage'   => __( 'This action will update the Style Kit with the latest changes, and will affect all the pages that the style kit is used on. Do you wish to proceed?', 'ang' ),
-					'sk_header'       => __( 'Meet Style Kits by Style Kits for Elementor', 'ang' ),
+					'sk_header'       => __( 'Meet Style Kits for Elementor', 'ang' ),
 					'sk_message'      => sprintf(
 						/* translators: %s: Link to Style Kits documentation. */
 						__( 'Take control of your design in the macro level, with local or global settings for typography and spacing. %s.', 'ang' ),

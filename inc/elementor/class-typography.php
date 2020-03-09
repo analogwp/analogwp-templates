@@ -68,11 +68,10 @@ class Typography extends Module {
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_typography_sizes' ), 20, 2 );
 
 		// Color section is hooked at 170 Priority.
-		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_text_sizes' ), 40, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_outer_section_padding' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_columns_gap' ), 40, 2 );
-		add_action( 'elementor/element/before_section_start', array( $this, 'register_styling_settings' ), 240, 2 );
+		add_action( 'elementor/element/after_section_end', array( $this, 'register_styling_settings' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_tools' ), 999, 2 );
 
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_preview_scripts' ) );
@@ -130,7 +129,7 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_heading_typography( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'document_settings' !== $section_id ) {
 			return;
 		}
 
@@ -138,7 +137,7 @@ class Typography extends Module {
 			'ang_headings_typography',
 			array(
 				'label' => __( 'Headings Typography', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
 
@@ -186,7 +185,7 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_body_and_paragraph_typography( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'document_settings' !== $section_id ) {
 			return;
 		}
 
@@ -194,7 +193,7 @@ class Typography extends Module {
 			'ang_body_and_paragraph_typography',
 			array(
 				'label' => __( 'Body Typography', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
 
@@ -234,15 +233,31 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_typography_sizes',
 			array(
-				'label' => __( 'Heading Sizes', 'ang' ),
+				'label' => __( 'Typographic Sizes', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		/**
+		 * Allowed controls for Heading/Text Sizes.
+		 *
+		 * @since 1.6.2
+		 */
+		$size_controls = apply_filters( 'analog_typographic_sizes_controls', array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ) );
+
+		$element->start_controls_tabs( 'ang_typgraphic_tabs' );
+
+		$element->start_controls_tab(
+			'ang_typographic_tab_heading',
+			array(
+				'label' => __( 'Heading Sizes', 'ang' ),
 			)
 		);
 
 		$element->add_control(
 			'ang_typography_sizes_description',
 			array(
-				'raw'             => __( 'Tweak the size of your Heading elements using these presets.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Edit the available sizes for the Heading Element.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -271,36 +286,27 @@ class Typography extends Module {
 				Group_Control_Typography::get_type(),
 				array(
 					'name'     => 'ang_size_' . $setting[0],
-					'label'    => $setting[1],
+					'label'    => __( 'Heading', 'ang' ) . ' ' . $setting[1],
 					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 					'selector' => $selectors,
-					'exclude'  => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
+					'exclude'  => $size_controls,
 				)
 			);
 		}
 
-		$element->end_controls_section();
-	}
+		$element->end_controls_tab();
 
-	/**
-	 * Register text sizes controls.
-	 *
-	 * @param Controls_Stack $element Controls object.
-	 * @param string         $section_id Section ID.
-	 */
-	public function register_text_sizes( Controls_Stack $element, $section_id ) {
-		$element->start_controls_section(
-			'ang_text_sizes',
+		$element->start_controls_tab(
+			'ang_typographic_tab_text',
 			array(
 				'label' => __( 'Text Sizes', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 
 		$element->add_control(
 			'ang_text_sizes_description',
 			array(
-				'raw'             => __( 'Tweak the size of text elements using these presets.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Edit the available sizes for the p, span, and div tags of the Heading Element.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -319,13 +325,17 @@ class Typography extends Module {
 				Group_Control_Typography::get_type(),
 				array(
 					'name'     => 'ang_text_size_' . $setting[0],
-					'label'    => $setting[1],
+					'label'    => __( 'Text', 'ang' ) . ' ' . $setting[1],
 					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 					'selector' => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
-					'exclude'  => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
+					'exclude'  => $size_controls,
 				)
 			);
 		}
+
+		$element->end_controls_tab();
+
+		$element->end_controls_tabs();
 
 		$element->end_controls_section();
 	}
@@ -353,12 +363,35 @@ class Typography extends Module {
 			)
 		);
 
+		/**
+		 * Add default Outer section padding control.
+		 *
+		 * @since 1.6.2
+		 */
+		$element->add_control(
+			'ang_default_section_padding',
+			array(
+				'label'   => __( 'Set a Default Padding', 'ang' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'no',
+				'options' => array(
+					'no'       => __( 'No Padding', 'ang' ),
+					'default'  => __( 'Normal', 'ang' ),
+					'narrow'   => __( 'Small', 'ang' ),
+					'extended' => __( 'Medium', 'ang' ),
+					'wide'     => __( 'Large', 'ang' ),
+					'wider'    => __( 'Extra Large', 'ang' ),
+				),
+			)
+		);
+
 		$element->add_control(
 			'ang_section_padding_description',
 			array(
 				'raw'             => __( 'Add padding to the outer sections of your layouts by using these controls.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/587-outer-section-padding', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
+				'separator'       => 'before',
 			)
 		);
 
@@ -649,7 +682,7 @@ class Typography extends Module {
 	 * @return void
 	 */
 	public function register_styling_settings( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'document_settings' !== $section_id ) {
 			return;
 		}
 
@@ -667,7 +700,7 @@ class Typography extends Module {
 			'ang_style_settings',
 			array(
 				'label' => __( 'Style Kits', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
 
@@ -801,14 +834,25 @@ class Typography extends Module {
 			)
 		);
 
+		$post_id = get_the_ID();
+		$default = 'no';
+
+		if ( $post_id ) {
+			$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+
+			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
+				$default = Utils::get_kit_settings( $settings['ang_action_tokens'], 'ang_default_section_padding' );
+			}
+		}
+
 		$element->add_control(
 			'ang_outer_gap',
 			array(
 				'label'         => __( 'Outer Section Padding', 'ang' ),
-				'description'   => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToSection( 'style', 'ang_section_padding', 'page_settings' )", ' here.' ),
+				'description'   => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_section_padding' )", ' here.' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'no',
+				'default'       => $default,
 				'options'       => array(
 					'no'       => __( 'No Padding', 'ang' ),
 					'default'  => __( 'Normal', 'ang' ),
