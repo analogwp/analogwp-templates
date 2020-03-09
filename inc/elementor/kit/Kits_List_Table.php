@@ -91,6 +91,18 @@ class Kits_List_Table extends \WP_List_Table {
 			case 'author':
 				$result = get_the_author_meta( 'display_name', $item['author'] );
 				break;
+
+			case 'instances':
+				$count = count( Utils::posts_using_stylekit( $item['id'] ) );
+
+				if ( $item['id'] === Utils::get_global_kit_id() ) {
+					$result = __( 'Entire Site', 'ang' );
+				} else {
+					$result = ( $count > 0 ) ? $count : __( 'None', 'ang' );
+				}
+
+
+				break;
 		}
 
 		return $result;
@@ -105,6 +117,7 @@ class Kits_List_Table extends \WP_List_Table {
 		return array(
 			'cb'     => '<input type="checkbox"/>',
 			'title'  => __( 'Title', 'ang' ),
+			'instances'  => __( 'Instances', 'ang' ),
 			'author' => __( 'Author', 'ang' ),
 			'date'   => __( 'Date', 'ang' ),
 		);
