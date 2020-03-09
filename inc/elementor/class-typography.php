@@ -68,7 +68,6 @@ class Typography extends Module {
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_typography_sizes' ), 20, 2 );
 
 		// Color section is hooked at 170 Priority.
-		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_text_sizes' ), 40, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_outer_section_padding' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_columns_gap' ), 40, 2 );
@@ -234,15 +233,24 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_typography_sizes',
 			array(
-				'label' => __( 'Heading Sizes', 'ang' ),
+				'label' => __( 'Typographic Sizes', 'ang' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$element->start_controls_tabs( 'ang_typgraphic_tabs' );
+
+		$element->start_controls_tab(
+			'ang_typographic_tab_heading',
+			array(
+				'label' => __( 'Heading Sizes', 'ang' ),
 			)
 		);
 
 		$element->add_control(
 			'ang_typography_sizes_description',
 			array(
-				'raw'             => __( 'Tweak the size of your Heading elements using these presets.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Edit the available sizes for the Heading Element.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -271,7 +279,7 @@ class Typography extends Module {
 				Group_Control_Typography::get_type(),
 				array(
 					'name'     => 'ang_size_' . $setting[0],
-					'label'    => $setting[1],
+					'label'    => __( 'Heading', 'ang' ) . ' ' . $setting[1],
 					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 					'selector' => $selectors,
 					'exclude'  => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
@@ -279,28 +287,19 @@ class Typography extends Module {
 			);
 		}
 
-		$element->end_controls_section();
-	}
+		$element->end_controls_tab();
 
-	/**
-	 * Register text sizes controls.
-	 *
-	 * @param Controls_Stack $element Controls object.
-	 * @param string         $section_id Section ID.
-	 */
-	public function register_text_sizes( Controls_Stack $element, $section_id ) {
-		$element->start_controls_section(
-			'ang_text_sizes',
+		$element->start_controls_tab(
+			'ang_typographic_tab_text',
 			array(
 				'label' => __( 'Text Sizes', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 
 		$element->add_control(
 			'ang_text_sizes_description',
 			array(
-				'raw'             => __( 'Tweak the size of text elements using these presets.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Edit the available sizes for the p, span, and div tags of the Heading Element.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -319,13 +318,17 @@ class Typography extends Module {
 				Group_Control_Typography::get_type(),
 				array(
 					'name'     => 'ang_text_size_' . $setting[0],
-					'label'    => $setting[1],
+					'label'    => __( 'Text', 'ang' ) . ' ' . $setting[1],
 					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 					'selector' => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
 					'exclude'  => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
 				)
 			);
 		}
+
+		$element->end_controls_tab();
+
+		$element->end_controls_tabs();
 
 		$element->end_controls_section();
 	}
