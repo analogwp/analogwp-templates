@@ -72,7 +72,7 @@ class Typography extends Module {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_outer_section_padding' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_columns_gap' ), 40, 2 );
-		add_action( 'elementor/element/before_section_start', array( $this, 'register_styling_settings' ), 240, 2 );
+		add_action( 'elementor/element/after_section_end', array( $this, 'register_styling_settings' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_images/after_section_end', array( $this, 'register_tools' ), 999, 2 );
 
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_preview_scripts' ) );
@@ -130,7 +130,7 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_heading_typography( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'document_settings' !== $section_id ) {
 			return;
 		}
 
@@ -138,7 +138,7 @@ class Typography extends Module {
 			'ang_headings_typography',
 			array(
 				'label' => __( 'Headings Typography', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
 
@@ -186,7 +186,7 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_body_and_paragraph_typography( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'document_settings' !== $section_id ) {
 			return;
 		}
 
@@ -194,7 +194,7 @@ class Typography extends Module {
 			'ang_body_and_paragraph_typography',
 			array(
 				'label' => __( 'Body Typography', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
 
@@ -649,7 +649,7 @@ class Typography extends Module {
 	 * @return void
 	 */
 	public function register_styling_settings( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'document_settings' !== $section_id ) {
 			return;
 		}
 
@@ -667,7 +667,7 @@ class Typography extends Module {
 			'ang_style_settings',
 			array(
 				'label' => __( 'Style Kits', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
 

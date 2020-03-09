@@ -38,7 +38,7 @@ final class Promotions extends Base {
 	 * @return void
 	 */
 	public function register_layout_tools( Controls_Stack $element, $section_id ) {
-		if ( 'section_page_style' !== $section_id ) {
+		if ( 'document_settings' !== $section_id ) {
 			return;
 		}
 
@@ -46,7 +46,7 @@ final class Promotions extends Base {
 			'ang_shortcuts_pro',
 			array(
 				'label' => _x( 'Layout Tools', 'Section Title', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
 
@@ -83,7 +83,7 @@ final class Promotions extends Base {
 			'ang_forms_pro',
 			array(
 				'label' => _x( 'Forms (Extended)', 'Section Title', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
 
