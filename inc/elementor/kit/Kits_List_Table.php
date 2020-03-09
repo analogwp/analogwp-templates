@@ -95,7 +95,7 @@ class Kits_List_Table extends \WP_List_Table {
 			case 'instances':
 				$count = count( Utils::posts_using_stylekit( $item['id'] ) );
 
-				if ( $item['id'] === Utils::get_global_kit_id() ) {
+				if ( Utils::get_global_kit_id() === $item['id'] ) {
 					$result = __( 'Entire Site', 'ang' );
 				} else {
 					$result = ( $count > 0 ) ? $count : __( 'None', 'ang' );
