@@ -774,7 +774,7 @@ class Utils extends Base {
 	/**
 	 * Get specific Kit setting.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.2
 	 *
 	 * @param int         $kit_id Kit ID.
 	 * @param null|string $setting Optional. Post meta key to retrieve value for.

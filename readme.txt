@@ -109,6 +109,12 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
+= 1.6.2 - March 09, 2020 =
+- New: Style Kits settings are moved to Settings tab from Style
+- New: Added links to edit Kit directly in Kits table.
+- New: Merged Heading/Text sizes section into new Typographic sizes section
+- Tweak: Added 'Instances' column in Kits table to show Kits usage
+
 = 1.6.1 - March 04, 2020 =
 - Fix: Fatal error with PHP5.6
 - Fix: Avoid duplicate queries in Post state
@@ -364,7 +370,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Improve: Add visual notification when a setting is changed on Settings page.
 * Improve: Add a visual indicator in notification based on notification timeout duration on Settings page.
 
-= 1.2 - April 25, 2019=
+= 1.2 - April 25, 2019 =
 * New: Introducing [Style Kits](https://analogwp.com/style-kits-for-elementor/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp). 🎉
 * New: Added Elementor Finder shortcuts to quickly navigate to Style Kits settings/library.
 * New: Added a new settings to assign global style kit under Elementor > Settings > Styles > Global Style kit.

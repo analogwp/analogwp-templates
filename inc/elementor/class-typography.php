@@ -241,7 +241,7 @@ class Typography extends Module {
 		/**
 		 * Allowed controls for Heading/Text Sizes.
 		 *
-		 * @since n.e.x.t
+		 * @since 1.6.2
 		 */
 		$size_controls = apply_filters( 'analog_typographic_sizes_controls', array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ) );
 
@@ -366,7 +366,7 @@ class Typography extends Module {
 		/**
 		 * Add default Outer section padding control.
 		 *
-		 * @since n.e.x.t
+		 * @since 1.6.2
 		 */
 		$element->add_control(
 			'ang_default_section_padding',

@@ -187,7 +187,7 @@ jQuery( window ).on( 'elementor:init', function() {
 	/**
 	 * Opens global panel and redirects to specific section.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.2
 	 *
 	 * @param {string} section Panel/Section ID.
 	 * @returns void
@@ -201,7 +201,7 @@ jQuery( window ).on( 'elementor:init', function() {
 	/**
 	 * Used to switch section when Theme Style panels is open.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.2
 	 *
 	 * @param {string} section Section ID.
 	 */
