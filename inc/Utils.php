@@ -770,6 +770,22 @@ class Utils extends Base {
 
 		return false;
 	}
+
+	/**
+	 * Get specific Kit setting.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @param int         $kit_id Kit ID.
+	 * @param null|string $setting Optional. Post meta key to retrieve value for.
+	 *
+	 * @return mixed
+	 */
+	public static function get_kit_settings( $kit_id, $setting = null ) {
+		$document = Plugin::elementor()->documents->get( $kit_id );
+
+		return $document->get_settings( $setting );
+	}
 }
 
 new Utils();

@@ -353,12 +353,35 @@ class Typography extends Module {
 			)
 		);
 
+		/**
+		 * Add default Outer section padding control.
+		 *
+		 * @since n.e.x.t
+		 */
+		$element->add_control(
+			'ang_default_section_padding',
+			array(
+				'label'   => __( 'Set a Default Padding', 'ang' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'no',
+				'options' => array(
+					'no'       => __( 'No Padding', 'ang' ),
+					'default'  => __( 'Normal', 'ang' ),
+					'narrow'   => __( 'Small', 'ang' ),
+					'extended' => __( 'Medium', 'ang' ),
+					'wide'     => __( 'Large', 'ang' ),
+					'wider'    => __( 'Extra Large', 'ang' ),
+				),
+			)
+		);
+
 		$element->add_control(
 			'ang_section_padding_description',
 			array(
 				'raw'             => __( 'Add padding to the outer sections of your layouts by using these controls.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/587-outer-section-padding', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
+				'separator'       => 'before',
 			)
 		);
 
@@ -801,6 +824,17 @@ class Typography extends Module {
 			)
 		);
 
+		$post_id = get_the_ID();
+		$default = 'no';
+
+		if ( $post_id ) {
+			$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+
+			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
+				$default = Utils::get_kit_settings( $settings['ang_action_tokens'], 'ang_default_section_padding' );
+			}
+		}
+
 		$element->add_control(
 			'ang_outer_gap',
 			array(
@@ -808,7 +842,7 @@ class Typography extends Module {
 				'description'   => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToSection( 'style', 'ang_section_padding', 'page_settings' )", ' here.' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'no',
+				'default'       => $default,
 				'options'       => array(
 					'no'       => __( 'No Padding', 'ang' ),
 					'default'  => __( 'Normal', 'ang' ),
