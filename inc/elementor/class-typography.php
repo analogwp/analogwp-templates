@@ -238,6 +238,13 @@ class Typography extends Module {
 			)
 		);
 
+		/**
+		 * Allowed controls for Heading/Text Sizes.
+		 *
+		 * @since n.e.x.t
+		 */
+		$size_controls = apply_filters( 'analog_typographic_sizes_controls', array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ) );
+
 		$element->start_controls_tabs( 'ang_typgraphic_tabs' );
 
 		$element->start_controls_tab(
@@ -282,7 +289,7 @@ class Typography extends Module {
 					'label'    => __( 'Heading', 'ang' ) . ' ' . $setting[1],
 					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 					'selector' => $selectors,
-					'exclude'  => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
+					'exclude'  => $size_controls,
 				)
 			);
 		}
@@ -321,7 +328,7 @@ class Typography extends Module {
 					'label'    => __( 'Text', 'ang' ) . ' ' . $setting[1],
 					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 					'selector' => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
-					'exclude'  => array( 'font_family', 'font_weight', 'text_transform', 'text_decoration', 'font_style', 'letter_spacing' ),
+					'exclude'  => $size_controls,
 				)
 			);
 		}
