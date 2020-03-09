@@ -184,6 +184,31 @@ jQuery( window ).on( 'elementor:init', function() {
 		return false;
 	};
 
+	/**
+	 * Opens global panel and redirects to specific section.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @param {string} section Panel/Section ID.
+	 * @returns void
+	 */
+	analog.redirectToPanel = ( section ) => {
+		$e.run( 'panel/global/open' ).then( () => {
+			elementor.getPanelView().setPage('kit_settings').content.currentView.activateSection( section ).activateTab('style');
+		});
+	};
+
+	/**
+	 * Used to switch section when Theme Style panels is open.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @param {string} section Section ID.
+	 */
+	analog.switchKitSection = (section) => {
+		elementor.getPanelView().setPage('kit_settings').content.currentView.activateSection( section ).activateTab('style');
+	};
+
 	// analog.showStyleKitAttentionDialog = () => {
 	// 	const introduction = new elementorModules.editor.utils.Introduction( {
 	// 		introductionKey: 'angStylekit',
