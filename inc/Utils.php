@@ -784,6 +784,10 @@ class Utils extends Base {
 	public static function get_kit_settings( $kit_id, $setting = null ) {
 		$document = Plugin::elementor()->documents->get( $kit_id );
 
+		if ( ! $document ) {
+			return false;
+		}
+
 		return $document->get_settings( $setting );
 	}
 }
