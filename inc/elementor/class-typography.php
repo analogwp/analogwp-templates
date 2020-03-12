@@ -1060,7 +1060,7 @@ class Typography extends Module {
 	 * Tweak default Section widget.
 	 *
 	 * @since 1.6.0
-	 * @param $element Element_Base Class.
+	 * @param Element_Base $element Class.
 	 */
 	public function tweak_typography_section( $element ) {
 		$element->start_injection(
