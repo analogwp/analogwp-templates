@@ -223,7 +223,7 @@ class Colors extends Module {
 			'{{WRAPPER}} .dialog-message'           => 'font-size:inherit;line-height:inherit;',
 
 			$primary_accent_color_selectors         => 'color: {{VALUE}};',
-			$primary_accent_background_selectors    => 'background-color: {{VALUEE}};',
+			$primary_accent_background_selectors    => 'background-color: {{VALUE}};',
 		);
 
 		$element->add_control(
