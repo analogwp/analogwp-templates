@@ -108,7 +108,7 @@ const Preview = ( props ) => {
 
 				{ ! ( props.template.is_pro && AGWP.license.status !== 'valid' ) && (
 					<button className="ang-button" onClick={ onRequestImport }>
-						{ __( 'Insert Layout', 'ang' ) }
+						{ props.insertText || __( 'Insert Layout', 'ang' ) }
 					</button>
 				) }
 			</div>
