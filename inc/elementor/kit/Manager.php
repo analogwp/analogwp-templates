@@ -279,11 +279,7 @@ class Manager {
 	}
 
 	/**
-	 * Show rating notification for users.
-	 *
-	 * Displayed only:
-	 * - If current user is admin users,
-	 * - If the user has been using the plugin for more than 2 weeks.
+	 * Show Kit screen notification.
 	 *
 	 * @since n.e.x.t
 	 *
@@ -294,7 +290,8 @@ class Manager {
 			'kit_notification',
 			array(
 				'content'         => sprintf(
-					__( 'Here is a quick overview of your available Theme Style Kits. They are also available in the %s. You can define a Global Theme Style Kit in %s.', 'ang' ),
+					/* translators: %1$s: Settings library link. %2$s: Settings page link. */
+					__( 'Here is a quick overview of your available Theme Style Kits. They are also available in the %1$s. You can define a Global Theme Style Kit in %2$s.', 'ang' ),
 					'<a href="' . esc_url( admin_url( 'edit.php?post_type=elementor_library&all_posts=1' ) ) . '">' . __( 'Elementor Template Library', 'ang' ) . '</a>',
 					'<a href="' . esc_url( admin_url( 'admin.php?page=ang-settings#global_kit' ) ) . '">' . __( 'Settings', 'ang' ) . '</a>'
 				),
