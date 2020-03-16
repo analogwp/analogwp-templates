@@ -297,7 +297,9 @@ class Manager {
 				),
 				'type'            => Notice::TYPE_INFO,
 				'active_callback' => static function() {
-					return current_user_can( 'edit_posts' );
+					$screen = get_current_screen();
+
+					return ! ( 'style-kits_page_style-kits' !== $screen->id );
 				},
 			)
 		);
