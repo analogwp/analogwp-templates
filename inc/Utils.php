@@ -582,46 +582,6 @@ class Utils extends Base {
 	}
 
 	/**
-	 * Fetch color values from Post Meta.
-	 *
-	 * @param int $id Post ID.
-	 *
-	 * @return array
-	 * @since 1.5.0
-	 */
-	public static function get_color_scheme_items( $id ) {
-		$settings = get_post_meta( $id, '_elementor_page_settings', true );
-
-		$keys = self::get_keys_for_color_controls();
-
-		$colors = array();
-		foreach ( $keys as $key ) {
-			if ( isset( $settings[ $key ] ) ) {
-				$color = $settings[ $key ];
-				if ( '' !== $color && ! empty( $color ) ) {
-					$colors[] = $color;
-				}
-			}
-		}
-
-		if ( class_exists( 'kt_Central_Palette' ) ) {
-			$central_color_palette = \kt_Central_Palette::instance()->get_colors();
-
-			if ( is_array( $central_color_palette ) ) {
-				$colors = array_merge( $central_color_palette, $colors );
-			}
-		}
-
-		$formatted_colors = array();
-
-		foreach ( array_unique( $colors ) as $color ) {
-			$formatted_colors[] = array( 'value' => $color );
-		}
-
-		return $formatted_colors;
-	}
-
-	/**
 	 * Check if a string starts with certain character.
 	 *
 	 * @param string $string String to search into.
