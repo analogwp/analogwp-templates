@@ -101,7 +101,6 @@ class Kits_List_Table extends \WP_List_Table {
 					$result = ( $count > 0 ) ? $count : __( 'None', 'ang' );
 				}
 
-
 				break;
 		}
 
@@ -115,11 +114,11 @@ class Kits_List_Table extends \WP_List_Table {
 	 */
 	public function get_columns() {
 		return array(
-			'cb'     => '<input type="checkbox"/>',
-			'title'  => __( 'Title', 'ang' ),
-			'instances'  => __( 'Instances', 'ang' ),
-			'author' => __( 'Author', 'ang' ),
-			'date'   => __( 'Date', 'ang' ),
+			'cb'        => '<input type="checkbox"/>',
+			'title'     => __( 'Title', 'ang' ),
+			'instances' => __( 'Instances', 'ang' ),
+			'author'    => __( 'Author', 'ang' ),
+			'date'      => __( 'Date', 'ang' ),
 		);
 	}
 

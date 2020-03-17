@@ -51,6 +51,14 @@ class Manager {
 		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ), 999 );
 		add_action( 'delete_post', array( $this, 'restore_default_kit' ) );
 
+		add_filter(
+			'analog_admin_notices',
+			function( $notices ) {
+				$notices[] = $this->get_kit_notification();
+				return $notices;
+			}
+		);
+
 		if ( ! $this->kits ) {
 			$this->kits = Utils::get_kits();
 		}
@@ -268,6 +276,33 @@ class Manager {
 		include $file;
 
 		return ob_get_clean();
+	}
+
+	/**
+	 * Show Kit screen notification.
+	 *
+	 * @since 1.6.3
+	 *
+	 * @return Notice
+	 */
+	public function get_kit_notification() {
+		return new Notice(
+			'kit_notification',
+			array(
+				'content'         => sprintf(
+					/* translators: %1$s: Settings library link. %2$s: Settings page link. */
+					__( 'Here is a quick overview of your available Theme Style Kits. They are also available in the %1$s. You can define a Global Theme Style Kit in %2$s.', 'ang' ),
+					'<a href="' . esc_url( admin_url( 'edit.php?post_type=elementor_library&all_posts=1' ) ) . '">' . __( 'Elementor Template Library', 'ang' ) . '</a>',
+					'<a href="' . esc_url( admin_url( 'admin.php?page=ang-settings#global_kit' ) ) . '">' . __( 'Settings', 'ang' ) . '</a>'
+				),
+				'type'            => Notice::TYPE_INFO,
+				'active_callback' => static function() {
+					$screen = get_current_screen();
+
+					return ! ( 'style-kits_page_style-kits' !== $screen->id );
+				},
+			)
+		);
 	}
 }
 

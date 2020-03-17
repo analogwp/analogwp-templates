@@ -220,9 +220,10 @@ class Colors extends Module {
 			'{{WRAPPER}} .elementor-tab-title a'    => 'color: inherit;',
 			'{{WRAPPER}} .e--pointer-framed .elementor-item:before,{{WRAPPER}} .e--pointer-framed .elementor-item:after' => 'border-color: {{VALUE}};',
 			'{{WRAPPER}} .elementor-sub-item:hover' => 'color: #fff;',
+			'{{WRAPPER}} .dialog-message'           => 'font-size:inherit;line-height:inherit;',
 
 			$primary_accent_color_selectors         => 'color: {{VALUE}};',
-			$primary_accent_background_selectors    => 'background-color: {{VALUEE}};',
+			$primary_accent_background_selectors    => 'background-color: {{VALUE}};',
 		);
 
 		$element->add_control(

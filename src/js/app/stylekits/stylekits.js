@@ -273,6 +273,7 @@ export default class StyleKits extends React.Component {
 								template={ this.state.previewing }
 								onRequestClose={ () => this.resetState() }
 								onRequestImport={ () => this.handleImport( this.state.previewing, add, true ) }
+								insertText={ __( 'Import Style Kit', 'ang' ) }
 								style={ {
 									padding: '20px',
 									boxSizing: 'border-box',

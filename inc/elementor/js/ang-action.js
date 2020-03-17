@@ -48,8 +48,6 @@
 					fixKitClasses();
 					analog.setPanelTitle( activeKit );
 				}
-				enqueueFonts();
-				loadDocumentAndEnqueueFonts( elementor.config.kit_id );
 			});
 		}
 
