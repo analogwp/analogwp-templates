@@ -281,7 +281,7 @@ class Manager {
 	/**
 	 * Show Kit screen notification.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.3
 	 *
 	 * @return Notice
 	 */

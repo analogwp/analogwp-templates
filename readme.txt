@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.4
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,12 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.6.3 - March 17, 2020 =
+- New: Added Kits screen info notification
+- Fix: Avoid loading document on page load inside editor
+- Fix: Inherit parent fontSize/lineHeight for popup
+- Fix: Fixed typo in primary accent background color values
 
 = 1.6.2 - March 09, 2020 =
 - New: Style Kits settings are moved to Settings tab from Style
