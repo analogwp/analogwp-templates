@@ -529,7 +529,7 @@ class Admin_Settings {
 				case 'multi-checkbox':
 					$option_value = $value['value'];
 					?>
-					<tr valign="top">
+					<tr valign="top" class="<?php echo esc_attr( isset( $value['class'] ) ? $value['class'] : '' ); ?>">
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<fieldset>
 								<?php
