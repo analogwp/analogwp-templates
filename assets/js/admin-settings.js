@@ -121,4 +121,12 @@
 			}
 		}
 	} );
+
+	$( '#remove_on_uninstall' ).on( 'click', function() {
+		if ( this.checked ) {
+			$( 'tr.ang-uninstall-options' ).show();
+		} else {
+			$( 'tr.ang-uninstall-options' ).hide();
+		}
+	} );
 }( jQuery, ang_settings_data, wp ) );

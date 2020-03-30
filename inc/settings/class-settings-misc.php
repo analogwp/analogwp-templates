@@ -51,19 +51,34 @@ class Misc extends Settings_Page {
 					'type' => 'sectionend',
 					'id'   => 'ang_misc',
 				),
-				array(
-					'title' => __( 'Remove Data on Uninstall', 'ang' ),
-					'desc'  => __( 'You can multi-select from the options below and upon plugin uninstall these will be respected.', 'ang' ),
-					'class' => 'ang-uninstall',
-					'type'  => 'content',
-					'id'    => 'ang-uninstall',
-				),
+
 				array(
 					'type' => 'title',
-					'id'   => 'ang_sk_uninstall',
+					'id'   => 'sk_uninstall',
 				),
 				array(
-					'id'      => 'remove_on_uninstall',
+					'title'         => __( 'Remove Data on Uninstall', 'ang' ),
+					'desc'          => __( 'Toggle this to enable plugin data removal upon uninstall.', 'ang' ),
+					'class'         => 'sk-uninstall',
+					'id'            => 'remove_on_uninstall',
+					'default'       => false,
+					'type'          => 'checkbox',
+					'checkboxgroup' => 'start',
+					'is_option'     => false,
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'sk_uninstall',
+				),
+
+				array(
+					'type' => 'title',
+					'id'   => 'sk_uninstall_options',
+				),
+				array(
+					'class'   => 'ang-uninstall-options',
+					'desc'    => __( 'You can multi-select from the options below and upon plugin uninstall these will be respected.', 'ang' ),
+					'id'      => 'uninstall_options',
 					'default' => array(
 						'remove_all_media' => true,
 						'plugin_settings'  => true,
@@ -74,10 +89,12 @@ class Misc extends Settings_Page {
 						'plugin_settings'  => __( 'Plugin Settings', 'ang' ),
 						'remove_kits'      => __( 'Remove Kits', 'ang' ),
 					),
+					'is_option'     => false,
 				),
+
 				array(
 					'type' => 'sectionend',
-					'id'   => 'ang_sk_uninstall',
+					'id'   => 'sk_uninstall_options',
 				),
 			)
 		);

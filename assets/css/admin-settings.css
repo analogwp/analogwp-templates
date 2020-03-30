@@ -276,8 +276,12 @@
 .ang:not(.uroles) .form-table td.forminp-multi-checkbox {
 	padding: 18px;
 }
+.ang .form-table td.forminp-multi-checkbox p.description {
+	margin-bottom: 15px;
+}
 
-.ang-uninstall + table.form-table {
+.ang tr.ang-uninstall-options {
+	display: none;
 	background-color: #fff;
 	border: 1px solid #DCDCDC;
 }
