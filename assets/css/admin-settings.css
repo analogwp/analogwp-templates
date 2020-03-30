@@ -145,3 +145,139 @@
 .ang .sidebar .social > a {
 	text-decoration: none;
 }
+
+/* Switcher styles */
+.ang .form-table td.forminp-multi-checkbox fieldset label {
+	padding-left: 0;
+}
+
+.ang .form-table td.forminp-multi-checkbox input[type=checkbox]{
+	height: 0;
+	width: 0;
+	display: none;
+}
+
+.ang .form-table td.forminp-multi-checkbox label:focus input[type="checkbox"] + span,
+.ang .form-table td.forminp-multi-checkbox label:active input[type="checkbox"] + span {
+	outline: 2px solid transparent;
+	outline-offset: 2px;
+	box-shadow: 0 0 0 2px #fff,0 0 0 3px #6c7781;
+	border-radius: 15px;
+	display: inline-block;
+	height: 19px;
+}
+
+.ang .form-table td.forminp-multi-checkbox span > span {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 36px;
+	height: 19px;
+	background: #fff;
+	display: inline-block;
+	box-sizing: border-box;
+	vertical-align: top;
+	border-radius: 15px;
+	position: relative;
+	border: 2px solid #6c7781;
+}
+
+.ang .form-table td.forminp-multi-checkbox span > span:before {
+	position: absolute;
+	top: 5px;
+	right: 4px;
+	width: 3px;
+	height: 3px;
+	z-index: 999;
+	font-size: 51px;
+	content: '';
+	border-radius: 10px;
+	border: 2px solid #6c7781;
+	transition: 0.1s ease-in all;
+}
+
+.ang .form-table td.forminp-multi-checkbox span > span:after {
+	content: '';
+	position: absolute;
+	top: 3px;
+	left: 2.5px;
+	width: 10px;
+	height: 10px;
+	background:#6c7781;
+	border-radius: 15px;
+	transition: 0.1s ease-in all;
+}
+
+.ang .form-table td.forminp-multi-checkbox input:checked + span > span {
+	background: #5C32B6;
+	border-color: #5C32B6;
+}
+
+.ang .form-table td.forminp-multi-checkbox input:checked + span > span:before {
+	border-radius: 0;
+	right: calc(100% - 10px);
+	transform: translateX(-100%);
+	width: 1.5px;
+	border: none;
+	height: 6px;
+	background: #fff;
+}
+
+.ang .form-table td.forminp-multi-checkbox input:checked + span > span:after {
+	background: #fff;
+	left: calc(100% - 3px);
+	transform: translateX(-100%);
+}
+
+.ang .form-table td.forminp-multi-checkbox span > span:active:after {
+	width: 20px;
+}
+
+.forminp-multi-checkbox fieldset {
+	max-width: 1000px;
+}
+
+.forminp-multi-checkbox ul {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-column-gap: 80px;
+	margin: 0;
+	padding: 0;
+}
+
+
+@media screen and (max-width: 700px) {
+	.forminp-multi-checkbox ul {
+		grid-template-columns: 1fr;
+	}
+}
+
+.forminp-multi-checkbox li {
+	flex: 0 0 150px;
+	margin-top: 10px;
+}
+
+.forminp-multi-checkbox li label {
+	margin: 0 !important;
+	padding: 0;
+}
+
+.ang:not(.uroles) .form-table td.forminp-multi-checkbox li label {
+	display: inline-flex;
+	flex-direction: row-reverse;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.ang:not(.uroles) .form-table td.forminp-multi-checkbox li label > * {
+	margin: 0;
+    align-self: center;
+}
+
+.ang:not(.uroles) .form-table td.forminp-multi-checkbox {
+	padding: 18px;
+}
+
+.ang-uninstall + table.form-table {
+	background-color: #fff;
+	border: 1px solid #DCDCDC;
+}

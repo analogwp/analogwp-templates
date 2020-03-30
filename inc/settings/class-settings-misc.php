@@ -48,16 +48,36 @@ class Misc extends Settings_Page {
 					'desc_tip'      => __( 'We guarantee no sensitive data is collected. ', 'ang' ) . '<a class="ang-link" href="https://docs.analogwp.com/article/547-what-data-is-tracked-by-the-plugin" target="_blank">' . __( 'More Info', 'ang' ) . '</a>',
 				),
 				array(
-					'title'         => __( 'Remove Data on Uninstall', 'ang' ),
-					'desc'          => __( 'Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed.', 'ang' ),
-					'id'            => 'remove_on_uninstall',
-					'default'       => false,
-					'type'          => 'checkbox',
-					'checkboxgroup' => 'start',
+					'type' => 'sectionend',
+					'id'   => 'ang_misc',
+				),
+				array(
+					'title' => __( 'Remove Data on Uninstall', 'ang' ),
+					'desc'  => __( 'You can multi-select from the options below and upon plugin uninstall these will be respected.', 'ang' ),
+					'class' => 'ang-uninstall',
+					'type'  => 'content',
+					'id'    => 'ang-uninstall',
+				),
+				array(
+					'type' => 'title',
+					'id'   => 'ang_sk_uninstall',
+				),
+				array(
+					'id'      => 'remove_on_uninstall',
+					'default' => array(
+						'remove_all_media' => true,
+						'plugin_settings'  => true,
+					),
+					'type'    => 'multi-checkbox',
+					'options' => array(
+						'remove_all_media' => __( 'Remove all media files imported along Templates and Blocks', 'ang' ),
+						'plugin_settings'  => __( 'Plugin Settings', 'ang' ),
+						'remove_kits'      => __( 'Remove Kits', 'ang' ),
+					),
 				),
 				array(
 					'type' => 'sectionend',
-					'id'   => 'ang_misc',
+					'id'   => 'ang_sk_uninstall',
 				),
 			)
 		);
