@@ -226,26 +226,14 @@ class Colors extends Module {
 			$primary_accent_background_selectors    => 'background-color: {{VALUE}};',
 		);
 
+		$tooltip = __( 'The primary accent color applies on links, icons, and other elements. You can also define the text link color in the Typography panel.', 'ang' );
 		$element->add_control(
 			'ang_color_accent_primary',
 			array(
-				'label'     => __( 'Primary Accent', 'ang' ),
+				'label'     => __( 'Primary Accent', 'ang' ) . $this->get_tooltip( $tooltip ),
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_color_accent_primary',
 				'selectors' => $selectors,
-			)
-		);
-
-		$element->add_control(
-			'ang_color_accent_primary_desc',
-			array(
-				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => sprintf(
-					/* translators: %s: Typography Panel link/text. */
-					__( 'The primary accent color applies on links, icons, and other elements. You can also define the text link color in the %s.', 'ang' ),
-					'<a href="#" onClick="analog.switchKitSection( \'section_typography\' )">' . __( 'Typography panel', 'ang' ) . '</a>'
-				),
-				'classes' => 'elementor-descriptor',
 			)
 		);
 
@@ -261,10 +249,11 @@ class Colors extends Module {
 
 		$accent_secondary_selectors = implode( ',', $accent_secondary_selectors );
 
+		$tooltip = __( 'The default button color. You can also define button colors under the Buttons panel, and individually for each button size under Buttons Sizes panel.', 'ang' );
 		$element->add_control(
 			'ang_color_accent_secondary',
 			array(
-				'label'     => __( 'Secondary Accent', 'ang' ),
+				'label'     => __( 'Secondary Accent', 'ang' ) . $this->get_tooltip( $tooltip ),
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_color_accent_secondary',
 				'selectors' => array(
@@ -277,21 +266,20 @@ class Colors extends Module {
 			)
 		);
 
-		$element->add_control(
-			'ang_color_accent_secondary_desc',
-			array(
-				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => sprintf(
-					/* translators: %1$s: Button Panel link/text. %2$s: Button sizes panel link/text. */
-					__( 'The default button color. You can also define button colors under the %1$s, and individually for each button size under %2$s.', 'ang' ),
-					'<a href="#" onClick="analog.switchKitSection( \'section_buttons\' )">' . __( 'Buttons panel', 'ang' ) . '</a>',
-					'<a href="#" onClick="analog.switchKitSection( \'ang_buttons\' )">' . __( 'Buttons Sizes panel', 'ang' ) . '</a>'
-				),
-				'classes' => 'elementor-descriptor',
-			)
-		);
-
 		$element->end_controls_section();
+	}
+
+	/**
+	 * Get label tooltip.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @param string $text Tooltip text.
+	 *
+	 * @return string
+	 */
+	protected function get_tooltip( $text ) {
+		return ' <span class="hint--top-right hint--medium" aria-label="' . $text . '"><i class="fa fa-info-circle"></i></span>';
 	}
 }
 
