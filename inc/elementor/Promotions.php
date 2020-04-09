@@ -26,6 +26,8 @@ final class Promotions extends Base {
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_layout_tools' ), 250, 2 );
 		add_action( 'elementor/element/kit/section_form_fields/after_section_end', array( $this, 'register_form_controls' ), 20, 2 );
+
+		add_action( 'analog_background_colors_tab_end', array( $this, 'add_background_color_accent_promo' ), 170, 1 );
 	}
 
 	/**
@@ -139,6 +141,38 @@ final class Promotions extends Base {
 		<?php
 
 		return ob_get_clean();
+	}
+
+	/**
+	 * Modify original "Background Color Classes" controls.
+	 *
+	 * @hook analog_background_colors_tab_end
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 */
+	public function add_background_color_accent_promo( Controls_Stack $element ) {
+		$element->start_controls_tab(
+			'ang_tab_background_accent',
+			array( 'label' => __( 'Accent', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_promo_bc_accent',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_teaser_template(
+					array(
+						'title'    => __( 'Accent Background Color', 'ang' ),
+						'messages' => array(
+							__( 'Enjoy better background color control in your layouts by adding a third background color class. Available in Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'panel-shortcuts' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
 	}
 }
 
