@@ -95,17 +95,21 @@ if ( ! $tab_exists ) {
 			<div class="promo">
 				<div class="docs">
 					<h3><?php esc_html_e( 'Documentation', 'ang' ); ?></h3>
-					<p><?php esc_html_e( 'Need help setting up? We have a number of handy articles to get you started.', 'ang' ); ?></p>
-					<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Read Documentation', 'ang' ); ?></a>
+					<p>
+						<?php esc_html_e( 'Need help with Style Kits?', 'ang' ); ?>
+						<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Visit the online docs', 'ang' ); ?></a>
+					</p>
 				</div>
 				<div class="social-group">
 					<h3><?php esc_html_e( 'Join our Facebook group', 'ang' ); ?></h3>
-					<p><?php esc_html_e( 'Get insights, tips and updates in our facebook community. Let\'s take Elementor design to a whole new level.', 'ang' ); ?></p>
-					<a href="<?php echo esc_url( 'https://www.facebook.com/groups/analogwp/' ); ?>" target="_blank"><?php esc_html_e( 'Join the AnalogWP community', 'ang' ); ?></a>
+					<p>
+						<?php esc_html_e( 'Get insights, tips and updates in our facebook community.', 'ang' ); ?>
+						<a href="<?php echo esc_url( 'https://www.facebook.com/groups/analogwp/' ); ?>" target="_blank"><?php esc_html_e( 'Join now', 'ang' ); ?></a>
+					</p>
 				</div>
 				<div class="newsletter-list">
-					<h3><?php esc_html_e( 'Sign up for updates', 'ang' ); ?></h3>
-					<p><?php esc_html_e( 'Sign up to Analog Newsletter and get notified about product updates, freebies and more.', 'ang' ); ?></p>
+					<h3><?php esc_html_e( 'Sign up for email updates', 'ang' ); ?></h3>
+					<p><?php esc_html_e( 'Stay in the loop with Style Kits development by signing up to our newsletter.', 'ang' ); ?></p>
 					<form id="ang-newsletter" action="" class="form-newsletter">
 						<input id="ang-newsletter-email" type="email" placeholder="Enter your email" value="<?php echo esc_attr( $current_user->user_email ); ?>"/>
 						<button id="ang-newsletter-submit" class="ang-button button-primary" type="submit"><?php esc_html_e( 'Sign me up', 'ang' ); ?></button>
