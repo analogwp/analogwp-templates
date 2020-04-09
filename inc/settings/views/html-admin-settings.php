@@ -8,6 +8,8 @@
 
 namespace Analog\Settings\views;
 
+use Analog\Utils;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -57,29 +59,64 @@ if ( ! $tab_exists ) {
 		<div class="sidebar">
 			<?php do_action( 'ang_sidebar_start' ); ?>
 
-			<div class="docs">
-				<h3><?php esc_html_e( 'Documentation', 'ang' ); ?></h3>
-				<p><?php esc_html_e( 'Need help setting up? We have a number of handy articles to get you started.', 'ang' ); ?></p>
-				<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Read Documentation', 'ang' ); ?></a>
-			</div>
-			<div class="social-group">
-				<h3><?php esc_html_e( 'Join our Facebook group', 'ang' ); ?></h3>
-				<p><?php esc_html_e( 'Get insights, tips and updates in our facebook community. Let\'s take Elementor design to a whole new level.', 'ang' ); ?></p>
-				<a href="<?php echo esc_url( 'https://www.facebook.com/groups/analogwp/' ); ?>" target="_blank"><?php esc_html_e( 'Join the AnalogWP community', 'ang' ); ?></a>
-			</div>
-			<div class="newsletter-list">
-				<h3><?php esc_html_e( 'Sign up for updates', 'ang' ); ?></h3>
-				<p><?php esc_html_e( 'Sign up to Analog Newsletter and get notified about product updates, freebies and more.', 'ang' ); ?></p>
-				<form id="ang-newsletter" action="" class="form-newsletter">
-					<input id="ang-newsletter-email" type="email" placeholder="Enter your email" value="<?php echo esc_attr( $current_user->user_email ); ?>"/>
-					<button id="ang-newsletter-submit" class="ang-button button-primary" type="submit"><?php esc_html_e( 'Sign me up', 'ang' ); ?></button>
+			<?php if ( ! class_exists( '\AnalogPro\Plugin' ) ) : ?>
+			<div class="upgrade-box">
+				<h3><?php esc_html_e( 'Upgrade to Style Kits Pro with a 15% discount', 'ang' ); ?></h3>
+				<ul>
+					<li><?php esc_html_e( 'Unlimited access to Pro Template Kits, Blocks, and Theme Style presets', 'ang' ); ?></li>
+					<li><?php esc_html_e( 'More Theme Style UI Controls', 'ang' ); ?></li>
+					<li><?php esc_html_e( 'User Role management', 'ang' ); ?></li>
+					<li><?php esc_html_e( 'Unsplash integration', 'ang' ); ?></li>
+					<li><?php esc_html_e( 'Better color management', 'ang' ); ?></li>
+					<li><?php esc_html_e( 'Smart layout tools', 'ang' ); ?></li>
+				</ul>
+
+				<p><a target="_blank" href="<?php echo esc_url( Utils::get_pro_link() ); ?>"><?php esc_html_e( 'Find out more', 'ang' ); ?></a></p>
+
+				<form id="js-ang-request-discount" method="post">
+					<input required type="email" class="regular-text" name="email" value="<?php echo esc_attr( $current_user->user_email ); ?>" placeholder="<?php esc_attr_e( 'Your Email', 'ang' ); ?>">
+					<input required type="text" class="regular-text" name="first_name" value="<?php echo esc_attr( $current_user->first_name ); ?>" placeholder="<?php esc_attr_e( 'First Name', 'ang' ); ?>">
+					<input required type="text" class="regular-text" name="last_name" value="<?php echo esc_attr( $current_user->last_name ); ?>" placeholder="<?php esc_attr_e( 'Last Name', 'ang' ); ?>">
+					<input type="submit" class="button" style="width:100%" value="<?php esc_attr_e( 'Send me the coupon', 'ang' ); ?>">
 				</form>
-				<p><?php esc_html_e( 'By signing up you agree to our', 'ang' ); ?> <a href="<?php echo esc_url( 'https://analogwp.com/privacy-policy/' ); ?>" target="_blank"><?php esc_html_e( 'privacy and terms', 'ang' ); ?></a></p>
+
+				<p>
+					<?php
+					echo sprintf(
+							/* translators: %s: Link to AnalogWP privacy policy. */
+						esc_html__( 'By submitting your details, you agree to our %s.', 'ang' ),
+						'<a target="_blank" href="https://analogwp.com/privacy-policy/">' . esc_html__( 'privacy policy', 'ang' ) . '</a>'
+					);
+					?>
+				</p>
 			</div>
-			<div class="social">
-				<a href="https://facebook.com/analogwp" target="_blank"><span class="dashicons dashicons-facebook-alt"></span></a>
-				<a href="https://twitter.com/analogwp" target="_blank"><span class="dashicons dashicons-twitter"></span></a>
-				<a href="https://instagram.com/analogwp" target="_blank"><span class="dashicons dashicons-instagram"></span></span></a>
+			<?php endif; ?>
+
+			<div class="promo">
+				<div class="docs">
+					<h3><?php esc_html_e( 'Documentation', 'ang' ); ?></h3>
+					<p><?php esc_html_e( 'Need help setting up? We have a number of handy articles to get you started.', 'ang' ); ?></p>
+					<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Read Documentation', 'ang' ); ?></a>
+				</div>
+				<div class="social-group">
+					<h3><?php esc_html_e( 'Join our Facebook group', 'ang' ); ?></h3>
+					<p><?php esc_html_e( 'Get insights, tips and updates in our facebook community. Let\'s take Elementor design to a whole new level.', 'ang' ); ?></p>
+					<a href="<?php echo esc_url( 'https://www.facebook.com/groups/analogwp/' ); ?>" target="_blank"><?php esc_html_e( 'Join the AnalogWP community', 'ang' ); ?></a>
+				</div>
+				<div class="newsletter-list">
+					<h3><?php esc_html_e( 'Sign up for updates', 'ang' ); ?></h3>
+					<p><?php esc_html_e( 'Sign up to Analog Newsletter and get notified about product updates, freebies and more.', 'ang' ); ?></p>
+					<form id="ang-newsletter" action="" class="form-newsletter">
+						<input id="ang-newsletter-email" type="email" placeholder="Enter your email" value="<?php echo esc_attr( $current_user->user_email ); ?>"/>
+						<button id="ang-newsletter-submit" class="ang-button button-primary" type="submit"><?php esc_html_e( 'Sign me up', 'ang' ); ?></button>
+					</form>
+					<p><?php esc_html_e( 'By signing up you agree to our', 'ang' ); ?> <a href="<?php echo esc_url( 'https://analogwp.com/privacy-policy/' ); ?>" target="_blank"><?php esc_html_e( 'privacy and terms', 'ang' ); ?></a></p>
+				</div>
+				<div class="social">
+					<a href="https://facebook.com/analogwp" target="_blank"><span class="dashicons dashicons-facebook-alt"></span></a>
+					<a href="https://twitter.com/analogwp" target="_blank"><span class="dashicons dashicons-twitter"></span></a>
+					<a href="https://instagram.com/analogwp" target="_blank"><span class="dashicons dashicons-instagram"></span></span></a>
+				</div>
 			</div>
 
 			<?php do_action( 'ang_sidebar_end' ); ?>
