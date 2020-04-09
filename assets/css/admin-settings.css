@@ -127,11 +127,30 @@
 	min-width: 150px;
 }
 
-.ang .sidebar {
+.ang .sidebar .promo,
+.ang .sidebar .upgrade-box {
 	margin-top: 50px;
 	background: #fff;
 	border: 1px solid #dcdcdc;
 	padding: 5px 30px 25px;
+}
+
+.ang .upgrade-box li {
+	list-style: disc;
+	font-size: 1.1em;
+}
+
+.ang .upgrade-box h3 {
+	line-height: 1.4em;
+}
+
+.ang .upgrade-box .regular-text {
+	width: 100%;
+	margin-bottom: 8px;
+}
+
+.ang .upgrade-box + .promo {
+	margin-top: 30px;
 }
 
 .ang .sidebar .form-newsletter input {
