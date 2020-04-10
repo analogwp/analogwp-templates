@@ -842,6 +842,8 @@ class Typography extends Module {
 
 			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
 				$default = Utils::get_kit_settings( $settings['ang_action_tokens'], 'ang_default_section_padding' );
+			} else {
+				$default = Utils::get_kit_settings( Utils::get_global_kit_id(), 'ang_default_section_padding' );
 			}
 		}
 
