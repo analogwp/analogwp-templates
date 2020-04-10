@@ -22,4 +22,6 @@ delete_transient( 'analogwp_template_info' );
 
 wp_clear_scheduled_hook( 'analog/tracker/send_event' );
 
-\Elementor\Plugin::$instance->files_manager->clear_cache();
+if ( class_exists( '\Elementor\Plugin' ) ) {
+	\Elementor\Plugin::$instance->files_manager->clear_cache();
+}
