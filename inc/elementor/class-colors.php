@@ -272,7 +272,7 @@ class Colors extends Module {
 	/**
 	 * Get label tooltip.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.4
 	 *
 	 * @param string $text Tooltip text.
 	 *
