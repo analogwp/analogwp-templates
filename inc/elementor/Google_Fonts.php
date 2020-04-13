@@ -14,9 +14,9 @@ class Google_Fonts {
 	/**
 	 * Return an array of all available Google Fonts.
 	 *
-	 * Last updated on: 2020/03/17
+	 * Last updated on: 2020/04/13
 	 *
-	 * Total 96 Fonts.
+	 * Total 97 Fonts.
 	 *
 	 * @since 1.6.0
 	 *
@@ -61,6 +61,7 @@ class Google_Fonts {
 				'Calistoga'             => 'googlefonts',
 				'Charm'                 => 'googlefonts',
 				'Chilanka'              => 'googlefonts',
+				'Comic Neue'            => 'googlefonts',
 				'Courier Prime'         => 'googlefonts',
 				'Crimson Pro'           => 'googlefonts',
 				'DM Sans'               => 'googlefonts',

@@ -109,9 +109,10 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
-= 1.6.4 - April 10, 2020 =
+= 1.6.4 - April 13, 2020 =
 - Fix: Style Kits context menu breaking tab navigation
 - Fix: Fatal error during uninstall if Elementor isn't active
+- Fix: Removed default outer section padding control due to conflict
 - Tweak: Delete additional options on uninstall
 - Tweak: Show Accent color descriptions as tooltips
 
