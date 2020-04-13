@@ -177,7 +177,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 	analog.redirectToSection = function redirectToSection( tab = 'settings', section = 'ang_style_settings', page = 'page_settings' ) {
 		$e.route( `panel/page-settings/${ tab }` );
-		elementor.getPanelView().currentPageView.activateSection('ang_style_settings').render();
+		elementor.getPanelView().getCurrentPageView().activateSection('ang_style_settings')._renderChildren();
 
 		return false;
 	};

@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.4
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,12 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.6.4 - April 10, 2020 =
+- Fix: Style Kits context menu breaking tab navigation
+- Fix: Fatal error during uninstall if Elementor isn't active
+- Tweak: Delete additional options on uninstall
+- Tweak: Show Accent color descriptions as tooltips
 
 = 1.6.3 - March 17, 2020 =
 - New: Added Kits screen info notification
