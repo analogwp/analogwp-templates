@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.4
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -109,7 +109,9 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
-= 1.6.4 - April 13, 2020 =
+= 1.6.5 - April 14, 2020 =
+- Fix: Added back Outer Section Padding control resulting in broken layouts
+
 - Fix: Style Kits context menu breaking tab navigation
 - Fix: Fatal error during uninstall if Elementor isn't active
 - Fix: Removed default outer section padding control due to conflict
