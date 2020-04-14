@@ -14,9 +14,9 @@ class Google_Fonts {
 	/**
 	 * Return an array of all available Google Fonts.
 	 *
-	 * Last updated on: 2020/04/13
+	 * Last updated on: 2020/04/14
 	 *
-	 * Total 97 Fonts.
+	 * Total 98 Fonts.
 	 *
 	 * @since 1.6.0
 	 *
@@ -100,6 +100,7 @@ class Google_Fonts {
 				'Ma Shan Zheng'         => 'googlefonts',
 				'Major Mono Display'    => 'googlefonts',
 				'Manjari'               => 'googlefonts',
+				'Manrope'               => 'googlefonts',
 				'Mansalva'              => 'googlefonts',
 				'Noto Sans HK'          => 'googlefonts',
 				'Noto Sans SC'          => 'googlefonts',
