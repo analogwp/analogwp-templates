@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.4
-Stable tag: 1.6.5
+Stable tag: 1.6.6-beta
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,11 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.6.6 - April 22, 2020 =
+- Fix: Remove default Outer Section Padding from Theme Styles
+- Tweak: Added new 'Default' OSP field
+- Fix: Added a migration script to tweak OSP defaults on Section elements
 
 = 1.6.5 - April 14, 2020 =
 - Fix: Added back Outer Section Padding control resulting in broken layouts
