@@ -82,6 +82,7 @@ class Typography extends Module {
 		add_filter( 'display_post_states', array( $this, 'add_token_state' ), 10, 2 );
 
 		add_action( 'elementor/element/section/section_layout/before_section_end', array( $this, 'tweak_section_widget' ) );
+		add_action( 'elementor/element/column/section_advanced/before_section_end', array( $this, 'tweak_column_element' ) );
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
 	}
@@ -849,6 +850,24 @@ class Typography extends Module {
 		);
 
 		$element->end_injection();
+	}
+
+	/**
+	 * Tweak default Column Element to have higher specificity than Column Gaps in TS.
+	 *
+	 * @since 1.6.6
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_column_element( Element_Base $element ) {
+		$element->update_responsive_control(
+			'padding',
+			array(
+				'selectors' => array(
+					'{{WRAPPER}} > .elementor-element-populated.elementor-element-populated.elementor-element-populated' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
 	}
 
 	/**
