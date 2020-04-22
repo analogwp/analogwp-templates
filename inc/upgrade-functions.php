@@ -9,6 +9,7 @@
 namespace Analog\Upgrade;
 
 use Analog\Core\Util\Migration;
+use Analog\Plugin;
 use Analog\Utils;
 
 defined( 'ABSPATH' ) || exit;
@@ -117,6 +118,10 @@ function do_automatic_upgrades() {
 
 	if ( version_compare( $installed_version, '1.6.3', '<' ) ) {
 		Utils::clear_elementor_cache();
+	}
+
+	if ( version_compare( $installed_version, '1.6.6-beta', '<' ) ) {
+		version_1_6_6_upgrades();
 	}
 
 	if ( $did_upgrade ) {
@@ -478,4 +483,68 @@ function version_1_6_0_upgrades() {
 
 	// Clear cache.
 	Utils::clear_elementor_cache();
+}
+
+/**
+ * Version 1.6.6 upgrades.
+ *
+ * - Fixes OSP for sections
+ * - - Iterates through each Kit to find posts using that Kit.
+ * - - See if that Kit had a OSP set
+ * - - If yes, set that OSP to each Section that was set to use default OSP.
+ *
+ * @since 1.6.6
+ * @return void
+ */
+function version_1_6_6_upgrades() {
+	$default_osp = 'initial';
+
+	$fix_osp = static function ( $post_ids ) use ( $default_osp ) {
+		foreach ( $post_ids as $id ) {
+			$settings = get_post_meta( $id, '_elementor_page_settings', true );
+
+			if ( isset( $settings['ang_action_tokens'] ) ) {
+				$kit_osp = Utils::get_kit_settings( $settings['ang_action_tokens'], 'ang_default_section_padding' );
+
+				if ( $kit_osp && '' !== $kit_osp ) {
+					$default_osp = $kit_osp;
+				}
+			}
+
+			$document = Plugin::elementor()->documents->get( $id );
+			$data     = $document->get_elements_data();
+
+			$data = Plugin::elementor()->db->iterate_data(
+				$data,
+				static function( $element ) use ( $default_osp ) {
+					if ( 'section' === $element['elType'] && false === $element['isInner'] && ! isset( $element['settings']['ang_outer_gap'] ) ) {
+						$element['settings']['ang_outer_gap'] = $default_osp;
+					}
+
+					return $element;
+				}
+			);
+
+			$json_value = wp_slash( wp_json_encode( $data ) );
+			update_metadata( 'post', $id, '_elementor_data', $json_value );
+		}
+	};
+
+	$kits       = Utils::get_kits( false );
+	$global_kit = Options::get_instance()->get( 'global_kit' );
+
+	// Remove Global Kit to handle separately.
+	if ( $global_kit && '' !== $global_kit ) {
+		unset( $kits[ $global_kit ] );
+	}
+
+	$posts_using_global_kit = Utils::posts_using_stylekit();
+	if ( count( $posts_using_global_kit ) ) {
+		$fix_osp( $posts_using_global_kit );
+	}
+
+	foreach ( $kits as $kit_id => $title ) {
+		$posts_using_different_kit = Utils::posts_using_stylekit( $kit_id );
+		$fix_osp( $posts_using_different_kit );
+	}
 }

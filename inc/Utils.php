@@ -222,6 +222,7 @@ class Utils extends Base {
 	/**
 	 * Returns an array of Post IDs using global kit.
 	 *
+	 * Not passing a Kit ID will returns posts using Global Kit, if set.
 	 * Pass Style kit ID to find posts/pages using specific style kit.
 	 *
 	 * @param int|bool $kit_id Style Kit ID to search for.
