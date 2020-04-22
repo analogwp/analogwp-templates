@@ -348,6 +348,7 @@ class Typography extends Module {
 	 */
 	public function register_outer_section_padding( Controls_Stack $element, $section_id ) {
 		$gaps = array(
+			'initial'  => __( 'Default', 'ang' ),
 			'default'  => __( 'Normal', 'ang' ),
 			'narrow'   => __( 'Small', 'ang' ),
 			'extended' => __( 'Medium', 'ang' ),
@@ -363,35 +364,12 @@ class Typography extends Module {
 			)
 		);
 
-		/**
-		 * Add default Outer section padding control.
-		 *
-		 * @since 1.6.2
-		 */
-		$element->add_control(
-			'ang_default_section_padding',
-			array(
-				'label'   => __( 'Set a Default Padding', 'ang' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'no',
-				'options' => array(
-					'no'       => __( 'No Padding', 'ang' ),
-					'default'  => __( 'Normal', 'ang' ),
-					'narrow'   => __( 'Small', 'ang' ),
-					'extended' => __( 'Medium', 'ang' ),
-					'wide'     => __( 'Large', 'ang' ),
-					'wider'    => __( 'Extra Large', 'ang' ),
-				),
-			)
-		);
-
 		$element->add_control(
 			'ang_section_padding_description',
 			array(
 				'raw'             => __( 'Add padding to the outer sections of your layouts by using these controls.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/587-outer-section-padding', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
-				'separator'       => 'before',
 			)
 		);
 
@@ -406,7 +384,7 @@ class Typography extends Module {
 					),
 					'size_units' => array( 'px', 'em', '%' ),
 					'selectors'  => array(
-						"{{WRAPPER}} .ang-section-padding-{$key}" =>
+						"{{WRAPPER}} .ang-section-padding-{$key}:not(.elementor-inner-section)" =>
 						'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					),
 				)
@@ -835,15 +813,17 @@ class Typography extends Module {
 		);
 
 		$post_id = get_the_ID();
-		$default = 'no';
+		$default = 'initial';
 
 		if ( $post_id ) {
 			$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
 
 			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
-				$default = Utils::get_kit_settings( $settings['ang_action_tokens'], 'ang_default_section_padding' );
-			} else {
-				$default = Utils::get_kit_settings( Utils::get_global_kit_id(), 'ang_default_section_padding' );
+				$kit_osp = Utils::get_kit_settings( $settings['ang_action_tokens'], 'ang_default_section_padding' );
+
+				if ( $kit_osp && '' !== $kit_osp ) {
+					$default = $kit_osp;
+				}
 			}
 		}
 
@@ -856,6 +836,7 @@ class Typography extends Module {
 				'hide_in_inner' => true,
 				'default'       => $default,
 				'options'       => array(
+					'initial'  => __( 'Default', 'ang' ),
 					'no'       => __( 'No Padding', 'ang' ),
 					'default'  => __( 'Normal', 'ang' ),
 					'narrow'   => __( 'Small', 'ang' ),
