@@ -235,11 +235,21 @@ class Utils extends Base {
 		$query_args = array(
 			'post_type'      => apply_filters( 'analog/stylekit/posttypes', $post_types ),
 			'post_status'    => 'any',
-			'meta_key'       => '_elementor_page_settings',
-			'meta_values'    => array( 'ang_action_tokens' ),
-			'meta_compare'   => 'IN',
 			'fields'         => 'ids',
 			'posts_per_page' => -1,
+			'meta_query'     => array(
+				'relation' => 'AND',
+				array(
+					'key'     => '_elementor_edit_mode',
+					'value'   => false,
+					'compare' => 'LIKE',
+				),
+				array(
+					'key'     => '_elementor_template_type',
+					'value'   => 'kit',
+					'compare' => 'NOT LIKE',
+				),
+			),
 		);
 
 		$query = new WP_Query( $query_args );
