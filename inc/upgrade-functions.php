@@ -509,6 +509,15 @@ function version_1_6_6_upgrades() {
 				if ( $kit_osp && '' !== $kit_osp ) {
 					$default_osp = $kit_osp;
 				}
+			} else {
+				$global_kit = Options::get_instance()->get( 'global_kit' );
+				if ( $global_kit ) {
+					$kit_osp = Utils::get_kit_settings( $global_kit, 'ang_default_section_padding' );
+
+					if ( $kit_osp && '' !== $kit_osp ) {
+						$default_osp = $kit_osp;
+					}
+				}
 			}
 
 			$document = Plugin::elementor()->documents->get( $id );
