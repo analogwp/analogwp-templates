@@ -158,12 +158,10 @@ class Manager {
 	 */
 	public function should_remove_global_kit_class( $classes ) {
 		if ( $this->is_using_custom_kit() ) {
-			$kit_class = 'elementor-kit-' . get_option( self::OPTION_ACTIVE );
-
-			foreach ( $classes as $index => $class ) {
-				if ( $class === $kit_class ) {
-					unset( $classes[ $index ] );
-				}
+			$class = 'elementor-kit-' . get_option( self::OPTION_ACTIVE );
+			$found = array_search( $class, $classes, true );
+			if ( $found ) {
+				unset( $classes[ $found ] );
 			}
 		}
 
