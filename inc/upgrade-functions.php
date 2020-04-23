@@ -120,7 +120,7 @@ function do_automatic_upgrades() {
 		Utils::clear_elementor_cache();
 	}
 
-	if ( version_compare( $installed_version, '1.6.6-beta', '<' ) ) {
+	if ( version_compare( $installed_version, '1.6.6', '<' ) ) {
 		version_1_6_6_upgrades();
 	}
 
@@ -497,7 +497,7 @@ function version_1_6_0_upgrades() {
  * @return void
  */
 function version_1_6_6_upgrades() {
-	$default_osp = 'initial';
+	$default_osp = 'no';
 
 	$fix_osp = static function ( $post_ids ) use ( $default_osp ) {
 		foreach ( $post_ids as $id ) {
