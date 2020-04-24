@@ -124,6 +124,10 @@ function do_automatic_upgrades() {
 		version_1_6_6_upgrades();
 	}
 
+	if ( version_compare( $installed_version, '1.6.7', '<' ) ) {
+		Utils::clear_elementor_cache();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
