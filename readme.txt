@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.4
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,9 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.6.6 - April 24, 2020 =
+- Fix: Advanced tab not overriding Outer Section padding
 
 = 1.6.6 - April 23, 2020 =
 - Fix: Remove default Outer Section Padding (OSP) dropdown from Theme Styles
