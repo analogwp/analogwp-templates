@@ -385,7 +385,7 @@ class Typography extends Module {
 					),
 					'size_units' => array( 'px', 'em', '%' ),
 					'selectors'  => array(
-						"{{WRAPPER}} .ang-section-padding-{$key}:not(.elementor-inner-section)" =>
+						"{{WRAPPER}} .ang-section-padding-{$key}" =>
 						'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					),
 				)
