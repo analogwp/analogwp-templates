@@ -131,6 +131,8 @@ final class Plugin {
 			$block_favorites = array();
 		}
 
+		$global_kit_title = get_the_title( Utils::get_global_kit_id() );
+
 		$new_domains = array(
 			'ajaxurl'        => admin_url( 'admin-ajax.php' ),
 			'favorites'      => $favorites,
@@ -145,6 +147,12 @@ final class Plugin {
 				'message' => get_transient( 'ang_license_message' ),
 			),
 			'installed_kits' => Utils::imported_remote_kits(),
+			'globalKit'      => array(
+				array(
+					'label' => $global_kit_title,
+					'value' => $global_kit_title,
+				),
+			),
 		);
 
 		$domains += $new_domains;

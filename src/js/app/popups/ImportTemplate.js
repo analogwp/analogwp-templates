@@ -85,6 +85,8 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 
 	const filterOptions = installedKits.map( filter => {
 		return { value: filter, label: filter };
+	} ).filter( ( kit ) => {
+		return kit.value !== AGWP.globalKit[ 0 ].value;
 	} );
 
 	const importables = styleKits
@@ -98,6 +100,10 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 	const activeKit = styleKits.find( option => parseInt( option.site_id ) === parseInt( state.template.site_id ) );
 
 	const groupedOptions = [
+		{
+			label: __( 'Global', 'ang' ),
+			options: AGWP.globalKit,
+		},
 		{
 			label: __( 'Default', 'ang' ),
 			options: importableOptions,
