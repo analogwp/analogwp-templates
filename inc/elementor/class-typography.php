@@ -82,6 +82,7 @@ class Typography extends Module {
 		add_filter( 'display_post_states', array( $this, 'add_token_state' ), 10, 2 );
 
 		add_action( 'elementor/element/section/section_layout/before_section_end', array( $this, 'tweak_section_widget' ) );
+		add_action( 'elementor/element/section/section_advanced/before_section_end', array( $this, 'tweak_section_padding_control' ) );
 		add_action( 'elementor/element/column/section_advanced/before_section_end', array( $this, 'tweak_column_element' ) );
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
@@ -385,7 +386,7 @@ class Typography extends Module {
 					),
 					'size_units' => array( 'px', 'em', '%' ),
 					'selectors'  => array(
-						"{{WRAPPER}} .ang-section-padding-{$key}" =>
+						"{{WRAPPER}} .ang-section-padding-{$key}.elementor-top-section" =>
 						'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					),
 				)
@@ -865,6 +866,24 @@ class Typography extends Module {
 			array(
 				'selectors' => array(
 					'{{WRAPPER}} > .elementor-element-populated.elementor-element-populated.elementor-element-populated' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+	}
+
+	/**
+	 * Tweak default Section Element's padding control to have higher specificity than OSP in TS.
+	 *
+	 * @since 1.6.8
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_section_padding_control( Element_Base $element ) {
+		$element->update_responsive_control(
+			'padding',
+			array(
+				'selectors' => array(
+					'{{WRAPPER}}.elementor-section' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
