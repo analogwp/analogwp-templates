@@ -88,6 +88,7 @@ final class Plugin {
 				'wp-components',
 				'wp-hooks',
 				'wp-i18n',
+				'wp-element',
 				'wp-api-fetch',
 				'wp-html-entities',
 			),
