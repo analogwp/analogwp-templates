@@ -16,7 +16,7 @@ const externals = {
 
 // Webpack config
 const config = {
-	entry: './src/js/app/index.js',
+	entry: './client/index.js',
 	externals,
 	output: {
 		filename: 'assets/js/app.js',
