@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 5.4
-Stable tag: 1.6.7
+Tested up to: 5.4.1
+Stable tag: 1.6.8
 Tags: elementor, landing page, design, website builder, templates, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -109,7 +109,12 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
-= 1.6.6 - April 24, 2020 =
+= 1.6.8 - May 20, 2020 =
+* New: Add Global Section in Kit dropdown during import
+* Fix: Multiple Kit classes being applied on frontend
+* Fix: Inner section widget taking Outer Section Padding values
+
+= 1.6.7 - April 24, 2020 =
 - Fix: Advanced tab not overriding Outer Section padding
 
 = 1.6.6 - April 23, 2020 =
