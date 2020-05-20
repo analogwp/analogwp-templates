@@ -118,6 +118,8 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		return !! ( activeKit && option.value === activeKit.title );
 	} );
 
+	const defaultDropdownValue = defaultOption ? defaultOption : AGWP.globalKit[ 0 ];
+
 	const importElementor = () => {
 		requestElementorImport( state.template, getStyleKitInfo( state.kit ) ).then( () => {
 			handler( { showingModal: false, importing: false, importingElementor: false } );
@@ -155,7 +157,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 								formatGroupLabel={ formatGroupLabel }
 								isSearchable={ false }
 								placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
-								defaultValue={ defaultOption }
+								defaultValue={ defaultDropdownValue }
 								onChange={ ( e ) => {
 									handler( { kit: e.value } );
 								} }
@@ -168,7 +170,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 
 									// Fallback if the Default kit in dropdown in unchanged.
 									if ( ! kit ) {
-										handler( { kit: defaultOption.value } );
+										handler( { kit: defaultDropdownValue.value } );
 									}
 								} }
 							>{ __( 'Next', 'ang' ) }</button>
