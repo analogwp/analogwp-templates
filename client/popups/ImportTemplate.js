@@ -114,12 +114,8 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		},
 	];
 
-	const defaultOption = importableOptions.length ? importableOptions[ 0 ] : filterOptions.find( ( option ) => {
-		if ( activeKit && option.value === activeKit.title ) {
-			return true;
-		}
-
-		return false;
+	const defaultOption = importableOptions.length > 0 ? importableOptions[ 0 ] : filterOptions.find( ( option ) => {
+		return !! ( activeKit && option.value === activeKit.title );
 	} );
 
 	const importElementor = () => {
