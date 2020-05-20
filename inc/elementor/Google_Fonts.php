@@ -14,9 +14,9 @@ class Google_Fonts {
 	/**
 	 * Return an array of all available Google Fonts.
 	 *
-	 * Last updated on: 2020/04/23
+	 * Last updated on: 2020/05/20
 	 *
-	 * Total 98 Fonts.
+	 * Total 101 Fonts.
 	 *
 	 * @since 1.6.0
 	 *
@@ -47,6 +47,7 @@ class Google_Fonts {
 				'Baloo Tamma 2'         => 'googlefonts',
 				'Baloo Tammudu 2'       => 'googlefonts',
 				'Baloo Thambi 2'        => 'googlefonts',
+				'Balsamiq Sans'         => 'googlefonts',
 				'Barriecito'            => 'googlefonts',
 				'Baskervville'          => 'googlefonts',
 				'Be Vietnam'            => 'googlefonts',
@@ -64,6 +65,7 @@ class Google_Fonts {
 				'Comic Neue'            => 'googlefonts',
 				'Courier Prime'         => 'googlefonts',
 				'Crimson Pro'           => 'googlefonts',
+				'DM Mono'               => 'googlefonts',
 				'DM Sans'               => 'googlefonts',
 				'DM Serif Display'      => 'googlefonts',
 				'DM Serif Text'         => 'googlefonts',
@@ -82,6 +84,7 @@ class Google_Fonts {
 				'Inria Serif'           => 'googlefonts',
 				'Inter'                 => 'googlefonts',
 				'Jomolhari'             => 'googlefonts',
+				'Jost'                  => 'googlefonts',
 				'Kulim Park'            => 'googlefonts',
 				'Lacquer'               => 'googlefonts',
 				'Lexend Deca'           => 'googlefonts',

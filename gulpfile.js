@@ -21,7 +21,7 @@ const buildFiles = [
 	'!build',
 	'!build/**',
 	'!node_modules/**',
-	'!src/js/**',
+	'!client/**',
 	'!*.json',
 	'!*.map',
 	'!*.xml',

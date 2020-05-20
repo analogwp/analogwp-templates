@@ -85,6 +85,8 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 
 	const filterOptions = installedKits.map( filter => {
 		return { value: filter, label: filter };
+	} ).filter( ( kit ) => {
+		return kit.value !== AGWP.globalKit[ 0 ].value;
 	} );
 
 	const importables = styleKits
@@ -99,6 +101,10 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 
 	const groupedOptions = [
 		{
+			label: __( 'Global', 'ang' ),
+			options: AGWP.globalKit,
+		},
+		{
 			label: __( 'Default', 'ang' ),
 			options: importableOptions,
 		},
@@ -108,13 +114,11 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		},
 	];
 
-	const defaultOption = importableOptions.length ? importableOptions[ 0 ] : filterOptions.find( ( option ) => {
-		if ( activeKit && option.value === activeKit.title ) {
-			return true;
-		}
-
-		return false;
+	const defaultOption = importableOptions.length > 0 ? importableOptions[ 0 ] : filterOptions.find( ( option ) => {
+		return !! ( activeKit && option.value === activeKit.title );
 	} );
+
+	const defaultDropdownValue = defaultOption ? defaultOption : AGWP.globalKit[ 0 ];
 
 	const importElementor = () => {
 		requestElementorImport( state.template, getStyleKitInfo( state.kit ) ).then( () => {
@@ -153,7 +157,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 								formatGroupLabel={ formatGroupLabel }
 								isSearchable={ false }
 								placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
-								defaultValue={ defaultOption }
+								defaultValue={ defaultDropdownValue }
 								onChange={ ( e ) => {
 									handler( { kit: e.value } );
 								} }
@@ -166,7 +170,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 
 									// Fallback if the Default kit in dropdown in unchanged.
 									if ( ! kit ) {
-										handler( { kit: defaultOption.value } );
+										handler( { kit: defaultDropdownValue.value } );
 									}
 								} }
 							>{ __( 'Next', 'ang' ) }</button>
