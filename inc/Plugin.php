@@ -61,6 +61,8 @@ final class Plugin {
 		add_action( 'admin_enqueue_scripts', array( self::$instance, 'scripts' ) );
 		add_filter( 'analog/app/strings', array( self::$instance, 'send_strings_to_app' ) );
 
+		add_action( 'admin_bar_menu', array( self::$instance, 'add_kit_to_menu_bar' ), 400 );
+
 		( new Consumer() )->register();
 		( new Notices() )->register();
 	}
@@ -242,6 +244,41 @@ final class Plugin {
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			require_once ANG_PLUGIN_DIR . 'inc/cli/commands.php';
 		}
+	}
+
+	/**
+	 * Add Kit title to menu bar when debug is enabled.
+	 *
+	 * @param \WP_Admin_Bar $wp_admin_bar
+	 * @since 1.6.9
+	 * @return void
+	 */
+	public function add_kit_to_menu_bar( \WP_Admin_Bar $wp_admin_bar ) {
+		if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG  ) {
+			return;
+		}
+
+		$post_id  = get_the_ID();
+		$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+
+		if ( ! isset( $settings['ang_action_tokens'] ) ) {
+			$title = get_the_title( Options::get_instance()->get( 'global_kit' ) );
+		} else {
+			$title = get_the_title( $settings['ang_action_tokens'] );
+		}
+
+		$parent = 'style_kits';
+		$wp_admin_bar->add_menu( array(
+			'id'     => $parent,
+			'parent' => 'elementor_inspector',
+			'title'  => 'Style Kit',
+		) );
+
+		$wp_admin_bar->add_menu( array(
+			'id'     => 'style_kits_kit',
+			'parent' => $parent,
+			'title'  => 'Kit: ' . $title,
+		) );
 	}
 
 	/**
