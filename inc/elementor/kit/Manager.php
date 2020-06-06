@@ -116,7 +116,7 @@ class Manager {
 		}
 
 		// Return early if Global kit and current kit is same.
-		if ( Options::get_instance()->get( 'global_kit' ) === $kit_id ) {
+		if ( (int) Options::get_instance()->get( 'global_kit' ) === (int) $kit_id ) {
 			return false;
 		}
 
