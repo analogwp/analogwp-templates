@@ -14,7 +14,7 @@ class Google_Fonts {
 	/**
 	 * Return an array of all available Google Fonts.
 	 *
-	 * Last updated on: 2020/05/20
+	 * Last updated on: 2020/06/06
 	 *
 	 * Total 101 Fonts.
 	 *
