@@ -132,7 +132,7 @@ class Elementor {
 	 * Since an export requires that to be non-empty. We programmatically add
 	 * Kit content to kit to make it exportable.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.6.9
 	 * @return void
 	 */
 	public function maybe_add_elementor_data() {
