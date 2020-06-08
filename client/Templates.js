@@ -5,7 +5,7 @@ import { requestDirectImport } from './api';
 import Collection from './collection/Collection';
 import { Theme } from './contexts/ThemeContext';
 import Empty from './helpers/Empty';
-import CustomModal from './modal';
+import CustomModal from './Modal';
 import ImportTemplate from './popups/ImportTemplate';
 import Template from './Template';
 import ProModal from './ProModal';
