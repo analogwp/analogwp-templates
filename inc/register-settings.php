@@ -61,6 +61,15 @@ function register_menu() {
 	);
 
 	add_submenu_page(
+		$menu_slug,
+		__( 'Blocks', 'ang' ),
+		__( 'Blocks', 'ang' ),
+		$permission,
+		'analog-blocks',
+		'Analog\Settings\settings_page',
+	);
+
+	add_submenu_page(
 		null,
 		__( 'Welcome to Style Kits', 'ang' ),
 		__( 'Welcome to Style Kits', 'ang' ),

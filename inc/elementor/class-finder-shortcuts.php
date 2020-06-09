@@ -50,6 +50,12 @@ class Finder_Shortcuts extends Base_Category {
 				'icon'     => 'settings',
 				'keywords' => array( 'analog', 'style', 'kits' ),
 			),
+			'analog-blocks' => array(
+				'title'    => __( 'Style Kits Blocks', 'ang' ),
+				'url'      => admin_url( 'admin.php?page=analog-blocks' ),
+				'icon'     => 'settings',
+				'keywords' => array( 'analog', 'blocks'),
+			),
 		);
 	}
 }
