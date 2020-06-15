@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
 import Template from '../Template';
 const { __ } = wp.i18n;
-const { Button } = wp.components;
+const { Button, Card, CardBody, CardDivider, CardFooter } = wp.components;
 
 const List = styled.ul`
 	margin: 0;
@@ -40,14 +40,13 @@ const List = styled.ul`
 		text-transform: capitalize;
 		margin: 0;
 		font-weight: bold;
-		border-top: 2px solid #f1f1f1;
 	}
 	span {
 		width: 35px;
 		height: 28px;
 		position: absolute;
-		bottom: 14px;
-		right: 2px;
+		bottom: 26px;
+		right: 5px;
 		font-weight: 700;
 		font-size: 15px;
 		border-radius: 4px;
@@ -145,21 +144,29 @@ export default class Collection extends React.Component {
 							}
 
 							return (
+								
 								<li key={ kit.site_id }>
-									<figure>
-										<img src={ kit.thumbnail || AGWP.pluginURL + 'assets/img/placeholder.svg' } loading="lazy" alt={ kit.title } />
-										<div className="actions">
-											<Button isPrimary isLarge onClick={ () => {
-												this.context.dispatch( {
-													activeKit: kit,
-												} );
-											} }>
-												{ __( 'View Templates', 'ang' ) }
-											</Button>
-										</div>
-									</figure>
-									<h3>{ kit.title }</h3>
-									<span>{ this.getCollectionCount( kit.site_id ) }</span>
+									<Card>
+										<CardBody>
+											<figure>
+												<img src={ kit.thumbnail || AGWP.pluginURL + 'assets/img/placeholder.svg' } loading="lazy" alt={ kit.title } />
+												<div className="actions">
+													<Button isPrimary isLarge onClick={ () => {
+														this.context.dispatch( {
+															activeKit: kit,
+														} );
+													} }>
+														{ __( 'View Templates', 'ang' ) }
+													</Button>
+												</div>
+											</figure>
+										</CardBody>
+										<CardDivider>&nbsp;</CardDivider>
+										<CardFooter>
+											<h3>{ kit.title }</h3>
+											<span>{ this.getCollectionCount( kit.site_id ) }</span>
+										</CardFooter>
+									</Card>
 								</li>
 							);
 						} ) }
