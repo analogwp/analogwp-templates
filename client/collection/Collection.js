@@ -5,11 +5,12 @@ import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
 import Template from '../Template';
 const { __ } = wp.i18n;
+const { Button } = wp.components;
 
 const List = styled.ul`
 	margin: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(380px,380px));
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 25px;
 	color: #000;
 	li {
@@ -35,25 +36,24 @@ const List = styled.ul`
 	}
 	h3 {
 		font-size: 13px;
-		padding: 13px 20px;
+		padding: 20px 20px;
 		text-transform: capitalize;
 		margin: 0;
 		font-weight: bold;
+		border-top: 2px solid #f1f1f1;
 	}
 	span {
-		background: var(--ang-accent);
 		width: 35px;
 		height: 28px;
 		position: absolute;
-		top: -14px;
-		right: -17px;
+		bottom: 14px;
+		right: 2px;
 		font-weight: 700;
 		font-size: 15px;
 		border-radius: 4px;
 		display: inline-flex;
 		justify-content: center;
 		align-items: center;
-		color: #fff;
 		z-index: 100;
 	}
 
@@ -73,6 +73,11 @@ const List = styled.ul`
 		transition: all 200ms;
 		border-top-left-radius: 4px;
 		border-top-right-radius: 4px;
+
+		button.is-large {
+			font-size: 24px;
+			height: 48px;
+		}
 	}
 `;
 
@@ -144,13 +149,13 @@ export default class Collection extends React.Component {
 									<figure>
 										<img src={ kit.thumbnail || AGWP.pluginURL + 'assets/img/placeholder.svg' } loading="lazy" alt={ kit.title } />
 										<div className="actions">
-											<button className="ang-button" onClick={ () => {
+											<Button isPrimary isLarge onClick={ () => {
 												this.context.dispatch( {
 													activeKit: kit,
 												} );
 											} }>
 												{ __( 'View Templates', 'ang' ) }
-											</button>
+											</Button>
 										</div>
 									</figure>
 									<h3>{ kit.title }</h3>
