@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-const { Tooltip, FocusableIframe, Button } = wp.components;
+const { FocusableIframe, Button } = wp.components;
 const { __ } = wp.i18n;
 
 const rotateOpacity = keyframes`
@@ -56,20 +56,6 @@ const Container = styled.div`
 		.dashicons {
 			font-size: 25px;
 		}
-	}
-
-	.button--plain {
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		padding: 0;
-		margin: 0;
-		font-size: 14.22px;
-		font-weight: bold;
-		color: #060606;
-		background: transparent;
-		border: none;
-		outline: 0;
-		cursor: pointer;
 	}
 
 	.button--accent {
