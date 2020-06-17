@@ -16,7 +16,7 @@ const TemplatesContainer = styled.div`
 	.templates-list {
 		margin: 0;
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
+		grid-template-columns: repeat(4, 1fr);
 		grid-gap: 25px;
 		color: #000;
 
@@ -30,8 +30,7 @@ const TemplatesContainer = styled.div`
 			border-radius: 4px;
 		}
 
-		.new,
-		.pro {
+		.new {
 			position: absolute;
 			top: -8px;
 			right: -8px;
@@ -45,16 +44,6 @@ const TemplatesContainer = styled.div`
 			text-transform: uppercase;
 			font-size: 14.22px;
 			letter-spacing: .5px;
-		}
-
-		.pro {
-			bottom: 15px;
-			right: 20px;
-			top: auto;
-			background: rgba(92, 50, 182, 0.1);
-			font-size: 12px;
-			color: var(--ang-accent);
-			padding: 4px 7px;
 		}
 
 		.new {

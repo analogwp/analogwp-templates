@@ -30,3 +30,23 @@
     font-weight: 600;
     position: relative;
 }
+
+#analogwp-templates .templates-list .components-button {
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 40px;
+    padding: 10px 32px;
+}
+
+#analogwp-templates .templates-list .pro {
+    position: absolute;
+    bottom: 48px;
+    right: 16px;
+    line-height: 1;
+    border-radius: 4px;
+    letter-spacing: .5px;
+    font-size: 12px;
+    padding: 4px 7px;
+    border: 1px solid black;
+}
