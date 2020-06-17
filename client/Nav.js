@@ -56,13 +56,15 @@ const Nav = () => {
 	}
 	
 	return (
-		<TabPanel className="ang-nav"
-			onSelect={onSelect}
-			tabs={tabsGeneratior(ITEMS)}>
-			{
-				(tab) => tabContent()
-			}
-		</TabPanel>
+		<span id="sk-library-tab">
+			<TabPanel className="ang-nav"
+				onSelect={onSelect}
+				tabs={tabsGeneratior(ITEMS)}>
+				{
+					(tab) => tabContent()
+				}
+			</TabPanel>
+		</span>
 	);
 };
 
