@@ -58,20 +58,6 @@ const Container = styled.div`
 		}
 	}
 
-	.button--plain {
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		padding: 0;
-		margin: 0;
-		font-size: 14.22px;
-		font-weight: bold;
-		color: #060606;
-		background: transparent;
-		border: none;
-		outline: 0;
-		cursor: pointer;
-	}
-
 	.button--accent {
 		font-size: 12px;
 		font-weight: bold;
