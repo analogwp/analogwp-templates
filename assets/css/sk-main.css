@@ -31,7 +31,8 @@
     position: relative;
 }
 
-#analogwp-templates .templates-list .components-button {
+#analogwp-templates .templates-list .components-button,
+#analogwp-templates .stylekit-list .components-button {
     font-size: 20px;
     margin-left: auto;
     margin-right: auto;
@@ -39,7 +40,8 @@
     padding: 10px 32px;
 }
 
-#analogwp-templates .templates-list .pro {
+#analogwp-templates .templates-list .pro,
+#analogwp-templates .stylekit-list .pro {
     position: absolute;
     bottom: 48px;
     right: 16px;
@@ -49,4 +51,8 @@
     font-size: 12px;
     padding: 4px 7px;
     border: 1px solid black;
+}
+
+#analogwp-templates .stylekit-list .pro {
+    position: inherit;
 }
