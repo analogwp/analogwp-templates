@@ -1,28 +1,15 @@
-import { default as styled } from 'styled-components';
 import classNames from 'classnames';
 import AnalogContext from './AnalogContext';
-import Refresh from './icons/refresh';
 import { NotificationConsumer } from './Notifications';
 import Close from './icons/close';
 
 const { __ } = wp.i18n;
 const { Button} = wp.components;
 
-const SyncContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-
-    .is-secondary {
-        margin-left: 10px;
-    }
-`;
-
 const Synchronization = () => {
 
     return (
-        <SyncContainer>
+        <div id="sk-library-heading">
             <h1>{ __('Style Kits Library', 'ang')}</h1>
             <div>
             <AnalogContext.Consumer>
@@ -55,7 +42,7 @@ const Synchronization = () => {
                 </Button>
             )}
             </div>
-        </SyncContainer>
+        </div>
     );
 
 }
