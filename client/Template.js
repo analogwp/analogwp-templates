@@ -21,7 +21,7 @@ const Template = ({ template, setModalContent, importLayout, favorites, makeFavo
 					<figure>
 						{template.thumbnail && <Image template={template} />}
 						<div className="actions">
-							<Button isSecondary onClick={() => setModalContent(template)}>
+							<Button isSecondary className="black-transparent" onClick={() => setModalContent(template)}>
 								{__('Preview', 'ang')}
 							</Button>
 							{!isValid(template.is_pro) && (

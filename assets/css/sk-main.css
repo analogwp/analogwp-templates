@@ -88,3 +88,8 @@
 #analogwp-templates .stylekit-list .preview {
     min-width: 110px;
 }
+
+#analogwp-templates .components-button.black-transparent {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+}

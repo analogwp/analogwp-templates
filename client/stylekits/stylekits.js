@@ -253,6 +253,7 @@ export default class StyleKits extends React.Component {
 											<div className="preview">
 												{ kit.preview && (
 													<Button isSecondary
+														className="black-transparent"
 														onClick={ () => {
 															window.scrollTo( 0, 0 );
 															this.setState( { previewing: kit } );
