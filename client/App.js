@@ -12,7 +12,6 @@ const Analog = styled.div`
 	margin: 0 0 0 -20px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	font-family: "Poppins", sans-serif;
 	font-size: 13px;
 	position: relative;
 
