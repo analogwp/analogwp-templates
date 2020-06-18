@@ -109,24 +109,6 @@ const TemplatesContainer = styled.div`
 			}
 		}
 
-		.actions {
-			opacity: 0;
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			background: rgba(0, 0, 0, 0.7);
-			top: 0;
-			left: 0;
-			z-index: 100;
-			transition: all 200ms;
-			border-top-left-radius: 4px;
-			border-top-right-radius: 4px;
-		}
-
 		.actions button {
 			opacity: 0;
 

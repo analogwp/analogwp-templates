@@ -57,22 +57,6 @@ const List = styled.ul`
 	}
 
 	.actions {
-		opacity: 0;
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		background: rgba(0, 0, 0, 0.7);
-		top: 0;
-		left: 0;
-		z-index: 100;
-		transition: all 200ms;
-		border-top-left-radius: 4px;
-		border-top-right-radius: 4px;
-
 		button.is-large {
 			font-size: 24px;
 			height: 48px;
@@ -137,7 +121,7 @@ export default class Collection extends React.Component {
 		return (
 			<div className="collection">
 				{ ! this.context.state.activeKit && (
-					<List>
+					<List className="templates-collection">
 						{ this.context.state.kits && this.context.state.kits.map( ( kit ) => {
 							if ( ! this.getCollectionCount( kit.site_id ) ) {
 								return;
