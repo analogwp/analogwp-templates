@@ -41,7 +41,8 @@
 }
 
 #analogwp-templates .templates-list .pro,
-#analogwp-templates .stylekit-list .pro {
+#analogwp-templates .stylekit-list .pro,
+#analogwp-templates .block-list .pro{
     position: absolute;
     bottom: 48px;
     right: 16px;
