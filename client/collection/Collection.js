@@ -135,7 +135,7 @@ export default class Collection extends React.Component {
 											<figure>
 												<img src={ kit.thumbnail || AGWP.pluginURL + 'assets/img/placeholder.svg' } loading="lazy" alt={ kit.title } />
 												<div className="actions">
-													<Button isPrimary isLarge className="black-transparent" onClick={ () => {
+													<Button isSecondary isLarge className="black-transparent" onClick={ () => {
 														this.context.dispatch( {
 															activeKit: kit,
 														} );
