@@ -1,6 +1,8 @@
 import { default as styled, keyframes } from 'styled-components';
 import Close from './icons/close';
+
 const { __ } = wp.i18n;
+const { Card, CardBody, CardDivider, CardHeader } = wp.components;
 
 const animate = keyframes`
   from {
@@ -29,7 +31,6 @@ const Container = styled.div`
 
 	.inner {
 		background: #fff;
-		border-radius: 4px;
 		overflow: visible;
 		width: 600px;
 		max-height: 80vh;
@@ -83,9 +84,6 @@ const Content = styled.div`
 	padding: 20px 35px;
 	position: sticky;
 	font-size: 14px;
-	background: #F7F4F4;
-	border-bottom-left-radius: 4px;
-	border-bottom-right-radius: 4px;
 	line-height: 1.6;
 
 	h2 {
@@ -127,18 +125,24 @@ const Popup = ( props ) => {
 	return (
 		<Container { ...rest }>
 			<div className="inner">
-				<Header>
-					<h1>{ title }</h1>
-					{ onRequestClose && (
-						<button className="button-plain" onClick={ () => onRequestClose() }>
-							{ __( 'Close', 'ang' ) } <Close />
-						</button>
-					) }
-				</Header>
-
-				<Content>
-					{ children }
-				</Content>
+				<Card>
+					<CardHeader>
+						<Header>
+							<h1>{ title }</h1>
+							{ onRequestClose && (
+								<button className="button-plain" onClick={ () => onRequestClose() }>
+									<Close />
+								</button>
+							) }
+						</Header>
+					</CardHeader>
+					<CardDivider>&nbsp;</CardDivider>
+					<CardBody>
+						<Content>
+							{ children }
+						</Content>
+					</CardBody>
+				</Card>
 			</div>
 		</Container>
 	);
