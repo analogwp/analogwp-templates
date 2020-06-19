@@ -78,7 +78,6 @@ const ChildContainer = styled.ul`
 
     figure {
     	margin: 0;
-    	padding: 20px;
 		position: relative;
 		display: flex;
 		justify-content: center;

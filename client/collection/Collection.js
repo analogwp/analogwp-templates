@@ -23,7 +23,6 @@ const List = styled.ul`
 		margin: 0;
 		position: relative;
 		min-height: 100px;
-		padding: 20px;
 		&:hover .actions {
 			opacity: 1;
 		}
