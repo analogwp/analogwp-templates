@@ -43,7 +43,6 @@ const Container = styled.div`
 	}
 
 	a {
-		color: var(--ang-accent);
 		text-decoration: none;
 		font-weight: 500;
 	}
