@@ -105,6 +105,16 @@
     display: block;
 }
 
+@media only screen and (max-width: 1024px) {
+    #analogwp-templates .templates-collection figure .components-button,
+    #analogwp-templates .templates-list figure .components-button,
+    #analogwp-templates .stylekit-list figure .components-button,
+    #analogwp-templates .block-list figure .components-button{
+        width: 120px;
+        height: 45px;
+    }
+}
+
 #analogwp-templates .templates-collection .components-button.is-primary:focus,
 #analogwp-templates .templates-list .components-button.is-primary:focus,
 #analogwp-templates .stylekit-list .components-button.is-primary:focus,
@@ -119,4 +129,8 @@
 #analogwp-templates .block-list .components-button.is-secondary:focus {
     border: none;
     box-shadow: none;
+}
+
+#import-new-page .components-base-control {
+    width: 40%;
 }

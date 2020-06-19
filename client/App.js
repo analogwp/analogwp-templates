@@ -15,7 +15,7 @@ const Analog = styled.div`
 	font-size: 13px;
 	position: relative;
 
-	--ang-accent: #5C32B6;
+	--ang-accent: rgb(0, 112, 167);
 
 	.ang-notices {
 		position: fixed;
@@ -97,51 +97,7 @@ const Analog = styled.div`
 		font-size: 14.22px;
 	}
 
-	input[type="text"],
-	input[type="search"],
-	input[type="email"] {
-		border: 2px solid #C7C7C7;
-		border-radius: 4px;
-		color: #888888;
-		font-weight: normal;
-		background: #fff;
-		font-size: 14.22px;
-		font-family: inherit;
-		&:focus {
-			outline: 0;
-			box-shadow: none;
-			border-color: #888888;
-		}
-	}
-
-	input[type=checkbox] {
-		appearance: none;
-		width: 22px;
-		height: 22px;
-		border: 1px solid #C7C7C7;
-		background: #fff;
-		border-radius: 0;
-
-		&:focus,
-		&:active {
-			box-shadow: none;
-			outline: 0;
-		}
-
-		&:checked:before {
-			content: "\f147";
-			display: inline-block;
-			vertical-align: middle;
-			width: 16px;
-			font: normal 21px/1 dashicons;
-			speak: none;
-			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale;
-			color: #060606;
-			margin: 0px 0 0 -1px;
-		}
-	}
-
+	
 	button {
 		font-family: inherit;
 	}

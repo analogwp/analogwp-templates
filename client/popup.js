@@ -97,26 +97,9 @@ const Content = styled.div`
 
 	.form-row {
 		display: flex;
-		align-items: center;
+		align-items: baseline;
 	}
 
-	.components-base-control {
-		flex-basis: 65%;
-	}
-
-	.components-base-control__field {
-		margin: 0 !important;
-	}
-
-	input[type="text"] {
-		border: 1px solid #E9E9E9;
-		background: #F3F3F3;
-		box-shadow: none;
-		outline: 0;
-		padding: 10px 20px;
-		max-width: 100% !important;
-		border-right: 0;
-	}
 `;
 
 const Popup = ( props ) => {
