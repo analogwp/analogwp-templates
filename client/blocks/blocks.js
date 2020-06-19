@@ -11,7 +11,7 @@ import ProModal from '../ProModal';
 const { __ } = wp.i18n;
 const { decodeEntities } = wp.htmlEntities;
 const { Component, Fragment } = wp.element;
-const { Dashicon } = wp.components;
+const { Dashicon, Button } = wp.components;
 const { addQueryArgs } = wp.url;
 
 const Categories = styled.ul`
@@ -202,8 +202,8 @@ export default class Blocks extends Component {
 									</a>.
 								</p>
 								<p>
-									<button
-										className="ang-button"
+									<Button
+										isPrimary
 										onClick={ () => {
 											this.setState( {
 												activeBlock: false,
@@ -213,7 +213,7 @@ export default class Blocks extends Component {
 										} }
 									>
 										{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
-									</button>
+									</Button>
 								</p>
 							</Fragment>
 

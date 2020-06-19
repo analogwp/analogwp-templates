@@ -362,7 +362,11 @@ export default class StyleKits extends React.Component {
 											}
 										} }
 										{ ...successButtonProps }
-									>{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" /></a>
+									>
+										<Button isPrimary>
+											{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
+										</Button>
+									</a>
 								</p>
 
 								{ ! Boolean( AGWP.is_settings_page ) && <footer dangerouslySetInnerHTML={ { __html: footer } } /> }
