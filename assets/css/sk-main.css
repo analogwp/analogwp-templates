@@ -134,3 +134,21 @@
 #import-new-page .components-base-control {
     width: 40%;
 }
+
+#analogwp-templates .template-filter .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#analogwp-templates .template-filter .bottom span {
+    display: inherit;
+}
+
+#analogwp-templates .template-filter .bottom .components-base-control {
+    margin-bottom: 16px;
+}
+
+#analogwp-templates .template-filter .bottom span:first-child .components-base-control:not(:first-child) {
+    margin-left: 1vw;
+}
