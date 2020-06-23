@@ -157,6 +157,11 @@
 	display: none;
 }
 
+.ang .form-table td.forminp-multi-checkbox label input[type="checkbox"] + span,
+.ang .form-table td.forminp-multi-checkbox label input[type="checkbox"] + span {
+	height: 19px;
+}
+
 .ang .form-table td.forminp-multi-checkbox label:focus input[type="checkbox"] + span,
 .ang .form-table td.forminp-multi-checkbox label:active input[type="checkbox"] + span {
 	outline: 2px solid transparent;

@@ -58,7 +58,7 @@ class Misc extends Settings_Page {
 				),
 				array(
 					'title'         => __( 'Remove Data on Uninstall', 'ang' ),
-					'desc'          => __( 'Toggle this to enable plugin data removal upon uninstall.', 'ang' ),
+					'desc'          => __( 'Check this option to remove plugin data on uninstall.', 'ang' ),
 					'class'         => 'sk-uninstall',
 					'id'            => 'remove_on_uninstall',
 					'default'       => false,
@@ -80,12 +80,10 @@ class Misc extends Settings_Page {
 					'desc'    => __( 'You can multi-select from the options below and upon plugin uninstall these will be respected.', 'ang' ),
 					'id'      => 'uninstall_options',
 					'default' => array(
-						'remove_all_media' => true,
 						'plugin_settings'  => true,
 					),
 					'type'    => 'multi-checkbox',
 					'options' => array(
-						'remove_all_media' => __( 'Remove all media files imported along Templates and Blocks', 'ang' ),
 						'plugin_settings'  => __( 'Plugin Settings', 'ang' ),
 						'remove_kits'      => __( 'Remove Kits', 'ang' ),
 					),

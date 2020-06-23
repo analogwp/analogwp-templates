@@ -123,10 +123,6 @@
 	} );
 
 	$( '#remove_on_uninstall' ).on( 'click', function() {
-		if ( this.checked ) {
-			$( 'tr.ang-uninstall-options' ).show();
-		} else {
-			$( 'tr.ang-uninstall-options' ).hide();
-		}
+		$( 'tr.ang-uninstall-options' ).toggle( this.checked );
 	} );
 }( jQuery, ang_settings_data, wp ) );
