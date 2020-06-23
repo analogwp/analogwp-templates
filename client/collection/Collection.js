@@ -94,12 +94,7 @@ export default class Collection extends React.Component {
 
 		if ( collection[ id ] ) {
 			const kit = collection[ id ];
-			if ( AGWP.license.status !== 'valid' && this.context.state.showFree ) {
-				const filtered = kit.filter( ( t ) => t.is_pro !== true );
-				count = filtered.length;
-			} else {
-				count = Object.keys( kit ).length;
-			}
+			count = Object.keys( kit ).length;
 		}
 
 		return count;
@@ -159,9 +154,23 @@ export default class Collection extends React.Component {
 				{ this.getActiveKit() && (
 					<ul className="templates-list">
 						{ this.getActiveKit().map( ( template ) => {
-							if ( AGWP.license.status !== 'valid' && this.context.state.showFree && Boolean( template.is_pro ) ) {
-								return;
+							if ( AGWP.license.status !== 'valid' ) {
+
+								let isPro = this.context.state.showFree === false && this.context.state.showPro === true &&
+									Boolean(template.is_pro) === true;
+
+								let isFree = this.context.state.showFree === true && this.context.state.showPro === false &&
+									Boolean(template.is_pro) === false;
+
+								let isAll = this.context.state.showFree === true && this.context.state.showPro === true;
+
+								if( !( isPro ||
+										isFree ||
+										isAll)) { 
+									return;
+								}
 							}
+
 							return (
 								<Template
 									key={ template.id }

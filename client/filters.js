@@ -90,6 +90,12 @@ class Filters extends React.Component {
 			{ value: 'popular', label: __( 'Popular', 'ang' ) },
 		];
 
+		const productTypeOptions = [
+			{ value: 'all', label: __( 'Both Free and Pro', 'ang' ) },
+			{ value: 'pro', label: __( 'Pro', 'ang' ) },
+			{ value: 'free', label: __( 'Free', 'ang' ) },
+		];
+
 		const showingKit = ( this.context.state.group && this.context.state.activeKit );
 		return (
 			<ThemeConsumer>
@@ -126,20 +132,6 @@ class Filters extends React.Component {
 								</button>
 							) }
 
-							{ AGWP.license.status !== 'valid' && (
-								<ToggleControl
-									label={ __( 'Show Pro Templates' ) }
-									checked={ ! this.context.state.showFree }
-									onChange={ () => {
-										this.context.dispatch( {
-											showFree: ! this.context.state.showFree,
-										} );
-
-										window.localStorage.setItem( 'analog::show-free', ! this.context.state.showFree );
-									} }
-								/>
-							) }
-
 							{ ! showingKit && ! this.context.state.showing_favorites && (
 								<ToggleControl
 									label={ __( 'Group by Template Kit' ) }
@@ -168,6 +160,35 @@ class Filters extends React.Component {
 											}}
 										/>
 									) }
+									{ AGWP.license.status !== 'valid' && <SelectControl
+											id="product-type"
+											options={ productTypeOptions }
+											onChange={ value => {
+												
+												let pro = false;
+												let free = false;
+
+												if (value === 'all') {
+													pro = true;
+													free = true;
+												} else if (value === 'pro') {
+													pro = true;
+													free = false;
+												} else if (value === 'free') {
+													pro = false;
+													free = true;
+												}
+												
+												this.context.dispatch( {
+													showFree: free,
+													showPro: pro
+												} );
+
+												window.localStorage.setItem( 'analog::show-free', free );
+												window.localStorage.setItem( 'analog::show-pro', pro );
+											} }
+										/>
+									}
 										<SelectControl
 											id="sort"
 											options={ sortOptions }

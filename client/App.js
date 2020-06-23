@@ -172,7 +172,8 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			blockArchive: [], // same as archive above just for blocks.
-			showFree: false,
+			showFree: true,
+			showPro: true,
 			group: true,
 			activeKit: false,
 			installedKits: AGWP.installed_kits || {},
@@ -212,6 +213,12 @@ class App extends React.Component {
 		if ( window.localStorage.getItem( 'analog::show-free' ) === 'false' ) {
 			this.setState( {
 				showFree: false,
+			} );
+		}
+
+		if ( window.localStorage.getItem( 'analog::show-pro' ) === 'false' ) {
+			this.setState( {
+				showPro: false,
 			} );
 		}
 
