@@ -140,6 +140,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 10px;
 }
 
 #analogwp-templates .template-filter .bottom span,
@@ -155,4 +156,17 @@
 #analogwp-templates .template-filter .bottom span:first-child .components-base-control:not(:first-child),
 #analogwp-templates .block-filter .bottom span:first-child .components-base-control:not(:first-child) {
     margin-left: 1vw;
+}
+
+#analogwp-templates .template-filter .top,
+#analogwp-templates .block-filter .top {
+    margin: -20px;
+    padding: 0 20px 20px;
+    display: flex;
+    align-items: center;
+}
+
+#analogwp-templates .template-filter .top .kit-title,
+#analogwp-templates .block-filter .top .block-title {
+    margin-right: 3vw;
 }

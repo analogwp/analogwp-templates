@@ -1,50 +1,16 @@
 import classNames from 'classnames';
-import Select from 'react-select';
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
 import Star from '../icons/star';
 
 const { __ } = wp.i18n;
 const { Fragment } = wp.element;
-const { ToggleControl, SelectControl } = wp.components;
+const { ToggleControl, SelectControl, Button } = wp.components;
 
 const Container = styled.div`
 	margin: 0 0 40px 0;
 	font-size: 14.22px;
 	font-weight: bold;
-
-	.top {
-		background: #FFF;
-		margin: -40px -40px 12px -40px;
-		padding: 20px 40px;
-		display: flex;
-		align-items: center;
-
-		.components-base-control, .components-base-control__field {
-			margin-bottom: 0;
-		}
-
-		.components-base-control + .components-base-control {
-			margin-left: 40px;
-		}
-
-		.components-toggle-control__label {
-			font-weight: 500;
-		}
-	}
-
-	.bottom {
-		display: flex;
-		align-items: center;
-	}
-
-	h4 {
-		font-weight: 600;
-		font-size: 20px;
-		line-height: 30px;
-		color: #000;
-		margin: 0 auto 0 35px;
-	}
 
 	.favorites.favorites {
 		margin-right: auto;
@@ -104,11 +70,10 @@ export default class Filters extends React.Component {
 				<div className="top">
 					{ category && (
 						<Fragment>
-							<button className="ang-button secondary" onClick={ () => setCategory( false ) }>
+							<h2 className="block-title">{ category }</h2>
+							<Button isSecondary onClick={ () => setCategory( false ) }>
 								{ __( 'Back to all Blocks', 'ang' ) }
-							</button>
-
-							<h4>{ category }</h4>
+							</Button>
 						</Fragment>
 					) }
 

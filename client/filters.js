@@ -4,51 +4,13 @@ import AnalogContext from './AnalogContext';
 import { ThemeConsumer } from './contexts/ThemeContext';
 import Star from './icons/star';
 const { __ } = wp.i18n;
-const { ToggleControl, SelectControl, TextControl } = wp.components;
+const { ToggleControl, SelectControl, TextControl, Button } = wp.components;
 
 const FiltersContainer = styled.div`
 	margin: 0 0 40px 0;
 	color: ${ props => props.theme.textDark };
 	font-size: 14.22px;
 	font-weight: bold;
-
-	.top {
-		background: #FFF;
-		margin: -40px -40px 12px -40px;
-		padding: 20px 40px;
-		display: flex;
-		align-items: center;
-
-		.components-base-control, .components-base-control__field {
-			margin-bottom: 0;
-		}
-
-		.components-base-control + .components-base-control {
-			margin-left: 40px;
-		}
-
-		.components-toggle-control__label {
-			font-weight: 500;
-		}
-	}
-
-	.kit-title {
-		font-size: 20px;
-		font-weight: 600;
-		margin: 0 auto 0 25px;
-	}
-
-	a {
-		text-decoration: none;
-		color: currentColor;
-		&:hover {
-			color: #000;
-		}
-	}
-	p {
-		margin: 0;
-		line-height: 1;
-	}
 
 	.favorites.favorites {
 		margin-right: auto;
@@ -104,17 +66,17 @@ class Filters extends React.Component {
 						<div className="top">
 							{ showingKit && (
 								<React.Fragment>
-									<button
-										className="ang-button secondary"
+									<h2 className="kit-title">{ __( 'Template Kit' ) }: { this.context.state.activeKit.title }</h2>
+									<Button
+										isSecondary
 										onClick={ () => {
 											this.context.dispatch( {
 												activeKit: false,
 											} );
 										} }
 									>
-										{ __( 'Back to Kits', 'ang' ) }
-									</button>
-									<h4 className="kit-title">{ this.context.state.activeKit.title } { __( 'Template Kit' ) }</h4>
+										{ __( 'Back to all Kits', 'ang' ) }
+									</Button>
 								</React.Fragment>
 							) }
 
