@@ -8,23 +8,6 @@ const { Fragment } = wp.element;
 const { ToggleControl, SelectControl, Button } = wp.components;
 
 const Container = styled.div`
-	margin: 0 0 40px 0;
-	font-size: 14.22px;
-	font-weight: bold;
-
-	.favorites.favorites {
-		margin-right: auto;
-		svg {
-			margin-right: 8px;
-			fill: #060606;
-		}
-	}
-
-	.is-active {
-		svg {
-			fill: #FFB443 !important;
-		}
-	}
 `;
 
 export default class Filters extends React.Component {
@@ -87,12 +70,13 @@ export default class Filters extends React.Component {
 							<Star />{ ' ' }
 							{ this.context.state.showing_favorites ?
 								__( 'Back to all', 'ang' ) :
-								__( 'My Favorites', 'ang' ) }
+								__( 'Favorites', 'ang' ) }
 						</button>
 					) }
 
 					{ ! showingCategory && ! this.context.state.showing_favorites && (
 						<ToggleControl
+							className="group-by"
 							label={ __( 'Group by Block type' ) }
 							checked={ this.context.state.group }
 							onChange={ () => {

@@ -7,26 +7,7 @@ const { __ } = wp.i18n;
 const { ToggleControl, SelectControl, TextControl, Button } = wp.components;
 
 const FiltersContainer = styled.div`
-	margin: 0 0 40px 0;
 	color: ${ props => props.theme.textDark };
-	font-size: 14.22px;
-	font-weight: bold;
-
-	.favorites.favorites {
-		margin-right: auto;
-		svg {
-			margin-right: 8px;
-			fill: #060606;
-		}
-	}
-
-	.is-active {
-		svg {
-			fill: #FFB443 !important;
-		}
-	}
-
-	
 `;
 
 class Filters extends React.Component {
@@ -79,7 +60,7 @@ class Filters extends React.Component {
 									</Button>
 								</React.Fragment>
 							) }
-
+							
 							{ ! showingKit && (
 								<button
 									onClick={ this.context.toggleFavorites }
@@ -90,12 +71,13 @@ class Filters extends React.Component {
 									<Star />{ ' ' }
 									{ this.context.state.showing_favorites ?
 										__( 'Back to all', 'ang' ) :
-										__( 'My Favorites', 'ang' ) }
+										__( 'Favorites', 'ang' ) }
 								</button>
 							) }
 
 							{ ! showingKit && ! this.context.state.showing_favorites && (
 								<ToggleControl
+									className="group-by"
 									label={ __( 'Group by Template Kit' ) }
 									checked={ this.context.state.group }
 									onChange={ () => {

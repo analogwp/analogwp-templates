@@ -170,3 +170,30 @@
 #analogwp-templates .block-filter .top .block-title {
     margin-right: 3vw;
 }
+
+#analogwp-templates .template-filter .favorites,
+#analogwp-templates .block-filter .favorites {
+    margin-left: auto;
+    margin-right: 3vw;
+    margin-bottom: 12px;
+    font-weight: normal;
+}
+
+#analogwp-templates .template-filter .favorites,
+#analogwp-templates .block-filter .favorites,
+#analogwp-templates .template-filter .group-by,
+#analogwp-templates .block-filter .group-by {
+    position: relative;
+    bottom: 69px;
+}
+
+#analogwp-templates .template-filter .favorites svg,
+#analogwp-templates .block-filter .favorites svg {
+    margin-right: 8px;
+    fill: #060606;
+}
+
+#analogwp-templates .template-filter .favorites.is-active svg,
+#analogwp-templates .block-filter .favorites.is-active svg {
+    fill: #FFB443 !important;
+}
