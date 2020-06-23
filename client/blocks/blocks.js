@@ -128,8 +128,7 @@ export default class Blocks extends Component {
 
 		const foundItems =
 			blocks
-				.filter( block => block.tags.indexOf( category ) > -1 )
-				.filter( block => ! ( AGWP.license.status !== 'valid' && this.context.state.showFree && Boolean( block.is_pro ) ) );
+				.filter( block => block.tags.indexOf( category ) > -1 );
 
 		if ( foundItems ) {
 			return foundItems.length;

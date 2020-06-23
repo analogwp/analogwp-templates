@@ -172,7 +172,24 @@ const BlockList = ({ state, importBlock, favorites, makeFavorite }) => {
 
 	const { category } = state;
 
-	let filteredBlocks = context.state.blocks.filter(block => !(AGWP.license.status !== 'valid' && context.state.showFree && Boolean(block.is_pro)));
+	let filteredBlocks = context.state.blocks.filter( ( block ) => { 
+		if ( AGWP.license.status !== 'valid' ) {
+
+			let isPro = context.state.showFree === false && context.state.showPro === true &&
+				Boolean(block.is_pro) === true;
+
+			let isFree = context.state.showFree === true && context.state.showPro === false &&
+				Boolean(block.is_pro) === false;
+
+			let isAll = context.state.showFree === true && context.state.showPro === true;
+
+			if( ( isPro ||
+					isFree ||
+					isAll)) { 
+				return true;
+			}
+		}
+	});
 
 	if (context.state.group) {
 		filteredBlocks = filteredBlocks.filter(block => block.tags.indexOf(category) > -1);
