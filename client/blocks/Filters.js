@@ -6,7 +6,7 @@ import Star from '../icons/star';
 
 const { __ } = wp.i18n;
 const { Fragment } = wp.element;
-const { ToggleControl } = wp.components;
+const { ToggleControl, SelectControl } = wp.components;
 
 const Container = styled.div`
 	margin: 0 0 40px 0;
@@ -38,26 +38,6 @@ const Container = styled.div`
 		align-items: center;
 	}
 
-	input[type="search"] {
-		margin-left: auto;
-		padding: 8px;
-		border: none;
-		outline: none;
-		box-shadow: none;
-		width: 250px;
-		margin-right: 4px;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-
-		&::placeholder {
-			color: #b9b9b9;
-		}
-	}
-
-	.pro-toggle {
-		margin-left: auto;
-	}
-
 	h4 {
 		font-weight: 600;
 		font-size: 20px;
@@ -77,41 +57,6 @@ const Container = styled.div`
 	.is-active {
 		svg {
 			fill: #FFB443 !important;
-		}
-	}
-`;
-
-const List = styled.div`
-	margin: 0;
-	padding: 0;
-	display: inline-flex;
-	align-items: center;
-	position: relative;
-	margin-right: 30px;
-
-	label {
-		margin-right: 15px;
-
-	}
-
-	.dropdown {
-		width: 140px;
-		z-index: 1000;
-		text-transform: capitalize;
-		font-weight: normal;
-
-		.css-xp4uvy {
-			color: #888;
-		}
-
-		.css-vj8t7z {
-			border: 2px solid #C7C7C7;
-			border-radius: 4px;
-		}
-
-		.css-2o5izw {
-			box-shadow: none !important;
-			border-width: 2px;
 		}
 	}
 `;
@@ -137,19 +82,25 @@ export default class Filters extends React.Component {
 
 
 		const filterOptions = [
-			{ value: 'all', label: __( 'Show All', 'ang' ) },
+			{ value: 'all', label: __( 'All block types', 'ang' ) },
 			...filterTypes,
 		];
 
 		const sortOptions = [
-			{ value: 'latest', label: __( 'Latest', 'ang' ) },
+			{ value: 'latest', label: __( 'Newest first', 'ang' ) },
 			{ value: 'popular', label: __( 'Popular', 'ang' ) },
+		];
+
+		const productTypeOptions = [
+			{ value: 'all', label: __( 'Both Free and Pro', 'ang' ) },
+			{ value: 'pro', label: __( 'Pro', 'ang' ) },
+			{ value: 'free', label: __( 'Free', 'ang' ) },
 		];
 
 		const showingCategory = ( ! this.context.state.syncing && this.context.state.blocks && category );
 
 		return (
-			<Container>
+			<Container className="block-filter">
 				<div className="top">
 					{ category && (
 						<Fragment>
@@ -175,20 +126,6 @@ export default class Filters extends React.Component {
 						</button>
 					) }
 
-					{ AGWP.license.status !== 'valid' && (
-						<ToggleControl
-							label={ __( 'Show Pro Blocks' ) }
-							checked={ ! this.context.state.showFree }
-							onChange={ () => {
-								this.context.dispatch( {
-									showFree: ! this.context.state.showFree,
-								} );
-
-								window.localStorage.setItem( 'analog::show-free', ! this.context.state.showFree );
-							} }
-						/>
-					) }
-
 					{ ! showingCategory && ! this.context.state.showing_favorites && (
 						<ToggleControl
 							label={ __( 'Group by Block type' ) }
@@ -206,30 +143,51 @@ export default class Filters extends React.Component {
 				</div>
 				{ ( ! this.context.state.group || showingCategory) && ! this.context.state.showing_favorites && (
 					<div className="bottom">
-						{ ! showingCategory && <List>
-							<label htmlFor="filter">{ __( 'Filter', 'ang' ) }</label>
-							<Select
-								inputId="filter"
-								className="dropdown"
-								defaultValue={ filterOptions[ 0 ] }
-								isSearchable={ false }
-								options={ filterOptions }
-								onChange={ e => {
-									this.context.handleFilter( e.value, 'blocks' );
-								} }
-							/>
-						</List> }
-						<List>
-							<label htmlFor="sort">{ __( 'Sort by', 'ang' ) }</label>
-							<Select
-								inputId="sort"
-								className="dropdown"
-								defaultValue={ sortOptions[ 0 ] }
-								isSearchable={ false }
-								options={ sortOptions }
-								onChange={ e => this.context.handleSort( e.value, 'blocks' ) }
-							/>
-						</List>
+						<span>
+							{ ! showingCategory && (
+								<SelectControl
+									id="filter"
+									options={ filterOptions }
+									onChange={ (value) => {
+										this.context.handleFilter( value, 'blocks' );
+									}}
+								/>
+							 ) }
+							{ AGWP.license.status !== 'valid' && <SelectControl
+									id="product-type"
+									options={ productTypeOptions }
+									onChange={ value => {
+										
+										let pro = false;
+										let free = false;
+
+										if (value === 'all') {
+											pro = true;
+											free = true;
+										} else if (value === 'pro') {
+											pro = true;
+											free = false;
+										} else if (value === 'free') {
+											pro = false;
+											free = true;
+										}
+										
+										this.context.dispatch( {
+											showFree: free,
+											showPro: pro
+										} );
+
+										window.localStorage.setItem( 'analog::show-free', free );
+										window.localStorage.setItem( 'analog::show-pro', pro );
+									} }
+								/>
+							}
+								<SelectControl
+									id="sort"
+									options={ sortOptions }
+									onChange={ value => this.context.handleSort( value, 'blocks' ) }
+								/>
+						</span>
 					</div>
 				) }
 			</Container>
