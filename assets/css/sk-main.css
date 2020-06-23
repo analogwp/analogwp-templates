@@ -187,6 +187,11 @@
     bottom: 69px;
 }
 
+#analogwp-templates .template-filter .group-by,
+#analogwp-templates .block-filter .group-by {
+    margin-right: 20px;
+}
+
 #analogwp-templates .template-filter .favorites svg,
 #analogwp-templates .block-filter .favorites svg {
     margin-right: 8px;

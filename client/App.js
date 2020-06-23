@@ -150,7 +150,7 @@ const Analog = styled.div`
 
 const Content = styled.div`
 	background: #e3e3e3;
-	padding: 40px;
+	padding: 40px 24px;
 	min-height: calc(100% - 51px);
 	position: relative;
 `;
