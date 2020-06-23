@@ -64,7 +64,6 @@ class Misc extends Settings_Page {
 					'default'       => false,
 					'type'          => 'checkbox',
 					'checkboxgroup' => 'start',
-					'is_option'     => false,
 				),
 				array(
 					'type' => 'sectionend',
@@ -87,7 +86,6 @@ class Misc extends Settings_Page {
 						'plugin_settings'  => __( 'Plugin Settings', 'ang' ),
 						'remove_kits'      => __( 'Remove Kits', 'ang' ),
 					),
-					'is_option'     => false,
 				),
 
 				array(
