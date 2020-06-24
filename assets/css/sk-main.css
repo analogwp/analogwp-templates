@@ -18,7 +18,7 @@
     padding: 20px 20px 30px 20px;
     margin: 10px 10px 0 10px;
     border-radius: 0;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 #sk-library-tab .components-button:hover {
@@ -27,7 +27,7 @@
 
 #sk-library-tab .components-button.is-active{
     box-shadow: inset 0 -3px #007cba;
-    font-weight: 600;
+    font-weight: bold;
     position: relative;
 }
 
@@ -215,7 +215,7 @@
 #analogwp-templates .block-filter .group-by {
     position: relative;
     bottom: 35px;
-    font-size: 16px;
+    font-size: 15px;
     color: #555d66;
 }
 
