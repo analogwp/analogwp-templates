@@ -33,27 +33,6 @@ const List = styled.ul`
 		border-top-left-radius: 4px;
 		border-top-right-radius: 4px;
 	}
-	h3 {
-		font-size: 13px;
-		padding: 20px 20px;
-		text-transform: capitalize;
-		margin: 0;
-		font-weight: bold;
-	}
-	span {
-		width: 35px;
-		height: 28px;
-		position: absolute;
-		bottom: 26px;
-		right: 5px;
-		font-weight: 700;
-		font-size: 15px;
-		border-radius: 4px;
-		display: inline-flex;
-		justify-content: center;
-		align-items: center;
-		z-index: 100;
-	}
 
 	.actions {
 		button.is-large {

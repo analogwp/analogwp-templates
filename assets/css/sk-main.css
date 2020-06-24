@@ -31,6 +31,36 @@
     position: relative;
 }
 
+#analogwp-templates .analogwp-content {
+    background: #e3e3e3;
+	padding: 4px 24px;
+	min-height: calc(100% - 51px);
+	position: relative;
+}
+
+#analogwp-templates .templates-collection h3 {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 18px;
+    text-transform: capitalize;
+    margin: 0;
+}
+
+#analogwp-templates .templates-collection span {
+    width: 16px;
+    height: 18px;
+    position: absolute;
+    bottom: 15px;
+    right: 17px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 18px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
 #analogwp-templates .templates-list .components-button,
 #analogwp-templates .stylekit-list .components-button {
     font-size: 20px;
@@ -184,7 +214,7 @@
 #analogwp-templates .template-filter .group-by,
 #analogwp-templates .block-filter .group-by {
     position: relative;
-    bottom: 69px;
+    bottom: 35px;
     font-size: 16px;
     color: #555d66;
 }

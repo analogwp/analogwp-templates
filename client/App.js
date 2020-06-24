@@ -148,12 +148,6 @@ const Analog = styled.div`
 	}
 `;
 
-const Content = styled.div`
-	background: #e3e3e3;
-	padding: 40px 24px;
-	min-height: calc(100% - 51px);
-	position: relative;
-`;
 
 class App extends React.Component {
 	constructor() {
@@ -453,9 +447,9 @@ class App extends React.Component {
 								>
 									<Header />
 
-									<Content>
+									<div className="analogwp-content">
 										{ getPageComponents( this.state ) }
-									</Content>
+									</div>
 								</AnalogContext.Provider>
 							</Notifications>
 						</Analog>
