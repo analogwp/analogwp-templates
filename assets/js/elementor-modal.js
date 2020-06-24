@@ -32,7 +32,7 @@ const analog = window.analog = window.analog || {};
 								},
 								onShow: function() {
 									const content = window.analogModal.getElements("content");
-									content.append('<div id="analogwp-templates"></div>');
+									content.append('<div id="analogwp-templates" class="wrap"></div>');
 									var event = new Event("modal-close");
 									$("#analogwp-templates").on(
 										"click",

@@ -63,7 +63,6 @@ const ChildContainer = styled.ul`
 	display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 25px;
-    margin: 75px 0 0;
     padding: 0;
 
     @media (max-width: 768px) {
