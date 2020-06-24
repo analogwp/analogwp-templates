@@ -188,6 +188,8 @@ const BlockList = ({ state, importBlock, favorites, makeFavorite }) => {
 					isAll)) { 
 				return true;
 			}
+		} else {
+			return true;
 		}
 	});
 
