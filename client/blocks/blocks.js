@@ -229,7 +229,7 @@ export default class Blocks extends Component {
 				) }
 
 				{ ! this.context.state.syncing && this.context.state.blocks && ! this.state.category && this.context.state.group && (
-					<Categories>
+					<Categories className="blocks-categories">
 						{ categories && categories.map( ( category ) => {
 							const count = this.getItemCount( category );
 							if ( ! count ) {

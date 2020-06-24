@@ -227,7 +227,7 @@
 #analogwp-templates .template-filter .favorites svg,
 #analogwp-templates .block-filter .favorites svg {
     margin-right: 8px;
-    fill: #555d66;
+    fill:#6E7780;
 }
 
 #analogwp-templates .template-filter .favorites.is-active svg,
@@ -236,7 +236,11 @@
 }
 
 #analogwp-templates .tab-description {
-    margin: 0 0 40px 0;
+    margin: 12px 0 24px 0;
+}
+
+#analogwp-templates .blocks-categories {
+    margin-top: 0;
 }
 
 /*Override elementor css to original core css for input elements*/
