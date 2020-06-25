@@ -49,14 +49,16 @@ const Template = ({ template, setModalContent, importLayout, favorites, makeFavo
 				<CardDivider>&nbsp;</CardDivider>
 				<CardFooter>
 					<div className="content">
-						<h3>{decodeEntities(template.title)}</h3>
-						{template.tags && (
-							<div className="tags">
-								{template.tags.map(tag => (
-									<span key={tag}>{tag}</span>
-								))}
-							</div>
-						)}
+						<span>
+							<h3>{decodeEntities(template.title)}</h3>
+							{template.tags && (
+								<div className="tags">
+									{template.tags.map(tag => (
+										<span key={tag}>{tag}</span>
+									))}
+								</div>
+							)}
+						</span>
 						{template.is_pro && (
 							<span className="pro">{__('Pro', 'ang')}</span>
 						)}
