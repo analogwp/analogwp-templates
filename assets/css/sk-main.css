@@ -270,6 +270,15 @@
 }
 /*END*/
 
+/*Template preview page css*/
+/*START*/
+#analogwp-templates .analogwp-content .preview-active {
+    position: relative;
+    min-height: 80vh;
+    margin-top: 10px;
+}
+/*END*/
+
 #analogwp-templates .tab-description {
     margin: 12px 0 24px 0;
 }
