@@ -1,3 +1,5 @@
+/*Top navigation tab CSS*/
+/*START*/
 #sk-library-heading {
     display: flex;
     justify-content: space-between;
@@ -30,20 +32,13 @@
     font-weight: bold;
     position: relative;
 }
+/*END*/
 
 #analogwp-templates .analogwp-content {
     background: #e3e3e3;
 	padding: 4px 24px;
 	min-height: calc(100% - 51px);
 	position: relative;
-}
-
-#analogwp-templates .templates-collection h3 {
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 18px;
-    text-transform: capitalize;
-    margin: 0;
 }
 
 #analogwp-templates .templates-collection span {
@@ -59,20 +54,6 @@
     justify-content: center;
     align-items: center;
     z-index: 100;
-}
-
-#analogwp-templates .templates-list .pro,
-#analogwp-templates .stylekit-list .pro,
-#analogwp-templates .block-list .pro{
-    position: absolute;
-    bottom: 48px;
-    right: 16px;
-    line-height: 1;
-    border-radius: 4px;
-    letter-spacing: .5px;
-    font-size: 12px;
-    padding: 4px 7px;
-    border: 1px solid black;
 }
 
 #analogwp-templates .stylekit-list .pro {
@@ -155,6 +136,48 @@
     border: none;
     box-shadow: none;
 }
+
+/*Card Component CSS*/
+/*START*/
+
+    /*Footer*/
+    /*START*/
+.analogwp-content li .components-card__footer,
+.analogwp-content div.block-list .components-card__footer {
+    padding: 12px;
+}
+
+.analogwp-content li .components-card__footer h3,
+.analogwp-content div.block-list .components-card__footer h3{
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: capitalize;
+    margin: 0;
+}
+
+#analogwp-templates .templates-list .pro,
+#analogwp-templates .stylekit-list .pro,
+#analogwp-templates .block-list .pro{
+    position: absolute;
+    bottom: 48px;
+    right: 16px;
+    line-height: 18px;
+    border-radius: 4px;
+    letter-spacing: .5px;
+    font-size: 13px;
+    padding: 4px 7px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+#analogwp-templates li .components-card__footer .tags {
+    color: #565D65;
+    text-transform: capitalize;
+    padding: 0 20px 15px 20px;
+    font-size: 13px;
+}
+    /*END*/
+/*END*/
 
 /*Import Popup Component CSS*/
 /*START*/

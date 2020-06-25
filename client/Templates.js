@@ -126,11 +126,6 @@ const TemplatesContainer = styled.div`
 		}
 
 		.tags {
-			color: #888;
-			text-transform: capitalize;
-			padding: 0 20px 15px 20px;
-			font-size: 12px;
-
 			span + span:before {
 				content: " / ";
 			}

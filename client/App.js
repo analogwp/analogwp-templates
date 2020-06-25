@@ -67,15 +67,6 @@ const Analog = styled.div`
 		}
 	}
 
-	h1,h2,h3,h4,h5,h6 {
-		color: ${ props => props.theme.textDark };
-	}
-
-	.components-base-control {
-		font-family: inherit;
-		font-size: inherit;
-	}
-
 	a {
 		outline: 0;
 		box-shadow: none;

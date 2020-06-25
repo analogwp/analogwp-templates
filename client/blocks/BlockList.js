@@ -133,14 +133,6 @@ const Container = styled.div`
 		max-height: 150px;
 	}
 
-	h3 {
-		margin: 0;
-		font-weight: 600;
-		font-size: 14px;
-		line-height: 21px;
-		color: #141414;
-	}
-
 	.content {
 		padding: 30px 20px;
 		display: flex;
