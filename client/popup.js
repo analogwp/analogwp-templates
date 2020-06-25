@@ -17,7 +17,6 @@ const animate = keyframes`
 const Container = styled.div`
 	font-size: 15px;
 	color: #000222;
-	font-family: 'Poppins', sans-serif;
 	position: fixed;
     top: 0;
     left: 0;
@@ -38,10 +37,6 @@ const Container = styled.div`
 		animation: ${ animate } 0.1s ease-out;
 	}
 
-	p {
-		font-size: inherit;
-	}
-
 	a {
 		text-decoration: none;
 		font-weight: 500;
@@ -49,25 +44,11 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-	margin: 0 35px;
-	padding: 20px 0;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	position: sticky;
-    background: #fff;
-
+	
 	.header-center & {
 		justify-content: center;
 	}
-
-	h1 {
-		font-size: 18px;
-		font-weight: bold;
-		color: #060606;
-		margin: 0;
-	}
-
+	
 	svg {
 		fill: #000;
 		margin-left: 5px;
@@ -79,12 +60,6 @@ const Header = styled.div`
 `;
 
 const Content = styled.div`
-	margin: 0;
-	padding: 20px 35px;
-	position: sticky;
-	font-size: 14px;
-	line-height: 1.6;
-
 	h2 {
 		font-size: 25px;
 	}
@@ -109,7 +84,7 @@ const Popup = ( props ) => {
 			<div className="inner">
 				<Card>
 					<CardHeader>
-						<Header>
+						<Header className="inner-popup-header">
 							<h1>{ title }</h1>
 							{ onRequestClose && (
 								<button className="button-plain" onClick={ () => onRequestClose() }>
@@ -120,7 +95,7 @@ const Popup = ( props ) => {
 					</CardHeader>
 					<CardDivider>&nbsp;</CardDivider>
 					<CardBody>
-						<Content>
+						<Content className="inner-popup-content">
 							{ children }
 						</Content>
 					</CardBody>

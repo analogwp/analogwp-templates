@@ -279,6 +279,69 @@
 }
 /*END*/
 
+/*Popup CSS*/
+/*START*/
+#analogwp-templates .analogwp-content .inner-popup-header {
+    display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: sticky;
+    background: #fff;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-header h1 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+}
+
+#analogwp-templates .analogwp-content .inner .components-card__divider {
+    margin-bottom: 12px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content {
+	font-size: 14px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content h3 {
+    margin: 0px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content p {
+    font-size: 13px;
+    line-height: 18px;
+    color: #565D65;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .components-card__divider {
+    position: relative;
+    width: 107.5%;
+    left: -3.7%;
+    margin-bottom: 20px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .components-button.is-primary {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .components-button {
+    padding: 0 20px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content #import-new-page {
+    padding-bottom: 76px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content #import-new-page .components-text-control__input {
+    height: 36px;
+}
+
+/*END*/
+
 #analogwp-templates .tab-description {
     margin: 12px 0 24px 0;
 }

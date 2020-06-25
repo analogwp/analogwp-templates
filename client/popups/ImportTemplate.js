@@ -152,7 +152,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 					<div>
 						<h3>Choose a Theme Style Kit</h3>
 						<p>When you import a template, you can select to import and apply a Global Theme Style Kit. Choose the one below.</p>
-						<div className="row" style={{width: '60%'}}>
+						<div className="row" style={{width: '42%'}}>
 							<Select
 								options={ groupedOptions }
 								formatGroupLabel={ formatGroupLabel }
