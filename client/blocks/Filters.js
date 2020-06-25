@@ -54,7 +54,7 @@ export default class Filters extends React.Component {
 					{ category && (
 						<Fragment>
 							<h2 className="block-title">{ category }</h2>
-							<Button isSecondary onClick={ () => setCategory( false ) }>
+							<Button className="block-back" isSecondary onClick={ () => setCategory( false ) }>
 								{ __( 'Back to all Blocks', 'ang' ) }
 							</Button>
 						</Fragment>

@@ -61,15 +61,6 @@
     z-index: 100;
 }
 
-#analogwp-templates .templates-list .components-button,
-#analogwp-templates .stylekit-list .components-button {
-    font-size: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    height: 40px;
-    padding: 10px 32px;
-}
-
 #analogwp-templates .templates-list .pro,
 #analogwp-templates .stylekit-list .pro,
 #analogwp-templates .block-list .pro{
@@ -129,10 +120,14 @@
 #analogwp-templates .templates-list figure .components-button,
 #analogwp-templates .stylekit-list figure .components-button,
 #analogwp-templates .block-list figure .components-button{
-    width: 240px;
-    height: 60px;
+    width: 185px;
+    height: 49px;
     text-align: center;
     display: block;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -161,10 +156,15 @@
     box-shadow: none;
 }
 
+/*Import Popup Component CSS*/
+/*START*/
 #import-new-page .components-base-control {
     width: 40%;
 }
+/*END*/
 
+/*Filter Component CSS*/
+/*START*/
 #analogwp-templates .template-filter .bottom,
 #analogwp-templates .block-filter .bottom {
     display: flex;
@@ -199,6 +199,14 @@
 #analogwp-templates .template-filter .top .kit-title,
 #analogwp-templates .block-filter .top .block-title {
     margin-right: 3vw;
+    margin-top: 37px;
+    font-size: 19px;
+    font-weight: normal;
+}
+
+#analogwp-templates .template-filter .top .kit-back,
+#analogwp-templates .block-filter .top .block-back {
+    margin-top: 24px;
 }
 
 #analogwp-templates .template-filter .favorites,
@@ -234,6 +242,7 @@
 #analogwp-templates .block-filter .favorites.is-active svg {
     fill: #FFB443 !important;
 }
+/*END*/
 
 #analogwp-templates .tab-description {
     margin: 12px 0 24px 0;
