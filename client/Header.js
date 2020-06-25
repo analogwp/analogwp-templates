@@ -52,9 +52,7 @@ const Container = styled.div`
 			margin-left: 30px;
 		}
 	}
-	.close-modal svg {
-		width: 15px;
-	}
+
 	.sync {
 		text-transform: uppercase;
 		font-size: 12.64px !important;
