@@ -12,6 +12,19 @@
     margin-left: 10px;
 }
 
+#sk-library-heading button{
+    width: 100px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+}
+
+#sk-library-heading .close-modal svg {
+    width: 15px;
+    position: relative;
+    bottom: 3px;
+}
+
 #sk-library-tab .components-tab-panel__tabs {
     background-color: #fff;
 }
@@ -227,12 +240,17 @@
     font-size: 19px;
     font-weight: normal;
     margin-bottom: 33px;
+    color: #000000;
 }
 
 #analogwp-templates .template-filter .top .kit-back,
 #analogwp-templates .block-filter .top .block-back {
     margin-top: 24px;
     margin-bottom: 17px;
+    width: 120px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
 }
 
 #analogwp-templates .template-filter .favorites,
@@ -276,6 +294,13 @@
     position: relative;
     min-height: 80vh;
     margin-top: 10px;
+}
+
+#analogwp-templates .analogwp-content .preview-active button {
+    width: 120px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
 }
 /*END*/
 
