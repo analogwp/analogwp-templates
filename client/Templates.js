@@ -58,11 +58,6 @@ const TemplatesContainer = styled.div`
 		}
 
 		.content {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 13px 20px 7px;
-
 			svg {
 				fill: #d0d0d0;
 				transition: all 100ms ease-in;
@@ -122,12 +117,6 @@ const TemplatesContainer = styled.div`
 			+ button, + .ang-promo {
 				margin-top: 10px;
 				text-decoration: none;
-			}
-		}
-
-		.tags {
-			span + span:before {
-				content: " / ";
 			}
 		}
 

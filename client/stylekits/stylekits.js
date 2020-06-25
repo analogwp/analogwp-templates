@@ -23,12 +23,6 @@ const Container = styled.section`
 		margin: -40px -40px 40px -40px;
 		padding: 20px;
 	}
-	.title {
-		padding: 15px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
 	h3 {
 		margin: 0;
 		font-size: 14.2px;
@@ -281,14 +275,11 @@ export default class StyleKits extends React.Component {
 									</CardBody>
 									<CardDivider>&nbsp;</CardDivider>
 									<CardFooter>
-										<div className="title">
+										<div className="content">
 											<h3>{ kit.title }</h3>
-
-											<div className="actions">
-												{ kit.is_pro && (
-													<span className="pro">{ __( 'Pro', 'ang' ) }</span>
-												) }
-											</div>
+											{ kit.is_pro && (
+												<span className="pro">{ __( 'Pro', 'ang' ) }</span>
+											) }
 										</div>
 									</CardFooter>
 								</Card>

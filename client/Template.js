@@ -50,17 +50,17 @@ const Template = ({ template, setModalContent, importLayout, favorites, makeFavo
 				<CardFooter>
 					<div className="content">
 						<h3>{decodeEntities(template.title)}</h3>
+						{template.tags && (
+							<div className="tags">
+								{template.tags.map(tag => (
+									<span key={tag}>{tag}</span>
+								))}
+							</div>
+						)}
+						{template.is_pro && (
+							<span className="pro">{__('Pro', 'ang')}</span>
+						)}
 					</div>
-					{template.tags && (
-						<div className="tags">
-							{template.tags.map(tag => (
-								<span key={tag}>{tag}</span>
-							))}
-						</div>
-					)}
-					{template.is_pro && (
-						<span className="pro">{__('Pro', 'ang')}</span>
-					)}
 				</CardFooter>
 			</Card>
 		</li>

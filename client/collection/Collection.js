@@ -120,8 +120,10 @@ export default class Collection extends React.Component {
 										</CardBody>
 										<CardDivider>&nbsp;</CardDivider>
 										<CardFooter>
-											<h3>{ kit.title }</h3>
-											<span>{ this.getCollectionCount( kit.site_id ) }</span>
+											<div className="content">
+												<h3>{ kit.title }</h3>
+												<span>{ this.getCollectionCount( kit.site_id ) }</span>
+											</div>
 										</CardFooter>
 									</Card>
 								</li>

@@ -132,13 +132,6 @@ const Container = styled.div`
 		object-fit: cover;
 		max-height: 150px;
 	}
-
-	.content {
-		padding: 30px 20px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
 `;
 
 const getHeight = (url) => {
