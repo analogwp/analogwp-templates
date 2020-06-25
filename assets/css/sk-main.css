@@ -195,7 +195,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 10px;
 }
 
 #analogwp-templates .template-filter .bottom span,
@@ -223,15 +222,17 @@
 
 #analogwp-templates .template-filter .top .kit-title,
 #analogwp-templates .block-filter .top .block-title {
-    margin-right: 3vw;
+    margin-right: 2vw;
     margin-top: 37px;
     font-size: 19px;
     font-weight: normal;
+    margin-bottom: 33px;
 }
 
 #analogwp-templates .template-filter .top .kit-back,
 #analogwp-templates .block-filter .top .block-back {
     margin-top: 24px;
+    margin-bottom: 17px;
 }
 
 #analogwp-templates .template-filter .favorites,
