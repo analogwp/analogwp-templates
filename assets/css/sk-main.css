@@ -142,6 +142,15 @@
     box-shadow: none;
 }
 
+
+#analogwp-templates .templates-collection .components-button.is-secondary,
+#analogwp-templates .templates-list .components-button.is-secondary,
+#analogwp-templates .stylekit-list .components-button.is-secondary,
+#analogwp-templates .block-list .components-button.is-secondary {
+    border: none;
+    box-shadow: none;
+}
+
 #analogwp-templates .templates-collection .components-button.is-secondary:focus,
 #analogwp-templates .templates-list .components-button.is-secondary:focus,
 #analogwp-templates .stylekit-list .components-button.is-secondary:focus,
