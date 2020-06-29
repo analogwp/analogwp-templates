@@ -152,6 +152,19 @@
 
 /*Card Component CSS*/
 /*START*/
+.analogwp-content li .components-card,
+.analogwp-content div.block-list .components-card {
+    border: none;
+}
+
+    /*Body*/
+    /*START*/
+.analogwp-content li .components-card__body,
+.analogwp-content div.block-list .components-card__body {
+    padding: 0;
+}
+
+    /*END*/
 
     /*Footer*/
     /*START*/
