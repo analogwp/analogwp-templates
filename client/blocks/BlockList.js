@@ -8,7 +8,7 @@ import Star from '../icons/star';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
-const { Button, Card, CardBody, CardDivider, CardFooter } = wp.components;
+const { Button, Card, CardBody, CardFooter } = wp.components;
 
 const Container = styled.div`
 	.grid {
@@ -237,7 +237,6 @@ const BlockList = ({ state, importBlock, favorites, makeFavorite }) => {
 										</button>
 									</figure>
 								</CardBody>
-								<CardDivider>&nbsp;</CardDivider>
 								<CardFooter>
 									<div className="content">
 										<h3>{decodeEntities(block.title)}</h3>

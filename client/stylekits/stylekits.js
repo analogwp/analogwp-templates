@@ -6,7 +6,7 @@ import { NotificationConsumer } from '../Notifications';
 import Popup from '../popup';
 import Preview from './../modal/Preview';
 
-const { TextControl, Button, Dashicon, Card, CardBody, CardDivider, CardFooter } = wp.components;
+const { TextControl, Button, Dashicon, Card, CardBody, CardFooter } = wp.components;
 
 const { decodeEntities } = wp.htmlEntities;
 const { __, sprintf } = wp.i18n;
@@ -273,7 +273,6 @@ export default class StyleKits extends React.Component {
 											</div>
 										</figure>
 									</CardBody>
-									<CardDivider>&nbsp;</CardDivider>
 									<CardFooter>
 										<div className="content">
 											<h3>{ kit.title }</h3>

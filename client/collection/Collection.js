@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
 import Template from '../Template';
 const { __ } = wp.i18n;
-const { Button, Card, CardBody, CardDivider, CardFooter } = wp.components;
+const { Button, Card, CardBody, CardFooter } = wp.components;
 
 const List = styled.ul`
 	margin: 0;
@@ -118,7 +118,6 @@ export default class Collection extends React.Component {
 												</div>
 											</figure>
 										</CardBody>
-										<CardDivider>&nbsp;</CardDivider>
 										<CardFooter>
 											<div className="content">
 												<h3>{ kit.title }</h3>

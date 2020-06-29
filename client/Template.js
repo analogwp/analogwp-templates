@@ -5,7 +5,7 @@ import { isNewTheme } from './utils';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
-const { Button, Card, CardBody, CardDivider, CardFooter } = wp.components;
+const { Button, Card, CardBody, CardFooter } = wp.components;
 
 const Template = ({ template, setModalContent, importLayout, favorites, makeFavorite }) => {
 	const isValid = (isPro) => !(isPro && AGWP.license.status !== 'valid');
@@ -46,7 +46,6 @@ const Template = ({ template, setModalContent, importLayout, favorites, makeFavo
 						</button>
 					</figure>
 				</CardBody>
-				<CardDivider>&nbsp;</CardDivider>
 				<CardFooter>
 					<div className="content">
 						<span>
