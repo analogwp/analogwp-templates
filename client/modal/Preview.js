@@ -94,7 +94,7 @@ const Preview = ( props ) => {
 
 				{ ! ( props.template.is_pro && AGWP.license.status !== 'valid' ) && (
 					<Button isPrimary onClick={ onRequestImport }>
-						{ props.insertText || __( 'Import Templates', 'ang' ) }
+						{ props.insertText || __( 'Import Template', 'ang' ) }
 					</Button>
 				) }
 			</div>

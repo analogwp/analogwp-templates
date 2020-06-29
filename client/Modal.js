@@ -91,7 +91,7 @@ const Modal = props => {
 				
 				{ ! ( props.template.is_pro && AGWP.license.status !== 'valid' ) && (
 					<Button isPrimary onClick={ props.onRequestImport }>
-						{ __( 'Import Templates', 'ang' ) }
+						{ __( 'Import Template', 'ang' ) }
 					</Button>
 				) }
 			</div>
