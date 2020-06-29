@@ -55,13 +55,9 @@ const Container = styled.section`
 
 const ChildContainer = styled.ul`
 	display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit,minmax(380px,380px));
     grid-gap: 25px;
     padding: 0;
-
-    @media (max-width: 768px) {
-    	grid-template-columns: 1fr;
-    }
 
     > li {
     	border-radius: 4px;

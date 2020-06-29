@@ -10,7 +10,7 @@ const { Button, Card, CardBody, CardFooter } = wp.components;
 const List = styled.ul`
 	margin: 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit,minmax(400px,400px));
     grid-gap: 25px;
 	color: #000;
 	li {
