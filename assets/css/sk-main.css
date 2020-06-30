@@ -217,13 +217,6 @@
     /*END*/
 /*END*/
 
-/*Import Popup Component CSS*/
-/*START*/
-#import-new-page .components-base-control {
-    width: 40%;
-}
-/*END*/
-
 /*Filter Component CSS*/
 /*START*/
 #analogwp-templates .template-filter .bottom,
@@ -329,6 +322,10 @@
 
 /*Popup CSS*/
 /*START*/
+#import-new-page .components-base-control {
+    width: 40%;
+}
+
 #analogwp-templates .analogwp-content .inner-popup-header {
     display: flex;
 	justify-content: space-between;
@@ -364,6 +361,10 @@
     color: #565D65;
 }
 
+#analogwp-templates .analogwp-content .inner-popup-content .stylekit-popup-content p {
+    font-size: 14px;
+}
+
 #analogwp-templates .analogwp-content .inner-popup-content .components-card__divider {
     position: relative;
     width: 107.5%;
@@ -384,10 +385,13 @@
     padding-bottom: 76px;
 }
 
-#analogwp-templates .analogwp-content .inner-popup-content #import-new-page .components-text-control__input {
+#analogwp-templates .analogwp-content .inner-popup-content .components-text-control__input {
     height: 36px;
 }
 
+.stylekit-popup-content {
+    margin-top: -20px;
+}
 /*END*/
 
 #analogwp-templates .tab-description {

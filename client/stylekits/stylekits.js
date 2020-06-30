@@ -289,7 +289,7 @@ export default class StyleKits extends React.Component {
 						onRequestClose={ () => this.resetState() }
 					>
 						{ this.state.hasError && (
-							<div>
+							<div className="stylekit-popup-content" >
 								<p style={ { textAlign: 'left' } }>
 									{ __( 'A Style Kit already exists with the same name. To import it again please enter a new name below:', 'ang' ) }
 								</p>
@@ -300,7 +300,6 @@ export default class StyleKits extends React.Component {
 								<div className="form-row">
 									<TextControl
 										placeholder={ __( 'Enter a Style Kit Name', 'ang' ) }
-										style={ { maxWidth: '60%' } }
 										onChange={ val => this.setState( { kitname: val } ) }
 									/>
 
