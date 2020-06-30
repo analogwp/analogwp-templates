@@ -83,6 +83,7 @@ const TemplatesContainer = styled.div`
 			height: auto;
 			border-top-left-radius: 4px;
 			border-top-right-radius: 4px;
+			vertical-align: middle;
 		}
 
 		figure {
