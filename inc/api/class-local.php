@@ -7,7 +7,7 @@
 
 namespace Analog\API;
 
-use Analog\Analog_Templates;
+use Analog\Plugin;
 use Analog\Base;
 use Analog\Classes\Import_Image;
 use Analog\Elementor\Kit\Manager;
@@ -178,9 +178,9 @@ class Local extends Base {
 	 * @return WP_REST_Response
 	 */
 	public function mark_as_favorite( WP_REST_Request $request ) {
-		$type = Analog_Templates::$user_meta_prefix;
+		$type = Plugin::$user_meta_prefix;
 		if ( ! empty( $request->get_param( 'type' ) ) && 'block' === $request->get_param( 'type' ) ) {
-			$type = Analog_Templates::$user_meta_block_prefix;
+			$type = Plugin::$user_meta_block_prefix;
 		}
 		$id        = $request->get_param( 'id' );
 		$favorite  = $request->get_param( 'favorite' );

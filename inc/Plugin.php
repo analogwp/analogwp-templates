@@ -342,20 +342,6 @@ final class Plugin {
 final class Analog_Templates {
 
 	/**
-	 * Holds key for Favorite templates user meta.
-	 *
-	 * @var string
-	 */
-	public static $user_meta_prefix = 'analog_library_favorites';
-
-	/**
-	 * Holds key for Favorite blocks user meta.
-	 *
-	 * @var string
-	 */
-	public static $user_meta_block_prefix = 'analog_block_favorites';
-
-	/**
 	 * Current plugin version.
 	 *
 	 * @var string
