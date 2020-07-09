@@ -14,12 +14,6 @@ const { __ } = wp.i18n;
 
 const TemplatesContainer = styled.div`
 	.templates-list {
-		margin: 0;
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(380px, 380px));
-		grid-gap: 25px;
-		color: #000;
-
 		&.hide {
 			display: none;
 		}
