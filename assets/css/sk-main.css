@@ -54,6 +54,10 @@
 	position: relative;
 }
 
+#analogwp-templates .templates-collection li .components-card__body figure {
+    padding: 20px;
+}
+
 #analogwp-templates .templates-collection span {
     width: 16px;
     height: 18px;
