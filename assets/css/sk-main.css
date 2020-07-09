@@ -163,6 +163,38 @@
     box-shadow: none;
 }
 
+/*Cards Container CSS*/
+/*START*/
+#analogwp-templates .templates-collection {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(31.3%,31.3%));
+    grid-gap: 36px 3%;
+	color: #000;
+}
+
+@media only screen and (max-width: 1120px) {
+    #analogwp-templates .templates-collection {
+        grid-template-columns: repeat(auto-fit,minmax(47%,47%));
+        grid-gap: 25px 4.5%;
+    }
+}
+
+@media only screen and (min-width: 1640px) {
+    #analogwp-templates .templates-collection {
+        grid-template-columns: repeat(auto-fit,minmax(23%,23%));
+        grid-gap: 25px 2%;
+    }
+}
+
+@media only screen and (min-width: 2000px) {
+    #analogwp-templates .templates-collection {
+        grid-template-columns: repeat(auto-fit,minmax(23.5%,23.5%));
+        grid-gap: 42px 2%;
+    }
+}
+/*END*/
+
 /*Card Component CSS*/
 /*START*/
 .analogwp-content li .components-card,
