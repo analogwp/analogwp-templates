@@ -54,11 +54,6 @@ const Container = styled.section`
 `;
 
 const ChildContainer = styled.ul`
-	display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(380px,380px));
-    grid-gap: 25px;
-    padding: 0;
-
     > li {
     	border-radius: 4px;
     	overflow: hidden;
