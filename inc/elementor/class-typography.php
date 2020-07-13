@@ -19,12 +19,6 @@ use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
 use Analog\Utils;
 
-if ( version_compare( ELEMENTOR_VERSION, '2.8.0', '<' ) ) {
-	class_alias( 'Elementor\Scheme_Typography', 'Analog\Elementor\Scheme_Typography' );
-} else {
-	class_alias( 'Elementor\Core\Schemes\Typography', 'Analog\Elementor\Scheme_Typography' );
-}
-
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -181,7 +175,7 @@ class Typography extends Module {
 					/* translators: %s: Heading 1-6 type */
 					'label'    => sprintf( __( 'Heading %s', 'ang' ), $i ),
 					'selector' => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
-					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				)
 			);
 		}
@@ -227,7 +221,7 @@ class Typography extends Module {
 				'name'     => 'ang_body',
 				'label'    => __( 'Body Typography', 'ang' ),
 				'selector' => '{{WRAPPER}}',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
+				'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_3,
 			)
 		);
 
@@ -298,7 +292,7 @@ class Typography extends Module {
 				array(
 					'name'     => 'ang_size_' . $setting[0],
 					'label'    => __( 'Heading', 'ang' ) . ' ' . $setting[1],
-					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 					'selector' => $selectors,
 					'exclude'  => $size_controls,
 				)
@@ -337,7 +331,7 @@ class Typography extends Module {
 				array(
 					'name'     => 'ang_text_size_' . $setting[0],
 					'label'    => __( 'Text', 'ang' ) . ' ' . $setting[1],
-					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 					'selector' => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
 					'exclude'  => $size_controls,
 				)
