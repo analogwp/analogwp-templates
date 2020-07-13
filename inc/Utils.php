@@ -8,6 +8,7 @@
 namespace Analog;
 
 use Analog\Core\Storage\Transients;
+use Elementor\Controls_Manager;
 use Elementor\Core\Base\Document;
 use Elementor\Core\Kits\Manager;
 use Elementor\TemplateLibrary\Source_Local;
@@ -760,6 +761,40 @@ class Utils extends Base {
 		}
 
 		return $document->get_settings( $setting );
+	}
+
+	/**
+	 * Check if the installed version of Elementor is older than a specified version.
+	 *
+	 * @param string $version Version number.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @return bool
+	 */
+	public static function is_elementor_pre( $version ) {
+		if ( ! defined( 'ELEMENTOR_VERSION' ) || version_compare( ELEMENTOR_VERSION, $version, '<' ) ) {
+			$elementor_is_pre_version = true;
+		} else {
+			$elementor_is_pre_version = false;
+		}
+
+		return $elementor_is_pre_version;
+	}
+
+	/**
+	 * Determine the tab settings should be added to.
+	 *
+	 * @return string
+	 */
+	public static function get_kit_settings_tab() {
+		if ( self::is_elementor_pre( '3.0' ) ) {
+			$tab = Controls_Manager::TAB_STYLE;
+		} else {
+			$tab = 'theme-style';
+		}
+
+		return $tab;
 	}
 }
 

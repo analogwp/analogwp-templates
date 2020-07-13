@@ -36,6 +36,14 @@ class Typography extends Module {
 	use Document;
 
 	/**
+	 * Tab to which add settings to.
+	 * @since n.e.x.t
+	 *
+	 * @var string
+	 */
+	private $settings_tab;
+
+	/**
 	 * Holds Style Kits.
 	 *
 	 * @since 1.4.0
@@ -64,6 +72,7 @@ class Typography extends Module {
 	 */
 	public function __construct() {
 		$this->tokens = Utils::get_kits();
+		$this->settings_tab = Utils::get_kit_settings_tab();
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_typography_sizes' ), 20, 2 );
 
@@ -236,7 +245,7 @@ class Typography extends Module {
 			'ang_typography_sizes',
 			array(
 				'label' => __( 'Typographic Sizes', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => $this->settings_tab,
 			)
 		);
 
@@ -362,7 +371,7 @@ class Typography extends Module {
 			'ang_section_padding',
 			array(
 				'label' => __( 'Outer Section Padding', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => $this->settings_tab,
 			)
 		);
 
@@ -415,7 +424,7 @@ class Typography extends Module {
 			'ang_column_gaps',
 			array(
 				'label' => __( 'Column Gaps', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => $this->settings_tab,
 			)
 		);
 
@@ -470,7 +479,7 @@ class Typography extends Module {
 			'ang_buttons',
 			array(
 				'label' => __( 'Button Sizes', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => $this->settings_tab,
 			)
 		);
 
@@ -762,7 +771,7 @@ class Typography extends Module {
 			'ang_tools',
 			array(
 				'label' => __( 'Theme Style Kit', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => $this->settings_tab,
 			)
 		);
 
