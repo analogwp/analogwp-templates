@@ -16,10 +16,13 @@ const externals = {
 
 // Webpack config
 const config = {
-	entry: './client/index.js',
+	entry: {
+		app: './client/index.js',
+		blocksLibrary: './client/blocks-library/index.js',
+	},
 	externals,
 	output: {
-		filename: 'assets/js/app.js',
+		filename: 'assets/js/[name].js',
 		path: __dirname,
 		library: [ 'ang', '[name]' ],
 		libraryTarget: 'this',
