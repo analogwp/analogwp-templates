@@ -59,7 +59,9 @@ final class Plugin {
 		add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( ANG_PLUGIN_FILE ), array( self::$instance, 'plugin_action_links' ) );
 		add_action( 'admin_enqueue_scripts', array( self::$instance, 'scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( self::$instance, 'blocks_library_scripts' ) );
 		add_filter( 'analog/app/strings', array( self::$instance, 'send_strings_to_app' ) );
+		add_filter( 'analog/blocks_app/strings', array( self::$instance, 'send_strings_to_app' ) );
 
 		add_action( 'admin_bar_menu', array( self::$instance, 'add_kit_to_menu_bar' ), 400 );
 
@@ -109,6 +111,47 @@ final class Plugin {
 		);
 
 		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
+	}
+
+	/**
+	 * Enqueue Blocks Library page assets.
+	 *
+	 * @param string $hook Current page hook.
+	 */
+	public function blocks_library_scripts( $hook ) {
+		if ( 'style-kits_page_analogwp_blocks' !== $hook ) {
+			return;
+		}
+
+		wp_enqueue_style( 'wp-components' );
+
+		wp_enqueue_script(
+			'analogwp-blocks-app',
+			ANG_PLUGIN_URL . 'assets/js/blocksLibrary.js',
+			array(
+				'react',
+				'react-dom',
+				'jquery',
+				'wp-components',
+				'wp-hooks',
+				'wp-i18n',
+				'wp-element',
+				'wp-api-fetch',
+				'wp-html-entities',
+			),
+			filemtime( ANG_PLUGIN_DIR . 'assets/js/blocksLibrary.js' ),
+			true
+		);
+		wp_set_script_translations( 'analogwp-blocks-app', 'ang' );
+
+		$i10n = apply_filters( // phpcs:ignore
+			'analog/blocks_app/strings',
+			array(
+				'is_dashboard_page'  => 'style-kits_page_analogwp_blocks' === $hook,
+			)
+		);
+
+		wp_localize_script( 'analogwp-blocks-app', 'AGWP', $i10n );
 	}
 
 	/**

@@ -124,6 +124,37 @@ class Elementor {
 		);
 
 		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
+
+		// Blocks Library.
+		do_action( 'ang_loaded_blocks' );
+
+		wp_enqueue_script(
+			'analogwp-blocks-app',
+			ANG_PLUGIN_URL . 'assets/js/blocksLibrary.js',
+			array(
+				'react',
+				'react-dom',
+				'jquery',
+				'wp-components',
+				'wp-hooks',
+				'wp-i18n',
+				'wp-element',
+				'wp-api-fetch',
+				'wp-html-entities',
+			),
+			filemtime( ANG_PLUGIN_DIR . 'assets/js/blocksLibrary.js' ),
+			true
+		);
+		wp_set_script_translations( 'analogwp-blocks-app', 'ang' );
+
+		$i10n = apply_filters( // phpcs:ignore
+			'analog/blocks_app/strings',
+			array(
+				'is_dashboard_page'  => false,
+			)
+		);
+
+		wp_localize_script( 'analogwp-blocks-app', 'AGWP', $i10n );
 	}
 
 	/**
