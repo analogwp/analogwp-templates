@@ -200,7 +200,8 @@ jQuery( window ).on( 'elementor:init', function() {
 	 */
 	analog.redirectToPanel = ( section ) => {
 		$e.run( 'panel/global/open' ).then( () => {
-			elementor.getPanelView().setPage('kit_settings').content.currentView.activateSection( section ).activateTab('style');
+			const tab = ( 'panel/global/theme-style' in $e.routes.components ) ? 'theme-style' : 'style';
+			elementor.getPanelView().setPage('kit_settings').content.currentView.activateSection( section ).activateTab(tab);
 		});
 	};
 
