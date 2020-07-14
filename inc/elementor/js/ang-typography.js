@@ -1,4 +1,4 @@
-/* global elementor, ANG_Action */
+/* global elementor, ANG_Action, $e, analog */
 jQuery( document ).ready( function() {
 	function handleFonts( font ) {
 		elementor.helpers.enqueueFont( font );
@@ -37,7 +37,11 @@ jQuery( document ).ready( function() {
 					name: 'theme_style',
 					title: elementor.translate( 'Theme Style' ),
 					callback: function() {
-						$e.run( 'panel/global/open' );
+						if ( 'panel/global/theme-style' in $e.routes.components ) {
+							$e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/theme-style' ) );
+						} else {
+							$e.run( 'panel/global/open' );
+						}
 					},
 				},
 			],

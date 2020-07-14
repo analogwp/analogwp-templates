@@ -69,7 +69,11 @@
 					 * This line forces Theme Style window to open, which re-renders the CSS for current kit.
 					 */
 					if ( ! elementor.$previewContents.find( `#elementor-post-${config.id}-css` ).length ) {
-						$e.run( 'panel/global/open' );
+						if ( 'panel/global/theme-style' in $e.routes.components ) {
+							$e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/theme-style' ) );
+						} else {
+							$e.run( 'panel/global/open' );
+						}
 					}
 				})
 				.then( () => {
