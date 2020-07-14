@@ -36,13 +36,7 @@ jQuery( document ).ready( function() {
 				{
 					name: 'theme_style',
 					title: elementor.translate( 'Theme Style' ),
-					callback: function() {
-						if ( 'panel/global/theme-style' in $e.routes.components ) {
-							$e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/theme-style' ) );
-						} else {
-							$e.run( 'panel/global/open' );
-						}
-					},
+					callback: analog.openThemeStyles,
 				},
 			],
 		};
