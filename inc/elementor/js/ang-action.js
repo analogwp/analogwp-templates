@@ -47,6 +47,7 @@
 					elementor.config.kit_id = activeKit;
 					fixKitClasses();
 					analog.setPanelTitle( activeKit );
+					loadDocumentAndEnqueueFonts(activeKit);
 				}
 			});
 		}
