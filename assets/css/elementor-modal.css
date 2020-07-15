@@ -42,7 +42,7 @@
     padding: 0;
 }
 
-#analogwp-templates > div {
+#analogwp-templates > div, #analogwp-blocks > div {
 	margin: 0;
 }
 

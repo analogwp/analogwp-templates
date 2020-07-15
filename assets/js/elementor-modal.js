@@ -82,7 +82,7 @@ const analogBlocks = window.analogBlocks = window.analogBlocks || {};
 									const content = window.analogBlocksModal.getElements("content");
 									content.append('<div id="analogwp-blocks"></div>');
 									var event = new Event("modal-close");
-									$("#analogwp-Blocks").on(
+									$("#analogwp-blocks").on(
 										"click",
 										".close-modal",
 										function() {
