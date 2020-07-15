@@ -7,6 +7,8 @@ const { Fragment } = wp.element;
 const { TextControl } = wp.components;
 
 const Container = styled.div`
+	margin-top: 20px;
+	margin-right: 20px;
 	.components-base-control {
 		margin-bottom: 30px;
 	}

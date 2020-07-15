@@ -14,6 +14,7 @@ const AnalogBlocks = styled.div`
 	margin: 0 0 0 -20px;
 	position: relative;
 	color: #000000;
+	background-color: #e3e3e3;
 
 	h1, h2, h3, h4, h5, h6 {
 		color: #000000;
@@ -22,8 +23,7 @@ const AnalogBlocks = styled.div`
 
 const Container = styled.div`
 	display: grid;
-	grid-template-columns: 2fr 10fr;
-	margin: 10px 20px;
+	grid-template-columns: 3fr 9fr;
 	grid-gap: 20px;
 `;
 
@@ -36,7 +36,6 @@ class BlocksLibrary extends React.Component {
 			archive: [],
 			favorites: AGWP.blockFavorites,
 			showFree: false,
-			showingFavorites: false,
 			hasPro: false,
 			count: null,
 			syncing: false,
@@ -50,7 +49,6 @@ class BlocksLibrary extends React.Component {
 		this.refreshAPI = this.refreshAPI.bind( this );
 		this.handleSort = this.handleSort.bind( this );
 		this.handleSearch = this.handleSearch.bind( this );
-		this.toggleFavorites = this.toggleFavorites.bind( this );
 	}
 
 	async componentDidMount() {
@@ -77,17 +75,12 @@ class BlocksLibrary extends React.Component {
 		document.addEventListener( 'modal-close', () => {
 			this.setState( {
 				isOpen: false,
-				showingFavorites: false,
 				blocks: this.state.archive,
 			} );
 		} );
 	}
 
 	handleSort( value ) {
-		this.setState( {
-			showingFavorites: false,
-		} );
-
 		const sortData = this.state.blocks;
 
 		if ( 'popular' === value ) {
@@ -182,24 +175,6 @@ class BlocksLibrary extends React.Component {
 		} );
 	}
 
-	toggleFavorites() {
-		// Reset group state to false.
-		this.setState( {
-			tab: 'favorites',
-		} );
-
-		const filteredBlocks = this.state.archive.filter(
-			block => block.id in this.state.favorites
-		);
-
-		this.setState( {
-			showingFavorites: ! this.state.showingFavorites,
-			blocks: ! this.state.showingFavorites ?
-				filteredBlocks :
-				this.state.archive,
-		} );
-	}
-
 	render() {
 		return (
 			<AnalogBlocks>
@@ -209,7 +184,6 @@ class BlocksLibrary extends React.Component {
 							state: this.state,
 							forceRefresh: this.refreshAPI,
 							markFavorite: markFavorite,
-							toggleFavorites: this.toggleFavorites,
 							handleSearch: this.handleSearch,
 							handleSort: this.handleSort,
 							dispatch: action => this.setState( action ),

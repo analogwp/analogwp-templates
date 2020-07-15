@@ -141,8 +141,8 @@ class BlocksList extends React.Component {
 
 		this.context.dispatch( { favorites } );
 
-		if ( this.context.state.showingFavorites ) {
-			const filteredBlocks = this.context.state.blocks.filter( t => t.id in favorites );
+		if ( this.context.state.tab === 'favorites' ) {
+			const filteredBlocks = this.context.state.archive.filter( t => t.id in favorites );
 
 			this.context.dispatch( {
 				blocks: filteredBlocks,

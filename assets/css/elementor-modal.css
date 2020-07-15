@@ -25,7 +25,7 @@
 	margin: 1em 0;
 }
 
-#analogwp-templates, #analogwp-blocks {
+#analogwp-templates, #analogwp-blocks, #analogwp-blocks-modal .dialog-widget-content {
 	background-color: #e3e3e3;
     text-align: left;
 }
