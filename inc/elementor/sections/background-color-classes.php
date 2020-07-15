@@ -9,6 +9,7 @@ namespace Analog\Elementor\Sections;
 
 defined( 'ABSPATH' ) || exit;
 
+use Analog\Utils;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
 use Elementor\Core\Base\Module;
@@ -49,7 +50,7 @@ final class BackgroundColorClasses extends Module {
 			'ang_background_color_classes',
 			array(
 				'label' => _x( 'Background Color Classes', 'Section Title', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => Utils::get_kit_settings_tab(),
 			)
 		);
 
