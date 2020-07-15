@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-const { Tooltip, FocusableIframe } = wp.components;
+const { FocusableIframe, Button } = wp.components;
 const { __ } = wp.i18n;
 
 const rotateOpacity = keyframes`
@@ -58,20 +58,6 @@ const Container = styled.div`
 		}
 	}
 
-	.button--plain {
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		padding: 0;
-		margin: 0;
-		font-size: 14.22px;
-		font-weight: bold;
-		color: #060606;
-		background: transparent;
-		border: none;
-		outline: 0;
-		cursor: pointer;
-	}
-
 	.button--accent {
 		font-size: 12px;
 		font-weight: bold;
@@ -96,20 +82,20 @@ const Preview = ( props ) => {
 	return (
 		<Container loading={ loading } { ...rest }>
 			<div className="frame-header">
-				<button className="button--plain" onClick={ onRequestClose }>
+				<Button isSecondary onClick={ onRequestClose }>
 					{ __( 'Back to Library', 'ang' ) }
-				</button>
+				</Button>
 
-				<Tooltip text={ __( 'Open Preview in New Tab', 'ang' ) }>
-					<a href={ previewURL } rel="noopener noreferrer" target="_blank">
-						<span className="dashicons dashicons-external" />
-					</a>
-				</Tooltip>
+				<a href={ previewURL } rel="noopener noreferrer" target="_blank">
+					<Button isSecondary>
+						{ __( 'Open in new tab', 'ang' ) }
+					</Button>
+				</a>
 
 				{ ! ( props.template.is_pro && AGWP.license.status !== 'valid' ) && (
-					<button className="ang-button" onClick={ onRequestImport }>
-						{ props.insertText || __( 'Insert Layout', 'ang' ) }
-					</button>
+					<Button isPrimary onClick={ onRequestImport }>
+						{ props.insertText || __( 'Import Template', 'ang' ) }
+					</Button>
 				) }
 			</div>
 

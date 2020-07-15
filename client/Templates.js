@@ -14,12 +14,6 @@ const { __ } = wp.i18n;
 
 const TemplatesContainer = styled.div`
 	.templates-list {
-		margin: 0;
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
-		grid-gap: 25px;
-		color: #000;
-
 		&.hide {
 			display: none;
 		}
@@ -30,8 +24,7 @@ const TemplatesContainer = styled.div`
 			border-radius: 4px;
 		}
 
-		.new,
-		.pro {
+		.new {
 			position: absolute;
 			top: -8px;
 			right: -8px;
@@ -47,16 +40,6 @@ const TemplatesContainer = styled.div`
 			letter-spacing: .5px;
 		}
 
-		.pro {
-			bottom: 15px;
-			right: 20px;
-			top: auto;
-			background: rgba(92, 50, 182, 0.1);
-			font-size: 12px;
-			color: var(--ang-accent);
-			padding: 4px 7px;
-		}
-
 		.new {
 			background: ${ Theme.accent };
 		}
@@ -69,11 +52,6 @@ const TemplatesContainer = styled.div`
 		}
 
 		.content {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 13px 20px 7px;
-
 			svg {
 				fill: #d0d0d0;
 				transition: all 100ms ease-in;
@@ -99,6 +77,7 @@ const TemplatesContainer = styled.div`
 			height: auto;
 			border-top-left-radius: 4px;
 			border-top-right-radius: 4px;
+			vertical-align: middle;
 		}
 
 		figure {
@@ -120,24 +99,6 @@ const TemplatesContainer = styled.div`
 			}
 		}
 
-		.actions {
-			opacity: 0;
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			background: rgba(0, 0, 0, 0.7);
-			top: 0;
-			left: 0;
-			z-index: 100;
-			transition: all 200ms;
-			border-top-left-radius: 4px;
-			border-top-right-radius: 4px;
-		}
-
 		.actions button {
 			opacity: 0;
 
@@ -151,17 +112,6 @@ const TemplatesContainer = styled.div`
 			+ button, + .ang-promo {
 				margin-top: 10px;
 				text-decoration: none;
-			}
-		}
-
-		.tags {
-			color: #888;
-			text-transform: capitalize;
-			padding: 0 20px 15px 20px;
-			font-size: 12px;
-
-			span + span:before {
-				content: " / ";
 			}
 		}
 
@@ -380,10 +330,6 @@ class Templates extends React.Component {
 	render() {
 		return (
 			<TemplatesContainer
-				style={ {
-					position: 'relative',
-					minHeight: '80vh',
-				} }
 				className={ classnames( {
 					hide: ( this.state.template && this.state.showingModal && ! this.canImportTemplate() ),
 					'preview-active': this.context.state.isOpen,
@@ -428,9 +374,23 @@ class Templates extends React.Component {
 						} ) }
 					>
 						{ ! this.context.state.isOpen && this.context.state.count >= 1 && this.context.state.templates.map( template => {
-							if ( AGWP.license.status !== 'valid' && this.context.state.showFree && Boolean( template.is_pro ) ) {
-								return;
+							if ( AGWP.license.status !== 'valid' ) {
+
+								let isPro = this.context.state.showFree === false && this.context.state.showPro === true &&
+									Boolean(template.is_pro) === true;
+
+								let isFree = this.context.state.showFree === true && this.context.state.showPro === false &&
+									Boolean(template.is_pro) === false;
+
+								let isAll = this.context.state.showFree === true && this.context.state.showPro === true;
+
+								if( !( isPro ||
+										isFree ||
+										isAll)) { 
+									return;
+								}
 							}
+							
 							return (
 								<Template
 									key={ `${template.id}-${template.site_id}` }

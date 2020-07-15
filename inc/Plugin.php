@@ -81,6 +81,7 @@ final class Plugin {
 
 		wp_enqueue_style( 'wp-components' );
 		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', array(), '20190716' );
+		wp_enqueue_style( 'ang-sk-main', ANG_PLUGIN_URL . 'assets/css/sk-main.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/sk-main.css' ) );
 
 		wp_enqueue_script(
 			'analogwp-app',

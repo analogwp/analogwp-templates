@@ -8,6 +8,7 @@ import Star from '../icons/star';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
+const { Button, Card, CardBody, CardFooter } = wp.components;
 
 const Container = styled.div`
 	.grid {
@@ -71,21 +72,6 @@ const Container = styled.div`
 		}
 
 		.actions {
-			opacity: 0;
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			background: rgba(0, 0, 0, 0.7);
-			top: 0;
-			left: 0;
-			z-index: 100;
-			transition: all 200ms;
-			border-top-left-radius: 4px;
-			border-top-right-radius: 4px;
 			button {
 				transform: translateY(20px);
 				opacity: 0;
@@ -146,123 +132,121 @@ const Container = styled.div`
 		object-fit: cover;
 		max-height: 150px;
 	}
-
-	h3 {
-		margin: 0;
-		font-weight: 600;
-		font-size: 14px;
-		line-height: 21px;
-		color: #141414;
-	}
-
-	.content {
-		border-top: 1px solid #DDD;
-		padding: 30px 20px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.pro {
-		font-weight: bold;
-		line-height: 1;
-		border-radius: 4px;
-		text-transform: uppercase;
-		letter-spacing: .5px;
-		background: rgba(92, 50, 182, 0.1);
-		font-size: 12px;
-		color: var(--ang-accent);
-		padding: 4px 7px;
-	}
 `;
 
-const getHeight = ( url ) => {
+const getHeight = (url) => {
 	/**
 	 * Split at image width to get the height next.
 	 *
 	 * Should return "448.png" where 448 is image height.
 	 * @type {*|string[]}
 	 */
-	const parts = url.split( '768x' );
+	const parts = url.split('768x');
 
-	if ( ! parts[ 1 ] ) {
+	if (!parts[1]) {
 		return false;
 	}
 
-	const p2 = parts[ 1 ].split( '.' );
+	const p2 = parts[1].split('.');
 
-	return p2[ 0 ];
+	return p2[0];
 };
 
-const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
-	const context = React.useContext( AnalogContext );
+const BlockList = ({ state, importBlock, favorites, makeFavorite }) => {
+	const context = React.useContext(AnalogContext);
 
 	const { category } = state;
 
-	let filteredBlocks = context.state.blocks.filter( block => ! ( AGWP.license.status !== 'valid' && context.state.showFree && Boolean( block.is_pro ) ) );
+	let filteredBlocks = context.state.blocks.filter( ( block ) => { 
+		if ( AGWP.license.status !== 'valid' ) {
 
-	if ( context.state.group ) {
-		filteredBlocks = filteredBlocks.filter( block => block.tags.indexOf( category ) > -1 );
+			let isPro = context.state.showFree === false && context.state.showPro === true &&
+				Boolean(block.is_pro) === true;
+
+			let isFree = context.state.showFree === true && context.state.showPro === false &&
+				Boolean(block.is_pro) === false;
+
+			let isAll = context.state.showFree === true && context.state.showPro === true;
+
+			if( ( isPro ||
+					isFree ||
+					isAll)) { 
+				return true;
+			}
+		} else {
+			return true;
+		}
+	});
+
+	if (context.state.group) {
+		filteredBlocks = filteredBlocks.filter(block => block.tags.indexOf(category) > -1);
 	}
 
 	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
-	const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
+	const isValid = (isPro) => !(isPro && AGWP.license.status !== 'valid');
 
 	return (
 		<Container>
 			<Masonry
-				breakpointCols={ 3 }
+				breakpointCols={3}
 				className="grid"
-				columnClassName="grid-item"
+				columnClassName="grid-item block-list"
 			>
-				{ filteredBlocks.map( ( block ) => {
+				{filteredBlocks.map((block) => {
 					return (
-						<div key={ block.id }>
-							{ ( isNewTheme( block.published ) > -14 ) && (
-								<span className="new">{ __( 'New', 'ang' ) }</span>
-							) }
+						<div key={block.id}>
+							<Card>
+								<CardBody>
+									{(isNewTheme(block.published) > -14) && (
+										<span className="new">{__('New', 'ang')}</span>
+									)}
 
-							<figure>
-								<img
-									src={ ( block.thumbnail === '0' ) ? fallbackImg : block.thumbnail }
-									loading="lazy"
-									width="768"
-									height={ getHeight( block.thumbnail ) || undefined }
-									alt={ block.title }
-								/>
+									<figure>
+										<img
+											src={(block.thumbnail === '0') ? fallbackImg : block.thumbnail}
+											loading="lazy"
+											width="768"
+											height={getHeight(block.thumbnail) || undefined}
+											alt={block.title}
+										/>
 
-								<div className="actions">
-									{ ! isValid( block.is_pro ) && (
-										<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank"><button className="ang-button">{ __( 'Go Pro', 'ang' ) }</button></a>
-									) }
-									<NotificationConsumer>
-										{ ( { add } ) => (
-											isValid( block.is_pro ) && (
-												<button className="ang-button" onClick={ () => importBlock( block, add ) }>
-													{ __( 'Import', 'ang' ) }
-												</button>
-											)
-										) }
-									</NotificationConsumer>
-								</div>
-								<button
-									className={ classnames( 'button-plain favorite', {
-										'is-active': block.id in favorites,
-									} ) }
-									onClick={ () => makeFavorite( block.id ) }
-								>
-									<Star />
-								</button>
-							</figure>
-
-							<div className="content">
-								<h3>{ decodeEntities( block.title ) }</h3>
-								{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
-							</div>
+										<div className="actions">
+											{!isValid(block.is_pro) && (
+												<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank">
+													<Button isPrimary>{__('Go Pro', 'ang')}</Button>
+												</a>
+											)}
+											<NotificationConsumer>
+												{({ add }) => (
+													isValid(block.is_pro) && (
+														<Button isPrimary onClick={() => importBlock(block, add)}>
+															{__('Import', 'ang')}
+														</Button>
+													)
+												)}
+											</NotificationConsumer>
+										</div>
+										<button
+											className={classnames('button-plain favorite', {
+												'is-active': block.id in favorites,
+											})}
+											onClick={() => makeFavorite(block.id)}
+										>
+											<Star />
+										</button>
+									</figure>
+								</CardBody>
+								<CardFooter>
+									<div className="content">
+										<h3>{decodeEntities(block.title)}</h3>
+										{block.is_pro && <span className="pro">{__('Pro', 'ang')}</span>}
+									</div>
+								</CardFooter>
+							</Card>
 						</div>
 					);
-				} ) }
+				})}
 			</Masonry>
 		</Container>
 	);

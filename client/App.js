@@ -12,11 +12,10 @@ const Analog = styled.div`
 	margin: 0 0 0 -20px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	font-family: "Poppins", sans-serif;
 	font-size: 13px;
 	position: relative;
 
-	--ang-accent: #5C32B6;
+	--ang-accent: rgb(0, 112, 167);
 
 	.ang-notices {
 		position: fixed;
@@ -68,15 +67,6 @@ const Analog = styled.div`
 		}
 	}
 
-	h1,h2,h3,h4,h5,h6 {
-		color: ${ props => props.theme.textDark };
-	}
-
-	.components-base-control {
-		font-family: inherit;
-		font-size: inherit;
-	}
-
 	a {
 		outline: 0;
 		box-shadow: none;
@@ -98,51 +88,7 @@ const Analog = styled.div`
 		font-size: 14.22px;
 	}
 
-	input[type="text"],
-	input[type="search"],
-	input[type="email"] {
-		border: 2px solid #C7C7C7;
-		border-radius: 4px;
-		color: #888888;
-		font-weight: normal;
-		background: #fff;
-		font-size: 14.22px;
-		font-family: inherit;
-		&:focus {
-			outline: 0;
-			box-shadow: none;
-			border-color: #888888;
-		}
-	}
-
-	input[type=checkbox] {
-		appearance: none;
-		width: 22px;
-		height: 22px;
-		border: 1px solid #C7C7C7;
-		background: #fff;
-		border-radius: 0;
-
-		&:focus,
-		&:active {
-			box-shadow: none;
-			outline: 0;
-		}
-
-		&:checked:before {
-			content: "\f147";
-			display: inline-block;
-			vertical-align: middle;
-			width: 16px;
-			font: normal 21px/1 dashicons;
-			speak: none;
-			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale;
-			color: #060606;
-			margin: 0px 0 0 -1px;
-		}
-	}
-
+	
 	button {
 		font-family: inherit;
 	}
@@ -193,12 +139,6 @@ const Analog = styled.div`
 	}
 `;
 
-const Content = styled.div`
-	background: #e3e3e3;
-	padding: 40px;
-	min-height: calc(100% - 51px);
-	position: relative;
-`;
 
 class App extends React.Component {
 	constructor() {
@@ -217,7 +157,8 @@ class App extends React.Component {
 			showing_favorites: false,
 			archive: [], // holds template archive temporarily for filter/favorites, includes all templates, never set on it.
 			blockArchive: [], // same as archive above just for blocks.
-			showFree: false,
+			showFree: true,
+			showPro: true,
 			group: true,
 			activeKit: false,
 			installedKits: AGWP.installed_kits || {},
@@ -257,6 +198,12 @@ class App extends React.Component {
 		if ( window.localStorage.getItem( 'analog::show-free' ) === 'false' ) {
 			this.setState( {
 				showFree: false,
+			} );
+		}
+
+		if ( window.localStorage.getItem( 'analog::show-pro' ) === 'false' ) {
+			this.setState( {
+				showPro: false,
 			} );
 		}
 
@@ -491,9 +438,9 @@ class App extends React.Component {
 								>
 									<Header />
 
-									<Content>
+									<div className="analogwp-content">
 										{ getPageComponents( this.state ) }
-									</Content>
+									</div>
 								</AnalogContext.Provider>
 							</Notifications>
 						</Analog>

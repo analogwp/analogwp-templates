@@ -9,7 +9,7 @@ import Popup from '../popup';
 const { Fragment, useState, useContext } = React;
 
 const { decodeEntities } = wp.htmlEntities;
-const { Button, TextControl, ExternalLink } = wp.components;
+const { Button, TextControl, ExternalLink, CardDivider } = wp.components;
 const { __, sprintf } = wp.i18n;
 const { addQueryArgs } = wp.url;
 
@@ -77,7 +77,7 @@ const formatGroupLabel = data => (
 
 const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyleKitInfo } ) => {
 	const [ step, setStep ] = useState( 1 );
-	const [ title, setTitle ] = useState( __( 'Select a Style Kit to apply on this layout', 'ang' ) );
+	const [ title, setTitle ] = useState( __( 'Import this template', 'ang' ) );
 
 	const kit = state.kit;
 	const { state: { styleKits, installedKits }, dispatch } = useContext( AnalogContext );
@@ -150,8 +150,9 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 			<Container>
 				{ ( step === 1 ) && (
 					<div>
-						<p>The default Style Kit for this template is auto-selected below. You can always apply any of your available Style Kits to this template if you want.</p>
-						<div className="row">
+						<h3>Choose a Theme Style Kit</h3>
+						<p>When you import a template, you can select to import and apply a Global Theme Style Kit. Choose the one below.</p>
+						<div className="row" style={{width: '42%'}}>
 							<Select
 								options={ groupedOptions }
 								formatGroupLabel={ formatGroupLabel }
@@ -162,36 +163,14 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 									handler( { kit: e.value } );
 								} }
 							/>
-							<button
-								className="ang-button"
-								onClick={ () => {
-									setStep( 2 );
-									setTitle( decodeEntities( template.title ) );
-
-									// Fallback if the Default kit in dropdown in unchanged.
-									if ( ! kit ) {
-										handler( { kit: defaultDropdownValue.value } );
-									}
-								} }
-							>{ __( 'Next', 'ang' ) }</button>
 						</div>
-
-						<footer dangerouslySetInnerHTML={ { __html: footer } } />
 					</div>
 				) }
 
-				{ ( step === 2 ) && ! state.importingElementor && (
+				{ ( step === 1 ) && ! state.importingElementor && (
 					<div>
-						<Button
-							isTertiary
-							onClick={ () => {
-								setStep( 1 );
-								handler( { kit: false } );
-							} }
-						>
-						&larr; { __( 'Change Style Kit', 'ang' ) }
-						</Button>
-
+						<CardDivider />
+						<h3>Import to Library</h3>
 						<p>
 							{ __( 'Import this template to your library to make it available in your Elementor ', 'ang' ) }
 							<ExternalLink href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'ang' ) }</ExternalLink>
@@ -202,7 +181,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 							<NotificationConsumer>
 								{ ( { add } ) => (
 									<Button
-										className="ang-button"
+										isPrimary
 										onClick={ () => {
 											handleImport( add, false );
 
@@ -212,7 +191,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 												installedKits: kits,
 											} );
 
-											setStep( 3 );
+											setStep( 2 );
 										} }
 									>
 										{ __( 'Import to Library', 'ang' ) }
@@ -220,15 +199,12 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 								) }
 							</NotificationConsumer>
 						</p>
-
-						<hr />
-
+						<h3>or import to a new page</h3>
 						<p>{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }</p>
 
-						<div className="form-row">
+						<div id="import-new-page" className="form-row">
 							<TextControl
 								placeholder={ __( 'Enter a Page Name', 'ang' ) }
-								style={ { maxWidth: '60%' } }
 								onChange={ val => {
 									handler( { pageName: val } );
 								} }
@@ -236,14 +212,14 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 							<NotificationConsumer>
 								{ ( { add } ) => (
 									<Button
-										className="ang-button"
+										isSecondary
 										disabled={ ! state.pageName }
 										style={ {
 											marginLeft: '15px',
 										} }
 										onClick={ () => {
 											handleImport( add, state.pageName );
-											setStep( 3 );
+											setStep( 2 );
 										} }
 									>
 										{ __( 'Import to page', 'ang' ) }
@@ -254,16 +230,19 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 					</div>
 				) }
 
-				{ ( step >= 2 ) && state.importing && (
+				{ ( step >= 1 ) && state.importing && (
 					<div style={ { textAlign: 'center', fontSize: '15px' } }>
 						{ state.importedPage ?
 							( <Fragment>
 								<p>{ __( 'All done! The template has been imported.', 'ang' ) }</p>
 								<p>
 									<a
-										className="ang-button"
 										href={ addQueryArgs( 'post.php', { post: state.importedPage, action: 'elementor' } ) }
-									>{ __( 'Edit Template' ) }</a>
+									>
+										<Button isPrimary>
+											{ __( 'Edit Template' ) }
+										</Button>
+									</a>
 								</p>
 							</Fragment> ) :
 							(

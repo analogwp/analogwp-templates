@@ -6,7 +6,7 @@ import { NotificationConsumer } from '../Notifications';
 import Popup from '../popup';
 import Preview from './../modal/Preview';
 
-const { TextControl, Button, Dashicon } = wp.components;
+const { TextControl, Button, Dashicon, Card, CardBody, CardFooter } = wp.components;
 
 const { decodeEntities } = wp.htmlEntities;
 const { __, sprintf } = wp.i18n;
@@ -23,13 +23,6 @@ const Container = styled.section`
 		margin: -40px -40px 40px -40px;
 		padding: 20px;
 	}
-	.title {
-		padding: 15px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-top: 1px solid #DDD;
-	}
 	h3 {
 		margin: 0;
 		font-size: 14.2px;
@@ -43,19 +36,6 @@ const Container = styled.section`
     }
     a {
     	color: var(--ang-accent);
-    }
-
-    .pro {
-    	font-weight: bold;
-		line-height: 1;
-		border-radius: 4px;
-		text-transform: uppercase;
-		letter-spacing: .5px;
-		background: rgba(92, 50, 182, 0.1);
-		font-size: 12px;
-		color: var(--ang-accent);
-		padding: 4px 7px;
-		margin-right: 15px;
     }
 
 	footer {
@@ -74,36 +54,14 @@ const Container = styled.section`
 `;
 
 const ChildContainer = styled.ul`
-	display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(380px,380px));
-    grid-gap: 25px;
-    margin: 75px 0 0;
-    padding: 0;
-
-    @media (max-width: 768px) {
-    	grid-template-columns: 1fr;
-    }
-
     > li {
     	border-radius: 4px;
     	overflow: hidden;
     	background: #fff;
-		.actions .ang-button {
-			font-size: 12px;
-			line-height: 18px;
-			padding: 6px 12px;
-			text-transform: uppercase;
-			&[disabled] {
-				cursor: not-allowed;
-				background: #e3e3e3;
-				color: #747474;
-			}
-		}
     }
 
     figure {
     	margin: 0;
-    	padding: 20px;
 		position: relative;
 		display: flex;
 		justify-content: center;
@@ -124,23 +82,6 @@ const ChildContainer = styled.ul`
 	}
 
 	 .preview {
-		opacity: 0;
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		background: rgba(0, 0, 0, 0.7);
-		top: 0;
-		left: 0;
-		z-index: 100;
-		transition: all 200ms;
-		border-top-left-radius: 4px;
-		border-top-right-radius: 4px;
-		min-width: 110px;
-
 		button {
 			transform: translateY(20px);
 			opacity: 0;
@@ -283,51 +224,55 @@ export default class StyleKits extends React.Component {
 					</NotificationConsumer>
 				) }
 
-				<ChildContainer>
+				<ChildContainer className="stylekit-list">
 					{ this.context.state.styleKits.length > 0 && this.context.state.styleKits.map( ( kit ) => {
 						return (
 							<li key={ kit.id + '-' + kit.site_id }>
-								<figure>
-									<img src={ kit.image } alt={ kit.title } />
+								<Card>
+									<CardBody>
+										<figure>
+											<img src={ kit.image } alt={ kit.title } />
 
-									<div className="preview">
-										{ kit.preview && (
-											<button
-												className="ang-button"
-												onClick={ () => {
-													window.scrollTo( 0, 0 );
-													this.setState( { previewing: kit } );
-												} }
-											>
-												{ __( 'Preview', 'ang' ) }
-											</button>
-										) }
-
-										{ ! isValid( kit.is_pro ) && (
-											<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank"><button className="ang-button">{ __( 'Go Pro', 'ang' ) }</button></a>
-										) }
-
-										{ isValid( kit.is_pro ) && (
-											<NotificationConsumer>
-												{ ( { add } ) => (
-													<button
-														onClick={ () => this.handleImport( kit, add, true ) }
-														className="ang-button"
-													>{ __( 'Import', 'ang' ) }</button>
+											<div className="preview">
+												{ kit.preview && (
+													<Button isSecondary
+														className="black-transparent"
+														onClick={ () => {
+															window.scrollTo( 0, 0 );
+															this.setState( { previewing: kit } );
+														} }
+													>
+														{ __( 'Preview', 'ang' ) }
+													</Button>
 												) }
-											</NotificationConsumer>
-										) }
-									</div>
-								</figure>
-								<div className="title">
-									<h3>{ kit.title }</h3>
 
-									<div className="actions">
-										{ kit.is_pro && (
-											<span className="pro">{ __( 'Pro', 'ang' ) }</span>
-										) }
-									</div>
-								</div>
+												{ ! isValid( kit.is_pro ) && (
+													<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank">
+														<Button isPrimary>{ __( 'Go Pro', 'ang' ) }</Button>
+													</a>
+												) }
+
+												{ isValid( kit.is_pro ) && (
+													<NotificationConsumer>
+														{ ( { add } ) => (
+															<Button isPrimary
+																onClick={ () => this.handleImport( kit, add, true ) }
+															>{ __( 'Import', 'ang' ) }</Button>
+														) }
+													</NotificationConsumer>
+												) }
+											</div>
+										</figure>
+									</CardBody>
+									<CardFooter>
+										<div className="content">
+											<h3>{ kit.title }</h3>
+											{ kit.is_pro && (
+												<span className="pro">{ __( 'Pro', 'ang' ) }</span>
+											) }
+										</div>
+									</CardFooter>
+								</Card>
 							</li>
 						);
 					} ) }
@@ -339,7 +284,7 @@ export default class StyleKits extends React.Component {
 						onRequestClose={ () => this.resetState() }
 					>
 						{ this.state.hasError && (
-							<div>
+							<div className="stylekit-popup-content" >
 								<p style={ { textAlign: 'left' } }>
 									{ __( 'A Style Kit already exists with the same name. To import it again please enter a new name below:', 'ang' ) }
 								</p>
@@ -350,14 +295,12 @@ export default class StyleKits extends React.Component {
 								<div className="form-row">
 									<TextControl
 										placeholder={ __( 'Enter a Style Kit Name', 'ang' ) }
-										style={ { maxWidth: '60%' } }
 										onChange={ val => this.setState( { kitname: val } ) }
 									/>
 
 									<NotificationConsumer>
 										{ ( { add } ) => (
-											<Button
-												className="ang-button"
+											<Button isPrimary
 												disabled={ ! this.state.kitname || this.context.state.installedKits.indexOf( this.state.kitname ) > -1 }
 												style={ {
 													marginLeft: '15px',
@@ -387,7 +330,6 @@ export default class StyleKits extends React.Component {
 								<p>{ __( 'The Style Kit has been imported and is now available in the list of the available Style Kits.', 'ang' ) }</p>
 								<p>
 									<a // eslint-disable-line
-										className="ang-button"
 										onClick={ ( e ) => {
 											this.resetState();
 
@@ -398,7 +340,11 @@ export default class StyleKits extends React.Component {
 											}
 										} }
 										{ ...successButtonProps }
-									>{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" /></a>
+									>
+										<Button isPrimary>
+											{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
+										</Button>
+									</a>
 								</p>
 
 								{ ! Boolean( AGWP.is_settings_page ) && <footer dangerouslySetInnerHTML={ { __html: footer } } /> }

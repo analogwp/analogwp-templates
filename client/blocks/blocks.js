@@ -11,7 +11,7 @@ import ProModal from '../ProModal';
 const { __ } = wp.i18n;
 const { decodeEntities } = wp.htmlEntities;
 const { Component, Fragment } = wp.element;
-const { Dashicon } = wp.components;
+const { Dashicon, Button } = wp.components;
 const { addQueryArgs } = wp.url;
 
 const Categories = styled.ul`
@@ -38,20 +38,19 @@ const Categories = styled.ul`
 
 	span {
 		position: absolute;
-		background: var(--ang-accent);
 		min-width: 25px;
 		height: 28px;
 		padding: 0 5px;
-		top: -14px;
-		right: -17px;
+		top: 8px;
+		right: 8px;
 		font-weight: 700;
 		font-size: 15px;
 		border-radius: 4px;
 		display: inline-flex;
 		justify-content: center;
 		align-items: center;
-		color: #fff;
 		z-index: 100;
+		border: 1px solid black;
 	}
 `;
 
@@ -129,8 +128,7 @@ export default class Blocks extends Component {
 
 		const foundItems =
 			blocks
-				.filter( block => block.tags.indexOf( category ) > -1 )
-				.filter( block => ! ( AGWP.license.status !== 'valid' && this.context.state.showFree && Boolean( block.is_pro ) ) );
+				.filter( block => block.tags.indexOf( category ) > -1 );
 
 		if ( foundItems ) {
 			return foundItems.length;
@@ -203,8 +201,8 @@ export default class Blocks extends Component {
 									</a>.
 								</p>
 								<p>
-									<button
-										className="ang-button"
+									<Button
+										isPrimary
 										onClick={ () => {
 											this.setState( {
 												activeBlock: false,
@@ -214,7 +212,7 @@ export default class Blocks extends Component {
 										} }
 									>
 										{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
-									</button>
+									</Button>
 								</p>
 							</Fragment>
 
@@ -231,7 +229,7 @@ export default class Blocks extends Component {
 				) }
 
 				{ ! this.context.state.syncing && this.context.state.blocks && ! this.state.category && this.context.state.group && (
-					<Categories>
+					<Categories className="blocks-categories">
 						{ categories && categories.map( ( category ) => {
 							const count = this.getItemCount( category );
 							if ( ! count ) {

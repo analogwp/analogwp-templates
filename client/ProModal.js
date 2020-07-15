@@ -8,7 +8,7 @@ const Container = styled.div`
 	padding: 20px;
 	display: flex;
 	align-items: center;
-	margin-bottom: 40px;
+	margin-bottom: 24px;
 	border-radius: 6px;
 
 	p {

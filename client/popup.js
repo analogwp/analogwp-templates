@@ -1,6 +1,8 @@
 import { default as styled, keyframes } from 'styled-components';
 import Close from './icons/close';
+
 const { __ } = wp.i18n;
+const { Card, CardBody, CardDivider, CardHeader } = wp.components;
 
 const animate = keyframes`
   from {
@@ -15,7 +17,6 @@ const animate = keyframes`
 const Container = styled.div`
 	font-size: 15px;
 	color: #000222;
-	font-family: 'Poppins', sans-serif;
 	position: fixed;
     top: 0;
     left: 0;
@@ -29,7 +30,6 @@ const Container = styled.div`
 
 	.inner {
 		background: #fff;
-		border-radius: 4px;
 		overflow: visible;
 		width: 600px;
 		max-height: 80vh;
@@ -37,37 +37,18 @@ const Container = styled.div`
 		animation: ${ animate } 0.1s ease-out;
 	}
 
-	p {
-		font-size: inherit;
-	}
-
 	a {
-		color: var(--ang-accent);
 		text-decoration: none;
 		font-weight: 500;
 	}
 `;
 
 const Header = styled.div`
-	margin: 0 35px;
-	padding: 20px 0;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	position: sticky;
-    background: #fff;
-
+	
 	.header-center & {
 		justify-content: center;
 	}
-
-	h1 {
-		font-size: 18px;
-		font-weight: bold;
-		color: #060606;
-		margin: 0;
-	}
-
+	
 	svg {
 		fill: #000;
 		margin-left: 5px;
@@ -79,15 +60,6 @@ const Header = styled.div`
 `;
 
 const Content = styled.div`
-	margin: 0;
-	padding: 20px 35px;
-	position: sticky;
-	font-size: 14px;
-	background: #F7F4F4;
-	border-bottom-left-radius: 4px;
-	border-bottom-right-radius: 4px;
-	line-height: 1.6;
-
 	h2 {
 		font-size: 25px;
 	}
@@ -100,26 +72,9 @@ const Content = styled.div`
 
 	.form-row {
 		display: flex;
-		align-items: center;
+		align-items: baseline;
 	}
 
-	.components-base-control {
-		flex-basis: 65%;
-	}
-
-	.components-base-control__field {
-		margin: 0 !important;
-	}
-
-	input[type="text"] {
-		border: 1px solid #E9E9E9;
-		background: #F3F3F3;
-		box-shadow: none;
-		outline: 0;
-		padding: 10px 20px;
-		max-width: 100% !important;
-		border-right: 0;
-	}
 `;
 
 const Popup = ( props ) => {
@@ -127,18 +82,24 @@ const Popup = ( props ) => {
 	return (
 		<Container { ...rest }>
 			<div className="inner">
-				<Header>
-					<h1>{ title }</h1>
-					{ onRequestClose && (
-						<button className="button-plain" onClick={ () => onRequestClose() }>
-							{ __( 'Close', 'ang' ) } <Close />
-						</button>
-					) }
-				</Header>
-
-				<Content>
-					{ children }
-				</Content>
+				<Card>
+					<CardHeader>
+						<Header className="inner-popup-header">
+							<h1>{ title }</h1>
+							{ onRequestClose && (
+								<button className="button-plain" onClick={ () => onRequestClose() }>
+									<Close />
+								</button>
+							) }
+						</Header>
+					</CardHeader>
+					<CardDivider>&nbsp;</CardDivider>
+					<CardBody>
+						<Content className="inner-popup-content">
+							{ children }
+						</Content>
+					</CardBody>
+				</Card>
 			</div>
 		</Container>
 	);

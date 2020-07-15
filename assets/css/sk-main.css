@@ -1,0 +1,549 @@
+/*Top navigation tab CSS*/
+/*START*/
+#sk-library-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#sk-library-heading .is-secondary {
+    margin-left: 10px;
+}
+
+#sk-library-heading button{
+    width: 100px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+}
+
+#sk-library-heading .close-modal svg {
+    width: 15px;
+    position: relative;
+    bottom: 3px;
+}
+
+#sk-library-tab .components-tab-panel__tabs {
+    background-color: #fff;
+}
+
+#sk-library-tab .components-button {
+    padding: 20px 20px 30px 20px;
+    margin: 10px 10px 0 10px;
+    border-radius: 0;
+    font-size: 15px;
+}
+
+#sk-library-tab .components-button:hover {
+    box-shadow: none;
+}
+
+#sk-library-tab .components-button.is-active{
+    box-shadow: inset 0 -3px #007cba;
+    font-weight: bold;
+    position: relative;
+}
+/*END*/
+
+#analogwp-templates .analogwp-content {
+    background: #e3e3e3;
+	padding: 4px 24px;
+	min-height: calc(100% - 51px);
+	position: relative;
+}
+
+#analogwp-templates .templates-collection li .components-card__body figure {
+    padding: 20px;
+}
+
+#analogwp-templates .templates-collection span {
+    width: 16px;
+    height: 18px;
+    position: absolute;
+    bottom: 15px;
+    right: 17px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 18px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#analogwp-templates .stylekit-list .pro {
+    position: inherit;
+}
+
+#analogwp-templates .templates-collection .actions,
+#analogwp-templates .templates-list .actions,
+#analogwp-templates .stylekit-list .preview,
+#analogwp-templates .block-list .actions {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.7);
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transition: all 200ms;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+#analogwp-templates .templates-collection .actions:hover,
+#analogwp-templates .templates-list .actions:hover,  
+#analogwp-templates .stylekit-list .preview:hover,
+#analogwp-templates .block-list .actions:hover {
+    opacity: 1;
+}
+
+#analogwp-templates .stylekit-list .preview {
+    min-width: 110px;
+}
+
+#analogwp-templates .components-button.black-transparent {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+}
+
+#analogwp-templates .templates-collection figure .components-button,
+#analogwp-templates .templates-list figure .components-button,
+#analogwp-templates .stylekit-list figure .components-button,
+#analogwp-templates .block-list figure .components-button{
+    width: 185px;
+    height: 49px;
+    text-align: center;
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (max-width: 1024px) {
+    #analogwp-templates .templates-collection figure .components-button,
+    #analogwp-templates .templates-list figure .components-button,
+    #analogwp-templates .stylekit-list figure .components-button,
+    #analogwp-templates .block-list figure .components-button{
+        width: 120px;
+        height: 45px;
+    }
+}
+
+#analogwp-templates .templates-collection .components-button.is-primary:focus,
+#analogwp-templates .templates-list .components-button.is-primary:focus,
+#analogwp-templates .stylekit-list .components-button.is-primary:focus,
+#analogwp-templates .block-list .components-button.is-primary:focus {
+    border: none;
+    box-shadow: none;
+}
+
+
+#analogwp-templates .templates-collection .components-button.is-secondary,
+#analogwp-templates .templates-list .components-button.is-secondary,
+#analogwp-templates .stylekit-list .components-button.is-secondary,
+#analogwp-templates .block-list .components-button.is-secondary {
+    border: none;
+    box-shadow: none;
+}
+
+#analogwp-templates .templates-collection .components-button.is-secondary:focus,
+#analogwp-templates .templates-list .components-button.is-secondary:focus,
+#analogwp-templates .stylekit-list .components-button.is-secondary:focus,
+#analogwp-templates .block-list .components-button.is-secondary:focus {
+    border: none;
+    box-shadow: none;
+}
+
+/*Cards Container CSS*/
+/*START*/
+#analogwp-templates .templates-collection {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(31.3%,31.3%));
+    grid-gap: 36px 3%;
+	color: #000;
+}
+
+#analogwp-templates .templates-list,
+#analogwp-templates .stylekit-list {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(23.5%, 23.5%));
+    grid-gap: 16px 2%;
+    color: #000;
+}
+
+@media only screen and (max-width: 1120px) {
+    #analogwp-templates .templates-collection {
+        grid-template-columns: repeat(auto-fit,minmax(47%,47%));
+        grid-gap: 25px 4.5%;
+    }
+
+    #analogwp-templates .templates-list,
+    #analogwp-templates .stylekit-list {
+        grid-template-columns: repeat(auto-fit, minmax(32%, 32%));
+        grid-gap: 10px 2%;
+    }
+}
+
+@media only screen and (min-width: 1640px) {
+    #analogwp-templates .templates-collection {
+        grid-template-columns: repeat(auto-fit,minmax(23%,23%));
+        grid-gap: 25px 2%;
+    }
+
+    #analogwp-templates .templates-list,
+    #analogwp-templates .stylekit-list {
+        grid-template-columns: repeat(auto-fit, minmax(18%, 18%));
+        grid-gap: 32px 2%;
+    }
+}
+
+@media only screen and (min-width: 2000px) {
+    #analogwp-templates .templates-collection {
+        grid-template-columns: repeat(auto-fit,minmax(23.5%,23.5%));
+        grid-gap: 42px 2%;
+    }
+
+    #analogwp-templates .templates-list,
+    #analogwp-templates .stylekit-list {
+        grid-template-columns: repeat(auto-fit, minmax(18.4%, 18.4%));
+        grid-gap: 44px 2%;
+    }
+}
+/*END*/
+
+/*Card Component CSS*/
+/*START*/
+.analogwp-content li .components-card,
+.analogwp-content div.block-list .components-card {
+    border: none;
+}
+
+    /*Body*/
+    /*START*/
+.analogwp-content li .components-card__body,
+.analogwp-content div.block-list .components-card__body {
+    padding: 0;
+}
+
+    /*END*/
+
+    /*Footer*/
+    /*START*/
+.analogwp-content li .components-card__footer,
+.analogwp-content div.block-list .components-card__footer {
+    padding: 12px;
+}
+
+.analogwp-content li .components-card__footer .content,
+.analogwp-content div.block-list .components-card__footer .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.analogwp-content li .components-card__footer h3,
+.analogwp-content div.block-list .components-card__footer h3 {
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: capitalize;
+    margin: 0;
+}
+
+#analogwp-templates .templates-list .pro,
+#analogwp-templates .stylekit-list .pro,
+#analogwp-templates .block-list .pro{
+    border-radius: 4px;
+    letter-spacing: .5px;
+    font-size: 13px;
+    padding: 4px 7px;
+    border: 2px solid #127DB8;
+    color: #127DB8;
+    text-align: center;
+}
+
+#analogwp-templates li .components-card__footer .tags {
+    color: #565D65;
+    text-transform: capitalize;
+    font-size: 13px;
+}
+    /*END*/
+/*END*/
+
+/*Filter Component CSS*/
+/*START*/
+#analogwp-templates .template-filter .bottom,
+#analogwp-templates .block-filter .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#analogwp-templates .template-filter .bottom span,
+#analogwp-templates .block-filter .bottom span {
+    display: inherit;
+}
+
+#analogwp-templates .template-filter .bottom .components-base-control,
+#analogwp-templates .block-filter .bottom .components-base-control {
+    margin-bottom: 16px;
+}
+
+#analogwp-templates .template-filter .bottom span:first-child .components-base-control:not(:first-child),
+#analogwp-templates .block-filter .bottom span:first-child .components-base-control:not(:first-child) {
+    margin-left: 1vw;
+}
+
+#analogwp-templates .template-filter .top,
+#analogwp-templates .block-filter .top {
+    margin: -20px;
+    padding: 0 20px 20px;
+    display: flex;
+    align-items: center;
+}
+
+#analogwp-templates .template-filter .top .kit-title,
+#analogwp-templates .block-filter .top .block-title {
+    margin-right: 2vw;
+    margin-top: 37px;
+    font-size: 19px;
+    font-weight: normal;
+    margin-bottom: 33px;
+    color: #000000;
+}
+
+#analogwp-templates .template-filter .top .kit-back,
+#analogwp-templates .block-filter .top .block-back {
+    margin-top: 24px;
+    margin-bottom: 17px;
+    width: 120px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+}
+
+#analogwp-templates .template-filter .favorites,
+#analogwp-templates .block-filter .favorites {
+    margin-left: auto;
+    margin-right: 3vw;
+    margin-bottom: 12px;
+    font-weight: normal;
+}
+
+#analogwp-templates .template-filter .favorites,
+#analogwp-templates .block-filter .favorites,
+#analogwp-templates .template-filter .group-by,
+#analogwp-templates .block-filter .group-by {
+    position: relative;
+    bottom: 35px;
+    font-size: 15px;
+    color: #555d66;
+}
+
+#analogwp-templates .template-filter .group-by,
+#analogwp-templates .block-filter .group-by {
+    margin-right: 20px;
+}
+
+#analogwp-templates .template-filter .favorites svg,
+#analogwp-templates .block-filter .favorites svg {
+    margin-right: 8px;
+    fill:#6E7780;
+}
+
+#analogwp-templates .template-filter .favorites.is-active svg,
+#analogwp-templates .block-filter .favorites.is-active svg {
+    fill: #FFB443 !important;
+}
+/*END*/
+
+/*Template preview page css*/
+/*START*/
+#analogwp-templates .analogwp-content .preview-active {
+    position: relative;
+    min-height: 80vh;
+    margin-top: 10px;
+}
+
+#analogwp-templates .analogwp-content .preview-active button {
+    width: 120px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+}
+/*END*/
+
+/*Popup CSS*/
+/*START*/
+#import-new-page .components-base-control {
+    width: 40%;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-header {
+    display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: sticky;
+    background: #fff;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-header h1 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+}
+
+#analogwp-templates .analogwp-content .inner .components-card__divider {
+    margin-bottom: 12px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content {
+	font-size: 14px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content h3 {
+    margin: 0px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content p {
+    font-size: 13px;
+    line-height: 18px;
+    color: #565D65;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .stylekit-popup-content p {
+    font-size: 14px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .components-card__divider {
+    position: relative;
+    width: 107.5%;
+    left: -3.7%;
+    margin-bottom: 20px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .components-button.is-primary {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .components-button {
+    padding: 0 20px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content #import-new-page {
+    padding-bottom: 76px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .components-text-control__input {
+    height: 36px;
+}
+
+.stylekit-popup-content {
+    margin-top: -20px;
+}
+/*END*/
+
+#analogwp-templates .tab-description {
+    margin: 12px 0 24px 0;
+}
+
+#analogwp-templates .blocks-categories {
+    margin-top: 0;
+}
+
+/*Override elementor css to original core css for input elements*/
+/*START*/
+#analogwp-templates .template-filter select,
+#analogwp-templates .block-filter select {
+    font-size: 14px;
+	line-height: 2; /* 28px */
+	color: #32373c;
+	border-color: #7e8993;
+	box-shadow: none;
+	border-radius: 3px;
+	padding: 0 24px 0 8px;
+	min-height: 30px;
+	max-width: 25rem;
+	-webkit-appearance: none;
+	/* The SVG is arrow-down-alt2 from Dashicons. */
+	background: #fff url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E') no-repeat right 5px top 55%;
+	background-size: 16px 16px;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+#analogwp-templates .template-filter select:hover,
+#analogwp-templates .block-filter select:hover {
+    color: #007cba;
+}
+
+#analogwp-templates .template-filter select:focus,
+#analogwp-templates .block-filter select:focus {
+    border-color: #007cba;
+	color: #016087;
+	box-shadow: 0 0 0 1px #007cba;
+}
+
+#analogwp-templates .template-filter select:active,
+#analogwp-templates .block-filter select:active {
+    border-color: #999;
+	box-shadow: none;
+}
+
+#analogwp-templates .template-filter select:disabled,
+#analogwp-templates .block-filter select:disabled {
+    color: #a0a5aa;
+	border-color: #ddd;
+	background-color: #f7f7f7;
+	/* The SVG is arrow-down-alt2 from Dashicons. */
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23a0a5aa%22%2F%3E%3C%2Fsvg%3E');
+	box-shadow: none;
+	text-shadow: 0 1px 0 #fff;
+	cursor: default;
+	transform: none;
+}
+
+#analogwp-templates .template-filter input[type="search"] {
+    -webkit-appearance: textfield;
+    padding: 0 8px;
+    /* inherits font size 14px */
+    font-size: 14px;
+	line-height: 2; /* 28px */
+	/* Only necessary for IE11 */
+    min-height: 30px;
+    box-shadow: 0 0 0 transparent;
+	border-radius: 4px;
+	border: 1px solid #7e8993;
+	background-color: #fff;
+    color: #32373c;
+    box-sizing: border-box;
+	font-family: inherit;
+	font-weight: inherit;
+}
+/*END*/
+
+/*Clone Admin CSS in elementor stylekit AnalogWP Template widget modal*/
+/*START*/
+#analogwp-templates.wrap h1 {
+    font-size: 23px;
+	font-weight: 400;
+	margin: 0;
+	padding: 9px 0 4px 0;
+    line-height: 1.3;
+    color: #23282d;
+}
+/*END*/
