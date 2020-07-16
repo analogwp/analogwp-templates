@@ -25,9 +25,14 @@
 	margin: 1em 0;
 }
 
-#analogwp-templates, #analogwp-blocks, #analogwp-blocks-modal .dialog-widget-content {
+#analogwp-templates {
 	background-color: #e3e3e3;
     text-align: left;
+}
+
+#analogwp-blocks, #analogwp-blocks-modal .dialog-widget-content {
+	background-color: #F3F4F5;
+	text-align: left;
 }
 
 #analogwp-templates input[type=checkbox]:checked:before {

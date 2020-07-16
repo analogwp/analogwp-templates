@@ -13,11 +13,13 @@ const { apiFetch } = wp;
 const AnalogBlocks = styled.div`
 	margin: 0 0 0 -20px;
 	position: relative;
-	color: #000000;
-	background-color: #e3e3e3;
+	color: #1D2C37;
+	background-color: #F3F4F5;
+
+	--ang-accent: rgb(0,112,167);
 
 	h1, h2, h3, h4, h5, h6 {
-		color: #000000;
+		color: #1D2C37;
 	}
 `;
 

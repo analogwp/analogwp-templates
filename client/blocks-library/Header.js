@@ -17,7 +17,7 @@ const Container = styled.div`
 	.page-title {
 		font-size: 17px;
 		font-weight: 600;
-		line-height: 1;
+		line-height: 1.1;
 		margin: 0;
 	}
 
