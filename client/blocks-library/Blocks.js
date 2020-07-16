@@ -68,7 +68,7 @@ class Blocks extends React.Component {
 		this.handleImport = this.handleImport.bind( this );
 	}
 
-		importBlock( block, add ) {
+	importBlock( block, add ) {
 		this.setState( {
 			modalActive: true,
 			activeBlock: block,
@@ -78,37 +78,36 @@ class Blocks extends React.Component {
 	}
 
 	handleImport( block, add ) {
-	const method = ( Boolean( AGWP.is_dashboard_page ) ) ? 'library' : 'elementor';
+		const method = ( Boolean( AGWP.is_dashboard_page ) ) ? 'library' : 'elementor';
 
-	requestBlockContent( block, method )
-		.then( ( response ) => {
-			if ( method === 'elementor' ) {
-				const parsedTemplate = response.data;
+		requestBlockContent( block, method )
+			.then( ( response ) => {
+				if ( method === 'elementor' ) {
+					const parsedTemplate = response.data;
 
-				doElementorInsert( parsedTemplate.content, 'block' );
+					doElementorInsert( parsedTemplate.content, 'block' );
+
+					this.setState( {
+						modalActive: false,
+						activeBlock: false,
+					} );
+
+					window.analogBlocksModal.hide();
+				} else {
+					this.setState( {
+						blockImported: true,
+					} );
+				}
+			} )
+			.catch( error => {
+				add( error.message, 'error', 'import-error', false );
 
 				this.setState( {
 					modalActive: false,
 					activeBlock: false,
 				} );
-
-				window.analogBlocksModal.hide();
-			} else {
-				this.setState( {
-					blockImported: true,
-				} );
-			}
-		} )
-		.catch( error => {
-			add( error.message, 'error', 'import-error', false );
-
-			this.setState( {
-				modalActive: false,
-				activeBlock: false,
 			} );
-		} );
 	}
-
 
 	render() {
 		return (
@@ -123,68 +122,66 @@ class Blocks extends React.Component {
 					/>
 
 					{ this.state.modalActive && (
-					<Popup
-						title={ decodeEntities( this.state.activeBlock.title ) }
-						style={ {
-							textAlign: 'center',
-						} }
-						onRequestClose={ () => {
-							this.setState( {
-								activeBlock: false,
-								modalActive: false,
-								blockImported: false,
-							} );
-						} }
-					>
-						{ ! this.state.blockImported && <Loader /> }
-						{ this.state.blockImported && (
-							<Fragment>
-								<p>
-									{ __( 'The block has been imported and is now available in the', 'ang' ) }
-									{ ' ' }
-									<a
-										target="_blank"
-										rel="noopener noreferrer"
-										href={ addQueryArgs( 'edit.php', {
-											post_type: 'elementor_library',
-											tabs_group: true,
-											elementor_library_type: 'section',
-										} ) }
-									>
-										{ __( 'Elementor section library', 'ang' ) }
-									</a>.
-								</p>
-								<p>
-									<Button
-										isPrimary
-										onClick={ () => {
-											this.setState( {
-												activeBlock: false,
-												modalActive: false,
-												blockImported: false,
-											} );
-										} }
-									>
-										{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
-									</Button>
-								</p>
-							</Fragment>
+						<Popup
+							title={ decodeEntities( this.state.activeBlock.title ) }
+							style={ {
+								textAlign: 'center',
+							} }
+							onRequestClose={ () => {
+								this.setState( {
+									activeBlock: false,
+									modalActive: false,
+									blockImported: false,
+								} );
+							} }
+						>
+							{ ! this.state.blockImported && <Loader /> }
+							{ this.state.blockImported && (
+								<Fragment>
+									<p>
+										{ __( 'The block has been imported and is now available in the', 'ang' ) }
+										{ ' ' }
+										<a
+											target="_blank"
+											rel="noopener noreferrer"
+											href={ addQueryArgs( 'edit.php', {
+												post_type: 'elementor_library',
+												tabs_group: true,
+												elementor_library_type: 'section',
+											} ) }
+										>
+											{ __( 'Elementor section library', 'ang' ) }
+										</a>.
+									</p>
+									<p>
+										<Button
+											isPrimary
+											onClick={ () => {
+												this.setState( {
+													activeBlock: false,
+													modalActive: false,
+													blockImported: false,
+												} );
+											} }
+										>
+											{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
+										</Button>
+									</p>
+								</Fragment>
+							) }
+						</Popup>
+					) }
 
-						) }
-					</Popup>
-				) }
+					{ this.context.state.blocks.length > 1 && AGWP.license.status !== 'valid' && (
+						<ProModal type={ __( 'blocks', 'ang' ) } />
+					) }
 
-
-				{ this.context.state.blocks.length > 1 && AGWP.license.status !== 'valid' && (
-					<ProModal type={ __( 'blocks', 'ang' ) } />
-				) }
-
-				{ this.context.state.blocks.length < 1 && (
-					<Empty text={ __( 'No blocks found.', 'ang' ) }/>
-				) }
+					{ this.context.state.blocks.length < 1 && (
+						<Empty text={ __( 'No blocks found.', 'ang' ) }/>
+					) }
 
 					<BlocksList
-					 importBlock={ this.importBlock }
+						importBlock={ this.importBlock }
 					/>
 
 				</Container>
