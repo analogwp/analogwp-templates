@@ -41,9 +41,6 @@ class BlocksLibrary extends React.Component {
 			syncing: false,
 			isOpen: false,
 			tab: 'all',
-			activeBlock: false,
-			blockImported: false,
-			modalActive: false,
 		};
 
 		this.refreshAPI = this.refreshAPI.bind( this );

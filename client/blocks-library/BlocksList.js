@@ -61,6 +61,8 @@ const Container = styled.div`
 	}
 
 	.favorite {
+		box-shadow: none !important;
+		outline: none !important;
 		svg {
 			fill: #E6E9EC;
 			position: relative;
@@ -88,10 +90,9 @@ const Container = styled.div`
 
 	h3 {
 		margin: 0;
-		font-weight: 600;
-		font-size: 14px;
+		font-weight: normal;
+		font-size: 16px;
 		line-height: 21px;
-		color: #141414;
 	}
 
 	.content {
@@ -122,16 +123,13 @@ const getHeight = ( url ) => {
 };
 
 
-class BlocksList extends React.Component {
-	constructor() {
-		super( ...arguments );
+const BlocksList = ({ importBlock }) => {
+	const context = React.useContext(BlocksContext);
 
-	}
+	const makeFavorite = ( id ) => {
+		const favorites = context.state.favorites;
 
-	makeFavorite = ( id ) => {
-		const favorites = this.context.state.favorites;
-
-		this.context.markFavorite( id, ! ( id in favorites ), 'block' );
+		context.markFavorite( id, ! ( id in favorites ), 'block' );
 
 		if ( id in favorites ) {
 			delete favorites[ id ];
@@ -139,19 +137,18 @@ class BlocksList extends React.Component {
 			favorites[ id ] = ! ( id in favorites );
 		}
 
-		this.context.dispatch( { favorites } );
+		context.dispatch( { favorites } );
 
-		if ( this.context.state.tab === 'favorites' ) {
-			const filteredBlocks = this.context.state.archive.filter( t => t.id in favorites );
+		if ( context.state.tab === 'favorites' ) {
+			const filteredBlocks = context.state.archive.filter( t => t.id in favorites );
 
-			this.context.dispatch( {
+			context.dispatch( {
 				blocks: filteredBlocks,
 			} );
 		}
 	};
 
-	render() {
-		const filteredBlocks = this.context.state.blocks.filter( block => ! ( AGWP.license.status !== 'valid' && this.context.state.showFree && Boolean( block.is_pro ) ) );
+	const filteredBlocks = context.state.blocks.filter( block => ! ( AGWP.license.status !== 'valid' && context.state.showFree && Boolean( block.is_pro ) ) );
 
 		const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
@@ -186,17 +183,17 @@ class BlocksList extends React.Component {
 									<h3>{ decodeEntities( block.title ) }</h3>
 									<div>
 										<Button isTertiary
-											className={ classnames( 'button-plain favorite', {
-												'is-active': block.id in this.context.state.favorites,
+											className={ classnames( 'favorite', {
+												'is-active': block.id in context.state.favorites,
 											} ) }
-											onClick={ () => this.makeFavorite( block.id ) }
+											onClick={ () => makeFavorite( block.id ) }
 										>
 											<Star />
 										</Button>
 										<NotificationConsumer>
 											{ ( { add } ) => (
 												isValid( block.is_pro ) && (
-													<Button isPrimary className="ang-button" onClick={ () => console.log( block, add ) }>
+													<Button isPrimary className="ang-button" onClick={ () => importBlock( block, add ) }>
 														{ __( 'Import', 'ang' ) }
 													</Button>
 												)
@@ -213,9 +210,6 @@ class BlocksList extends React.Component {
 				</Masonry>
 			</Container>
 		);
-	}
 }
-
-BlocksList.contextType = BlocksContext;
 
 export default BlocksList;
