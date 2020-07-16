@@ -157,7 +157,7 @@ const Sidebar = () => {
 		let countTemplate = count > 0 ? count : 0;
 		let label = title.replace(/-/g, ' ');
 
-		return [`${label} `, <span key="title">{countTemplate}</span>];
+		return [`${label} `, <span key={title}>{countTemplate}</span>];
 	}
 
 	const tabGenerator = (tabsArray) => {
