@@ -127,10 +127,9 @@ function analog_fail_load() {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}
 	$file_path         = 'elementor/elementor.php';
-	$installed_plugins = get_plugins();
-	$elementor         = isset( $installed_plugins[ $file_path ] );
+	$is_elementor_loaded = in_array($file_path, apply_filters('active_plugins', get_option('active_plugins')));
 
-	if ( $elementor ) {
+	if ( !$is_elementor_loaded ) {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
