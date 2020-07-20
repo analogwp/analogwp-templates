@@ -344,7 +344,7 @@ class App extends React.Component {
 
 		if ( 'latest' === value ) {
 			const sorted = sortData.sort( ( a, b ) => {
-				if ( 'popularityIndex' in a ) {
+				if ( 'published' in a ) {
 					if ( parseInt( getTime( a.published ) ) < parseInt( getTime( b.published ) ) ) {
 						return 1;
 					}
