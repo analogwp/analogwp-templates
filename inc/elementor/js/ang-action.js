@@ -11,7 +11,7 @@
 
 		function bindEvents() {
 			elementor.once( 'preview:loaded', function() {
-				elementor.channels.editor.on( 'analog:editKit', () => $e.run( 'panel/global/open' ) );
+				elementor.channels.editor.on( 'analog:editKit', () => analog.openThemeStyles() );
 
 				if ( 'undefined' === typeof (elementor.config.initial_document.panel) || ! elementor.config.initial_document.panel.support_kit ) {
 					return;
@@ -47,6 +47,7 @@
 					elementor.config.kit_id = activeKit;
 					fixKitClasses();
 					analog.setPanelTitle( activeKit );
+					loadDocumentAndEnqueueFonts(activeKit);
 				}
 			});
 		}
@@ -69,7 +70,7 @@
 					 * This line forces Theme Style window to open, which re-renders the CSS for current kit.
 					 */
 					if ( ! elementor.$previewContents.find( `#elementor-post-${config.id}-css` ).length ) {
-						$e.run( 'panel/global/open' );
+						analog.openThemeStyles();
 					}
 				})
 				.then( () => {
@@ -139,6 +140,14 @@ jQuery( window ).on( 'elementor:init', function() {
 		}
 	};
 
+	analog.openThemeStyles = ( tab = 'theme-style' ) => {
+		if ( 'panel/global/theme-style' in $e.routes.components ) {
+			$e.run( 'panel/global/open' ).then( () => $e.route( `panel/global/${tab}` ) );
+		} else {
+			$e.run( 'panel/global/open' );
+		}
+	};
+
 	/**
 	 * Escape charcters in during Regexp.
 	 *
@@ -192,7 +201,8 @@ jQuery( window ).on( 'elementor:init', function() {
 	 */
 	analog.redirectToPanel = ( section ) => {
 		$e.run( 'panel/global/open' ).then( () => {
-			elementor.getPanelView().setPage('kit_settings').content.currentView.activateSection( section ).activateTab('style');
+			const tab = ( 'panel/global/theme-style' in $e.routes.components ) ? 'theme-style' : 'style';
+			elementor.getPanelView().setPage('kit_settings').content.currentView.activateSection( section ).activateTab(tab);
 		});
 	};
 

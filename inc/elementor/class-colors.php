@@ -9,6 +9,7 @@ namespace Analog\Elementor;
 
 defined( 'ABSPATH' ) || exit;
 
+use Analog\Utils;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
 use Elementor\Core\Settings\Manager;
@@ -151,7 +152,7 @@ class Colors extends Module {
 			'ang_colors',
 			array(
 				'label' => _x( 'Accent Colors', 'Section Title', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => Utils::get_kit_settings_tab(),
 			)
 		);
 

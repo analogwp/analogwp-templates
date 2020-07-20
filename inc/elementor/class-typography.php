@@ -19,12 +19,6 @@ use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
 use Analog\Utils;
 
-if ( version_compare( ELEMENTOR_VERSION, '2.8.0', '<' ) ) {
-	class_alias( 'Elementor\Scheme_Typography', 'Analog\Elementor\Scheme_Typography' );
-} else {
-	class_alias( 'Elementor\Core\Schemes\Typography', 'Analog\Elementor\Scheme_Typography' );
-}
-
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -34,6 +28,14 @@ defined( 'ABSPATH' ) || exit;
  */
 class Typography extends Module {
 	use Document;
+
+	/**
+	 * Tab to which add settings to.
+	 * @since n.e.x.t
+	 *
+	 * @var string
+	 */
+	private $settings_tab;
 
 	/**
 	 * Holds Style Kits.
@@ -64,6 +66,7 @@ class Typography extends Module {
 	 */
 	public function __construct() {
 		$this->tokens = Utils::get_kits();
+		$this->settings_tab = Utils::get_kit_settings_tab();
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'register_typography_sizes' ), 20, 2 );
 
@@ -172,7 +175,7 @@ class Typography extends Module {
 					/* translators: %s: Heading 1-6 type */
 					'label'    => sprintf( __( 'Heading %s', 'ang' ), $i ),
 					'selector' => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
-					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				)
 			);
 		}
@@ -218,7 +221,7 @@ class Typography extends Module {
 				'name'     => 'ang_body',
 				'label'    => __( 'Body Typography', 'ang' ),
 				'selector' => '{{WRAPPER}}',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
+				'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_3,
 			)
 		);
 
@@ -236,7 +239,7 @@ class Typography extends Module {
 			'ang_typography_sizes',
 			array(
 				'label' => __( 'Typographic Sizes', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => $this->settings_tab,
 			)
 		);
 
@@ -289,7 +292,7 @@ class Typography extends Module {
 				array(
 					'name'     => 'ang_size_' . $setting[0],
 					'label'    => __( 'Heading', 'ang' ) . ' ' . $setting[1],
-					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 					'selector' => $selectors,
 					'exclude'  => $size_controls,
 				)
@@ -328,7 +331,7 @@ class Typography extends Module {
 				array(
 					'name'     => 'ang_text_size_' . $setting[0],
 					'label'    => __( 'Text', 'ang' ) . ' ' . $setting[1],
-					'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 					'selector' => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
 					'exclude'  => $size_controls,
 				)
@@ -362,7 +365,7 @@ class Typography extends Module {
 			'ang_section_padding',
 			array(
 				'label' => __( 'Outer Section Padding', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => $this->settings_tab,
 			)
 		);
 
@@ -415,7 +418,7 @@ class Typography extends Module {
 			'ang_column_gaps',
 			array(
 				'label' => __( 'Column Gaps', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => $this->settings_tab,
 			)
 		);
 
@@ -470,7 +473,7 @@ class Typography extends Module {
 			'ang_buttons',
 			array(
 				'label' => __( 'Button Sizes', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => $this->settings_tab,
 			)
 		);
 
@@ -762,7 +765,7 @@ class Typography extends Module {
 			'ang_tools',
 			array(
 				'label' => __( 'Theme Style Kit', 'ang' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'tab'   => $this->settings_tab,
 			)
 		);
 
