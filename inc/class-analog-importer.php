@@ -60,9 +60,9 @@ class Analog_Importer extends Source_Remote {
 
 		$data['content'] = $this->replace_elements_ids( $data['content'] );
 
-		add_filter( 'upload_dir', array('Analog\Utils', 'style_kits_upload_dir') );
+		add_filter( 'upload_dir', array( 'Analog\Utils', 'style_kits_upload_dir' ) );
 		$data['content'] = $this->process_export_import_content( $data['content'], 'on_import' );
-		remove_filter( 'upload_dir', array('Analog\Utils', 'style_kits_upload_dir') );
+		remove_filter( 'upload_dir', array( 'Analog\Utils', 'style_kits_upload_dir' ) );
 
 		$post_id  = $args['editor_post_id'];
 		$document = Plugin::elementor()->documents->get( $post_id );
