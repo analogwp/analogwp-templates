@@ -40,6 +40,13 @@ final class Plugin {
 	public static $user_meta_block_prefix = 'analog_block_favorites';
 
 	/**
+	 * Database Upgrader.
+	 *
+	 * @var Database_Upgrader
+	 */
+	public $database_upgrader;
+
+	/**
 	 * Sets the plugin main file.
 	 *
 	 * @since 1.6.0
@@ -65,6 +72,10 @@ final class Plugin {
 
 		( new Consumer() )->register();
 		( new Notices() )->register();
+
+		// Migrations.
+		$this->database_upgrader = new Database_Upgrader();
+		add_action( 'admin_init', array( $this->database_upgrader, 'init' ) );
 	}
 
 	/**
@@ -225,6 +236,7 @@ final class Plugin {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-post-type.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-tools.php';
 		require_once ANG_PLUGIN_DIR . 'inc/upgrade-functions.php';
+		require_once ANG_PLUGIN_DIR . 'inc/Database_Upgrader.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-quick-edit.php';
 
 		require_once ANG_PLUGIN_DIR . 'inc/admin/class-admin.php';

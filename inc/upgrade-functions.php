@@ -19,6 +19,8 @@ use Analog\Options;
 /**
  * Perform automatic upgrades when necessary.
  *
+ * @deprecated n.e.x.t Use class Database_Upgrader instead.
+ *
  * @return void
  */
 function do_automatic_upgrades() {
