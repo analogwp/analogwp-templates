@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import BlocksContext from './BlocksContext';
 import BlocksList from './BlocksList';
 import Empty from '../helpers/Empty';
@@ -12,47 +11,6 @@ const { Fragment } = wp.element;
 const { TextControl, Button, Dashicon } = wp.components;
 const { addQueryArgs } = wp.url;
 
-const Container = styled.div`
-	margin-top: 20px;
-	margin-right: 20px;
-	.components-base-control {
-		margin-bottom: 30px;
-	}
-
-	.button-plain {
-    padding: 0;
-    margin: 0;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    cursor: pointer;
-    appearance: none;
-    outline: 0;
-    background: transparent;
-    font-weight: bold;
-    color: #060606;
-    font-size: 14.22px;
-}
-.inner-popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    background: #fff;
-}
-.inner-popup-header h1 {
-    font-size: 16px;
-    font-weight: bold;
-    color: #000000;
-    margin: 0;
-}
-.inner-popup-content p {
-    font-size: 13px;
-    line-height: 18px;
-    color: #565D65;
-}
-`;
-
 class Blocks extends React.Component {
 	constructor() {
 		super( ...arguments );
@@ -62,7 +20,6 @@ class Blocks extends React.Component {
 			blockImported: false,
 			modalActive: false,
 		};
-
 
 		this.importBlock = this.importBlock.bind( this );
 		this.handleImport = this.handleImport.bind( this );
@@ -112,7 +69,7 @@ class Blocks extends React.Component {
 	render() {
 		return (
 			<Fragment>
-				<Container className="blocks-area">
+				<div className="blocks-area">
 					<TextControl
 						placeholder={ __( 'Search blocks', 'ang' )}
 						value={ this.searchInput }
@@ -184,7 +141,7 @@ class Blocks extends React.Component {
 						importBlock={ this.importBlock }
 					/>
 
-				</Container>
+				</div>
 			</Fragment>
 		);
 	}

@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import BlocksContext from './BlocksContext';
 import Blocks from './Blocks';
 import Header from './Header';
@@ -9,25 +8,6 @@ import { getTime, hasProTemplates } from '../utils';
 import Empty from '../helpers/Empty';
 const { __ } = wp.i18n;
 const { apiFetch } = wp;
-
-const AnalogBlocks = styled.div`
-	margin: 0 0 0 -20px;
-	position: relative;
-	color: #1D2C37;
-	background-color: #F3F4F5;
-
-	--ang-accent: rgb(0,112,167);
-
-	h1, h2, h3, h4, h5, h6 {
-		color: #1D2C37;
-	}
-`;
-
-const Container = styled.div`
-	display: grid;
-	grid-template-columns: 3fr 9fr;
-	grid-gap: 20px;
-`;
 
 class BlocksLibrary extends React.Component {
 	constructor() {
@@ -176,7 +156,7 @@ class BlocksLibrary extends React.Component {
 
 	render() {
 		return (
-			<AnalogBlocks>
+			<div className="blocks-library">
 				<Notifications>
 					<BlocksContext.Provider
 						value={ {
@@ -192,13 +172,13 @@ class BlocksLibrary extends React.Component {
 						{ this.state.syncing && <Empty text={ __( 'Loading blocks...', 'ang' ) } /> }
 
 						{ ! this.state.syncing &&
-						<Container>
+						<div className="library-wrapper">
 							<Sidebar />
 							<Blocks />
-						</Container> }
+						</div> }
 					</BlocksContext.Provider>
 				</Notifications>
-			</AnalogBlocks>
+			</div>
 		);
 	}
 }

@@ -17,8 +17,8 @@ const externals = {
 // Webpack config
 const config = {
 	entry: {
-		app: './client/index.js',
 		blocksLibrary: './client/blocks-library/index.js',
+		app: './client/index.js',
 	},
 	externals,
 	output: {

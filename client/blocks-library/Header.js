@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import classNames from 'classnames';
 import BlocksContext from './BlocksContext';
 import Close from '../icons/close';
@@ -6,29 +5,9 @@ import { NotificationConsumer } from '../Notifications';
 const { __ } = wp.i18n;
 const { Button } = wp.components;
 
-const Container = styled.div`
-	background: #fff;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 18px 22px;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.09);
-
-	.page-title {
-		font-size: 17px;
-		font-weight: 600;
-		line-height: 1.1;
-		margin: 0;
-	}
-
-	.close-modal {
-		margin-left: 10px;
-	}
-`;
-
 const Header = () => {
 	return (
-		<Container >
+		<div className="primary-header">
 			<p className="page-title">{__( 'Blocks Library', 'ang' )}</p>
 			<div>
 				<BlocksContext.Consumer>
@@ -60,7 +39,7 @@ const Header = () => {
 					</Button>
 				) }
 			</div>
-		</Container>
+		</div>
 	);
 }
 

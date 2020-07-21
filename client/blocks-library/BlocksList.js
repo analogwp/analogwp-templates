@@ -1,6 +1,5 @@
 import classnames from 'classnames';
 import BlocksContext from './BlocksContext';
-import styled from 'styled-components';
 import Masonry from 'react-masonry-css';
 import { isNewTheme } from '../utils';
 import { NotificationConsumer } from '../Notifications';
@@ -9,100 +8,6 @@ import Star from '../icons/star';
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
 const { Button } = wp.components;
-
-const Container = styled.div`
-	.grid {
-		display: flex;
-		margin-left: -25px; /* gutter size offset */
-		width: auto;
-	}
-
-	.grid-item {
-		padding-left: 25px;
-		background-clip: padding-box;
-
-		&:empty {
-			display: none;
-		}
-
-		> div {
-			background: #fff;
-			box-shadow: 0px 5px 20px rgba(0,0,0,0.05);
-			position: relative;
-			margin-bottom: 25px;
-		}
-	}
-
-	.new {
-		position: absolute;
-		top: -8px;
-		right: -8px;
-		background: var(--ang-accent);
-		color: #fff;
-		z-index: 110;
-		font-weight: bold;
-		padding: 8px 10px;
-		line-height: 1;
-		border-radius: 4px;
-		text-transform: uppercase;
-		font-size: 14.22px;
-		letter-spacing: .5px;
-	}
-
-	figure {
-		position: relative;
-		overflow: hidden;
-		margin: 0;
-		min-height: 150px;
-		display: flex;
-	}
-	.ang-promo {
-		text-decoration: none;
-	}
-
-	.favorite {
-		box-shadow: none !important;
-		outline: none !important;
-		svg {
-			fill: #E6E9EC;
-			position: relative;
-			z-index: 195;
-			width: 17px;
-			height: 17px;
-		}
-		&.is-active svg {
-			fill: #000;
-		}
-	}
-
-	img {
-		max-width: 100%;
-		height: auto;
-		align-self: center;
-	}
-
-	img[src$="svg"] {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		max-height: 150px;
-	}
-
-	h3 {
-		margin: 0;
-		font-weight: normal;
-		font-size: 16px;
-		line-height: 21px;
-	}
-
-	.content {
-		border-top: 1px solid #DDD;
-		padding: 30px 20px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-`;
 
 const getHeight = ( url ) => {
 	/**
@@ -155,7 +60,7 @@ const BlocksList = ({ importBlock }) => {
 		const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
 
 		return (
-			<Container>
+			<div className="blocks-grid">
 				<Masonry
 					breakpointCols={ 2 }
 					className="grid"
@@ -208,7 +113,7 @@ const BlocksList = ({ importBlock }) => {
 						);
 					} ) }
 				</Masonry>
-			</Container>
+			</div>
 		);
 }
 
