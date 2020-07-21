@@ -79,16 +79,19 @@ class Database_Upgrader {
 	 * @return void
 	 */
 	protected function upgrade_1_7() {
-		$query = new \WP_Query(
+		$old_style_kits = get_posts(
 			array(
-				'post_type'      => 'ang_tokens',
-				'posts_per_page' => -1,
-				'fields'         => 'ids',
+				'fields'           => 'ids',
+				'suppress_filters' => false,
+				'post_type'        => 'ang_tokens',
+				'posts_per_page'   => - 1,
 			)
 		);
 
-		if ( $query->have_posts() && count( $query->posts ) ) {
-			array_map( 'wp_delete_post', $query->posts );
+		if ( count( $old_style_kits ) ) {
+			foreach ( $old_style_kits as $post_id ) {
+				wp_delete_post( (int) $post_id, true );
+			}
 		}
 	}
 }
