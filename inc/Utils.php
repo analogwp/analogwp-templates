@@ -764,6 +764,27 @@ class Utils extends Base {
 	}
 
 	/**
+	 * Filters upload files path and URL
+	 *
+	 * This static method is responsible to filter and modify the uploaded file path to plugin defined constant path.
+	 *
+	 * @since 1.6.10
+	 *
+	 * @param Array $arr An associative array which holds upload path configuration.
+	 *
+	 * @return Array
+	 */
+	public static function style_kits_upload_dir( $arr ) {
+		$folder = ANG_SK_UPLOAD_DIR;
+
+		$arr['path']   = $arr['basedir'] . $folder;
+		$arr['url']    = $arr['baseurl'] . $folder;
+		$arr['subdir'] = $folder;
+
+		return $arr;
+	}
+
+	/**
 	 * Check if the installed version of Elementor is older than a specified version.
 	 *
 	 * @param string $version Version number.
@@ -795,27 +816,6 @@ class Utils extends Base {
 		}
 
 		return $tab;
-	}
-
-	/**
-	 * Filters upload files path and URL
-	 *
-	 * This static method is responsible to filter and modify the uploaded file path to plugin defined constant path.
-	 *
-	 * @since 1.6.10
-	 *
-	 * @param Array $arr An associative array which holds upload path configuration.
-	 *
-	 * @return Array
-	 */
-	public static function style_kits_upload_dir( $arr ) {
-		$folder = ANG_SK_UPLOAD_DIR;
-
-		$arr['path']   = $arr['basedir'] . $folder;
-		$arr['url']    = $arr['baseurl'] . $folder;
-		$arr['subdir'] = $folder;
-
-		return $arr;
 	}
 }
 

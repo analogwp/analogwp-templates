@@ -600,14 +600,14 @@ class Local extends Base {
 			return new WP_Error( 'kit_post_error', $kit_id->get_error_message() );
 		}
 
-		add_filter( 'upload_dir', array('Analog\Utils', 'style_kits_upload_dir') );
+		add_filter( 'upload_dir', array( 'Analog\Utils', 'style_kits_upload_dir' ) );
 		$attachment = Import_Image::get_instance()->import(
 			array(
 				'id'  => wp_rand( 000, 999 ),
 				'url' => $kit['image'],
 			)
 		);
-		remove_filter( 'upload_dir', array('Analog\Utils', 'style_kits_upload_dir') );
+		remove_filter( 'upload_dir', array( 'Analog\Utils', 'style_kits_upload_dir' ) );
 
 		update_post_meta( $kit_id, '_thumbnail_id', $attachment['id'] );
 

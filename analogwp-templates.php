@@ -28,7 +28,7 @@ define( 'ANG_PLUGIN_FILE', __FILE__ );
 define( 'ANG_PLUGIN_URL', plugin_dir_url( ANG_PLUGIN_FILE ) );
 define( 'ANG_PLUGIN_DIR', plugin_dir_path( ANG_PLUGIN_FILE ) );
 define( 'ANG_PLUGIN_BASE', plugin_basename( ANG_PLUGIN_FILE ) );
-define( 'ANG_SK_UPLOAD_DIR', '/style_kits');
+define( 'ANG_SK_UPLOAD_DIR', '/style_kits' );
 
 /**
  * Handles plugin activation.
