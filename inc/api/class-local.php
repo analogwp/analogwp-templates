@@ -320,6 +320,10 @@ class Local extends Base {
 			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'ang' ) );
 		}
 
+		global $global_subdirectory_name;
+		$global_subdirectory_name  = 'template-' . $template['site_id'] . '-' . $template['id'] . '-';
+		$global_subdirectory_name .= hash( 'crc32', $global_subdirectory_name );
+
 		// Initiate template import.
 		$obj = new Analog_Importer();
 
@@ -600,6 +604,10 @@ class Local extends Base {
 			return new WP_Error( 'kit_post_error', $kit_id->get_error_message() );
 		}
 
+		global $global_subdirectory_name;
+		$global_subdirectory_name  = 'stylekit-' . $kit['site_id'] . '-' . $kit['id'] . '-';
+		$global_subdirectory_name .= hash( 'crc32', $global_subdirectory_name );
+
 		add_filter( 'upload_dir', array( 'Analog\Utils', 'style_kits_upload_dir' ) );
 		$attachment = Import_Image::get_instance()->import(
 			array(
@@ -700,6 +708,11 @@ class Local extends Base {
 		}
 
 		$raw_data = Remote::get_instance()->get_block_content( $block['id'], $license, $method, $block['siteID'] );
+
+		global $global_subdirectory_name;
+		$global_subdirectory_name  = 'block-' . $block['siteID'] . '-' . $block['id'] . '-';
+		$global_subdirectory_name .= hash( 'crc32', $global_subdirectory_name );
+
 		$importer = new Analog_Importer();
 
 		$data = $importer->get_data(
