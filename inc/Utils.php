@@ -775,7 +775,12 @@ class Utils extends Base {
 	 * @return Array
 	 */
 	public static function style_kits_upload_dir( $arr ) {
+		global $global_subdirectory_name;
 		$folder = ANG_SK_UPLOAD_DIR;
+
+		if ( ! empty( $global_subdirectory_name ) ) {
+			$folder .= '/' . $global_subdirectory_name;
+		}
 
 		$arr['path']   = $arr['basedir'] . $folder;
 		$arr['url']    = $arr['baseurl'] . $folder;
