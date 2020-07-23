@@ -48,7 +48,7 @@ class BlocksLibrary extends React.Component {
 			hasPro: hasProTemplates( library.templates ),
 		} );
 
-		this.handleSort( 'latest', 'blocks' );
+		this.handleSort( 'latest' );
 
 		// Listen for Elementor modal close, so we can reset some states.
 		document.addEventListener( 'modal-close', () => {
@@ -80,7 +80,7 @@ class BlocksLibrary extends React.Component {
 
 		if ( 'latest' === value ) {
 			const sorted = sortData.sort( ( a, b ) => {
-				if ( 'popularityIndex' in a ) {
+				if ( 'published' in a ) {
 					if ( parseInt( getTime( a.published ) ) < parseInt( getTime( b.published ) ) ) {
 						return 1;
 					}
