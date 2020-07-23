@@ -25,7 +25,7 @@ final class Promotions extends Base {
 	 */
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_layout_tools' ), 250, 2 );
-		add_action( 'elementor/element/kit/section_form_fields/after_section_end', array( $this, 'register_form_controls' ), 20, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_form_controls' ), 45, 2 );
 
 		add_action( 'analog_background_colors_tab_end', array( $this, 'add_background_color_accent_promo' ), 170, 1 );
 	}
@@ -85,7 +85,7 @@ final class Promotions extends Base {
 			'ang_forms_pro',
 			array(
 				'label' => _x( 'Forms (Extended)', 'Section Title', 'ang' ),
-				'tab'   => Controls_Manager::TAB_SETTINGS,
+				'tab'   => Utils::get_kit_settings_tab(),
 			)
 		);
 

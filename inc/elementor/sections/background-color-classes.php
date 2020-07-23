@@ -27,7 +27,7 @@ final class BackgroundColorClasses extends Module {
 	 * BackgroundColorClasses constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/element/kit/section_body/after_section_end', array( $this, 'register_section' ), 20, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_section' ), 10, 2 );
 	}
 
 	/**
