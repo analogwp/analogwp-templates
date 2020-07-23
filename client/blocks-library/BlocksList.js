@@ -75,10 +75,10 @@ const BlocksList = ({ importBlock }) => {
 
 								<figure>
 									<img
-										src={ ( block.thumbnail === '0' ) ? fallbackImg : block.thumbnail }
+										src={ `https://bs.analogwp.com/${block.id}.jpg` }
 										loading="lazy"
 										width="768"
-										height={ getHeight( block.thumbnail ) || undefined }
+										height={ getHeight( `https://bs.analogwp.com/${block.id}.jpg` ) || undefined }
 										alt={ block.title }
 									/>
 
