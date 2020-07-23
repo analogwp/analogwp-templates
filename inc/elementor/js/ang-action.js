@@ -494,7 +494,7 @@ jQuery( window ).on( 'elementor:init', function() {
 			'theme-style-kits',
 			{
 				title: 'Style Kits',
-				icon: 'eicon-typography-1',
+				icon: 'eicon-global-settings',
 				helpUrl: 'http://go.elementor.com/panel-global-typography'
 			},
 			6
@@ -503,7 +503,7 @@ jQuery( window ).on( 'elementor:init', function() {
 		const PanelView = elementor.getPanelView('kit_menu').getPages().kit_menu.view;
 		PanelView.addItem( PanelView.getGroups(), {
 			name: 'theme-style-kits',
-			icon: ' eicon-global-settings',
+			icon: 'eicon-global-settings',
 			title: 'Style Kits',
 			callback: () => $e.route( 'panel/global/theme-style-kits' ),
 		}, 'theme_style' );
