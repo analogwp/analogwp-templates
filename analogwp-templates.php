@@ -131,8 +131,13 @@ function analog_fail_load() {
 	if ( version_compare( get_bloginfo( 'version' ), '5.5a', 'gt' ) ) {
 		$request  = new WP_REST_Request( 'GET', '/wp/v2/plugins/elementor/elementor' );
 		$response = rest_do_request( $request );
-		$server   = rest_get_server();
-		$data     = $server->response_to_data( $response, false );
+
+		if ( $response->is_error() ) {
+			wp_die( '<p>' . esc_html__( 'An error occurred while checking Elementor is Installed/Activated', 'ang' ) . '</p>' );
+		}
+
+		$server = rest_get_server();
+		$data   = $server->response_to_data( $response, false );
 
 		if ( ! empty( $data['status'] ) && 'inactive' === $data['status'] ) {
 			$is_not_activated = true;
