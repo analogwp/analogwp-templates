@@ -7,6 +7,18 @@ const defaultTabs = [
 	'all-blocks',
 ];
 
+
+const analogBlockSlides = wp.hooks.applyFilters( 'analogBlocks.carousel', [
+	{
+		'title': __( 'Upgrade to stylekits', 'ang' ),
+		'content': __( 'Enjoy unlimited access to the template and block library, along with many more features in Style Kits Pro.', 'ang' ),
+		'button': {
+			'link': 'https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro',
+			'text': __( 'Learn More', 'ang' )
+		}
+	},
+] ) ;
+
 const Sidebar = () => {
 	const context = React.useContext( BlocksContext );
 	const categories = [ ...new Set( context.state.archive.map( block => block.tags[ 0 ] ) ) ];
@@ -99,15 +111,18 @@ const Sidebar = () => {
 			) }
 
 			<div className="slider">
-				<div className="slide-1">
-					<h3>Upgrade to Stylekits Pro</h3>
-					<p>
-					Enjoy unlimited access to the template and block library, along with many more features in Style Kits Pro.
-					</p>
-					<Button isPrimary><a href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro">Learn More</a></Button>
-				</div>
-
-				<div className="slide-2">You take the blue pill - the story ends, you wake up in your bed and believe whatever you want to believe.</div>
+				{
+					analogBlockSlides.map((slide, index) => {
+						return (
+							<div className={`slide-${index + 1}`} key={index}>
+								<h3>{slide.title}</h3>
+								<p>{slide.content}</p>
+								{slide.button && <Button isPrimary><a
+									href={slide.button.link}>{slide.button.text}</a></Button>}
+							</div>
+						)
+					})
+				}
 			</div>
 		</div>
 	);
