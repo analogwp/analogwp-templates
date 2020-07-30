@@ -94,7 +94,7 @@ class Filters extends React.Component {
 						</div>
 
 						{ ( ! this.context.state.group || showingKit ) && ! this.context.state.showing_favorites && (
-							<div className="bottom">
+							<div className={"bottom " + ( showingKit ? 'to-top-right' : '')}>
 								<span>
 									{ ! showingKit && filters.length > 1 && (
 										<SelectControl
