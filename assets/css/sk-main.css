@@ -365,6 +365,12 @@
 #analogwp-templates .block-filter .favorites.is-active svg {
     fill: #FFB443 !important;
 }
+
+#analogwp-templates .to-top-right {
+    position: absolute;
+    top: 16px;
+    right: 24px;
+}
 /*END*/
 
 /*Template preview page css*/

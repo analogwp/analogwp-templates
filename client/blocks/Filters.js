@@ -91,7 +91,7 @@ export default class Filters extends React.Component {
 					) }
 				</div>
 				{ ( ! this.context.state.group || showingCategory) && ! this.context.state.showing_favorites && (
-					<div className="bottom">
+					<div className={"bottom " + (showingCategory ? 'to-top-right' : '') }>
 						<span>
 							{ ! showingCategory && (
 								<SelectControl
