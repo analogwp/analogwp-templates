@@ -10,7 +10,7 @@ const defaultTabs = [
 
 const analogBlockSlides = wp.hooks.applyFilters( 'analogBlocks.carousel', [
 	{
-		'title': __( 'Upgrade to stylekits', 'ang' ),
+		'title': __( 'Upgrade to Style Kits Pro', 'ang' ),
 		'content': __( 'Enjoy unlimited access to the template and block library, along with many more features in Style Kits Pro.', 'ang' ),
 		'button': {
 			'link': 'https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro',
@@ -83,6 +83,8 @@ const Sidebar = () => {
 		return null;
 	}
 
+	const sliderAnimation = analogBlockSlides.length <= 1 ? 'no-animation' : '';
+
 	return (
 		<div className="sidebar">
 			<TabPanel
@@ -110,7 +112,7 @@ const Sidebar = () => {
 				/>
 			) }
 
-			<div className="slider">
+			<div className={ `slider ${sliderAnimation}` }>
 				{
 					analogBlockSlides.map((slide, index) => {
 						return (

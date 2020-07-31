@@ -139,6 +139,11 @@
 #analogwp-blocks .sidebar .slider {
 	position: relative;
 	min-height: 300px;
+	padding-bottom: 80px;
+}
+
+#analogwp-blocks .sidebar .slider.no-animation > div {
+	animation: none;
 }
 
 #analogwp-blocks .sidebar .slider a {
