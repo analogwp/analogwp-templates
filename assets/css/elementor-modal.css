@@ -188,3 +188,16 @@ button[data-action="save_token"] {
 .sub-arrow + .sub-arrow {
 	display: none;
 }
+
+#analogwp-blocks .primary-header {
+	top: 0;
+}
+
+#analogwp-blocks .sidebar {
+	top: 75px;
+}
+
+#analogwp-blocks .sidebar .slider {
+	padding-bottom: 0;
+	margin-bottom: 180px;
+}

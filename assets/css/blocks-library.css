@@ -14,12 +14,8 @@
 #analogwp-blocks h5,
 #analogwp-blocks h6 {
 	color: #1d2c37;
-}
-
-#analogwp-blocks .library-wrapper {
-	display: grid;
-	grid-template-columns: 3fr 9fr;
-	grid-gap: 20px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-weight: 600;
 }
 
 #analogwp-blocks .primary-header {
@@ -29,6 +25,10 @@
 	align-items: center;
 	padding: 18px 22px;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+	position: sticky;
+	position: -webkit-sticky;
+	top: 30px;
+	z-index: 999;
 }
 
 #analogwp-blocks .primary-header .page-title {
@@ -40,6 +40,26 @@
 
 #analogwp-blocks .primary-header .close-modal {
 	margin-left: 10px;
+}
+
+#analogwp-blocks .library-wrapper {
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+}
+
+#analogwp-blocks .sidebar {
+	width: 25%;
+	height: 100vh;
+	overflow: scroll;
+	position: sticky;
+	position: -webkit-sticky;
+	top: 110px;
+	padding-right: 20px;
+}
+
+#analogwp-blocks .blocks-area {
+	width: 70%;
 }
 
 #analogwp-blocks .sidebar .components-tab-panel__tabs {
