@@ -27,9 +27,8 @@ const getHeight = ( url ) => {
 	return p2[ 0 ];
 };
 
-
-const BlocksList = ({ importBlock }) => {
-	const context = React.useContext(BlocksContext);
+const BlocksList = ( { importBlock } ) => {
+	const context = React.useContext( BlocksContext );
 
 	const makeFavorite = ( id ) => {
 		const favorites = context.state.favorites;
@@ -55,66 +54,66 @@ const BlocksList = ({ importBlock }) => {
 
 	const filteredBlocks = context.state.blocks.filter( block => ! ( AGWP.license.status !== 'valid' && context.state.showFree && Boolean( block.is_pro ) ) );
 
-		const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
+	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
-		const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
+	const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
 
-		return (
-			<div className="blocks-grid">
-				<Masonry
-					breakpointCols={ 2 }
-					className="grid"
-					columnClassName="grid-item"
-				>
-					{ filteredBlocks.map( ( block ) => {
-						return (
-							<div key={ block.id }>
-								{ ( isNewTheme( block.published ) > -14 ) && (
-									<span className="new">{ __( 'New', 'ang' ) }</span>
-								) }
+	return (
+		<div className="blocks-grid">
+			<Masonry
+				breakpointCols={ 2 }
+				className="grid"
+				columnClassName="grid-item"
+			>
+				{ filteredBlocks.map( ( block ) => {
+					return (
+						<div key={ block.id }>
+							{ ( isNewTheme( block.published ) > -14 ) && (
+								<span className="new">{ __( 'New', 'ang' ) }</span>
+							) }
 
-								<figure>
-									<img
-										src={ `https://bs.analogwp.com/${block.id}.jpg` }
-										loading="lazy"
-										width="768"
-										height={ getHeight( `https://bs.analogwp.com/${block.id}.jpg` ) || undefined }
-										alt={ block.title }
-									/>
+							<figure>
+								<img
+									src={ `https://bs.analogwp.com/${ block.id }.jpg` }
+									loading="lazy"
+									width="768"
+									height={ getHeight( `https://bs.analogwp.com/${ block.id }.jpg` ) || undefined }
+									alt={ block.title }
+								/>
 
-								</figure>
+							</figure>
 
-								<div className="content">
-									<h3>{ decodeEntities( block.title ) }</h3>
-									<div>
-										<Button isTertiary
-											className={ classnames( 'favorite', {
-												'is-active': block.id in context.state.favorites,
-											} ) }
-											onClick={ () => makeFavorite( block.id ) }
-										>
-											<Star />
-										</Button>
-										<NotificationConsumer>
-											{ ( { add } ) => (
-												isValid( block.is_pro ) && (
-													<Button isPrimary className="ang-button" onClick={ () => importBlock( block, add ) }>
-														{ __( 'Import', 'ang' ) }
-													</Button>
-												)
-											) }
-										</NotificationConsumer>
-										{ ! isValid( block.is_pro ) && (
-												<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank"><Button isSecondary className="ang-button">{ __( 'Go Pro', 'ang' ) }</Button></a>
-											) }
-									</div>
+							<div className="content">
+								<h3>{ decodeEntities( block.title ) }</h3>
+								<div>
+									<Button isTertiary
+										className={ classnames( 'favorite', {
+											'is-active': block.id in context.state.favorites,
+										} ) }
+										onClick={ () => makeFavorite( block.id ) }
+									>
+										<Star />
+									</Button>
+									<NotificationConsumer>
+										{ ( { add } ) => (
+											isValid( block.is_pro ) && (
+												<Button isPrimary className="ang-button" onClick={ () => importBlock( block, add ) }>
+													{ __( 'Import', 'ang' ) }
+												</Button>
+											)
+										) }
+									</NotificationConsumer>
+									{ ! isValid( block.is_pro ) && (
+										<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank"><Button isSecondary className="ang-button">{ __( 'Go Pro', 'ang' ) }</Button></a>
+									) }
 								</div>
 							</div>
-						);
-					} ) }
-				</Masonry>
-			</div>
-		);
-}
+						</div>
+					);
+				} ) }
+			</Masonry>
+		</div>
+	);
+};
 
 export default BlocksList;

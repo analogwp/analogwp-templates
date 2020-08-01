@@ -6,7 +6,6 @@ import Header from './Header';
 import Notifications from './Notifications';
 import { getTime, getPageComponents, hasProTemplates } from './utils';
 const { apiFetch } = wp;
-const { __ } = wp.i18n;
 
 const Analog = styled.div`
 	margin: 0 0 0 -20px;
@@ -88,7 +87,7 @@ const Analog = styled.div`
 		font-size: 14.22px;
 	}
 
-	
+
 	button {
 		font-family: inherit;
 	}
@@ -138,7 +137,6 @@ const Analog = styled.div`
 		visibility: hidden;
 	}
 `;
-
 
 class App extends React.Component {
 	constructor() {

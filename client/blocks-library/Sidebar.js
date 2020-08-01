@@ -7,7 +7,6 @@ const defaultTabs = [
 	'all-blocks',
 ];
 
-
 const analogBlockSlides = wp.hooks.applyFilters( 'analogBlocks.carousel', [
 	{
 		'title': __( 'Upgrade to Style Kits Pro', 'ang' ),

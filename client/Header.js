@@ -1,9 +1,7 @@
 import { default as styled, keyframes } from 'styled-components';
 import ThemeContext from './contexts/ThemeContext';
 import Nav from './Nav';
-import  Synchronization from './Synchronization';
-
-const { __ } = wp.i18n;
+import Synchronization from './Synchronization';
 
 const rotate = keyframes`
   from {
