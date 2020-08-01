@@ -768,11 +768,11 @@ class Utils extends Base {
 	 *
 	 * This static method is responsible to filter and modify the uploaded file path to plugin defined constant path.
 	 *
-	 * @since 1.6.10
+	 * @since n.e.x.t
 	 *
-	 * @param Array $arr An associative array which holds upload path configuration.
+	 * @param array $arr An associative array which holds upload path configuration.
 	 *
-	 * @return Array
+	 * @return array
 	 */
 	public static function style_kits_upload_dir( $arr ) {
 		global $global_subdirectory_name;
