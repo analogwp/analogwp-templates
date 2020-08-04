@@ -55,7 +55,6 @@
 	position: sticky;
 	position: -webkit-sticky;
 	top: 110px;
-	padding-right: 20px;
 }
 
 #analogwp-blocks .blocks-area {
@@ -136,6 +135,14 @@
 	color: #060606;
 }
 
+#analogwp-blocks .sidebar .block-categories-tabs {
+	max-height: 60vh;
+	overflow-y: scroll;
+	padding-right: 10px;
+}
+
+/* Slider CSS  */
+
 #analogwp-blocks .sidebar .slider {
 	position: relative;
 	min-height: 300px;
@@ -148,7 +155,7 @@
 
 #analogwp-blocks .sidebar .slider a {
 	text-decoration: none;
-	color: #fff;
+	color: inherit;
 }
 
 #analogwp-blocks .sidebar .slider .slide-1,
@@ -156,7 +163,7 @@
 	position: absolute;
 	display: block;
 	padding: 20px;
-	top: 2em;
+	top: 0;
 	font-size: 16px;
 	width: 80%;
 	animation-duration: 20s;
@@ -358,4 +365,8 @@
 	top: 75px;
 	padding: 8px;
 	z-index: 100000;
+}
+
+#analogwp-blocks .sidebar .slider button + button, #analogwp-blocks .blocks-area .ang-promo + button {
+	margin-left: 10px;
 }

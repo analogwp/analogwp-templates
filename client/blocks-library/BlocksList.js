@@ -52,6 +52,13 @@ const BlocksList = ( { importBlock } ) => {
 		}
 	};
 
+	const breakpointColumnsObj = {
+		default: 2,
+		1920: 2,
+		1000: 1,
+	};
+
+
 	const filteredBlocks = context.state.blocks.filter( block => ! ( AGWP.license.status !== 'valid' && context.state.showFree && Boolean( block.is_pro ) ) );
 
 	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
@@ -61,7 +68,7 @@ const BlocksList = ( { importBlock } ) => {
 	return (
 		<div className="blocks-grid">
 			<Masonry
-				breakpointCols={ 2 }
+				breakpointCols={ breakpointColumnsObj }
 				className="grid"
 				columnClassName="grid-item"
 			>
@@ -94,6 +101,8 @@ const BlocksList = ( { importBlock } ) => {
 									>
 										<Star />
 									</Button>
+									{ block.is_pro &&
+									<a className="ang-promo" href={ ! isValid( block.is_pro ) ? 'https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro' : '#'} target={ ! isValid( block.is_pro ) ? '_blank' : '' }><Button isSecondary className="ang-button">{ __( 'Pro', 'ang' ) }</Button></a> }
 									<NotificationConsumer>
 										{ ( { add } ) => (
 											isValid( block.is_pro ) && (
@@ -103,9 +112,6 @@ const BlocksList = ( { importBlock } ) => {
 											)
 										) }
 									</NotificationConsumer>
-									{ ! isValid( block.is_pro ) && (
-										<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank"><Button isSecondary className="ang-button">{ __( 'Go Pro', 'ang' ) }</Button></a>
-									) }
 								</div>
 							</div>
 						</div>
