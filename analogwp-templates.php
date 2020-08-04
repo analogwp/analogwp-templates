@@ -123,17 +123,18 @@ function analog_fail_load() {
 		return;
 	}
 
-	if ( ! function_exists( 'get_plugins' ) ) {
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-	}
 	$file_path = 'elementor/elementor.php';
+
+	$is_not_activated = false;
+	$is_not_installed = false;
 
 	if ( version_compare( get_bloginfo( 'version' ), '5.5a', 'gt' ) ) {
 		$request  = new WP_REST_Request( 'GET', '/wp/v2/plugins/elementor/elementor' );
 		$response = rest_do_request( $request );
 
 		if ( $response->is_error() ) {
-			wp_die( '<p>' . esc_html__( 'An error occurred while checking Elementor is Installed/Activated', 'ang' ) . '</p>' );
+			echo '<div class="error"><p>' . esc_html__( 'An error occurred while checking Elementor is Installed/Activated', 'ang' ) . '</p></div>';
+			return;
 		}
 
 		$server = rest_get_server();
@@ -145,17 +146,21 @@ function analog_fail_load() {
 			$is_not_installed = true;
 		}
 	} else {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
 		$installed_plugins = get_plugins();
 		$elementor         = isset( $installed_plugins[ $file_path ] );
 
 		if ( $elementor ) {
 			$is_not_activated = true;
-		} elseif ( ! $elementor ) {
+		} else {
 			$is_not_installed = true;
 		}
 	}
 
-	if ( isset( $is_not_activated ) && $is_not_activated ) {
+	if ( $is_not_activated ) {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
@@ -163,7 +168,7 @@ function analog_fail_load() {
 		$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $file_path . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $file_path );
 		$message        = '<p>' . __( 'Style Kits is not working because you need to activate the Elementor plugin.', 'ang' ) . '</p>';
 		$message       .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $activation_url, __( 'Activate Elementor Now', 'ang' ) ) . '</p>';
-	} elseif ( isset( $is_not_installed ) && $is_not_installed ) {
+	} elseif ( $is_not_installed ) {
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			return;
 		}
