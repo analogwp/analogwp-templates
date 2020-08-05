@@ -58,6 +58,8 @@ const jsonFontsDST = './assets/fonts';
 gulp.task( 'yarnBuild', run( 'yarn run build' ) );
 gulp.task( 'yarnMakePot', run( 'yarn run makepot' ) );
 gulp.task( 'yarnMakePotPHP', run( 'yarn run makepot:php' ) );
+gulp.task( 'yarnMakePotWithJS', run( 'yarn run makePotWithJS' ) );
+gulp.task( 'yarnConvertPot2json', run('yarn run convertPot2json' ) );
 
 gulp.task( 'removeJSPotFile', function( done ) {
 	return del( jsPotFile );
@@ -195,9 +197,11 @@ gulp.task( 'build', gulp.series(
 	'scripts',
 	'checktextdomain',
 	'yarnBuild',
-	'yarnMakePot',
-	'yarnMakePotPHP',
-	'removeJSPotFile',
+	//'yarnMakePot',
+	//'yarnMakePotPHP',
+	'yarnMakePotWithJS',
+	'yarnConvertPot2json',
+	//'removeJSPotFile',
 	'clean',
 	'copy',
 	'zip',
