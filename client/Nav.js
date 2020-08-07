@@ -1,6 +1,6 @@
 import AnalogContext from './AnalogContext';
 const { __ } = wp.i18n;
-const { TabPanel} = wp.components;
+const { TabPanel } = wp.components;
 
 const ITEMS = [
 	{ key: 'templates', label: __( 'Templates', 'ang' ) },
@@ -37,29 +37,27 @@ const Nav = () => {
 	}
 
 	const onSelect = ( tabName ) => {
-		context.dispatch( { tab: tabName});
+		context.dispatch( { tab: tabName });
 	};
 
-	const tabsGeneratior = (tabsArray) => {
-		
+	const tabsGenerator = (tabsArray) => {
 		return tabsArray.map( (item) => ({
 			name: item.key,
 			title:  titleGenerator(item),
 			className: `tab-${ item.key }`
 		}
-			
 		));
 	}
 
 	const tabContent = () => {
 		return null;
 	}
-	
+
 	return (
 		<span id="sk-library-tab">
 			<TabPanel className="ang-nav"
 				onSelect={onSelect}
-				tabs={tabsGeneratior(ITEMS)}>
+				tabs={tabsGenerator(ITEMS)}>
 				{
 					(tab) => tabContent()
 				}

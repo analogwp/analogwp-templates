@@ -71,7 +71,7 @@ class Blocks extends React.Component {
 			<Fragment>
 				<div className="blocks-area">
 					<TextControl
-						placeholder={ __( 'Search blocks', 'ang' )}
+						placeholder={ __( 'Search blocks', 'ang' ) }
 						value={ this.searchInput }
 						onChange={ ( value ) =>
 							this.context.handleSearch( value )
@@ -134,7 +134,7 @@ class Blocks extends React.Component {
 					) }
 
 					{ this.context.state.blocks.length < 1 && (
-						<Empty text={ __( 'No blocks found.', 'ang' ) }/>
+						<Empty text={ __( 'No blocks found.', 'ang' ) } />
 					) }
 
 					<BlocksList

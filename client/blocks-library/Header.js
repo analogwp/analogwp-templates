@@ -8,7 +8,7 @@ const { Button } = wp.components;
 const Header = () => {
 	return (
 		<div className="primary-header">
-			<p className="page-title">{__( 'Blocks Library', 'ang' )}</p>
+			<p className="page-title">{ __( 'Blocks Library', 'ang' ) }</p>
 			<div>
 				<BlocksContext.Consumer>
 					{ context => (
@@ -41,6 +41,6 @@ const Header = () => {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Header;

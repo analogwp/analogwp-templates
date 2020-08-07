@@ -88,7 +88,6 @@ const Modal = props => {
 					</Button>
 				</a>
 
-				
 				{ ! ( props.template.is_pro && AGWP.license.status !== 'valid' ) && (
 					<Button isPrimary onClick={ props.onRequestImport }>
 						{ __( 'Import Template', 'ang' ) }

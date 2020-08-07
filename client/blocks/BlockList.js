@@ -134,104 +134,103 @@ const Container = styled.div`
 	}
 `;
 
-const getHeight = (url) => {
+const getHeight = ( url ) => {
 	/**
 	 * Split at image width to get the height next.
 	 *
 	 * Should return "448.png" where 448 is image height.
 	 * @type {*|string[]}
 	 */
-	const parts = url.split('768x');
+	const parts = url.split( '768x' );
 
-	if (!parts[1]) {
+	if ( ! parts[ 1 ] ) {
 		return false;
 	}
 
-	const p2 = parts[1].split('.');
+	const p2 = parts[ 1 ].split( '.' );
 
-	return p2[0];
+	return p2[ 0 ];
 };
 
-const BlockList = ({ state, importBlock, favorites, makeFavorite }) => {
-	const context = React.useContext(AnalogContext);
+const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
+	const context = React.useContext( AnalogContext );
 
 	const { category } = state;
 
-	let filteredBlocks = context.state.blocks.filter( ( block ) => { 
+	let filteredBlocks = context.state.blocks.filter( ( block ) => {
 		if ( AGWP.license.status !== 'valid' ) {
+			const isPro = context.state.showFree === false && context.state.showPro === true &&
+				Boolean( block.is_pro ) === true;
 
-			let isPro = context.state.showFree === false && context.state.showPro === true &&
-				Boolean(block.is_pro) === true;
+			const isFree = context.state.showFree === true && context.state.showPro === false &&
+				Boolean( block.is_pro ) === false;
 
-			let isFree = context.state.showFree === true && context.state.showPro === false &&
-				Boolean(block.is_pro) === false;
+			const isAll = context.state.showFree === true && context.state.showPro === true;
 
-			let isAll = context.state.showFree === true && context.state.showPro === true;
-
-			if( ( isPro ||
+			if ( ( isPro ||
 					isFree ||
-					isAll)) { 
+					isAll ) ) {
 				return true;
 			}
 		} else {
 			return true;
 		}
-	});
+	} );
 
-	if (context.state.group) {
-		filteredBlocks = filteredBlocks.filter(block => block.tags.indexOf(category) > -1);
+	if ( context.state.group ) {
+		filteredBlocks = filteredBlocks.filter( block => block.tags.indexOf( category ) > -1 );
 	}
 
 	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
-	const isValid = (isPro) => !(isPro && AGWP.license.status !== 'valid');
+	const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
 
 	return (
 		<Container>
 			<Masonry
-				breakpointCols={3}
+				breakpointCols={ 3 }
 				className="grid"
 				columnClassName="grid-item block-list"
 			>
-				{filteredBlocks.map((block) => {
+				{ filteredBlocks.map( ( block ) => {
 					return (
-						<div key={block.id}>
+						<div key={ block.id }>
 							<Card>
 								<CardBody>
-									{(isNewTheme(block.published) > -14) && (
-										<span className="new">{__('New', 'ang')}</span>
-									)}
+									{ ( isNewTheme( block.published ) > -14 ) && (
+										<span className="new">{ __( 'New', 'ang' ) }</span>
+									) }
 
 									<figure>
 										<img
-											src={(block.thumbnail === '0') ? fallbackImg : block.thumbnail}
+											src={ ( block.thumbnail === '0' ) ? fallbackImg : block.thumbnail }
 											loading="lazy"
 											width="768"
-											height={getHeight(block.thumbnail) || undefined}
-											alt={block.title}
+											height={ getHeight( block.thumbnail ) || undefined }
+											alt={ block.title }
 										/>
 
 										<div className="actions">
-											{!isValid(block.is_pro) && (
+											{ ! isValid( block.is_pro ) && (
 												<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank">
-													<Button isPrimary>{__('Go Pro', 'ang')}</Button>
+													<Button isPrimary>{ __( 'Go Pro', 'ang' ) }</Button>
 												</a>
-											)}
+											) }
 											<NotificationConsumer>
-												{({ add }) => (
-													isValid(block.is_pro) && (
-														<Button isPrimary onClick={() => importBlock(block, add)}>
-															{__('Import', 'ang')}
+												{ ( { add } ) => (
+													isValid( block.is_pro ) && (
+														<Button isPrimary onClick={ () => importBlock( block, add ) }>
+															{ __( 'Import', 'ang' ) }
 														</Button>
 													)
-												)}
+												) }
 											</NotificationConsumer>
 										</div>
 										<button
-											className={classnames('button-plain favorite', {
+											className={ classnames( 'button-plain favorite', {
 												'is-active': block.id in favorites,
-											})}
-											onClick={() => makeFavorite(block.id)}
+											} ) }
+											onClick={ () => makeFavorite( block.id ) }
 										>
 											<Star />
 										</button>
@@ -239,14 +238,14 @@ const BlockList = ({ state, importBlock, favorites, makeFavorite }) => {
 								</CardBody>
 								<CardFooter>
 									<div className="content">
-										<h3>{decodeEntities(block.title)}</h3>
-										{block.is_pro && <span className="pro">{__('Pro', 'ang')}</span>}
+										<h3>{ decodeEntities( block.title ) }</h3>
+										{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
 									</div>
 								</CardFooter>
 							</Card>
 						</div>
 					);
-				})}
+				} ) }
 			</Masonry>
 		</Container>
 	);

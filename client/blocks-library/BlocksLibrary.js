@@ -31,7 +31,6 @@ class BlocksLibrary extends React.Component {
 	}
 
 	async componentDidMount() {
-
 		if ( window.localStorage.getItem( 'analogBlocks::show-free' ) === 'false' ) {
 			this.setState( {
 				showFree: false,

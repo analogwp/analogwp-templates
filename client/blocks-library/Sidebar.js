@@ -7,16 +7,20 @@ const defaultTabs = [
 	'all-blocks',
 ];
 
-
 const analogBlockSlides = wp.hooks.applyFilters( 'analogBlocks.carousel', [
 	{
-		'title': __( 'Upgrade to stylekits', 'ang' ),
+		'title': __( 'Upgrade to Style Kits Pro', 'ang' ),
 		'content': __( 'Enjoy unlimited access to the template and block library, along with many more features in Style Kits Pro.', 'ang' ),
-		'button': {
+		'primaryBtn': {
 			'link': 'https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro',
 			'text': __( 'Learn More', 'ang' )
-		}
-	},
+		},
+		'secondaryBtn': {
+			'link': 'https://www.youtube.com/watch?v=ItcKsNztJJU&t=127s',
+			'text': __( 'Quick video', 'ang' )
+		},
+		'isActive': AGWP.license.status !== 'valid' ? true : false,
+	}
 ] ) ;
 
 const Sidebar = () => {
@@ -83,6 +87,8 @@ const Sidebar = () => {
 		return null;
 	}
 
+	const sliderAnimation = analogBlockSlides.length <= 1 ? 'no-animation' : '';
+
 	return (
 		<div className="sidebar">
 			<TabPanel
@@ -110,15 +116,17 @@ const Sidebar = () => {
 				/>
 			) }
 
-			<div className="slider">
-				{
-					analogBlockSlides.map((slide, index) => {
+			<div className={ `slider ${sliderAnimation}` }>
+				{ analogBlockSlides.length > 0 && analogBlockSlides.map((slide, index) => {
+						if ( ! slide.isActive ) return;
 						return (
 							<div className={`slide-${index + 1}`} key={index}>
 								<h3>{slide.title}</h3>
 								<p>{slide.content}</p>
-								{slide.button && <Button isPrimary><a
-									href={slide.button.link}>{slide.button.text}</a></Button>}
+								{slide.primaryBtn && <Button isPrimary><a
+									href={slide.primaryBtn.link} target={slide.primaryBtn.target ? slide.primaryBtn.target : "_blank"}>{slide.primaryBtn.text}</a></Button>}
+								{slide.secondaryBtn && <Button isSecondary><a
+								href={slide.secondaryBtn.link} target={slide.secondaryBtn.target ? slide.secondaryBtn.target : "_blank"}>{slide.secondaryBtn.text}</a></Button>}
 							</div>
 						)
 					})

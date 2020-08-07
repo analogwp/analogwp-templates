@@ -3,6 +3,7 @@ import Filters from './filters';
 import StyleKits from './stylekits/stylekits';
 import Blocks from './blocks/blocks';
 import Templates from './Templates';
+
 const { Fragment } = React;
 
 export const getPageComponents = ( state ) => {
@@ -49,9 +50,7 @@ export function generateUEID() {
 }
 
 export function hasProTemplates( templates ) {
-	const filtered = templates.some( ( template ) => template.is_pro === true );
-
-	return filtered;
+	return templates.some( ( template ) => template.is_pro === true );
 }
 
 export function increaseInstallCount( settings, dispatch ) {
@@ -70,15 +69,11 @@ export function increaseInstallCount( settings, dispatch ) {
 export function isNewTheme( date ) {
 	const start = moment.unix( date );
 	const end = moment.now();
-	const diff = Math.ceil( moment.duration( start.diff( end ) ).asDays() );
-
-	return diff;
+	return Math.ceil( moment.duration( start.diff( end ) ).asDays() );
 }
 
 export function getTime( date ) {
 	const start = moment.unix( date );
 	const end = moment.now();
-	const diff = Math.ceil( moment.duration( start.diff( end ) ).asMinutes() );
-
-	return diff;
+	return Math.ceil( moment.duration( start.diff( end ) ).asMinutes() );
 }
