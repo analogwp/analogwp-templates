@@ -12,6 +12,7 @@ use Analog\Options;
 use Analog\Plugin;
 use Analog\Utils;
 use Elementor\Core\Files\CSS\Post as Post_CSS;
+use Elementor\Core\Kits\Manager as EL_Manager;
 use Elementor\TemplateLibrary\Source_Local;
 
 /**
@@ -46,7 +47,7 @@ class Manager {
 	 * Manager constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/frontend/after_enqueue_global', array( $this, 'frontend_before_enqueue_styles' ), 999 );
+		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'frontend_before_enqueue_styles' ), 999 );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'preview_enqueue_styles' ), 999 );
 		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ), 999 );
 		add_action( 'delete_post', array( $this, 'restore_default_kit' ) );
@@ -116,7 +117,16 @@ class Manager {
 		}
 
 		// Return early if Global kit and current kit is same.
-		if ( (int) Options::get_instance()->get( 'global_kit' ) === (int) $kit_id ) {
+		$global_kit = Options::get_instance()->get( 'global_kit' );
+		if ( ! $global_kit ) {
+
+			$el_manager = new EL_Manager();
+			$global_kit = $el_manager->get_active_id();
+
+			Options::get_instance()->set( 'global_kit', $global_kit );
+		}
+
+		if ( (int) $global_kit === (int) $kit_id ) {
 			return false;
 		}
 
