@@ -47,7 +47,7 @@ class Filters extends React.Component {
 						<div className="top">
 							{ showingKit && (
 								<React.Fragment>
-									<h2 className="kit-title">{ __( 'Template Kit' ) }: { this.context.state.activeKit.title }</h2>
+									<h2 className="kit-title">{ __( 'Template Kit', 'ang' ) }: { this.context.state.activeKit.title }</h2>
 									<Button
 										className="kit-back"
 										isSecondary
