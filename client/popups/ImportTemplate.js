@@ -150,8 +150,8 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 			<Container>
 				{ ( step === 1 ) && (
 					<div>
-						<h3>Choose a Theme Style Kit</h3>
-						<p>When you import a template, you can select to import and apply a Global Theme Style Kit. Choose the one below.</p>
+						<h3>{ __( 'Choose a Theme Style Kit', 'ang' ) }</h3>
+						<p>{ __( 'When you import a template, you can select to import and apply a Global Theme Style Kit. Choose the one below.', 'ang' ) }</p>
 						<div className="row" style={{width: '42%'}}>
 							<Select
 								options={ groupedOptions }
@@ -199,7 +199,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 								) }
 							</NotificationConsumer>
 						</p>
-						<h3>or import to a new page</h3>
+						<h3>{ __( 'or import to a new page', 'ang' ) }</h3>
 						<p>{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }</p>
 
 						<div id="import-new-page" className="form-row">
