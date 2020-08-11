@@ -77,7 +77,7 @@ const formatGroupLabel = data => (
 
 const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyleKitInfo } ) => {
 	const [ step, setStep ] = useState( 1 );
-	const [ title, setTitle ] = useState( __( 'Import this template', 'ang' ) );
+	const [ title, setTitle ] = useState( __( 'Import template', 'ang' ) );
 
 	const kit = state.kit;
 	const { state: { styleKits, installedKits }, dispatch } = useContext( AnalogContext );
@@ -150,8 +150,8 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 			<Container>
 				{ ( step === 1 ) && (
 					<div>
-						<h3>{ __( 'Choose a Theme Style Kit', 'ang' ) }</h3>
-						<p>{ __( 'When you import a template, you can select to import and apply a Global Theme Style Kit. Choose the one below.', 'ang' ) }</p>
+						<h3>{ __( 'Choose a Theme Style Kit to apply on the page.', 'ang' ) }</h3>
+						<p>{ __( 'The original Style Kit is pre-selected for you.', 'ang' ) }</p>
 						<div className="row" style={{width: '42%'}}>
 							<Select
 								options={ groupedOptions }
@@ -164,6 +164,10 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 								} }
 							/>
 						</div>
+						<p>
+							{ __( 'You can manage and set a Global Style Kit at the ', 'ang' ) }
+							<ExternalLink href={ AGWP.adminURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
+						</p>
 					</div>
 				) }
 
