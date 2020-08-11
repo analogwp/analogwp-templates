@@ -110,7 +110,7 @@
 }
 
 #analogwp-templates .components-button.black-transparent {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(35, 40, 45, 0.85);
     color: #fff;
 }
 
@@ -553,5 +553,10 @@
 	padding: 9px 0 4px 0;
     line-height: 1.3;
     color: #23282d;
+}
+
+#analogwp-templates.wrap .tab-description {
+    color: #444;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 /*END*/
