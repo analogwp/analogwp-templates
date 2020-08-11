@@ -247,6 +247,7 @@
 
 .analogwp-content li .components-card__footer .content,
 .analogwp-content div.block-list .components-card__footer .content {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -396,6 +397,7 @@
 }
 
 #analogwp-templates .analogwp-content .inner-popup-header {
+    width: 100%;
     display: flex;
 	justify-content: space-between;
 	align-items: center;
