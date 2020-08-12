@@ -208,6 +208,10 @@ class Templates extends React.Component {
 					? this.state.kit
 					: this.context.state.styleKits.find( k => k.title === this.state.kit );
 
+		if ( typeof data === "undefined" ) {
+			data = false;
+		}
+
 		return { method, data };
 	}
 
