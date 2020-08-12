@@ -150,8 +150,6 @@ const Container = styled.div`
 	}
 
 	 .content {
-		border-top: 1px solid #ddd;
-		padding: 30px 20px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
