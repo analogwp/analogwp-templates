@@ -282,10 +282,6 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 
 			<Container className="blocks-area">
 
-			{ context.state.blocks.length < 1 && (
-				<Empty text={ __( 'No blocks found.', 'ang' ) }/>
-			) }
-
 			<TextControl
 				placeholder={ __( 'Search blocks', 'ang' ) }
 				value={ this.searchInput }
@@ -293,6 +289,10 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 					context.handleSearch( value, 'blocks' )
 				}
 			/>
+
+			{ context.state.blocks.length < 1 && (
+				<Empty text={ __( 'No blocks found.', 'ang' ) }/>
+			) }
 
 			{ AGWP.license.status !== 'valid' && (
 				<ProModal type={ __( 'blocks', 'ang' ) } />
