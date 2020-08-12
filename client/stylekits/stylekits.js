@@ -17,12 +17,6 @@ const Container = styled.section`
 		font-size: 16px;
 		line-height: 24px;
 	}
-	> .tab-description {
-		color: #444;
-		background: #fff;
-		margin: -40px -40px 40px -40px;
-		padding: 20px;
-	}
 	h3 {
 		margin: 0;
 		font-size: 14.2px;

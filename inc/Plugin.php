@@ -203,6 +203,7 @@ final class Plugin {
 					'value' => $global_kit_title,
 				),
 			),
+			'adminURL'       => admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' ),
 		);
 
 		$domains += $new_domains;
