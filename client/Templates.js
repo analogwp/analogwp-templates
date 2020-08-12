@@ -317,8 +317,6 @@ class Templates extends React.Component {
 		if ( typeof elementor !== 'undefined' ) {
 			this.setState( {
 				showingModal: true,
-				importing: true,
-				importingElementor: true,
 			} );
 		} else {
 			this.setState( {
