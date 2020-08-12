@@ -206,6 +206,11 @@
         grid-template-columns: repeat(auto-fit, minmax(18%, 18%));
         grid-gap: 32px 2%;
     }
+
+    #analogwp-templates-modal #analogwp-templates .templates-list {
+        grid-template-columns: repeat(auto-fit, minmax(23.5%, 23.5%));
+        grid-gap: 32px 2%;
+    }
 }
 
 @media only screen and (min-width: 2000px) {
