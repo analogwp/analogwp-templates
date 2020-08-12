@@ -5,12 +5,18 @@ import AnalogContext from '../AnalogContext';
 import { isNewTheme } from '../utils';
 import { NotificationConsumer } from '../Notifications';
 import Star from '../icons/star';
+import Popup from "../popup";
+import Loader from "../icons/loader";
+import ProModal from "../ProModal";
+import Empty from "../helpers/Empty";
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
-const { Button, Card, CardBody, CardFooter } = wp.components;
+const { TextControl, Dashicon, Button, Card, CardBody, CardFooter } = wp.components;
+const { addQueryArgs } = wp.url;
 
 const Container = styled.div`
+	width: 70%;
 	.grid {
 		display: flex;
 		margin-left: -25px; /* gutter size offset */
@@ -27,8 +33,7 @@ const Container = styled.div`
 
 		> div {
 			background: #fff;
-			border-radius: 4px;
-			box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.12);
+			box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
 			position: relative;
 			margin-bottom: 25px;
 		}
@@ -92,6 +97,8 @@ const Container = styled.div`
 		align-items: center;
 		width: 25px;
 		height: 25px;
+		box-shadow: none !important;
+		outline: none !important;
 
 		&:not(.is-active) {
 			opacity: 0;
@@ -114,6 +121,8 @@ const Container = styled.div`
 			fill: #fff;
 			position: relative;
 			z-index: 195;
+			width: 17px;
+			height: 17px;
 		}
 		&.is-active svg {
 			fill: #FFB443;
@@ -131,6 +140,64 @@ const Container = styled.div`
 		height: 100%;
 		object-fit: cover;
 		max-height: 150px;
+	}
+
+	h3 {
+		margin: 0;
+		font-weight: normal;
+		font-size: 16px;
+		line-height: 21px;
+	}
+
+	 .content {
+		border-top: 1px solid #ddd;
+		padding: 30px 20px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	 .components-base-control {
+		margin-bottom: 30px;
+	}
+
+	.components-text-control__input {
+		background-color: #fff;
+		color: #060606;
+		font-size: 16px;
+	}
+
+	.button-plain {
+		padding: 0;
+		margin: 0;
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
+		cursor: pointer;
+		appearance: none;
+		outline: 0;
+		background: transparent;
+		font-weight: bold;
+		color: #060606;
+		font-size: 14.22px;
+	}
+	.inner-popup-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		position: sticky;
+		background: #fff;
+	}
+	.inner-popup-header h1 {
+		font-size: 16px;
+		font-weight: bold;
+		color: #000000;
+		margin: 0;
+	}
+	.inner-popup-content p {
+		font-size: 13px;
+		line-height: 18px;
+		color: #565d65;
 	}
 `;
 
@@ -155,39 +222,84 @@ const getHeight = ( url ) => {
 const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 	const context = React.useContext( AnalogContext );
 
-	const { category } = state;
-
-	let filteredBlocks = context.state.blocks.filter( ( block ) => {
-		if ( AGWP.license.status !== 'valid' ) {
-			const isPro = context.state.showFree === false && context.state.showPro === true &&
-				Boolean( block.is_pro ) === true;
-
-			const isFree = context.state.showFree === true && context.state.showPro === false &&
-				Boolean( block.is_pro ) === false;
-
-			const isAll = context.state.showFree === true && context.state.showPro === true;
-
-			if ( ( isPro ||
-					isFree ||
-					isAll ) ) {
-				return true;
-			}
-		} else {
-			return true;
-		}
-	} );
-
-	if ( context.state.group ) {
-		filteredBlocks = filteredBlocks.filter( block => block.tags.indexOf( category ) > -1 );
-	}
+	let filteredBlocks = context.state.blocks.filter( block => ! ( AGWP.license.status !== 'valid' && context.state.showFree && Boolean( block.is_pro ) ) );
 
 	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
 	const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
 
 	return (
-		<Container>
-			<Masonry
+		<React.Fragment>
+			{ state.state.modalActive && (
+				<Popup
+					title={ decodeEntities( state.state.activeBlock.title ) }
+					style={ {
+						textAlign: 'center',
+					} }
+					onRequestClose={ () => {
+						state.dispatch( {
+							activeBlock: false,
+							modalActive: false,
+							blockImported: false,
+						} );
+					} }
+				>
+					{ ! state.state.blockImported && <Loader /> }
+					{ state.state.blockImported && (
+						<Fragment>
+							<p>
+								{ __( 'The block has been imported and is now available in the', 'ang' ) }
+								{ ' ' }
+								<a
+									target="_blank"
+									rel="noopener noreferrer"
+									href={ addQueryArgs( 'edit.php', {
+										post_type: 'elementor_library',
+										tabs_group: true,
+										elementor_library_type: 'section',
+									} ) }
+								>
+									{ __( 'Elementor section library', 'ang' ) }
+								</a>.
+							</p>
+							<p>
+								<Button
+									isPrimary
+									onClick={ () => {
+										state.dispatch( {
+											activeBlock: false,
+											modalActive: false,
+											blockImported: false,
+										} );
+									} }
+								>
+									{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
+								</Button>
+							</p>
+						</Fragment>
+
+					) }
+				</Popup>
+			) }
+
+			<Container className="blocks-area">
+
+			{ context.state.blocks.length < 1 && (
+				<Empty text={ __( 'No blocks found.', 'ang' ) }/>
+			) }
+
+			<TextControl
+				placeholder={ __( 'Search blocks', 'ang' ) }
+				value={ this.searchInput }
+				onChange={ ( value ) =>
+					context.handleSearch( value, 'blocks' )
+				}
+			/>
+
+			{ AGWP.license.status !== 'valid' && (
+				<ProModal type={ __( 'blocks', 'ang' ) } />
+			) }
+				<Masonry
 				breakpointCols={ 3 }
 				className="grid"
 				columnClassName="grid-item block-list"
@@ -248,6 +360,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 				} ) }
 			</Masonry>
 		</Container>
+		</React.Fragment>
 	);
 };
 
