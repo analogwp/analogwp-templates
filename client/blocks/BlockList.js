@@ -290,13 +290,14 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 				}
 			/>
 
+			{ AGWP.license.status !== 'valid' && (
+				<ProModal type={ __( 'blocks', 'ang' ) } />
+			) }
+
 			{ context.state.blocks.length < 1 && (
 				<Empty text={ __( 'No blocks found.', 'ang' ) }/>
 			) }
 
-			{ AGWP.license.status !== 'valid' && (
-				<ProModal type={ __( 'blocks', 'ang' ) } />
-			) }
 				<Masonry
 				breakpointCols={ 3 }
 				className="grid"
