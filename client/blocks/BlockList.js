@@ -284,10 +284,11 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 
 			<TextControl
 				placeholder={ __( 'Search blocks', 'ang' ) }
-				value={ this.searchInput }
-				onChange={ ( value ) =>
-					context.handleSearch( value, 'blocks' )
-				}
+				value={ context.state.blocksSearchInput }
+				onChange={ ( value ) => {
+					context.handleSearch( value, 'blocks' );
+					context.dispatch( { blocksSearchInput: value } );
+				} }
 			/>
 
 			{ AGWP.license.status !== 'valid' && (
