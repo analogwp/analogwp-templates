@@ -209,6 +209,10 @@ const Sidebar = ( { state } ) => {
 			foundItems = blocks.filter( block => block.tags.indexOf( tab ) > -1 );
 		}
 
+		if ( AGWP.license.status !== 'valid' && context.state.showFree ) {
+			foundItems = foundItems.filter( block => !block.is_pro );
+		}
+
 		if ( foundItems ) {
 			return foundItems.length;
 		}
