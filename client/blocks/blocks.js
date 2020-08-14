@@ -19,7 +19,7 @@ const initialState = {
 	activeBlock: false,
 	blockImported: false,
 	modalActive: false,
-	tab: 'all',
+	tab: 'all-blocks',
 };
 
 export default class Blocks extends Component {
