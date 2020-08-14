@@ -165,6 +165,7 @@ class App extends React.Component {
 			settings: {
 				ang_sync_colors: true,
 			},
+			blocksSearchInput: '',
 		};
 
 		this.refreshAPI = this.refreshAPI.bind( this );
@@ -335,6 +336,7 @@ class App extends React.Component {
 
 				this.setState( {
 					blocks: filtered,
+					blocksSearchInput: value,
 				} );
 
 				return;
@@ -347,6 +349,7 @@ class App extends React.Component {
 		} else {
 			this.setState( {
 				blocks: value ? [] : this.state.blockArchive,
+				blocksSearchInput: '',
 			} );
 		}
 	}
@@ -361,6 +364,7 @@ class App extends React.Component {
 			kits: [],
 			styleKits: [],
 			blocks: [],
+			blocksSearchInput: '',
 		} );
 
 		wp.hooks.doAction( 'analog.refreshLibrary' );
@@ -380,6 +384,7 @@ class App extends React.Component {
 				styleKits: library.stylekits,
 				blocks: library.blocks,
 				syncing: false,
+				blocksSearchInput: '',
 			} );
 		} ).catch( () => {
 			this.setState( {

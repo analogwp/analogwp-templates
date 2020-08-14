@@ -196,6 +196,7 @@ const Sidebar = ( { state } ) => {
 
 	const getItemCount = ( tab ) => {
 		const blocks = context.state.blockArchive;
+		const { blocksSearchInput } = context.state;
 		let foundItems = [];
 
 		if ( tab === 'all-blocks' ) {
@@ -211,6 +212,20 @@ const Sidebar = ( { state } ) => {
 
 		if ( AGWP.license.status !== 'valid' && context.state.showFree ) {
 			foundItems = foundItems.filter( block => !block.is_pro );
+		}
+
+		if ( blocksSearchInput ) {
+			let searchTags = [];
+			foundItems = foundItems.filter( single => {
+				if ( single.tags ) {
+					searchTags = single.tags.filter( tag => {
+						return tag.toLowerCase().includes( blocksSearchInput );
+					} );
+				}
+				return (
+					single.title.toLowerCase().includes( blocksSearchInput ) || searchTags.length >= 1
+				);
+			} );
 		}
 
 		if ( foundItems ) {
