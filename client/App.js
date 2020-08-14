@@ -166,16 +166,16 @@ class App extends React.Component {
 				ang_sync_colors: true,
 			},
 			blocksSearchInput: '',
-			itemFilteredWithSearchTerm: function( foundItems, blocksSearchInput ) {
+			itemFilteredWithSearchTerm: function( foundItems, searchInput ) {
 				let searchTags = [];
 				return foundItems.filter( single => {
 					if ( single.tags ) {
 						searchTags = single.tags.filter( tag => {
-							return tag.toLowerCase().includes( blocksSearchInput );
+							return tag.toLowerCase().includes( searchInput );
 						} );
 					}
 					return (
-						single.title.toLowerCase().includes( blocksSearchInput ) || searchTags.length >= 1
+						single.title.toLowerCase().includes( searchInput ) || searchTags.length >= 1
 					);
 				} );
 			}
