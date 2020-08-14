@@ -184,14 +184,23 @@ const Sidebar = ( { state } ) => {
 
 	const onSelect = ( tab ) => {
 		state.dispatch( { tab } );
-		context.dispatch( { blocks: filteredBlocks } );
+
+		let selectFilteredBlocks = filteredBlocks;
+
 		if ( tab === 'favorites' ) {
-			context.dispatch( { blocks: favoriteBlocks } );
+			selectFilteredBlocks = favoriteBlocks;
 		}
 		if ( tab !== 'favorites' && tab !== 'all-blocks' ) {
-			filteredBlocks = context.state.blockArchive.filter( block => block.tags.indexOf( tab ) > -1 );
-			context.dispatch( { blocks: filteredBlocks } );
+			selectFilteredBlocks = context.state.blockArchive.filter( block => block.tags.indexOf( tab ) > -1 );
 		}
+
+		const { blocksSearchInput } = context.state;
+
+		if ( blocksSearchInput ) {
+			selectFilteredBlocks = context.state.itemFilteredWithSearchTerm( selectFilteredBlocks, blocksSearchInput );
+		}
+
+		context.dispatch( { blocks: selectFilteredBlocks } );
 	}
 
 	const getItemCount = ( tab ) => {
@@ -215,17 +224,7 @@ const Sidebar = ( { state } ) => {
 		}
 
 		if ( blocksSearchInput ) {
-			let searchTags = [];
-			foundItems = foundItems.filter( single => {
-				if ( single.tags ) {
-					searchTags = single.tags.filter( tag => {
-						return tag.toLowerCase().includes( blocksSearchInput );
-					} );
-				}
-				return (
-					single.title.toLowerCase().includes( blocksSearchInput ) || searchTags.length >= 1
-				);
-			} );
+			foundItems = context.state.itemFilteredWithSearchTerm( foundItems, blocksSearchInput );
 		}
 
 		if ( foundItems ) {
