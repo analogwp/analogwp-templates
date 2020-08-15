@@ -377,6 +377,10 @@
     top: 16px;
     right: 24px;
 }
+
+#analogwp-templates .block-categories-tabs .components-tab-panel__tabs-item::after {
+    display: none;
+}
 /*END*/
 
 /*Template preview page css*/
