@@ -244,7 +244,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 				>
 					{ ! state.state.blockImported && <Loader /> }
 					{ state.state.blockImported && (
-						<Fragment>
+						<React.Fragment>
 							<p>
 								{ __( 'The block has been imported and is now available in the', 'ang' ) }
 								{ ' ' }
@@ -274,7 +274,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 									{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
 								</Button>
 							</p>
-						</Fragment>
+						</React.Fragment>
 
 					) }
 				</Popup>
