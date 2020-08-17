@@ -42,15 +42,6 @@ function register_menu() {
 
 	add_submenu_page(
 		$menu_slug,
-		__( 'Style Kits Blocks', 'ang' ),
-		__( 'Blocks', 'ang' ),
-		$permission,
-		'analogwp_blocks',
-		'Analog\Settings\blocks_library_page'
-	);
-
-	add_submenu_page(
-		$menu_slug,
 		__( 'Style Kits Settings', 'ang' ),
 		__( 'Settings', 'ang' ),
 		'manage_options',
@@ -183,19 +174,6 @@ function settings_page() {
 	?>
 	<style>body { background: #E3E3E3; }</style>
 	<div id="analogwp-templates" class="wrap"></div>
-	<?php
-}
-
-/**
- * Add Blocks page.
- *
- * @return void
- */
-function blocks_library_page() {
-	do_action( 'ang_loaded_blocks' );
-	?>
-	<style>body { background: #E3E3E3; }</style>
-	<div id="analogwp-blocks"></div>
 	<?php
 }
 
