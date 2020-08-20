@@ -57,7 +57,6 @@ const Container = styled.div`
 
 	figure {
 		position: relative;
-		border-radius: 4px 4px 0 0;
 		overflow: hidden;
 		margin: 0;
 		min-height: 150px;
@@ -315,7 +314,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 
 									<figure>
 										<img
-											src={ ( block.thumbnail === '0' ) ? fallbackImg : block.thumbnail }
+											src={ AGWP.blockMediaURL + block.id + '.jpg' }
 											loading="lazy"
 											width="768"
 											height={ getHeight( block.thumbnail ) || undefined }

@@ -97,7 +97,6 @@ const SidebarWrapper = styled.div`
 
 	.block-categories-tabs {
 		max-height: 50vh;
-		overflow-y: scroll;
 		padding-right: 10px;
 	}
 `;

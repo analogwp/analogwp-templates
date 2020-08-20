@@ -159,6 +159,7 @@ final class Plugin {
 				),
 			),
 			'adminURL'       => admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' ),
+			'blockMediaURL'  => 'https://bs.analogwp.com/',
 		);
 
 		$domains += $new_domains;
