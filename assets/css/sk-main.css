@@ -213,6 +213,11 @@
         grid-gap: 25px 2%;
     }
 
+    #analogwp-templates-modal #analogwp-templates .templates-collection {
+        grid-template-columns: repeat(auto-fit,minmax(31.5%,31.5%));
+        grid-gap: 42px 2%;
+    }
+
     #analogwp-templates .templates-list,
     #analogwp-templates .stylekit-list {
         grid-template-columns: repeat(auto-fit, minmax(18%, 18%));
