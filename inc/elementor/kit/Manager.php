@@ -12,7 +12,7 @@ use Analog\Options;
 use Analog\Plugin;
 use Analog\Utils;
 use Elementor\Core\Files\CSS\Post as Post_CSS;
-use Elementor\Core\Kits\Manager as EL_Manager;
+use Elementor\Core\Kits\Manager as KitManager;
 use Elementor\TemplateLibrary\Source_Local;
 
 /**
@@ -120,8 +120,7 @@ class Manager {
 		$global_kit = Options::get_instance()->get( 'global_kit' );
 		if ( ! $global_kit ) {
 
-			$el_manager = new EL_Manager();
-			$global_kit = $el_manager->get_active_id();
+			$global_kit = ( new KitManager() )->get_active_id();
 
 			Options::get_instance()->set( 'global_kit', $global_kit );
 		}
