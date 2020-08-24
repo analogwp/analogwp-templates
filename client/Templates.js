@@ -280,7 +280,7 @@ class Templates extends React.Component {
 			} );
 		} ).catch( error => {
 			this.resetState();
-			if ( error.data.errors ) {
+			if ( error.data && error.data.errors ) {
 				add( error.data.errors[ Object.keys( error.data.errors )[ 0 ] ], 'error', 'import-error', false );
 			} else {
 				add( error.message, 'error', 'import-error', false );
@@ -386,13 +386,11 @@ class Templates extends React.Component {
 
 								let isAll = this.context.state.showFree === true && this.context.state.showPro === true;
 
-								if( !( isPro ||
-										isFree ||
-										isAll)) { 
+								if ( !( isPro || isFree || isAll) ) {
 									return;
 								}
 							}
-							
+
 							return (
 								<Template
 									key={ `${template.id}-${template.site_id}` }
