@@ -1,66 +1,6 @@
-import classnames from 'classnames';
-import styled from 'styled-components';
 import AnalogContext from './AnalogContext';
 const { __ } = wp.i18n;
-
-const List = styled.ul`
-	display: flex;
-	align-items: center;
-	margin-left: auto;
-	font-weight: 700;
-	font-size: 17px;
-	color: #23282C;
-
-	.button-plain {
-		font-size: 18px !important;
-	}
-
-	li {
-		position: relative;
-	}
-
-	li.active {
-		color: #B2B2B2;
-		&:after {
-			content: '';
-			position: absolute;
-			height: 0;
-			width: 0;
-			bottom: -29px;
-			border-style: solid;
-			border-width: 0 10px 10px 10px;
-			border-color: transparent transparent #fff transparent;
-			left: 50%;
-			transform: translateX(-50%);
-
-			#analogwp-templates-modal & {
-				bottom: -14px;
-			}
-		}
-	}
-
-	li.button-plain + li.button-plain {
-		margin-left: 60px;
-		&:before {
-			height: 35px;
-			top: -5px;
-			left: -30px;
-		}
-	}
-
-	a {
-		text-decoration: none;
-		color: inherit;
-		&:hover {
-			color: currentColor;
-		}
-	}
-`;
-
-const Count = styled.span`
-	margin-left: 8px;
-	color: rgba(255, 255, 255, 0.5);
-`;
+const { TabPanel } = wp.components;
 
 const ITEMS = [
 	{ key: 'templates', label: __( 'Templates', 'ang' ) },
@@ -89,22 +29,40 @@ const Nav = () => {
 		return items.length;
 	};
 
+	const titleGenerator = (titleObject) => {
+		let count = getCount(titleObject.key);
+		let countTemplate = count > 0 ? '(' + count + ')' : '';
+
+		return `${titleObject.label} ${countTemplate}`;
+	}
+
+	const onSelect = ( tabName ) => {
+		context.dispatch( { tab: tabName });
+	};
+
+	const tabsGenerator = (tabsArray) => {
+		return tabsArray.map( (item) => ({
+			name: item.key,
+			title:  titleGenerator(item),
+			className: `tab-${ item.key }`
+		}
+		));
+	}
+
+	const tabContent = () => {
+		return null;
+	}
+
 	return (
-		<List className="ang-nav">
-			{ ITEMS.map( ( item ) => (
-				<li
-					key={ item.key }
-					className={ classnames( 'button-plain', {
-						active: item.key === context.state.tab,
-					} ) }
-				>
-					<a href={ `#${ item.key }` } onClick={ () => context.dispatch( { tab: item.key } ) }>
-						{ item.label }
-						{ getCount( item.key ) > 0 && <Count>{ getCount( item.key ) }</Count> }
-					</a>
-				</li>
-			) ) }
-		</List>
+		<span id="sk-library-tab">
+			<TabPanel className="ang-nav"
+				onSelect={onSelect}
+				tabs={tabsGenerator(ITEMS)}>
+				{
+					(tab) => tabContent()
+				}
+			</TabPanel>
+		</span>
 	);
 };
 

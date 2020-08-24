@@ -5,13 +5,9 @@ import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
 import Template from '../Template';
 const { __ } = wp.i18n;
+const { Button, Card, CardBody, CardFooter } = wp.components;
 
 const List = styled.ul`
-	margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(380px,380px));
-    grid-gap: 25px;
-	color: #000;
 	li {
 		background: #fff;
 		position: relative;
@@ -22,7 +18,6 @@ const List = styled.ul`
 		margin: 0;
 		position: relative;
 		min-height: 100px;
-		padding: 20px;
 		&:hover .actions {
 			opacity: 1;
 		}
@@ -32,47 +27,14 @@ const List = styled.ul`
 		height: auto;
 		border-top-left-radius: 4px;
 		border-top-right-radius: 4px;
-	}
-	h3 {
-		font-size: 13px;
-		padding: 13px 20px;
-		text-transform: capitalize;
-		margin: 0;
-		font-weight: bold;
-	}
-	span {
-		background: var(--ang-accent);
-		width: 35px;
-		height: 28px;
-		position: absolute;
-		top: -14px;
-		right: -17px;
-		font-weight: 700;
-		font-size: 15px;
-		border-radius: 4px;
-		display: inline-flex;
-		justify-content: center;
-		align-items: center;
-		color: #fff;
-		z-index: 100;
+		vertical-align: middle;
 	}
 
 	.actions {
-		opacity: 0;
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		background: rgba(0, 0, 0, 0.7);
-		top: 0;
-		left: 0;
-		z-index: 100;
-		transition: all 200ms;
-		border-top-left-radius: 4px;
-		border-top-right-radius: 4px;
+		button.is-large {
+			font-size: 24px;
+			height: 48px;
+		}
 	}
 `;
 
@@ -107,12 +69,7 @@ export default class Collection extends React.Component {
 
 		if ( collection[ id ] ) {
 			const kit = collection[ id ];
-			if ( AGWP.license.status !== 'valid' && this.context.state.showFree ) {
-				const filtered = kit.filter( ( t ) => t.is_pro !== true );
-				count = filtered.length;
-			} else {
-				count = Object.keys( kit ).length;
-			}
+			count = Object.keys( kit ).length;
 		}
 
 		return count;
@@ -133,28 +90,37 @@ export default class Collection extends React.Component {
 		return (
 			<div className="collection">
 				{ ! this.context.state.activeKit && (
-					<List>
+					<List className="templates-collection">
 						{ this.context.state.kits && this.context.state.kits.map( ( kit ) => {
 							if ( ! this.getCollectionCount( kit.site_id ) ) {
 								return;
 							}
 
 							return (
+								
 								<li key={ kit.site_id }>
-									<figure>
-										<img src={ kit.thumbnail || AGWP.pluginURL + 'assets/img/placeholder.svg' } loading="lazy" alt={ kit.title } />
-										<div className="actions">
-											<button className="ang-button" onClick={ () => {
-												this.context.dispatch( {
-													activeKit: kit,
-												} );
-											} }>
-												{ __( 'View Templates', 'ang' ) }
-											</button>
-										</div>
-									</figure>
-									<h3>{ kit.title }</h3>
-									<span>{ this.getCollectionCount( kit.site_id ) }</span>
+									<Card>
+										<CardBody>
+											<figure>
+												<img src={ kit.thumbnail || AGWP.pluginURL + 'assets/img/placeholder.svg' } loading="lazy" alt={ kit.title } />
+												<div className="actions">
+													<Button isSecondary className="black-transparent" onClick={ () => {
+														this.context.dispatch( {
+															activeKit: kit,
+														} );
+													} }>
+														{ __( 'View Templates', 'ang' ) }
+													</Button>
+												</div>
+											</figure>
+										</CardBody>
+										<CardFooter>
+											<div className="content">
+												<h3>{ kit.title }</h3>
+												<span>{ this.getCollectionCount( kit.site_id ) }</span>
+											</div>
+										</CardFooter>
+									</Card>
 								</li>
 							);
 						} ) }
@@ -164,9 +130,23 @@ export default class Collection extends React.Component {
 				{ this.getActiveKit() && (
 					<ul className="templates-list">
 						{ this.getActiveKit().map( ( template ) => {
-							if ( AGWP.license.status !== 'valid' && this.context.state.showFree && Boolean( template.is_pro ) ) {
-								return;
+							if ( AGWP.license.status !== 'valid' ) {
+
+								let isPro = this.context.state.showFree === false && this.context.state.showPro === true &&
+									Boolean(template.is_pro) === true;
+
+								let isFree = this.context.state.showFree === true && this.context.state.showPro === false &&
+									Boolean(template.is_pro) === false;
+
+								let isAll = this.context.state.showFree === true && this.context.state.showPro === true;
+
+								if( !( isPro ||
+										isFree ||
+										isAll)) { 
+									return;
+								}
 							}
+
 							return (
 								<Template
 									key={ template.id }

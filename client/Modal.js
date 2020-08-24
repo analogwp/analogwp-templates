@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-const { Tooltip, FocusableIframe } = wp.components;
+const { FocusableIframe, Button } = wp.components;
 const { __ } = wp.i18n;
 
 const rotateOpacity = keyframes`
@@ -58,20 +58,6 @@ const Container = styled.div`
 		}
 	}
 
-	.button--plain {
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		padding: 0;
-		margin: 0;
-		font-size: 14.22px;
-		font-weight: bold;
-		color: #060606;
-		background: transparent;
-		border: none;
-		outline: 0;
-		cursor: pointer;
-	}
-
 	.button--accent {
 		font-size: 12px;
 		font-weight: bold;
@@ -92,19 +78,20 @@ const Modal = props => {
 	return (
 		<Container loading={ loading }>
 			<div className="frame-header">
-				<button className="button--plain" onClick={ props.onRequestClose }>
-					{ __( 'Back to Library', 'ang' ) }
-				</button>
+				<Button isSecondary onClick={ props.onRequestClose }>
+					{ __( 'Exit preview', 'ang' ) }
+				</Button>
 
-				<Tooltip text={ __( 'Open Preview in New Tab', 'ang' ) }>
-					<a href={ props.template.url } rel="noopener noreferrer" target="_blank">
-						<span className="dashicons dashicons-external" />
-					</a>
-				</Tooltip>
+				<a href={ props.template.url } rel="noopener noreferrer" target="_blank">
+					<Button isSecondary>
+						{ __( 'Open in new tab', 'ang' ) }
+					</Button>
+				</a>
+
 				{ ! ( props.template.is_pro && AGWP.license.status !== 'valid' ) && (
-					<button className="ang-button" onClick={ props.onRequestImport }>
-						{ __( 'Insert Layout', 'ang' ) }
-					</button>
+					<Button isPrimary onClick={ props.onRequestImport }>
+						{ __( 'Import Template', 'ang' ) }
+					</Button>
 				) }
 			</div>
 
