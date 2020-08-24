@@ -345,6 +345,8 @@ final class Plugin {
 		static::$instance = new static( $main_file );
 		static::$instance->register();
 
+		do_action( 'ang_loaded' );
+
 		return true;
 	}
 }
