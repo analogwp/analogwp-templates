@@ -401,6 +401,14 @@
     right: 24px;
 }
 
+#analogwp-templates .sidebar {
+    display: flex;
+}
+
+#analogwp-templates .block-categories-tabs {
+    width: 100%;
+}
+
 #analogwp-templates .block-categories-tabs .components-tab-panel__tabs-item::after {
     display: none;
 }
