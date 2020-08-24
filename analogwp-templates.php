@@ -128,7 +128,7 @@ function analog_fail_load() {
 	$is_not_activated = false;
 	$is_not_installed = false;
 
-	if ( version_compare( get_bloginfo( 'version' ), '5.5a', 'gt' ) ) {
+	if ( version_compare( get_bloginfo( 'version' ), '5.5', 'gt' ) ) {
 		$request  = new WP_REST_Request( 'GET', '/wp/v2/plugins/elementor/elementor' );
 		$response = rest_do_request( $request );
 
