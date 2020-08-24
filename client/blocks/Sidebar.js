@@ -29,7 +29,7 @@ const SidebarWrapper = styled.div`
 	height: 100vh;
 	position: sticky;
 	position: -webkit-sticky;
-	top: 50px;
+	top: 24px;
 
 	.components-tab-panel__tabs {
 		display: flex;
@@ -96,7 +96,6 @@ const SidebarWrapper = styled.div`
 	}
 
 	.block-categories-tabs {
-		max-height: 50vh;
 		padding-right: 10px;
 	}
 `;
