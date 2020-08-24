@@ -404,6 +404,10 @@
 #analogwp-templates .block-categories-tabs .components-tab-panel__tabs-item::after {
     display: none;
 }
+
+#analogwp-templates-modal .analogwp-content .sidebar {
+    top: 0px;
+}
 /*END*/
 
 /*Template preview page css*/
