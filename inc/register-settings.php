@@ -173,7 +173,7 @@ function settings_page() {
 	do_action( 'ang_loaded_templates' );
 	?>
 	<style>body { background: #E3E3E3; }</style>
-	<div id="analogwp-templates"></div>
+	<div id="analogwp-templates" class="wrap"></div>
 	<?php
 }
 

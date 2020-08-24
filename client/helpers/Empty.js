@@ -1,20 +1,8 @@
-import styled from 'styled-components';
-
-const Container = styled.div`
-	text-align: center;
-
-	p {
-		font-size: 20px;
-		color: #A4A4A4;
-		font-weight: bold;
-	}
-`;
-
 const Empty = ( { text = 'No templates found.', ...rest } ) => {
 	return (
-		<Container { ...rest }>
+		<div className="empty-container" { ...rest }>
 			<p>{ text }</p>
-		</Container>
+		</div>
 	);
 };
 
