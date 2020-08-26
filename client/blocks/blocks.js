@@ -117,7 +117,7 @@ export default class Blocks extends Component {
 
 		const dataSet = {
 			state: this.state,
-			dispatch: action => this.setState( action )
+			dispatch: action => this.setState( action ),
 		};
 
 		return (
@@ -126,7 +126,7 @@ export default class Blocks extends Component {
 				{ this.context.state.syncing && <Empty text={ __( 'Loading blocks...', 'ang' ) } /> }
 
 				{ ! this.context.state.syncing &&
-				<LibraryWrapper className="library-wrapper">
+				<LibraryWrapper>
 					<Sidebar
 						state={ dataSet }
 					/>
