@@ -25,7 +25,7 @@ const analogBlockSlides = wp.hooks.applyFilters( 'analogBlocks.carousel', [
 ] ) ;
 
 const SidebarWrapper = styled.div`
-	width: 25%;
+	width: 300px;
 	height: 100vh;
 	position: sticky;
 	position: -webkit-sticky;

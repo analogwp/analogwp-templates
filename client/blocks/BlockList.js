@@ -16,7 +16,9 @@ const { TextControl, Dashicon, Button, Card, CardBody, CardFooter } = wp.compone
 const { addQueryArgs } = wp.url;
 
 const Container = styled.div`
-	width: 70%;
+	flex: 1;
+	margin-left: 25px;
+
 	.grid {
 		display: flex;
 		margin-left: -25px; /* gutter size offset */
@@ -219,11 +221,20 @@ const getHeight = ( url ) => {
 const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 	const context = React.useContext( AnalogContext );
 
-	let filteredBlocks = context.state.blocks.filter( block => ! ( AGWP.license.status !== 'valid' && context.state.showFree && Boolean( block.is_pro ) ) );
+	const filteredBlocks = context.state.blocks.filter( block => ! ( AGWP.license.status !== 'valid' && context.state.showFree && Boolean( block.is_pro ) ) );
 
 	const fallbackImg = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
 	const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
+
+	// Masonry breakpoints.
+	const breakpointColumnsObj = {
+		default: 5,
+		2000: 4,
+		1600: 3,
+		1300: 2,
+		900: 1,
+	};
 
 	return (
 		<React.Fragment>
@@ -299,10 +310,10 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 			) }
 
 				<Masonry
-				breakpointCols={ 3 }
-				className="grid"
-				columnClassName="grid-item block-list"
-			>
+					breakpointCols={ Boolean( AGWP.is_settings_page ) ? breakpointColumnsObj : 3 }
+					className="grid"
+					columnClassName="grid-item block-list"
+				>
 				{ filteredBlocks.map( ( block ) => {
 					return (
 						<div key={ block.id }>
