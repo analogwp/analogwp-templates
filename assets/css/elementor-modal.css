@@ -18,7 +18,8 @@
     height: 800px;
     height: 95vh;
     overflow-y: auto;
-    overflow-x: hidden;
+	overflow-x: hidden;
+	background-color: #e3e3e3;
 }
 
 #analogwp-templates-modal p, #analogwp-blocks p {
