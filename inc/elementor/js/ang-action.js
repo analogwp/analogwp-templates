@@ -489,6 +489,24 @@ jQuery( window ).on( 'elementor:init', function() {
 		if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.7.6', '>' ) ) {
 			jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
 		}
+
+		$e.components.get('panel/global').addTab(
+			'theme-style-kits',
+			{
+				title: 'Style Kits',
+				icon: 'eicon-global-settings',
+				helpUrl: 'http://go.elementor.com/panel-global-typography'
+			},
+			6
+		);
+
+		const PanelView = elementor.getPanelView('kit_menu').getPages().kit_menu.view;
+		PanelView.addItem( PanelView.getGroups(), {
+			name: 'theme-style-kits',
+			icon: 'eicon-global-settings',
+			title: 'Style Kits',
+			callback: () => $e.route( 'panel/global/theme-style-kits' ),
+		}, 'theme_style' );
 	} );
 
 	jQuery('#elementor-panel').on('change', '[data-setting="ui_theme"]', function(e) {

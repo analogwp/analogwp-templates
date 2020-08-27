@@ -47,7 +47,7 @@ class Manager {
 	 * Manager constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/frontend/after_enqueue_global', array( $this, 'frontend_before_enqueue_styles' ), 999 );
+		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'frontend_before_enqueue_styles' ), 999 );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'preview_enqueue_styles' ), 999 );
 		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ), 999 );
 		add_action( 'delete_post', array( $this, 'restore_default_kit' ) );

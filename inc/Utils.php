@@ -791,7 +791,7 @@ class Utils extends Base {
 		if ( self::is_elementor_pre( '3.0' ) ) {
 			$tab = Controls_Manager::TAB_STYLE;
 		} else {
-			$tab = 'theme-style';
+			$tab = 'theme-style-kits';
 		}
 
 		return $tab;

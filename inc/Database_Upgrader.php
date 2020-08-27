@@ -32,7 +32,9 @@ class Database_Upgrader {
 	 * @return void
 	 */
 	public function init() {
-		$routines = array();
+		$routines = array(
+			'1.7.0' => 'upgrade_1_7',
+		);
 
 		$version = get_option( self::OPTION, '0.0.0' );
 
@@ -69,5 +71,27 @@ class Database_Upgrader {
 	protected function finish_up( $previous_version ) {
 		update_option( self::PREVIOUS_OPTION, $previous_version );
 		update_option( self::OPTION, ANG_VERSION );
+	}
+
+	/**
+	 * Remove old Style Kits.
+	 *
+	 * @return void
+	 */
+	protected function upgrade_1_7() {
+		$old_style_kits = get_posts(
+			array(
+				'fields'           => 'ids',
+				'suppress_filters' => false,
+				'post_type'        => 'ang_tokens',
+				'posts_per_page'   => - 1,
+			)
+		);
+
+		if ( count( $old_style_kits ) ) {
+			foreach ( $old_style_kits as $post_id ) {
+				wp_delete_post( (int) $post_id, true );
+			}
+		}
 	}
 }

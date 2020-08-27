@@ -90,6 +90,8 @@ final class Plugin {
 
 		wp_enqueue_style( 'wp-components' );
 		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', array(), '20190716' );
+		wp_enqueue_style( 'ang-sk-main', ANG_PLUGIN_URL . 'assets/css/sk-main.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/sk-main.css' ) );
+		wp_enqueue_style( 'analogwp-components-css', ANG_PLUGIN_URL . 'assets/css/sk-components.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/sk-components.css' ) );
 
 		wp_enqueue_script(
 			'analogwp-app',
@@ -167,6 +169,8 @@ final class Plugin {
 					'value' => $global_kit_title,
 				),
 			),
+			'adminURL'       => admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' ),
+			'blockMediaURL'  => 'https://bs.analogwp.com/',
 		);
 
 		$domains += $new_domains;
@@ -248,6 +252,7 @@ final class Plugin {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Manager.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Kits_List_Table.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Core/Util/Migration.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/tabs/Theme_Style_Kits.php';
 
 		if ( ! defined( 'ANG_PRO_VERSION' ) ) {
 			require_once ANG_PLUGIN_DIR . 'inc/elementor/Promotions.php';
@@ -339,6 +344,8 @@ final class Plugin {
 
 		static::$instance = new static( $main_file );
 		static::$instance->register();
+
+		do_action( 'ang_loaded' );
 
 		return true;
 	}
