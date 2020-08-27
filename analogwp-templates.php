@@ -10,7 +10,7 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits extends the Elementor theme styles editor with more global styling options. Boost your design workflow in Elementor with intuitive global controls and theme style presets.
- * Version:     1.6.9
+ * Version:     1.7.0
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2

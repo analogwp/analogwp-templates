@@ -2,9 +2,9 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 5.4.1
-Stable tag: 1.6.9
-Tags: elementor, landing page, design, website builder, templates, page builder
+Tested up to: 5.5
+Stable tag: 1.7.0
+Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ https://www.youtube.com/watch?v=ItcKsNztJJU
 
 ### Advanced Theme Styles
 
-Style Kits adds meaningful UI controls to Theme Styles for the most important variables of your layout system in Elementor:
+Style Kits for Elementor adds meaningful UI controls to Theme Styles for the most important variables of your layout system in Elementor:
 
 - Column Gaps
 - Outer Section Padding
@@ -36,7 +36,7 @@ The first-of-it's-kind template library for Elementor.
 
 In the Style Kits library, each template kit comes with its own theme style preset. Mix-and-match theme styles and layouts and enjoy built-in design consistency.
 
-### Boost your design workflow with Style Kits Pro
+### Boost your Elementor design workflow with Style Kits Pro
 
 - **Unlimited access** to a hand-made library of premium Template Kits, Theme Style Presets and Blocks that adapt to your existing Theme Styles.
 - **Inline style cleanup tools** that reset your layouts from inline styles. Turn your existing pages into theme-style-friendly layouts with a few clicks.
@@ -108,6 +108,17 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.7.0 - Aug 27, 2020 =
+* New: Simplified and redesigned library 🎉
+* Fix: Editor not applying correct Style Kit when using Elementor's "Default Kit"
+* Fix: Issue with Icon widget not respecting custom styles
+* Fix: Style Kits not loading web fonts sometimes
+* Fix: Possible fatal error with Yoast SEO and some third party plugins, applicable for WordPress 5.5+
+* Fix: Plugin translations not working in Frontend app (Library pages)
+* Improvements: Compatibility with Elementor v3
+* Improvements: Updated Google fonts list
+* Improvements: Delete unused old Style Kits stored in a CPT, redundant since Elementor's Theme style was introduced
 
 = 1.6.9 - June 06, 2020 =
 * Fix: Missing front-end styles, when user has only two or less kits
@@ -472,3 +483,6 @@ Fixes an error with PHP5.6 or earlier
 
 = 1.6.6 =
 Fixes an bug with inconsistent Outer Section Padding on Sections
+
+= 1.7.0 =
+Requires Elementor v3.0+, adds compatibility and redesigned library
