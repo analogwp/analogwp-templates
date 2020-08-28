@@ -180,7 +180,7 @@ class Colors extends Module {
 			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h4',
 			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h5',
 			'{{WRAPPER}} .sk-primary-accent.sk-primary-accent h6',
-			'{{WRAPPER}} *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-icon-box-icon):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item):not([role="link"]):not(.elementor-icon [href=""])',
+			'{{WRAPPER}} *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-icon-box-icon):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item):not([role="link"])',
 			'{{WRAPPER}} a:not([class])',
 			'{{WRAPPER}} .elementor-tab-title.elementor-active',
 			'{{WRAPPER}} .elementor-post-info__terms-list-item',
