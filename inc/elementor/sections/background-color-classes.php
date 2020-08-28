@@ -78,7 +78,7 @@ final class BackgroundColorClasses extends Module {
 				'variable'  => 'ang_background_light_background',
 				'selectors' => array(
 					'{{WRAPPER}}' => '--ang_background_light_background: {{VALUE}};',
-					'{{WRAPPER}} .sk-light-bg:not(.elementor-column)' => 'background-color: {{VALUE}}; color: var(--ang_color_text_light)',
+					'{{WRAPPER}} .sk-light-bg:not(.elementor-column)' => 'background-color: {{VALUE}};',
 					'{{WRAPPER}} .sk-dark-bg .elementor-counter-title, {{WRAPPER}} .sk-dark-bg .elementor-counter-number-wrapper' => 'color: currentColor',
 					'{{WRAPPER}} .sk-light-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}}; color: var(--ang_color_text_light)',
 				),
@@ -164,7 +164,7 @@ final class BackgroundColorClasses extends Module {
 				'variable'  => 'ang_background_dark_background',
 				'selectors' => array(
 					'{{WRAPPER}}' => '--ang_background_dark_background: {{VALUE}};',
-					'{{WRAPPER}} .sk-dark-bg:not(.elementor-column)' => 'background-color: {{VALUE}}; color: var(--ang_color_text_dark)',
+					'{{WRAPPER}} .sk-dark-bg:not(.elementor-column)' => 'background-color: {{VALUE}};',
 					'{{WRAPPER}} .sk-light-bg .elementor-counter-title, {{WRAPPER}} .sk-light-bg .elementor-counter-number-wrapper' => 'color: currentColor;',
 					'{{WRAPPER}} .sk-dark-bg.elementor-column > .elementor-element-populated' => 'background-color: {{VALUE}}; color: var(--ang_color_text_dark)',
 				),
