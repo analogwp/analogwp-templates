@@ -113,8 +113,10 @@ class Tools extends Base {
 
 		$rollback_versions = Utils::get_rollback_versions();
 
-		if ( empty( $_GET['version'] ) || ! in_array( $_GET['version'], $rollback_versions, true ) ) {
-			wp_die( __( 'Error occurred, the version selected is invalid. Try selecting different version.', 'ang' ) );
+		$version = filter_input( INPUT_GET, 'version', FILTER_SANITIZE_STRING );
+
+		if ( ! $version || ! in_array( $version, $rollback_versions, true ) ) {
+			wp_die( esc_html__( 'Error occurred, the version selected is invalid. Try selecting different version.', 'ang' ) );
 		}
 
 		?>
@@ -142,16 +144,15 @@ class Tools extends Base {
 		</style>
 		<?php
 
-		$plugin_slug    = 'analogwp-templates';
-		$plugin_name    = 'analogwp-templates/analogwp-templates.php';
-		$stable_version = $_GET['version'];
+		$plugin_slug = 'analogwp-templates';
+		$plugin_name = 'analogwp-templates/analogwp-templates.php';
 
 		$rollback = new Rollback(
 			array(
-				'version'     => $stable_version,
+				'version'     => $version,
 				'plugin_name' => $plugin_name,
 				'plugin_slug' => $plugin_slug,
-				'package_url' => sprintf( 'https://downloads.wordpress.org/plugin/%s.%s.zip', $plugin_slug, $stable_version ),
+				'package_url' => sprintf( 'https://downloads.wordpress.org/plugin/%s.%s.zip', $plugin_slug, $version ),
 			)
 		);
 

@@ -41,7 +41,7 @@ define( 'ANG_PLUGIN_BASE', plugin_basename( ANG_PLUGIN_FILE ) );
 function analog_activate_plugin() {
 	if ( version_compare( PHP_VERSION, ANG_PHP_MINIMUM, '<' ) ) {
 		wp_die(
-		/* translators: %s: version number */
+			/* translators: %s: version number */
 			esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'ang' ), '5.6.0' ) ),
 			esc_html__( 'Error Activating', 'ang' )
 		);
@@ -102,7 +102,19 @@ function analog_require_minimum_elementor() {
 	/* translators: %s: Minimum required Elementor version. */
 	$message = '<p>' . sprintf( __( 'Style Kits requires Elementor v%s or newer in order to work. Please update Elementor to the latest version.', 'ang' ), ANG_ELEMENTOR_MINIMUM ) . '</p>';
 
-	$message .= '<p>' . sprintf( '<a href="%s" class="button-secondary">%s</a>', $update_url, __( 'Update Elementor Now', 'ang' ) ) . '</p>';
+	$versions = get_transient( 'ang_rollback_versions_' . ANG_VERSION );
+
+	$message .= '<p>';
+	/* translators: %s: Link to update Elementor. */
+	$message .= sprintf( '<a href="%s" class="button-primary">%s</a>', $update_url, __( 'Update Elementor Now', 'ang' ) );
+	/* translators: %s: Link to rollback plugin to previous version. */
+	$message .= sprintf(
+		'<a href="%s" class="button-secondary" style="margin-left:10px">%s</a>',
+		wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=' . $versions[0] ), 'ang_rollback' ),
+		/* translators: %s: Version number. */
+		sprintf( __( 'Rollback to v%s', 'ang' ), $versions[0] )
+	);
+	$message .= '</p>';
 
 	echo '<div class="error"><p>' . $message . '</p></div>'; // @codingStandardsIgnoreLine
 }
@@ -203,6 +215,12 @@ add_action(
 		}
 
 		if ( ! version_compare( ELEMENTOR_VERSION, ANG_ELEMENTOR_MINIMUM, '>=' ) ) {
+			// Include files temporarily, required for rollbacks to work.
+			require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
+			require_once ANG_PLUGIN_DIR . 'inc/Core/Storage/Transients.php';
+			require_once ANG_PLUGIN_DIR . 'inc/elementor/class-tools.php';
+			require_once ANG_PLUGIN_DIR . 'inc/Utils.php';
+
 			add_action( 'admin_notices', 'analog_require_minimum_elementor' );
 			return;
 		}
