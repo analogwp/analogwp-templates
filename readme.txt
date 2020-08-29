@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.5
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,11 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.7.1 - Aug 29, 2020 =
+* Fix: Broken accent color selector, caused many stylings to fail
+* Fix: Background color classes inheriting accent background colors as text
+* Improvements: Added button to rollback plugin if not using required Elementor version
 
 = 1.7.0 - Aug 27, 2020 =
 * New: Simplified and redesigned library 🎉
