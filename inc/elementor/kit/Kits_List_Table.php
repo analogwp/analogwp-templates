@@ -98,7 +98,11 @@ class Kits_List_Table extends \WP_List_Table {
 				if ( Utils::get_global_kit_id() === $item['id'] ) {
 					$result = __( 'Entire Site', 'ang' );
 				} else {
-					$result = ( $count > 0 ) ? $count : __( 'None', 'ang' );
+					$page_filter_url = esc_url( admin_url( 'edit.php?post_type=page&sk=' . $item['id'] ) );
+					$formatted_count = '<a style="text-decoration:underline; font-weight:bold;" 
+						href="' . $page_filter_url . '">' . $count . '</a>';
+
+					$result = ( $count > 0 ) ? $formatted_count : __( 'None', 'ang' );
 				}
 
 				break;
