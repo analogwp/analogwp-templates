@@ -79,6 +79,15 @@ function register_menu() {
 			__NAMESPACE__ . '\handle_external_redirects'
 		);
 	}
+
+	add_submenu_page(
+		$menu_slug,
+		__( 'Instances', 'ang' ),
+		__( 'Instances List', 'ang' ),
+		'manage_options',
+		'ang-instance-list',
+		'Analog\Elementor\Kit\ang_instance_list'
+	);
 }
 
 add_action( 'admin_menu', __NAMESPACE__ . '\register_menu' );
