@@ -2,7 +2,6 @@
 
 namespace Analog\Elementor\Kit;
 
-use Analog\Plugin;
 use Analog\Utils;
 
 if ( ! class_exists( \WP_List_Table::class ) ) {
@@ -16,6 +15,14 @@ if ( ! class_exists( \WP_List_Table::class ) ) {
  * @package Analog\Elementor\Kit
  */
 class Instance_List_Table extends \WP_List_Table {
+
+	/**
+	 * Property to store style kit list.
+	 *
+	 * @var array
+	 */
+	private $utils_list;
+
 	/**
 	 * Instance_List_Table constructor.
 	 */
@@ -28,6 +35,8 @@ class Instance_List_Table extends \WP_List_Table {
 				'ajax'     => false,
 			)
 		);
+
+		$this->utils_list = Utils::get_kits( false );
 	}
 
 	/**
@@ -177,6 +186,7 @@ class Instance_List_Table extends \WP_List_Table {
 	 * @return void
 	 */
 	public function prepare_items() {
+		var_dump($_REQUEST);
 		$columns               = $this->get_columns();
 		$this->_column_headers = array( $columns, array(), array(), 'title' );
 		$data                  = array();
@@ -239,7 +249,7 @@ class Instance_List_Table extends \WP_List_Table {
 	 * @return array
 	 */
 	protected function get_views() {
-		$total_posts = count( Utils::get_kits( false ) );
+		$total_posts = count( $this->utils_list );
 
 		$status_links = array();
 
@@ -275,6 +285,97 @@ class Instance_List_Table extends \WP_List_Table {
 			}
 		}
 	}
+
+	/**
+	 * Generates the table navigation above or below the table
+	 *
+	 * @param string $which Position of the navigation, either top or bottom.
+	 */
+	protected function display_tablenav( $which ) {
+		?>
+	<div class="tablenav <?php echo esc_attr( $which ); ?>">
+
+		<?php if ( $this->has_items() ) : ?>
+		<div class="alignleft actions bulkactions">
+			<?php $this->bulk_actions( $which ); ?>
+		</div>
+			<?php
+		endif;
+		$this->extra_tablenav( $which );
+		$this->pagination( $which );
+		?>
+
+		<br class="clear" />
+	</div>
+		<?php
+	}
+
+	/**
+	 * Overriden method to add dropdown filters column type, & kit.
+	 *
+	 * @param string $which Position of the navigation, either top or bottom.
+	 */
+	protected function extra_tablenav( $which ) {
+
+		$kits_dropdown_arg = array(
+			'options'   => array( 0 => 'All' ) + array_reverse( $this->utils_list, true ),
+			'container' => array(
+				'class' => 'alignleft actions',
+			),
+			'label'     => array(
+				'class'      => 'screen-reader-text',
+				'inner_text' => __( 'Filter by Style Kit', 'ang' ),
+			),
+			'select'    => array(
+				'name'     => 'kit',
+				'id'       => 'filter-by-sk',
+				'selected' => filter_input( INPUT_GET, 'kit', FILTER_VALIDATE_INT ),
+			),
+		);
+
+		$this->html_dropdown( $kits_dropdown_arg );
+
+		submit_button( __( 'Filter', 'ang' ), 'secondary', 'action', false );
+	}
+
+	/**
+	 * Navigation dropdown HTML generator
+	 *
+	 * @param array $args Argument array to generate dropdown.
+	 */
+	private function html_dropdown( $args ) {
+		?>
+
+<div class="<?php echo( esc_attr( $args['container']['class'] ) ); ?>">
+	<label
+		for="<?php echo( esc_attr( $args['select']['id'] ) ); ?>"
+		class="<?php echo( esc_attr( $args['label']['class'] ) ); ?>">
+	</label>
+	<select
+		name="<?php echo( esc_attr( $args['select']['name'] ) ); ?>"
+		id="<?php echo( esc_attr( $args['select']['id'] ) ); ?>">
+		<?php
+		foreach ( $args['options'] as $id => $title ) {
+			$sk_posts = Utils::posts_using_stylekit( $id );
+
+			if ( count( $sk_posts ) ) {
+				?>
+				<option
+				<?php if ( $args['select']['selected'] === $id ) { ?>
+					selected="selected"
+				<?php } ?>
+				value="<?php echo( esc_attr( $id ) ); ?>">
+				<?php echo esc_html( $title ); ?>
+				</option>
+				<?php
+			}
+		}
+		?>
+	</select>
+</div>
+
+		<?php
+	}
 }
 
 /**
@@ -289,7 +390,6 @@ function ang_instance_list() {
 	?>
 	<div class="wrap">
 		<h2><?php esc_html_e( 'Instance List', 'ang' ); ?></h2>
-		<?php $kits_table->views(); ?>
 		<form id="ang-instance-list" method="get">
 			<input type="hidden" name="page" value="ang-instance-list" />
 
