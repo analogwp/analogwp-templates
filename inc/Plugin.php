@@ -251,7 +251,6 @@ final class Plugin {
 
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Manager.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Kits_List_Table.php';
-		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Page_Filter.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Core/Util/Migration.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/tabs/Theme_Style_Kits.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Instance_List_Table.php';
