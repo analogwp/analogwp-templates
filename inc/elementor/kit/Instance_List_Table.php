@@ -17,6 +17,8 @@ if ( ! class_exists( \WP_List_Table::class ) ) {
  */
 class Instance_List_Table extends \WP_List_Table {
 
+	const POSTS_PER_PAGE = 20;
+
 	/**
 	 * Property to store style kit list.
 	 *
@@ -43,14 +45,14 @@ class Instance_List_Table extends \WP_List_Table {
 	/**
 	 * Return instances post object.
 	 *
-	 * @return int[]|\WP_Post[]
+	 * @return Object $posts
 	 */
 	protected function get_posts_object() {
 
 		$post_args = array(
 			'post_type'      => 'any',
 			'post_status'    => array( 'publish', 'draft' ),
-			'posts_per_page' => -1,
+			'posts_per_page' => self::POSTS_PER_PAGE,
 			'orderby'        => 'date',
 			'order'          => 'DESC',
 			'meta_query'     => array( // @codingStandardsIgnoreLine
@@ -77,7 +79,13 @@ class Instance_List_Table extends \WP_List_Table {
 
 		}
 
-		$posts = \get_posts( $post_args );
+		$paged = filter_input( INPUT_GET, 'paged', FILTER_VALIDATE_INT );
+
+		if ( $paged ) {
+			$post_args['paged'] = $paged;
+		}
+
+		$posts = new \WP_Query( $post_args );
 
 		return $posts;
 	}
@@ -115,7 +123,7 @@ class Instance_List_Table extends \WP_List_Table {
 				break;
 
 			case 'author':
-				$result = get_the_author_meta( 'display_name', $item['author'] );
+				$result = $item['author'];
 				break;
 
 			case 'type':
@@ -210,39 +218,40 @@ class Instance_List_Table extends \WP_List_Table {
 
 		$get_posts_obj = $this->get_posts_object();
 
-		foreach ( $get_posts_obj as $post ) {
+		if ( $get_posts_obj->have_posts() ) {
 
-			$post_meta_settings = get_post_meta( $post->ID, '_elementor_page_settings', true );
-			$kit_title          = '';
+			while ( $get_posts_obj->have_posts() ) {
 
-			if ( ! empty( $post_meta_settings['ang_action_tokens'] ) ) {
+				$get_posts_obj->the_post();
 
-				$kit_id    = $post_meta_settings['ang_action_tokens'];
-				$kit_title = ucwords( get_the_title( $kit_id ) );
+				$post_meta_settings = get_post_meta( get_the_ID(), '_elementor_page_settings', true );
+				$kit_title          = '';
+
+				if ( ! empty( $post_meta_settings['ang_action_tokens'] ) ) {
+
+					$kit_id    = $post_meta_settings['ang_action_tokens'];
+					$kit_title = ucwords( get_the_title( $kit_id ) );
+				}
+
+				$data[ get_the_ID() ] = array(
+					'id'     => get_the_ID(),
+					'title'  => get_the_title(),
+					'type'   => ucwords( get_post_type_object( get_post_type() )->labels->singular_name ),
+					'kit'    => $kit_title,
+					'date'   => get_post_datetime(),
+					'author' => get_the_author(),
+				);
 			}
-
-			$data[ $post->ID ] = array(
-				'id'     => $post->ID,
-				'title'  => $post->post_title,
-				'type'   => ucwords( get_post_type_object( $post->post_type )->labels->singular_name ),
-				'kit'    => $kit_title,
-				'date'   => $post->post_date,
-				'author' => $post->post_author,
-			);
+			wp_reset_postdata();
 		}
-
-		$current_page = $this->get_pagenum();
-		$max          = count( $data );
-		$per_page     = 20;
-		$data         = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
 
 		$this->items = $data;
 
 		$this->set_pagination_args(
 			array(
-				'total_items' => $max,
-				'per_page'    => $per_page,
-				'total_pages' => ceil( $max / $per_page ),
+				'total_items' => $get_posts_obj->found_posts,
+				'per_page'    => $get_posts_obj->post_count,
+				'total_pages' => $get_posts_obj->max_num_pages,
 			)
 		);
 	}
