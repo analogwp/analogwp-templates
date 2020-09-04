@@ -97,6 +97,11 @@ class Instance_List_Table extends \WP_List_Table {
 		$post_args['orderby'] = $orderby;
 		$post_args['order']   = $order;
 
+		$search = esc_sql( filter_input( INPUT_GET, 's' ) );
+		if ( ! empty( $search ) ) {
+			$post_args['s'] = $search;
+		}
+
 		$posts = new \WP_Query( $post_args );
 
 		return $posts;
@@ -454,6 +459,7 @@ function ang_instance_list() {
 
 			<?php
 			$kits_table->prepare_items();
+			$kits_table->search_box( 'Search', 'search' );
 			$kits_table->display();
 			?>
 		</form>
