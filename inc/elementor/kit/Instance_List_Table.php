@@ -302,11 +302,15 @@ class Instance_List_Table extends \WP_List_Table {
 	public function process_bulk_action() {
 		if ( 'trash' === $this->current_action() ) {
 			$post_ids = filter_input( INPUT_GET, 'instance_id', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-			$post_ids = array_map( 'intval', $post_ids );
 
-			if ( count( $post_ids ) ) {
-				array_map( 'wp_trash_post', $post_ids );
+			if ( is_array( $post_ids ) ) {
+				$post_ids = array_map( 'intval', $post_ids );
+
+				if ( count( $post_ids ) ) {
+					array_map( 'wp_trash_post', $post_ids );
+				}
 			}
+
 		}
 	}
 
