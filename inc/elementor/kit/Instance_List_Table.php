@@ -52,7 +52,7 @@ class Instance_List_Table extends \WP_List_Table {
 			'posts_per_page' => -1,
 			'orderby'        => 'date',
 			'order'          => 'DESC',
-			'meta_query'     => array(
+			'meta_query'     => array( // @codingStandardsIgnoreLine
 				array(
 					'key'     => '_elementor_page_settings',
 					'value'   => 'ang_action_tokens',
@@ -60,6 +60,21 @@ class Instance_List_Table extends \WP_List_Table {
 				),
 			),
 		);
+
+		$kit_filter = filter_input( INPUT_GET, 'kit', FILTER_VALIDATE_INT );
+
+		if ( $kit_filter ) {
+			$search = serialize( array( 'ang_action_tokens' => strval( $kit_filter ) ) ); // @codingStandardsIgnoreLine
+
+			$post_args['meta_query'] = array( // @codingStandardsIgnoreLine
+				array(
+					'key'     => '_elementor_page_settings',
+					'value'   => $search,
+					'compare' => 'LIKE',
+				),
+			);
+
+		}
 
 		$posts = \get_posts( $post_args );
 
@@ -186,7 +201,6 @@ class Instance_List_Table extends \WP_List_Table {
 	 * @return void
 	 */
 	public function prepare_items() {
-		var_dump($_REQUEST);
 		$columns               = $this->get_columns();
 		$this->_column_headers = array( $columns, array(), array(), 'title' );
 		$data                  = array();
@@ -317,25 +331,27 @@ class Instance_List_Table extends \WP_List_Table {
 	 */
 	protected function extra_tablenav( $which ) {
 
-		$kits_dropdown_arg = array(
-			'options'   => array( 0 => 'All' ) + array_reverse( $this->utils_list, true ),
-			'container' => array(
-				'class' => 'alignleft actions',
-			),
-			'label'     => array(
-				'class'      => 'screen-reader-text',
-				'inner_text' => __( 'Filter by Style Kit', 'ang' ),
-			),
-			'select'    => array(
-				'name'     => 'kit',
-				'id'       => 'filter-by-sk',
-				'selected' => filter_input( INPUT_GET, 'kit', FILTER_VALIDATE_INT ),
-			),
-		);
+		if ( 'top' === $which ) {
+			$kits_dropdown_arg = array(
+				'options'   => array( 0 => 'All' ) + array_reverse( $this->utils_list, true ),
+				'container' => array(
+					'class' => 'alignleft actions',
+				),
+				'label'     => array(
+					'class'      => 'screen-reader-text',
+					'inner_text' => __( 'Filter by Style Kit', 'ang' ),
+				),
+				'select'    => array(
+					'name'     => 'kit',
+					'id'       => 'filter-by-sk',
+					'selected' => filter_input( INPUT_GET, 'kit', FILTER_VALIDATE_INT ),
+				),
+			);
 
-		$this->html_dropdown( $kits_dropdown_arg );
+			$this->html_dropdown( $kits_dropdown_arg );
 
-		submit_button( __( 'Filter', 'ang' ), 'secondary', 'action', false );
+			submit_button( __( 'Filter', 'ang' ), 'secondary', 'action', false );
+		}
 	}
 
 	/**
