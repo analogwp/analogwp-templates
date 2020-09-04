@@ -17,7 +17,7 @@ if ( ! class_exists( \WP_List_Table::class ) ) {
  */
 class Instance_List_Table extends \WP_List_Table {
 
-	const POSTS_PER_PAGE = 5; // !import change this to 20
+	const POSTS_PER_PAGE = 20;
 
 	/**
 	 * Property to store style kit list.
