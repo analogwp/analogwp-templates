@@ -186,7 +186,7 @@ class Instance_List_Table extends \WP_List_Table {
 
 		/* translators: %s: Post Title */
 		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . sprintf( __( '%s (Edit)', 'ang' ), $item['title'] ) . '">' . esc_html( $item['title'] ) . '</a>';
-
+		$output .= _post_states( get_post( $item['id'] ), false );
 		$output .= '</strong>';
 
 		// Get actions.
