@@ -17,7 +17,7 @@ if ( ! class_exists( \WP_List_Table::class ) ) {
  */
 class Instance_List_Table extends \WP_List_Table {
 
-	const POSTS_PER_PAGE = 20;
+	const POSTS_PER_PAGE = 5; // !import change this to 20
 
 	/**
 	 * Property to store style kit list.
@@ -53,8 +53,6 @@ class Instance_List_Table extends \WP_List_Table {
 			'post_type'      => 'any',
 			'post_status'    => array( 'publish', 'draft' ),
 			'posts_per_page' => self::POSTS_PER_PAGE,
-			'orderby'        => 'date',
-			'order'          => 'DESC',
 			'meta_query'     => array( // @codingStandardsIgnoreLine
 				array(
 					'key'     => '_elementor_page_settings',
@@ -64,7 +62,7 @@ class Instance_List_Table extends \WP_List_Table {
 			),
 		);
 
-		$kit_filter = filter_input( INPUT_GET, 'kit', FILTER_VALIDATE_INT );
+		$kit_filter = esc_sql( filter_input( INPUT_GET, 'kit', FILTER_VALIDATE_INT ) );
 
 		if ( $kit_filter ) {
 			$search = serialize( array( 'ang_action_tokens' => strval( $kit_filter ) ) ); // @codingStandardsIgnoreLine
@@ -79,11 +77,25 @@ class Instance_List_Table extends \WP_List_Table {
 
 		}
 
-		$paged = filter_input( INPUT_GET, 'paged', FILTER_VALIDATE_INT );
+		$paged = esc_sql( filter_input( INPUT_GET, 'paged', FILTER_VALIDATE_INT ) );
 
 		if ( $paged ) {
 			$post_args['paged'] = $paged;
 		}
+
+		$orderby = esc_sql( filter_input( INPUT_GET, 'orderby' ) );
+		$order   = esc_sql( filter_input( INPUT_GET, 'order' ) );
+
+		if ( empty( $orderby ) ) {
+			$orderby = 'date';
+		}
+
+		if ( empty( $order ) ) {
+			$order = 'DESC';
+		}
+
+		$post_args['orderby'] = $orderby;
+		$post_args['order']   = $order;
 
 		$posts = new \WP_Query( $post_args );
 
@@ -211,7 +223,8 @@ class Instance_List_Table extends \WP_List_Table {
 	 */
 	public function prepare_items() {
 		$columns               = $this->get_columns();
-		$this->_column_headers = array( $columns, array(), array(), 'title' );
+		$sortable              = $this->get_sortable_columns();
+		$this->_column_headers = array( $columns, array(), $sortable, 'title' );
 		$data                  = array();
 
 		$this->process_bulk_action();
@@ -310,7 +323,6 @@ class Instance_List_Table extends \WP_List_Table {
 					array_map( 'wp_trash_post', $post_ids );
 				}
 			}
-
 		}
 	}
 
@@ -405,6 +417,23 @@ class Instance_List_Table extends \WP_List_Table {
 </div>
 
 		<?php
+	}
+
+	/**
+	 * Include the columns which can be sortable.
+	 *
+	 * @return Array $sortable_columns Return array of sortable columns.
+	 */
+	public function get_sortable_columns() {
+
+		$sortable_columns = array(
+			'title'  => array( 'title', false ),
+			'type'   => array( 'type', false ),
+			'date'   => array( 'date', false ),
+			'author' => array( 'author', false ),
+		);
+
+		return $sortable_columns;
 	}
 }
 
