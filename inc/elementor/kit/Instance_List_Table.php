@@ -184,6 +184,7 @@ class Instance_List_Table extends \WP_List_Table {
 
 		$output = '<strong>';
 
+		/* translators: %s: Post Title */
 		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . sprintf( __( '%s (Edit)', 'ang' ), $item['title'] ) . '">' . esc_html( $item['title'] ) . '</a>';
 
 		$output .= '</strong>';
@@ -466,3 +467,18 @@ function ang_instance_list() {
 	</div>
 	<?php
 }
+
+add_action(
+	'admin_head',
+	function() {
+		$page = esc_attr( filter_input( INPUT_GET, 'page' ) );
+		if ( 'ang-instance-list' !== $page ) {
+			return;
+		}
+
+		echo '<style type="text/css">';
+		echo '.wp-list-table .column-kit { width: 10%; }';
+		echo '.wp-list-table .column-type { width: 10%; }';
+		echo '</style>';
+	}
+);
