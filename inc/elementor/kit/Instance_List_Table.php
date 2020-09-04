@@ -2,6 +2,7 @@
 
 namespace Analog\Elementor\Kit;
 
+use Analog\Plugin;
 use Analog\Utils;
 
 if ( ! class_exists( \WP_List_Table::class ) ) {
@@ -152,22 +153,22 @@ class Instance_List_Table extends \WP_List_Table {
 	 * @return string
 	 */
 	public function column_title( $item ) {
-		$edit_url = get_edit_post_link( $item['id'] );
+		$edit_url  = get_edit_post_link( $item['id'] );
+		$post_link = get_permalink( $item['id'] );
+		$document  = Plugin::elementor()->documents->get( $item['id'] );
 
 		$output = '<strong>';
 
-		/* translators: %s: Kit Title */
 		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . sprintf( __( '%s (Edit)', 'ang' ), $item['title'] ) . '">' . esc_html( $item['title'] ) . '</a>';
-		if ( (int) get_option( \Elementor\Core\Kits\Manager::OPTION_ACTIVE ) === $item['id'] ) {
-			$output .= '&nbsp;&mdash;	&nbsp;<span class="post-state"><span style="color:#32b644;">&#9679; ' . esc_html__( 'Global Style Kit', 'ang' ) . '</span></span>';
-		}
 
 		$output .= '</strong>';
 
 		// Get actions.
 		$actions = array(
-			'edit'  => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'ang' ) . '</a>',
-			'trash' => '<a href="' . esc_url( get_delete_post_link( $item['id'] ) ) . '" class="submitdelete">' . __( 'Trash', 'ang' ) . '</a>',
+			'edit'                => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'ang' ) . '</a>',
+			'trash'               => '<a href="' . esc_url( get_delete_post_link( $item['id'] ) ) . '" class="submitdelete">' . __( 'Trash', 'ang' ) . '</a>',
+			'view'                => '<a href="' . esc_url( $post_link ) . '">' . __( 'View', 'ang' ) . '</a>',
+			'edit_with_elementor' => '<a href="' . esc_url( $document->get_edit_url() ) . '">' . __( 'Edit with Elementor', 'ang' ) . '</a>',
 		);
 
 		$row_actions = array();
