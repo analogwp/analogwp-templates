@@ -65,13 +65,13 @@ class Instance_List_Table extends \WP_List_Table {
 		$kit_filter = esc_sql( filter_input( INPUT_GET, 'kit', FILTER_VALIDATE_INT ) );
 
 		if ( $kit_filter ) {
-			$search = serialize( array( 'ang_action_tokens' => strval( $kit_filter ) ) ); // @codingStandardsIgnoreLine
+			$search = 'ang_action_tokens";s:' . strlen( $kit_filter ) . ':"' . $kit_filter . '";';
 
 			$post_args['meta_query'] = array( // @codingStandardsIgnoreLine
 				array(
 					'key'     => '_elementor_page_settings',
 					'value'   => $search,
-					'compare' => 'LIKE',
+					'compare' => 'REGEXP',
 				),
 			);
 
@@ -413,7 +413,7 @@ class Instance_List_Table extends \WP_List_Table {
 					selected="selected"
 				<?php } ?>
 				value="<?php echo( esc_attr( $id ) ); ?>">
-				<?php echo esc_html( $title ); ?>
+				<?php echo esc_html( \ucwords( $title ) ); ?>
 				</option>
 				<?php
 			}
