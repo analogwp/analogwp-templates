@@ -71,7 +71,7 @@ class Instance_List_Table extends \WP_List_Table {
 				array(
 					'key'     => '_elementor_page_settings',
 					'value'   => $search,
-					'compare' => 'REGEXP',
+					'compare' => 'LIKE',
 				),
 			);
 
