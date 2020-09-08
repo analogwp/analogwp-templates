@@ -796,6 +796,15 @@ class Utils extends Base {
 
 		return $tab;
 	}
+
+	/**
+	 * Return is_always_global_sk option's value
+	 *
+	 * @return bool true/false of Always import templates using the Global Style Kit.
+	 */
+	public static function get_is_global_sk_enabled() {
+		return (bool) Options::get_instance()->get( 'is_always_global_sk' );
+	}
 }
 
 new Utils();

@@ -150,24 +150,46 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 			<Container>
 				{ ( step === 1 ) && (
 					<div>
-						<h3>{ __( 'Choose a Theme Style Kit to apply on the page.', 'ang' ) }</h3>
-						<p>{ __( 'The original Style Kit is pre-selected for you.', 'ang' ) }</p>
-						<div className="row" style={{width: '42%'}}>
-							<Select
-								options={ groupedOptions }
-								formatGroupLabel={ formatGroupLabel }
-								isSearchable={ false }
-								placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
-								defaultValue={ defaultDropdownValue }
-								onChange={ ( e ) => {
-									handler( { kit: e.value } );
-								} }
-							/>
-						</div>
-						<p>
-							{ __( 'You can manage and set a Global Style Kit at the ', 'ang' ) }
-							<ExternalLink href={ AGWP.adminURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
-						</p>
+						{ ( AGWP.isGlobalSkEnabled )
+							? <h3>{ __( 'Global Style Kit chosen', 'ang' ) }</h3>
+							: <h3>{ __( 'Choose a Theme Style Kit to apply on the page.', 'ang' ) }</h3>
+						}
+						{ ( AGWP.isGlobalSkEnabled )
+							? <p id='gsk_name'>{ sprintf(
+									/* translators: 1: Global Style Kit label */
+									__( '%1$s', 'ang' ),
+									AGWP.globalKit[ 0 ].label
+								) }</p>
+							: <p>{ __( 'The original Style Kit is pre-selected for you.', 'ang' ) }</p>
+						}
+						{ ( ! AGWP.isGlobalSkEnabled ) &&
+							<div className="row" style={{width: '42%'}}>
+								<Select
+									options={ groupedOptions }
+									formatGroupLabel={ formatGroupLabel }
+									isSearchable={ false }
+									placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
+									defaultValue={ defaultDropdownValue }
+									onChange={ ( e ) => {
+										handler( { kit: e.value } );
+									} }
+								/>
+							</div>
+						}
+						{ ( AGWP.isGlobalSkEnabled )
+							?<>
+								<p>
+								{ __( 'You can enable/disable always import Global Style Kit at the ', 'ang' ) }
+								<ExternalLink href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
+								</p>
+							</>
+							:<>
+								<p>
+								{ __( 'You can manage and set a Global Style Kit at the ', 'ang' ) }
+								<ExternalLink href={ AGWP.adminURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
+								</p>
+							</>
+						}
 					</div>
 				) }
 

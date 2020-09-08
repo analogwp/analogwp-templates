@@ -192,6 +192,9 @@ class Templates extends React.Component {
 	}
 
 	componentDidMount() {
+		if ( AGWP.isGlobalSkEnabled ) {
+			this.setState( { kit: AGWP.globalKit[ 0 ].value } );
+		}
 		window.addEventListener( 'keyup', this.closeOnEsc );
 	}
 
