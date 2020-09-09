@@ -507,6 +507,18 @@
 .stylekit-popup-content {
     margin-top: -20px;
 }
+
+#analogwp-templates .analogwp-content .inner-popup-content  #gsk_name {
+    border-radius: 4px;
+    letter-spacing: .5px;
+    font-size: 13px;
+    padding: 4px 7px;
+    border: 2px solid #127DB8;
+    color: #127DB8;
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 0;
+}
 /*END*/
 
 #analogwp-templates .tab-description {

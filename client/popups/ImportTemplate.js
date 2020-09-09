@@ -179,7 +179,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 						{ ( AGWP.isGlobalSkEnabled )
 							?<>
 								<p>
-								{ __( 'You can enable/disable always import Global Style Kit at the ', 'ang' ) }
+								{ __( 'You can enable/disable settings "always import Global Style Kit" at the ', 'ang' ) }
 								<ExternalLink href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
 								</p>
 							</>
