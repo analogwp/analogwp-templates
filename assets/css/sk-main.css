@@ -436,10 +436,6 @@
 
 /*Popup CSS*/
 /*START*/
-#import-new-page .components-base-control {
-    width: 40%;
-}
-
 #analogwp-templates .analogwp-content .inner-popup-header {
     width: 100%;
     display: flex;
@@ -480,11 +476,16 @@
     font-size: 14px;
 }
 
+#analogwp-templates .analogwp-content .inner-popup-content .choose-kit {
+    padding-bottom: 10px;
+}
+
 #analogwp-templates .analogwp-content .inner-popup-content .components-card__divider {
     position: relative;
     width: 107.5%;
     left: -3.7%;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content .components-button.is-primary {
@@ -496,16 +497,57 @@
     padding: 0 20px;
 }
 
-#analogwp-templates .analogwp-content .inner-popup-content #import-new-page {
-    padding-bottom: 76px;
-}
-
 #analogwp-templates .analogwp-content .inner-popup-content .components-text-control__input {
     height: 36px;
 }
 
 .stylekit-popup-content {
     margin-top: -20px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .flex-row {
+    display: flex;
+    align-items: center;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .flex-row .col1 {
+    margin-right: 48px;
+    min-width: 306px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .flex-row:last-child {
+    margin-bottom: 16px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .flex-row button,
+#analogwp-templates .analogwp-content .inner-popup-content .flex-row [type=text]{
+    display: inline-block;
+    width: 196px;
+    height: 32px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .flex-row [type=text]{
+    text-align: left;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .kit-dropdown-wrapper > div,
+#analogwp-templates .analogwp-content .inner-popup-content .kit-dropdown-wrapper > div > div[class$="-control"]:first-child {
+    width: 196px;
+    height: 32px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .el-editor {
+    display: none;
+}
+
+#analogwp-templates-modal #analogwp-templates .analogwp-content .inner-popup-content hr.el-editor {
+    display: block;
+}
+
+#analogwp-templates-modal #analogwp-templates .analogwp-content .inner-popup-content .flex-row.el-editor {
+    display: flex;
 }
 /*END*/
 
