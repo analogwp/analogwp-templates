@@ -134,7 +134,7 @@ export async function requestElementorImport( template, kit ) {
 
 	const editorId =
 				'undefined' !== typeof ElementorConfig ?
-					ElementorConfig.post_id :
+					ElementorConfig.document.id :
 					false;
 
 	return await apiFetch( {

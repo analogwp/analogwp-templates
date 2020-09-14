@@ -6,7 +6,7 @@ import Loader from '../icons/loader';
 import { NotificationConsumer } from '../Notifications';
 import Popup from '../popup';
 
-const { Fragment, useState, useContext } = React;
+const { Fragment, useState, useContext, useEffect } = React;
 
 const { decodeEntities } = wp.htmlEntities;
 const { Button, TextControl, ExternalLink, CardDivider } = wp.components;
@@ -137,6 +137,11 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		)
 	);
 
+	//componentDidMount
+	useEffect(() => {
+		handler( { kit: defaultDropdownValue.value } );
+	  }, []);
+
 	return (
 		<Popup
 			title={ title }
@@ -164,7 +169,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 					</div>
 				) }
 
-				{ ( step === 1 ) && ! state.importingElementor && (
+				{ ( step === 1 ) && (
 					<>
 						<CardDivider className="el-editor" />
 						<div className="flex-row el-editor">
@@ -180,9 +185,15 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 										<Button
 											isPrimary
 											onClick={ () => {
-												importElementor(); //Dev Notes: Debug Here
+
+												handler( {
+													showingModal: true,
+													importing: true,
+													importingElementor: true
+													} );
 
 												setStep( 2 );
+
 											} }
 										>
 											{ __( 'Import to current page', 'ang' ) }
