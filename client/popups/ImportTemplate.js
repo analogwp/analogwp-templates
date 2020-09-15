@@ -149,12 +149,14 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		>
 			<Container>
 				{ ( step === 1 ) && (
-					<div className="choose-kit">
-						<h3>{ __( 'Choose a Theme Style Kit', 'ang' ) }</h3>
-						<p>{ __( 'When you import a template, you need to select which Theme Style Kit will be applied on the page. The original Style Kit is already pre-selected for you below. ', 'ang' ) }
-							<ExternalLink href="https://docs.analogwp.com/article/545-importing-templates">{ __( 'How this works', 'ang' ) }</ExternalLink>
-						</p>
-						<div className="row kit-dropdown-wrapper" style={{width: '35.5%'}}>
+					<div className="choose-kit flex-row">
+						<div className="col1">
+							<h3>{ __( 'Choose a Theme Style Kit', 'ang' ) }</h3>
+							<p>{ __( 'When you import a template, you need to select which Theme Style Kit will be applied on the page. The original Style Kit is already pre-selected for you below. ', 'ang' ) }
+								<ExternalLink href="https://docs.analogwp.com/article/545-importing-templates">{ __( 'How this works', 'ang' ) }</ExternalLink>
+							</p>
+						</div>
+						<div className="col2 kit-dropdown-wrapper">
 							<Select
 								options={ groupedOptions }
 								formatGroupLabel={ formatGroupLabel }

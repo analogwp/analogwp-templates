@@ -492,7 +492,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		const globalComponent = $e.components.get('panel/global');
 
-		if ( undefined !== globalComponent && ! globalComponent.hasTab('theme-style-kits') ) {
+		if ( 'undefined' !== typeof globalComponent && ! globalComponent.hasTab('theme-style-kits') ) {
 			globalComponent.addTab(
 				'theme-style-kits',
 				{
@@ -506,7 +506,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		const kitMenuItem = elementor.getPanelView('kit_menu').getPages().kit_menu;
 
-		if ( undefined !== kitMenuItem ) {
+		if ( 'undefined' !== typeof kitMenuItem ) {
 			const PanelView = kitMenuItem.view;
 			PanelView.addItem( PanelView.getGroups(), {
 				name: 'theme-style-kits',

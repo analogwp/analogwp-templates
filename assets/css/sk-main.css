@@ -645,4 +645,24 @@
     color: #444;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
+
+#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .popup-container {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .inner-popup-content p,
+#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .style-kit-footer {
+    font-size: 13px;
+    line-height: 18px;
+    color: #565D65;
+}
+
+#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .style-kit-footer a {
+    color: #0073aa;
+}
+
+#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .style-kit-footer a:hover {
+    color: #006799;
+}
+
 /*END*/
