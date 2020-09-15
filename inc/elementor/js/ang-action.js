@@ -492,13 +492,13 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		const globalComponent = $e.components.get('panel/global');
 
-		if ( undefined !== globalComponent ) {
+		if ( 'undefined' !== typeof globalComponent && ! globalComponent.hasTab('theme-style-kits') ) {
 			globalComponent.addTab(
 				'theme-style-kits',
 				{
 					title: 'Style Kits',
 					icon: 'eicon-global-settings',
-					helpUrl: 'http://go.elementor.com/panel-global-typography'
+					helpUrl: 'https://docs.analogwp.com/'
 				},
 				6
 			);
@@ -506,7 +506,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 		const kitMenuItem = elementor.getPanelView('kit_menu').getPages().kit_menu;
 
-		if ( undefined !== kitMenuItem ) {
+		if ( 'undefined' !== typeof kitMenuItem ) {
 			const PanelView = kitMenuItem.view;
 			PanelView.addItem( PanelView.getGroups(), {
 				name: 'theme-style-kits',
