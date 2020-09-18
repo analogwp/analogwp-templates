@@ -498,7 +498,7 @@ jQuery( window ).on( 'elementor:init', function() {
 				{
 					title: 'Style Kits',
 					icon: 'eicon-global-settings',
-					helpUrl: 'http://go.elementor.com/panel-global-typography'
+					helpUrl: 'https://docs.analogwp.com/'
 				},
 				6
 			);
