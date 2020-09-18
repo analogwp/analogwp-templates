@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 5.5
-Stable tag: 1.7.1
+Tested up to: 5.5.1
+Stable tag: 1.7.2
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,14 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.7.2 - Sep 18, 2020 =
+* New: Import popup in editor to import template to a new or current page
+* Improvements: Redefined the UI of Import template popup
+* Improvements: Hide draft Kits in Kit dropdowns
+* Fix: Column gap selector, bugged due to change in Elementor v3
+* Fix: JS error on pages where global panel isn't available
+* Fix: Conflict with JetEngine
 
 = 1.7.1 - Aug 29, 2020 =
 * Fix: Broken accent color selector, caused many stylings to fail
