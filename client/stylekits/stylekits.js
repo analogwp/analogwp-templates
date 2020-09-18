@@ -31,20 +31,6 @@ const Container = styled.section`
     a {
     	color: var(--ang-accent);
     }
-
-	footer {
-		padding: 20px 35px;
-		font-size: 12px;
-		color: #4A5157;
-		background: #fff;
-		margin: 30px -35px -20px -35px;
-		border-radius: 3px;
-
-		a {
-			color: #5c32b6;
-			text-decoration: underline;
-		}
-	}
 `;
 
 const ChildContainer = styled.ul`
@@ -103,7 +89,7 @@ const initialState = {
 };
 
 const footer = sprintf(
-	__( '%s in WordPress dashboard.', 'ang' ),
+	__( '%s <span class="footer-text">in WordPress dashboard.</span>', 'ang' ),
 	sprintf(
 		`<a href="${ addQueryArgs( 'admin.php', { page: 'style-kits' } ) }" target="_blank" rel="noopener noreferer">%s</a>`,
 		__( 'Manage your Style Kits', 'ang' )
@@ -341,7 +327,7 @@ export default class StyleKits extends React.Component {
 									</a>
 								</p>
 
-								{ ! Boolean( AGWP.is_settings_page ) && <footer dangerouslySetInnerHTML={ { __html: footer } } /> }
+								{ ! Boolean( AGWP.is_settings_page ) && <footer className="style-kit-footer" dangerouslySetInnerHTML={ { __html: footer } } /> }
 							</React.Fragment>
 						) }
 
