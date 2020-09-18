@@ -628,6 +628,11 @@
 	font-family: inherit;
 	font-weight: inherit;
 }
+
+#analogwp-templates .analogwp-content .inner-popup-content .flex-row [type=text]{
+    background-color: #fff;
+    color: #32373c;
+}
 /*END*/
 
 /*Clone Admin CSS in elementor stylekit AnalogWP Template widget modal*/
