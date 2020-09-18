@@ -136,8 +136,15 @@ class Kits_List_Table extends \WP_List_Table {
 
 		/* translators: %s: Kit Title */
 		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . sprintf( __( '%s (Edit)', 'ang' ), $item['title'] ) . '">' . esc_html( $item['title'] ) . '</a>';
+
+		$is_draft = 'draft' === get_post_status( $item['id'] );
+		if ( $is_draft ) {
+			$output .= '&nbsp;&mdash; ' . __( 'Draft', 'ang' );
+		}
+
 		if ( (int) get_option( \Elementor\Core\Kits\Manager::OPTION_ACTIVE ) === $item['id'] ) {
-			$output .= '&nbsp;&mdash;	&nbsp;<span class="post-state"><span style="color:#32b644;">&#9679; ' . esc_html__( 'Global Style Kit', 'ang' ) . '</span></span>';
+			$output .= $is_draft ? ', ' : '&nbsp;&mdash;	&nbsp;';
+			$output .= '<span class="post-state"><span style="color:#32b644;">&#9679; ' . esc_html__( 'Global Style Kit', 'ang' ) . '</span></span>';
 		}
 
 		$output .= '</strong>';
