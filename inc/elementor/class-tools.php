@@ -111,6 +111,10 @@ class Tools extends Base {
 	public function post_ang_rollback() {
 		check_admin_referer( 'ang_rollback' );
 
+		if ( ! current_user_can( 'update_plugins' ) ) {
+			wp_die( esc_html__( 'Sorry, you are not allowed to rollback Style Kits plugin for this site.', 'ang' ) );
+		}
+
 		$rollback_versions = Utils::get_rollback_versions();
 
 		$version = filter_input( INPUT_GET, 'version', FILTER_SANITIZE_STRING );
