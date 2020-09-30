@@ -188,6 +188,8 @@ export async function requestElementorImport( template, kit ) {
 		setTimeout(function() {
 			if ( elementsLength !== 0 ) {
 				elementor.reloadPreview();
+			} else {
+				analog.openThemeStyles();
 			}
 
 			elementor.once( 'preview:loaded', () => {
