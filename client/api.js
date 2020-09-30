@@ -123,6 +123,8 @@ export async function getLicenseStatus() {
 }
 
 export async function requestElementorImport( template, kit ) {
+	let elementsLength = elementor.elements.length;
+
 	if ( template.version ) {
 		if ( parseFloat( AGWP.version ) < parseFloat( template.version ) ) {
 			elementorCommon.dialogsManager.createWidget( 'alert', {
@@ -184,7 +186,9 @@ export async function requestElementorImport( template, kit ) {
 
 		window.analogModal.hide();
 		setTimeout(function() {
-			elementor.reloadPreview();
+			if ( elementsLength !== 0 ) {
+				elementor.reloadPreview();
+			}
 
 			elementor.once( 'preview:loaded', () => {
 				analog.redirectToSection();

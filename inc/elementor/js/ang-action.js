@@ -142,9 +142,9 @@ jQuery( window ).on( 'elementor:init', function() {
 
 	analog.openThemeStyles = ( tab = 'theme-style-kits' ) => {
 		if ( `panel/global/${tab}` in $e.routes.components ) {
-			$e.run( 'panel/global/open' ).then(
-				() => setTimeout( () => $e.route( `panel/global/${tab}` ) )
-			);
+			setTimeout(function() {
+				$e.run( 'panel/global/open' ).then( $e.route( `panel/global/${tab}` ) );
+			});
 		} else {
 			$e.run( 'panel/global/open' );
 		}
