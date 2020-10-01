@@ -63,7 +63,7 @@ class Version_Control extends Settings_Page {
 				array(
 					'type' => 'sectionend',
 					'id'   => 'ang_plugin_rollback',
-				),
+				)
 			);
 		}
 
@@ -85,7 +85,7 @@ class Version_Control extends Settings_Page {
 			array(
 				'type' => 'sectionend',
 				'id'   => 'ang_beta',
-			),
+			)
 		);
 
 		$settings = apply_filters( 'ang_version_control_settings', $rollback_controls );
