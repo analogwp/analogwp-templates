@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.5.1
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,11 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.7.3 - Oct 01, 2020 =
+* Fix: Preview not loading properly after importing a template
+* Fix: Incorrect selector when Elementor setting "Optimized DOM Output" is changed
+* Fix: Plugin rollback permission in multisite
 
 = 1.7.2 - Sep 18, 2020 =
 * New: Import popup in editor to import template to a new or current page
