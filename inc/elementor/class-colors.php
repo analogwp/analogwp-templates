@@ -215,7 +215,6 @@ class Colors extends Module {
 
 		$selectors = array(
 			'{{WRAPPER}}'                           => '--ang_color_accent_primary: {{VALUE}};',
-			'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'color: #fff;',
 			'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'border-color: {{VALUE}};',
 			'.theme-hello-elementor .comment-form input#submit' => 'color: #fff; border: none;',
 			'{{WRAPPER}} .elementor-tab-title a'    => 'color: inherit;',
