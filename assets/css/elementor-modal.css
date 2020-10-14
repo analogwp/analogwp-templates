@@ -7,12 +7,7 @@
 	margin-left: 5px;
 }
 
-.elementor-add-analogwp-blocks-button {
-	background-color: #23282D;
-	margin-left: 5px;
-}
-
-#analogwp-templates-modal .dialog-widget-content, #analogwp-blocks-modal .dialog-widget-content {
+#analogwp-templates-modal .dialog-widget-content {
     width: 95vw;
     height: 95vh;
     overflow-y: auto;
@@ -20,7 +15,7 @@
 	background-color: #e3e3e3;
 }
 
-#analogwp-templates-modal p, #analogwp-blocks p {
+#analogwp-templates-modal p {
 	margin: 1em 0;
 }
 
@@ -29,24 +24,19 @@
     text-align: left;
 }
 
-#analogwp-blocks, #analogwp-blocks-modal .dialog-widget-content {
-	background-color: #F3F4F5;
-	text-align: left;
-}
-
 #analogwp-templates input[type=checkbox]:checked:before {
 	margin: -5px 0 0 -9px;
 }
 
-#analogwp-templates label, #analogwp-blocks label {
+#analogwp-templates label {
 	cursor: pointer;
 }
 
-#analogwp-templates-modal .dialog-message, #analogwp-blocks-modal .dialog-message {
+#analogwp-templates-modal .dialog-message {
     padding: 0;
 }
 
-#analogwp-templates > div, #analogwp-blocks > div.blocks-library {
+#analogwp-templates > div {
 	margin: 0;
 }
 
@@ -56,13 +46,6 @@
 
 .elementor-add-analogwp-button {
 	background-image: url('../img/triangle.svg');
-	background-repeat: no-repeat;
-	background-size: 20px;
-	background-position: center;
-}
-
-.elementor-add-analogwp-blocks-button {
-	background-image: url('../img/blocks.svg');
 	background-repeat: no-repeat;
 	background-size: 20px;
 	background-position: center;
@@ -138,10 +121,7 @@ button[data-action="save_token"] {
 
 #analogwp-templates,
 #analogwp-templates-modal .dialog-message,
-#analogwp-templates-modal .dialog-content,
-#analogwp-blocks,
-#analogwp-blocks-modal .dialog-message,
-#analogwp-blocks-modal .dialog-content {
+#analogwp-templates-modal .dialog-content {
 	height: 100%;
 }
 
@@ -186,20 +166,4 @@ button[data-action="save_token"] {
 
 .sub-arrow + .sub-arrow {
 	display: none;
-}
-
-#analogwp-blocks .primary-header {
-	top: 0;
-}
-
-#analogwp-blocks .sidebar {
-	top: 75px;
-}
-
-#analogwp-blocks .sidebar .slider {
-	padding-bottom: 0;
-	margin-bottom: 180px;
-}
-#analogwp-blocks .sidebar .slider > div {
-	width: 100% !important;
 }
