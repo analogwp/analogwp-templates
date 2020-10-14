@@ -14,8 +14,6 @@
 
 #analogwp-templates-modal .dialog-widget-content, #analogwp-blocks-modal .dialog-widget-content {
     width: 95vw;
-    max-width: 1300px;
-    height: 800px;
     height: 95vh;
     overflow-y: auto;
 	overflow-x: hidden;
