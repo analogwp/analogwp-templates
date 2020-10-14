@@ -49,8 +49,15 @@ class Instance_List_Table extends \WP_List_Table {
 	 */
 	protected function get_posts_object() {
 
+		$post_types = get_post_types( array( 'public' => true ) );
+		unset( $post_types['attachment'] );
+
+		if ( ! in_array( 'elementor_library', $post_types, true ) ) {
+			$post_types += array( 'elementor_library' );
+		}
+
 		$post_args = array(
-			'post_type'      => 'any',
+			'post_type'      => $post_types,
 			'post_status'    => array( 'publish', 'draft' ),
 			'posts_per_page' => self::POSTS_PER_PAGE,
 			'meta_query'     => array( // @codingStandardsIgnoreLine
@@ -65,12 +72,19 @@ class Instance_List_Table extends \WP_List_Table {
 		$kit_filter = esc_sql( filter_input( INPUT_GET, 'kit', FILTER_VALIDATE_INT ) );
 
 		if ( $kit_filter ) {
-			$search = 'ang_action_tokens";s:' . strlen( $kit_filter ) . ':"' . $kit_filter . '";';
+			$search     = 'ang_action_tokens";s:' . strlen( $kit_filter ) . ':"' . $kit_filter . '";';
+			$search_int = 'ang_action_tokens";i:' . $kit_filter . ';';
 
 			$post_args['meta_query'] = array( // @codingStandardsIgnoreLine
+				'relation' => 'OR',
 				array(
 					'key'     => '_elementor_page_settings',
 					'value'   => $search,
+					'compare' => 'LIKE',
+				),
+				array(
+					'key'     => '_elementor_page_settings',
+					'value'   => $search_int,
 					'compare' => 'LIKE',
 				),
 			);
