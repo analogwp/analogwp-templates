@@ -81,7 +81,7 @@ function register_menu() {
 	}
 
 	add_submenu_page(
-		$menu_slug,
+		null,
 		__( 'Instances', 'ang' ),
 		__( 'Instances List', 'ang' ),
 		'manage_options',
