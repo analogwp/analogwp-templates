@@ -667,6 +667,10 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
+#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .inner-popup-content #gsk_name {
+    color: #127DB8;
+}
+
 #analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .inner-popup-content p,
 #analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .style-kit-footer {
     font-size: 13px;
