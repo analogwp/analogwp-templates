@@ -429,6 +429,13 @@ class Typography extends Module {
 			)
 		);
 
+		$optimized_dom = get_option( 'elementor_optimized_dom_output' );
+		$elementor_row = '';
+
+		if ( 'enabled' !== $optimized_dom ) {
+			$elementor_row = ' > .elementor_row ';
+		}
+
 		foreach ( $gaps as $key => $label ) {
 			$element->add_responsive_control(
 				'ang_column_gap_' . $key,
@@ -437,7 +444,7 @@ class Typography extends Module {
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => array( 'px', 'em', '%' ),
 					'selectors'  => array(
-						"{{WRAPPER}} .elementor-column-gap-{$key} > .elementor-row > .elementor-column > .elementor-element-populated"
+						"{{WRAPPER}} .elementor-column-gap-{$key} {$elementor_row} > .elementor-column > .elementor-element-populated"
 						=> 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					),
 				)

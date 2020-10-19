@@ -6,7 +6,7 @@ import Loader from '../icons/loader';
 import { NotificationConsumer } from '../Notifications';
 import Popup from '../popup';
 
-const { Fragment, useState, useContext } = React;
+const { Fragment, useState, useContext, useEffect } = React;
 
 const { decodeEntities } = wp.htmlEntities;
 const { Button, TextControl, ExternalLink, CardDivider } = wp.components;
@@ -19,12 +19,7 @@ const Container = styled.div`
 		align-items: center;
 
 		> div {
-			height: 45px;
-			margin-right: 20px;
 			flex: 1;
-			> div {
-				min-height: 100%;
-			}
 		}
 	}
 
@@ -142,6 +137,11 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		)
 	);
 
+	//componentDidMount
+	useEffect(() => {
+		handler( { kit: defaultDropdownValue.value } );
+	  }, []);
+
 	return (
 		<Popup
 			title={ title }
@@ -193,67 +193,102 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 					</div>
 				) }
 
-				{ ( step === 1 ) && ! state.importingElementor && (
-					<div>
-						<CardDivider />
-						<h3>Import to Library</h3>
-						<p>
-							{ __( 'Import this template to your library to make it available in your Elementor ', 'ang' ) }
-							<ExternalLink href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'ang' ) }</ExternalLink>
-							{ __( ' list for future use.', 'ang' ) }
-						</p>
+				{ ( step === 1 ) && (
+					<>
+						<CardDivider className="el-editor" />
+						<div className="flex-row el-editor">
+							<div className="col1">
+								<h3>Import to this page</h3>
+								<p>
+									{ __( 'Import the template in the current page.', 'ang' ) }
+								</p>
+							</div>
+							<div className="col2">
+								<NotificationConsumer>
+									{ ( { add } ) => (
+										<Button
+											isPrimary
+											onClick={ () => {
 
-						<p>
-							<NotificationConsumer>
-								{ ( { add } ) => (
-									<Button
-										isPrimary
-										onClick={ () => {
-											handleImport( add, false );
+												handler( {
+													showingModal: true,
+													importing: true,
+													importingElementor: true
+													} );
 
-											const kits = [ ...installedKits ];
-											kits.push( state.kit );
-											dispatch( {
-												installedKits: kits,
-											} );
+												setStep( 2 );
 
-											setStep( 2 );
-										} }
-									>
-										{ __( 'Import to Library', 'ang' ) }
-									</Button>
-								) }
-							</NotificationConsumer>
-						</p>
-						<h3>{ __( 'or import to a new page', 'ang' ) }</h3>
-						<p>{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }</p>
-
-						<div id="import-new-page" className="form-row">
-							<TextControl
-								placeholder={ __( 'Enter a Page Name', 'ang' ) }
-								onChange={ val => {
-									handler( { pageName: val } );
-								} }
-							/>
-							<NotificationConsumer>
-								{ ( { add } ) => (
-									<Button
-										isSecondary
-										disabled={ ! state.pageName }
-										style={ {
-											marginLeft: '15px',
-										} }
-										onClick={ () => {
-											handleImport( add, state.pageName );
-											setStep( 2 );
-										} }
-									>
-										{ __( 'Import to page', 'ang' ) }
-									</Button>
-								) }
-							</NotificationConsumer>
+											} }
+										>
+											{ __( 'Import to current page', 'ang' ) }
+										</Button>
+									) }
+								</NotificationConsumer>
+							</div>
 						</div>
-					</div>
+						<CardDivider />
+						<div className="flex-row">
+							<div className="col1">
+								<h3>Import to Library</h3>
+								<p>
+									{ __( 'Import this template to your library to make it available in your Elementor ', 'ang' ) }
+									<ExternalLink href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'ang' ) }</ExternalLink>
+									{ __( ' list for future use.', 'ang' ) }
+								</p>
+							</div>
+							<div className="col2">
+								<NotificationConsumer>
+									{ ( { add } ) => (
+										<Button
+											isPrimary
+											onClick={ () => {
+												handleImport( add, false );
+
+												const kits = [ ...installedKits ];
+												kits.push( state.kit );
+												dispatch( {
+													installedKits: kits,
+												} );
+
+												setStep( 2 );
+											} }
+										>
+											{ __( 'Import to Library', 'ang' ) }
+										</Button>
+									) }
+								</NotificationConsumer>
+							</div>
+						</div>
+						<CardDivider />
+						<div className="flex-row">
+							<div className="col1">
+								<h3>{ __( 'Import to a new page', 'ang' ) }</h3>
+								<p>{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }</p>
+							</div>
+							<div className="col2">
+								<TextControl
+									placeholder={ __( 'Enter a Page Name', 'ang' ) }
+									onChange={ val => {
+										handler( { pageName: val } );
+									} }
+								/>
+								<NotificationConsumer>
+									{ ( { add } ) => (
+										<Button
+											isSecondary
+											disabled={ ! state.pageName }
+											onClick={ () => {
+												handleImport( add, state.pageName );
+												setStep( 2 );
+											} }
+										>
+											{ __( 'Import to page', 'ang' ) }
+										</Button>
+									) }
+								</NotificationConsumer>
+							</div>
+						</div>
+					</>
 				) }
 
 				{ ( step >= 1 ) && state.importing && (

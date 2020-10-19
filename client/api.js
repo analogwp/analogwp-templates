@@ -123,6 +123,8 @@ export async function getLicenseStatus() {
 }
 
 export async function requestElementorImport( template, kit ) {
+	let elementsLength = elementor.elements.length;
+
 	if ( template.version ) {
 		if ( parseFloat( AGWP.version ) < parseFloat( template.version ) ) {
 			elementorCommon.dialogsManager.createWidget( 'alert', {
@@ -134,7 +136,7 @@ export async function requestElementorImport( template, kit ) {
 
 	const editorId =
 				'undefined' !== typeof ElementorConfig ?
-					ElementorConfig.post_id :
+					ElementorConfig.document.id :
 					false;
 
 	return await apiFetch( {
@@ -183,12 +185,18 @@ export async function requestElementorImport( template, kit ) {
 		doElementorInsert( parsedTemplate.content );
 
 		window.analogModal.hide();
-		elementor.reloadPreview();
+		setTimeout(function() {
+			if ( elementsLength !== 0 ) {
+				elementor.reloadPreview();
+			} else {
+				analog.openThemeStyles();
+			}
 
-		elementor.once( 'preview:loaded', () => {
-			analog.redirectToSection();
-			elementor.settings.page.model.setExternalChange( 'ang_action_tokens', elementor.config.kit_id.toString() )
-		} );
+			elementor.once( 'preview:loaded', () => {
+				analog.redirectToSection();
+				elementor.settings.page.model.setExternalChange( 'ang_action_tokens', elementor.config.kit_id.toString() )
+			} );
+		});
 	} );
 }
 

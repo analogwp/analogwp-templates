@@ -34,6 +34,7 @@ class Database_Upgrader {
 	public function init() {
 		$routines = array(
 			'1.7.0' => 'upgrade_1_7',
+			'1.7.2' => 'upgrade_1_7_2',
 		);
 
 		$version = get_option( self::OPTION, '0.0.0' );
@@ -93,5 +94,14 @@ class Database_Upgrader {
 				wp_delete_post( (int) $post_id, true );
 			}
 		}
+	}
+
+	/**
+	 * - Delete Kits list transient.
+	 *
+	 * @return void
+	 */
+	protected function upgrade_1_7_2() {
+		delete_transient( 'analog_get_kits' );
 	}
 }

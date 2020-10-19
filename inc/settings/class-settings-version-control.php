@@ -33,9 +33,12 @@ class Version_Control extends Settings_Page {
 	 * @return array
 	 */
 	public function get_settings() {
-		$settings = apply_filters(
-			'ang_version_control_settings',
-			array(
+
+		$rollback_controls = array();
+
+		if ( current_user_can( 'update_plugins' ) ) {
+			array_push(
+				$rollback_controls,
 				array(
 					'title' => __( 'Rollback Versions', 'ang' ),
 					'desc'  => __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ),
@@ -60,26 +63,32 @@ class Version_Control extends Settings_Page {
 				array(
 					'type' => 'sectionend',
 					'id'   => 'ang_plugin_rollback',
-				),
-				array(
-					'title' => __( 'Beta Features', 'ang' ),
-					'type'  => 'title',
-					'id'    => 'ang_beta',
-				),
-				array(
-					'title' => __( 'Become a beta tester', 'ang' ),
-					'desc'          => __( 'Check this box to turn on beta updates for Style Kits and Style Kits Pro. The update will not be installed automatically, you always have the option to ignore it.', 'ang' ),
-					'id'            => 'beta_tester',
-					'default'       => false,
-					'type'          => 'checkbox',
-					'checkboxgroup' => 'start',
-				),
-				array(
-					'type' => 'sectionend',
-					'id'   => 'ang_beta',
-				),
+				)
+			);
+		}
+
+		array_push(
+			$rollback_controls,
+			array(
+				'title' => __( 'Beta Features', 'ang' ),
+				'type'  => 'title',
+				'id'    => 'ang_beta',
+			),
+			array(
+				'title'         => __( 'Become a beta tester', 'ang' ),
+				'desc'          => __( 'Check this box to turn on beta updates for Style Kits and Style Kits Pro. The update will not be installed automatically, you always have the option to ignore it.', 'ang' ),
+				'id'            => 'beta_tester',
+				'default'       => false,
+				'type'          => 'checkbox',
+				'checkboxgroup' => 'start',
+			),
+			array(
+				'type' => 'sectionend',
+				'id'   => 'ang_beta',
 			)
 		);
+
+		$settings = apply_filters( 'ang_version_control_settings', $rollback_controls );
 
 		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
 	}

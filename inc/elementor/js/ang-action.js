@@ -140,9 +140,13 @@ jQuery( window ).on( 'elementor:init', function() {
 		}
 	};
 
-	analog.openThemeStyles = ( tab = 'theme-style' ) => {
-		if ( 'panel/global/theme-style' in $e.routes.components ) {
-			$e.run( 'panel/global/open' ).then( () => $e.route( `panel/global/${tab}` ) );
+	analog.openThemeStyles = ( tab = 'theme-style-kits' ) => {
+		if ( `panel/global/${tab}` in $e.routes.components ) {
+			setTimeout(function() {
+				$e.run( 'panel/global/open' ).then(
+					() => setTimeout( () => $e.route( `panel/global/${tab}` ) )
+				);
+			});
 		} else {
 			$e.run( 'panel/global/open' );
 		}
@@ -490,23 +494,31 @@ jQuery( window ).on( 'elementor:init', function() {
 			jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
 		}
 
-		$e.components.get('panel/global').addTab(
-			'theme-style-kits',
-			{
-				title: 'Style Kits',
-				icon: 'eicon-global-settings',
-				helpUrl: 'http://go.elementor.com/panel-global-typography'
-			},
-			6
-		);
+		const globalComponent = $e.components.get('panel/global');
 
-		const PanelView = elementor.getPanelView('kit_menu').getPages().kit_menu.view;
-		PanelView.addItem( PanelView.getGroups(), {
-			name: 'theme-style-kits',
-			icon: 'eicon-global-settings',
-			title: 'Style Kits',
-			callback: () => $e.route( 'panel/global/theme-style-kits' ),
-		}, 'theme_style' );
+		if ( 'undefined' !== typeof globalComponent && ! globalComponent.hasTab('theme-style-kits') ) {
+			globalComponent.addTab(
+				'theme-style-kits',
+				{
+					title: 'Style Kits',
+					icon: 'eicon-global-settings',
+					helpUrl: 'https://docs.analogwp.com/'
+				},
+				6
+			);
+		}
+
+		const kitMenuItem = elementor.getPanelView('kit_menu').getPages().kit_menu;
+
+		if ( 'undefined' !== typeof kitMenuItem ) {
+			const PanelView = kitMenuItem.view;
+			PanelView.addItem( PanelView.getGroups(), {
+				name: 'theme-style-kits',
+				icon: 'eicon-global-settings',
+				title: 'Style Kits',
+				callback: () => $e.route( 'panel/global/theme-style-kits' ),
+			}, 'theme_style' );
+		}
 	} );
 
 	jQuery('#elementor-panel').on('change', '[data-setting="ui_theme"]', function(e) {
