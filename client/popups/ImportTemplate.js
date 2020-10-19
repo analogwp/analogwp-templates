@@ -151,7 +151,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 				{ ( step === 1 ) && (
 					<div>
 						{ ( AGWP.isGlobalSkEnabled )
-							? <h3>{ __( 'Global Style Kit chosen', 'ang' ) }</h3>
+							? <h3>{ __( 'The Global Style Kit will be applied on this template', 'ang' ) }</h3>
 							: <h3>{ __( 'Choose a Theme Style Kit to apply on the page.', 'ang' ) }</h3>
 						}
 						{ ( AGWP.isGlobalSkEnabled )
@@ -179,7 +179,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 						{ ( AGWP.isGlobalSkEnabled )
 							?<>
 								<p>
-								{ __( 'You can enable/disable settings "always import Global Style Kit" at the ', 'ang' ) }
+								{ __( 'You can change the default import method at the ', 'ang' ) }
 								<ExternalLink href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
 								</p>
 							</>
