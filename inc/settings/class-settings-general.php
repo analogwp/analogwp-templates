@@ -80,7 +80,7 @@ class General extends Settings_Page {
 						'desc'  => sprintf(
 							/* translators: %s: Global Style Kit Documentation link */
 							__( 'Always import templates using the Global Style Kit. %s', 'ang' ),
-							'<a href="https://docs.analogwp.com/article/559-making-a-global-style-kit" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
+							'<a href="https://docs.analogwp.com/article/637-template-import-method" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
 						),
 						'type'  => 'checkbox',
 					),
