@@ -126,7 +126,7 @@ const Analog = styled.div`
 	.ang-link {
 		color: var(--ang-accent);
 		text-transform: uppercase;
-		border-bottom: 1px solid var(--ang-accent);
+		border-bottom: 2px solid var(--ang-accent);
 		font-size: 12.64px;
 		letter-spacing: 1px;
 		text-decoration: none;
