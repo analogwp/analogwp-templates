@@ -452,6 +452,10 @@
     margin: 0;
 }
 
+#analogwp-templates .analogwp-content .inner .components-card__header {
+    border: none;
+}
+
 #analogwp-templates .analogwp-content .inner .components-card__divider {
     margin-bottom: 12px;
 }
