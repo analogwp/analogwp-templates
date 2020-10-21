@@ -113,8 +113,13 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		return !! ( activeKit && option.value === activeKit.title );
 	} );
 
-	const defaultDropdownValue = defaultOption ? defaultOption : AGWP.globalKit[ 0 ];
-
+	if ( AGWP.isGlobalSkEnabled === "1" ) {
+		var defaultKitValue = AGWP.globalKit[ 0 ];
+	} else {
+		var defaultKitValue = defaultOption ? defaultOption : AGWP.globalKit[ 0 ];
+	}
+	const defaultDropdownValue = defaultKitValue;
+	
 	const importElementor = () => {
 		requestElementorImport( state.template, getStyleKitInfo( state.kit ) ).then( () => {
 			handler( { showingModal: false, importing: false, importingElementor: false } );
