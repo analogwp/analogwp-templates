@@ -296,7 +296,7 @@
     letter-spacing: .5px;
     font-size: 13px;
     padding: 4px 7px;
-    border: 2px solid #127DB8;
+    border: 1px solid #127DB8;
     color: #127DB8;
     text-align: center;
 }
@@ -450,6 +450,10 @@
     font-weight: bold;
     color: #000000;
     margin: 0;
+}
+
+#analogwp-templates .analogwp-content .inner .components-card__header {
+    border: none;
 }
 
 #analogwp-templates .analogwp-content .inner .components-card__divider {
