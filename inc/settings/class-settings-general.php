@@ -75,7 +75,7 @@ class General extends Settings_Page {
 						'options' => Utils::get_kits( false ),
 					),
 					array(
-						'id'    => 'is_always_global_sk',
+						'id'    => 'use_global_sk',
 						'title' => esc_html_x( 'Template import method', 'settings title', 'ang' ),
 						'desc'  => sprintf(
 							/* translators: %s: Global Style Kit Documentation link */
