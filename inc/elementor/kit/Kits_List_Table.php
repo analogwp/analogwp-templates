@@ -98,7 +98,11 @@ class Kits_List_Table extends \WP_List_Table {
 				if ( Utils::get_global_kit_id() === $item['id'] ) {
 					$result = __( 'Entire Site', 'ang' );
 				} else {
-					$result = ( $count > 0 ) ? $count : __( 'None', 'ang' );
+					$result = __( 'None', 'ang' );
+					if ( $count > 0 ) {
+						$url    = admin_url( 'admin.php?page=ang-instance-list&kit=' . $item['id'] );
+						$result = '<a href="' . $url . '">' . $count . '</a>';
+					}
 				}
 
 				break;

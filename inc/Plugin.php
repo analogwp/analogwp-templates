@@ -255,6 +255,7 @@ final class Plugin {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Kits_List_Table.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Core/Util/Migration.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/tabs/Theme_Style_Kits.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Instance_List_Table.php';
 
 		if ( ! defined( 'ANG_PRO_VERSION' ) ) {
 			require_once ANG_PLUGIN_DIR . 'inc/elementor/Promotions.php';
