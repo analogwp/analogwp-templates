@@ -150,27 +150,29 @@ final class Plugin {
 		$global_kit_title = get_the_title( Utils::get_global_kit_id() );
 
 		$new_domains = array(
-			'ajaxurl'        => admin_url( 'admin-ajax.php' ),
-			'favorites'      => $favorites,
-			'blockFavorites' => $block_favorites,
-			'isPro'          => false,
-			'version'        => ANG_VERSION,
-			'elementorURL'   => admin_url( 'edit.php?post_type=elementor_library' ),
-			'debugMode'      => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
-			'pluginURL'      => ANG_PLUGIN_URL,
-			'license'        => array(
+			'ajaxurl'                 => admin_url( 'admin-ajax.php' ),
+			'favorites'               => $favorites,
+			'blockFavorites'          => $block_favorites,
+			'isPro'                   => false,
+			'version'                 => ANG_VERSION,
+			'elementorURL'            => admin_url( 'edit.php?post_type=elementor_library' ),
+			'debugMode'               => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
+			'pluginURL'               => ANG_PLUGIN_URL,
+			'license'                 => array(
 				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 				'message' => get_transient( 'ang_license_message' ),
 			),
-			'installed_kits' => Utils::imported_remote_kits(),
-			'globalKit'      => array(
+			'installed_kits'          => Utils::imported_remote_kits(),
+			'globalKit'               => array(
 				array(
 					'label' => $global_kit_title,
 					'value' => $global_kit_title,
 				),
 			),
-			'adminURL'       => admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' ),
-			'blockMediaURL'  => 'https://bs.analogwp.com/',
+			'adminURL'                => admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' ),
+			'blockMediaURL'           => 'https://bs.analogwp.com/',
+			'isGlobalSkEnabled'       => (bool) Options::get_instance()->get( 'use_global_sk' ),
+			'globalSkAlwaysEnableURL' => admin_url( 'admin.php?page=ang-settings&tab=general#use_global_sk' ),
 		);
 
 		$domains += $new_domains;

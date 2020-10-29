@@ -113,7 +113,8 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		return !! ( activeKit && option.value === activeKit.title );
 	} );
 
-	const defaultDropdownValue = defaultOption ? defaultOption : AGWP.globalKit[ 0 ];
+	const defaultKitValue = defaultOption ? defaultOption : AGWP.globalKit[ 0 ];
+	const defaultDropdownValue = ( AGWP.isGlobalSkEnabled === '1' ) ? AGWP.globalKit[ 0 ] : defaultKitValue;
 
 	const importElementor = () => {
 		requestElementorImport( state.template, getStyleKitInfo( state.kit ) ).then( () => {
@@ -140,7 +141,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 	//componentDidMount
 	useEffect(() => {
 		handler( { kit: defaultDropdownValue.value } );
-	  }, []);
+	}, []);
 
 	return (
 		<Popup
@@ -149,25 +150,47 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		>
 			<Container>
 				{ ( step === 1 ) && (
-					<div className="choose-kit flex-row">
-						<div className="col1">
-							<h3>{ __( 'Choose a Theme Style Kit', 'ang' ) }</h3>
-							<p>{ __( 'When you import a template, you need to select which Theme Style Kit will be applied on the page. The original Style Kit is already pre-selected for you below. ', 'ang' ) }
-								<ExternalLink href="https://docs.analogwp.com/article/545-importing-templates">{ __( 'How this works', 'ang' ) }</ExternalLink>
-							</p>
-						</div>
-						<div className="col2 kit-dropdown-wrapper">
-							<Select
-								options={ groupedOptions }
-								formatGroupLabel={ formatGroupLabel }
-								isSearchable={ false }
-								placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
-								defaultValue={ defaultDropdownValue }
-								onChange={ ( e ) => {
-									handler( { kit: e.value } );
-								} }
-							/>
-						</div>
+					<div>
+						{ ( AGWP.isGlobalSkEnabled )
+							? <h3>{ __( 'The Global Style Kit will be applied on this template', 'ang' ) }</h3>
+							: <h3>{ __( 'Choose a Theme Style Kit to apply on the page.', 'ang' ) }</h3>
+						}
+						{ ( AGWP.isGlobalSkEnabled )
+							? <p id='gsk_name'>{ sprintf(
+									/* translators: 1: Global Style Kit label */
+									__( '%1$s', 'ang' ),
+									AGWP.globalKit[ 0 ].label
+								) }</p>
+							: <p>{ __( 'The original Style Kit is pre-selected for you.', 'ang' ) }</p>
+						}
+						{ ( ! AGWP.isGlobalSkEnabled ) &&
+							<div className="row" style={{width: '42%'}}>
+								<Select
+									options={ groupedOptions }
+									formatGroupLabel={ formatGroupLabel }
+									isSearchable={ false }
+									placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
+									defaultValue={ defaultDropdownValue }
+									onChange={ ( e ) => {
+										handler( { kit: e.value } );
+									} }
+								/>
+							</div>
+						}
+						{ ( AGWP.isGlobalSkEnabled )
+							?<>
+								<p>
+								{ __( 'You can change the default import method at the ', 'ang' ) }
+								<ExternalLink href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
+								</p>
+							</>
+							:<>
+								<p>
+								{ __( 'You can manage and set a Global Style Kit at the ', 'ang' ) }
+								<ExternalLink href={ AGWP.adminURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
+								</p>
+							</>
+						}
 					</div>
 				) }
 

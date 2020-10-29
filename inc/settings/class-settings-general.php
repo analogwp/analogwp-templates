@@ -75,6 +75,16 @@ class General extends Settings_Page {
 						'options' => Utils::get_kits( false ),
 					),
 					array(
+						'id'    => 'use_global_sk',
+						'title' => esc_html_x( 'Template import method', 'settings title', 'ang' ),
+						'desc'  => sprintf(
+							/* translators: %s: Global Style Kit Documentation link */
+							__( 'Always import templates using the Global Style Kit. %s', 'ang' ),
+							'<a href="https://docs.analogwp.com/article/637-template-import-method" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
+						),
+						'type'  => 'checkbox',
+					),
+					array(
 						'type' => 'sectionend',
 						'id'   => 'ang_color_palette',
 					),
