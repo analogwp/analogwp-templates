@@ -113,13 +113,9 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		return !! ( activeKit && option.value === activeKit.title );
 	} );
 
-	if ( AGWP.isGlobalSkEnabled === "1" ) {
-		var defaultKitValue = AGWP.globalKit[ 0 ];
-	} else {
-		var defaultKitValue = defaultOption ? defaultOption : AGWP.globalKit[ 0 ];
-	}
-	const defaultDropdownValue = defaultKitValue;
-	
+	const defaultKitValue = defaultOption ? defaultOption : AGWP.globalKit[ 0 ];
+	const defaultDropdownValue = ( AGWP.isGlobalSkEnabled === '1' ) ? AGWP.globalKit[ 0 ] : defaultKitValue;
+
 	const importElementor = () => {
 		requestElementorImport( state.template, getStyleKitInfo( state.kit ) ).then( () => {
 			handler( { showingModal: false, importing: false, importingElementor: false } );
@@ -145,7 +141,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 	//componentDidMount
 	useEffect(() => {
 		handler( { kit: defaultDropdownValue.value } );
-	  }, []);
+	}, []);
 
 	return (
 		<Popup
