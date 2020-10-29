@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.5.1
-Stable tag: 1.7.4
+Stable tag: 1.7.5
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,12 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.7.5 - Oct 29, 2020 =
+* New: Theme Style Kits list now shows the respective pages using the specific Kit
+* New: Added setting to add default import method under Style Kits > Settings > General
+* Fix: CSS selector typo for non-optimized and optimized DOM control based CSS output
+* Improvements: Remove max-width from Popup in Elementor editor
 
 = 1.7.4 - Oct 01, 2020 =
 * Fix: Error with PHP v7.2

@@ -14,9 +14,9 @@ class Google_Fonts {
 	/**
 	 * Return an array of all available Google Fonts.
 	 *
-	 * Last updated on: 2020/08/27
+	 * Last updated on: 2020/10/29
 	 *
-	 * Total 7 Fonts.
+	 * Total 17 Fonts.
 	 *
 	 * @since 1.6.0
 	 *
@@ -31,13 +31,23 @@ class Google_Fonts {
 		return apply_filters(
 			'analog_get_google_fonts',
 			array(
-				'Epilogue'  => 'googlefonts',
-				'Mulish'    => 'googlefonts',
+				'Commissioner' => 'googlefonts',
+				'Epilogue' => 'googlefonts',
+				'Grandstander' => 'googlefonts',
+				'Kufam' => 'googlefonts',
+				'Kumbh Sans' => 'googlefonts',
+				'Mulish' => 'googlefonts',
+				'Piazzolla' => 'googlefonts',
 				'Recursive' => 'googlefonts',
-				'Red Rose'  => 'googlefonts',
-				'Rowdies'   => 'googlefonts',
-				'Sora'      => 'googlefonts',
-				'Varta'     => 'googlefonts',
+				'Red Rose' => 'googlefonts',
+				'Rowdies' => 'googlefonts',
+				'Sansita Swashed' => 'googlefonts',
+				'Sora' => 'googlefonts',
+				'Syne' => 'googlefonts',
+				'Syne Mono' => 'googlefonts',
+				'Syne Tactile' => 'googlefonts',
+				'Trispace' => 'googlefonts',
+				'Varta' => 'googlefonts',
 			)
 		);
 	}
