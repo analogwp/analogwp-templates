@@ -433,7 +433,7 @@ class Typography extends Module {
 		$elementor_row = '';
 
 		if ( 'enabled' !== $optimized_dom ) {
-			$elementor_row = ' > .elementor_row ';
+			$elementor_row = ' > .elementor-row ';
 		}
 
 		foreach ( $gaps as $key => $label ) {
