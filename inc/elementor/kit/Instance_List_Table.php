@@ -69,29 +69,13 @@ class Instance_List_Table extends \WP_List_Table {
 			),
 		);
 
-		$kit_filter = esc_sql( filter_input( INPUT_GET, 'kit', FILTER_VALIDATE_INT ) );
+		$kit_filter = filter_input( INPUT_GET, 'kit', FILTER_VALIDATE_INT );
 
 		if ( $kit_filter ) {
-			$search     = 'ang_action_tokens";s:' . strlen( $kit_filter ) . ':"' . $kit_filter . '";';
-			$search_int = 'ang_action_tokens";i:' . $kit_filter . ';';
-
-			$post_args['meta_query'] = array( // @codingStandardsIgnoreLine
-				'relation' => 'OR',
-				array(
-					'key'     => '_elementor_page_settings',
-					'value'   => $search,
-					'compare' => 'LIKE',
-				),
-				array(
-					'key'     => '_elementor_page_settings',
-					'value'   => $search_int,
-					'compare' => 'LIKE',
-				),
-			);
-
+			$post_args['post__in'] = Utils::posts_using_stylekit( $kit_filter );
 		}
 
-		$paged = esc_sql( filter_input( INPUT_GET, 'paged', FILTER_VALIDATE_INT ) );
+		$paged = filter_input( INPUT_GET, 'paged', FILTER_VALIDATE_INT );
 
 		if ( $paged ) {
 			$post_args['paged'] = $paged;
@@ -116,9 +100,7 @@ class Instance_List_Table extends \WP_List_Table {
 			$post_args['s'] = $search;
 		}
 
-		$posts = new \WP_Query( $post_args );
-
-		return $posts;
+		return new \WP_Query( $post_args );
 	}
 
 	/**
@@ -408,33 +390,33 @@ class Instance_List_Table extends \WP_List_Table {
 	private function html_dropdown( $args ) {
 		?>
 
-<div class="<?php echo( esc_attr( $args['container']['class'] ) ); ?>">
-	<label
-		for="<?php echo( esc_attr( $args['select']['id'] ) ); ?>"
-		class="<?php echo( esc_attr( $args['label']['class'] ) ); ?>">
-	</label>
-	<select
-		name="<?php echo( esc_attr( $args['select']['name'] ) ); ?>"
-		id="<?php echo( esc_attr( $args['select']['id'] ) ); ?>">
-		<?php
-		foreach ( $args['options'] as $id => $title ) {
-			$sk_posts = Utils::posts_using_stylekit( $id );
-
-			if ( count( $sk_posts ) ) {
-				?>
-				<option
-				<?php if ( $args['select']['selected'] === $id ) { ?>
-					selected="selected"
-				<?php } ?>
-				value="<?php echo( esc_attr( $id ) ); ?>">
-				<?php echo esc_html( \ucwords( $title ) ); ?>
-				</option>
+		<div class="<?php echo( esc_attr( $args['container']['class'] ) ); ?>">
+			<label
+				for="<?php echo( esc_attr( $args['select']['id'] ) ); ?>"
+				class="<?php echo( esc_attr( $args['label']['class'] ) ); ?>">
+			</label>
+			<select
+				name="<?php echo( esc_attr( $args['select']['name'] ) ); ?>"
+				id="<?php echo( esc_attr( $args['select']['id'] ) ); ?>">
 				<?php
-			}
-		}
-		?>
-	</select>
-</div>
+				foreach ( $args['options'] as $id => $title ) {
+					$sk_posts = Utils::posts_using_stylekit( $id );
+
+					if ( count( $sk_posts ) ) {
+						?>
+						<option
+						<?php if ( $args['select']['selected'] === $id ) { ?>
+							selected="selected"
+						<?php } ?>
+						value="<?php echo( esc_attr( $id ) ); ?>">
+						<?php echo esc_html( \ucwords( $title ) ); ?>
+						</option>
+						<?php
+					}
+				}
+				?>
+			</select>
+		</div>
 
 		<?php
 	}
@@ -446,14 +428,12 @@ class Instance_List_Table extends \WP_List_Table {
 	 */
 	public function get_sortable_columns() {
 
-		$sortable_columns = array(
+		return array(
 			'title'  => array( 'title', false ),
 			'type'   => array( 'type', false ),
 			'date'   => array( 'date', false ),
 			'author' => array( 'author', false ),
 		);
-
-		return $sortable_columns;
 	}
 }
 
