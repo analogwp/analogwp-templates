@@ -34,6 +34,7 @@ class Colors extends Module {
 		add_action( 'elementor/element/image-box/section_style_content/before_section_end', array( $this, 'tweak_image_box' ) );
 		add_action( 'elementor/element/heading/section_title_style/before_section_end', array( $this, 'tweak_heading' ) );
 		add_action( 'elementor/element/nav-menu/section_style_main-menu/before_section_end', array( $this, 'tweak_nav_menu' ) );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'tweak_theme_style_button' ), 20, 2 );
 	}
 
 	/**
@@ -136,6 +137,33 @@ class Colors extends Module {
 			array(
 				'selectors' => array(
 					'{{WRAPPER}} .elementor-nav-menu--main .elementor-item.elementor-item' => 'color: {{VALUE}}',
+				),
+			)
+		);
+	}
+
+	/**
+	 * Tweak default theme style button bg color - increases class priority.
+	 *
+	 * @since 1.7.6
+	 * @param Controls_Stack $element Elementor element.
+	 * @param string         $section_id Section ID.
+	 */
+	public function tweak_theme_style_button( Controls_Stack $element, $section_id ) {
+		$button_selectors = array(
+			'{{WRAPPER}} button',
+			'{{WRAPPER}} input[type="button"]',
+			'{{WRAPPER}} input[type="submit"]',
+			'{{WRAPPER}} .elementor-button.elementor-button',
+		);
+
+		$button_selector = implode( ',', $button_selectors );
+
+		$element->update_control(
+			'button_background_color',
+			array(
+				'selectors' => array(
+					$button_selector => 'background-color: {{VALUE}};',
 				),
 			)
 		);
