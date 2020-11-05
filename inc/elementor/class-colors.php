@@ -159,7 +159,7 @@ class Colors extends Module {
 			'{{WRAPPER}} .elementor-widget-container a:hover:not([class])',
 		);
 
-		$link_selectors = implode( ',', $link_selectors );
+		$link_selectors       = implode( ',', $link_selectors );
 		$link_hover_selectors = implode( ',', $link_hover_selectors );
 
 		$element->update_control(
