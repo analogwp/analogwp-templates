@@ -113,7 +113,7 @@ class Elementor {
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/app.js' ),
 			true
 		);
-		wp_set_script_translations( 'analogwp-app', 'ang' );
+		wp_set_script_translations( 'analogwp-app', 'ang', ANG_PLUGIN_DIR . 'languages' );
 
 		wp_enqueue_style( 'wp-components' );
 

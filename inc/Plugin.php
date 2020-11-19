@@ -63,7 +63,7 @@ final class Plugin {
 	 * @since 1.6.0
 	 */
 	public function register() {
-		add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
+		add_action( 'init', array( self::$instance, 'load_textdomain' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( ANG_PLUGIN_FILE ), array( self::$instance, 'plugin_action_links' ) );
 		add_action( 'admin_enqueue_scripts', array( self::$instance, 'scripts' ) );
 		add_filter( 'analog/app/strings', array( self::$instance, 'send_strings_to_app' ) );
@@ -110,7 +110,7 @@ final class Plugin {
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/app.js' ),
 			true
 		);
-		wp_set_script_translations( 'analogwp-app', 'ang' );
+		wp_set_script_translations( 'analogwp-app', 'ang', ANG_PLUGIN_DIR . 'languages' );
 
 		$i10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
@@ -318,7 +318,7 @@ final class Plugin {
 	 * @return void
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'ang', false, dirname( plugin_basename( ANG_PLUGIN_DIR ) ) . '/languages/' );
+		load_plugin_textdomain( 'ang', false, dirname( ANG_PLUGIN_BASE ) . '/languages/' );
 	}
 
 	/**

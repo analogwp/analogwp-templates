@@ -10,7 +10,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "makepot": "wp i18n make-pot . ./languages/ang.pot --merge=languages/ang-js.pot --skip-js",
     "makepot:php": "npx pot-to-php languages/ang.pot languages/ang-translations.php ang",
-    "fonts": "gulp googleFonts"
+    "fonts": "gulp googleFonts",
+    "makePotWithJS": "wp i18n make-pot . ./languages/ang.pot",
+    "convertPot2json": "npx po2json ./languages/ang.pot ./languages/ang-analogwp-app.json -f jed1.x"
   },
   "repository": {
     "type": "git",
@@ -69,6 +71,7 @@
     "gulp-zip": "^5.0.1",
     "lodash": "^4.17.15",
     "node-sass": "^4.9.4",
+    "po2json": "^0.4.5",
     "postcss-loader": "^3.0.0",
     "prettier": "^1.9.1",
     "raw-loader": "^0.5.1",
