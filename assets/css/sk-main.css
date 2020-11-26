@@ -429,6 +429,12 @@
 
 #analogwp-templates .sidebar {
     display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#analogwp-templates .sidebar [class^='slide-'], #analogwp-templates .sidebar [class*=' slide-'] {
+    color: #23282d;
 }
 
 #analogwp-templates .block-categories-tabs {

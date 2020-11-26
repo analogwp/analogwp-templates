@@ -78,13 +78,13 @@
 #analogwp-templates .pro-modal-container,
 #analogwp-blocks .pro-modal-container {
 	background: var(--ang-accent);
-color: #fff;
-padding: 20px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 24px;
-border-radius: 6px;
+	color: #fff;
+	padding: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 24px;
+	border-radius: 6px;
 }
 
 #analogwp-templates .pro-modal-container p,
@@ -96,6 +96,25 @@ border-radius: 6px;
 #analogwp-templates .pro-modal-container span,
 #analogwp-blocks .pro-modal-container span {
 	font-weight: bold;
+}
+
+#analogwp-templates .pro-modal-container button,
+#analogwp-blocks .pro-modal-container button {
+	border: 3px solid #fff;
+	border-radius: 6px;
+	padding: 0;
+}
+
+#analogwp-templates .pro-modal-container button:active,
+#analogwp-blocks .pro-modal-container button:active {
+	background: transparent;
+}
+
+#analogwp-templates .pro-modal-container a,
+#analogwp-blocks .pro-modal-container a {
+	color: #fff;
+	display: block;
+	padding: 6px 12px;
 }
 
 #analogwp-templates .notifications-container,
