@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 5.5.1
-Stable tag: 1.7.5
+Tested up to: 5.6
+Stable tag: 1.7.6
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,11 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.7.6 - Nov 26, 2020 =
+* New: Compatible up to WordPress 5.6
+* Fix: Increase "Theme Style" button background color class priority
+* Fix: Increase "Theme Style" link CSS priority
 
 = 1.7.5 - Oct 29, 2020 =
 * New: Theme Style Kits list now shows the respective pages using the specific Kit
