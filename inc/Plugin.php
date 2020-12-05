@@ -73,8 +73,7 @@ final class Plugin {
 
 		( new Consumer() )->register();
 		( new Notices() )->register();
-
-		new Google_Fonts();
+		( new Google_Fonts() )->register();
 
 		// Migrations.
 		$this->database_upgrader = new Database_Upgrader();
