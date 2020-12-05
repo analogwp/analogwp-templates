@@ -9,6 +9,7 @@
 namespace Analog;
 
 use Analog\Admin\Notices;
+use Analog\Elementor\Google_Fonts;
 
 /**
  * Main class for the plugin.
@@ -72,6 +73,8 @@ final class Plugin {
 
 		( new Consumer() )->register();
 		( new Notices() )->register();
+
+		new Google_Fonts();
 
 		// Migrations.
 		$this->database_upgrader = new Database_Upgrader();

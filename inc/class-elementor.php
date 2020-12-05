@@ -56,19 +56,6 @@ class Elementor {
 				$dynamic_tags->register_tag( Dark_Background::class );
 			}
 		);
-
-		add_filter(
-			'elementor/fonts/additional_fonts',
-			static function( $additional_fonts ) {
-				$fonts = Google_Fonts::get_google_fonts();
-
-				if ( count( $fonts ) ) {
-					$additional_fonts = array_merge( $additional_fonts, $fonts );
-				}
-
-				return $additional_fonts;
-			}
-		);
 	}
 
 	/**
