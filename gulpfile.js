@@ -9,11 +9,6 @@ const rename = require( 'gulp-rename' );
 const checktextdomain = require( 'gulp-checktextdomain' );
 const rsync = require( 'gulp-rsync' );
 const fs = require( 'fs' );
-// For fetching & updating Google fonts.
-const jeditor = require( 'gulp-json-editor' );
-const _ = require( 'lodash' );
-const exec = require( 'gulp-exec' );
-const download = require( 'gulp-download' );
 
 const project = 'analogwp-templates';
 const buildFiles = [
@@ -44,16 +39,12 @@ const buildFiles = [
 	'!codeception.dist.yml',
 	'!tests/**',
 	'!vendor/**',
-	'!fonts-massager.php',
 ];
 
 const buildDestination = `./build/${ project }/`;
 const buildZipDestination = './build/';
 const cleanFiles = [ `./build/${ project }/`, `./build/${ project }.zip` ];
 const jsPotFile = [ './languages/ang-js.pot', `./build/${ project }/languages/ang-js.pot` ];
-const fontsAPIKey = 'AIzaSyDkCdyJYJyc7AGqE-nkolyU0Ikx832b8gI';
-const jsonMassagerSRC = './assets/fonts/google-fonts.json';
-const jsonFontsDST = './assets/fonts';
 
 gulp.task( 'yarnBuild', run( 'yarn run build' ) );
 gulp.task( 'yarnMakePot', run( 'yarn run makepot' ) );
@@ -121,74 +112,6 @@ gulp.task( 'checktextdomain', ( done ) => {
 
 	done();
 } );
-
-/**
- * Task: `jsonMassager`.
- *
- * Filters through gfonts api data and creates a json object.
- */
-gulp.task( 'jsonMassager', () => {
-	return gulp
-		.src( jsonMassagerSRC )
-		.pipe(
-			jeditor( json => {
-				var fonts = json.items,
-					newObj = {};
-
-				_.forEach( fonts, function( data ) {
-					var label = data.family,
-						font = {
-							label: label,
-							variants: data.variants.sort(),
-							subsets: data.subsets.sort(),
-							category: data.category
-						};
-
-					newObj[label] = 'googlefonts';
-				});
-
-				return newObj;
-			})
-		)
-		.pipe( gulp.dest( jsonFontsDST ) );
-});
-
-/**
- * Task: `phpMassager`.
- *
- * Runs and executes Fonts.php template for json processing.
- */
-gulp.task( 'phpMassager', () => {
-	return gulp
-		.src( jsonMassagerSRC )
-		.pipe( exec( 'php -f fonts-massager.php' ) );
-});
-
-/**
- * Task: `googleFonts`.
- *
- * Gets fonts data from Google fonts API and sources it to google-fonts.json.
- */
-gulp.task(
-	'googleFonts',
-	gulp.series( function() {
-		const api = fontsAPIKey;
-		if ( api ) {
-			const url = `https://www.googleapis.com/webfonts/v1/webfonts?sort=alpha&key=${api}`;
-
-			return download( url )
-				.pipe(
-					rename({
-						basename: 'google-fonts',
-						extname: '.json'
-					})
-				)
-				.pipe( gulp.dest( jsonFontsDST ) );
-		}
-		console.error( 'Ok, not building.' ); // eslint-disable-line
-		process.exit( 1 );
-	}, gulp.parallel( 'jsonMassager', 'phpMassager' ) )
-);
 
 gulp.task( 'build', gulp.series(
 	'scripts',
