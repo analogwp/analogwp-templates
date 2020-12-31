@@ -3,7 +3,7 @@
  * Plugin main file.
  *
  * @package     Analog
- * @copyright   2019-2020 Dashwork Studio Pvt. Ltd.
+ * @copyright   2019-2021 Dashwork Studio Pvt. Ltd.
  * @link        https://analogwp.com
  *
  * @wordpress-plugin
