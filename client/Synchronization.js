@@ -43,7 +43,7 @@ const Synchronization = () => {
 					) }
 				</div>
 			</div>
-			<hr class="wp-header-end"></hr>
+			<hr className="wp-header-end"></hr>
 		</>
 	);
 };
