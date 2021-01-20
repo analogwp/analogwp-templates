@@ -160,7 +160,7 @@ const Container = styled.div`
 		margin-bottom: 30px;
 	}
 
-	.components-text-control__input {
+	.components-text-control__input, .components-text-control__input[type="text"] {
 		background-color: #fff;
 		color: #060606;
 		font-size: 16px;
