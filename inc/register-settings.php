@@ -198,7 +198,7 @@ function create_options() {
 	// Include settings so that we can run through defaults.
 	include_once dirname( __FILE__ ) . '/class-admin-settings.php';
 
-	$settings = Admin_Settings::get_settings_pages();
+	$settings = array_filter( Admin_Settings::get_settings_pages() );
 
 	foreach ( $settings as $section ) {
 		if ( ! method_exists( $section, 'get_settings' ) ) {
