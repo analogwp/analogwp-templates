@@ -3,7 +3,7 @@
  * Plugin main file.
  *
  * @package     Analog
- * @copyright   2019-2020 Dashwork Studio Pvt. Ltd.
+ * @copyright   2019-2021 Dashwork Studio Pvt. Ltd.
  * @link        https://analogwp.com
  *
  * @wordpress-plugin
@@ -16,6 +16,8 @@
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: ang
+ * Elementor tested up to: 3.1.0
+ * Elementor Pro tested up to: 3.0.9
  */
 
 defined( 'ABSPATH' ) || exit;
