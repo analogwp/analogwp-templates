@@ -722,4 +722,9 @@
     color: #006799;
 }
 
+#analogwp-templates-modal .wp-header-end {
+    visibility: hidden;
+    margin: -2px 0 0;
+}
+
 /*END*/
