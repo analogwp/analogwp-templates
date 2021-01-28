@@ -47,6 +47,33 @@ class Theme_Style_Kits extends Tab_Base {
 	}
 
 	/**
+	 * Tab Group.
+	 *
+	 * @return string
+	 */
+	public function get_group() {
+		return 'theme-style';
+	}
+
+	/**
+	 * Tab icon.
+	 *
+	 * @return string
+	 */
+	public function get_icon() {
+		return 'eicon-global-settings';
+	}
+
+	/**
+	 * Tab help URL.
+	 *
+	 * @return string
+	 */
+	public function get_help_url() {
+		return 'https://docs.analogwp.com/';
+	}
+
+	/**
 	 * Tab controls.
 	 *
 	 * Tab controls are hooked mostly on `elementor/element/kit/section_buttons/after_section_end`.
@@ -55,3 +82,13 @@ class Theme_Style_Kits extends Tab_Base {
 }
 
 new Theme_Style_Kits( Kit::class );
+
+/**
+ * Fires on tabs registering.
+ */
+add_action(
+	'elementor/kit/register_tabs',
+	function( $kit ) {
+		$kit->register_tab( 'theme-style-kits', Theme_Style_Kits::class );
+	}
+);

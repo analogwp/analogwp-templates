@@ -494,32 +494,38 @@ jQuery( window ).on( 'elementor:init', function() {
 			jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
 		}
 
-		const globalComponent = $e.components.get('panel/global');
-
-		if ( 'undefined' !== typeof globalComponent && ! globalComponent.hasTab('theme-style-kits') ) {
-			globalComponent.addTab(
-				'theme-style-kits',
-				{
-					title: 'Style Kits',
-					icon: 'eicon-global-settings',
-					helpUrl: 'https://docs.analogwp.com/'
-				},
-				6
-			);
-		}
-
-		const kitMenuItem = elementor.getPanelView('kit_menu').getPages().kit_menu;
-
-		if ( 'undefined' !== typeof kitMenuItem ) {
-			const PanelView = kitMenuItem.view;
-			PanelView.addItem( PanelView.getGroups(), {
-				name: 'theme-style-kits',
-				icon: 'eicon-global-settings',
-				title: 'Style Kits',
-				callback: () => $e.route( 'panel/global/theme-style-kits' ),
-			}, 'theme_style' );
-		}
 	} );
+
+	if ( elementor.helpers.compareVersions( ElementorConfig.version, '3.1.0', '<' ) ) {
+		elementor.once( 'globals:loaded', () => {
+			const globalComponent = $e.components.get('panel/global');
+
+			if ( 'undefined' !== typeof globalComponent && ! globalComponent.hasTab('theme-style-kits') ) {
+				globalComponent.addTab(
+					'theme-style-kits',
+					{
+						title: 'Style Kits',
+						icon: 'eicon-global-settings',
+						helpUrl: 'https://docs.analogwp.com/'
+					},
+					6
+				);
+			}
+
+			const kitMenuItem = elementor.getPanelView('kit_menu').getPages().kit_menu;
+
+			if ( 'undefined' !== typeof kitMenuItem ) {
+				const PanelView = kitMenuItem.view;
+				PanelView.addItem( PanelView.getGroups(), {
+					name: 'theme-style-kits',
+					icon: 'eicon-global-settings',
+					title: 'Style Kits',
+					callback: () => $e.route( 'panel/global/theme-style-kits' ),
+				}, 'theme_style' );
+			}
+		});
+	}
+
 
 	jQuery('#elementor-panel').on('change', '[data-setting="ui_theme"]', function(e) {
 		const value = e.target.value;
