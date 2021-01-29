@@ -429,10 +429,20 @@ class Typography extends Module {
 			)
 		);
 
-		$optimized_dom = get_option( 'elementor_optimized_dom_output' );
 		$elementor_row = '';
 
-		if ( 'enabled' !== $optimized_dom ) {
+		if ( Utils::is_elementor_pre( '3.1' ) ) {
+			$optimized_dom = get_option( 'elementor_optimized_dom_output' );
+
+			$is_optimize_dom = 'enabled' === $optimized_dom;
+		} else {
+			$optimized_dom = get_option( 'elementor_experiment-e_dom_optimization' );
+
+			$is_optimize_dom =
+				\Elementor\Core\Experiments\Manager::STATE_ACTIVE === $optimized_dom;
+		}
+
+		if ( ! $is_optimize_dom ) { // Add row class if DOM optimization is not active.
 			$elementor_row = ' > .elementor-row ';
 		}
 
