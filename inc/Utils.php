@@ -771,7 +771,7 @@ class Utils extends Base {
 	 *
 	 * @param string $version Version number.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.8.0
 	 *
 	 * @return bool
 	 */

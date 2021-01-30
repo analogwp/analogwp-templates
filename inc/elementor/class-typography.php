@@ -31,7 +31,7 @@ class Typography extends Module {
 
 	/**
 	 * Tab to which add settings to.
-	 * @since n.e.x.t
+	 * @since 1.8.0
 	 *
 	 * @var string
 	 */

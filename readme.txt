@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 1.7.6
+Stable tag: 1.8.0
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,13 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.8.0 - Jan 30, 2021 =
+* New: Self updating Google fonts library, updated every 24 hours
+* Fix: Horizontal line glitch in template library at Elementor editor popup
+* Fix: Fix Elementor menus not showing up at site settings
+* Improvements: Added Elementor 3.1 compatibility tags
+* Improvements: Detect DOM optimization key in Elementor 3.1 and prior version to work accordingly
 
 = 1.7.6 - Nov 26, 2020 =
 * New: Compatible up to WordPress 5.6

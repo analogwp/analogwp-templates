@@ -146,7 +146,7 @@ class Colors extends Module {
 	/**
 	 * Tweak default theme style button bg color - increases class priority.
 	 *
-	 * @since 1.7.6
+	 * @since 1.8.0
 	 * @param Controls_Stack $element Elementor element.
 	 * @param string         $section_id Section ID.
 	 */
@@ -173,7 +173,7 @@ class Colors extends Module {
 	/**
 	 * Tweak default theme style typography.
 	 *
-	 * @since 1.7.6
+	 * @since 1.8.0
 	 * @param Controls_Stack $element Elementor element.
 	 * @param string         $section_id Section ID.
 	 */

@@ -16,7 +16,7 @@ class Google_Fonts {
 	/**
 	 * Registers functionality through WordPress hooks.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.8.0
 	 */
 	public function register() {
 		add_action( 'init', array( $this, 'fetch_google_fonts' ) );
@@ -27,7 +27,7 @@ class Google_Fonts {
 	 * Google fonts are updated automatically every 24 hours on referenced link in repository.
 	 * This function refreshes the fonts list everyday to bring all fonts.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.8.0
 	 */
 	public function fetch_google_fonts() {
 		if ( ! get_transient( self::TRANSIENT ) ) {
@@ -49,7 +49,7 @@ class Google_Fonts {
 	 *
 	 * @param array $additional_fonts Google fonts list.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.8.0
 	 * @return array|mixed
 	 */
 	public function add_fonts_to_elementor( $additional_fonts ) {
