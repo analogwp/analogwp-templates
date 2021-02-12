@@ -54,6 +54,15 @@ class Quick_Edit extends Base {
 	 * @return void
 	 */
 	protected function update_posts_stylekit( $post_id, $kit_id ) {
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+
+		if ( ! check_admin_referer( plugin_basename( __FILE__ ), 'ang_sk_update_nonce' ) ) {
+			return;
+		}
+
 		if ( ! $kit_id || '-1' === $kit_id ) {
 			return;
 		}
@@ -156,14 +165,6 @@ class Quick_Edit extends Base {
 	 * @return void
 	 */
 	public function quick_edit_save( $post_id ) {
-		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			return;
-		}
-
-		if ( isset( $_POST['ang_sk_update_nonce'] ) && ! wp_verify_nonce( $_POST['ang_sk_update_nonce'], plugin_basename( __FILE__ ) ) ) { // phpcs:ignore
-			return;
-		}
-
 		if ( isset( $_POST['ang_stylekit'] ) && '-1' !== $_POST['ang_stylekit'] ) {
 			$this->update_posts_stylekit( $post_id, $_POST['ang_stylekit'] ); // phpcs:ignore
 		}
