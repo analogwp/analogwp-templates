@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,9 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.8.1 - Feb 12, 2021 =
+* Fix: Issue with nonce verification when quick editing a post/page
 
 = 1.8.0 - Jan 30, 2021 =
 * New: Self updating Google fonts library, updated every 24 hours
