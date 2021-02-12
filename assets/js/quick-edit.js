@@ -55,6 +55,9 @@
 		// get the data
 		var $style_kit = $bulk_row.find( 'select[name="ang_stylekit"]' ).val();
 
+		// get the nonce
+		var $ang_sk_update_nonce = $('#ang_sk_update_nonce').val();
+
 		// save the data
 		$.ajax({
 			url: ajaxurl, // this is a variable that WordPress has already defined for us
@@ -64,7 +67,8 @@
 			data: {
 				action: 'save_bulk_edit_stylekit',
 				post_ids: $post_ids,
-				kit_id: $style_kit
+				kit_id: $style_kit,
+				ang_sk_update_nonce: $ang_sk_update_nonce
 			}
 		});
 	});
