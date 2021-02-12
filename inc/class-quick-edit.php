@@ -160,7 +160,7 @@ class Quick_Edit extends Base {
 			return;
 		}
 
-		if ( isset( $_POST['ang_sk_update_nonce'] ) && ! wp_verify_nonce( $_POST['ang_sk_update_nonce'], plugin_basename( __FILE__ ) ) ) { // phpcs:ignore
+		if ( ! isset( $_POST['ang_sk_update_nonce'] ) || ! wp_verify_nonce( $_POST['ang_sk_update_nonce'], plugin_basename( __FILE__ ) ) ) { // phpcs:ignore
 			return;
 		}
 
