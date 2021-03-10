@@ -201,7 +201,7 @@ class Quick_Edit extends Base {
 
 		if ( ! empty( $post_ids ) && is_array( $post_ids ) && $kit_id ) {
 			foreach ( $post_ids as $post_id ) {
-				if ( User::is_current_user_can_edit( $post_id ) && Plugin::elementor()->db->is_built_with_elementor( $post_id ) ) {
+				if ( User::is_current_user_can_edit( $post_id ) && Plugin::elementor()->documents->get( $post_id )->is_built_with_elementor() ) {
 					$this->update_posts_stylekit( $post_id, $kit_id );
 				}
 			}

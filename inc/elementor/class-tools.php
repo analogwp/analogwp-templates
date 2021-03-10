@@ -206,7 +206,7 @@ class Tools extends Base {
 
 		if (
 			User::is_current_user_can_edit( $post->ID ) &&
-			Plugin::elementor()->db->is_built_with_elementor( $post->ID ) &&
+			Plugin::elementor()->documents->get( $post->ID )->is_built_with_elementor() &&
 			'edit.php' === $pagenow
 		) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
@@ -245,7 +245,7 @@ class Tools extends Base {
 	 * @return mixed
 	 */
 	public function filter_post_row_actions( $actions, $post ) {
-		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::elementor()->db->is_built_with_elementor( $post->ID ) ) {
+		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::elementor()->documents->get( $post->ID )->is_built_with_elementor() ) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
 			$global_kit = (string) Utils::get_global_kit_id();
 
