@@ -332,7 +332,7 @@ jQuery( window ).on( 'elementor:init', function() {
 	analog.resetStyles = () => {
 		$e.run( 'document/elements/reset-settings', {
 			container: elementor.documents.documents[elementor.config.kit_id].container,
-			settings: null
+			settings: null,
 		} );
 	};
 
@@ -546,6 +546,16 @@ jQuery( window ).on( 'elementor:init', function() {
 		} ).show();
 	};
 
+	function refreshPageConfig( id ) {
+		elementor.documents.invalidateCache( id );
+		elementor.documents.request( id )
+			.then( ( config ) => {
+				elementor.documents.addDocumentByConfig(config);
+
+				$e.internal( 'editor/documents/load', { config } );
+			});
+	}
+
 	analog.handleSaveToken = () => {
 		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
 			id: 'ang-modal-save-token',
@@ -605,6 +615,11 @@ jQuery( window ).on( 'elementor:init', function() {
 								 * So we close the Kit panel and then save Style Kit value.
 								 */
 								$e.run( 'panel/global/close' ).then( () => {
+
+									// Re-renders an updated page config.
+									refreshPageConfig( elementor.config.initial_document.id );
+
+									// Resets Style Kit option to the newly created kit.
 									elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
 								} );
 
