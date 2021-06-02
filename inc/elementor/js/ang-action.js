@@ -554,6 +554,7 @@ jQuery( window ).on( 'elementor:init', function() {
 
 				$e.internal( 'editor/documents/load', { config } );
 			});
+		elementor.reloadPreview();
 	}
 
 	analog.handleSaveToken = () => {
@@ -615,12 +616,13 @@ jQuery( window ).on( 'elementor:init', function() {
 								 * So we close the Kit panel and then save Style Kit value.
 								 */
 								$e.run( 'panel/global/close' ).then( () => {
-
 									// Re-renders an updated page config.
 									refreshPageConfig( elementor.config.initial_document.id );
 
-									// Resets Style Kit option to the newly created kit.
-									elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
+									// Set Style Kit to the newly created kit once preview frame loads.
+									jQuery( '#elementor-preview-iframe' ).load( function() {
+										elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
+									} );
 								} );
 
 								elementor.notifications.showToast( {
