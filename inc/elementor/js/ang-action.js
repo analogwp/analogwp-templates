@@ -408,9 +408,6 @@ jQuery( window ).on( 'elementor:init', function() {
 									settings: JSON.stringify( angSettings ),
 								},
 							} ).then( function( response ) {
-								const options = elementor.documents.documents[elementor.config.initial_document.id].container.controls.ang_action_tokens.options;
-								options[ response.id ] = title;
-
 								elementor.config.kit_id = response.id;
 
 								modal.destroy();
