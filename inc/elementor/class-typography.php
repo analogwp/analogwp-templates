@@ -687,7 +687,7 @@ class Typography extends Module {
 		$id = get_the_ID();
 		if ( $id ) {
 			$document = Plugin::elementor()->documents->get_doc_or_auto_save( $id );
-			$config   = $document::get_editor_panel_config();
+			$config   = is_object( $document ) ? $document::get_editor_panel_config() : array();
 
 			if ( isset( $config['support_kit'] ) && ! $config['support_kit'] ) {
 				return;
