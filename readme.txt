@@ -109,6 +109,11 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
+= 1.8.2 - June **, 2021 =
+* Fix: Kit re-saving control not working as expected
+* Improvements: Added Elementor 3.2 compatibility changes
+* Improvements: Fix fatal error at search/archive pages for Elementor based pages (reported by Anthony HS#5639)
+
 = 1.8.1 - Feb 12, 2021 =
 * Fix: Issue with nonce verification when quick editing a post/page
 
