@@ -412,29 +412,25 @@ jQuery( window ).on( 'elementor:init', function() {
 
 								modal.destroy();
 
-								analog.setPanelTitle(response.id);
+								analog.setPanelTitle( response.id );
 
 								// Ensure current changes are not saved to active document.
-								$e.run( 'document/save/discard', { document: elementor.documents.getCurrent() } );
+								$e.run( 'document/save/discard' ); // TODO: Fix console TypeError while closing kit panel.
 
 								/**
 								 * Open Document is not accessible while Kit is active.
 								 * So we close the Kit panel and then save Style Kit value.
 								 */
 								$e.run( 'panel/global/close' ).then( () => {
-									if ( elementor.helpers.compareVersions( ElementorConfig.version, '3.2.1', '<' ) ) {
-										// Set Style Kit to the newly created kit once preview frame loads.
-										elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
-									} else {
-										// Re-renders an updated page config.
-										refreshPageConfig( elementor.config.initial_document.id );
+									// Re-renders an updated page config.
+									refreshPageConfig( elementor.config.initial_document.id );
 
-										// Set Style Kit to the newly created kit once preview frame loads.
-										jQuery( '#elementor-preview-iframe' ).load( function() {
-											elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
-										} );
-									}
+									// Set Style Kit to the newly created kit once preview frame loads.
+									jQuery( '#elementor-preview-iframe' ).load( function() {
+										elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
+									} );
 								} );
+
 
 								elementor.notifications.showToast( {
 									message: response.message,
