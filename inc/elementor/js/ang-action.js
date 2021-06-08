@@ -552,9 +552,10 @@ jQuery( window ).on( 'elementor:init', function() {
 			.then( ( config ) => {
 				elementor.documents.addDocumentByConfig(config);
 
-				$e.internal( 'editor/documents/load', { config } );
+				$e.internal( 'editor/documents/load', { config } ).then( () => {
+					elementor.reloadPreview();
+				} );
 			});
-		elementor.reloadPreview();
 	}
 
 	analog.handleSaveToken = () => {
