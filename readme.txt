@@ -2,7 +2,7 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 5.6
+Tested up to: 5.7.2
 Stable tag: 1.8.2
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
@@ -111,8 +111,9 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 = 1.8.2 - June **, 2021 =
 * Fix: Kit re-saving control not working as expected
-* Improvements: Added Elementor 3.2 compatibility changes
 * Improvements: Fix fatal error at search/archive pages for Elementor based pages (reported by Anthony HS#5639)
+* Improvements: Compatibility with Elementor v3.2+ & Elementor Pro v3.3
+* New: Compatible up to WordPress v5.7.2
 
 = 1.8.1 - Feb 12, 2021 =
 * Fix: Issue with nonce verification when quick editing a post/page
