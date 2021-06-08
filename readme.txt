@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
