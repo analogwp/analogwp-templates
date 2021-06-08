@@ -610,7 +610,7 @@ jQuery( window ).on( 'elementor:init', function() {
 								analog.setPanelTitle(response.id);
 
 								// Ensure current changes are not saved to active document.
-								$e.run( 'document/save/discard' );
+								$e.run( 'document/save/discard', { document: elementor.documents.getCurrent() } );
 
 								/**
 								 * Open Document is not accessible while Kit is active.
