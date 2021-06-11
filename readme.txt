@@ -76,9 +76,6 @@ Yes, you can. You can use the templates in any number of personal or client proj
 = What are Style Kits? =
 Style Kits (since v1.2) is a collection of the custom Typography and Spacing styles that you have added to your templates, which can be reused with other templates, making the process of creating new templates a lot easier.
 
-= How frequently do you add new designs? =
-We try to follow a consistent release cycle of two templates per week.
-
 = Will the templates work with my theme? =
 Definitely, given that you have Elementor in your theme setup, the templates will get imported and work just fine.
 
