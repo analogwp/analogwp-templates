@@ -9,8 +9,7 @@
     "dev": "cross-env BABEL_ENV=default webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "makepot": "wp i18n make-pot . ./languages/ang.pot --merge=languages/ang-js.pot --skip-js",
-    "makepot:php": "npx pot-to-php languages/ang.pot languages/ang-translations.php ang",
-    "fonts": "gulp googleFonts"
+    "makepot:php": "npx pot-to-php languages/ang.pot languages/ang-translations.php ang"
   },
   "repository": {
     "type": "git",
