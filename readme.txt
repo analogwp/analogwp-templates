@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 5.6
-Stable tag: 1.8.1
+Tested up to: 5.7.2
+Stable tag: 1.8.2
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -76,9 +76,6 @@ Yes, you can. You can use the templates in any number of personal or client proj
 = What are Style Kits? =
 Style Kits (since v1.2) is a collection of the custom Typography and Spacing styles that you have added to your templates, which can be reused with other templates, making the process of creating new templates a lot easier.
 
-= How frequently do you add new designs? =
-We try to follow a consistent release cycle of two templates per week.
-
 = Will the templates work with my theme? =
 Definitely, given that you have Elementor in your theme setup, the templates will get imported and work just fine.
 
@@ -108,6 +105,12 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.8.2 - June **, 2021 =
+* Fix: Kit re-saving control not working as expected
+* Improvements: Fix fatal error at search/archive pages for Elementor based pages (reported by Anthony HS#5639)
+* Improvements: Compatibility with Elementor v3.2+ & Elementor Pro v3.3
+* New: Compatible up to WordPress v5.7.2
 
 = 1.8.1 - Feb 12, 2021 =
 * Fix: Issue with nonce verification when quick editing a post/page

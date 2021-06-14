@@ -221,175 +221,12 @@ jQuery( window ).on( 'elementor:init', function() {
 		elementor.getPanelView().setPage('kit_settings').content.currentView.activateSection( section ).activateTab('style');
 	};
 
-	// analog.showStyleKitAttentionDialog = () => {
-	// 	const introduction = new elementorModules.editor.utils.Introduction( {
-	// 		introductionKey: 'angStylekit',
-	// 		dialogType: 'confirm',
-	// 		dialogOptions: {
-	// 			id: 'ang-stylekit-attention-dialog',
-	// 			headerMessage: ANG_Action.translate.sk_header,
-	// 			message: ANG_Action.translate.sk_message,
-	// 			position: {
-	// 				my: 'center center',
-	// 				at: 'center center',
-	// 			},
-	// 			strings: {
-	// 				confirm: ANG_Action.translate.sk_learn,
-	// 				cancel: elementor.translate( 'got_it' ),
-	// 			},
-	// 			hide: {
-	// 				onButtonClick: false,
-	// 			},
-	// 			onCancel: () => {
-	// 				introduction.setViewed();
-	// 				introduction.getDialog().hide();
-	// 			},
-	// 			onConfirm: () => {
-	// 				introduction.setViewed();
-	// 				introduction.getDialog().hide();
-	// 				analog.redirectToSection();
-	// 			},
-	// 		},
-	// 	} );
-	//
-	// 	introduction.show();
-	// };
-
-	// analog.styleKitUpdateDialog = () => {
-	// 	const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
-	// 		id: 'ang-stylekit-update',
-	// 		headerMessage: ANG_Action.translate.skUpdate,
-	// 		message: ANG_Action.translate.skUpdateDesc,
-	// 		hide: {
-	// 			onOutsideClick: false,
-	// 			onBackgroundClick: false,
-	// 			onEscKeyPress: false,
-	// 		},
-	// 	} );
-	//
-	// 	modal.addButton( {
-	// 		name: 'ang_discard',
-	// 		text: ANG_Action.translate.discard,
-	// 		callback() {
-	// 			analog.removeFromQueue();
-	// 			// Set to negative value to avoid queue of Global Style Kit.
-	// 			elementor.settings.page.model.set( 'ang_action_tokens', '-1' );
-	// 		},
-	// 	} );
-	//
-	// 	modal.addButton( {
-	// 		name: 'ang_apply',
-	// 		text: ANG_Action.translate.apply,
-	// 		callback() {
-	// 			analog.removeFromQueue();
-	// 			analog.applyStyleKit( elementorSettings.ang_action_tokens );
-	// 		},
-	// 	} );
-	//
-	// 	return modal;
-	// };
-
-	// analog.hasGlobalKit = () => {
-	// 	const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
-	// 		id: 'ang-has-globalkit',
-	// 		headerMessage: ANG_Action.translate.pageStyleHeader,
-	// 		message: ANG_Action.translate.pageStyleDesc,
-	// 		hide: {
-	// 			onOutsideClick: false,
-	// 			onBackgroundClick: false,
-	// 			onEscKeyPress: false,
-	// 		},
-	// 	} );
-	//
-	// 	modal.addButton( {
-	// 		name: 'ang_discard',
-	// 		text: ANG_Action.translate.discard,
-	// 		callback() {
-	// 			elementor.settings.page.model.set( 'uses_style_kit', false );
-	// 			elementor.saver.defaultSave();
-	// 		},
-	// 	} );
-	//
-	// 	modal.addButton( {
-	// 		name: 'ang_apply',
-	// 		text: ANG_Action.translate.gotoPageStyle,
-	// 		callback() {
-	// 			elementor.settings.page.model.set( 'uses_style_kit', false );
-	// 			analog.redirectToSection();
-	// 			elementor.saver.defaultSave();
-	// 		},
-	// 	} );
-	//
-	// 	modal.show();
-	// };
-
-	// if ( elementor.settings.page.getSettings().settings.uses_style_kit ) {
-	// 	analog.hasGlobalKit();
-	// }
-
-	// analog.StyleKitUpdateModal = analog.styleKitUpdateDialog();
-
 	analog.resetStyles = () => {
 		$e.run( 'document/elements/reset-settings', {
 			container: elementor.documents.documents[elementor.config.kit_id].container,
-			settings: null
+			settings: null,
 		} );
 	};
-
-	// analog.applyStyleKit = ( value ) => {
-	// 	if ( ! value || value === '' ) {
-	// 		console.warn( 'No value provided.', value );
-	// 		return;
-	// 	}
-	//
-	// 	wp.apiFetch( {
-	// 		method: 'post',
-	// 		path: 'agwp/v1/tokens/get',
-	// 		data: {
-	// 			id: value,
-	// 		},
-	// 	} ).then( function( response ) {
-	// 		const data = JSON.parse( response.data );
-	//
-	// 		if ( Object.keys( data ).length ) {
-	// 			elementor.settings.page.model.set( data );
-	// 			elementor.settings.page.model.set( 'ang_recently_imported', 'no' );
-	// 		}
-	// 	} ).catch( function( error ) {
-	// 		console.error( error );
-	// 	} );
-	// };
-
-	// analog.removeFromQueue = ( id = elementor.config.document.id ) => {
-	// 	jQuery.ajax( {
-	// 		type: 'POST',
-	// 		url: AGWP.ajaxurl,
-	// 		data: {
-	// 			action: 'ang_remove_kit_queue',
-	// 			id: id,
-	// 		},
-	// 		success: ( response ) => {
-	// 			if ( ! response.success ) {
-	// 				elementorCommon.dialogsManager.createWidget( 'alert', {
-	// 					message: response.data.message,
-	// 				} ).show();
-	// 			}
-	// 		},
-	// 		dataType: 'JSON',
-	// 	} );
-	// };
-
-	// elementor.on( 'preview:loaded', () => {
-	// 	if ( ! elementor.config.user.introduction.angStylekit ) {
-	// 		analog.showStyleKitAttentionDialog();
-	// 	}
-	//
-	// 	const settings = elementor.settings.page.model.attributes;
-	//
-	// 	if ( settings.ang_action_tokens && settings.ang_action_tokens !== '-1' ) {
-	// 		analog.applyStyleKit( settings.ang_action_tokens );
-	// 	}
-	// } );
 
 	const BaseData = elementor.modules.controls.BaseData;
 	const ControlANGAction = BaseData.extend( {
@@ -460,35 +297,6 @@ jQuery( window ).on( 'elementor:init', function() {
 
 	elementor.addControlView( 'ang_action', ControlANGAction );
 
-	// jQuery( document ).on( 'heartbeat-tick', function( event, response ) {
-	// 	const post_id = elementor.config.document.id;
-	// 	const posts = response.sk_posts;
-	//
-	// 	if ( posts && posts.indexOf(post_id) >= 0 ) {
-	// 		if ( ! analog.sk_modal_shown ) {
-	// 			analog.sk_modal_shown = true;
-	// 			analog.StyleKitUpdateModal.show();
-	//
-	// 			setTimeout( () => {
-	// 				analog.sk_modal_shown = false;
-	// 			}, 60*1000);
-	// 		}
-	// 	}
-	// } );
-
-	// jQuery( document ).on( 'heartbeat-send', function( event, data ) {
-	// 	const kitID = elementor.settings.page.model.attributes.ang_action_tokens;
-	// 	if ( kitID ) {
-	// 		data.ang_sk_post = {
-	// 			post_id: elementor.config.document.id,
-	// 			kit_id: kitID,
-	// 			updated: analog.style_kit_updated,
-	// 		};
-	//
-	// 		analog.style_kit_updated = false;
-	// 	}
-	// });
-
 	elementor.on( 'preview:loaded', () => {
 		if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.7.6', '>' ) ) {
 			jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
@@ -546,6 +354,18 @@ jQuery( window ).on( 'elementor:init', function() {
 		} ).show();
 	};
 
+	function refreshPageConfig( id ) {
+		elementor.documents.invalidateCache( id );
+		elementor.documents.request( id )
+			.then( ( config ) => {
+				elementor.documents.addDocumentByConfig(config);
+
+				$e.internal( 'editor/documents/load', { config } ).then( () => {
+					elementor.reloadPreview();
+				} );
+			});
+	}
+
 	analog.handleSaveToken = () => {
 		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
 			id: 'ang-modal-save-token',
@@ -588,25 +408,29 @@ jQuery( window ).on( 'elementor:init', function() {
 									settings: JSON.stringify( angSettings ),
 								},
 							} ).then( function( response ) {
-								const options = elementor.documents.documents[elementor.config.initial_document.id].container.controls.ang_action_tokens.options;
-								options[ response.id ] = title;
-
 								elementor.config.kit_id = response.id;
 
 								modal.destroy();
 
-								analog.setPanelTitle(response.id);
+								analog.setPanelTitle( response.id );
 
 								// Ensure current changes are not saved to active document.
-								$e.run( 'document/save/discard' );
+								$e.run( 'document/save/discard' ); // TODO: Fix console TypeError while closing kit panel.
 
 								/**
 								 * Open Document is not accessible while Kit is active.
 								 * So we close the Kit panel and then save Style Kit value.
 								 */
 								$e.run( 'panel/global/close' ).then( () => {
-									elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
+									// Re-renders an updated page config.
+									refreshPageConfig( elementor.config.initial_document.id );
+
+									// Set Style Kit to the newly created kit once preview frame loads.
+									jQuery( '#elementor-preview-iframe' ).load( function() {
+										elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
+									} );
 								} );
+
 
 								elementor.notifications.showToast( {
 									message: response.message,
