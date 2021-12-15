@@ -8,7 +8,6 @@
 namespace Analog;
 
 use Analog\Elementor\ANG_Action;
-use Analog\Elementor\Google_Fonts;
 use Elementor\Core\Common\Modules\Finder\Categories_Manager;
 use Elementor\Core\DynamicTags\Manager;
 use Analog\Elementor\Tags\Light_Background;
