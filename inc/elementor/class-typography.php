@@ -31,6 +31,7 @@ class Typography extends Module {
 
 	/**
 	 * Tab to which add settings to.
+	 *
 	 * @since 1.8.0
 	 *
 	 * @var string
@@ -440,6 +441,11 @@ class Typography extends Module {
 
 			$is_optimize_dom =
 				\Elementor\Core\Experiments\Manager::STATE_ACTIVE === $optimized_dom;
+
+			if ( 'default' === $optimized_dom ) {
+				$experiments     = new \Elementor\Core\Experiments\Manager();
+				$is_optimize_dom = $experiments->is_feature_active( 'e_dom_optimization' );
+			}
 		}
 
 		if ( ! $is_optimize_dom ) { // Add row class if DOM optimization is not active.
