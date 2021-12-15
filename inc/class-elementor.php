@@ -51,8 +51,13 @@ class Elementor {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-dark-background.php';
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-light-background.php';
 
-				$dynamic_tags->register_tag( Light_Background::class );
-				$dynamic_tags->register_tag( Dark_Background::class );
+				if ( Utils::is_elementor_pre( '3.5' ) ) {
+					$dynamic_tags->register_tag( Light_Background::class );
+					$dynamic_tags->register_tag( Dark_Background::class );
+				} else {
+					$dynamic_tags->register( new Light_Background() );
+					$dynamic_tags->register( new Dark_Background() );
+				}
 			}
 		);
 	}
