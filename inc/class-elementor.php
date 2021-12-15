@@ -64,7 +64,11 @@ class Elementor {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-ang-action.php';
 
 		$controls_manager = Plugin::elementor()->controls_manager;
-		$controls_manager->register_control( 'ang_action', new ANG_Action() );
+		if ( Utils::is_elementor_pre( '3.5' ) ) {
+			$controls_manager->register_control( 'ang_action', new ANG_Action() );
+		} else {
+			$controls_manager->register( new ANG_Action(), 'ang_action' );
+		}
 	}
 
 	/**
