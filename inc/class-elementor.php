@@ -26,44 +26,67 @@ class Elementor {
 
 		add_action( 'wp_ajax_elementor_library_direct_actions', array( $this, 'maybe_add_elementor_data' ) );
 
-		add_action(
-			'elementor/finder/categories/init',
-			static function ( Categories_Manager $categories_manager ) {
-				include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
-
-				if ( Utils::is_elementor_pre( '3.5' ) ) {
+		if ( Utils::is_elementor_pre( '3.5' ) ) {
+			add_action(
+				'elementor/finder/categories/init',
+				static function ( Categories_Manager $categories_manager ) {
+					include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
 					$categories_manager->add_category( 'ang-shortcuts', new Finder_Shortcuts() );
-				} else {
-					$categories_manager->register( new Finder_Shortcuts(), 'ang-shortcuts' );
 				}
-			}
-		);
+			);
 
-		add_action( 'elementor/controls/controls_registered', array( $this, 'register_controls' ) );
+			add_action( 'elementor/controls/controls_registered', array( $this, 'register_controls' ) );
 
-		add_action(
-			'elementor/dynamic_tags/register_tags',
-			static function( Manager $dynamic_tags ) {
+			add_action(
+				'elementor/dynamic_tags/register_tags',
+				static function( Manager $dynamic_tags ) {
 
-				$dynamic_tags->register_group(
-					'ang_classes',
-					array(
-						'title' => __( 'AnalogWP Classes', 'ang' ),
-					)
-				);
+					$dynamic_tags->register_group(
+						'ang_classes',
+						array(
+							'title' => __( 'AnalogWP Classes', 'ang' ),
+						)
+					);
 
-				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-dark-background.php';
-				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-light-background.php';
+					include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-dark-background.php';
+					include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-light-background.php';
 
-				if ( Utils::is_elementor_pre( '3.5' ) ) {
 					$dynamic_tags->register_tag( Light_Background::class );
 					$dynamic_tags->register_tag( Dark_Background::class );
-				} else {
+				}
+			);
+
+		} else {
+			add_action(
+				'elementor/finder/categories/init',
+				static function ( Categories_Manager $categories_manager ) {
+					include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
+					$categories_manager->register( new Finder_Shortcuts(), 'ang-shortcuts' );
+				}
+			);
+
+			add_action( 'elementor/controls/register', array( $this, 'register_controls' ) );
+
+			add_action(
+				'elementor/dynamic_tags/register_tags',
+				static function( Manager $dynamic_tags ) {
+
+					$dynamic_tags->register_group(
+						'ang_classes',
+						array(
+							'title' => __( 'AnalogWP Classes', 'ang' ),
+						)
+					);
+
+					include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-dark-background.php';
+					include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-light-background.php';
+
 					$dynamic_tags->register( new Light_Background() );
 					$dynamic_tags->register( new Dark_Background() );
+
 				}
-			}
-		);
+			);
+		}
 	}
 
 	/**
