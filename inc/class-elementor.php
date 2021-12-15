@@ -31,7 +31,11 @@ class Elementor {
 			static function ( Categories_Manager $categories_manager ) {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
 
-				$categories_manager->add_category( 'ang-shortcuts', new Finder_Shortcuts() );
+				if ( Utils::is_elementor_pre( '3.5' ) ) {
+					$categories_manager->add_category( 'ang-shortcuts', new Finder_Shortcuts() );
+				} else {
+					$categories_manager->register( new Finder_Shortcuts(), 'ang-shortcuts' );
+				}
 			}
 		);
 
