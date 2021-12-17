@@ -91,15 +91,17 @@ function analog_fail_wp_version() {
  * @return mixed
  */
 function analog_require_minimum_elementor() {
+	$file_path = 'elementor/elementor.php';
+
 	$link = add_query_arg(
 		array(
 			'action' => 'upgrade-plugin',
-			'plugin' => 'elementor/elementor.php',
+			'plugin' => $file_path,
 		),
-		self_admin_url( 'update.php' )
+		admin_url( 'update.php' )
 	);
 
-	$update_url = wp_nonce_url( $link );
+	$update_url = wp_nonce_url( $link, 'upgrade-plugin_' . $file_path );
 
 	/* translators: %s: Minimum required Elementor version. */
 	$message = '<p>' . sprintf( __( 'Style Kits requires Elementor v%s or newer in order to work. Please update Elementor to the latest version.', 'ang' ), ANG_ELEMENTOR_MINIMUM ) . '</p>';
