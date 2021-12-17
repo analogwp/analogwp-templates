@@ -9,6 +9,7 @@ namespace Analog\Elementor;
 
 use Analog\Options;
 use Elementor\Base_Data_Control;
+use Analog\Utils;
 
 /**
  * ANG_Action class.
@@ -89,6 +90,12 @@ class ANG_Action extends Base_Data_Control {
 			$sk_panels_allowed = false;
 		}
 
+		$el_init = 'elementor/init';
+
+		if ( Utils::is_elementor_pre( '3.5' ) ) {
+			$el_init = 'elementor:init';
+		}
+
 		wp_localize_script(
 			'ang_action',
 			'ANG_Action',
@@ -133,6 +140,7 @@ class ANG_Action extends Base_Data_Control {
 					'cssSelector'     => __( 'Remove Page ID from the CSS', 'ang' ),
 				),
 				'skPanelsAllowed' => $sk_panels_allowed,
+				'elInitHook'      => $el_init,
 			)
 		);
 	}

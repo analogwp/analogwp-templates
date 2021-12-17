@@ -107,12 +107,12 @@
 		init();
 	};
 
-	$( window ).on( 'elementor:init', function() {
+	$(window).on( ANG_Action.elInitHook, function () {
 		new App();
 	});
 }( window, jQuery ) );
 
-jQuery( window ).on( 'elementor:init', function() {
+jQuery( window ).on( ANG_Action.elInitHook, function() {
 	const analog = window.analog = window.analog || {};
 	const elementorSettings = elementor.settings.page.model.attributes;
 
