@@ -2,7 +2,7 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 5.8.2
+Tested up to: 5.9
 Stable tag: 1.8.3
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
@@ -106,8 +106,8 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
-= 1.8.3 - Dec **, 2021 =
-* New: Compatible up to WordPress v5.8.2
+= 1.8.3 - Jan 24, 2022 =
+* New: Compatible up to WordPress v5.9
 * New: Elementor required version is now v3.5+
 * Fix: Column gaps not working with fresh installs and Optimized DOM feature
 * Fix: Required Elementor version notice update link not working
