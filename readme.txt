@@ -1,9 +1,9 @@
 === Style Kits - Advanced Theme Styles for Elementor ===
 Contributors: analogwp, mauryaratan
-Requires at least: 5.0
+Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 5.7.2
-Stable tag: 1.8.2
+Tested up to: 5.9
+Stable tag: 1.8.3
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -105,6 +105,14 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.8.3 - Jan 24, 2022 =
+* New: Compatible up to WordPress v5.9
+* New: Elementor required version is now v3.5+
+* Fix: Column gaps not working with fresh installs and Optimized DOM feature
+* Fix: Required Elementor version notice update link not working
+* Improvements: Compatibility with Elementor v3.5+ & Elementor Pro v3.5.2
+* Improvements: Remove unused Google fonts class
 
 = 1.8.2 - June 14, 2021 =
 * New: Compatible up to WordPress v5.7.2

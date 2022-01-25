@@ -8,7 +8,6 @@
 namespace Analog;
 
 use Analog\Elementor\ANG_Action;
-use Analog\Elementor\Google_Fonts;
 use Elementor\Core\Common\Modules\Finder\Categories_Manager;
 use Elementor\Core\DynamicTags\Manager;
 use Analog\Elementor\Tags\Light_Background;
@@ -28,15 +27,14 @@ class Elementor {
 		add_action( 'wp_ajax_elementor_library_direct_actions', array( $this, 'maybe_add_elementor_data' ) );
 
 		add_action(
-			'elementor/finder/categories/init',
+			'elementor/finder/register',
 			static function ( Categories_Manager $categories_manager ) {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
-
-				$categories_manager->add_category( 'ang-shortcuts', new Finder_Shortcuts() );
+				$categories_manager->register( new Finder_Shortcuts(), 'ang-shortcuts' );
 			}
 		);
 
-		add_action( 'elementor/controls/controls_registered', array( $this, 'register_controls' ) );
+		add_action( 'elementor/controls/register', array( $this, 'register_controls' ) );
 
 		add_action(
 			'elementor/dynamic_tags/register_tags',
@@ -52,8 +50,9 @@ class Elementor {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-dark-background.php';
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-light-background.php';
 
-				$dynamic_tags->register_tag( Light_Background::class );
-				$dynamic_tags->register_tag( Dark_Background::class );
+				$dynamic_tags->register( new Light_Background() );
+				$dynamic_tags->register( new Dark_Background() );
+
 			}
 		);
 	}
@@ -65,7 +64,8 @@ class Elementor {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-ang-action.php';
 
 		$controls_manager = Plugin::elementor()->controls_manager;
-		$controls_manager->register_control( 'ang_action', new ANG_Action() );
+
+		$controls_manager->register( new ANG_Action(), 'ang_action' );
 	}
 
 	/**

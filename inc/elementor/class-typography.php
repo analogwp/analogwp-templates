@@ -31,6 +31,7 @@ class Typography extends Module {
 
 	/**
 	 * Tab to which add settings to.
+	 *
 	 * @since 1.8.0
 	 *
 	 * @var string
@@ -429,17 +430,13 @@ class Typography extends Module {
 			)
 		);
 
-		$elementor_row = '';
+		$elementor_row   = '';
+		$optimized_dom   = get_option( 'elementor_experiment-e_dom_optimization' );
+		$is_optimize_dom = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $optimized_dom;
 
-		if ( Utils::is_elementor_pre( '3.1' ) ) {
-			$optimized_dom = get_option( 'elementor_optimized_dom_output' );
-
-			$is_optimize_dom = 'enabled' === $optimized_dom;
-		} else {
-			$optimized_dom = get_option( 'elementor_experiment-e_dom_optimization' );
-
-			$is_optimize_dom =
-				\Elementor\Core\Experiments\Manager::STATE_ACTIVE === $optimized_dom;
+		if ( 'default' === $optimized_dom ) {
+			$experiments     = new \Elementor\Core\Experiments\Manager();
+			$is_optimize_dom = $experiments->is_feature_active( 'e_dom_optimization' );
 		}
 
 		if ( ! $is_optimize_dom ) { // Add row class if DOM optimization is not active.

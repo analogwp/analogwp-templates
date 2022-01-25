@@ -10,22 +10,22 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits extends the Elementor theme styles editor with more global styling options. Boost your design workflow in Elementor with intuitive global controls and theme style presets.
- * Version:     1.8.2
+ * Version:     1.8.3
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: ang
- * Elementor tested up to: 3.2.4
- * Elementor Pro tested up to: 3.3.0
+ * Elementor tested up to: 3.5.4
+ * Elementor Pro tested up to: 3.5.2
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ANG_ELEMENTOR_MINIMUM', '3.2.0' );
+define( 'ANG_ELEMENTOR_MINIMUM', '3.5.0' );
 define( 'ANG_PHP_MINIMUM', '5.6.0' );
-define( 'ANG_WP_MINIMUM', '5.0' );
-define( 'ANG_VERSION', '1.8.2' );
+define( 'ANG_WP_MINIMUM', '5.2' );
+define( 'ANG_VERSION', '1.8.3' );
 define( 'ANG_PLUGIN_FILE', __FILE__ );
 define( 'ANG_PLUGIN_URL', plugin_dir_url( ANG_PLUGIN_FILE ) );
 define( 'ANG_PLUGIN_DIR', plugin_dir_path( ANG_PLUGIN_FILE ) );
@@ -91,15 +91,17 @@ function analog_fail_wp_version() {
  * @return mixed
  */
 function analog_require_minimum_elementor() {
+	$file_path = 'elementor/elementor.php';
+
 	$link = add_query_arg(
 		array(
 			'action' => 'upgrade-plugin',
-			'plugin' => 'elementor/elementor.php',
+			'plugin' => $file_path,
 		),
-		self_admin_url( 'update.php' )
+		admin_url( 'update.php' )
 	);
 
-	$update_url = wp_nonce_url( $link );
+	$update_url = wp_nonce_url( $link, 'upgrade-plugin_' . $file_path );
 
 	/* translators: %s: Minimum required Elementor version. */
 	$message = '<p>' . sprintf( __( 'Style Kits requires Elementor v%s or newer in order to work. Please update Elementor to the latest version.', 'ang' ), ANG_ELEMENTOR_MINIMUM ) . '</p>';

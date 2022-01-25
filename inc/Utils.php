@@ -791,11 +791,7 @@ class Utils extends Base {
 	 * @return string
 	 */
 	public static function get_kit_settings_tab() {
-		if ( self::is_elementor_pre( '3.0' ) ) {
-			$tab = Controls_Manager::TAB_STYLE;
-		} else {
-			$tab = 'theme-style-kits';
-		}
+		$tab = 'theme-style-kits';
 
 		return $tab;
 	}
