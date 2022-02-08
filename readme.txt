@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 5.9
-Stable tag: 1.8.3
+Stable tag: 1.8.4
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -105,6 +105,10 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.8.4 - Feb 08, 2022 =
+* Fix: Template imports not working
+* Improvements: Compatibility with Elementor Pro v3.6+
 
 = 1.8.3 - Jan 24, 2022 =
 * New: Compatible up to WordPress v5.9
