@@ -20,7 +20,7 @@ const Popup = ( props ) => {
 							) }
 						</div>
 					</CardHeader>
-					<CardDivider>&nbsp;</CardDivider>
+					<CardDivider />
 					<CardBody>
 						<div className="inner-popup-content">
 							{ children }
