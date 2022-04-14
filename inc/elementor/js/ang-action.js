@@ -480,9 +480,24 @@ jQuery( window ).on( 'elementor/init', function() {
 					name: 'ok',
 					text: ANG_Action.translate.copyCSS,
 					callback: function() {
-						const content = modal.getElements( 'content' );
-						jQuery( content.find( 'textarea' ) ).select();
-						document.execCommand( 'copy' );
+						const content = modal.getElements( 'content' ).find('#ang-export-css');
+
+						if( navigator.clipboard ) {
+							const textToCopy = content[0].innerHTML;
+							navigator.clipboard.writeText( textToCopy ).then( () => {
+								elementor.notifications.showToast( {
+									message: ANG_Action.translate.cssCopied,
+								} );
+							} );
+						} else {
+							// execCommand method is not recommended anymore and soon will be dropped by browsers.
+							jQuery( content ).select();
+							document.execCommand('copy');
+
+							elementor.notifications.showToast( {
+								message: ANG_Action.translate.cssCopied,
+							} );
+						}
 					},
 				} );
 			},
