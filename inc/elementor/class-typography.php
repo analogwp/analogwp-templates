@@ -14,6 +14,7 @@ use Elementor\Controls_Stack;
 use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
+use Elementor\Group_Control_Flex_Container;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
@@ -71,8 +72,9 @@ class Typography extends Module {
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_typography_sizes' ), 30, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 40, 2 );
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_outer_section_padding' ), 50, 2 );
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_columns_gap' ), 60, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_container_spacing' ), 50, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_outer_section_padding' ), 60, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_columns_gap' ), 70, 2 );
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_styling_settings' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_tools' ), 999, 2 );
 
@@ -334,6 +336,152 @@ class Typography extends Module {
 					'selector' => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
 					'exclude'  => $size_controls,
 				)
+			);
+		}
+
+		$element->end_controls_tab();
+
+		$element->end_controls_tabs();
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Register Container spacing controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_container_spacing( Controls_Stack $element, $section_id ) {
+		$flexbox_container   = get_option( 'elementor_experiment-container' );
+		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
+
+		if ( 'default' === $flexbox_container ) {
+			$experiments     = new \Elementor\Core\Experiments\Manager();
+			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
+		}
+
+		if ( ! $is_flexbox_container_active ) { // Return early if Flexbox container is not active.
+			return;
+		}
+		$element->start_controls_section(
+			'ang_container_spacing',
+			array(
+				'label' => __( 'Containers', 'ang' ),
+				'tab'   => $this->settings_tab,
+			)
+		);
+
+		$element->start_controls_tabs( 'ang_container_tabs' );
+
+		$gaps = array(
+			'initial'  => __( 'Default', 'ang' ),
+			'narrow'   => __( 'Small', 'ang' ),
+			'extended' => __( 'Medium', 'ang' ),
+			'wide'     => __( 'Large', 'ang' ),
+			'wider'    => __( 'Extra Large', 'ang' ),
+		);
+
+		$element->start_controls_tab(
+			'ang_container_tab_padding',
+			array(
+				'label' => __( 'Padding', 'ang' ),
+			)
+		);
+
+		$element->add_control(
+			'ang_container_padding_description',
+			array(
+				'raw'             => __( 'Add padding to the containers of your layouts by using these controls.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/587-outer-section-padding', __( 'Learn more.', 'ang' ) ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		foreach ( $gaps as $key => $label ) {
+			$element->add_responsive_control(
+				'ang_container_padding_' . $key,
+				array(
+					'label'      => $label,
+					'type'       => Controls_Manager::DIMENSIONS,
+					'default'    => array(
+						'unit' => 'em',
+					),
+					'size_units' => array( 'px', 'em', '%' ),
+					'selectors'  => array(
+						"{{WRAPPER}} .ang-container-padding-{$key}.elementor-element" =>
+							'--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
+					),
+				)
+			);
+		}
+
+		$element->end_controls_tab();
+
+		// Elements Gap.
+		$element->start_controls_tab(
+			'ang_container_tab_elements_gap',
+			array(
+				'label' => __( 'Elements Gap', 'ang' ),
+			)
+		);
+
+		$element->add_control(
+			'ang_container_elements_gap_description',
+			array(
+				'raw'             => __( 'Add gaps to the container elements of your layouts by using these controls.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/587-outer-section-padding', __( 'Learn more.', 'ang' ) ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		foreach ( $gaps as $key => $label ) {
+			$element->add_group_control(
+				Group_Control_Flex_Container::get_type(),
+				[
+					'name' => 'ang_container_elements_gap_' . $key,
+					'selector' => "{{WRAPPER}} .ang-container-elements-gap-{$key}.elementor-element",
+					'fields_options' => [
+						'gap' => [
+							'label' => $label,
+						],
+						'direction' => [
+							'condition' => [
+								'container_type' => 'flex',
+							],
+						],
+						'_is_row' => [
+							'condition' => [
+								'container_type' => 'flex',
+							],
+						],
+						'_is_column' => [
+							'condition' => [
+								'container_type' => 'flex',
+							],
+						],
+						'align_items' => [
+							'condition' => [
+								'container_type' => 'flex',
+							],
+						],
+						'justify_content' => [
+							'condition' => [
+								'container_type' => 'flex',
+							],
+						],
+						'wrap' => [
+							'condition' => [
+								'container_type' => 'flex',
+							],
+						],
+						'align_content' => [
+							'condition' => [
+								'container_type' => 'flex',
+							],
+						],
+					],
+				]
 			);
 		}
 
