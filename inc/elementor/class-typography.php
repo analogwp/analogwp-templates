@@ -86,6 +86,7 @@ class Typography extends Module {
 		add_filter( 'display_post_states', array( $this, 'add_token_state' ), 10, 2 );
 
 		add_action( 'elementor/element/section/section_layout/before_section_end', array( $this, 'tweak_section_widget' ) );
+		add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
 		add_action( 'elementor/element/section/section_advanced/before_section_end', array( $this, 'tweak_section_padding_control' ) );
 		add_action( 'elementor/element/column/section_advanced/before_section_end', array( $this, 'tweak_column_element' ) );
 
@@ -1050,6 +1051,92 @@ class Typography extends Module {
 				),
 			)
 		);
+	}
+
+	/**
+	 * Tweak default Container widget.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_container_widget( Element_Base $element ) {
+		$element->start_injection(
+			array(
+				'of' => 'content_width',
+				'at' => 'after',
+			)
+		);
+
+		$post_id = get_the_ID();
+		$default = 'none';
+
+		if ( $post_id ) {
+			$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+
+			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
+				$kit_cp = Utils::get_kit_settings( $settings['ang_action_tokens'], 'ang_default_container_padding' );
+
+				if ( $kit_cp && '' !== $kit_cp ) {
+					$default = $kit_cp;
+				}
+			}
+		}
+
+		$element->add_control(
+			'ang_container_spacing_size',
+			array(
+				'label'         => __( 'Spacing preset', 'ang' ),
+				'description'   => __( 'A Style Kits control that adds padding to your container. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_padding' )", ' here.' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => $default,
+				'options'       => array(
+					'none'     => __( 'None', 'ang' ),
+					'initial'  => __( 'Default', 'ang' ),
+					'narrow'   => __( 'Small', 'ang' ),
+					'extended' => __( 'Medium', 'ang' ),
+					'wide'     => __( 'Large', 'ang' ),
+					'wider'    => __( 'Extra Large', 'ang' ),
+				),
+				'prefix_class'  => 'ang-container-padding-',
+			)
+		);
+
+
+		$default = 'none';
+
+		if ( $post_id ) {
+			$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+
+			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
+				$kit_cep = Utils::get_kit_settings( $settings['ang_action_tokens'], 'ang_default_container_elements_gap' );
+
+				if ( $kit_cep && '' !== $kit_cep ) {
+					$default = $kit_cep;
+				}
+			}
+		}
+
+		$element->add_control(
+			'ang_container_elements_gap_size',
+			array(
+				'label'         => __( 'Elements Gap', 'ang' ),
+				'description'   => __( 'A Style Kits control that adds spacing to your container elements. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_padding' )", ' here.' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => $default,
+				'options'       => array(
+					'none'     => __( 'None', 'ang' ),
+					'initial'  => __( 'Default', 'ang' ),
+					'narrow'   => __( 'Small', 'ang' ),
+					'extended' => __( 'Medium', 'ang' ),
+					'wide'     => __( 'Large', 'ang' ),
+					'wider'    => __( 'Extra Large', 'ang' ),
+				),
+				'prefix_class'  => 'ang-container-elements-gap-',
+			)
+		);
+
+		$element->end_injection();
 	}
 
 	/**
