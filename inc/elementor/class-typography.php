@@ -87,6 +87,7 @@ class Typography extends Module {
 
 		add_action( 'elementor/element/section/section_layout/before_section_end', array( $this, 'tweak_section_widget' ) );
 		add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
+		add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
 		add_action( 'elementor/element/section/section_advanced/before_section_end', array( $this, 'tweak_section_padding_control' ) );
 		add_action( 'elementor/element/column/section_advanced/before_section_end', array( $this, 'tweak_column_element' ) );
 
@@ -1140,6 +1141,43 @@ class Typography extends Module {
 	}
 
 	/**
+	 * Tweak Container widget for SK BG classes preset.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_container_widget_styles( Element_Base $element ) {
+		$element->start_injection(
+			array(
+				'of' => 'background_background',
+				'at' => 'after',
+			)
+		);
+
+		$element->add_control(
+			'ang_container_bg_preset',
+			array(
+				'label'         => __( 'SK Class', 'ang' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => array(
+					'none'      => __( 'None', 'ang' ),
+					'light-bg'  => __( 'Light Background', 'ang' ),
+					'dark-bg'   => __( 'Dark background', 'ang' ),
+					'accent-bg' => __( 'Accent Background', 'ang' ),
+				),
+				'prefix_class'  => 'sk-',
+				'condition' => [
+					'container_type'        => 'flex',
+					'background_background' => [ 'classic' ],
+				],
+			)
+		);
+
+		$element->end_injection();
+	}
+
+		/**
 	 * Enqueue Google fonts.
 	 *
 	 * @return void
