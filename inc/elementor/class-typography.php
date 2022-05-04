@@ -11,6 +11,7 @@ use Analog\Plugin;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
+use Elementor\Core\Kits\Controls\Repeater as Global_Style_Repeater;
 use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
@@ -19,6 +20,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
 use Analog\Utils;
+use Elementor\Repeater;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -376,12 +378,27 @@ class Typography extends Module {
 
 		$element->start_controls_tabs( 'ang_container_tabs' );
 
-		$gaps = array(
-			'initial'  => __( 'Default', 'ang' ),
-			'narrow'   => __( 'Small', 'ang' ),
-			'extended' => __( 'Medium', 'ang' ),
-			'wide'     => __( 'Large', 'ang' ),
-			'wider'    => __( 'Extra Large', 'ang' ),
+		$padding_defaults = array(
+			array(
+				'_id'   => 'padding_initial',
+				'title' => __( 'Default', 'ang' ),
+			),
+			array(
+				'_id'   => 'padding_narrow',
+				'title' => __( 'Small', 'ang' ),
+			),
+			array(
+				'_id'   => 'padding_extended',
+				'title' => __( 'Medium', 'ang' ),
+			),
+			array(
+				'_id'   => 'padding_wide',
+				'title' => __( 'Large', 'ang' ),
+			),
+			array(
+				'_id'   => 'padding_wider',
+				'title' => __( 'Extra Large', 'ang' ),
+			),
 		);
 
 		$element->start_controls_tab(
@@ -400,23 +417,52 @@ class Typography extends Module {
 			)
 		);
 
-		foreach ( $gaps as $key => $label ) {
-			$element->add_responsive_control(
-				'ang_container_padding_' . $key,
-				array(
-					'label'      => $label,
-					'type'       => Controls_Manager::DIMENSIONS,
-					'default'    => array(
-						'unit' => 'em',
-					),
-					'size_units' => array( 'px', 'em', '%' ),
-					'selectors'  => array(
-						"{{WRAPPER}} .ang-container-padding-{$key}.elementor-element" =>
-							'--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
-					),
-				)
-			);
-		}
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'title',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'required'    => true,
+			)
+		);
+
+		// Padding Value.
+		$repeater->add_responsive_control(
+			'padding',
+			array(
+				'type'        => Controls_Manager::DIMENSIONS,
+				'label_block' => true,
+				'dynamic'     => array(),
+				'default'     => array(
+					'unit' => 'px',
+				),
+				'size_units'  => array( 'px', 'em', '%' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .ang-container{{CURRENT_ITEM}}.elementor-element' => '--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
+				),
+				'global'      => array(
+					'active' => false,
+				),
+			)
+		);
+
+		$element->add_control(
+			'ang_container_padding',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'        => $repeater->get_controls(),
+				'default'      => $padding_defaults,
+				'item_actions' => array(
+					'add'       => false,
+					'remove'    => false,
+					'sort'      => false,
+					'duplicate' => false,
+				),
+				'separator'    => 'after',
+			)
+		);
 
 		$element->end_controls_tab();
 
@@ -428,6 +474,29 @@ class Typography extends Module {
 			)
 		);
 
+		$gap_defaults = array(
+			array(
+				'_id'   => 'gap_initial',
+				'title' => __( 'Default', 'ang' ),
+			),
+			array(
+				'_id'   => 'gap_narrow',
+				'title' => __( 'Small', 'ang' ),
+			),
+			array(
+				'_id'   => 'gap_extended',
+				'title' => __( 'Medium', 'ang' ),
+			),
+			array(
+				'_id'   => 'gap_wide',
+				'title' => __( 'Large', 'ang' ),
+			),
+			array(
+				'_id'   => 'gap_wider',
+				'title' => __( 'Extra Large', 'ang' ),
+			),
+		);
+
 		$element->add_control(
 			'ang_container_elements_gap_description',
 			array(
@@ -437,55 +506,84 @@ class Typography extends Module {
 			)
 		);
 
-		foreach ( $gaps as $key => $label ) {
-			$element->add_group_control(
-				Group_Control_Flex_Container::get_type(),
-				[
-					'name' => 'ang_container_elements_gap_' . $key,
-					'selector' => "{{WRAPPER}} .ang-container-elements-gap-{$key}.elementor-element",
-					'fields_options' => [
-						'gap' => [
-							'label' => $label,
-						],
-						'direction' => [
-							'condition' => [
-								'container_type' => 'flex',
-							],
-						],
-						'_is_row' => [
-							'condition' => [
-								'container_type' => 'flex',
-							],
-						],
-						'_is_column' => [
-							'condition' => [
-								'container_type' => 'flex',
-							],
-						],
-						'align_items' => [
-							'condition' => [
-								'container_type' => 'flex',
-							],
-						],
-						'justify_content' => [
-							'condition' => [
-								'container_type' => 'flex',
-							],
-						],
-						'wrap' => [
-							'condition' => [
-								'container_type' => 'flex',
-							],
-						],
-						'align_content' => [
-							'condition' => [
-								'container_type' => 'flex',
-							],
-						],
-					],
-				]
-			);
-		}
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'title',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'required'    => true,
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Flex_Container::get_type(),
+			array(
+				'name'           => 'flex',
+				'label'          => '',
+				'global'         => array(
+					'active' => false,
+				),
+				'selector'       => '{{WRAPPER}} .ang-container-elements{{CURRENT_ITEM}}.elementor-element',
+				'fields_options' => array(
+					'gap'             => array(
+						'label' => '',
+					),
+					'direction'       => array(
+						'condition' => array(
+							'container_type' => 'flex',
+						),
+					),
+					'_is_row'         => array(
+						'condition' => array(
+							'container_type' => 'flex',
+						),
+					),
+					'_is_column'      => array(
+						'condition' => array(
+							'container_type' => 'flex',
+						),
+					),
+					'align_items'     => array(
+						'condition' => array(
+							'container_type' => 'flex',
+						),
+					),
+					'justify_content' => array(
+						'condition' => array(
+							'container_type' => 'flex',
+						),
+					),
+					'wrap'            => array(
+						'condition' => array(
+							'container_type' => 'flex',
+						),
+					),
+					'align_content'   => array(
+						'condition' => array(
+							'container_type' => 'flex',
+						),
+					),
+				),
+			)
+		);
+
+		$element->add_control(
+			'ang_container_elements_gap',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'        => $repeater->get_controls(),
+				'default'      => $gap_defaults,
+				'item_actions' => array(
+					'add'       => false,
+					'remove'    => false,
+					'sort'      => false,
+					'duplicate' => false,
+				),
+				'separator'    => 'after',
+			)
+		);
 
 		$element->end_controls_tab();
 
@@ -1067,73 +1165,72 @@ class Typography extends Module {
 			)
 		);
 
-		$post_id = get_the_ID();
-		$default = 'none';
+		// Register default options array.
+		$defaults = array(
+			'none' => __( 'None', 'ang' ),
+		);
 
-		if ( $post_id ) {
-			$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+		/**
+		 * Get current kit settings.
+		 */
+		$kit = Utils::get_document_kit( get_the_ID() );
 
-			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
-				$kit_cp = Utils::get_kit_settings( $settings['ang_action_tokens'], 'ang_default_container_padding' );
+		// Use raw settings that doesn't have default values.
+		$kit_raw_settings = $kit->get_data( 'settings' );
 
-				if ( $kit_cp && '' !== $kit_cp ) {
-					$default = $kit_cp;
-				}
-			}
+		// Get SK Container padding preset labels.
+		if ( isset( $kit_raw_settings['ang_container_padding'] ) ) {
+			$padding_items = $kit_raw_settings['ang_container_padding'];
+		} else {
+			// Get default items, but without empty defaults.
+			$control       = $kit->get_controls( 'ang_container_padding' );
+			$padding_items = $control['default'];
+		}
+
+		$options = $defaults;
+
+		foreach ( $padding_items as $padding ) {
+			$options[ $padding['_id'] ] = $padding['title'];
 		}
 
 		$element->add_control(
 			'ang_container_spacing_size',
 			array(
-				'label'         => __( 'Spacing preset', 'ang' ),
+				'label'         => __( 'Spacing Preset', 'ang' ),
 				'description'   => __( 'A Style Kits control that adds padding to your container. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_padding' )", ' here.' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => $default,
-				'options'       => array(
-					'none'     => __( 'None', 'ang' ),
-					'initial'  => __( 'Default', 'ang' ),
-					'narrow'   => __( 'Small', 'ang' ),
-					'extended' => __( 'Medium', 'ang' ),
-					'wide'     => __( 'Large', 'ang' ),
-					'wider'    => __( 'Extra Large', 'ang' ),
-				),
-				'prefix_class'  => 'ang-container-padding-',
+				'default'       => 'none',
+				'options'       => $options,
+				'prefix_class'  => 'ang-container elementor-repeater-item-',
 			)
 		);
 
+		// Get SK Container Elements Gap preset labels.
+		if ( isset( $kit_raw_settings['ang_container_elements_gap'] ) ) {
+			$gap_items = $kit_raw_settings['ang_container_elements_gap'];
+		} else {
+			// Get default items, but without empty defaults.
+			$control   = $kit->get_controls( 'ang_container_elements_gap' );
+			$gap_items = $control['default'];
+		}
 
-		$default = 'none';
+		$options = $defaults;
 
-		if ( $post_id ) {
-			$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
-
-			if ( isset( $settings['ang_action_tokens'] ) && '' !== $settings['ang_action_tokens'] ) {
-				$kit_cep = Utils::get_kit_settings( $settings['ang_action_tokens'], 'ang_default_container_elements_gap' );
-
-				if ( $kit_cep && '' !== $kit_cep ) {
-					$default = $kit_cep;
-				}
-			}
+		foreach ( $gap_items as $gap ) {
+			$options[ $gap['_id'] ] = $gap['title'];
 		}
 
 		$element->add_control(
 			'ang_container_elements_gap_size',
 			array(
 				'label'         => __( 'Elements Gap', 'ang' ),
-				'description'   => __( 'A Style Kits control that adds spacing to your container elements. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_padding' )", ' here.' ),
+				'description'   => __( 'A Style Kits control that adds spacing to your container elements. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_elements_gap' )", ' here.' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => $default,
-				'options'       => array(
-					'none'     => __( 'None', 'ang' ),
-					'initial'  => __( 'Default', 'ang' ),
-					'narrow'   => __( 'Small', 'ang' ),
-					'extended' => __( 'Medium', 'ang' ),
-					'wide'     => __( 'Large', 'ang' ),
-					'wider'    => __( 'Extra Large', 'ang' ),
-				),
-				'prefix_class'  => 'ang-container-elements-gap-',
+				'default'       => 'none',
+				'options'       => $options,
+				'prefix_class'  => 'ang-container-elements elementor-repeater-item-',
 			)
 		);
 
