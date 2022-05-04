@@ -357,11 +357,11 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_container_spacing( Controls_Stack $element, $section_id ) {
-		$flexbox_container   = get_option( 'elementor_experiment-container' );
+		$flexbox_container           = get_option( 'elementor_experiment-container' );
 		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
 
 		if ( 'default' === $flexbox_container ) {
-			$experiments     = new \Elementor\Core\Experiments\Manager();
+			$experiments                 = new \Elementor\Core\Experiments\Manager();
 			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
 		}
 
@@ -452,7 +452,7 @@ class Typography extends Module {
 			'ang_container_padding',
 			array(
 				'type'         => Global_Style_Repeater::CONTROL_TYPE,
-				'fields'        => $repeater->get_controls(),
+				'fields'       => $repeater->get_controls(),
 				'default'      => $padding_defaults,
 				'item_actions' => array(
 					'add'       => false,
@@ -1042,7 +1042,7 @@ class Typography extends Module {
 
 		if ( 'default' === $flexbox_container ) {
 			$experiments                 = new \Elementor\Core\Experiments\Manager();
-			$is_flexbox_container_active  = $experiments->is_feature_active( 'container' );
+			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
 		}
 
 		if ( ! $is_flexbox_container_active ) { // Return early if Flexbox container is not active.
@@ -1139,17 +1139,17 @@ class Typography extends Module {
 					'accent-bg' => __( 'Accent Background', 'ang' ),
 				),
 				'prefix_class'  => 'sk-',
-				'condition' => [
+				'condition'     => array(
 					'container_type'        => 'flex',
-					'background_background' => [ 'classic' ],
-				],
+					'background_background' => array( 'classic' ),
+				),
 			)
 		);
 
 		$element->end_injection();
 	}
 
-		/**
+	/**
 	 * Enqueue Google fonts.
 	 *
 	 * @return void
