@@ -8,7 +8,6 @@
 namespace Analog;
 
 use Analog\Core\Storage\Transients;
-use Elementor\Controls_Manager;
 use Elementor\Core\Base\Document;
 use Elementor\Core\Kits\Manager;
 use Elementor\TemplateLibrary\Source_Local;
@@ -764,6 +763,30 @@ class Utils extends Base {
 		}
 
 		return $document->get_settings( $setting );
+	}
+
+	/**
+	 * Get Kit active on document.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @return mixed
+	 */
+	public static function get_document_kit( $post_id ) {
+		if ( ! $post_id ) {
+			return false;
+		}
+
+		$document = Plugin::elementor()->documents->get_doc_for_frontend( $post_id );
+		$kit_id   = $document->get_settings_for_display( 'ang_action_tokens' );
+
+		if ( ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
+			return false;
+		}
+
+		return Plugin::elementor()->documents->get_doc_for_frontend( $kit_id );
 	}
 
 	/**
