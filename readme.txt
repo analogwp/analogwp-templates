@@ -110,7 +110,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 = 1.9.0 - May **, 2022 =
 * New: Added Flexbox Container Padding control presets to tweak container padding
 * New: Added Flexbox Container SK Background Classes preset to tweak container styles
-* Improvements: Compaitibility with Elementor v3.6.5
+* Improvements: Compatibility with Elementor v3.6.5
 
 = 1.8.5 - April 13, 2022 =
 * Fix: Editor not loading due to a deprecated class (h/t Ryan HS#5914 )
