@@ -26,6 +26,7 @@ final class Promotions extends Base {
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_layout_tools' ), 250, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_form_controls' ), 45, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_shadow_controls' ), 47, 2 );
 
 		add_action( 'analog_background_colors_tab_end', array( $this, 'add_background_color_accent_promo' ), 170, 1 );
 	}
@@ -100,6 +101,43 @@ final class Promotions extends Base {
 							__( 'Offers controls to customize form column/rows gap, label spacing, and form messages colors.', 'ang' ),
 						),
 						'link'     => array( 'utm_source' => 'panel-forms-extended' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Register Shadows panel.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 * @return void
+	 */
+	public function register_shadow_controls( Controls_Stack $element, $section_id ) {
+		$element->start_controls_section(
+			'ang_shadows_pro',
+			array(
+				'label' => _x( 'Shadows', 'Section Title', 'ang' ),
+				'tab'   => Utils::get_kit_settings_tab(),
+			)
+		);
+
+		$element->add_control(
+			'ang_promo_shadows',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_teaser_template(
+					array(
+						'title'    => __( 'Shadow Presets', 'ang' ),
+						'messages' => array(
+							__( 'Offers controls to create box shadow presets, which can then be used inside border controls at all widgets.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'panel-shadows' ),
 					)
 				),
 			)
