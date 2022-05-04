@@ -328,3 +328,51 @@
 	color: var(--ang-accent);
 	text-decoration: none;
 }
+
+/**
+ * Container spacing control repeater styles.
+ */
+
+.elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields,
+.elementor-control.elementor-control-ang_container_elements_gap.elementor-control-type-global-style-repeater .elementor-repeater-fields {
+	margin-bottom: 25px;
+}
+
+.elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields {
+	display: flex;
+}
+
+.elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled,
+.elementor-control.elementor-control-ang_container_elements_gap.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled {
+	display: none;
+}
+
+.elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-row-controls {
+	flex-direction: column;
+	gap: 8px;
+	align-items: flex-start;
+}
+
+.elementor-control.elementor-control-ang_container_elements_gap.elementor-control-type-global-style-repeater .elementor-repeater-row-controls {
+	display: block;
+}
+
+.elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers,
+.elementor-control.elementor-control-ang_container_elements_gap.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-slider.elementor-control-separator-default .elementor-control-responsive-switchers {
+	top: -35px;
+	left: 135px;
+	position: absolute;
+	margin: 0;
+}
+
+.elementor-control.elementor-control-ang_container_elements_gap.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-slider.elementor-control-separator-default .elementor-control-responsive-switchers {
+	top: -25px;
+}
+
+.elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices {
+	margin-top: -50px;
+}
+
+.elementor-control.elementor-control-ang_container_elements_gap.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-slider.elementor-control-separator-default .elementor-units-choices {
+	margin-top: -30px;
+}
