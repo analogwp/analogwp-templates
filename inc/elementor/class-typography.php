@@ -410,7 +410,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_padding_description',
 			array(
-				'raw'             => __( 'Add padding to the containers of your layouts by using these controls.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/587-outer-section-padding', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Add padding to the containers of your layouts by using these controls.', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -1087,7 +1087,7 @@ class Typography extends Module {
 			'ang_container_spacing_size',
 			array(
 				'label'         => __( 'Spacing Preset', 'ang' ),
-				'description'   => __( 'A Style Kits control that adds padding to your container. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_padding' )", ' here.' ),
+				'description'   => __( 'A Style Kits control that adds padding to your container. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.openThemeStyles()", ' here.' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
