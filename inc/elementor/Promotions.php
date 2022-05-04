@@ -135,7 +135,7 @@ final class Promotions extends Base {
 					array(
 						'title'    => __( 'Shadow Presets', 'ang' ),
 						'messages' => array(
-							__( 'Offers controls to create box shadow presets, which can then be used inside border controls at all widgets.', 'ang' ),
+							__( 'Offers controls to create box shadow presets, which then can be applied on widgets.', 'ang' ),
 						),
 						'link'     => array( 'utm_source' => 'panel-shadows' ),
 					)
