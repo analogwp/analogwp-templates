@@ -440,7 +440,7 @@ class Typography extends Module {
 				),
 				'size_units'  => array( 'px', 'em', '%' ),
 				'selectors'   => array(
-					'{{WRAPPER}} .ang-container{{CURRENT_ITEM}}.elementor-element' => '--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
+					'{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element' => '--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
 				),
 				'global'      => array(
 					'active' => false,
@@ -1093,7 +1093,7 @@ class Typography extends Module {
 				'hide_in_inner' => true,
 				'default'       => 'none',
 				'options'       => $options,
-				'prefix_class'  => 'ang-container elementor-repeater-item-',
+				'prefix_class'  => 'elementor-repeater-item-',
 			)
 		);
 
