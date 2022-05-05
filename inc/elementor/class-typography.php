@@ -375,8 +375,6 @@ class Typography extends Module {
 			)
 		);
 
-		$element->start_controls_tabs( 'ang_container_tabs' );
-
 		$padding_defaults = array(
 			array(
 				'_id'   => 'ang_container_padding_1',
@@ -398,13 +396,6 @@ class Typography extends Module {
 				'_id'   => 'ang_container_padding_5',
 				'title' => __( 'Extra Large', 'ang' ),
 			),
-		);
-
-		$element->start_controls_tab(
-			'ang_container_tab_padding',
-			array(
-				'label' => __( 'Padding', 'ang' ),
-			)
 		);
 
 		$element->add_control(
@@ -462,10 +453,6 @@ class Typography extends Module {
 				'separator'    => 'after',
 			)
 		);
-
-		$element->end_controls_tab();
-
-		$element->end_controls_tabs();
 
 		$element->end_controls_section();
 	}
