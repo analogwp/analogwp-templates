@@ -1043,7 +1043,7 @@ class Typography extends Module {
 		);
 
 		// Register default options array.
-		$defaults = array(
+		$options = array(
 			'none' => __( 'None', 'ang' ),
 		);
 
@@ -1052,29 +1052,29 @@ class Typography extends Module {
 		 */
 		$kit = Utils::get_document_kit( get_the_ID() );
 
-		// Use raw settings that doesn't have default values.
-		$kit_raw_settings = $kit->get_data( 'settings' );
+		if ( $kit ) {
+			// Use raw settings that doesn't have default values.
+			$kit_raw_settings = $kit->get_data( 'settings' );
 
-		// Get SK Container padding preset labels.
-		if ( isset( $kit_raw_settings['ang_container_padding'] ) ) {
-			$padding_items = $kit_raw_settings['ang_container_padding'];
-		} else {
-			// Get default items, but without empty defaults.
-			$control       = $kit->get_controls( 'ang_container_padding' );
-			$padding_items = $control['default'];
-		}
+			// Get SK Container padding preset labels.
+			if ( isset( $kit_raw_settings['ang_container_padding'] ) ) {
+				$padding_items = $kit_raw_settings['ang_container_padding'];
+			} else {
+				// Get default items, but without empty defaults.
+				$control       = $kit->get_controls( 'ang_container_padding' );
+				$padding_items = $control['default'];
+			}
 
-		$options = $defaults;
-
-		foreach ( $padding_items as $padding ) {
-			$options[ $padding['_id'] ] = $padding['title'];
+			foreach ( $padding_items as $padding ) {
+				$options[ $padding['_id'] ] = $padding['title'];
+			}
 		}
 
 		$element->add_control(
 			'ang_container_spacing_size',
 			array(
 				'label'         => __( 'Spacing Preset', 'ang' ),
-				'description'   => __( 'A Style Kits control that adds padding to your container. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.openThemeStyles()", ' here.' ),
+				'description'   => __( 'A Style Kits control that adds padding to your container. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', 'analog.openThemeStyles()', ' here.' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
