@@ -110,6 +110,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * New: Added Experiments tab at SK Settings
 * Experiments: Added Flexbox Container Padding control presets to tweak container padding
 * Experiments: Added Flexbox Container SK Background Classes preset to tweak container styles
+* Fix: Elementor kit imports not working
 * Improvements: Compatibility with Elementor v3.6.5
 
 = 1.8.5 - April 13, 2022 =
