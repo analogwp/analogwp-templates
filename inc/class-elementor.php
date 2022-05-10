@@ -12,6 +12,7 @@ use Elementor\Core\Common\Modules\Finder\Categories_Manager;
 use Elementor\Core\DynamicTags\Manager;
 use Analog\Elementor\Tags\Light_Background;
 use Analog\Elementor\Tags\Dark_Background;
+use Elementor\TemplateLibrary\Source_Local as Local;
 
 /**
  * Intializes scripts/styles needed for AnalogWP modal on Elementor editing page.
@@ -55,6 +56,8 @@ class Elementor {
 
 			}
 		);
+
+		add_action( 'elementor/template-library/after_save_template', array( $this, 'fix_kit_import' ), 999, 2 );
 	}
 
 	/**
@@ -139,6 +142,23 @@ class Elementor {
 					update_post_meta( $template_id, '_elementor_data', $kit->get_kit_content() );
 				}
 			}
+		}
+	}
+
+	/**
+	 * Fixes kit imports.
+	 *
+	 * @param int   $id Template id.
+	 * @param array $data Template data.
+	 *
+	 * @return void
+	 */
+	public function fix_kit_import( $id, $data ) {
+		if ( ! empty( $data['type'] ) && 'kit' === $data['type'] ) {
+			$post_data['ID']        = $id;
+			$post_data['post_type'] = Local::CPT;
+
+			wp_update_post( $post_data );
 		}
 	}
 }
