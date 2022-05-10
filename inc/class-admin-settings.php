@@ -49,6 +49,7 @@ class Admin_Settings {
 			include_once dirname( __FILE__ ) . '/settings/class-settings-page.php';
 
 			$settings[] = include 'settings/class-settings-general.php';
+			$settings[] = include 'settings/class-settings-experiments.php';
 			$settings[] = include 'settings/class-settings-misc.php';
 			$settings[] = include 'settings/class-settings-extensions.php';
 			$settings[] = include 'settings/class-settings-version-control.php';
