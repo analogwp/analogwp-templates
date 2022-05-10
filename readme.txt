@@ -3,8 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 5.9.3
-Stable tag: 1.8.5
-Beta tag: 1.9.0-beta1
+Stable tag: 1.9.0
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,8 +107,9 @@ Our dedicated support team has your back. Please reach out via our website at ht
 == Changelog ==
 
 = 1.9.0 - May **, 2022 =
-* New: Added Flexbox Container Padding control presets to tweak container padding
-* New: Added Flexbox Container SK Background Classes preset to tweak container styles
+* New: Added Experiments tab at SK Settings
+* Experiments: Added Flexbox Container Padding control presets to tweak container padding
+* Experiments: Added Flexbox Container SK Background Classes preset to tweak container styles
 * Improvements: Compatibility with Elementor v3.6.5
 
 = 1.8.5 - April 13, 2022 =
