@@ -7,6 +7,7 @@
 
 namespace Analog\Elementor;
 
+use Analog\Options;
 use Analog\Plugin;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
@@ -73,7 +74,6 @@ class Typography extends Module {
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_typography_sizes' ), 30, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 40, 2 );
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_container_spacing' ), 50, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_outer_section_padding' ), 60, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_columns_gap' ), 70, 2 );
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_styling_settings' ), 20, 2 );
@@ -87,10 +87,21 @@ class Typography extends Module {
 		add_filter( 'display_post_states', array( $this, 'add_token_state' ), 10, 2 );
 
 		add_action( 'elementor/element/section/section_layout/before_section_end', array( $this, 'tweak_section_widget' ) );
-		add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
-		add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
 		add_action( 'elementor/element/section/section_advanced/before_section_end', array( $this, 'tweak_section_padding_control' ) );
 		add_action( 'elementor/element/column/section_advanced/before_section_end', array( $this, 'tweak_column_element' ) );
+
+		$container_spacing_experiment = Options::get_instance()->get( 'container_spacing_experiment' );
+
+		if ( 'active' === $container_spacing_experiment ) {
+			add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_container_spacing' ), 50, 2 );
+			add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
+		}
+
+		$container_bg_classes_experiment = Options::get_instance()->get( 'container_bg_classes_experiment' );
+
+		if ( 'active' === $container_bg_classes_experiment ) {
+			add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
+		}
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
 	}
