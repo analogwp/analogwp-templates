@@ -111,7 +111,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Experiments: Added Flexbox Container Padding control presets to tweak container padding
 * Experiments: Added Flexbox Container SK Background Classes preset to tweak container styles
 * Fix: Elementor kit imports not working
-* Improvements: Compatibility with Elementor v3.6.5
+* Improvements: Compatibility with Elementor v3.6.5 and Elementor Pro v3.7.0
 
 = 1.8.5 - April 13, 2022 =
 * Fix: Editor not loading due to a deprecated class (h/t Ryan HS#5914 )

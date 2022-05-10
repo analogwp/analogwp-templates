@@ -17,7 +17,7 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: ang
  * Elementor tested up to: 3.6.5
- * Elementor Pro tested up to: 3.6.5
+ * Elementor Pro tested up to: 3.7.0
  */
 
 defined( 'ABSPATH' ) || exit;
