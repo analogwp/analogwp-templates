@@ -1125,7 +1125,8 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_bg_preset',
 			array(
-				'label'         => __( 'SK Class', 'ang' ),
+				'label'         => __( 'Background presets', 'ang' ),
+				'description'   => __( 'A Style Kits control that let\'s you style containers. You can edit the presets ', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', 'analog.openThemeStyles()', 'here' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
