@@ -2,7 +2,7 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 5.9.3
+Tested up to: 6.0
 Stable tag: 1.9.0
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
@@ -106,10 +106,10 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
-= 1.9.0 - May **, 2022 =
-* New: Added Experiments tab at SK Settings
+= 1.9.0 - May 11, 2022 =
+* New: Added Experiments tab at Style Kits Settings
 * Experiments: Added Flexbox Container Padding control presets to tweak container padding
-* Experiments: Added Flexbox Container SK Background Classes preset to tweak container styles
+* Experiments: Added Flexbox Container Style Kits Background Classes preset to tweak container styles
 * Fix: Elementor kit imports not working
 * Improvements: Compatibility with Elementor v3.6.5 and Elementor Pro v3.7.0
 
@@ -556,3 +556,6 @@ Fixes an bug with inconsistent Outer Section Padding on Sections
 
 = 1.7.0 =
 Requires Elementor v3.0+, adds compatibility and redesigned library
+
+= 1.9.0 =
+Introduce two new Experiments (found under Settings), and kit import bug fix.
