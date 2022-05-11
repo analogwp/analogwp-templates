@@ -7,10 +7,12 @@
 
 namespace Analog\Elementor;
 
+use Analog\Options;
 use Analog\Plugin;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
+use Elementor\Core\Kits\Controls\Repeater as Global_Style_Repeater;
 use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
@@ -18,6 +20,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
 use Analog\Utils;
+use Elementor\Repeater;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -71,8 +74,8 @@ class Typography extends Module {
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_typography_sizes' ), 30, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 40, 2 );
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_outer_section_padding' ), 50, 2 );
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_columns_gap' ), 60, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_outer_section_padding' ), 60, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_columns_gap' ), 70, 2 );
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_styling_settings' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_tools' ), 999, 2 );
 
@@ -86,6 +89,19 @@ class Typography extends Module {
 		add_action( 'elementor/element/section/section_layout/before_section_end', array( $this, 'tweak_section_widget' ) );
 		add_action( 'elementor/element/section/section_advanced/before_section_end', array( $this, 'tweak_section_padding_control' ) );
 		add_action( 'elementor/element/column/section_advanced/before_section_end', array( $this, 'tweak_column_element' ) );
+
+		$container_spacing_experiment = Options::get_instance()->get( 'container_spacing_experiment' );
+
+		if ( 'active' === $container_spacing_experiment ) {
+			add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_container_spacing' ), 50, 2 );
+			add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
+		}
+
+		$container_bg_classes_experiment = Options::get_instance()->get( 'container_bg_classes_experiment' );
+
+		if ( 'active' === $container_bg_classes_experiment ) {
+			add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
+		}
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
 	}
@@ -340,6 +356,114 @@ class Typography extends Module {
 		$element->end_controls_tab();
 
 		$element->end_controls_tabs();
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Register Container spacing controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_container_spacing( Controls_Stack $element, $section_id ) {
+		$flexbox_container           = get_option( 'elementor_experiment-container' );
+		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
+
+		if ( 'default' === $flexbox_container ) {
+			$experiments                 = new \Elementor\Core\Experiments\Manager();
+			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
+		}
+
+		if ( ! $is_flexbox_container_active ) { // Return early if Flexbox container is not active.
+			return;
+		}
+		$element->start_controls_section(
+			'ang_container_spacing',
+			array(
+				'label' => __( 'Containers', 'ang' ),
+				'tab'   => $this->settings_tab,
+			)
+		);
+
+		$padding_defaults = array(
+			array(
+				'_id'   => 'ang_container_padding_1',
+				'title' => __( 'Default', 'ang' ),
+			),
+			array(
+				'_id'   => 'ang_container_padding_2',
+				'title' => __( 'Small', 'ang' ),
+			),
+			array(
+				'_id'   => 'ang_container_padding_3',
+				'title' => __( 'Medium', 'ang' ),
+			),
+			array(
+				'_id'   => 'ang_container_padding_4',
+				'title' => __( 'Large', 'ang' ),
+			),
+			array(
+				'_id'   => 'ang_container_padding_5',
+				'title' => __( 'Extra Large', 'ang' ),
+			),
+		);
+
+		$element->add_control(
+			'ang_container_padding_description',
+			array(
+				'raw'             => __( 'Add padding to the containers of your layouts by using these controls.', 'ang' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'title',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'required'    => true,
+			)
+		);
+
+		// Padding Value.
+		$repeater->add_responsive_control(
+			'padding',
+			array(
+				'type'        => Controls_Manager::DIMENSIONS,
+				'label_block' => true,
+				'dynamic'     => array(),
+				'default'     => array(
+					'unit' => 'px',
+				),
+				'size_units'  => array( 'px', 'em', '%' ),
+				'selectors'   => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element' => '--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
+				),
+				'global'      => array(
+					'active' => false,
+				),
+			)
+		);
+
+		$element->add_control(
+			'ang_container_padding',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $padding_defaults,
+				'item_actions' => array(
+					'add'       => false,
+					'remove'    => false,
+					'sort'      => false,
+					'duplicate' => false,
+				),
+				'separator'    => 'after',
+			)
+		);
 
 		$element->end_controls_section();
 	}
@@ -902,6 +1026,125 @@ class Typography extends Module {
 				),
 			)
 		);
+	}
+
+	/**
+	 * Tweak default Container widget.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_container_widget( Element_Base $element ) {
+		$flexbox_container           = get_option( 'elementor_experiment-container' );
+		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
+
+		if ( 'default' === $flexbox_container ) {
+			$experiments                 = new \Elementor\Core\Experiments\Manager();
+			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
+		}
+
+		if ( ! $is_flexbox_container_active ) { // Return early if Flexbox container is not active.
+			return;
+		}
+
+		$element->start_injection(
+			array(
+				'of' => 'content_width',
+				'at' => 'after',
+			)
+		);
+
+		// Register default options array.
+		$options = array(
+			'none' => __( 'None', 'ang' ),
+		);
+
+		/**
+		 * Get current kit settings.
+		 */
+		$kit = Utils::get_document_kit( get_the_ID() );
+
+		if ( $kit ) {
+			// Use raw settings that doesn't have default values.
+			$kit_raw_settings = $kit->get_data( 'settings' );
+
+			// Get SK Container padding preset labels.
+			if ( isset( $kit_raw_settings['ang_container_padding'] ) ) {
+				$padding_items = $kit_raw_settings['ang_container_padding'];
+			} else {
+				// Get default items, but without empty defaults.
+				$control       = $kit->get_controls( 'ang_container_padding' );
+				$padding_items = $control['default'];
+			}
+
+			foreach ( $padding_items as $padding ) {
+				$options[ $padding['_id'] ] = $padding['title'];
+			}
+		}
+
+		$element->add_control(
+			'ang_container_spacing_size',
+			array(
+				'label'         => __( 'Spacing Preset', 'ang' ),
+				'description'   => __( 'A Style Kits control that adds padding to your container. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', 'analog.openThemeStyles()', ' here.' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => $options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Tweak Container widget for SK BG classes preset.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_container_widget_styles( Element_Base $element ) {
+		$flexbox_container           = get_option( 'elementor_experiment-container' );
+		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
+
+		if ( 'default' === $flexbox_container ) {
+			$experiments                 = new \Elementor\Core\Experiments\Manager();
+			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
+		}
+
+		if ( ! $is_flexbox_container_active ) { // Return early if Flexbox container is not active.
+			return;
+		}
+
+		$element->start_injection(
+			array(
+				'of' => 'background_background',
+				'at' => 'after',
+			)
+		);
+
+		$element->add_control(
+			'ang_container_bg_preset',
+			array(
+				'label'         => __( 'Background presets', 'ang' ),
+				'description'   => __( 'A Style Kits control that let\'s you style containers. You can edit the presets ', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', 'analog.openThemeStyles()', 'here' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => array(
+					'none'      => __( 'None', 'ang' ),
+					'light-bg'  => __( 'Light Background', 'ang' ),
+					'dark-bg'   => __( 'Dark background', 'ang' ),
+					'accent-bg' => __( 'Accent Background', 'ang' ),
+				),
+				'prefix_class'  => 'sk-',
+				'condition'     => array(
+					'container_type'        => 'flex',
+					'background_background' => array( 'classic' ),
+				),
+			)
+		);
+
+		$element->end_injection();
 	}
 
 	/**
