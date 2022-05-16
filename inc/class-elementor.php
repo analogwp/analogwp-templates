@@ -8,6 +8,7 @@
 namespace Analog;
 
 use Analog\Elementor\ANG_Action;
+use Analog\Elementor\Globals\Controller;
 use Elementor\Core\Common\Modules\Finder\Categories_Manager;
 use Elementor\Core\DynamicTags\Manager;
 use Analog\Elementor\Tags\Light_Background;
@@ -58,6 +59,36 @@ class Elementor {
 		);
 
 		add_action( 'elementor/template-library/after_save_template', array( $this, 'fix_kit_import' ), 999, 2 );
+
+		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
+
+		if ( 'active' === $global_colors_experiment ) {
+			// This needs to be worked.
+			// add_action( 'elementor/init', array( $this, 'register_data_controllers' ), 999 );
+			$this->register_data_controllers();
+		}
+	}
+
+	/**
+	 * Register custom Elementor REST data controllers.
+	 *
+	 * @return void
+	 */
+	public function register_data_controllers() {
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/globals/class-controller.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/globals/class-colors.php';
+
+		add_action(
+			'elementor/editor/init',
+			function() {
+				/**
+				 * Set current page id.
+				 */
+				Options::get_instance()->set( 'ang_current_page_id', get_the_ID() );
+			}
+		);
+
+		Plugin::elementor()->data_manager_v2->register_controller( new Controller() );
 	}
 
 	/**
