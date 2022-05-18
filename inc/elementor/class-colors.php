@@ -396,7 +396,7 @@ class Colors extends Module {
 				'label_block' => true,
 				'dynamic'     => array(),
 				'selectors'   => array(
-					'{{WRAPPER}}' => '--e-sk-global-color-{{_id.VALUE}}: {{VALUE}}',
+					'{{WRAPPER}}' => '--e-global-color-{{_id.VALUE}}: {{VALUE}}',
 				),
 				'global'      => array(
 					'active' => false,
