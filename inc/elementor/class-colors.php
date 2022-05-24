@@ -376,6 +376,18 @@ class Colors extends Module {
 				'tab'   => 'global-colors',
 			)
 		);
+		$element->add_control(
+			'ang_global_colors_description',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="https://docs.analogwp.com/article/657-style-kit-color-pallete" target="_blank">%2$s</a>',
+					__( 'The Style Kit\'s color palette.', 'ang' ),
+					__( 'Read more', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
 
 		$repeater = new Repeater();
 
@@ -404,35 +416,32 @@ class Colors extends Module {
 			)
 		);
 
-		// Surface Colors.
+		// Background Colors.
 		$default_surface_colors = array(
 			array(
-				'_id'   => 'ang_surface_site',
-				'title' => esc_html__( 'Site background', 'ang' ),
+				'_id'   => 'sk-color-1',
+				'title' => esc_html__( 'Background 1', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'ang_surface_light',
-				'title' => esc_html__( 'Light background', 'ang' ),
+				'_id'   => 'sk-color-2',
+				'title' => esc_html__( 'Background 2', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'ang_surface_dark',
-				'title' => esc_html__( 'Dark background', 'ang' ),
+				'_id'   => 'sk-color-3',
+				'title' => esc_html__( 'Background 3', 'ang' ),
+				'color' => '',
+			),
+			array(
+				'_id'   => 'sk-color-4',
+				'title' => esc_html__( 'Background 4', 'ang' ),
 				'color' => '',
 			),
 		);
 
 		$element->add_control(
-			'ang_global_surface_colors_heading',
-			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Surface Colors', 'ang' ),
-			)
-		);
-
-		$element->add_control(
-			'ang_global_surface_colors',
+			'ang_global_background_colors',
 			array(
 				'type'         => Global_Style_Repeater::CONTROL_TYPE,
 				'fields'       => $repeater->get_controls(),
@@ -445,31 +454,28 @@ class Colors extends Module {
 			)
 		);
 
-		// Accent Colors.
+		// Accents Colors.
 		$default_accent_colors = array(
 			array(
-				'_id'   => 'ang_accent_1',
+				'_id'   => 'sk-color-5',
 				'title' => esc_html__( 'Accent 1', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'ang_accent_2',
+				'_id'   => 'sk-color-6',
 				'title' => esc_html__( 'Accent 2', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'ang_accent_3',
+				'_id'   => 'sk-color-7',
 				'title' => esc_html__( 'Accent 3', 'ang' ),
 				'color' => '',
 			),
-		);
-
-		$element->add_control(
-			'ang_global_accent_colors_heading',
 			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Accents', 'ang' ),
-			)
+				'_id'   => 'sk-color-8',
+				'title' => esc_html__( 'Accent 4', 'ang' ),
+				'color' => '',
+			),
 		);
 
 		$element->add_control(
@@ -486,35 +492,32 @@ class Colors extends Module {
 			)
 		);
 
-		// Type Colors.
+		// Text Colors.
 		$default_type_colors = array(
 			array(
-				'_id'   => 'ang_type_text',
-				'title' => esc_html__( 'Text', 'ang' ),
+				'_id'   => 'sk-color-9',
+				'title' => esc_html__( 'Text 1', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'ang_type_titles',
-				'title' => esc_html__( 'Titles', 'ang' ),
+				'_id'   => 'sk-color-10',
+				'title' => esc_html__( 'Text 2', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'ang_type_inverted',
-				'title' => esc_html__( 'Inverted text', 'ang' ),
+				'_id'   => 'sk-color-11',
+				'title' => esc_html__( 'Text 3', 'ang' ),
+				'color' => '',
+			),
+			array(
+				'_id'   => 'sk-color-12',
+				'title' => esc_html__( 'Text 4', 'ang' ),
 				'color' => '',
 			),
 		);
 
 		$element->add_control(
-			'ang_global_type_colors_heading',
-			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Type', 'ang' ),
-			)
-		);
-
-		$element->add_control(
-			'ang_global_type_colors',
+			'ang_global_text_colors',
 			array(
 				'type'         => Global_Style_Repeater::CONTROL_TYPE,
 				'fields'       => $repeater->get_controls(),
@@ -527,35 +530,32 @@ class Colors extends Module {
 			)
 		);
 
-		// Other Colors.
+		// Extra Colors.
 		$default_other_colors = array(
 			array(
-				'_id'   => 'ang_other_border',
-				'title' => esc_html__( 'Border', 'ang' ),
+				'_id'   => 'sk-color-13',
+				'title' => esc_html__( 'Border 1', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'ang_other_success',
-				'title' => esc_html__( 'Success', 'ang' ),
+				'_id'   => 'sk-color-14',
+				'title' => esc_html__( 'Border 2', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'ang_other_warning',
-				'title' => esc_html__( 'Warning', 'ang' ),
+				'_id'   => 'sk-color-15',
+				'title' => esc_html__( 'Feedback 1', 'ang' ),
+				'color' => '',
+			),
+			array(
+				'_id'   => 'sk-color-16',
+				'title' => esc_html__( 'Feedback 2', 'ang' ),
 				'color' => '',
 			),
 		);
 
 		$element->add_control(
-			'ang_global_other_colors_heading',
-			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Other', 'ang' ),
-			)
-		);
-
-		$element->add_control(
-			'ang_global_other_colors',
+			'ang_global_extra_colors',
 			array(
 				'type'         => Global_Style_Repeater::CONTROL_TYPE,
 				'fields'       => $repeater->get_controls(),
