@@ -28,11 +28,10 @@ class Colors extends Base {
 		$color_keys = array(
 			'system_colors',
 			'custom_colors',
-			'ang_global_surface_colors',
+			'ang_global_background_colors',
 			'ang_global_accent_colors',
-			'ang_global_type_colors',
-			'ang_global_other_colors',
-			'ang_custom_colors',
+			'ang_global_text_colors',
+			'ang_global_extra_colors',
 		);
 
 		$items = array();
