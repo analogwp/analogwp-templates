@@ -568,27 +568,17 @@ class Colors extends Module {
 			)
 		);
 
-		/**
-		 * Custom colors.
-		 */
 		$element->add_control(
-			'ang_global_custom_colors_heading',
+			'ang_global_reset_colors',
 			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Custom Colors', 'ang' ),
-			)
-		);
-
-		$element->add_control(
-			'ang_custom_colors',
-			array(
-				'type'   => Global_Style_Repeater::CONTROL_TYPE,
-				'fields' => $repeater->get_controls(),
+				'label' => __( 'Reset labels & colors', 'ang' ),
+				'type'  => 'button',
+				'text'  => __( 'Reset', 'ang' ),
+				'event' => 'analog:resetGlobalColors',
 			)
 		);
 
 		$element->end_controls_section();
-
 	}
 }
 
