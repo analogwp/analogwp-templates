@@ -44,7 +44,7 @@ class Colors extends Module {
 
 		if ( 'active' === $global_colors_experiment ) {
 			// New Style Kits Global Colors.
-			add_action( 'elementor/element/kit/section_global_colors/after_section_end', array( $this, 'register_global_colors' ), 999, 2 );
+			add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_colors' ), 10, 2 );
 		}
 	}
 
@@ -373,9 +373,10 @@ class Colors extends Module {
 			'ang_global_colors_section',
 			array(
 				'label' => esc_html__( 'Style Kit Colors', 'ang' ),
-				'tab'   => 'global-colors',
+				'tab'   => Utils::get_kit_settings_tab(),
 			)
 		);
+
 		$element->add_control(
 			'ang_global_colors_description',
 			array(
@@ -386,6 +387,14 @@ class Colors extends Module {
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->add_control(
+			'ang_global_colors_heading',
+			array(
+				'type'  => Controls_Manager::HEADING,
+				'label' => esc_html__( 'System Colors', 'ang' ),
 			)
 		);
 
@@ -420,17 +429,17 @@ class Colors extends Module {
 		$default_surface_colors = array(
 			array(
 				'_id'   => 'sk-color-1',
-				'title' => esc_html__( 'Background 1', 'ang' ),
+				'title' => esc_html__( 'Site Background', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk-color-2',
-				'title' => esc_html__( 'Background 2', 'ang' ),
+				'title' => esc_html__( 'Light Background', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk-color-3',
-				'title' => esc_html__( 'Background 3', 'ang' ),
+				'title' => esc_html__( 'Dark Background', 'ang' ),
 				'color' => '',
 			),
 			array(
@@ -458,12 +467,12 @@ class Colors extends Module {
 		$default_accent_colors = array(
 			array(
 				'_id'   => 'sk-color-5',
-				'title' => esc_html__( 'Accent 1', 'ang' ),
+				'title' => esc_html__( 'Primary Accent', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk-color-6',
-				'title' => esc_html__( 'Accent 2', 'ang' ),
+				'title' => esc_html__( 'Secondary Accent', 'ang' ),
 				'color' => '',
 			),
 			array(
@@ -496,22 +505,22 @@ class Colors extends Module {
 		$default_type_colors = array(
 			array(
 				'_id'   => 'sk-color-9',
-				'title' => esc_html__( 'Text 1', 'ang' ),
+				'title' => esc_html__( 'Titles', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk-color-10',
-				'title' => esc_html__( 'Text 2', 'ang' ),
+				'title' => esc_html__( 'Body Text', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk-color-11',
-				'title' => esc_html__( 'Text 3', 'ang' ),
+				'title' => esc_html__( 'Secondary Text', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk-color-12',
-				'title' => esc_html__( 'Text 4', 'ang' ),
+				'title' => esc_html__( 'Inverted Text', 'ang' ),
 				'color' => '',
 			),
 		);
