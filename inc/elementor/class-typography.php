@@ -381,7 +381,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_container_spacing',
 			array(
-				'label' => __( 'Containers', 'ang' ),
+				'label' => __( 'Container Spacing', 'ang' ),
 				'tab'   => $this->settings_tab,
 			)
 		);
@@ -389,11 +389,11 @@ class Typography extends Module {
 		$padding_defaults = array(
 			array(
 				'_id'   => 'ang_container_padding_1',
-				'title' => __( 'Default', 'ang' ),
+				'title' => __( 'Extra Large', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_2',
-				'title' => __( 'Small', 'ang' ),
+				'title' => __( 'Large', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_3',
@@ -401,20 +401,32 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'ang_container_padding_4',
-				'title' => __( 'Large', 'ang' ),
+				'title' => __( 'Normal', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_5',
-				'title' => __( 'Extra Large', 'ang' ),
+				'title' => __( 'Small', 'ang' ),
 			),
 		);
 
 		$element->add_control(
 			'ang_container_padding_description',
 			array(
-				'raw'             => __( 'Add padding to the containers of your layouts by using these controls.', 'ang' ),
+				'raw'             => sprintf(
+					'%1$s <a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">%2$s</a>',
+					__( 'Save padding presets for containers.', 'ang' ),
+					__( 'Read more', 'ang' ),
+				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->add_control(
+			'ang_container_padding_heading',
+			array(
+				'type'  => Controls_Manager::HEADING,
+				'label' => esc_html__( 'System Presets', 'ang' ),
 			)
 		);
 
