@@ -43,6 +43,7 @@ class Colors extends Base {
 			'ang_global_accent_colors',
 			'ang_global_text_colors',
 			'ang_global_extra_colors',
+			'ang_global_custom_colors',
 		);
 
 		foreach ( $color_keys as $color_key ) {
