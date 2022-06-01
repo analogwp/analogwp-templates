@@ -458,6 +458,8 @@ class Colors extends Module {
 				'item_actions' => array(
 					'add'    => false,
 					'remove' => false,
+					'sort'   => false,
+
 				),
 				'separator'    => 'after',
 			)
@@ -496,6 +498,7 @@ class Colors extends Module {
 				'item_actions' => array(
 					'add'    => false,
 					'remove' => false,
+					'sort'   => false,
 				),
 				'separator'    => 'after',
 			)
@@ -534,6 +537,7 @@ class Colors extends Module {
 				'item_actions' => array(
 					'add'    => false,
 					'remove' => false,
+					'sort'   => false,
 				),
 				'separator'    => 'after',
 			)
@@ -572,6 +576,7 @@ class Colors extends Module {
 				'item_actions' => array(
 					'add'    => false,
 					'remove' => false,
+					'sort'   => false,
 				),
 				'separator'    => 'after',
 			)
