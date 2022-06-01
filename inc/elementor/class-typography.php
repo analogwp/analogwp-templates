@@ -900,7 +900,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_tools',
 			array(
-				'label' => __( 'Theme Style Kit', 'ang' ),
+				'label' => __( 'Manage Style Kit', 'ang' ),
 				'tab'   => $this->settings_tab,
 			)
 		);
