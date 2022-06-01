@@ -19,6 +19,19 @@ class Colors extends Base {
 		$result = array();
 		$kit    = Plugin::elementor()->kits_manager->get_active_kit_for_frontend();
 
+		$system_items = $kit->get_settings_for_display( 'system_colors' );
+		$custom_items = $kit->get_settings_for_display( 'custom_colors' );
+
+		if ( ! $system_items ) {
+			$system_items = [];
+		}
+
+		if ( ! $custom_items ) {
+			$custom_items = [];
+		}
+
+		$items = array_merge( $system_items, $custom_items );
+
 		// Custom hack for getting the active kit on page.
 		$current_page_id = Options::get_instance()->get( 'ang_current_page_id' );
 		if ( $current_page_id ) {
@@ -26,15 +39,11 @@ class Colors extends Base {
 		}
 
 		$color_keys = array(
-			'system_colors',
-			'custom_colors',
 			'ang_global_background_colors',
 			'ang_global_accent_colors',
 			'ang_global_text_colors',
 			'ang_global_extra_colors',
 		);
-
-		$items = array();
 
 		foreach ( $color_keys as $color_key ) {
 			$colors = $kit->get_settings_for_display( $color_key );
