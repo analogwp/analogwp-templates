@@ -477,6 +477,8 @@ class Typography extends Module {
 			)
 		);
 
+		do_action( 'analog_container_spacing_section_end', $element );
+
 		$element->end_controls_section();
 	}
 

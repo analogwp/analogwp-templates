@@ -8,6 +8,7 @@
 namespace Analog\Elementor;
 
 use Analog\Base;
+use Analog\Options;
 use Analog\Utils;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
@@ -29,6 +30,18 @@ final class Promotions extends Base {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_shadow_controls' ), 47, 2 );
 
 		add_action( 'analog_background_colors_tab_end', array( $this, 'add_background_color_accent_promo' ), 170, 1 );
+
+		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
+
+		if ( 'active' === $global_colors_experiment ) {
+			add_action( 'analog_global_colors_section_end', array( $this, 'add_global_custom_colors_promo' ), 170, 1 );
+		}
+
+		$container_spacing_experiment = Options::get_instance()->get( 'container_spacing_experiment' );
+
+		if ( 'active' === $container_spacing_experiment ) {
+			add_action( 'analog_container_spacing_section_end', array( $this, 'add_container_custom_spacing_promo' ), 170, 1 );
+		}
 	}
 
 	/**
@@ -211,6 +224,95 @@ final class Promotions extends Base {
 		);
 
 		$element->end_controls_tab();
+	}
+
+	/**
+	 * Get promotional control teaser template.
+	 *
+	 * @since n.e.x.t
+	 * @param array $texts Text arguments.
+	 *
+	 * @return false|string
+	 */
+	public function get_control_teaser_template( $texts ) {
+		ob_start();
+		?>
+		<div style="
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin-bottom: 10px;
+		margin-top: -10px;">
+			<div class="elementor-control-title" style="font-weight: bold;"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
+			<?php foreach ( $texts['messages'] as $message ) { ?>
+				<div class="elementor-control-raw-html elementor-descriptor" style="font-style: normal;"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+				<?php
+			}
+
+			if ( $texts['link'] ) {
+				?>
+				<a
+						class="elementor-button elementor-button-default elementor-button-go-pro"
+						href="<?php echo esc_url( Utils::get_pro_link( $texts['link'] ) ); ?>"
+						style="background-color:var(--ang-accent); text-align: center; padding: 8px 0;box-shadow: 0 0 2px rgb(0 0 0 / 0%), 0 2px 2px rgb(0 0 0 / 0%); border: none;"
+						target="_blank">
+					<?php esc_html_e( 'Explore Style Kits Pro', 'ang' ); ?>
+				</a>
+			<?php } ?>
+		</div>
+		<?php
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * Modify original "Style Kit Colors" controls.
+	 *
+	 * @hook analog_global_colors_section_end
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 */
+	public function add_global_custom_colors_promo( Controls_Stack $element ) {
+		$element->add_control(
+			'ang_promo_global_custom_colors',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_control_teaser_template(
+					array(
+						'title'    => __( 'Custom Colors', 'ang' ),
+						'messages' => array(
+							__( 'Add more colors with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'global-custom-colors' ),
+					)
+				),
+			)
+		);
+	}
+
+	/**
+	 * Modify original "Container Spacing" controls.
+	 *
+	 * @hook analog_container_spacing_section_end
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 */
+	public function add_container_custom_spacing_promo( Controls_Stack $element ) {
+		$element->add_control(
+			'ang_promo_container_spacing_custom_presets',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_control_teaser_template(
+					array(
+						'title'    => __( 'Custom Presets', 'ang' ),
+						'messages' => array(
+							__( 'Add more spacing presets with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'custom-container-spacing' ),
+					)
+				),
+			)
+		);
 	}
 }
 
