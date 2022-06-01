@@ -12,6 +12,7 @@ use Analog\Options;
 use Analog\Utils;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
+use Elementor\Repeater;
 
 /**
  * Class Promotions
@@ -34,13 +35,13 @@ final class Promotions extends Base {
 		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
 
 		if ( 'active' === $global_colors_experiment ) {
-			add_action( 'analog_global_colors_section_end', array( $this, 'add_global_custom_colors_promo' ), 170, 1 );
+			add_action( 'analog_global_colors_section_end', array( $this, 'add_global_custom_colors_promo' ), 170, 2 );
 		}
 
 		$container_spacing_experiment = Options::get_instance()->get( 'container_spacing_experiment' );
 
 		if ( 'active' === $container_spacing_experiment ) {
-			add_action( 'analog_container_spacing_section_end', array( $this, 'add_container_custom_spacing_promo' ), 170, 1 );
+			add_action( 'analog_container_spacing_section_end', array( $this, 'add_container_custom_spacing_promo' ), 170, 2 );
 		}
 	}
 
@@ -271,8 +272,9 @@ final class Promotions extends Base {
 	 * @hook analog_global_colors_section_end
 	 *
 	 * @param Controls_Stack $element Elementor element.
+	 * @param Repeater       $repeater Elementor repeater element.
 	 */
-	public function add_global_custom_colors_promo( Controls_Stack $element ) {
+	public function add_global_custom_colors_promo( Controls_Stack $element, Repeater $repeater ) {
 		$element->add_control(
 			'ang_promo_global_custom_colors',
 			array(
@@ -296,8 +298,9 @@ final class Promotions extends Base {
 	 * @hook analog_container_spacing_section_end
 	 *
 	 * @param Controls_Stack $element Elementor element.
+	 * @param Repeater       $repeater Elementor repeater element.
 	 */
-	public function add_container_custom_spacing_promo( Controls_Stack $element ) {
+	public function add_container_custom_spacing_promo( Controls_Stack $element, Repeater $repeater ) {
 		$element->add_control(
 			'ang_promo_container_spacing_custom_presets',
 			array(
