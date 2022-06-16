@@ -409,7 +409,7 @@ class Colors extends Module {
 			)
 		);
 
-		// Color Value
+		// Color Value.
 		$repeater->add_control(
 			'color',
 			array(
@@ -428,22 +428,22 @@ class Colors extends Module {
 		// Background Colors.
 		$default_surface_colors = array(
 			array(
-				'_id'   => 'sk-color-1',
+				'_id'   => 'sk_color_1',
 				'title' => esc_html__( 'Site Background', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-2',
+				'_id'   => 'sk_color_2',
 				'title' => esc_html__( 'Light Background', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-3',
+				'_id'   => 'sk_color_3',
 				'title' => esc_html__( 'Dark Background', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-4',
+				'_id'   => 'sk_color_4',
 				'title' => esc_html__( 'Background 4', 'ang' ),
 				'color' => '',
 			),
@@ -468,22 +468,22 @@ class Colors extends Module {
 		// Accents Colors.
 		$default_accent_colors = array(
 			array(
-				'_id'   => 'sk-color-5',
+				'_id'   => 'sk_color_5',
 				'title' => esc_html__( 'Primary Accent', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-6',
+				'_id'   => 'sk_color_6',
 				'title' => esc_html__( 'Secondary Accent', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-7',
+				'_id'   => 'sk_color_7',
 				'title' => esc_html__( 'Accent 3', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-8',
+				'_id'   => 'sk_color_8',
 				'title' => esc_html__( 'Accent 4', 'ang' ),
 				'color' => '',
 			),
@@ -507,22 +507,22 @@ class Colors extends Module {
 		// Text Colors.
 		$default_type_colors = array(
 			array(
-				'_id'   => 'sk-color-9',
+				'_id'   => 'sk_color_9',
 				'title' => esc_html__( 'Titles', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-10',
+				'_id'   => 'sk_color_10',
 				'title' => esc_html__( 'Body Text', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-11',
+				'_id'   => 'sk_color_11',
 				'title' => esc_html__( 'Secondary Text', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-12',
+				'_id'   => 'sk_color_12',
 				'title' => esc_html__( 'Inverted Text', 'ang' ),
 				'color' => '',
 			),
@@ -546,22 +546,22 @@ class Colors extends Module {
 		// Extra Colors.
 		$default_other_colors = array(
 			array(
-				'_id'   => 'sk-color-13',
+				'_id'   => 'sk_color_13',
 				'title' => esc_html__( 'Border 1', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-14',
+				'_id'   => 'sk_color_14',
 				'title' => esc_html__( 'Border 2', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-15',
+				'_id'   => 'sk_color_15',
 				'title' => esc_html__( 'Feedback 1', 'ang' ),
 				'color' => '',
 			),
 			array(
-				'_id'   => 'sk-color-16',
+				'_id'   => 'sk_color_16',
 				'title' => esc_html__( 'Feedback 2', 'ang' ),
 				'color' => '',
 			),
