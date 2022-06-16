@@ -390,14 +390,6 @@ class Colors extends Module {
 			)
 		);
 
-		$element->add_control(
-			'ang_global_colors_heading',
-			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'System Colors', 'ang' ),
-			)
-		);
-
 		$repeater = new Repeater();
 
 		$repeater->add_control(
@@ -422,6 +414,14 @@ class Colors extends Module {
 				'global'      => array(
 					'active' => false,
 				),
+			)
+		);
+
+		$element->add_control(
+			'ang_global_background_colors_heading',
+			array(
+				'type'  => Controls_Manager::HEADING,
+				'label' => esc_html__( 'Backgrounds', 'ang' ),
 			)
 		);
 
@@ -465,6 +465,14 @@ class Colors extends Module {
 			)
 		);
 
+		$element->add_control(
+			'ang_global_accent_colors_heading',
+			array(
+				'type'  => Controls_Manager::HEADING,
+				'label' => esc_html__( 'Accent', 'ang' ),
+			)
+		);
+
 		// Accents Colors.
 		$default_accent_colors = array(
 			array(
@@ -504,6 +512,14 @@ class Colors extends Module {
 			)
 		);
 
+		$element->add_control(
+			'ang_global_text_colors_heading',
+			array(
+				'type'  => Controls_Manager::HEADING,
+				'label' => esc_html__( 'Typography', 'ang' ),
+			)
+		);
+
 		// Text Colors.
 		$default_type_colors = array(
 			array(
@@ -540,6 +556,14 @@ class Colors extends Module {
 					'sort'   => false,
 				),
 				'separator'    => 'after',
+			)
+		);
+
+		$element->add_control(
+			'ang_global_extra_colors_heading',
+			array(
+				'type'  => Controls_Manager::HEADING,
+				'label' => esc_html__( 'Other', 'ang' ),
 			)
 		);
 
