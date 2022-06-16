@@ -373,7 +373,7 @@ class Colors extends Module {
 			'ang_global_colors_section',
 			array(
 				'label' => esc_html__( 'Style Kit Colors', 'ang' ),
-				'tab'   => Utils::get_kit_settings_tab(),
+				'tab'   => 'global-colors',
 			)
 		);
 
