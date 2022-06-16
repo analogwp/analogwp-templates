@@ -479,6 +479,16 @@ class Typography extends Module {
 
 		do_action( 'analog_container_spacing_section_end', $element, $repeater );
 
+		$element->add_control(
+			'ang_container_padding_reset',
+			array(
+				'label' => __( 'Reset presets to default', 'ang' ),
+				'type'  => 'button',
+				'text'  => __( 'Reset', 'ang' ),
+				'event' => 'analog:resetContainerPadding',
+			)
+		);
+
 		$element->end_controls_section();
 	}
 

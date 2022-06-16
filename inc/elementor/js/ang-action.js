@@ -550,7 +550,7 @@ jQuery( window ).on( 'elementor/init', function() {
 		} );
 
 		// Reset value render hack.
-		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => $e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/theme-style-kits' ) ) ));
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => $e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/global-colors' ) ) ));
 	};
 
 	analog.handleGlobalColorsReset = () => {
@@ -566,6 +566,44 @@ jQuery( window ).on( 'elementor/init', function() {
 		} ).show();
 	};
 
+	analog.resetContainerPadding = () => {
+		const ang_container_padding = [
+			'ang_container_padding',
+			'ang_custom_container_padding',
+		];
+
+		let defaultValues = {};
+
+		// Get defaults for each setting
+		ang_container_padding.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[elementor.config.kit_id].container.controls[setting].default );
+
+		// Reset the selected settings to their default values
+		$e.run( 'document/elements/settings', {
+			container: elementor.documents.documents[elementor.config.kit_id].container,
+			settings: defaultValues,
+			options: {
+				external: true,
+			},
+		} );
+
+		// Reset value render hack.
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => $e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/theme-style-kits' ) ) ));
+	};
+
+	analog.handleContainerPaddingReset = () => {
+		elementorCommon.dialogsManager.createWidget( 'confirm', {
+			message: ANG_Action.translate.resetContainerPaddingMessage,
+			headerMessage: ANG_Action.translate.resetHeader,
+			strings: {
+				confirm: elementor.translate( 'yes' ),
+				cancel: elementor.translate( 'cancel' ),
+			},
+			defaultOption: 'cancel',
+			onConfirm: analog.resetContainerPadding,
+		} ).show();
+	};
+
+	elementor.channels.editor.on( 'analog:resetContainerPadding', analog.handleContainerPaddingReset );
 	elementor.channels.editor.on( 'analog:resetGlobalColors', analog.handleGlobalColorsReset );
 	elementor.channels.editor.on( 'analog:resetKit', analog.handleCSSReset );
 	elementor.channels.editor.on( 'analog:saveKit', analog.handleSaveToken );

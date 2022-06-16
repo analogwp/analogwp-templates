@@ -134,6 +134,7 @@ class ANG_Action extends Base_Data_Control {
 					'cssVariables'             => __( 'CSS Variables', 'ang' ),
 					'cssSelector'              => __( 'Remove Page ID from the CSS', 'ang' ),
 					'resetGlobalColorsMessage' => __( 'This will revert the color pallete and the color labels to their defaults. You can undo this action from the revisions tab.', 'ang' ),
+					'resetContainerPaddingMessage' => __( 'This will revert the container preset labels & values to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 				),
 				'skPanelsAllowed' => $sk_panels_allowed,
 			)
