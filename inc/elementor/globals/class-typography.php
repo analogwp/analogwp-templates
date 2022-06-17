@@ -16,33 +16,39 @@ class Typography extends Base {
 	}
 
 	protected function get_kit_items() {
-		$result = [];
+		$result = array();
 
-		$kit = Plugin::elementor()->kits_manager->get_active_kit_for_frontend();
+		$global_kit = Plugin::elementor()->kits_manager->get_active_kit_for_frontend();
 
 		// Use raw settings that doesn't have default values.
-		$kit_raw_settings = $kit->get_data( 'settings' );
+		$kit_raw_settings = $global_kit->get_data( 'settings' );
 
 		if ( isset( $kit_raw_settings['system_typography'] ) ) {
 			$system_items = $kit_raw_settings['system_typography'];
 		} else {
 			// Get default items, but without empty defaults.
-			$control = $kit->get_controls( 'system_typography' );
+			$control      = $global_kit->get_controls( 'system_typography' );
 			$system_items = $control['default'];
 		}
 
-		$custom_items = $kit->get_settings( 'custom_typography' );
+		$custom_items = $global_kit->get_settings( 'custom_typography' );
 
 		if ( ! $custom_items ) {
-			$custom_items = [];
+			$custom_items = array();
 		}
 
 		$items = array_merge( $system_items, $custom_items );
 
 		// Custom hack for getting the active kit on page.
 		$current_page_id = Options::get_instance()->get( 'ang_current_page_id' );
+		$kit             = false;
 		if ( $current_page_id ) {
 			$kit = Utils::get_document_kit( $current_page_id );
+		}
+
+		// Fallback to global kit.
+		if ( ! $kit ) {
+			$kit = $global_kit;
 		}
 
 		$font_keys = array(
