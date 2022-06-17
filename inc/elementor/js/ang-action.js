@@ -526,6 +526,43 @@ jQuery( window ).on( 'elementor/init', function() {
 		jQuery( window ).resize();
 	}
 
+	analog.resetGlobalFonts = () => {
+		const ang_global_fonts = [
+			'ang_global_title_fonts',
+			'ang_global_text_fonts',
+		];
+
+		let defaultValues = {};
+
+		// Get defaults for each setting
+		ang_global_fonts.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[elementor.config.kit_id].container.controls[setting].default );
+
+		// Reset the selected settings to their default values
+		$e.run( 'document/elements/settings', {
+			container: elementor.documents.documents[elementor.config.kit_id].container,
+			settings: defaultValues,
+			options: {
+				external: true,
+			},
+		} );
+
+		// Reset value render hack.
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => $e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/global-typography' ) ) ));
+	};
+
+	analog.handleGlobalFontsReset = () => {
+		elementorCommon.dialogsManager.createWidget( 'confirm', {
+			message: ANG_Action.translate.resetGlobalFontsMessage,
+			headerMessage: ANG_Action.translate.resetHeader,
+			strings: {
+				confirm: elementor.translate( 'yes' ),
+				cancel: elementor.translate( 'cancel' ),
+			},
+			defaultOption: 'cancel',
+			onConfirm: analog.resetGlobalFonts,
+		} ).show();
+	};
+
 	analog.resetGlobalColors = () => {
 		const ang_global_colors = [
 				'ang_global_background_colors',
@@ -605,6 +642,7 @@ jQuery( window ).on( 'elementor/init', function() {
 
 	elementor.channels.editor.on( 'analog:resetContainerPadding', analog.handleContainerPaddingReset );
 	elementor.channels.editor.on( 'analog:resetGlobalColors', analog.handleGlobalColorsReset );
+	elementor.channels.editor.on( 'analog:resetGlobalFonts', analog.handleGlobalFontsReset );
 	elementor.channels.editor.on( 'analog:resetKit', analog.handleCSSReset );
 	elementor.channels.editor.on( 'analog:saveKit', analog.handleSaveToken );
 	elementor.channels.editor.on( 'analog:exportCSS', analog.handleCSSExport );
