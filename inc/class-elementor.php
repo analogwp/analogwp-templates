@@ -77,6 +77,7 @@ class Elementor {
 	public function register_data_controllers() {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/globals/class-controller.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/globals/class-colors.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/globals/class-typography.php';
 
 		add_action(
 			'elementor/editor/init',
