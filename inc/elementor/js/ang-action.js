@@ -152,6 +152,18 @@ jQuery( window ).on( 'elementor/init', function() {
 		}
 	};
 
+	analog.openGlobalColors = () => {
+		if ( `panel/global-colors` in $e.routes.components ) {
+			setTimeout(function() {
+				$e.run( 'panel/global/open' ).then(
+					() => setTimeout( () => $e.route( 'panel/global/global-colors' ) )
+				);
+			});
+		} else {
+			$e.run( 'panel/global/open' );
+		}
+	};
+
 	/**
 	 * Escape charcters in during Regexp.
 	 *

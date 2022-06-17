@@ -38,6 +38,11 @@ jQuery( document ).ready( function() {
 					title: elementor.translate( 'Theme Style' ),
 					callback: analog.openThemeStyles,
 				},
+				{
+					name: 'global_colors',
+					title: elementor.translate( 'Edit Style Kit Colors' ),
+					callback: analog.openGlobalColors,
+				},
 			],
 		};
 
