@@ -38,6 +38,11 @@ jQuery( document ).ready( function() {
 					title: elementor.translate( 'Theme Style' ),
 					callback: analog.openThemeStyles,
 				},
+				{
+					name: 'global_fonts',
+					title: elementor.translate( 'Edit Style Kit Fonts' ),
+					callback: analog.openGlobalFonts,
+				},
 			],
 		};
 

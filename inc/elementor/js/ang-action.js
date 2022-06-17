@@ -152,6 +152,18 @@ jQuery( window ).on( 'elementor/init', function() {
 		}
 	};
 
+	analog.openGlobalFonts = () => {
+		if ( `panel/global-fonts` in $e.routes.components ) {
+			setTimeout(function() {
+				$e.run( 'panel/global/open' ).then(
+					() => setTimeout( () => $e.route( 'panel/global/global-typography' ) )
+				);
+			});
+		} else {
+			$e.run( 'panel/global/open' );
+		}
+	};
+
 	/**
 	 * Escape charcters in during Regexp.
 	 *
