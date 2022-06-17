@@ -532,7 +532,6 @@ jQuery( window ).on( 'elementor/init', function() {
 				'ang_global_accent_colors',
 				'ang_global_text_colors',
 				'ang_global_extra_colors',
-				'ang_global_custom_colors',
 			];
 
 		let defaultValues = {};

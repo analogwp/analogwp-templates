@@ -606,8 +606,6 @@ class Colors extends Module {
 			)
 		);
 
-		do_action( 'analog_global_colors_section_end', $element, $repeater );
-
 		$element->add_control(
 			'ang_global_reset_colors',
 			array(

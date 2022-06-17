@@ -32,12 +32,6 @@ final class Promotions extends Base {
 
 		add_action( 'analog_background_colors_tab_end', array( $this, 'add_background_color_accent_promo' ), 170, 1 );
 
-		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
-
-		if ( 'active' === $global_colors_experiment ) {
-			add_action( 'analog_global_colors_section_end', array( $this, 'add_global_custom_colors_promo' ), 170, 2 );
-		}
-
 		$container_spacing_experiment = Options::get_instance()->get( 'container_spacing_experiment' );
 
 		if ( 'active' === $container_spacing_experiment ) {
@@ -264,32 +258,6 @@ final class Promotions extends Base {
 		<?php
 
 		return ob_get_clean();
-	}
-
-	/**
-	 * Modify original "Style Kit Colors" controls.
-	 *
-	 * @hook analog_global_colors_section_end
-	 *
-	 * @param Controls_Stack $element Elementor element.
-	 * @param Repeater       $repeater Elementor repeater element.
-	 */
-	public function add_global_custom_colors_promo( Controls_Stack $element, Repeater $repeater ) {
-		$element->add_control(
-			'ang_promo_global_custom_colors',
-			array(
-				'type' => Controls_Manager::RAW_HTML,
-				'raw'  => $this->get_control_teaser_template(
-					array(
-						'title'    => __( 'Custom Colors', 'ang' ),
-						'messages' => array(
-							__( 'Add more colors with Style Kits Pro.', 'ang' ),
-						),
-						'link'     => array( 'utm_source' => 'global-custom-colors' ),
-					)
-				),
-			)
-		);
 	}
 
 	/**
