@@ -77,10 +77,10 @@ class Typography extends Base {
 
 			$id = $item['_id'];
 
-			$result[ $id ] = [
+			$result[ $id ] = array(
 				'title' => $item['title'],
-				'id' => $id,
-			];
+				'id'    => $id,
+			);
 
 			unset( $item['_id'], $item['title'] );
 
@@ -91,10 +91,10 @@ class Typography extends Base {
 	}
 
 	protected function convert_db_format( $item ) {
-		$db_format = [
-			'_id' => $item['id'],
+		$db_format = array(
+			'_id'   => $item['id'],
 			'title' => $item['title'],
-		];
+		);
 
 		$db_format = array_merge( $item['value'], $db_format );
 
