@@ -79,6 +79,14 @@ class Experiments extends Settings_Page {
 					'options' => $options,
 				),
 				array(
+					'title'   => __( 'Global Fonts', 'ang' ),
+					'desc'    => __( 'Enable this experiment to try the new Style Kit Global fonts', 'ang' ),
+					'id'      => 'global_fonts_experiment',
+					'default' => 'inactive',
+					'type'    => 'select',
+					'options' => $options,
+				),
+				array(
 					'type' => 'sectionend',
 					'id'   => 'ang_beta',
 				),
