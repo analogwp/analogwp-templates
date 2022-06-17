@@ -1450,7 +1450,7 @@ class Typography extends Module {
 			'ang_global_fonts_description',
 			array(
 				'raw'             => sprintf(
-					'%1$s <a href="https://docs.analogwp.com/article/657-style-kit-color-pallete" target="_blank">%2$s</a>',
+					'%1$s <a href="https://docs.analogwp.com/article/658-style-kits-fonts" target="_blank">%2$s</a>',
 					__( 'The Style Kit\'s typographic styles.', 'ang' ),
 					__( 'Read more', 'ang' ),
 				),
