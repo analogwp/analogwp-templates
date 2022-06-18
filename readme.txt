@@ -115,6 +115,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Improvements: Rename Style Kit's last section to "Manage Style Kit"
 * Improvements: Compatibility with Elementor v3.6.6 & Elementor Pro v3.7.2
 * Improvements: Compatible up to WordPress v6.0
+* Fix: Fix Kit Settings section redirect not working
 
 = 1.9.0 - May 11, 2022 =
 * New: Added Experiments tab at Style Kits Settings
