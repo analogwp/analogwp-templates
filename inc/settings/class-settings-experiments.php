@@ -64,7 +64,11 @@ class Experiments extends Settings_Page {
 				),
 				array(
 					'title'   => __( 'Global Colors', 'ang' ),
-					'desc'    => __( 'Enable this experiment to try the new Style Kit Global colors', 'ang' ),
+					'desc'    => sprintf(
+					/* translators: %s: Style Kits Colors experiment documentation link */
+						__( 'Activate this experiment to try the new %s under Site Settings > Global colors.', 'ang' ),
+						'<a href="https://docs.analogwp.com/article/657-style-kit-color-pallete" target="_blank">' . __( 'Style Kit Color palette', 'ang' ) . '</a>'
+					),
 					'id'      => 'global_colors_experiment',
 					'default' => 'inactive',
 					'type'    => 'select',
@@ -72,7 +76,11 @@ class Experiments extends Settings_Page {
 				),
 				array(
 					'title'   => __( 'Global Fonts', 'ang' ),
-					'desc'    => __( 'Enable this experiment to try the new Style Kit Global fonts', 'ang' ),
+					'desc'    => sprintf(
+					/* translators: %s: Style Kits Fonts experiment documentation link */
+						__( 'Activate this experiment to try the new %s under Site Settings > Global fonts.', 'ang' ),
+						'<a href="https://docs.analogwp.com/article/658-style-kits-fonts" target="_blank">' . __( 'Style Kit Fonts', 'ang' ) . '</a>'
+					),
 					'id'      => 'global_fonts_experiment',
 					'default' => 'inactive',
 					'type'    => 'select',
