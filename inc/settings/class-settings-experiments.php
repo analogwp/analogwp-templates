@@ -63,7 +63,7 @@ class Experiments extends Settings_Page {
 					'options' => $options,
 				),
 				array(
-					'title'   => __( 'Style Kit color palette', 'ang' ),
+					'title'   => __( 'Style Kit Color palette', 'ang' ),
 					'desc'    => sprintf(
 					/* translators: %s: Style Kits Colors experiment documentation link */
 						__( 'Activate this experiment to try the new %s under Site Settings > Global colors.', 'ang' ),
