@@ -153,27 +153,11 @@ jQuery( window ).on( 'elementor/init', function() {
 	};
 
 	analog.openGlobalColors = () => {
-		if ( `panel/global-colors` in $e.routes.components ) {
-			setTimeout(function() {
-				$e.run( 'panel/global/open' ).then(
-					() => setTimeout( () => $e.route( 'panel/global/global-colors' ) )
-				);
-			});
-		} else {
-			$e.run( 'panel/global/open' );
-		}
+		analog.redirectToPanel( 'ang_global_colors_section', 'global-colors' );
 	};
 
 	analog.openGlobalFonts = () => {
-		if ( `panel/global-fonts` in $e.routes.components ) {
-			setTimeout(function() {
-				$e.run( 'panel/global/open' ).then(
-					() => setTimeout( () => $e.route( 'panel/global/global-typography' ) )
-				);
-			});
-		} else {
-			$e.run( 'panel/global/open' );
-		}
+		analog.redirectToPanel( 'ang_global_fonts_section', 'global-typography' );
 	};
 
 	/**
@@ -227,9 +211,9 @@ jQuery( window ).on( 'elementor/init', function() {
 	 * @param {string} section Panel/Section ID.
 	 * @returns void
 	 */
-	analog.redirectToPanel = ( section ) => {
+	analog.redirectToPanel = ( section, panel = 'theme-style-kits' ) => {
 		$e.run( 'panel/global/open' ).then( () => {
-			$e.route( 'panel/global/theme-style-kits' );
+			$e.route( `panel/global/${panel}` );
 			elementor.getPanelView().getCurrentPageView().content.currentView.activateSection(section).render();
 		});
 	};
