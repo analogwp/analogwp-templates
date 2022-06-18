@@ -109,12 +109,12 @@ Our dedicated support team has your back. Please reach out via our website at ht
 = 1.9.1 - June 18, 2022 =
 * Experiments: Added Style Kits Global Fonts experiment
 * Experiments: Added Style Kits Global Colors experiment
-* New: Add "Edit Style Kit Fonts" link at the context menu
-* New: Add "Edit Style Kit Colors" link at the context menu
+* New: Add "Edit Style Kit Fonts" link to the context menu
+* New: Add "Edit Style Kit Colors" link to the context menu
 * New: Added Container Background Classes experiment to stable
-* Improvements: Rename Style Kit last section to "Manage Style Kit"
+* Improvements: Rename Style Kit's last section to "Manage Style Kit"
 * Improvements: Compatibility with Elementor v3.6.6 & Elementor Pro v3.7.2
-* Improvements: Compatible upto WordPress v6.0
+* Improvements: Compatible up to WordPress v6.0
 
 = 1.9.0 - May 11, 2022 =
 * New: Added Experiments tab at Style Kits Settings
