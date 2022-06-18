@@ -63,7 +63,7 @@ class Experiments extends Settings_Page {
 					'options' => $options,
 				),
 				array(
-					'title'   => __( 'Global Colors', 'ang' ),
+					'title'   => __( 'Style Kit color palette', 'ang' ),
 					'desc'    => sprintf(
 					/* translators: %s: Style Kits Colors experiment documentation link */
 						__( 'Activate this experiment to try the new %s under Site Settings > Global colors.', 'ang' ),
@@ -75,7 +75,7 @@ class Experiments extends Settings_Page {
 					'options' => $options,
 				),
 				array(
-					'title'   => __( 'Global Fonts', 'ang' ),
+					'title'   => __( 'Style Kit Fonts', 'ang' ),
 					'desc'    => sprintf(
 					/* translators: %s: Style Kits Fonts experiment documentation link */
 						__( 'Activate this experiment to try the new %s under Site Settings > Global fonts.', 'ang' ),
