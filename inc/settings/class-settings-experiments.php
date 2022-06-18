@@ -63,14 +63,6 @@ class Experiments extends Settings_Page {
 					'options' => $options,
 				),
 				array(
-					'title'   => __( 'Container Background class presets ', 'ang' ),
-					'desc'    => __( 'Apply sk-background classes to containers, using a dropdown. You need to have the Containers experiment activated in Elementor, to test this feature.', 'ang' ),
-					'id'      => 'container_bg_classes_experiment',
-					'default' => 'inactive',
-					'type'    => 'select',
-					'options' => $options,
-				),
-				array(
 					'title'   => __( 'Global Colors', 'ang' ),
 					'desc'    => __( 'Enable this experiment to try the new Style Kit Global colors', 'ang' ),
 					'id'      => 'global_colors_experiment',

@@ -97,11 +97,8 @@ class Typography extends Module {
 			add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
 		}
 
-		$container_bg_classes_experiment = Options::get_instance()->get( 'container_bg_classes_experiment' );
 
-		if ( 'active' === $container_bg_classes_experiment ) {
-			add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
-		}
+		add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
 
