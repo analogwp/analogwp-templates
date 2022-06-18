@@ -1519,6 +1519,11 @@ class Typography extends Module {
 							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-letter-spacing: {{SIZE}}{{UNIT}}',
 						),
 					),
+					'word_spacing'  => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-word-spacing: {{SIZE}}{{UNIT}}',
+						),
+					),
 				),
 			)
 		);
