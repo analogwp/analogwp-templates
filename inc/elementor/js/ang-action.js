@@ -164,6 +164,18 @@ jQuery( window ).on( 'elementor/init', function() {
 		}
 	};
 
+	analog.openGlobalFonts = () => {
+		if ( `panel/global-fonts` in $e.routes.components ) {
+			setTimeout(function() {
+				$e.run( 'panel/global/open' ).then(
+					() => setTimeout( () => $e.route( 'panel/global/global-typography' ) )
+				);
+			});
+		} else {
+			$e.run( 'panel/global/open' );
+		}
+	};
+
 	/**
 	 * Escape charcters in during Regexp.
 	 *
@@ -544,6 +556,7 @@ jQuery( window ).on( 'elementor/init', function() {
 				'ang_global_accent_colors',
 				'ang_global_text_colors',
 				'ang_global_extra_colors',
+				'ang_global_custom_colors',
 			];
 
 		let defaultValues = {};

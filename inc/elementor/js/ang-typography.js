@@ -43,6 +43,11 @@ jQuery( document ).ready( function() {
 					title: elementor.translate( 'Edit Style Kit Colors' ),
 					callback: analog.openGlobalColors,
 				},
+				{
+					name: 'global_fonts',
+					title: elementor.translate( 'Edit Style Kit Fonts' ),
+					callback: analog.openGlobalFonts,
+				},
 			],
 		};
 
