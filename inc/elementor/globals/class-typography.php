@@ -63,7 +63,16 @@ class Typography extends Base {
 				$fonts = array();
 			}
 
-			$items = array_merge( $items, $fonts );
+			$filtered_fonts = array();
+
+			// Filter for empty font presets.
+			foreach ( $fonts as $font ) {
+				if ( ( isset( $font ) && isset( $font['typography_typography'] ) ) && 'custom' === $font['typography_typography'] ) {
+					$filtered_fonts[] = $font;
+				}
+			}
+
+			$items = array_merge( $items, $filtered_fonts );
 		}
 
 		foreach ( $items as $index => &$item ) {
