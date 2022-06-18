@@ -152,6 +152,18 @@ jQuery( window ).on( 'elementor/init', function() {
 		}
 	};
 
+	analog.openGlobalColors = () => {
+		if ( `panel/global-colors` in $e.routes.components ) {
+			setTimeout(function() {
+				$e.run( 'panel/global/open' ).then(
+					() => setTimeout( () => $e.route( 'panel/global/global-colors' ) )
+				);
+			});
+		} else {
+			$e.run( 'panel/global/open' );
+		}
+	};
+
 	/**
 	 * Escape charcters in during Regexp.
 	 *
@@ -526,6 +538,84 @@ jQuery( window ).on( 'elementor/init', function() {
 		jQuery( window ).resize();
 	}
 
+	analog.resetGlobalColors = () => {
+		const ang_global_colors = [
+				'ang_global_background_colors',
+				'ang_global_accent_colors',
+				'ang_global_text_colors',
+				'ang_global_extra_colors',
+			];
+
+		let defaultValues = {};
+
+		// Get defaults for each setting
+		ang_global_colors.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[elementor.config.kit_id].container.controls[setting].default );
+
+		// Reset the selected settings to their default values
+		$e.run( 'document/elements/settings', {
+			container: elementor.documents.documents[elementor.config.kit_id].container,
+			settings: defaultValues,
+			options: {
+				external: true,
+			},
+		} );
+
+		// Reset value render hack.
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => $e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/global-colors' ) ) ));
+	};
+
+	analog.handleGlobalColorsReset = () => {
+		elementorCommon.dialogsManager.createWidget( 'confirm', {
+			message: ANG_Action.translate.resetGlobalColorsMessage,
+			headerMessage: ANG_Action.translate.resetHeader,
+			strings: {
+				confirm: elementor.translate( 'yes' ),
+				cancel: elementor.translate( 'cancel' ),
+			},
+			defaultOption: 'cancel',
+			onConfirm: analog.resetGlobalColors,
+		} ).show();
+	};
+
+	analog.resetContainerPadding = () => {
+		const ang_container_padding = [
+			'ang_container_padding',
+			'ang_custom_container_padding',
+		];
+
+		let defaultValues = {};
+
+		// Get defaults for each setting
+		ang_container_padding.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[elementor.config.kit_id].container.controls[setting].default );
+
+		// Reset the selected settings to their default values
+		$e.run( 'document/elements/settings', {
+			container: elementor.documents.documents[elementor.config.kit_id].container,
+			settings: defaultValues,
+			options: {
+				external: true,
+			},
+		} );
+
+		// Reset value render hack.
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => $e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/theme-style-kits' ) ) ));
+	};
+
+	analog.handleContainerPaddingReset = () => {
+		elementorCommon.dialogsManager.createWidget( 'confirm', {
+			message: ANG_Action.translate.resetContainerPaddingMessage,
+			headerMessage: ANG_Action.translate.resetHeader,
+			strings: {
+				confirm: elementor.translate( 'yes' ),
+				cancel: elementor.translate( 'cancel' ),
+			},
+			defaultOption: 'cancel',
+			onConfirm: analog.resetContainerPadding,
+		} ).show();
+	};
+
+	elementor.channels.editor.on( 'analog:resetContainerPadding', analog.handleContainerPaddingReset );
+	elementor.channels.editor.on( 'analog:resetGlobalColors', analog.handleGlobalColorsReset );
 	elementor.channels.editor.on( 'analog:resetKit', analog.handleCSSReset );
 	elementor.channels.editor.on( 'analog:saveKit', analog.handleSaveToken );
 	elementor.channels.editor.on( 'analog:exportCSS', analog.handleCSSExport );

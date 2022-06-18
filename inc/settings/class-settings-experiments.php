@@ -71,6 +71,14 @@ class Experiments extends Settings_Page {
 					'options' => $options,
 				),
 				array(
+					'title'   => __( 'Global Colors', 'ang' ),
+					'desc'    => __( 'Enable this experiment to try the new Style Kit Global colors', 'ang' ),
+					'id'      => 'global_colors_experiment',
+					'default' => 'inactive',
+					'type'    => 'select',
+					'options' => $options,
+				),
+				array(
 					'type' => 'sectionend',
 					'id'   => 'ang_beta',
 				),
