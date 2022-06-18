@@ -63,17 +63,25 @@ class Experiments extends Settings_Page {
 					'options' => $options,
 				),
 				array(
-					'title'   => __( 'Container Background class presets ', 'ang' ),
-					'desc'    => __( 'Apply sk-background classes to containers, using a dropdown. You need to have the Containers experiment activated in Elementor, to test this feature.', 'ang' ),
-					'id'      => 'container_bg_classes_experiment',
+					'title'   => __( 'Style Kit Color palette', 'ang' ),
+					'desc'    => sprintf(
+					/* translators: %s: Style Kits Colors experiment documentation link */
+						__( 'Activate this experiment to try the new %s under Site Settings > Global colors.', 'ang' ),
+						'<a href="https://docs.analogwp.com/article/657-style-kit-color-pallete" target="_blank">' . __( 'Style Kit Color palette', 'ang' ) . '</a>'
+					),
+					'id'      => 'global_colors_experiment',
 					'default' => 'inactive',
 					'type'    => 'select',
 					'options' => $options,
 				),
 				array(
-					'title'   => __( 'Global Colors', 'ang' ),
-					'desc'    => __( 'Enable this experiment to try the new Style Kit Global colors', 'ang' ),
-					'id'      => 'global_colors_experiment',
+					'title'   => __( 'Style Kit Fonts', 'ang' ),
+					'desc'    => sprintf(
+					/* translators: %s: Style Kits Fonts experiment documentation link */
+						__( 'Activate this experiment to try the new %s under Site Settings > Global fonts.', 'ang' ),
+						'<a href="https://docs.analogwp.com/article/658-style-kits-fonts" target="_blank">' . __( 'Style Kit Fonts', 'ang' ) . '</a>'
+					),
+					'id'      => 'global_fonts_experiment',
 					'default' => 'inactive',
 					'type'    => 'select',
 					'options' => $options,

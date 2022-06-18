@@ -97,13 +97,17 @@ class Typography extends Module {
 			add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
 		}
 
-		$container_bg_classes_experiment = Options::get_instance()->get( 'container_bg_classes_experiment' );
 
-		if ( 'active' === $container_bg_classes_experiment ) {
-			add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
-		}
+		add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
+
+		$global_fonts_experiment = Options::get_instance()->get( 'global_fonts_experiment' );
+
+		if ( 'active' === $global_fonts_experiment ) {
+			// New Style Kits Global Fonts.
+			add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_fonts' ), 10, 2 );
+		}
 	}
 
 	/**
@@ -1422,6 +1426,232 @@ class Typography extends Module {
 		);
 
 		$element->end_injection();
+	}
+
+	/**
+	 * Register Style Kits Global Font controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_global_fonts( Controls_Stack $element, $section_id ) {
+		$element->start_controls_section(
+			'ang_global_fonts_section',
+			array(
+				'label' => esc_html__( 'Style Kit Fonts', 'ang' ),
+				'tab'   => 'global-typography',
+			)
+		);
+
+		$element->add_control(
+			'ang_global_fonts_description',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="https://docs.analogwp.com/article/658-style-kits-fonts" target="_blank">%2$s</a>',
+					__( 'The Style Kit\'s typographic styles.', 'ang' ),
+					__( 'Read more', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'title',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'required'    => true,
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'typography',
+				'label'          => '',
+				'global'         => array(
+					'active' => false,
+				),
+				'fields_options' => array(
+					'font_family'     => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-font-family: "{{VALUE}}"',
+						),
+					),
+					'font_size'       => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-font-size: {{SIZE}}{{UNIT}}',
+						),
+					),
+					'font_weight'     => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-font-weight: {{VALUE}}',
+						),
+					),
+					'text_transform'  => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-text-transform: {{VALUE}}',
+						),
+					),
+					'font_style'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-font-style: {{VALUE}}',
+						),
+					),
+					'text_decoration' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-text-decoration: {{VALUE}}',
+						),
+					),
+					'line_height'     => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-line-height: {{SIZE}}{{UNIT}}',
+						),
+					),
+					'letter_spacing'  => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-letter-spacing: {{SIZE}}{{UNIT}}',
+						),
+					),
+					'word_spacing'  => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-word-spacing: {{SIZE}}{{UNIT}}',
+						),
+					),
+				),
+			)
+		);
+
+		$title_typography = array(
+			array(
+				'_id'   => 'sk_type_1',
+				'title' => esc_html__( 'Display title', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_2',
+				'title' => esc_html__( 'Title 1', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_3',
+				'title' => esc_html__( 'Title 2', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_4',
+				'title' => esc_html__( 'Title 3', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_5',
+				'title' => esc_html__( 'Title 4', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_6',
+				'title' => esc_html__( 'Title 5', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_7',
+				'title' => esc_html__( 'Title 6', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_8',
+				'title' => esc_html__( 'Title 7', 'ang' ),
+			),
+		);
+
+		$element->add_control(
+			'ang_global_title_fonts_heading',
+			array(
+				'type'  => Controls_Manager::HEADING,
+				'label' => esc_html__( 'Titles', 'ang' ),
+			)
+		);
+
+		$element->add_control(
+			'ang_global_title_fonts',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $title_typography,
+				'item_actions' => array(
+					'add'    => false,
+					'remove' => false,
+					'sort'   => false,
+				),
+				'separator'    => 'after',
+			)
+		);
+
+		$text_typography = array(
+			array(
+				'_id'   => 'sk_type_9',
+				'title' => esc_html__( 'Display Text', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_10',
+				'title' => esc_html__( 'Large Text', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_11',
+				'title' => esc_html__( 'Normal Text', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_12',
+				'title' => esc_html__( 'Small Text', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_13',
+				'title' => esc_html__( 'Caption', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_14',
+				'title' => esc_html__( 'Overline / Subheader', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_15',
+				'title' => esc_html__( 'Button Text', 'ang' ),
+			),
+			array(
+				'_id'   => 'sk_type_16',
+				'title' => esc_html__( 'Label', 'ang' ),
+			),
+		);
+
+		$element->add_control(
+			'ang_global_text_fonts_heading',
+			array(
+				'type'  => Controls_Manager::HEADING,
+				'label' => esc_html__( 'Text', 'ang' ),
+			)
+		);
+
+		$element->add_control(
+			'ang_global_text_fonts',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $text_typography,
+				'item_actions' => array(
+					'add'    => false,
+					'remove' => false,
+					'sort'   => false,
+				),
+				'separator'    => 'after',
+			)
+		);
+
+		$element->add_control(
+			'ang_global_reset_fonts',
+			array(
+				'label' => __( 'Reset labels & fonts', 'ang' ),
+				'type'  => 'button',
+				'text'  => __( 'Reset', 'ang' ),
+				'event' => 'analog:resetGlobalFonts',
+			)
+		);
+
+		$element->end_controls_section();
 	}
 }
 

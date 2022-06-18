@@ -12,6 +12,7 @@ class Controller extends Controller_Base {
 
 	public function register_endpoints() {
 		$this->register_endpoint( new Colors( $this ) );
+		$this->register_endpoint( new Typography( $this ) );
 	}
 
 	public function get_collection_params() {

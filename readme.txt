@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.0
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -105,6 +105,17 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.9.1 - June 18, 2022 =
+* Experiments: Added Style Kits Global Fonts experiment
+* Experiments: Added Style Kits Global Colors experiment
+* New: Add "Edit Style Kit Fonts" link to the context menu
+* New: Add "Edit Style Kit Colors" link to the context menu
+* New: Added Container Background Classes experiment to stable
+* Improvements: Rename Style Kit's last section to "Manage Style Kit"
+* Improvements: Compatibility with Elementor v3.6.6 & Elementor Pro v3.7.2
+* Improvements: Compatible up to WordPress v6.0
+* Fix: Fix Kit Settings section redirect not working
 
 = 1.9.0 - May 11, 2022 =
 * New: Added Experiments tab at Style Kits Settings
