@@ -209,6 +209,7 @@ jQuery( window ).on( 'elementor/init', function() {
 	 * @since 1.6.2
 	 *
 	 * @param {string} section Panel/Section ID.
+	 * @param {string} panel Panel ID for Theme Style window panels.
 	 * @returns void
 	 */
 	analog.redirectToPanel = ( section, panel = 'theme-style-kits' ) => {
