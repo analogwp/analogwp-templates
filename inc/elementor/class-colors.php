@@ -417,29 +417,21 @@ class Colors extends Module {
 			)
 		);
 
-		$element->add_control(
-			'ang_global_background_colors_heading',
-			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Backgrounds', 'ang' ),
-			)
-		);
-
 		// Background Colors.
 		$default_surface_colors = array(
 			array(
 				'_id'   => 'sk_color_1',
-				'title' => esc_html__( 'Site Background', 'ang' ),
+				'title' => esc_html__( 'Background 1', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_2',
-				'title' => esc_html__( 'Light Background', 'ang' ),
+				'title' => esc_html__( 'Background 2', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_3',
-				'title' => esc_html__( 'Dark Background', 'ang' ),
+				'title' => esc_html__( 'Background 3', 'ang' ),
 				'color' => '',
 			),
 			array(
@@ -465,24 +457,16 @@ class Colors extends Module {
 			)
 		);
 
-		$element->add_control(
-			'ang_global_accent_colors_heading',
-			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Accent', 'ang' ),
-			)
-		);
-
 		// Accents Colors.
 		$default_accent_colors = array(
 			array(
 				'_id'   => 'sk_color_5',
-				'title' => esc_html__( 'Primary Accent', 'ang' ),
+				'title' => esc_html__( 'Accent 1', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_6',
-				'title' => esc_html__( 'Secondary Accent', 'ang' ),
+				'title' => esc_html__( 'Accent 2', 'ang' ),
 				'color' => '',
 			),
 			array(
@@ -512,34 +496,27 @@ class Colors extends Module {
 			)
 		);
 
-		$element->add_control(
-			'ang_global_text_colors_heading',
-			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Typography', 'ang' ),
-			)
-		);
 
 		// Text Colors.
 		$default_type_colors = array(
 			array(
 				'_id'   => 'sk_color_9',
-				'title' => esc_html__( 'Titles', 'ang' ),
+				'title' => esc_html__( 'Text 1', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_10',
-				'title' => esc_html__( 'Body Text', 'ang' ),
+				'title' => esc_html__( 'Text 2', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_11',
-				'title' => esc_html__( 'Secondary Text', 'ang' ),
+				'title' => esc_html__( 'Text 3', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_12',
-				'title' => esc_html__( 'Inverted Text', 'ang' ),
+				'title' => esc_html__( 'Text 4', 'ang' ),
 				'color' => '',
 			),
 		);
@@ -556,14 +533,6 @@ class Colors extends Module {
 					'sort'   => false,
 				),
 				'separator'    => 'after',
-			)
-		);
-
-		$element->add_control(
-			'ang_global_extra_colors_heading',
-			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Other', 'ang' ),
 			)
 		);
 
