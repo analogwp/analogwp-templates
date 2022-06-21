@@ -1556,16 +1556,8 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'sk_type_8',
-				'title' => esc_html__( 'Title 7', 'ang' ),
+				'title' => esc_html__( 'Overline / Subheader', 'ang' ),
 			),
-		);
-
-		$element->add_control(
-			'ang_global_title_fonts_heading',
-			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Titles', 'ang' ),
-			)
 		);
 
 		$element->add_control(
@@ -1606,24 +1598,16 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'sk_type_14',
-				'title' => esc_html__( 'Overline / Subheader', 'ang' ),
-			),
-			array(
-				'_id'   => 'sk_type_15',
 				'title' => esc_html__( 'Button Text', 'ang' ),
 			),
 			array(
-				'_id'   => 'sk_type_16',
+				'_id'   => 'sk_type_15',
 				'title' => esc_html__( 'Label', 'ang' ),
 			),
-		);
-
-		$element->add_control(
-			'ang_global_text_fonts_heading',
 			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Text', 'ang' ),
-			)
+				'_id'   => 'sk_type_16',
+				'title' => esc_html__( 'Code', 'ang' ),
+			),
 		);
 
 		$element->add_control(
