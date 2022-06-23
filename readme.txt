@@ -112,9 +112,9 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Improvements: Show Style Kit colors & fonts links at Contextual popup with respect to active experiments
 * Improvements: Reset actions now directly take you to their respected sections
 * Improvements: Remove section titles & revise labels from Style Kit fonts
-* Improvements: Remove sction titls from Style Kit colors
+* Improvements: Remove section titles from Style Kit colors
 * Fix: Style Kit font presets reset button not working
-* Fix: Contextual links now directly take you their respected sections
+* Fix: Contextual links now directly take you to their respected sections
 
 = 1.9.1 - June 18, 2022 =
 * New: Add "Edit Style Kit Fonts" link to the context menu
