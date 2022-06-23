@@ -97,7 +97,6 @@ class Typography extends Module {
 			add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
 		}
 
-
 		add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
@@ -108,6 +107,8 @@ class Typography extends Module {
 			// New Style Kits Global Fonts.
 			add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_fonts' ), 10, 2 );
 		}
+
+		add_action( 'elementor/element/heading/section_title/after_section_end', array( $this, 'add_typo_helper_link' ), 999, 2 );
 	}
 
 	/**
@@ -1653,6 +1654,36 @@ class Typography extends Module {
 
 		$element->end_controls_section();
 	}
+
+	/**
+	 * Tweak Heading widget for typographic helper link
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function add_typo_helper_link( Element_Base $element ) {
+		$element->start_injection(
+			array(
+				'of' => 'size',
+				'at' => 'after',
+			)
+		);
+
+		$element->add_control(
+			'ang_typography_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_typography_sizes\' )',
+					__( 'Edit sizes in Style Kit.', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->end_injection();
+	}
+
 }
 
 new Typography();
