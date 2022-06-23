@@ -133,7 +133,7 @@ class ANG_Action extends Base_Data_Control {
 					'pageStyleDesc'                => __( 'Typography, column gaps and more, are controlled layout-wide at Page Styles Panel, giving you the flexibility you need over the design of this template. You can save the styles and apply them to any other page. <a href="#" target="_blank">Learn More.</a>', 'ang' ),
 					'cssVariables'                 => __( 'CSS Variables', 'ang' ),
 					'cssSelector'                  => __( 'Remove Page ID from the CSS', 'ang' ),
-					'resetGlobalColorsMessage'     => __( 'This will revert the color pallete and the color labels to their defaults. You can undo this action from the revisions tab.', 'ang' ),
+					'resetGlobalColorsMessage'     => __( 'This will revert the color palette and the color labels to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 					'resetGlobalFontsMessage'      => __( 'This will revert the global font labels & values to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 					'resetContainerPaddingMessage' => __( 'This will revert the container preset labels & values to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 				),
