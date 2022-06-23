@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.0
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -105,6 +105,15 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.9.2 - June 24, 2022 =
+* New: Added Kit sizes helper links at Heading & Button widgets
+* New: Added default values for Container spacing presets
+* Improvements: Show Style Kit colors & fonts links at Contextual popup with respect to active experiments
+* Improvements: Reset actions now directly take you to their respected sections
+* Improvements: Remove section titles & revise labels from Style Kit fonts
+* Improvements: Remove sction titls from Style Kit colors
+* Fix: Contextual links now directly take you their respected sections
 
 = 1.9.1 - June 18, 2022 =
 * New: Add "Edit Style Kit Fonts" link to the context menu
