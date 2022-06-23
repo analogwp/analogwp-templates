@@ -393,7 +393,7 @@ class Typography extends Module {
 		$padding_defaults = array(
 			array(
 				'_id'   => 'ang_container_padding_1',
-				'title' => __( 'Extra Large', 'ang' ),
+				'title' => __( 'XL', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_2',
@@ -401,11 +401,11 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'ang_container_padding_3',
-				'title' => __( 'Medium', 'ang' ),
+				'title' => __( 'Normal', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_4',
-				'title' => __( 'Normal', 'ang' ),
+				'title' => __( 'Medium', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_5',
