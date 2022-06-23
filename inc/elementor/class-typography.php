@@ -97,7 +97,6 @@ class Typography extends Module {
 			add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
 		}
 
-
 		add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
@@ -392,24 +391,104 @@ class Typography extends Module {
 
 		$padding_defaults = array(
 			array(
-				'_id'   => 'ang_container_padding_1',
-				'title' => __( 'Extra Large', 'ang' ),
+				'_id'            => 'ang_container_padding_1',
+				'title'          => __( 'XL', 'ang' ),
+				'padding'        => array(
+					'unit'     => 'px',
+					'top'      => '80',
+					'right'    => '24',
+					'bottom'   => '80',
+					'left'     => '24',
+					'isLinked' => false,
+				),
+				'padding_tablet' => array(
+					'unit'     => 'px',
+					'top'      => '72',
+					'right'    => '24',
+					'bottom'   => '72',
+					'left'     => '24',
+					'isLinked' => false,
+				),
+				'padding_mobile' => array(
+					'unit'     => 'px',
+					'top'      => '64',
+					'right'    => '24',
+					'bottom'   => '64',
+					'left'     => '24',
+					'isLinked' => false,
+				),
 			),
 			array(
-				'_id'   => 'ang_container_padding_2',
-				'title' => __( 'Large', 'ang' ),
+				'_id'            => 'ang_container_padding_2',
+				'title'          => __( 'Large', 'ang' ),
+				'padding'        => array(
+					'unit'     => 'px',
+					'top'      => '64',
+					'right'    => '24',
+					'bottom'   => '64',
+					'left'     => '24',
+					'isLinked' => false,
+				),
+				'padding_tablet' => array(
+					'unit'     => 'px',
+					'top'      => '56',
+					'right'    => '24',
+					'bottom'   => '56',
+					'left'     => '24',
+					'isLinked' => false,
+				),
+				'padding_mobile' => array(
+					'unit'     => 'px',
+					'top'      => '40',
+					'right'    => '24',
+					'bottom'   => '40',
+					'left'     => '24',
+					'isLinked' => false,
+				),
 			),
 			array(
-				'_id'   => 'ang_container_padding_3',
-				'title' => __( 'Medium', 'ang' ),
+				'_id'            => 'ang_container_padding_3',
+				'title'          => __( 'Normal', 'ang' ),
+				'padding'        => array(
+					'unit'     => 'px',
+					'top'      => '40',
+					'right'    => '40',
+					'bottom'   => '40',
+					'left'     => '40',
+					'isLinked' => true,
+				),
+				'padding_tablet' => array(
+					'unit'     => 'px',
+					'top'      => '32',
+					'right'    => '32',
+					'bottom'   => '32',
+					'left'     => '32',
+					'isLinked' => true,
+				),
 			),
 			array(
-				'_id'   => 'ang_container_padding_4',
-				'title' => __( 'Normal', 'ang' ),
+				'_id'     => 'ang_container_padding_4',
+				'title'   => __( 'Medium', 'ang' ),
+				'padding' => array(
+					'unit'     => 'px',
+					'top'      => '24',
+					'right'    => '24',
+					'bottom'   => '24',
+					'left'     => '24',
+					'isLinked' => true,
+				),
 			),
 			array(
-				'_id'   => 'ang_container_padding_5',
-				'title' => __( 'Small', 'ang' ),
+				'_id'     => 'ang_container_padding_5',
+				'title'   => __( 'Small', 'ang' ),
+				'padding' => array(
+					'unit'     => 'px',
+					'top'      => '16',
+					'right'    => '16',
+					'bottom'   => '16',
+					'left'     => '16',
+					'isLinked' => true,
+				),
 			),
 		);
 
@@ -1516,7 +1595,7 @@ class Typography extends Module {
 							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-letter-spacing: {{SIZE}}{{UNIT}}',
 						),
 					),
-					'word_spacing'  => array(
+					'word_spacing'    => array(
 						'selectors' => array(
 							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-word-spacing: {{SIZE}}{{UNIT}}',
 						),
