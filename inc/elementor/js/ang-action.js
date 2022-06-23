@@ -559,7 +559,7 @@ jQuery( window ).on( 'elementor/init', function() {
 		} );
 
 		// Reset value render hack.
-		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => $e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/global-colors' ) ) ));
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => analog.openGlobalColors() ));
 	};
 
 	analog.handleGlobalColorsReset = () => {
@@ -596,7 +596,7 @@ jQuery( window ).on( 'elementor/init', function() {
 		} );
 
 		// Reset value render hack.
-		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => $e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/theme-style-kits' ) ) ));
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => analog.redirectToPanel( 'ang_container_spacing' ) ));
 	};
 
 	analog.handleContainerPaddingReset = () => {
