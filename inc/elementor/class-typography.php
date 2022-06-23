@@ -97,7 +97,6 @@ class Typography extends Module {
 			add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
 		}
 
-
 		add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
@@ -392,9 +391,9 @@ class Typography extends Module {
 
 		$padding_defaults = array(
 			array(
-				'_id'   => 'ang_container_padding_1',
-				'title' => __( 'XL', 'ang' ),
-				'padding' => array(
+				'_id'            => 'ang_container_padding_1',
+				'title'          => __( 'XL', 'ang' ),
+				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '80',
 					'right'    => '24',
@@ -420,9 +419,9 @@ class Typography extends Module {
 				),
 			),
 			array(
-				'_id'   => 'ang_container_padding_2',
-				'title' => __( 'Large', 'ang' ),
-				'padding' => array(
+				'_id'            => 'ang_container_padding_2',
+				'title'          => __( 'Large', 'ang' ),
+				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '64',
 					'right'    => '24',
@@ -448,9 +447,9 @@ class Typography extends Module {
 				),
 			),
 			array(
-				'_id'   => 'ang_container_padding_3',
-				'title' => __( 'Normal', 'ang' ),
-				'padding' => array(
+				'_id'            => 'ang_container_padding_3',
+				'title'          => __( 'Normal', 'ang' ),
+				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '40',
 					'right'    => '40',
@@ -468,8 +467,8 @@ class Typography extends Module {
 				),
 			),
 			array(
-				'_id'   => 'ang_container_padding_4',
-				'title' => __( 'Medium', 'ang' ),
+				'_id'     => 'ang_container_padding_4',
+				'title'   => __( 'Medium', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '24',
@@ -480,8 +479,8 @@ class Typography extends Module {
 				),
 			),
 			array(
-				'_id'   => 'ang_container_padding_5',
-				'title' => __( 'Small', 'ang' ),
+				'_id'     => 'ang_container_padding_5',
+				'title'   => __( 'Small', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '16',
@@ -1596,7 +1595,7 @@ class Typography extends Module {
 							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-letter-spacing: {{SIZE}}{{UNIT}}',
 						),
 					),
-					'word_spacing'  => array(
+					'word_spacing'    => array(
 						'selectors' => array(
 							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-word-spacing: {{SIZE}}{{UNIT}}',
 						),
