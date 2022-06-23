@@ -568,7 +568,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_padding_reset',
 			array(
-				'label' => __( 'Reset presets to default', 'ang' ),
+				'label' => __( 'Reset labels and values to default', 'ang' ),
 				'type'  => 'button',
 				'text'  => __( 'Reset', 'ang' ),
 				'event' => 'analog:resetContainerPadding',
