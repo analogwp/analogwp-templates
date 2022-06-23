@@ -1318,6 +1318,18 @@ class Typography extends Module {
 			ANG_VERSION,
 			true
 		);
+
+		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
+		$global_fonts_experiment  = Options::get_instance()->get( 'global_fonts_experiment' );
+
+		wp_localize_script(
+			'ang_typography_script',
+			'ANG_Typo',
+			array(
+				'has_sk_colors' => 'active' === $global_colors_experiment ?? 0,
+				'has_sk_fonts'  => 'active' === $global_fonts_experiment ?? 0,
+			)
+		);
 	}
 
 	/**

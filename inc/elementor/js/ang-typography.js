@@ -23,32 +23,44 @@ jQuery( document ).ready( function() {
 	} );
 
 	function addPageStyleSettings( groups ) {
-		const PageStyles = {
-			name: 'ang_styles',
-			actions: [
-				{
-					name: 'page_styles',
-					title: ANG_Action.translate.pageStyles,
-					callback: function() {
-						analog.redirectToSection();
-					},
+		const actions = [
+			{
+				name: 'page_styles',
+				title: ANG_Action.translate.pageStyles,
+				callback: function() {
+					analog.redirectToSection();
 				},
-				{
-					name: 'theme_style',
-					title: elementor.translate( 'Theme Style' ),
-					callback: analog.openThemeStyles,
-				},
+			},
+			{
+				name: 'theme_style',
+				title: elementor.translate( 'Theme Style' ),
+				callback: analog.openThemeStyles,
+			},
+		];
+
+		if ( Boolean( parseInt( ANG_Typo.has_sk_colors ) ) ) {
+			actions.push(
 				{
 					name: 'global_colors',
 					title: elementor.translate( 'Edit Style Kit Colors' ),
 					callback: analog.openGlobalColors,
-				},
+				}
+			);
+		}
+
+		if ( Boolean( parseInt( ANG_Typo.has_sk_fonts ) ) ) {
+			actions.push(
 				{
 					name: 'global_fonts',
 					title: elementor.translate( 'Edit Style Kit Fonts' ),
 					callback: analog.openGlobalFonts,
-				},
-			],
+				}
+			);
+		}
+
+		const PageStyles = {
+			name: 'ang_styles',
+			actions: actions,
 		};
 
 		groups.splice( 3, 0, PageStyles );
