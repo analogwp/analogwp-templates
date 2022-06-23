@@ -38,7 +38,7 @@ jQuery( document ).ready( function() {
 			},
 		];
 
-		if ( parseInt( ANG_Typo.has_sk_colors ) ) {
+		if ( Boolean( parseInt( ANG_Typo.has_sk_colors ) ) ) {
 			actions.push(
 				{
 					name: 'global_colors',
@@ -48,7 +48,7 @@ jQuery( document ).ready( function() {
 			);
 		}
 
-		if ( parseInt( ANG_Typo.has_sk_fonts ) ) {
+		if ( Boolean( parseInt( ANG_Typo.has_sk_fonts ) ) ) {
 			actions.push(
 				{
 					name: 'global_fonts',
