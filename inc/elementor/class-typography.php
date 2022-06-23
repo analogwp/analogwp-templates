@@ -109,6 +109,7 @@ class Typography extends Module {
 		}
 
 		add_action( 'elementor/element/heading/section_title/after_section_end', array( $this, 'add_typo_helper_link' ), 999, 2 );
+		add_action( 'elementor/element/button/section_button/after_section_end', array( $this, 'add_btn_sizes_helper_link' ), 999, 2 );
 	}
 
 	/**
@@ -1517,7 +1518,7 @@ class Typography extends Module {
 							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-letter-spacing: {{SIZE}}{{UNIT}}',
 						),
 					),
-					'word_spacing'  => array(
+					'word_spacing'    => array(
 						'selectors' => array(
 							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-word-spacing: {{SIZE}}{{UNIT}}',
 						),
@@ -1684,6 +1685,34 @@ class Typography extends Module {
 		$element->end_injection();
 	}
 
+	/**
+	 * Tweak Button widget for Button sizes helper link
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function add_btn_sizes_helper_link( Element_Base $element ) {
+		$element->start_injection(
+			array(
+				'of' => 'size',
+				'at' => 'after',
+			)
+		);
+
+		$element->add_control(
+			'ang_btn_sizes_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_buttons\' )',
+					__( 'Edit sizes in Style Kit.', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->end_injection();
+	}
 }
 
 new Typography();
