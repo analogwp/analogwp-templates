@@ -541,7 +541,6 @@ jQuery( window ).on( 'elementor/init', function() {
 				'ang_global_accent_colors',
 				'ang_global_text_colors',
 				'ang_global_extra_colors',
-				'ang_global_custom_colors',
 			];
 
 		let defaultValues = {};
@@ -559,7 +558,7 @@ jQuery( window ).on( 'elementor/init', function() {
 		} );
 
 		// Reset value render hack.
-		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => $e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/global-colors' ) ) ));
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => analog.openGlobalColors() ));
 	};
 
 	analog.handleGlobalColorsReset = () => {
@@ -572,6 +571,43 @@ jQuery( window ).on( 'elementor/init', function() {
 			},
 			defaultOption: 'cancel',
 			onConfirm: analog.resetGlobalColors,
+		} ).show();
+	};
+
+	analog.resetGlobalFonts = () => {
+		const ang_global_fonts = [
+			'ang_global_title_fonts',
+			'ang_global_text_fonts',
+		];
+
+		let defaultValues = {};
+
+		// Get defaults for each setting
+		ang_global_fonts.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[elementor.config.kit_id].container.controls[setting].default );
+
+		// Reset the selected settings to their default values
+		$e.run( 'document/elements/settings', {
+			container: elementor.documents.documents[elementor.config.kit_id].container,
+			settings: defaultValues,
+			options: {
+				external: true,
+			},
+		} );
+
+		// Reset value render hack.
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => analog.openGlobalFonts() ));
+	};
+
+	analog.handleGlobalFontsReset = () => {
+		elementorCommon.dialogsManager.createWidget( 'confirm', {
+			message: ANG_Action.translate.resetGlobalFontsMessage,
+			headerMessage: ANG_Action.translate.resetHeader,
+			strings: {
+				confirm: elementor.translate( 'yes' ),
+				cancel: elementor.translate( 'cancel' ),
+			},
+			defaultOption: 'cancel',
+			onConfirm: analog.resetGlobalFonts,
 		} ).show();
 	};
 
@@ -596,7 +632,7 @@ jQuery( window ).on( 'elementor/init', function() {
 		} );
 
 		// Reset value render hack.
-		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => $e.run( 'panel/global/open' ).then( () => $e.route( 'panel/global/theme-style-kits' ) ) ));
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => analog.redirectToPanel( 'ang_container_spacing' ) ));
 	};
 
 	analog.handleContainerPaddingReset = () => {
@@ -614,6 +650,7 @@ jQuery( window ).on( 'elementor/init', function() {
 
 	elementor.channels.editor.on( 'analog:resetContainerPadding', analog.handleContainerPaddingReset );
 	elementor.channels.editor.on( 'analog:resetGlobalColors', analog.handleGlobalColorsReset );
+	elementor.channels.editor.on( 'analog:resetGlobalFonts', analog.handleGlobalFontsReset );
 	elementor.channels.editor.on( 'analog:resetKit', analog.handleCSSReset );
 	elementor.channels.editor.on( 'analog:saveKit', analog.handleSaveToken );
 	elementor.channels.editor.on( 'analog:exportCSS', analog.handleCSSExport );
