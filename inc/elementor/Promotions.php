@@ -37,6 +37,12 @@ final class Promotions extends Base {
 		if ( 'active' === $container_spacing_experiment ) {
 			add_action( 'analog_container_spacing_section_end', array( $this, 'add_container_custom_spacing_promo' ), 170, 2 );
 		}
+
+		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
+
+		if ( 'active' === $global_colors_experiment ) {
+			add_action( 'analog_global_colors_tab_end', array( $this, 'add_additional_tabs_promo' ), 170, 2 );
+		}
 	}
 
 	/**
@@ -190,6 +196,50 @@ final class Promotions extends Base {
 	}
 
 	/**
+	 * Get promotional teaser template (Updated).
+	 *
+	 * @since 1.9.3
+	 * @param array $texts Text arguments.
+	 *
+	 * @return false|string
+	 */
+	public function get_updated_teaser_template( $texts ) {
+		ob_start();
+		?>
+		<div class="elementor-nerd-box" style="padding: 0; display: flex; align-items: baseline; gap: 10px; text-align: left;">
+			<div style="align-self: center;">
+
+				<?php
+				if ( $texts['title'] ) :
+					?>
+					<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
+					<?php
+				endif;
+				foreach ( $texts['messages'] as $message ) {
+					?>
+					<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+					<?php
+				}
+
+				if ( $texts['link'] ) {
+					?>
+					<a
+							class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro"
+							href="<?php echo esc_url( Utils::get_pro_link( $texts['link'] ) ); ?>"
+							style="background-color:var(--ang-accent)"
+							target="_blank">
+						<?php esc_html_e( 'Learn More', 'ang' ); ?>
+					</a>
+				<?php } ?>
+			</div>
+			<img class="elementor-nerd-box-icon" style="width:45px;margin-right:0;" alt="Style Kits for Elementor" src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/analog.svg' ); ?>" />
+		</div>
+		<?php
+
+		return ob_get_clean();
+	}
+
+	/**
 	 * Modify original "Background Color Classes" controls.
 	 *
 	 * @hook analog_background_colors_tab_end
@@ -284,6 +334,61 @@ final class Promotions extends Base {
 				),
 			)
 		);
+	}
+
+
+	/**
+	 * Modify original "Style Kit Colors" tabs.
+	 *
+	 * @hook analog_global_colors_tab_end
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 * @param Repeater       $repeater Elementor repeater element.
+	 */
+	public function add_additional_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
+		$element->start_controls_tab(
+			'ang_tab_global_colors_secondary',
+			array( 'label' => __( '17-32', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_global_colors_secondary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your color system with more variables, plus many more features with Style Kist Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-global-colors' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+
+		$element->start_controls_tab(
+			'ang_tab_global_colors_tertiary',
+			array( 'label' => __( '33-64', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_global_colors_tertiary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your color system with more variables, plus many more features with Style Kist Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-global-colors' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
 	}
 }
 
