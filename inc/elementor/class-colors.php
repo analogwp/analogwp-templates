@@ -503,7 +503,6 @@ class Colors extends Module {
 			)
 		);
 
-
 		// Text Colors.
 		$default_type_colors = array(
 			array(
@@ -582,6 +581,12 @@ class Colors extends Module {
 			)
 		);
 
+		$element->end_controls_tab();
+
+		do_action( 'analog_global_colors_tab_end', $element, $repeater );
+
+		$element->end_controls_tabs();
+
 		$element->add_control(
 			'ang_global_reset_colors',
 			array(
@@ -591,12 +596,6 @@ class Colors extends Module {
 				'event' => 'analog:resetGlobalColors',
 			)
 		);
-
-		$element->end_controls_tab();
-
-		do_action( 'analog_global_colors_tab_end', $element, $repeater );
-
-		$element->end_controls_tabs();
 
 		$element->end_controls_section();
 	}
