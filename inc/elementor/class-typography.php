@@ -1550,6 +1550,13 @@ class Typography extends Module {
 			)
 		);
 
+		$element->start_controls_tabs( 'ang_global_fonts_section_tabs' );
+
+		$element->start_controls_tab(
+			'ang_tab_global_fonts_primary',
+			array( 'label' => __( '1-16', 'ang' ) )
+		);
+
 		$repeater = new Repeater();
 
 		$repeater->add_control(
@@ -1718,6 +1725,12 @@ class Typography extends Module {
 				'separator'    => 'after',
 			)
 		);
+
+		$element->end_controls_tab();
+
+		do_action( 'analog_global_fonts_tab_end', $element, $repeater );
+
+		$element->end_controls_tabs();
 
 		$element->add_control(
 			'ang_global_reset_fonts',
