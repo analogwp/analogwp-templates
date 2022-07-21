@@ -541,6 +541,10 @@ jQuery( window ).on( 'elementor/init', function() {
 				'ang_global_accent_colors',
 				'ang_global_text_colors',
 				'ang_global_extra_colors',
+				'ang_global_secondary_part_one_colors',
+				'ang_global_secondary_part_two_colors',
+				'ang_global_tertiary_part_one_colors',
+				'ang_global_tertiary_part_two_colors',
 			];
 
 		let defaultValues = {};
@@ -578,6 +582,10 @@ jQuery( window ).on( 'elementor/init', function() {
 		const ang_global_fonts = [
 			'ang_global_title_fonts',
 			'ang_global_text_fonts',
+			'ang_global_secondary_part_one_fonts',
+			'ang_global_secondary_part_two_fonts',
+			'ang_global_tertiary_part_one_fonts',
+			'ang_global_tertiary_part_two_fonts',
 		];
 
 		let defaultValues = {};
