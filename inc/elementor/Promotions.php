@@ -41,7 +41,13 @@ final class Promotions extends Base {
 		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
 
 		if ( 'active' === $global_colors_experiment ) {
-			add_action( 'analog_global_colors_tab_end', array( $this, 'add_additional_tabs_promo' ), 170, 2 );
+			add_action( 'analog_global_colors_tab_end', array( $this, 'add_additional_color_tabs_promo' ), 170, 2 );
+		}
+
+		$global_fonts_experiment = Options::get_instance()->get( 'global_fonts_experiment' );
+
+		if ( 'active' === $global_fonts_experiment ) {
+			add_action( 'analog_global_fonts_tab_end', array( $this, 'add_additional_font_tabs_promo' ), 170, 2 );
 		}
 	}
 
@@ -336,7 +342,6 @@ final class Promotions extends Base {
 		);
 	}
 
-
 	/**
 	 * Modify original "Style Kit Colors" tabs.
 	 *
@@ -345,7 +350,7 @@ final class Promotions extends Base {
 	 * @param Controls_Stack $element Elementor element.
 	 * @param Repeater       $repeater Elementor repeater element.
 	 */
-	public function add_additional_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
+	public function add_additional_color_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
 		$element->start_controls_tab(
 			'ang_tab_global_colors_secondary',
 			array( 'label' => __( '17-32', 'ang' ) )
@@ -358,7 +363,7 @@ final class Promotions extends Base {
 				'raw'  => $this->get_updated_teaser_template(
 					array(
 						'messages' => array(
-							__( 'Extend your color system with more variables, plus many more features with Style Kist Pro.', 'ang' ),
+							__( 'Extend your color system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-global-colors' ),
 					)
@@ -380,9 +385,63 @@ final class Promotions extends Base {
 				'raw'  => $this->get_updated_teaser_template(
 					array(
 						'messages' => array(
-							__( 'Extend your color system with more variables, plus many more features with Style Kist Pro.', 'ang' ),
+							__( 'Extend your color system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-global-colors' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+	}
+
+	/**
+	 * Modify original "Style Kit Fonts" tabs.
+	 *
+	 * @hook analog_global_fonts_tab_end
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 * @param Repeater       $repeater Elementor repeater element.
+	 */
+	public function add_additional_font_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
+		$element->start_controls_tab(
+			'ang_tab_global_fonts_secondary',
+			array( 'label' => __( '17-32', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_global_fonts_secondary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your typography system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-global-fonts' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+
+		$element->start_controls_tab(
+			'ang_tab_global_fonts_tertiary',
+			array( 'label' => __( '33-64', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_global_fonts_tertiary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your typography system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-global-fonts' ),
 					)
 				),
 			)
