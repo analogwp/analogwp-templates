@@ -390,6 +390,13 @@ class Colors extends Module {
 			)
 		);
 
+		$element->start_controls_tabs( 'ang_global_colors_section_tabs' );
+
+		$element->start_controls_tab(
+			'ang_tab_global_colors_primary',
+			array( 'label' => __( '1-16', 'ang' ) )
+		);
+
 		$repeater = new Repeater();
 
 		$repeater->add_control(
@@ -584,6 +591,12 @@ class Colors extends Module {
 				'event' => 'analog:resetGlobalColors',
 			)
 		);
+
+		$element->end_controls_tab();
+
+		do_action( 'analog_global_colors_tab_end', $element, $repeater );
+
+		$element->end_controls_tabs();
 
 		$element->end_controls_section();
 	}
