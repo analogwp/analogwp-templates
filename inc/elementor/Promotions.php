@@ -375,7 +375,7 @@ final class Promotions extends Base {
 
 		$element->start_controls_tab(
 			'ang_tab_global_colors_tertiary',
-			array( 'label' => __( '33-64', 'ang' ) )
+			array( 'label' => __( '33-48', 'ang' ) )
 		);
 
 		$element->add_control(
@@ -429,7 +429,7 @@ final class Promotions extends Base {
 
 		$element->start_controls_tab(
 			'ang_tab_global_fonts_tertiary',
-			array( 'label' => __( '33-64', 'ang' ) )
+			array( 'label' => __( '33-48', 'ang' ) )
 		);
 
 		$element->add_control(
