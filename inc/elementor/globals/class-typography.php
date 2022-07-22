@@ -91,7 +91,7 @@ class Typography extends Base {
 			$id = $item['_id'];
 
 			$result[ $id ] = array(
-				'title' => $item['title'],
+				'title' => $item['title'] ?? '',
 				'id'    => $id,
 			);
 
