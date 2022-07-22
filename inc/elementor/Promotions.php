@@ -368,6 +368,7 @@ final class Promotions extends Base {
 						'link'     => array( 'utm_source' => 'ang-global-colors' ),
 					)
 				),
+				'separator'    => 'before',
 			)
 		);
 
@@ -381,8 +382,8 @@ final class Promotions extends Base {
 		$element->add_control(
 			'ang_global_colors_tertiary_tab_promo',
 			array(
-				'type' => Controls_Manager::RAW_HTML,
-				'raw'  => $this->get_updated_teaser_template(
+				'type'      => Controls_Manager::RAW_HTML,
+				'raw'       => $this->get_updated_teaser_template(
 					array(
 						'messages' => array(
 							__( 'Extend your color system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
@@ -390,6 +391,7 @@ final class Promotions extends Base {
 						'link'     => array( 'utm_source' => 'ang-global-colors' ),
 					)
 				),
+				'separator' => 'before',
 			)
 		);
 

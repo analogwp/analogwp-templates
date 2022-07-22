@@ -1550,7 +1550,12 @@ class Typography extends Module {
 			)
 		);
 
-		$element->start_controls_tabs( 'ang_global_fonts_section_tabs' );
+		$element->start_controls_tabs(
+			'ang_global_fonts_section_tabs',
+			array(
+				'separator' => 'before',
+			)
+		);
 
 		$element->start_controls_tab(
 			'ang_tab_global_fonts_primary',
@@ -1672,7 +1677,6 @@ class Typography extends Module {
 					'remove' => false,
 					'sort'   => false,
 				),
-				'separator'    => 'after',
 			)
 		);
 
@@ -1722,7 +1726,7 @@ class Typography extends Module {
 					'remove' => false,
 					'sort'   => false,
 				),
-				'separator'    => 'after',
+				'separator'    => 'before',
 			)
 		);
 
