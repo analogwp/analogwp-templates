@@ -622,13 +622,22 @@ jQuery( window ).on( 'elementor/init', function() {
 	analog.resetContainerPadding = () => {
 		const ang_container_padding = [
 			'ang_container_padding',
+			'ang_container_padding_part_two',
+			'ang_container_padding_secondary',
+			'ang_container_padding_tertiary',
 			'ang_custom_container_padding',
 		];
 
 		let defaultValues = {};
 
 		// Get defaults for each setting
-		ang_container_padding.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[elementor.config.kit_id].container.controls[setting].default );
+		ang_container_padding.forEach( ( setting ) => {
+			const options = elementor.documents.documents[elementor.config.kit_id].container.controls[setting];
+			if ( undefined === options || null === options ) {
+				return;
+			}
+			defaultValues[ setting ] = options.default;
+		} );
 
 		// Reset the selected settings to their default values
 		$e.run( 'document/elements/settings', {
