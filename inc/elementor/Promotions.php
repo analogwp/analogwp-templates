@@ -35,7 +35,7 @@ final class Promotions extends Base {
 		$container_spacing_experiment = Options::get_instance()->get( 'container_spacing_experiment' );
 
 		if ( 'active' === $container_spacing_experiment ) {
-			add_action( 'analog_container_spacing_section_end', array( $this, 'add_container_custom_spacing_promo' ), 170, 2 );
+			add_action( 'analog_container_spacing_tabs_end', array( $this, 'add_additional_container_spacing_tabs_promo' ), 170, 2 );
 		}
 
 		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
@@ -317,29 +317,57 @@ final class Promotions extends Base {
 	}
 
 	/**
-	 * Modify original "Container Spacing" controls.
+	 * Modify original "Container Spacing" tabs.
 	 *
-	 * @hook analog_container_spacing_section_end
+	 * @hook analog_container_spacing_tabs_end
 	 *
 	 * @param Controls_Stack $element Elementor element.
 	 * @param Repeater       $repeater Elementor repeater element.
 	 */
-	public function add_container_custom_spacing_promo( Controls_Stack $element, Repeater $repeater ) {
+	public function add_additional_container_spacing_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
+		$element->start_controls_tab(
+			'ang_tab_container_spacing_secondary',
+			array( 'label' => __( '9-16', 'ang' ) )
+		);
+
 		$element->add_control(
-			'ang_promo_container_spacing_custom_presets',
+			'ang_container_spacing_secondary_tab_promo',
 			array(
 				'type' => Controls_Manager::RAW_HTML,
-				'raw'  => $this->get_control_teaser_template(
+				'raw'  => $this->get_updated_teaser_template(
 					array(
-						'title'    => __( 'Custom Presets', 'ang' ),
 						'messages' => array(
-							__( 'Add more spacing presets with Style Kits Pro.', 'ang' ),
+							__( 'Extend your container spacing system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
 						),
-						'link'     => array( 'utm_source' => 'custom-container-spacing' ),
+						'link'     => array( 'utm_source' => 'ang-container-spacing' ),
 					)
 				),
 			)
 		);
+
+		$element->end_controls_tab();
+
+		$element->start_controls_tab(
+			'ang_tab_container_spacing_tertiary',
+			array( 'label' => __( '17-24', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_container_spacing_tertiary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your container spacing system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-container-spacing' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
 	}
 
 	/**
