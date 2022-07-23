@@ -392,6 +392,28 @@ class Typography extends Module {
 			)
 		);
 
+		$element->add_control(
+			'ang_container_padding_description',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">%2$s</a>',
+					__( 'Save padding presets for containers.', 'ang' ),
+					__( 'Read more', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->start_controls_tabs( 'ang_container_spacing_tabs' );
+
+		$element->start_controls_tab(
+			'ang_tab_container_spacing_primary',
+			array(
+				'label' => __( '1-8', 'ang' ),
+			)
+		);
+
 		$padding_defaults = array(
 			array(
 				'_id'            => 'ang_container_padding_1',
@@ -495,27 +517,6 @@ class Typography extends Module {
 			),
 		);
 
-		$element->add_control(
-			'ang_container_padding_description',
-			array(
-				'raw'             => sprintf(
-					'%1$s <a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">%2$s</a>',
-					__( 'Save padding presets for containers.', 'ang' ),
-					__( 'Read more', 'ang' ),
-				),
-				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-descriptor',
-			)
-		);
-
-		$element->add_control(
-			'ang_container_padding_heading',
-			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'System Presets', 'ang' ),
-			)
-		);
-
 		$repeater = new Repeater();
 
 		$repeater->add_control(
@@ -562,6 +563,43 @@ class Typography extends Module {
 				'separator'    => 'after',
 			)
 		);
+
+		$padding_defaults_part_two = array(
+			array(
+				'_id'   => 'ang_container_padding_6',
+				'title' => __( 'style 6', 'ang' ),
+			),
+			array(
+				'_id'   => 'ang_container_padding_7',
+				'title' => __( 'style 7', 'ang' ),
+			),
+			array(
+				'_id'   => 'ang_container_padding_8',
+				'title' => __( 'style 8', 'ang' ),
+			),
+		);
+
+		$element->add_control(
+			'ang_container_padding_part_two',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $padding_defaults_part_two,
+				'item_actions' => array(
+					'add'       => false,
+					'remove'    => false,
+					'sort'      => false,
+					'duplicate' => false,
+				),
+				'separator'    => 'after',
+			)
+		);
+
+		$element->end_controls_tab();
+
+		do_action( 'analog_container_spacing_tabs_end', $element, $repeater );
+
+		$element->end_controls_tabs();
 
 		do_action( 'analog_container_spacing_section_end', $element, $repeater );
 
