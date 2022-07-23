@@ -1212,20 +1212,32 @@ class Typography extends Module {
 		$kit = Utils::get_document_kit( get_the_ID() );
 
 		if ( $kit ) {
+			$controls = array(
+				'ang_container_padding',
+				'ang_container_padding_part_two',
+				'ang_container_padding_secondary',
+				'ang_container_padding_tertiary',
+				'ang_custom_container_padding',
+			);
+
 			// Use raw settings that doesn't have default values.
 			$kit_raw_settings = $kit->get_data( 'settings' );
 
-			// Get SK Container padding preset labels.
-			if ( isset( $kit_raw_settings['ang_container_padding'] ) ) {
-				$padding_items = $kit_raw_settings['ang_container_padding'];
-			} else {
-				// Get default items, but without empty defaults.
-				$control       = $kit->get_controls( 'ang_container_padding' );
-				$padding_items = $control['default'];
-			}
+			foreach ( $controls as $control ) {
+				// Get SK Container padding preset labels.
+				if ( isset( $kit_raw_settings[ $control ] ) ) {
+					$padding_items = $kit_raw_settings[ $control ];
+				} else {
+					// Get default items, but without empty defaults.
+					$control       = $kit->get_controls( $control );
+					$padding_items = $control['default'];
+				}
 
-			foreach ( $padding_items as $padding ) {
-				$options[ $padding['_id'] ] = $padding['title'];
+				foreach ( $padding_items as $padding ) {
+					if ( isset( $padding['padding'] ) || isset( $padding['padding_tablet'] ) || isset( $padding['padding_mobile'] ) ) {
+						$options[ $padding['_id'] ] = $padding['title'];
+					}
+				}
 			}
 		}
 
