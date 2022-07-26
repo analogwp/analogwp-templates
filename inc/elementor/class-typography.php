@@ -515,6 +515,18 @@ class Typography extends Module {
 					'isLinked' => true,
 				),
 			),
+			array(
+				'_id'   => 'ang_container_padding_6',
+				'title' => __( 'style 6', 'ang' ),
+			),
+			array(
+				'_id'   => 'ang_container_padding_7',
+				'title' => __( 'style 7', 'ang' ),
+			),
+			array(
+				'_id'   => 'ang_container_padding_8',
+				'title' => __( 'style 8', 'ang' ),
+			),
 		);
 
 		$repeater = new Repeater();
@@ -554,37 +566,6 @@ class Typography extends Module {
 				'type'         => Global_Style_Repeater::CONTROL_TYPE,
 				'fields'       => $repeater->get_controls(),
 				'default'      => $padding_defaults,
-				'item_actions' => array(
-					'add'       => false,
-					'remove'    => false,
-					'sort'      => false,
-					'duplicate' => false,
-				),
-				'separator'    => 'after',
-			)
-		);
-
-		$padding_defaults_part_two = array(
-			array(
-				'_id'   => 'ang_container_padding_6',
-				'title' => __( 'style 6', 'ang' ),
-			),
-			array(
-				'_id'   => 'ang_container_padding_7',
-				'title' => __( 'style 7', 'ang' ),
-			),
-			array(
-				'_id'   => 'ang_container_padding_8',
-				'title' => __( 'style 8', 'ang' ),
-			),
-		);
-
-		$element->add_control(
-			'ang_container_padding_part_two',
-			array(
-				'type'         => Global_Style_Repeater::CONTROL_TYPE,
-				'fields'       => $repeater->get_controls(),
-				'default'      => $padding_defaults_part_two,
 				'item_actions' => array(
 					'add'       => false,
 					'remove'    => false,

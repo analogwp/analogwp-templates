@@ -334,7 +334,6 @@
  */
 
 .elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields,
-.elementor-control.elementor-control-ang_container_padding_part_two.elementor-control-type-global-style-repeater .elementor-repeater-fields,
 .elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-fields,
 .elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-fields,
 .elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields {
@@ -343,7 +342,6 @@
 }
 
 .elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled,
-.elementor-control.elementor-control-ang_container_padding_part_two.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled,
 .elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled,
 .elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled,
 .elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled {
@@ -358,7 +356,6 @@
 }
 
 .elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-row-controls,
-.elementor-control.elementor-control-ang_container_padding_part_two.elementor-control-type-global-style-repeater .elementor-repeater-row-controls,
 .elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-row-controls,
 .elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-row-controls,
 .elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-row-controls {
@@ -368,7 +365,6 @@
 }
 
 .elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers,
-.elementor-control.elementor-control-ang_container_padding_part_two.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers,
 .elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers,
 .elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers,
 .elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers {
@@ -383,7 +379,6 @@
 }
 
 .elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices,
-.elementor-control.elementor-control-ang_container_padding_part_two.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices,
 .elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices,
 .elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices,
 .elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices {
