@@ -1230,12 +1230,14 @@ class Typography extends Module {
 				} else {
 					// Get default items, but without empty defaults.
 					$control       = $kit->get_controls( $control );
-					$padding_items = $control['default'];
+					$padding_items = $control['default'] ?? array();
 				}
 
-				foreach ( $padding_items as $padding ) {
-					if ( isset( $padding['padding'] ) || isset( $padding['padding_tablet'] ) || isset( $padding['padding_mobile'] ) ) {
-						$options[ $padding['_id'] ] = $padding['title'];
+				if ( ! empty( $padding_items ) ) {
+					foreach ( $padding_items as $padding ) {
+						if ( isset( $padding['padding'] ) || isset( $padding['padding_tablet'] ) || isset( $padding['padding_mobile'] ) ) {
+							$options[ $padding['_id'] ] = $padding['title'];
+						}
 					}
 				}
 			}
