@@ -572,7 +572,6 @@ class Typography extends Module {
 					'sort'      => false,
 					'duplicate' => false,
 				),
-				'separator'    => 'after',
 			)
 		);
 
