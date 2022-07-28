@@ -656,9 +656,48 @@ jQuery( window ).on( 'elementor/init', function() {
 		} ).show();
 	};
 
+	analog.resetBoxShadows = () => {
+		const ang_box_shadows = [
+			'ang_box_shadows',
+			'ang_box_shadows_secondary',
+			'ang_box_shadows_tertiary'
+		];
+
+		const defaultValues = {};
+
+		// Get defaults for each setting
+		ang_box_shadows.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[ elementor.config.kit_id ].container.controls[ setting ].default );
+
+		// Reset the selected settings to their default values
+		$e.run( 'document/elements/settings', {
+			container: elementor.documents.documents[ elementor.config.kit_id ].container,
+			settings: defaultValues,
+			options: {
+				external: true,
+			},
+		} );
+
+		// Reset value render hack.
+		$e.run( 'document/save/update' ).then( () => $e.run( 'panel/global/close' ).then( () => analog.redirectToPanel( 'ang_shadows' ) ) );
+	};
+
+	analog.handleResetBoxShadows = () => {
+		elementorCommon.dialogsManager.createWidget( 'confirm', {
+			message: ANG_Action.translate.resetShadowsDesc,
+			headerMessage: ANG_Action.translate.resetHeader,
+			strings: {
+				confirm: elementor.translate( 'yes' ),
+				cancel: elementor.translate( 'cancel' ),
+			},
+			defaultOption: 'cancel',
+			onConfirm: analog.resetBoxShadows,
+		} ).show();
+	};
+
 	elementor.channels.editor.on( 'analog:resetContainerPadding', analog.handleContainerPaddingReset );
 	elementor.channels.editor.on( 'analog:resetGlobalColors', analog.handleGlobalColorsReset );
 	elementor.channels.editor.on( 'analog:resetGlobalFonts', analog.handleGlobalFontsReset );
+	elementor.channels.editor.on( 'analog:resetBoxShadows', analog.handleResetBoxShadows );
 	elementor.channels.editor.on( 'analog:resetKit', analog.handleCSSReset );
 	elementor.channels.editor.on( 'analog:saveKit', analog.handleSaveToken );
 	elementor.channels.editor.on( 'analog:exportCSS', analog.handleCSSExport );
