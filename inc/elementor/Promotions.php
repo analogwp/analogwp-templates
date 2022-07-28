@@ -486,7 +486,7 @@ final class Promotions extends Base {
 
 		$element->start_controls_tab(
 			'ang_tab_box_shadows_tertiary',
-			array( 'label' => __( '17-32', 'ang' ) )
+			array( 'label' => __( '17-24', 'ang' ) )
 		);
 
 		$element->add_control(
