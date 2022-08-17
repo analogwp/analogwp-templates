@@ -1248,7 +1248,6 @@ class Typography extends Module {
 				),
 				'prefix_class'  => 'sk-',
 				'condition'     => array(
-					'container_type'        => 'flex',
 					'background_background' => array( 'classic' ),
 				),
 			)
