@@ -393,19 +393,52 @@ class Typography extends Module {
 		);
 
 		$element->add_control(
-			'ang_container_padding_description',
+			'ang_container_default_padding_hint',
 			array(
 				'raw'             => sprintf(
-					'%1$s <a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">%2$s</a>',
-					__( 'Save padding presets for containers.', 'ang' ),
-					__( 'Read more', 'ang' ),
+					'%1$s <a href="#" onClick="%2$s">%3$s</a>',
+					__( 'The default container padding is set in Elementor Theme Styles > Layout Settings > ', 'ang' ),
+					"analog.redirectToSection( 'settings-layout', 'section_settings-layout', 'global' )",
+					__( 'Container padding', 'ang' ),
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
-		$element->start_controls_tabs( 'ang_container_spacing_tabs' );
+		$element->add_control(
+			'ang_container_padding_description',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">%2$s</a>',
+					__( 'Create additional spacing presets.', 'ang' ),
+					__( 'Read more', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+				'separator'       => 'before',
+			)
+		);
+
+		// Hack for adding no padding styles at container presets.
+		$element->add_control(
+			'ang_container_no_padding_hidden',
+			array(
+				'label'     => __( 'No Padding Styles', 'ang' ),
+				'type'      => Controls_Manager::HIDDEN,
+				'default'   => 'no',
+				'selectors' => array(
+					'{{WRAPPER}} .elementor-repeater-item-ang_container_no_padding.elementor-element' => '--padding-top: 0px; --padding-right: 0px; --padding-bottom: 0px; --padding-left: 0px;',
+				),
+			)
+		);
+
+		$element->start_controls_tabs(
+			'ang_container_spacing_tabs',
+			array(
+			'separator'       => 'before',
+			)
+		);
 
 		$element->start_controls_tab(
 			'ang_tab_container_spacing_primary',
@@ -1183,7 +1216,8 @@ class Typography extends Module {
 
 		// Register default options array.
 		$options = array(
-			'none' => __( 'None', 'ang' ),
+			'none'                     => __( 'Default', 'ang' ),
+			'ang_container_no_padding' => __( 'No Padding', 'ang' ),
 		);
 
 		/**
