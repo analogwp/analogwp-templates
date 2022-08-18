@@ -196,9 +196,9 @@ jQuery( window ).on( 'elementor/init', function() {
 		return ! ( key.startsWith( 'ang_action' ) || key.startsWith( 'post' ) || key.startsWith( 'preview' ) );
 	};
 
-	analog.redirectToSection = function redirectToSection( tab = 'settings', section = 'ang_style_settings', page = 'page_settings' ) {
-		$e.route( `panel/page-settings/${ tab }` );
-		elementor.getPanelView().getCurrentPageView().activateSection('ang_style_settings')._renderChildren();
+	analog.redirectToSection = function redirectToSection( tab = 'settings', section = 'ang_style_settings', page = 'page-settings' ) {
+		$e.route( `panel/${ page }/${ tab }` );
+		elementor.getPanelView().getCurrentPageView().content.currentView.activateSection(section).render();
 
 		return false;
 	};
