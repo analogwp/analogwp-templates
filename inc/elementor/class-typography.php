@@ -93,6 +93,7 @@ class Typography extends Module {
 		$container_spacing_experiment = Options::get_instance()->get( 'container_spacing_experiment' );
 
 		if ( 'active' === $container_spacing_experiment ) {
+			add_action( 'elementor/element/kit/section_settings-layout/before_section_end', array( $this, 'show_analog_container_spacing_hint' ), 10, 2 );
 			add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_container_spacing' ), 50, 2 );
 			add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
 		}
@@ -627,6 +628,46 @@ class Typography extends Module {
 		);
 
 		$element->end_controls_section();
+	}
+
+	/**
+	 * Show hint for Style Kit Container spacing presets.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function show_analog_container_spacing_hint( Controls_Stack $element, $section_id ) {
+		$element->start_injection(
+			array(
+				'of' => 'container_padding',
+				'at' => 'after',
+			)
+		);
+
+		$element->add_control(
+			'analog_container_padding_hint',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="#" onClick="%2$s">%3$s</a>',
+					__( 'Create additional spacing presets in ', 'ang' ),
+					"analog.redirectToSection( 'theme-style-kits', 'ang_container_spacing', 'global' )",
+					__( 'Style Kits', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+				'separator'       => 'before',
+			)
+		);
+
+		$element->add_control(
+			'analog_container_padding_hint_separator',
+			array(
+				'type'  => Controls_Manager::DIVIDER,
+				'style' => 'thick',
+			)
+		);
+
+		$element->end_injection();
 	}
 
 	/**
