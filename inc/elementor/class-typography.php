@@ -1269,7 +1269,6 @@ class Typography extends Module {
 		if ( $kit ) {
 			$controls = array(
 				'ang_container_padding',
-				'ang_container_padding_part_two',
 				'ang_container_padding_secondary',
 				'ang_container_padding_tertiary',
 				'ang_custom_container_padding',
