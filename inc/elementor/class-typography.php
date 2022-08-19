@@ -1918,15 +1918,12 @@ class Typography extends Module {
 	}
 
 	/**
-	 * Tweak Common widgets for Box Shadow presets.
-	 *
-	 * @param Element_Base $element Element_Base Class.
+	 * Gets set Box Shadow presets.
 	 */
-	public function tweak_common_borders( Element_Base $element ) {
-
+	public function get_kit_shadow_presets() {
 		// Register default options array.
 		$options = array(
-			'none' => __( 'None', 'ang-pro' ),
+			'none' => __( 'None', 'ang' ),
 		);
 
 		/**
@@ -1935,22 +1932,47 @@ class Typography extends Module {
 		$kit = Utils::get_document_kit( get_the_ID() );
 
 		if ( $kit ) {
+			$controls = array(
+				'ang_box_shadows',
+				'ang_box_shadows_secondary',
+				'ang_box_shadows_tertiary',
+			);
+
 			// Use raw settings that doesn't have default values.
 			$kit_raw_settings = $kit->get_data( 'settings' );
 
-			// Get SK Box Shadow preset labels.
-			if ( isset( $kit_raw_settings['ang_box_shadows'] ) ) {
-				$shadow_items = $kit_raw_settings['ang_box_shadows'];
-			} else {
-				// Get default items, but without empty defaults.
-				$control      = $kit->get_controls( 'ang_box_shadows' );
-				$shadow_items = $control['default'];
-			}
+			foreach ( $controls as $control ) {
+				// Get SK Container padding preset labels.
+				if ( isset( $kit_raw_settings[ $control ] ) ) {
+					$shadow_items = $kit_raw_settings[ $control ];
+				} else {
+					// Get default items, but without empty defaults.
+					$control      = $kit->get_controls( $control );
+					$shadow_items = $control['default'] ?? array();
+				}
 
-			foreach ( $shadow_items as $shadow ) {
-				$options[ $shadow['_id'] ] = $shadow['title'];
+				if ( ! empty( $shadow_items ) ) {
+					foreach ( $shadow_items as $shadow ) {
+						if ( isset( $shadow['shadow_box_shadow_type'] ) && 'yes' === $shadow['shadow_box_shadow_type'] ) {
+							$options[ $shadow['_id'] ] = $shadow['title'];
+						}
+					}
+				}
 			}
 		}
+
+		return $options;
+	}
+
+	/**
+	 * Tweak Common widgets for Box Shadow presets.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_common_borders( Element_Base $element ) {
+
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
 
 		/**
 		 * Common widgets.
@@ -2013,33 +2035,8 @@ class Typography extends Module {
 	 */
 	public function tweak_section_column_borders( Element_Base $element ) {
 
-		// Register default options array.
-		$options = array(
-			'none' => __( 'None', 'ang-pro' ),
-		);
-
-		/**
-		 * Get current kit settings.
-		 */
-		$kit = Utils::get_document_kit( get_the_ID() );
-
-		if ( $kit ) {
-			// Use raw settings that doesn't have default values.
-			$kit_raw_settings = $kit->get_data( 'settings' );
-
-			// Get SK Box Shadow preset labels.
-			if ( isset( $kit_raw_settings['ang_box_shadows'] ) ) {
-				$shadow_items = $kit_raw_settings['ang_box_shadows'];
-			} else {
-				// Get default items, but without empty defaults.
-				$control      = $kit->get_controls( 'ang_box_shadows' );
-				$shadow_items = $control['default'];
-			}
-
-			foreach ( $shadow_items as $shadow ) {
-				$options[ $shadow['_id'] ] = $shadow['title'];
-			}
-		}
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
 
 		/**
 		 * Column & Section widgets.
@@ -2101,33 +2098,8 @@ class Typography extends Module {
 	 * @param Element_Base $element Element_Base Class.
 	 */
 	public function tweak_container_borders( Element_Base $element ) {
-		// Register default options array.
-		$options = array(
-			'none' => __( 'None', 'ang-pro' ),
-		);
-
-		/**
-		 * Get current kit settings.
-		 */
-		$kit = Utils::get_document_kit( get_the_ID() );
-
-		if ( $kit ) {
-			// Use raw settings that doesn't have default values.
-			$kit_raw_settings = $kit->get_data( 'settings' );
-
-			// Get SK Box Shadow preset labels.
-			if ( isset( $kit_raw_settings['ang_box_shadows'] ) ) {
-				$shadow_items = $kit_raw_settings['ang_box_shadows'];
-			} else {
-				// Get default items, but without empty defaults.
-				$control      = $kit->get_controls( 'ang_box_shadows' );
-				$shadow_items = $control['default'];
-			}
-
-			foreach ( $shadow_items as $shadow ) {
-				$options[ $shadow['_id'] ] = $shadow['title'];
-			}
-		}
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
 
 		/**
 		 * Container.
