@@ -464,7 +464,7 @@ final class Promotions extends Base {
 	public function add_additional_shadow_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
 		$element->start_controls_tab(
 			'ang_tab_box_shadows_secondary',
-			array( 'label' => __( '8-16', 'ang' ) )
+			array( 'label' => __( '9-16', 'ang' ) )
 		);
 
 		$element->add_control(
