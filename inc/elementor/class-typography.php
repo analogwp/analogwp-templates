@@ -93,6 +93,7 @@ class Typography extends Module {
 		$container_spacing_experiment = Options::get_instance()->get( 'container_spacing_experiment' );
 
 		if ( 'active' === $container_spacing_experiment ) {
+			add_action( 'elementor/element/kit/section_settings-layout/before_section_end', array( $this, 'show_analog_container_spacing_hint' ), 10, 2 );
 			add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_container_spacing' ), 50, 2 );
 			add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
 		}
@@ -393,19 +394,52 @@ class Typography extends Module {
 		);
 
 		$element->add_control(
-			'ang_container_padding_description',
+			'ang_container_default_padding_hint',
 			array(
 				'raw'             => sprintf(
-					'%1$s <a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">%2$s</a>',
-					__( 'Save padding presets for containers.', 'ang' ),
-					__( 'Read more', 'ang' ),
+					'%1$s <a href="#" onClick="%2$s">%3$s</a>',
+					__( 'The default container padding is set in Elementor Theme Styles > Layout Settings > ', 'ang' ),
+					"analog.redirectToSection( 'settings-layout', 'section_settings-layout', 'global' )",
+					__( 'Container padding', 'ang' ),
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
-		$element->start_controls_tabs( 'ang_container_spacing_tabs' );
+		$element->add_control(
+			'ang_container_padding_description',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">%2$s</a>',
+					__( 'Create additional spacing presets.', 'ang' ),
+					__( 'Read more', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+				'separator'       => 'before',
+			)
+		);
+
+		// Hack for adding no padding styles at container presets.
+		$element->add_control(
+			'ang_container_no_padding_hidden',
+			array(
+				'label'     => __( 'No Padding Styles', 'ang' ),
+				'type'      => Controls_Manager::HIDDEN,
+				'default'   => 'no',
+				'selectors' => array(
+					'{{WRAPPER}} .elementor-repeater-item-ang_container_no_padding.elementor-element' => '--padding-top: 0px; --padding-right: 0px; --padding-bottom: 0px; --padding-left: 0px;',
+				),
+			)
+		);
+
+		$element->start_controls_tabs(
+			'ang_container_spacing_tabs',
+			array(
+			'separator'       => 'before',
+			)
+		);
 
 		$element->start_controls_tab(
 			'ang_tab_container_spacing_primary',
@@ -594,6 +628,46 @@ class Typography extends Module {
 		);
 
 		$element->end_controls_section();
+	}
+
+	/**
+	 * Show hint for Style Kit Container spacing presets.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function show_analog_container_spacing_hint( Controls_Stack $element, $section_id ) {
+		$element->start_injection(
+			array(
+				'of' => 'container_padding',
+				'at' => 'after',
+			)
+		);
+
+		$element->add_control(
+			'analog_container_padding_hint',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="#" onClick="%2$s">%3$s</a>',
+					__( 'Create additional spacing presets in ', 'ang' ),
+					"analog.redirectToSection( 'theme-style-kits', 'ang_container_spacing', 'global' )",
+					__( 'Style Kits', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+				'separator'       => 'before',
+			)
+		);
+
+		$element->add_control(
+			'analog_container_padding_hint_separator',
+			array(
+				'type'  => Controls_Manager::DIVIDER,
+				'style' => 'thick',
+			)
+		);
+
+		$element->end_injection();
 	}
 
 	/**
@@ -1183,7 +1257,8 @@ class Typography extends Module {
 
 		// Register default options array.
 		$options = array(
-			'none' => __( 'None', 'ang' ),
+			'none'                     => __( 'Default', 'ang' ),
+			'ang_container_no_padding' => __( 'No Padding', 'ang' ),
 		);
 
 		/**
@@ -1194,7 +1269,6 @@ class Typography extends Module {
 		if ( $kit ) {
 			$controls = array(
 				'ang_container_padding',
-				'ang_container_padding_part_two',
 				'ang_container_padding_secondary',
 				'ang_container_padding_tertiary',
 				'ang_custom_container_padding',
