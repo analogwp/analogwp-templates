@@ -134,6 +134,10 @@ function do_automatic_upgrades() {
 		Utils::clear_elementor_cache();
 	}
 
+	if ( version_compare( $installed_version, '1.9.3', '<' ) ) {
+		version_1_9_3_upgrades();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
@@ -567,3 +571,62 @@ function version_1_6_6_upgrades() {
 		$fix_osp( $posts_using_different_kit );
 	}
 }
+
+/**
+ * Version 1.9.3 upgrades.
+ *
+ * Migrate existing set controls to load with new additional defaults.
+ *
+ * @since 1.9.3
+ * @return void|bool
+ */
+function version_1_9_3_upgrades() {
+
+	$migration_keys = array(
+		'ang_box_shadows',
+		'ang_container_padding',
+	);
+
+	$all_kits = \Analog\Utils::get_kits();
+
+	foreach ( $all_kits as $id => $title ) {
+		// Check if this is a valid kit or not.
+		if ( ! Plugin::elementor()->kits_manager->is_kit( $id ) ) {
+			return false;
+		}
+
+		$kit = Plugin::elementor()->documents->get_doc_for_frontend( $id );
+
+		// Use raw settings that doesn't have default values.
+		$kit_raw_settings = $kit->get_data( 'settings' );
+
+		foreach ( $migration_keys as $control_key ) {
+			if ( ! isset( $kit_raw_settings[ $control_key ] ) ) {
+				continue;
+			}
+
+			$existing_controls = $kit_raw_settings[ $control_key ];
+			$control           = $kit->get_controls( $control_key );
+
+			$default_controls = $control['default'];
+			$updated_settings = $default_controls;
+
+			foreach ( $existing_controls as $ex_control ) {
+				foreach ( $default_controls as $key => $default_control ) {
+					if ( $ex_control['_id'] === $default_control['_id'] ) {
+						$updated_settings[ $key ] = $ex_control;
+					}
+				}
+			}
+
+			$kit_raw_settings[ $control_key ] = $updated_settings;
+		}
+
+		$data = array(
+			'settings' => $kit_raw_settings,
+		);
+
+		$kit->save( $data );
+	}
+}
+
