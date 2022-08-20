@@ -235,6 +235,9 @@ jQuery( window ).on( 'elementor/init', function() {
 			container: elementor.documents.documents[elementor.config.kit_id].container,
 			settings: null,
 		} );
+
+		// Reset value render hack.
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => analog.redirectToPanel( 'ang_tools' ) ));
 	};
 
 	const BaseData = elementor.modules.controls.BaseData;
