@@ -541,6 +541,10 @@ jQuery( window ).on( 'elementor/init', function() {
 				'ang_global_accent_colors',
 				'ang_global_text_colors',
 				'ang_global_extra_colors',
+				'ang_global_secondary_part_one_colors',
+				'ang_global_secondary_part_two_colors',
+				'ang_global_tertiary_part_one_colors',
+				'ang_global_tertiary_part_two_colors',
 			];
 
 		let defaultValues = {};
@@ -578,6 +582,10 @@ jQuery( window ).on( 'elementor/init', function() {
 		const ang_global_fonts = [
 			'ang_global_title_fonts',
 			'ang_global_text_fonts',
+			'ang_global_secondary_part_one_fonts',
+			'ang_global_secondary_part_two_fonts',
+			'ang_global_tertiary_part_one_fonts',
+			'ang_global_tertiary_part_two_fonts',
 		];
 
 		let defaultValues = {};
@@ -614,13 +622,22 @@ jQuery( window ).on( 'elementor/init', function() {
 	analog.resetContainerPadding = () => {
 		const ang_container_padding = [
 			'ang_container_padding',
+			'ang_container_padding_part_two',
+			'ang_container_padding_secondary',
+			'ang_container_padding_tertiary',
 			'ang_custom_container_padding',
 		];
 
 		let defaultValues = {};
 
 		// Get defaults for each setting
-		ang_container_padding.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[elementor.config.kit_id].container.controls[setting].default );
+		ang_container_padding.forEach( ( setting ) => {
+			const options = elementor.documents.documents[elementor.config.kit_id].container.controls[setting];
+			if ( undefined === options || null === options ) {
+				return;
+			}
+			defaultValues[ setting ] = options.default;
+		} );
 
 		// Reset the selected settings to their default values
 		$e.run( 'document/elements/settings', {

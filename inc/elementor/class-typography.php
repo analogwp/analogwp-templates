@@ -392,6 +392,28 @@ class Typography extends Module {
 			)
 		);
 
+		$element->add_control(
+			'ang_container_padding_description',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">%2$s</a>',
+					__( 'Save padding presets for containers.', 'ang' ),
+					__( 'Read more', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->start_controls_tabs( 'ang_container_spacing_tabs' );
+
+		$element->start_controls_tab(
+			'ang_tab_container_spacing_primary',
+			array(
+				'label' => __( '1-8', 'ang' ),
+			)
+		);
+
 		$padding_defaults = array(
 			array(
 				'_id'            => 'ang_container_padding_1',
@@ -493,27 +515,18 @@ class Typography extends Module {
 					'isLinked' => true,
 				),
 			),
-		);
-
-		$element->add_control(
-			'ang_container_padding_description',
 			array(
-				'raw'             => sprintf(
-					'%1$s <a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">%2$s</a>',
-					__( 'Save padding presets for containers.', 'ang' ),
-					__( 'Read more', 'ang' ),
-				),
-				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-descriptor',
-			)
-		);
-
-		$element->add_control(
-			'ang_container_padding_heading',
+				'_id'   => 'ang_container_padding_6',
+				'title' => __( 'style 6', 'ang' ),
+			),
 			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'System Presets', 'ang' ),
-			)
+				'_id'   => 'ang_container_padding_7',
+				'title' => __( 'style 7', 'ang' ),
+			),
+			array(
+				'_id'   => 'ang_container_padding_8',
+				'title' => __( 'style 8', 'ang' ),
+			),
 		);
 
 		$repeater = new Repeater();
@@ -559,9 +572,14 @@ class Typography extends Module {
 					'sort'      => false,
 					'duplicate' => false,
 				),
-				'separator'    => 'after',
 			)
 		);
+
+		$element->end_controls_tab();
+
+		do_action( 'analog_container_spacing_tabs_end', $element, $repeater );
+
+		$element->end_controls_tabs();
 
 		do_action( 'analog_container_spacing_section_end', $element, $repeater );
 
@@ -1174,20 +1192,34 @@ class Typography extends Module {
 		$kit = Utils::get_document_kit( get_the_ID() );
 
 		if ( $kit ) {
+			$controls = array(
+				'ang_container_padding',
+				'ang_container_padding_part_two',
+				'ang_container_padding_secondary',
+				'ang_container_padding_tertiary',
+				'ang_custom_container_padding',
+			);
+
 			// Use raw settings that doesn't have default values.
 			$kit_raw_settings = $kit->get_data( 'settings' );
 
-			// Get SK Container padding preset labels.
-			if ( isset( $kit_raw_settings['ang_container_padding'] ) ) {
-				$padding_items = $kit_raw_settings['ang_container_padding'];
-			} else {
-				// Get default items, but without empty defaults.
-				$control       = $kit->get_controls( 'ang_container_padding' );
-				$padding_items = $control['default'];
-			}
+			foreach ( $controls as $control ) {
+				// Get SK Container padding preset labels.
+				if ( isset( $kit_raw_settings[ $control ] ) ) {
+					$padding_items = $kit_raw_settings[ $control ];
+				} else {
+					// Get default items, but without empty defaults.
+					$control       = $kit->get_controls( $control );
+					$padding_items = $control['default'] ?? array();
+				}
 
-			foreach ( $padding_items as $padding ) {
-				$options[ $padding['_id'] ] = $padding['title'];
+				if ( ! empty( $padding_items ) ) {
+					foreach ( $padding_items as $padding ) {
+						if ( isset( $padding['padding'] ) || isset( $padding['padding_tablet'] ) || isset( $padding['padding_mobile'] ) ) {
+							$options[ $padding['_id'] ] = $padding['title'];
+						}
+					}
+				}
 			}
 		}
 
@@ -1550,6 +1582,18 @@ class Typography extends Module {
 			)
 		);
 
+		$element->start_controls_tabs(
+			'ang_global_fonts_section_tabs',
+			array(
+				'separator' => 'before',
+			)
+		);
+
+		$element->start_controls_tab(
+			'ang_tab_global_fonts_primary',
+			array( 'label' => __( '1-16', 'ang' ) )
+		);
+
 		$repeater = new Repeater();
 
 		$repeater->add_control(
@@ -1665,7 +1709,6 @@ class Typography extends Module {
 					'remove' => false,
 					'sort'   => false,
 				),
-				'separator'    => 'after',
 			)
 		);
 
@@ -1715,9 +1758,15 @@ class Typography extends Module {
 					'remove' => false,
 					'sort'   => false,
 				),
-				'separator'    => 'after',
+				'separator'    => 'before',
 			)
 		);
+
+		$element->end_controls_tab();
+
+		do_action( 'analog_global_fonts_tab_end', $element, $repeater );
+
+		$element->end_controls_tabs();
 
 		$element->add_control(
 			'ang_global_reset_fonts',

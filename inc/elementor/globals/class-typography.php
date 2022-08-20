@@ -54,6 +54,10 @@ class Typography extends Base {
 		$font_keys = array(
 			'ang_global_title_fonts',
 			'ang_global_text_fonts',
+			'ang_global_secondary_part_one_fonts',
+			'ang_global_secondary_part_two_fonts',
+			'ang_global_tertiary_part_one_fonts',
+			'ang_global_tertiary_part_two_fonts',
 		);
 
 		foreach ( $font_keys as $font_key ) {
@@ -87,7 +91,7 @@ class Typography extends Base {
 			$id = $item['_id'];
 
 			$result[ $id ] = array(
-				'title' => $item['title'],
+				'title' => $item['title'] ?? '',
 				'id'    => $id,
 			);
 

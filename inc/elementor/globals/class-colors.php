@@ -49,6 +49,10 @@ class Colors extends Base {
 			'ang_global_accent_colors',
 			'ang_global_text_colors',
 			'ang_global_extra_colors',
+			'ang_global_secondary_part_one_colors',
+			'ang_global_secondary_part_two_colors',
+			'ang_global_tertiary_part_one_colors',
+			'ang_global_tertiary_part_two_colors',
 		);
 
 		foreach ( $color_keys as $color_key ) {
@@ -65,8 +69,8 @@ class Colors extends Base {
 			$id            = $item['_id'];
 			$result[ $id ] = array(
 				'id'    => $id,
-				'title' => $item['title'],
-				'value' => $item['color'],
+				'title' => $item['title'] ?? '',
+				'value' => $item['color'] ?? '',
 			);
 		}
 

@@ -334,12 +334,16 @@
  */
 
 .elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields,
+.elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-fields,
+.elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-fields,
 .elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields {
 	margin-bottom: 25px;
 	display: flex;
 }
 
 .elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled,
+.elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled,
+.elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled,
 .elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled {
 	display: none;
 }
@@ -352,6 +356,8 @@
 }
 
 .elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-row-controls,
+.elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-row-controls,
+.elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-row-controls,
 .elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-row-controls {
 	flex-direction: column;
 	gap: 8px;
@@ -359,6 +365,8 @@
 }
 
 .elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers,
+.elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers,
+.elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers,
 .elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers {
 	top: -35px;
 	left: 135px;
@@ -371,6 +379,12 @@
 }
 
 .elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices,
+.elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices,
+.elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices,
 .elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices {
 	margin-top: -50px;
+}
+
+.elementor-control.elementor-control-ang_container_padding {
+	padding-bottom: 0;
 }
