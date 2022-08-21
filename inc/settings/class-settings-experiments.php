@@ -88,7 +88,7 @@ class Experiments extends Settings_Page {
 				),
 				array(
 					'title'   => __( 'Container Library', 'ang' ),
-					'desc'    => __( 'Switching Style Kits library template, kits and blocks to an Elementor Container powered library.', 'ang' ),
+					'desc'    => __( 'Switches Style Kits library template, kits and blocks to an Elementor Container powered library.', 'ang' ),
 					'id'      => 'container_library_experiment',
 					'default' => 'inactive',
 					'type'    => 'select',
