@@ -5,10 +5,10 @@ import AnalogContext from '../AnalogContext';
 import { isNewTheme } from '../utils';
 import { NotificationConsumer } from '../Notifications';
 import Star from '../icons/star';
-import Popup from "../popup";
-import Loader from "../icons/loader";
-import ProModal from "../ProModal";
-import Empty from "../helpers/Empty";
+import Popup from '../popup';
+import Loader from '../icons/loader';
+import ProModal from '../ProModal';
+import Empty from '../helpers/Empty';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __ } = wp.i18n;
@@ -274,84 +274,84 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 
 			<Container className="blocks-area">
 
-			<TextControl
-				placeholder={ __( 'Search blocks', 'ang' ) }
-				value={ context.state.blocksSearchInput }
-				onChange={ ( value ) => {
-					context.handleSearch( value, 'blocks' );
-					context.dispatch( { blocksSearchInput: value } );
-				} }
-			/>
+				<TextControl
+					placeholder={ __( 'Search blocks', 'ang' ) }
+					value={ context.state.blocksSearchInput }
+					onChange={ ( value ) => {
+						context.handleSearch( value, 'blocks' );
+						context.dispatch( { blocksSearchInput: value } );
+					} }
+				/>
 
-			{ AGWP.license.status !== 'valid' && (
-				<ProModal type={ __( 'blocks', 'ang' ) } />
-			) }
+				{ AGWP.license.status !== 'valid' && (
+					<ProModal type={ __( 'blocks', 'ang' ) } />
+				) }
 
-			{ context.state.blocks.length < 1 && (
-				<Empty text={ __( 'No blocks found.', 'ang' ) }/>
-			) }
+				{ context.state.blocks.length < 1 && (
+					<Empty text={ __( 'No blocks found.', 'ang' ) } />
+				) }
 
 				<Masonry
 					breakpointCols={ Boolean( AGWP.is_settings_page ) ? breakpointColumnsObj : 3 }
 					className="grid"
 					columnClassName="grid-item block-list"
 				>
-				{ filteredBlocks.map( ( block ) => {
-					return (
-						<div key={ block.id }>
-							<Card>
-								<CardBody>
-									{ ( isNewTheme( block.published ) > -14 ) && (
-										<span className="new">{ __( 'New', 'ang' ) }</span>
-									) }
+					{ filteredBlocks.map( ( block ) => {
+						return (
+							<div key={ block.id }>
+								<Card>
+									<CardBody>
+										{ ( isNewTheme( block.published ) > -14 ) && (
+											<span className="new">{ __( 'New', 'ang' ) }</span>
+										) }
 
-									<figure>
-										<img
-											src={ AGWP.blockMediaURL + block.id + '.jpg' }
-											loading="lazy"
-											width="720"
-											height="100"
-											alt={ block.title }
-										/>
+										<figure>
+											<img
+												src={ AGWP.blockMediaURL + block.id + '.jpg' }
+												loading="lazy"
+												width="720"
+												height="100"
+												alt={ block.title }
+											/>
 
-										<div className="actions">
-											{ ! isValid( block.is_pro ) && (
-												<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank">
-													<Button isPrimary>{ __( 'Go Pro', 'ang' ) }</Button>
-												</a>
-											) }
-											<NotificationConsumer>
-												{ ( { add } ) => (
-													isValid( block.is_pro ) && (
-														<Button isPrimary onClick={ () => importBlock( block, add ) }>
-															{ __( 'Import', 'ang' ) }
-														</Button>
-													)
+											<div className="actions">
+												{ ! isValid( block.is_pro ) && (
+													<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank">
+														<Button isPrimary>{ __( 'Go Pro', 'ang' ) }</Button>
+													</a>
 												) }
-											</NotificationConsumer>
+												<NotificationConsumer>
+													{ ( { add } ) => (
+														isValid( block.is_pro ) && (
+															<Button isPrimary onClick={ () => importBlock( block, add ) }>
+																{ __( 'Import', 'ang' ) }
+															</Button>
+														)
+													) }
+												</NotificationConsumer>
+											</div>
+											<button
+												className={ classnames( 'button-plain favorite', {
+													'is-active': block.id in favorites,
+												} ) }
+												onClick={ () => makeFavorite( block.id ) }
+											>
+												<Star />
+											</button>
+										</figure>
+									</CardBody>
+									<CardFooter>
+										<div className="content">
+											<h3>{ decodeEntities( block.title ) }</h3>
+											{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
 										</div>
-										<button
-											className={ classnames( 'button-plain favorite', {
-												'is-active': block.id in favorites,
-											} ) }
-											onClick={ () => makeFavorite( block.id ) }
-										>
-											<Star />
-										</button>
-									</figure>
-								</CardBody>
-								<CardFooter>
-									<div className="content">
-										<h3>{ decodeEntities( block.title ) }</h3>
-										{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
-									</div>
-								</CardFooter>
-							</Card>
-						</div>
-					);
-				} ) }
-			</Masonry>
-		</Container>
+									</CardFooter>
+								</Card>
+							</div>
+						);
+					} ) }
+				</Masonry>
+			</Container>
 		</React.Fragment>
 	);
 };

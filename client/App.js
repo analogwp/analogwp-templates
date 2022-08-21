@@ -178,7 +178,7 @@ class App extends React.Component {
 						single.title.toLowerCase().includes( searchInput ) || searchTags.length >= 1
 					);
 				} );
-			}
+			},
 		};
 
 		this.refreshAPI = this.refreshAPI.bind( this );
@@ -273,7 +273,7 @@ class App extends React.Component {
 				return;
 			}
 
-			const filtered = blocks.filter( block => block.tags[0] === type );
+			const filtered = blocks.filter( block => block.tags[ 0 ] === type );
 			this.setState( { blocks: filtered } );
 		}
 	}

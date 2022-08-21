@@ -97,7 +97,7 @@ export default class Collection extends React.Component {
 							}
 
 							return (
-								
+
 								<li key={ kit.site_id }>
 									<Card>
 										<CardBody>
@@ -131,18 +131,17 @@ export default class Collection extends React.Component {
 					<ul className="templates-list">
 						{ this.getActiveKit().map( ( template ) => {
 							if ( AGWP.license.status !== 'valid' ) {
+								const isPro = this.context.state.showFree === false && this.context.state.showPro === true &&
+									Boolean( template.is_pro ) === true;
 
-								let isPro = this.context.state.showFree === false && this.context.state.showPro === true &&
-									Boolean(template.is_pro) === true;
+								const isFree = this.context.state.showFree === true && this.context.state.showPro === false &&
+									Boolean( template.is_pro ) === false;
 
-								let isFree = this.context.state.showFree === true && this.context.state.showPro === false &&
-									Boolean(template.is_pro) === false;
+								const isAll = this.context.state.showFree === true && this.context.state.showPro === true;
 
-								let isAll = this.context.state.showFree === true && this.context.state.showPro === true;
-
-								if( !( isPro ||
+								if ( ! ( isPro ||
 										isFree ||
-										isAll)) { 
+										isAll ) ) {
 									return;
 								}
 							}

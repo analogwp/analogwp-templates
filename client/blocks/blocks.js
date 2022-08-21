@@ -3,7 +3,7 @@ import AnalogContext from '../AnalogContext';
 import { requestBlockContent, doElementorInsert } from '../api';
 import Empty from '../helpers/Empty';
 import BlockList from './BlockList';
-import Sidebar from "./Sidebar";
+import Sidebar from './Sidebar';
 
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
@@ -114,7 +114,6 @@ export default class Blocks extends Component {
 	};
 
 	render() {
-
 		const dataSet = {
 			state: this.state,
 			dispatch: action => this.setState( action ),
