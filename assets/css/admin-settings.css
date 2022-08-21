@@ -164,3 +164,21 @@
 .ang .sidebar .social > a {
 	text-decoration: none;
 }
+
+.experiment-indicator {
+	display: inline-block;
+	height: 10px;
+	width: 10px;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	-webkit-box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+	box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+	-ms-flex-negative: 0;
+	flex-shrink: 0;
+	transform: translateY(2px);
+	margin-right: 4px;
+}
+
+.experiment-indicator.active {
+	background: #39b54a;
+}
