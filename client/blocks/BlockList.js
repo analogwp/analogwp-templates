@@ -200,24 +200,6 @@ const Container = styled.div`
 	}
 `;
 
-const getHeight = ( url ) => {
-	/**
-	 * Split at image width to get the height next.
-	 *
-	 * Should return "448.png" where 448 is image height.
-	 * @type {*|string[]}
-	 */
-	const parts = url.split( '768x' );
-
-	if ( ! parts[ 1 ] ) {
-		return false;
-	}
-
-	const p2 = parts[ 1 ].split( '.' );
-
-	return p2[ 0 ];
-};
-
 const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 	const context = React.useContext( AnalogContext );
 
@@ -327,8 +309,8 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 										<img
 											src={ AGWP.blockMediaURL + block.id + '.jpg' }
 											loading="lazy"
-											width="768"
-											height={ getHeight( block.thumbnail ) || undefined }
+											width="720"
+											height="100"
 											alt={ block.title }
 										/>
 
