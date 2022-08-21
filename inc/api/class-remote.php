@@ -18,13 +18,15 @@ defined( 'ABSPATH' ) || exit;
  * @package Analog\API
  */
 class Remote extends Base {
+	const STORE_URL = 'https://analogwp.com/';
+
 	/**
 	 * API template URL.
 	 * Holds the URL for getting a single template data.
 	 *
 	 * @var string API template URL.
 	 */
-	private static $template_url = 'https://analogwp.com/wp-json/analogwp/v1/templates/%d';
+	private static $template_url = self::STORE_URL . 'wp-json/analogwp/v1/templates/%d';
 
 	/**
 	 * Style kits API endpoint.
@@ -32,7 +34,7 @@ class Remote extends Base {
 	 * @since 1.3.4
 	 * @var string API endpoint for style kits.
 	 */
-	private static $kits_endpoint = 'https://analogwp.com/wp-json/analogwp/v2/stylekits/';
+	private static $kits_endpoint = self::STORE_URL . 'wp-json/analogwp/v2/stylekits/';
 
 	/**
 	 * Blocks API endpoint.
@@ -40,7 +42,14 @@ class Remote extends Base {
 	 * @since 1.4.0
 	 * @var string API endpoint for style kits.
 	 */
-	private static $blocks_endpoint = 'https://analogwp.com/wp-json/analogwp/v1/blocks/';
+	private static $blocks_endpoint = self::STORE_URL . 'wp-json/analogwp/v1/blocks/';
+
+	/**
+	 * Patterns API endpoint.
+	 *
+	 * @var string
+	 */
+	private static $patterns_endpoint = self::STORE_URL . 'wp-json/analogwp/v1/patterns/';
 
 	/**
 	 * Common API call args.
@@ -83,11 +92,11 @@ class Remote extends Base {
 	 * @return string
 	 */
 	public static function api_endpoint() {
-		$endpoint = 'https://analogwp.com/wp-json/analogwp/v2/info/';
+		$endpoint = self::STORE_URL . 'wp-json/analogwp/v2/info/';
 
 		$container_library = Options::get_instance()->get( 'container_library_experiment' );
 		if ( 'active' === $container_library ) {
-			$endpoint = 'https://analogwp.com/wp-json/analogwp/v3/info/';
+			$endpoint = self::STORE_URL . 'wp-json/analogwp/v3/info/';
 		}
 
 		return $endpoint;
