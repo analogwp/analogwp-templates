@@ -133,6 +133,10 @@ class Remote extends Base {
 
 		$body_args = apply_filters( 'analog/api/get_templates/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
 
+		if ( $force_update ) {
+			$body_args['force_update'] = $force_update;
+		}
+
 		$request = wp_remote_get(
 			self::api_endpoint(),
 			array(
