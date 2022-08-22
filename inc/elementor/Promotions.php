@@ -28,7 +28,6 @@ final class Promotions extends Base {
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_layout_tools' ), 250, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_form_controls' ), 45, 2 );
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_shadow_controls' ), 47, 2 );
 
 		add_action( 'analog_background_colors_tab_end', array( $this, 'add_background_color_accent_promo' ), 170, 1 );
 
@@ -49,6 +48,8 @@ final class Promotions extends Base {
 		if ( 'active' === $global_fonts_experiment ) {
 			add_action( 'analog_global_fonts_tab_end', array( $this, 'add_additional_font_tabs_promo' ), 170, 2 );
 		}
+
+		add_action( 'analog_box_shadows_tab_end', array( $this, 'add_additional_shadow_tabs_promo' ), 170, 2 );
 	}
 
 	/**
@@ -472,6 +473,60 @@ final class Promotions extends Base {
 							__( 'Extend your typography system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-global-fonts' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+	}
+
+	/**
+	 * Modify original "Style Kit Shadows" tabs.
+	 *
+	 * @hook analog_box_shadows_tab_end
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 * @param Repeater       $repeater Elementor repeater element.
+	 */
+	public function add_additional_shadow_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
+		$element->start_controls_tab(
+			'ang_tab_box_shadows_secondary',
+			array( 'label' => __( '9-16', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_box_shadows_secondary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your shadows system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-box-shadows' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+
+		$element->start_controls_tab(
+			'ang_tab_box_shadows_tertiary',
+			array( 'label' => __( '17-24', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_box_shadows_tertiary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your shadows system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-box-shadows' ),
 					)
 				),
 			)

@@ -111,6 +111,16 @@ class Typography extends Module {
 
 		add_action( 'elementor/element/heading/section_title/after_section_end', array( $this, 'add_typo_helper_link' ), 999, 2 );
 		add_action( 'elementor/element/button/section_button/after_section_end', array( $this, 'add_btn_sizes_helper_link' ), 999, 2 );
+
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_shadows' ), 47, 2 );
+
+		add_action( 'elementor/element/common/_section_border/before_section_end', array( $this, 'tweak_common_borders' ) );
+		add_action( 'elementor/element/section/section_border/before_section_end', array( $this, 'tweak_section_column_borders' ) );
+		add_action( 'elementor/element/column/section_border/before_section_end', array( $this, 'tweak_section_column_borders' ) );
+
+		if ( 'active' === $container_spacing_experiment ) {
+			add_action( 'elementor/element/container/section_border/before_section_end', array( $this, 'tweak_container_borders' ) );
+		}
 	}
 
 	/**
@@ -1852,6 +1862,402 @@ class Typography extends Module {
 		);
 
 		$element->end_controls_section();
+	}
+
+	/**
+	 * Register Global Shadow controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_shadows( Controls_Stack $element, $section_id ) {
+		$element->start_controls_section(
+			'ang_shadows',
+			array(
+				'label' => __( 'Shadows', 'ang' ),
+				'tab'   => Utils::get_kit_settings_tab(),
+			)
+		);
+
+		$element->add_control(
+			'ang_shadows_description',
+			array(
+				'raw'             => __( 'Add global shadow presets by using these controls.', 'ang' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->start_controls_tabs( 'ang_shadows_tabs' );
+
+		$element->start_controls_tab(
+			'ang_tab_shadows_primary',
+			array(
+				'label' => __( '1-8', 'ang' ),
+			)
+		);
+
+		$shadow_defaults = array(
+			array(
+				'_id'   => 'shadow_1',
+				'title' => __( 'Default', 'ang' ),
+			),
+			array(
+				'_id'                    => 'shadow_2',
+				'title'                  => __( 'Small', 'ang' ),
+				'shadow_box_shadow_type' => 'yes',
+				'shadow_box_shadow'      => array(
+					'horizontal' => 0,
+					'vertical'   => 4,
+					'blur'       => 16,
+					'spread'     => 0,
+					'color'      => 'rgba(0,0,0,0.15)',
+				),
+			),
+			array(
+				'_id'                    => 'shadow_3',
+				'title'                  => __( 'Medium', 'ang' ),
+				'shadow_box_shadow_type' => 'yes',
+				'shadow_box_shadow'      => array(
+					'horizontal' => 0,
+					'vertical'   => 20,
+					'blur'       => 20,
+					'spread'     => 0,
+					'color'      => 'rgba(0,0,0,0.15)',
+				),
+			),
+			array(
+				'_id'                    => 'shadow_4',
+				'title'                  => __( 'Large', 'ang' ),
+				'shadow_box_shadow_type' => 'yes',
+				'shadow_box_shadow'      => array(
+					'horizontal' => 0,
+					'vertical'   => 30,
+					'blur'       => 55,
+					'spread'     => 0,
+					'color'      => 'rgba(0,0,0,0.15)',
+				),
+			),
+			array(
+				'_id'                    => 'shadow_5',
+				'title'                  => __( 'Extra Large', 'ang' ),
+				'shadow_box_shadow_type' => 'yes',
+				'shadow_box_shadow'      => array(
+					'horizontal' => 0,
+					'vertical'   => 80,
+					'blur'       => 80,
+					'spread'     => 0,
+					'color'      => 'rgba(0,0,0,0.15)',
+				),
+			),
+			array(
+				'_id'   => 'shadow_6',
+				'title' => __( 'style 6', 'ang' ),
+			),
+			array(
+				'_id'   => 'shadow_7',
+				'title' => __( 'style 7', 'ang' ),
+			),
+			array(
+				'_id'   => 'shadow_8',
+				'title' => __( 'style 8', 'ang' ),
+			),
+		);
+
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'title',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'required'    => true,
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'shadow',
+				'label'    => '',
+				'global'   => array(
+					'active' => false,
+				),
+				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover',
+			)
+		);
+
+		$element->add_control(
+			'ang_box_shadows',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $shadow_defaults,
+				'item_actions' => array(
+					'add'       => false,
+					'remove'    => false,
+					'sort'      => false,
+					'duplicate' => false,
+				),
+				'separator'    => 'after',
+			)
+		);
+
+		$element->end_controls_tab();
+
+		do_action( 'analog_box_shadows_tab_end', $element, $repeater );
+
+		$element->end_controls_tabs();
+
+		$element->add_control(
+			'ang_box_shadows_reset',
+			array(
+				'label' => __( 'Reset to default', 'ang' ),
+				'type'  => 'button',
+				'text'  => __( 'Reset', 'ang' ),
+				'event' => 'analog:resetBoxShadows',
+			)
+		);
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Gets set Box Shadow presets.
+	 */
+	public function get_kit_shadow_presets() {
+		// Register default options array.
+		$options = array(
+			'none' => __( 'None', 'ang' ),
+		);
+
+		/**
+		 * Get current kit settings.
+		 */
+		$kit = Utils::get_document_kit( get_the_ID() );
+
+		if ( $kit ) {
+			$controls = array(
+				'ang_box_shadows',
+				'ang_box_shadows_secondary',
+				'ang_box_shadows_tertiary',
+			);
+
+			// Use raw settings that doesn't have default values.
+			$kit_raw_settings = $kit->get_data( 'settings' );
+
+			foreach ( $controls as $control ) {
+				// Get SK Container padding preset labels.
+				if ( isset( $kit_raw_settings[ $control ] ) ) {
+					$shadow_items = $kit_raw_settings[ $control ];
+				} else {
+					// Get default items, but without empty defaults.
+					$control      = $kit->get_controls( $control );
+					$shadow_items = $control['default'] ?? array();
+				}
+
+				if ( ! empty( $shadow_items ) ) {
+					foreach ( $shadow_items as $shadow ) {
+						if ( isset( $shadow['shadow_box_shadow_type'] ) && 'yes' === $shadow['shadow_box_shadow_type'] ) {
+							$options[ $shadow['_id'] ] = $shadow['title'];
+						}
+					}
+				}
+			}
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Tweak Common widgets for Box Shadow presets.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_common_borders( Element_Base $element ) {
+
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
+
+		/**
+		 * Common widgets.
+		 */
+		$element->start_injection(
+			array(
+				'tab' => '_tab_border_normal',
+				'of'  => '_box_shadow_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_box_shadow_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => $options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->end_injection();
+
+		$element->start_injection(
+			array(
+				'tab' => '_tab_border_hover',
+				'of'  => '_box_shadow_hover_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$hover_options = array();
+
+		foreach ( $options as $key => $value ) {
+			$hover_options[ $key . '_hover' ] = $value;
+		}
+
+		$element->add_control(
+			'ang_box_shadow_hover_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => $hover_options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Tweak Section & Column widgets for Box Shadow presets.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_section_column_borders( Element_Base $element ) {
+
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
+
+		/**
+		 * Column & Section widgets.
+		 */
+		$element->start_injection(
+			array(
+				'tab' => 'tab_border_normal',
+				'of'  => 'box_shadow_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_sc_box_shadow_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => $options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->end_injection();
+
+		$element->start_injection(
+			array(
+				'tab' => 'tab_border_hover',
+				'of'  => 'box_shadow_hover_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$hover_options = array();
+
+		foreach ( $options as $key => $value ) {
+			$hover_options[ $key . '_hover' ] = $value;
+		}
+
+		$element->add_control(
+			'ang_sc_box_shadow_hover_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => $hover_options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Tweak Container widget for Box Shadow presets.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_container_borders( Element_Base $element ) {
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
+
+		/**
+		 * Container.
+		 */
+		$element->start_injection(
+			array(
+				'tab' => 'tab_border',
+				'of'  => 'box_shadow_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_container_box_shadow_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => $options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->end_injection();
+
+		$element->start_injection(
+			array(
+				'tab' => 'tab_border_hover',
+				'of'  => 'box_shadow_hover_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$hover_options = array();
+
+		foreach ( $options as $key => $value ) {
+			$hover_options[ $key . '_hover' ] = $value;
+		}
+
+		$element->add_control(
+			'ang_container_box_shadow_hover_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => $hover_options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->end_injection();
 	}
 
 	/**
