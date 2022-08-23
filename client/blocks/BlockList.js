@@ -307,7 +307,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 
 										<figure>
 											<img
-												src={ AGWP.blockMediaURL + block.id + '.jpg' }
+												src={ block.thumbnail || AGWP.blockMediaURL + block.id + '.jpg' }
 												loading="lazy"
 												width="720"
 												height="100"
