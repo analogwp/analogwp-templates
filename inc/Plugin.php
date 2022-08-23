@@ -175,6 +175,7 @@ final class Plugin {
 			'blockMediaURL'           => 'https://bs.analogwp.com/',
 			'isGlobalSkEnabled'       => (bool) Options::get_instance()->get( 'use_global_sk' ),
 			'globalSkAlwaysEnableURL' => admin_url( 'admin.php?page=ang-settings&tab=general#use_global_sk' ),
+			'isContainer'             => Utils::is_container(),
 		);
 
 		$domains += $new_domains;

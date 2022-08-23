@@ -19,7 +19,7 @@ const initialState = {
 	activeBlock: false,
 	blockImported: false,
 	modalActive: false,
-	tab: 'all-blocks',
+	tab: AGWP.isContainer ? 'all-patterns' : 'all-blocks',
 };
 
 export default class Blocks extends Component {

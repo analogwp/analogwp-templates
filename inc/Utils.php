@@ -820,6 +820,15 @@ class Utils extends Base {
 
 		return $tab;
 	}
+
+	/**
+	 * Returns true if Container experiment is on.
+	 *
+	 * @return bool
+	 */
+	public static function is_container() {
+		return 'active' === Options::get_instance()->get( 'container_library_experiment' );
+	}
 }
 
 new Utils();

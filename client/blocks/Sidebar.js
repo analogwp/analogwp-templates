@@ -3,9 +3,11 @@ import AnalogContext from '../AnalogContext';
 const { __ } = wp.i18n;
 const { TabPanel, ToggleControl, Button } = wp.components;
 
+const blockIdentifier = AGWP.isContainer ? 'all-patterns' : 'all-blocks';
+
 const defaultTabs = [
 	'favorites',
-	'all-blocks',
+	blockIdentifier,
 ];
 
 const SidebarWrapper = styled.div`
@@ -98,7 +100,7 @@ const Sidebar = ( { state } ) => {
 		if ( tab === 'favorites' ) {
 			selectFilteredBlocks = favoriteBlocks;
 		}
-		if ( tab !== 'favorites' && tab !== 'all-blocks' ) {
+		if ( tab !== 'favorites' && tab !== blockIdentifier ) {
 			selectFilteredBlocks = context.state.blockArchive.filter( block => block.tags.indexOf( tab ) > -1 );
 		}
 
@@ -116,14 +118,14 @@ const Sidebar = ( { state } ) => {
 		const { blocksSearchInput } = context.state;
 		let foundItems = [];
 
-		if ( tab === 'all-blocks' ) {
+		if ( tab === blockIdentifier ) {
 			foundItems = context.state.blockArchive;
 		}
 		if ( tab === 'favorites' ) {
 			foundItems = favoriteBlocks;
 		}
 
-		if ( tab !== 'all-blocks' && tab !== 'favorites' ) {
+		if ( tab !== blockIdentifier && tab !== 'favorites' ) {
 			foundItems = blocks.filter( block => block.tags.indexOf( tab ) > -1 );
 		}
 
@@ -172,7 +174,7 @@ const Sidebar = ( { state } ) => {
 			<TabPanel
 				className="block-categories-tabs"
 				activeClass="active-tab"
-				initialTabName="all-blocks"
+				initialTabName={ blockIdentifier }
 				onSelect={onSelect}
 				tabs={ tabGenerator( categoriesData() ) }
 				>

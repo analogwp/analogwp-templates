@@ -275,7 +275,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 			<Container className="blocks-area">
 
 				<TextControl
-					placeholder={ __( 'Search blocks', 'ang' ) }
+					placeholder={ AGWP.isContainer ? __( 'Search Patterns', 'ang' ) : __( 'Search Blocks', 'ang' ) }
 					value={ context.state.blocksSearchInput }
 					onChange={ ( value ) => {
 						context.handleSearch( value, 'blocks' );
