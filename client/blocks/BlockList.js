@@ -11,7 +11,7 @@ import ProModal from '../ProModal';
 import Empty from '../helpers/Empty';
 
 const { decodeEntities } = wp.htmlEntities;
-const { __ } = wp.i18n;
+const { __, sprintf } = wp.i18n;
 const { TextControl, Dashicon, Button, Card, CardBody, CardFooter } = wp.components;
 const { addQueryArgs } = wp.url;
 
@@ -238,7 +238,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 					{ state.state.blockImported && (
 						<React.Fragment>
 							<p>
-								{ __( 'The block has been imported and is now available in the', 'ang' ) }
+								{ sprintf( __( 'The %s has been imported and is now available in the', 'ang' ), AGWP.isContainer ? 'container' : 'section' ) }
 								{ ' ' }
 								<a
 									target="_blank"
@@ -246,10 +246,10 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 									href={ addQueryArgs( 'edit.php', {
 										post_type: 'elementor_library',
 										tabs_group: true,
-										elementor_library_type: 'section',
+										elementor_library_type: AGWP.isContainer ? 'container' : 'section',
 									} ) }
 								>
-									{ __( 'Elementor section library', 'ang' ) }
+									{ sprintf( __( 'Elementor %s library', 'ang' ), AGWP.isContainer ? 'container' : 'section' ) }
 								</a>.
 							</p>
 							<p>

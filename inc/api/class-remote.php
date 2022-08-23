@@ -9,6 +9,7 @@ namespace Analog\API;
 
 use \Analog\Base;
 use Analog\Options;
+use Analog\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -170,6 +171,10 @@ class Remote extends Base {
 	 */
 	public function get_block_content( $block_id, $license, $method, $site_id ) {
 		$url = self::$blocks_endpoint . $block_id;
+
+		if ( Utils::is_container() ) {
+			$url = self::$patterns_endpoint . $block_id;
+		}
 
 		$body_args = apply_filters( 'analog/api/get_block_content/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
 		$body_args = array_merge(
