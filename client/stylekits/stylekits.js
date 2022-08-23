@@ -178,6 +178,7 @@ export default class StyleKits extends React.Component {
 		}
 
 		const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
+		const fallbackImage = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
 		return (
 			<Container>
@@ -211,7 +212,7 @@ export default class StyleKits extends React.Component {
 								<Card>
 									<CardBody>
 										<figure>
-											<img src={ kit.image } alt={ kit.title } />
+											<img src={ kit.image || fallbackImage } alt={ kit.title } />
 
 											<div className="preview">
 												{ kit.preview && (
