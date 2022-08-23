@@ -8,22 +8,6 @@ const defaultTabs = [
 	'all-blocks',
 ];
 
-const analogBlockSlides = wp.hooks.applyFilters( 'analogBlocks.carousel', [
-	{
-		'title': __( 'Upgrade to Style Kits Pro', 'ang' ),
-		'content': __( 'Enjoy unlimited access to the template and block library, along with many more features in Style Kits Pro.', 'ang' ),
-		'primaryBtn': {
-			'link': 'https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro',
-			'text': __( 'Learn More', 'ang' )
-		},
-		'secondaryBtn': {
-			'link': 'https://www.youtube.com/watch?v=ItcKsNztJJU&t=127s',
-			'text': __( 'Quick video', 'ang' )
-		},
-		'isActive': AGWP.license.status !== 'valid' ? true : false,
-	}
-] ) ;
-
 const SidebarWrapper = styled.div`
 	width: 300px;
 	height: 100vh;
@@ -97,80 +81,6 @@ const SidebarWrapper = styled.div`
 
 	.block-categories-tabs {
 		padding-right: 10px;
-	}
-`;
-
-const Slider = styled.div`
-	position: relative;
-	min-height: 300px;
-	padding-bottom: 80px;
-
-	.no-animation > div {
-		animation: none;
-	}
-
-	a {
-		text-decoration: none;
-		color: inherit;
-	}
-
-	.slide-1,
-	.slide-2 {
-		position: absolute;
-		display: block;
-		padding: 20px;
-		top: 0;
-		font-size: 16px;
-		width: 80%;
-		animation-duration: 20s;
-		animation-timing-function: ease-in-out;
-		animation-iteration-count: infinite;
-	}
-
-	.slide-1 {
-		animation-name: sk-slider-anim-1;
-	}
-
-	.slide-2 {
-		animation-name: sk-slider-anim-2;
-	}
-
-	@keyframes sk-slider-anim-1 {
-	0%,
-	8.3% {
-		left: -100%;
-		opacity: 0;
-	}
-	8.3%,
-	45% {
-		left: 0%;
-		opacity: 1;
-	}
-	55%,
-	100% {
-		left: 110%;
-		opacity: 0;
-		}
-	}
-
-	@keyframes sk-slider-anim-2 {
-		0%,
-		55% {
-			left: -100%;
-			opacity: 0;
-		}
-		60%,
-		92% {
-			left: 0%;
-			opacity: 1;
-		}
-		100% {
-			left: 110%;
-			opacity: 0;
-		}
-	}
-	button + button {
-		margin-left: 10px;
 	}
 `;
 
@@ -257,8 +167,6 @@ const Sidebar = ( { state } ) => {
 		return null;
 	}
 
-	const sliderAnimation = analogBlockSlides.length <= 1 ? 'no-animation' : '';
-
 	return (
 		<SidebarWrapper className="sidebar">
 			<TabPanel
@@ -285,23 +193,6 @@ const Sidebar = ( { state } ) => {
 					} }
 				/>
 			) }
-
-			<Slider className={ `${sliderAnimation}` }>
-				{ analogBlockSlides.length > 0 && analogBlockSlides.map((slide, index) => {
-						if ( ! slide.isActive ) return;
-						return (
-							<div className={`slide-${index + 1}`} key={index}>
-								<h3>{slide.title}</h3>
-								<p>{slide.content}</p>
-								{slide.primaryBtn && <Button isPrimary><a
-									href={slide.primaryBtn.link} target={slide.primaryBtn.target ? slide.primaryBtn.target : "_blank"}>{slide.primaryBtn.text}</a></Button>}
-								{slide.secondaryBtn && <Button isSecondary><a
-								href={slide.secondaryBtn.link} target={slide.secondaryBtn.target ? slide.secondaryBtn.target : "_blank"}>{slide.secondaryBtn.text}</a></Button>}
-							</div>
-						)
-					})
-				}
-			</Slider>
 		</SidebarWrapper>
 	);
 }
