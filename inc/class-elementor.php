@@ -100,7 +100,7 @@ class Elementor {
 
 		$controls_manager = Plugin::elementor()->controls_manager;
 
-		$controls_manager->register( new ANG_Action(), 'ang_action' );
+		$controls_manager->register( new ANG_Action() );
 	}
 
 	/**
