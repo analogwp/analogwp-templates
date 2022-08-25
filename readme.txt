@@ -119,6 +119,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Fix: Background classes presets not working
 * Fix: `elementorDevTools` notice at console due to deprecated $control_id param at Control registrations
 * Fix: Section redirect script at Site settings
+* Fix: Kit reset action not working
 
 = 1.9.2 - June 24, 2022 =
 * New: Added Kit sizes helper links at Heading & Button widgets
