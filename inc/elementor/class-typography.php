@@ -409,7 +409,7 @@ class Typography extends Module {
 				'raw'             => sprintf(
 					'%1$s <a href="#" onClick="%2$s">%3$s</a>',
 					__( 'The default container padding is set in Elementor Theme Styles > Layout Settings > ', 'ang' ),
-					"analog.redirectToSection( 'settings-layout', 'section_settings-layout', 'global' )",
+					"analog.redirectToSection( 'settings-layout', 'section_settings-layout', 'global', true )",
 					__( 'Container padding', 'ang' ),
 				),
 				'type'            => Controls_Manager::RAW_HTML,
@@ -660,7 +660,7 @@ class Typography extends Module {
 				'raw'             => sprintf(
 					'%1$s <a href="#" onClick="%2$s">%3$s</a>',
 					__( 'Create additional spacing presets in ', 'ang' ),
-					"analog.redirectToSection( 'theme-style-kits', 'ang_container_spacing', 'global' )",
+					"analog.redirectToSection( 'theme-style-kits', 'ang_container_spacing', 'global', true );",
 					__( 'Style Kits', 'ang' ),
 				),
 				'type'            => Controls_Manager::RAW_HTML,
