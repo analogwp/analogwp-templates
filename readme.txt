@@ -106,6 +106,20 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
+= 1.9.3 - August **, 2022 =
+* New: Additional controls for Global fonts and colors in a tabbed layout
+* New: Additional Container Spacing controls in a tabbed layout
+* New: Global Shadow presets now in Style Kits free
+* New: Show a redirect hint to Container Spacing at Elementor Layout site settings
+* Improvements: Update Container Spacing presets to work with the new Default Elementor padding
+* Improvements: Conditionally only load Container Spacing and Shadow presets with values at widgets
+* Improvements: Migrates old Shadows and Container Spacing controls to the new multi-tab controls
+* Improvements: Compatibility with Elementor v3.7.2 & Elementor Pro v3.7.3
+* Improvements: Compatible up to WordPress v6.0.1
+* Fix: Background classes presets not working
+* Fix: `elementorDevTools` notice at console due to deprecated $control_id param at Control registrations
+* Fix: Section redirect script at Site settings
+
 = 1.9.2 - June 24, 2022 =
 * New: Added Kit sizes helper links at Heading & Button widgets
 * New: Added default values for Container spacing presets
