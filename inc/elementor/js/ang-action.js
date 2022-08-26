@@ -196,9 +196,14 @@ jQuery( window ).on( 'elementor/init', function() {
 		return ! ( key.startsWith( 'ang_action' ) || key.startsWith( 'post' ) || key.startsWith( 'preview' ) );
 	};
 
-	analog.redirectToSection = function redirectToSection( tab = 'settings', section = 'ang_style_settings', page = 'page-settings' ) {
+	analog.redirectToSection = function redirectToSection( tab = 'settings', section = 'ang_style_settings', page = 'page-settings', kit = false ) {
 		$e.route( `panel/${ page }/${ tab }` );
-		elementor.getPanelView().getCurrentPageView().content.currentView.activateSection(section).render();
+
+		if ( kit ) {
+			elementor.getPanelView().getCurrentPageView().content.currentView.activateSection(section).render();
+		} else {
+			elementor.getPanelView().getCurrentPageView().activateSection(section)._renderChildren();
+		}
 
 		return false;
 	};
