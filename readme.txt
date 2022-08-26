@@ -106,7 +106,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 
 == Changelog ==
 
-= 1.9.3 - August **, 2022 =
+= 1.9.3 - August 26, 2022 =
 * New: Additional controls for Global fonts and colors in a tabbed layout
 * New: Additional Container Spacing controls in a tabbed layout
 * New: Global Shadow presets now in Style Kits free
