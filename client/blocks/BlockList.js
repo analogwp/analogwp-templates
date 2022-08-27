@@ -218,6 +218,14 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 		900: 1,
 	};
 
+	const getScreenshot = ( block ) => {
+		if ( AGWP.isContainer ) {
+			return block.thumbnail || AGWP.blockMediaURL + `patterns/${ block.id }.webp`;
+		}
+
+		return AGWP.blockMediaURL + block.id + '.jpg';
+	};
+
 	return (
 		<React.Fragment>
 			{ state.state.modalActive && (
@@ -307,7 +315,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 
 										<figure>
 											<img
-												src={ block.thumbnail || AGWP.blockMediaURL + block.id + '.jpg' }
+												src={ getScreenshot( block ) }
 												loading="lazy"
 												width="720"
 												height="100"
