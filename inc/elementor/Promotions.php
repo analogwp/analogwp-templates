@@ -177,16 +177,23 @@ final class Promotions extends Base {
 	 */
 	public function get_teaser_template( $texts ) {
 		ob_start();
+		$messages = $texts['messages'];
 		?>
 		<div class="elementor-nerd-box">
 			<img class="elementor-nerd-box-icon" style="width:45px;margin-right:0;" alt="Style Kits for Elementor" src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/analog.svg' ); ?>" />
+			<?php if ( isset( $texts['title'] ) && $texts['title'] ) : ?>
 			<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
-			<?php foreach ( $texts['messages'] as $message ) { ?>
-				<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
 				<?php
-			}
+			endif;
+			if ( ! empty( $messages ) ) :
+				foreach ( $messages as $message ) {
+					?>
+					<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+					<?php
+				}
+			endif;
 
-			if ( $texts['link'] ) {
+			if ( isset( $texts['link'] ) && $texts['link'] ) {
 				?>
 				<a
 					class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro"
@@ -212,6 +219,7 @@ final class Promotions extends Base {
 	 */
 	public function get_updated_teaser_template( $texts ) {
 		ob_start();
+		$messages = $texts['messages'];
 		?>
 		<div class="elementor-nerd-box" style="padding: 0; display: flex; align-items: baseline; gap: 10px; text-align: left;">
 			<div style="align-self: center;">
@@ -222,11 +230,13 @@ final class Promotions extends Base {
 					<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
 					<?php
 				endif;
-				foreach ( $texts['messages'] as $message ) {
-					?>
-					<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
-					<?php
-				}
+				if ( ! empty( $messages ) ) :
+					foreach ( $messages as $message ) {
+						?>
+						<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+						<?php
+					}
+				endif;
 
 				if ( isset( $texts['link'] ) && $texts['link'] ) {
 					?>
