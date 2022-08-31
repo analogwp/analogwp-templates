@@ -110,7 +110,13 @@ class Manager {
 			return false;
 		}
 
-		$kit_id = $this->get_current_post()->get_settings_for_display( 'ang_action_tokens' );
+		$current_post = $this->get_current_post();
+
+		if ( ! $current_post ) {
+			return false;
+		}
+
+		$kit_id = $current_post->get_settings_for_display( 'ang_action_tokens' );
 
 		if ( ! $kit_id || '' === $kit_id ) {
 			return false;
