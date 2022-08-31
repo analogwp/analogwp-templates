@@ -217,7 +217,7 @@ final class Promotions extends Base {
 			<div style="align-self: center;">
 
 				<?php
-				if ( $texts['title'] ) :
+				if ( isset( $texts['title'] ) && $texts['title'] ) :
 					?>
 					<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
 					<?php
@@ -228,7 +228,7 @@ final class Promotions extends Base {
 					<?php
 				}
 
-				if ( $texts['link'] ) {
+				if ( isset( $texts['link'] ) && $texts['link'] ) {
 					?>
 					<a
 							class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro"
