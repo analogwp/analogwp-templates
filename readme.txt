@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 6.0.1
-Stable tag: 1.9.3
+Tested up to: 6.0.2
+Stable tag: 1.9.4
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -105,6 +105,12 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.9.4 - August 31, 2022 =
+* Fix: Potential fatal error at custom kit usage checker (props to Mark Westguard)
+* Fix: Promotions teaser template warnings (props to Mayur Thakkkar)
+* Improvements: Compatibility with Elementor v3.7.3 & Elementor Pro v3.7.4
+* Improvements: Compatible up to WordPress v6.0.2
 
 = 1.9.3 - August 26, 2022 =
 * New: Additional controls for Global fonts and colors in a tabbed layout

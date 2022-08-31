@@ -177,16 +177,23 @@ final class Promotions extends Base {
 	 */
 	public function get_teaser_template( $texts ) {
 		ob_start();
+		$messages = $texts['messages'];
 		?>
 		<div class="elementor-nerd-box">
 			<img class="elementor-nerd-box-icon" style="width:45px;margin-right:0;" alt="Style Kits for Elementor" src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/analog.svg' ); ?>" />
+			<?php if ( isset( $texts['title'] ) && $texts['title'] ) : ?>
 			<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
-			<?php foreach ( $texts['messages'] as $message ) { ?>
-				<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
 				<?php
-			}
+			endif;
+			if ( ! empty( $messages ) ) :
+				foreach ( $messages as $message ) {
+					?>
+					<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+					<?php
+				}
+			endif;
 
-			if ( $texts['link'] ) {
+			if ( isset( $texts['link'] ) && $texts['link'] ) {
 				?>
 				<a
 					class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro"
@@ -212,23 +219,26 @@ final class Promotions extends Base {
 	 */
 	public function get_updated_teaser_template( $texts ) {
 		ob_start();
+		$messages = $texts['messages'];
 		?>
 		<div class="elementor-nerd-box" style="padding: 0; display: flex; align-items: baseline; gap: 10px; text-align: left;">
 			<div style="align-self: center;">
 
 				<?php
-				if ( $texts['title'] ) :
+				if ( isset( $texts['title'] ) && $texts['title'] ) :
 					?>
 					<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
 					<?php
 				endif;
-				foreach ( $texts['messages'] as $message ) {
-					?>
-					<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
-					<?php
-				}
+				if ( ! empty( $messages ) ) :
+					foreach ( $messages as $message ) {
+						?>
+						<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+						<?php
+					}
+				endif;
 
-				if ( $texts['link'] ) {
+				if ( isset( $texts['link'] ) && $texts['link'] ) {
 					?>
 					<a
 							class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro"
@@ -276,45 +286,6 @@ final class Promotions extends Base {
 		);
 
 		$element->end_controls_tab();
-	}
-
-	/**
-	 * Get promotional control teaser template.
-	 *
-	 * @since n.e.x.t
-	 * @param array $texts Text arguments.
-	 *
-	 * @return false|string
-	 */
-	public function get_control_teaser_template( $texts ) {
-		ob_start();
-		?>
-		<div style="
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		margin-bottom: 10px;
-		margin-top: -10px;">
-			<div class="elementor-control-title" style="font-weight: bold;"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
-			<?php foreach ( $texts['messages'] as $message ) { ?>
-				<div class="elementor-control-raw-html elementor-descriptor" style="font-style: normal;"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
-				<?php
-			}
-
-			if ( $texts['link'] ) {
-				?>
-				<a
-						class="elementor-button elementor-button-default elementor-button-go-pro"
-						href="<?php echo esc_url( Utils::get_pro_link( $texts['link'] ) ); ?>"
-						style="background-color:var(--ang-accent); text-align: center; padding: 8px 0;box-shadow: 0 0 2px rgb(0 0 0 / 0%), 0 2px 2px rgb(0 0 0 / 0%); border: none;"
-						target="_blank">
-					<?php esc_html_e( 'Explore Style Kits Pro', 'ang' ); ?>
-				</a>
-			<?php } ?>
-		</div>
-		<?php
-
-		return ob_get_clean();
 	}
 
 	/**
