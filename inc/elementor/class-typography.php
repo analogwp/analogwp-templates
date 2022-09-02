@@ -2125,7 +2125,7 @@ class Typography extends Module {
 				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'none',
+				'default'       => 'none_hover',
 				'options'       => $hover_options,
 				'prefix_class'  => 'elementor-repeater-item-',
 			)
@@ -2226,7 +2226,7 @@ class Typography extends Module {
 				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'none',
+				'default'       => 'none_hover',
 				'options'       => $hover_options,
 				'prefix_class'  => 'elementor-repeater-item-',
 			)
@@ -2289,7 +2289,7 @@ class Typography extends Module {
 				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'none',
+				'default'       => 'none_hover',
 				'options'       => $hover_options,
 				'prefix_class'  => 'elementor-repeater-item-',
 			)
