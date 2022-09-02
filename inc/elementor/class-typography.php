@@ -2094,7 +2094,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2122,7 +2122,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2192,7 +2192,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_sc_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2220,7 +2220,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_sc_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2255,7 +2255,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2283,7 +2283,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
