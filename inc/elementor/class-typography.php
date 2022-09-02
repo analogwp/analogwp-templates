@@ -1984,7 +1984,7 @@ class Typography extends Module {
 				'global'   => array(
 					'active' => false,
 				),
-				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover',
+				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover, {{WRAPPER}} {{CURRENT_ITEM}}_external.elementor-element > .elementor-widget-container',
 			)
 		);
 
@@ -2143,9 +2143,12 @@ class Typography extends Module {
 		// Get presets options array.
 		$options = $this->get_kit_shadow_presets();
 
-		/**
-		 * Common widgets.
-		 */
+		$updated_options = array();
+
+		foreach ( $options as $key => $value ) {
+			$updated_options[ $key . '_external' ] = $value;
+		}
+
 		$element->start_injection(
 			array(
 				'of' => 'image_box_shadow_box_shadow_type',
@@ -2159,9 +2162,9 @@ class Typography extends Module {
 				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'none',
-				'options'       => $options,
-				'prefix_class'  => 'elementor-repeater-item-',
+				'default'       => 'none_external',
+				'options'       => $updated_options,
+				'prefix_class'  => 'external_elementor-repeater-item-',
 			)
 		);
 
