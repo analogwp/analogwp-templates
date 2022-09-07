@@ -348,12 +348,12 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 											</button>
 										</figure>
 									</CardBody>
-									<CardFooter>
+									{ ! AGWP.isContainer && <CardFooter>
 										<div className="content">
 											<h3>{ decodeEntities( block.title ) }</h3>
 											{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
 										</div>
-									</CardFooter>
+									</CardFooter> }
 								</Card>
 							</div>
 						);
