@@ -28,7 +28,6 @@ final class Promotions extends Base {
 	public function __construct() {
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_layout_tools' ), 250, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_form_controls' ), 45, 2 );
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_shadow_controls' ), 47, 2 );
 
 		add_action( 'analog_background_colors_tab_end', array( $this, 'add_background_color_accent_promo' ), 170, 1 );
 
@@ -49,6 +48,8 @@ final class Promotions extends Base {
 		if ( 'active' === $global_fonts_experiment ) {
 			add_action( 'analog_global_fonts_tab_end', array( $this, 'add_additional_font_tabs_promo' ), 170, 2 );
 		}
+
+		add_action( 'analog_box_shadows_tab_end', array( $this, 'add_additional_shadow_tabs_promo' ), 170, 2 );
 	}
 
 	/**
@@ -176,16 +177,23 @@ final class Promotions extends Base {
 	 */
 	public function get_teaser_template( $texts ) {
 		ob_start();
+		$messages = $texts['messages'];
 		?>
 		<div class="elementor-nerd-box">
 			<img class="elementor-nerd-box-icon" style="width:45px;margin-right:0;" alt="Style Kits for Elementor" src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/analog.svg' ); ?>" />
+			<?php if ( isset( $texts['title'] ) && $texts['title'] ) : ?>
 			<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
-			<?php foreach ( $texts['messages'] as $message ) { ?>
-				<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
 				<?php
-			}
+			endif;
+			if ( ! empty( $messages ) ) :
+				foreach ( $messages as $message ) {
+					?>
+					<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+					<?php
+				}
+			endif;
 
-			if ( $texts['link'] ) {
+			if ( isset( $texts['link'] ) && $texts['link'] ) {
 				?>
 				<a
 					class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro"
@@ -211,23 +219,26 @@ final class Promotions extends Base {
 	 */
 	public function get_updated_teaser_template( $texts ) {
 		ob_start();
+		$messages = $texts['messages'];
 		?>
 		<div class="elementor-nerd-box" style="padding: 0; display: flex; align-items: baseline; gap: 10px; text-align: left;">
 			<div style="align-self: center;">
 
 				<?php
-				if ( $texts['title'] ) :
+				if ( isset( $texts['title'] ) && $texts['title'] ) :
 					?>
 					<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
 					<?php
 				endif;
-				foreach ( $texts['messages'] as $message ) {
-					?>
-					<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
-					<?php
-				}
+				if ( ! empty( $messages ) ) :
+					foreach ( $messages as $message ) {
+						?>
+						<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+						<?php
+					}
+				endif;
 
-				if ( $texts['link'] ) {
+				if ( isset( $texts['link'] ) && $texts['link'] ) {
 					?>
 					<a
 							class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro"
@@ -275,45 +286,6 @@ final class Promotions extends Base {
 		);
 
 		$element->end_controls_tab();
-	}
-
-	/**
-	 * Get promotional control teaser template.
-	 *
-	 * @since n.e.x.t
-	 * @param array $texts Text arguments.
-	 *
-	 * @return false|string
-	 */
-	public function get_control_teaser_template( $texts ) {
-		ob_start();
-		?>
-		<div style="
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		margin-bottom: 10px;
-		margin-top: -10px;">
-			<div class="elementor-control-title" style="font-weight: bold;"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
-			<?php foreach ( $texts['messages'] as $message ) { ?>
-				<div class="elementor-control-raw-html elementor-descriptor" style="font-style: normal;"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
-				<?php
-			}
-
-			if ( $texts['link'] ) {
-				?>
-				<a
-						class="elementor-button elementor-button-default elementor-button-go-pro"
-						href="<?php echo esc_url( Utils::get_pro_link( $texts['link'] ) ); ?>"
-						style="background-color:var(--ang-accent); text-align: center; padding: 8px 0;box-shadow: 0 0 2px rgb(0 0 0 / 0%), 0 2px 2px rgb(0 0 0 / 0%); border: none;"
-						target="_blank">
-					<?php esc_html_e( 'Explore Style Kits Pro', 'ang' ); ?>
-				</a>
-			<?php } ?>
-		</div>
-		<?php
-
-		return ob_get_clean();
 	}
 
 	/**
@@ -472,6 +444,60 @@ final class Promotions extends Base {
 							__( 'Extend your typography system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-global-fonts' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+	}
+
+	/**
+	 * Modify original "Style Kit Shadows" tabs.
+	 *
+	 * @hook analog_box_shadows_tab_end
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 * @param Repeater       $repeater Elementor repeater element.
+	 */
+	public function add_additional_shadow_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
+		$element->start_controls_tab(
+			'ang_tab_box_shadows_secondary',
+			array( 'label' => __( '9-16', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_box_shadows_secondary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your shadows system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-box-shadows' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+
+		$element->start_controls_tab(
+			'ang_tab_box_shadows_tertiary',
+			array( 'label' => __( '17-24', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_box_shadows_tertiary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your shadows system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-box-shadows' ),
 					)
 				),
 			)

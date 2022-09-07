@@ -136,6 +136,7 @@ class ANG_Action extends Base_Data_Control {
 					'resetGlobalColorsMessage'     => __( 'This will revert the color palette and the color labels to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 					'resetGlobalFontsMessage'      => __( 'This will revert the global font labels & values to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 					'resetContainerPaddingMessage' => __( 'This will revert the container preset labels & values to their defaults. You can undo this action from the revisions tab.', 'ang' ),
+					'resetShadowsDesc'             => __( 'This will revert the box shadow presets to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 				),
 				'skPanelsAllowed' => $sk_panels_allowed,
 			)
