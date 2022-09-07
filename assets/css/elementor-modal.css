@@ -8,8 +8,8 @@
 }
 
 #analogwp-templates-modal .dialog-widget-content {
-    width: 95vw;
-    height: 95vh;
+    width: 100vw;
+    height: 100vh;
     overflow-y: auto;
 	overflow-x: hidden;
 	background-color: #e3e3e3;
