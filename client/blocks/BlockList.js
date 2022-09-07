@@ -75,6 +75,14 @@ const Container = styled.div`
 			.favorite {
 				opacity: 1;
 			}
+			.pattern-title {
+				position: absolute;
+				bottom: 10px;
+				z-index: 200;
+				text-align: center;
+				width: 100%;
+				font-size: 14px !important;
+			}
 		}
 
 		.actions {
@@ -346,6 +354,11 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 											>
 												<Star />
 											</button>
+											{ AGWP.isContainer &&
+												<div className="pattern-title">
+													<h3>{ decodeEntities( block.title ) }</h3>
+												</div>
+											}
 										</figure>
 									</CardBody>
 									{ ! AGWP.isContainer && <CardFooter>
