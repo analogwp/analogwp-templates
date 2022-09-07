@@ -46,7 +46,7 @@ const SidebarWrapper = styled.div`
 
 	.block-categories-tabs .components-button {
 		border-radius: 0;
-		padding: 25px 0 25px 20px;
+		padding: 20px 0 20px 20px;
 		border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 		font-size: 16px;
 		color: #060606;
