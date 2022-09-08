@@ -30,9 +30,12 @@ final class Allow {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$allowed = Options::get_instance()->get( 'allow_svg_uploads' );
+		$options = Options::get_instance();
 
-		// Return early if this is not enabled.
+		// By default, set it to allow.
+		$allowed = $options->has( 'allow_svg_uploads' ) ? $options->get( 'allow_svg_uploads' ) : true;
+
+		// Return early if this is not disabled.
 		if ( ! $allowed ) {
 			return;
 		}
