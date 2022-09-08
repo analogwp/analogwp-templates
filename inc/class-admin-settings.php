@@ -180,10 +180,10 @@ class Admin_Settings {
 			}
 		} else {
 			// Single value.
-			if ( empty( $options[ $option_name ] ) ) {
+			if ( ! isset( $options[ $option_name ] ) ) {
 				$options[ $option_name ] = null;
 			}
-			$option_value = $options[ $option_name ];
+			$option_value = $options[ $option_name ] ?? null;
 		}
 
 		if ( is_array( $option_value ) ) {
