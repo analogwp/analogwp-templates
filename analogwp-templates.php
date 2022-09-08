@@ -197,6 +197,13 @@ function analog_fail_load() {
 	echo '<div class="error"><p>' . $message . '</p></div>'; // @codingStandardsIgnoreLine
 }
 
+// Third party dependencies.
+$vendor_file = __DIR__ . '/third-party/vendor/scoper-autoload.php';
+
+if ( is_readable( $vendor_file ) ) {
+	require_once $vendor_file;
+}
+
 /**
  * Fire up plugin instance.
  *
