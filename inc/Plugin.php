@@ -226,6 +226,7 @@ final class Plugin {
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-import-image.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-options.php';
+		require_once ANG_PLUGIN_DIR . 'inc/Core/SVGs/Allow.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Consumer.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notice.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notices.php';
