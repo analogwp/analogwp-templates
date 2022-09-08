@@ -12,15 +12,42 @@
     "minimum-stability": "dev",
   	"prefer-stable": true,
   	"config": {
-	  "sort-packages": true
+	  "sort-packages": true,
+        "allow-plugins": {
+            "civicrm/composer-downloads-plugin": true,
+            "ergebnis/composer-normalize": true
+        }
 	},
-    "require": {
-        "php": ">=5.6",
-        "ext-json": "*"
-    },
+	"require": {
+	},
     "require-dev": {
+        "civicrm/composer-downloads-plugin": "*",
         "codeception/module-filesystem": "*",
+        "ergebnis/composer-normalize": "*",
         "flow/jsonpath": "*",
-        "lucatume/wp-browser": "*"
-    }
+        "lucatume/wp-browser": "*",
+        "sniccowp/php-scoper-wordpress-excludes": "*"
+    },
+	"extra": {
+	  "downloads": {
+		"php-scoper": {
+		  "path": "vendor/bin/php-scoper",
+		  "type": "phar",
+		  "url": "https://github.com/humbug/php-scoper/releases/download/0.17.2/php-scoper.phar"
+		}
+	  }
+	},
+  "scripts": {
+	"post-install-cmd": [
+	  "@prefix-dependencies"
+	],
+	"post-update-cmd": [
+	  "@prefix-dependencies"
+	],
+	"prefix-dependencies": [
+	  "php-scoper add-prefix --output-dir=./third-party --force --quiet",
+	  "echo '{ \"autoload\": { \"classmap\": [\"\"] } }' > ./third-party/composer.json",
+	  "@composer dump-autoload --working-dir ./third-party --no-dev --classmap-authoritative"
+	]
+  }
 }
