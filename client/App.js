@@ -160,7 +160,7 @@ class App extends React.Component {
 			group: true,
 			activeKit: false,
 			installedKits: AGWP.installed_kits || {},
-			tab: 'templates',
+			tab: 'blocks',
 			hasPro: false,
 			settings: {
 				ang_sync_colors: true,
