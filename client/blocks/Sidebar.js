@@ -171,17 +171,6 @@ const Sidebar = ( { state } ) => {
 
 	return (
 		<SidebarWrapper className="sidebar">
-			<TabPanel
-				className="block-categories-tabs"
-				activeClass="active-tab"
-				initialTabName={ blockIdentifier }
-				onSelect={onSelect}
-				tabs={ tabGenerator( categoriesData() ) }
-				>
-				{
-					( tab ) => tabContent()
-				}
-			</TabPanel>
 			{ AGWP.license.status !== 'valid' && (
 				<ToggleControl
 					label={ __( 'Show Pro Blocks', 'ang' ) }
@@ -195,6 +184,17 @@ const Sidebar = ( { state } ) => {
 					} }
 				/>
 			) }
+			<TabPanel
+				className="block-categories-tabs"
+				activeClass="active-tab"
+				initialTabName={ blockIdentifier }
+				onSelect={onSelect}
+				tabs={ tabGenerator( categoriesData() ) }
+				>
+				{
+					( tab ) => tabContent()
+				}
+			</TabPanel>
 		</SidebarWrapper>
 	);
 }

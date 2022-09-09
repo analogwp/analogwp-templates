@@ -63,8 +63,11 @@ const Header = () => {
 
 	return (
 		<Container theme={ theme }>
-			<Synchronization />
+			<div className="logo">
+				<img src={ AGWP.pluginURL + '/assets/img/analog.svg' } alt="" />
+			</div>
 			<Nav />
+			<Synchronization />
 		</Container>
 	);
 };
