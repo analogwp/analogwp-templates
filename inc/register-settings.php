@@ -181,8 +181,8 @@ function new_settings_page() {
 function settings_page() {
 	do_action( 'ang_loaded_templates' );
 	?>
-	<style>body { background: #E3E3E3; }</style>
-	<div id="analogwp-templates" class="wrap"></div>
+	<style>body { background: #F1F1F1; }</style>
+	<div id="analogwp-templates" class=""></div>
 	<?php
 }
 

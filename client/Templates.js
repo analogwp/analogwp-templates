@@ -136,7 +136,7 @@ const TemplatesContainer = styled.div`
 				height: 0;
 				border-style: solid;
 				border-width: 42px 42px 0 0;
-				border-color: var(--ang-accent) transparent transparent transparent;
+				border-color: var(--ang-primary) transparent transparent transparent;
 				position: absolute;
 				top: 0;
 				left: 0;

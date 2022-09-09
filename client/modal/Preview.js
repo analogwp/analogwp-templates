@@ -30,7 +30,7 @@ const Container = styled.div`
 	height: 100%;
 	overflow: hidden;
 	overflow: -moz-scrollbars-none;
-	background: #e3e3e3;
+	background: #F1F1F1;
 	z-index: 999;
 	text-align: center;
 

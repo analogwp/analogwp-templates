@@ -25,7 +25,11 @@ const Analog = styled.div`
 	}
 
 	.components-form-toggle.is-checked .components-form-toggle__track {
-		background-color: var(--ang-accent);
+		background-color: var(--ang-primary);
+	}
+
+	.components-form-toggle .components-form-toggle__input:focus + .components-form-toggle__track {
+		box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ang-primary);
 	}
 
 	.ang-button {

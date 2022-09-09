@@ -15,7 +15,7 @@ const SidebarWrapper = styled.div`
 	height: 100vh;
 	position: sticky;
 	position: -webkit-sticky;
-	top: 24px;
+	top: 35px;
 
 	.components-tab-panel__tabs {
 		display: flex;
@@ -41,13 +41,16 @@ const SidebarWrapper = styled.div`
 	.components-toggle-control
 	.components-base-control__field
 	.components-toggle-control__label {
-		padding: 20px 20px;
+		padding: 8px 0 10px;
+	}
+
+	.components-base-control.components-toggle-control {
+		border-bottom: 1px solid var(--ang-border);
 	}
 
 	.block-categories-tabs .components-button {
 		border-radius: 0;
-		padding: 20px 0 20px 20px;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+		padding: 10px 0;
 		font-size: 16px;
 		color: #060606;
 		justify-content: space-between;
@@ -60,9 +63,9 @@ const SidebarWrapper = styled.div`
 	}
 
 	.block-categories-tabs .components-button.active-tab {
-		box-shadow: inset 6px 0 0 0 #007cba;
+		box-shadow: none;
 		font-weight: bold;
-		color: #00669b !important;
+		color: var(--ang-primary) !important;
 	}
 
 	.block-categories-tabs
@@ -70,7 +73,7 @@ const SidebarWrapper = styled.div`
 	.components-button:focus:not(:disabled) {
 		background-color: transparent;
 		outline: none;
-		box-shadow: inset 6px 0 0 0 #007cba;
+		box-shadow: none;
 	}
 
 	.block-categories-tabs label,

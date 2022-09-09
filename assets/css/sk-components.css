@@ -77,9 +77,9 @@
 
 #analogwp-templates .pro-modal-container,
 #analogwp-blocks .pro-modal-container {
-	background: var(--ang-accent);
-	color: #fff;
-	padding: 20px;
+	background: var(--ang-notice-bg);
+	color: var(--ang-main-text);
+	padding: 6px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -100,9 +100,11 @@
 
 #analogwp-templates .pro-modal-container button,
 #analogwp-blocks .pro-modal-container button {
-	border: 3px solid #fff;
+	border: 3px solid transparent;
+	background: var(--ang-primary);
 	border-radius: 6px;
 	padding: 0;
+	box-shadow: none;
 }
 
 #analogwp-templates .pro-modal-container button:active,
