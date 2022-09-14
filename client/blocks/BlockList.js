@@ -228,7 +228,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 
 	const getScreenshot = ( block ) => {
 		if ( AGWP.isContainer ) {
-			return block.thumbnail || AGWP.blockMediaURL + `patterns/${ block.id }.webp`;
+			return block.thumbnail || AGWP.blockMediaURL + `patterns/${ block.id }.webp?modified=${ block.modified }`;
 		}
 
 		return AGWP.blockMediaURL + block.id + '.jpg';
