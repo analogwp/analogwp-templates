@@ -461,7 +461,7 @@ class Typography extends Module {
 		$padding_defaults = array(
 			array(
 				'_id'            => 'ang_container_padding_1',
-				'title'          => __( 'XL', 'ang' ),
+				'title'          => __( 'Padding 1', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '80',
@@ -489,7 +489,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_2',
-				'title'          => __( 'Large', 'ang' ),
+				'title'          => __( 'Padding 2', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '64',
@@ -517,7 +517,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_3',
-				'title'          => __( 'Normal', 'ang' ),
+				'title'          => __( 'Padding 3', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '40',
@@ -537,7 +537,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_4',
-				'title'   => __( 'Medium', 'ang' ),
+				'title'   => __( 'Padding 4', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '24',
@@ -549,7 +549,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_5',
-				'title'   => __( 'Small', 'ang' ),
+				'title'   => __( 'Padding 5', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '16',
@@ -561,15 +561,15 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'ang_container_padding_6',
-				'title' => __( 'style 6', 'ang' ),
+				'title' => __( 'Padding 6', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_7',
-				'title' => __( 'style 7', 'ang' ),
+				'title' => __( 'Padding 7', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_8',
-				'title' => __( 'style 8', 'ang' ),
+				'title' => __( 'Padding 8', 'ang' ),
 			),
 		);
 
@@ -1900,11 +1900,11 @@ class Typography extends Module {
 		$shadow_defaults = array(
 			array(
 				'_id'   => 'shadow_1',
-				'title' => __( 'Default', 'ang' ),
+				'title' => __( 'Shadow 1', 'ang' ),
 			),
 			array(
 				'_id'                    => 'shadow_2',
-				'title'                  => __( 'Small', 'ang' ),
+				'title'                  => __( 'Shadow 2', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1916,7 +1916,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_3',
-				'title'                  => __( 'Medium', 'ang' ),
+				'title'                  => __( 'Shadow 3', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1928,7 +1928,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_4',
-				'title'                  => __( 'Large', 'ang' ),
+				'title'                  => __( 'Shadow 4', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1940,7 +1940,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_5',
-				'title'                  => __( 'Extra Large', 'ang' ),
+				'title'                  => __( 'Shadow 5', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1952,15 +1952,15 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'shadow_6',
-				'title' => __( 'style 6', 'ang' ),
+				'title' => __( 'Shadow 6', 'ang' ),
 			),
 			array(
 				'_id'   => 'shadow_7',
-				'title' => __( 'style 7', 'ang' ),
+				'title' => __( 'Shadow 7', 'ang' ),
 			),
 			array(
 				'_id'   => 'shadow_8',
-				'title' => __( 'style 8', 'ang' ),
+				'title' => __( 'Shadow 8', 'ang' ),
 			),
 		);
 
