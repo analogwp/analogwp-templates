@@ -1749,35 +1749,35 @@ class Typography extends Module {
 		$title_typography = array(
 			array(
 				'_id'   => 'sk_type_1',
-				'title' => esc_html__( 'Display title', 'ang' ),
+				'title' => esc_html__( 'Font Style 1', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_2',
-				'title' => esc_html__( 'Title 1', 'ang' ),
+				'title' => esc_html__( 'Font Style 2', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_3',
-				'title' => esc_html__( 'Title 2', 'ang' ),
+				'title' => esc_html__( 'Font Style 3', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_4',
-				'title' => esc_html__( 'Title 3', 'ang' ),
+				'title' => esc_html__( 'Font Style 4', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_5',
-				'title' => esc_html__( 'Title 4', 'ang' ),
+				'title' => esc_html__( 'Font Style 5', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_6',
-				'title' => esc_html__( 'Title 5', 'ang' ),
+				'title' => esc_html__( 'Font Style 6', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_7',
-				'title' => esc_html__( 'Title 6', 'ang' ),
+				'title' => esc_html__( 'Font Style 7', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_8',
-				'title' => esc_html__( 'Overline / Subheader', 'ang' ),
+				'title' => esc_html__( 'Font Style 8', 'ang' ),
 			),
 		);
 
@@ -1798,35 +1798,35 @@ class Typography extends Module {
 		$text_typography = array(
 			array(
 				'_id'   => 'sk_type_9',
-				'title' => esc_html__( 'Display Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 9', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_10',
-				'title' => esc_html__( 'Large Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 10', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_11',
-				'title' => esc_html__( 'Normal Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 11', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_12',
-				'title' => esc_html__( 'Small Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 12', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_13',
-				'title' => esc_html__( 'Caption', 'ang' ),
+				'title' => esc_html__( 'Font Style 13', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_14',
-				'title' => esc_html__( 'Button Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 14', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_15',
-				'title' => esc_html__( 'Label', 'ang' ),
+				'title' => esc_html__( 'Font Style 15', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_16',
-				'title' => esc_html__( 'Code', 'ang' ),
+				'title' => esc_html__( 'Font Style 16', 'ang' ),
 			),
 		);
 
