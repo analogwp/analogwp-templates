@@ -165,6 +165,7 @@ class App extends React.Component {
 			activeKit: false,
 			installedKits: AGWP.installed_kits || {},
 			tab: 'blocks',
+			blocksTab: AGWP.isContainer ? 'all-patterns' : 'all-blocks',
 			hasPro: false,
 			settings: {
 				ang_sync_colors: true,

@@ -96,7 +96,7 @@ const Sidebar = ( { state } ) => {
 	let favoriteBlocks = filteredBlocks.filter( t => t.id in context.state.blockFavorites );
 
 	const onSelect = ( tab ) => {
-		state.dispatch( { tab } );
+		context.dispatch( { blocksTab: tab } );
 
 		let selectFilteredBlocks = filteredBlocks;
 
@@ -190,7 +190,7 @@ const Sidebar = ( { state } ) => {
 			<TabPanel
 				className="block-categories-tabs"
 				activeClass="active-tab"
-				initialTabName={ blockIdentifier }
+				initialTabName={ context.state.blocksTab }
 				onSelect={onSelect}
 				tabs={ tabGenerator( categoriesData() ) }
 				>
