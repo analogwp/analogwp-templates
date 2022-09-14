@@ -117,6 +117,7 @@ class Typography extends Module {
 		add_action( 'elementor/element/common/_section_border/before_section_end', array( $this, 'tweak_common_borders' ) );
 		add_action( 'elementor/element/section/section_border/before_section_end', array( $this, 'tweak_section_column_borders' ) );
 		add_action( 'elementor/element/column/section_border/before_section_end', array( $this, 'tweak_section_column_borders' ) );
+		add_action( 'elementor/element/image/section_style_image/before_section_end', array( $this, 'tweak_image_borders' ) );
 
 		if ( 'active' === $container_spacing_experiment ) {
 			add_action( 'elementor/element/container/section_border/before_section_end', array( $this, 'tweak_container_borders' ) );
@@ -447,7 +448,7 @@ class Typography extends Module {
 		$element->start_controls_tabs(
 			'ang_container_spacing_tabs',
 			array(
-			'separator'       => 'before',
+				'separator' => 'before',
 			)
 		);
 
@@ -1983,7 +1984,7 @@ class Typography extends Module {
 				'global'   => array(
 					'active' => false,
 				),
-				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover',
+				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover, {{WRAPPER}} {{CURRENT_ITEM}}_external.elementor-element > .elementor-widget-container',
 			)
 		);
 
@@ -2093,7 +2094,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2121,12 +2122,49 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'none',
+				'default'       => 'none_hover',
 				'options'       => $hover_options,
 				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Tweak Image widget for Box Shadow presets.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_image_borders( Element_Base $element ) {
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
+
+		$updated_options = array();
+
+		foreach ( $options as $key => $value ) {
+			$updated_options[ $key . '_external' ] = $value;
+		}
+
+		$element->start_injection(
+			array(
+				'of' => 'image_box_shadow_box_shadow_type',
+				'at' => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_image_box_shadow_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none_external',
+				'options'       => $updated_options,
+				'prefix_class'  => 'external_elementor-repeater-item-',
 			)
 		);
 
@@ -2157,7 +2195,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_sc_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2185,10 +2223,10 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_sc_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'none',
+				'default'       => 'none_hover',
 				'options'       => $hover_options,
 				'prefix_class'  => 'elementor-repeater-item-',
 			)
@@ -2220,7 +2258,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2248,10 +2286,10 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'none',
+				'default'       => 'none_hover',
 				'options'       => $hover_options,
 				'prefix_class'  => 'elementor-repeater-item-',
 			)
