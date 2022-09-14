@@ -433,22 +433,22 @@ class Colors extends Module {
 		$default_surface_colors = array(
 			array(
 				'_id'   => 'sk_color_1',
-				'title' => esc_html__( 'Background 1', 'ang' ),
+				'title' => esc_html__( 'Color Style 1', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_2',
-				'title' => esc_html__( 'Background 2', 'ang' ),
+				'title' => esc_html__( 'Color Style 2', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_3',
-				'title' => esc_html__( 'Background 3', 'ang' ),
+				'title' => esc_html__( 'Color Style 3', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_4',
-				'title' => esc_html__( 'Background 4', 'ang' ),
+				'title' => esc_html__( 'Color Style 4', 'ang' ),
 				'color' => '',
 			),
 		);
@@ -473,22 +473,22 @@ class Colors extends Module {
 		$default_accent_colors = array(
 			array(
 				'_id'   => 'sk_color_5',
-				'title' => esc_html__( 'Accent 1', 'ang' ),
+				'title' => esc_html__( 'Color Style 5', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_6',
-				'title' => esc_html__( 'Accent 2', 'ang' ),
+				'title' => esc_html__( 'Color Style 6', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_7',
-				'title' => esc_html__( 'Accent 3', 'ang' ),
+				'title' => esc_html__( 'Color Style 7', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_8',
-				'title' => esc_html__( 'Accent 4', 'ang' ),
+				'title' => esc_html__( 'Color Style 8', 'ang' ),
 				'color' => '',
 			),
 		);
@@ -512,22 +512,22 @@ class Colors extends Module {
 		$default_type_colors = array(
 			array(
 				'_id'   => 'sk_color_9',
-				'title' => esc_html__( 'Text 1', 'ang' ),
+				'title' => esc_html__( 'Color Style 9', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_10',
-				'title' => esc_html__( 'Text 2', 'ang' ),
+				'title' => esc_html__( 'Color Style 10', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_11',
-				'title' => esc_html__( 'Text 3', 'ang' ),
+				'title' => esc_html__( 'Color Style 11', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_12',
-				'title' => esc_html__( 'Text 4', 'ang' ),
+				'title' => esc_html__( 'Color Style 12', 'ang' ),
 				'color' => '',
 			),
 		);
@@ -551,22 +551,22 @@ class Colors extends Module {
 		$default_other_colors = array(
 			array(
 				'_id'   => 'sk_color_13',
-				'title' => esc_html__( 'Border 1', 'ang' ),
+				'title' => esc_html__( 'Color Style 13', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_14',
-				'title' => esc_html__( 'Border 2', 'ang' ),
+				'title' => esc_html__( 'Color Style 14', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_15',
-				'title' => esc_html__( 'Feedback 1', 'ang' ),
+				'title' => esc_html__( 'Color Style 15', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_16',
-				'title' => esc_html__( 'Feedback 2', 'ang' ),
+				'title' => esc_html__( 'Color Style 16', 'ang' ),
 				'color' => '',
 			),
 		);

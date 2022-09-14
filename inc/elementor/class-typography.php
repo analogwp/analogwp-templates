@@ -462,7 +462,7 @@ class Typography extends Module {
 		$padding_defaults = array(
 			array(
 				'_id'            => 'ang_container_padding_1',
-				'title'          => __( 'XL', 'ang' ),
+				'title'          => __( 'Padding 1', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '80',
@@ -490,7 +490,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_2',
-				'title'          => __( 'Large', 'ang' ),
+				'title'          => __( 'Padding 2', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '64',
@@ -518,7 +518,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_3',
-				'title'          => __( 'Normal', 'ang' ),
+				'title'          => __( 'Padding 3', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '40',
@@ -538,7 +538,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_4',
-				'title'   => __( 'Medium', 'ang' ),
+				'title'   => __( 'Padding 4', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '24',
@@ -550,7 +550,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_5',
-				'title'   => __( 'Small', 'ang' ),
+				'title'   => __( 'Padding 5', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '16',
@@ -562,15 +562,15 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'ang_container_padding_6',
-				'title' => __( 'style 6', 'ang' ),
+				'title' => __( 'Padding 6', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_7',
-				'title' => __( 'style 7', 'ang' ),
+				'title' => __( 'Padding 7', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_8',
-				'title' => __( 'style 8', 'ang' ),
+				'title' => __( 'Padding 8', 'ang' ),
 			),
 		);
 
@@ -1750,35 +1750,35 @@ class Typography extends Module {
 		$title_typography = array(
 			array(
 				'_id'   => 'sk_type_1',
-				'title' => esc_html__( 'Display title', 'ang' ),
+				'title' => esc_html__( 'Font Style 1', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_2',
-				'title' => esc_html__( 'Title 1', 'ang' ),
+				'title' => esc_html__( 'Font Style 2', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_3',
-				'title' => esc_html__( 'Title 2', 'ang' ),
+				'title' => esc_html__( 'Font Style 3', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_4',
-				'title' => esc_html__( 'Title 3', 'ang' ),
+				'title' => esc_html__( 'Font Style 4', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_5',
-				'title' => esc_html__( 'Title 4', 'ang' ),
+				'title' => esc_html__( 'Font Style 5', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_6',
-				'title' => esc_html__( 'Title 5', 'ang' ),
+				'title' => esc_html__( 'Font Style 6', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_7',
-				'title' => esc_html__( 'Title 6', 'ang' ),
+				'title' => esc_html__( 'Font Style 7', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_8',
-				'title' => esc_html__( 'Overline / Subheader', 'ang' ),
+				'title' => esc_html__( 'Font Style 8', 'ang' ),
 			),
 		);
 
@@ -1799,35 +1799,35 @@ class Typography extends Module {
 		$text_typography = array(
 			array(
 				'_id'   => 'sk_type_9',
-				'title' => esc_html__( 'Display Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 9', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_10',
-				'title' => esc_html__( 'Large Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 10', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_11',
-				'title' => esc_html__( 'Normal Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 11', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_12',
-				'title' => esc_html__( 'Small Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 12', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_13',
-				'title' => esc_html__( 'Caption', 'ang' ),
+				'title' => esc_html__( 'Font Style 13', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_14',
-				'title' => esc_html__( 'Button Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 14', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_15',
-				'title' => esc_html__( 'Label', 'ang' ),
+				'title' => esc_html__( 'Font Style 15', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_16',
-				'title' => esc_html__( 'Code', 'ang' ),
+				'title' => esc_html__( 'Font Style 16', 'ang' ),
 			),
 		);
 
@@ -1901,11 +1901,11 @@ class Typography extends Module {
 		$shadow_defaults = array(
 			array(
 				'_id'   => 'shadow_1',
-				'title' => __( 'Default', 'ang' ),
+				'title' => __( 'Shadow 1', 'ang' ),
 			),
 			array(
 				'_id'                    => 'shadow_2',
-				'title'                  => __( 'Small', 'ang' ),
+				'title'                  => __( 'Shadow 2', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1917,7 +1917,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_3',
-				'title'                  => __( 'Medium', 'ang' ),
+				'title'                  => __( 'Shadow 3', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1929,7 +1929,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_4',
-				'title'                  => __( 'Large', 'ang' ),
+				'title'                  => __( 'Shadow 4', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1941,7 +1941,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_5',
-				'title'                  => __( 'Extra Large', 'ang' ),
+				'title'                  => __( 'Shadow 5', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1953,15 +1953,15 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'shadow_6',
-				'title' => __( 'style 6', 'ang' ),
+				'title' => __( 'Shadow 6', 'ang' ),
 			),
 			array(
 				'_id'   => 'shadow_7',
-				'title' => __( 'style 7', 'ang' ),
+				'title' => __( 'Shadow 7', 'ang' ),
 			),
 			array(
 				'_id'   => 'shadow_8',
-				'title' => __( 'style 8', 'ang' ),
+				'title' => __( 'Shadow 8', 'ang' ),
 			),
 		);
 
