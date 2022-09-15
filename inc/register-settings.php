@@ -289,8 +289,7 @@ function theme_style_kit_onboarding() {
 				<div class="content-wrapper">
 					<h3 class="entry-title"><?php esc_html_e( 'Style Kits are now integrated into Elementor Theme Styles', 'ang' ); ?></h3>
 					<div class="entry-content">
-						<p class="intro">
-							<?php echo __( 'With the introduction of Theme Styles in Elementor v2.9.0, 	Style Kits are now <strong>integrated into the Theme Styles panel</strong>, bringing you a consistent, native experience.', 'ang' ); ?>
+						<p class="intro"><?php esc_html_e( 'With the introduction of Theme Styles in Elementor v2.9.0, Style Kits are now &nbsp;', 'ang' ); ?><strong><?php esc_html_e( 'integrated into the Theme Styles panel', 'ang' ); ?></strong><?php esc_html_e( 'bringing you a consistent, native experience.', 'ang' ); ?>
 						</p>
 						<div class="video-wrapper">
 							<?php echo $wp_embed->autoembed( 'https://www.youtube.com/watch?v=ItcKsNztJJU' ); //phpcs:ignore ?>
