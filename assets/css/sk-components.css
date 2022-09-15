@@ -77,7 +77,7 @@
 
 #analogwp-templates .pro-modal-container,
 #analogwp-blocks .pro-modal-container {
-	background: var(--ang-notice-bg);
+	background: var(--ang-sec-bg);
 	color: var(--ang-main-text);
 	padding: 6px;
 	display: flex;
