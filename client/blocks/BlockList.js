@@ -41,22 +41,6 @@ const Container = styled.div`
 		}
 	}
 
-	.new {
-		position: absolute;
-		top: -8px;
-		right: -8px;
-		background: var(--ang-primary);
-		color: #fff;
-		z-index: 110;
-		font-weight: bold;
-		padding: 8px 10px;
-		line-height: 1;
-		border-radius: 4px;
-		text-transform: uppercase;
-		font-size: 14.22px;
-		letter-spacing: .5px;
-	}
-
 	figure {
 		position: relative;
 		overflow: hidden;
@@ -317,8 +301,8 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 							<div key={ block.id }>
 								<Card>
 									<CardBody>
-										{ ( isNewTheme( block.published ) > -14 ) && (
-											<span className="new">{ __( 'New', 'ang' ) }</span>
+										{ block.is_pro && (
+											<span className="pro">{ __( 'Pro', 'ang' ) }</span>
 										) }
 
 										<figure>

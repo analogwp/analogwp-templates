@@ -332,12 +332,17 @@
 #analogwp-templates .templates-list .pro,
 #analogwp-templates .stylekit-list .pro,
 #analogwp-templates .block-list .pro{
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	z-index: 99;
     border-radius: 4px;
     letter-spacing: .5px;
-    font-size: 13px;
-    padding: 4px 7px;
-    border: 1px solid var(--ang-primary);
-    color: var(--ang-primary);
+	text-transform: uppercase;
+    font-size: 14px;
+    padding: 8px 16px;
+	background-color: var(--ang-dark-bg);
+    color: #fff;
     text-align: center;
 }
 
