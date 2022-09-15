@@ -4,9 +4,9 @@ export const ThemeProvider = ThemeContext.Provider;
 export const ThemeConsumer = ThemeContext.Consumer;
 
 export const Theme = {
-	accent: 'var(--ang-accent)',
-	textLight: '#888888',
-	textDark: '#060606',
+	accent: 'var(--ang-primary)',
+	textLight: 'var(--ang-sec-text)',
+	textDark: 'var(--ang-main-text)',
 	lightGray: '#F2F2F2',
 };
 

@@ -29,7 +29,7 @@ const Container = styled.section`
     	text-align: left;
     }
     a {
-    	color: var(--ang-accent);
+    	color: var(--ang-primary);
     }
 `;
 

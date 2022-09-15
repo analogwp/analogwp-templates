@@ -28,7 +28,7 @@ const TemplatesContainer = styled.div`
 			position: absolute;
 			top: -8px;
 			right: -8px;
-			background: var(--ang-accent);
+			background: var(--ang-primary);
 			color: #fff;
 			z-index: 110;
 			font-weight: bold;

@@ -270,7 +270,7 @@
 	width: 13px;
 	height: 13px;
 	border-radius: 50%;
-	background: var(--ang-accent);
+	background: var(--ang-primary);
 	animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 
@@ -327,7 +327,7 @@
 
 #analogwp-templates .components-external-link,
 #analogwp-blocks .components-external-link {
-	color: var(--ang-accent);
+	color: var(--ang-primary);
 	text-decoration: none;
 }
 
