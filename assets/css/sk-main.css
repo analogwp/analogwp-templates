@@ -104,8 +104,6 @@
     left: 0;
     z-index: 100;
     transition: all 200ms;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
 }
 
 #analogwp-templates .templates-collection .actions:hover,
