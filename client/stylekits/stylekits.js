@@ -36,7 +36,6 @@ const Container = styled.section`
 const ChildContainer = styled.ul`
     > li {
     	border-radius: 4px;
-    	overflow: hidden;
     	background: #fff;
     }
 
@@ -211,6 +210,9 @@ export default class StyleKits extends React.Component {
 							<li key={ kit.id + '-' + kit.site_id }>
 								<Card>
 									<CardBody>
+										{ kit.is_pro && (
+											<span className="pro">{ __( 'Pro', 'ang' ) }</span>
+										) }
 										<figure>
 											<img src={ kit.image || fallbackImage } alt={ kit.title } />
 
@@ -248,9 +250,6 @@ export default class StyleKits extends React.Component {
 									<CardFooter>
 										<div className="content">
 											<h3>{ kit.title }</h3>
-											{ kit.is_pro && (
-												<span className="pro">{ __( 'Pro', 'ang' ) }</span>
-											) }
 										</div>
 									</CardFooter>
 								</Card>
