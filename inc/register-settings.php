@@ -187,6 +187,33 @@ function settings_page() {
 }
 
 /**
+ * Filter the list of admin classes.
+ *
+ * Makes sure the admin menu is collapsed when accessing
+ * the library.
+ *
+ * @since 1.9.5
+ *
+ * @param string|mixed $class Current classes.
+ * @return string|mixed $class List of Classes.
+ */
+function admin_body_class( $class ) {
+	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+	if ( ( $screen instanceof \WP_Screen ) && 'toplevel_page_analogwp_templates' !== $screen->base ) {
+		return $class;
+	}
+
+	// Overrides regular WordPress behavior by collapsing the admin menu by default.
+	if ( false === strpos( $class, 'folded' ) ) {
+		$class .= ' folded';
+	}
+
+	return $class;
+}
+add_filter( 'admin_body_class', 'Analog\Settings\admin_body_class', 99 );
+
+/**
  * Default options.
  *
  * Sets up the default options used on the settings page.
