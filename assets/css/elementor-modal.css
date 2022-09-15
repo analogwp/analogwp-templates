@@ -13,6 +13,7 @@
     overflow-y: auto;
 	overflow-x: hidden;
 	background-color: #e3e3e3;
+	border-radius: none;
 }
 
 #analogwp-templates-modal p {
