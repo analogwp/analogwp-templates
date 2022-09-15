@@ -11,7 +11,8 @@ const defaultTabs = [
 ];
 
 const SidebarWrapper = styled.div`
-	width: 300px;
+	width: 100%;
+	max-width: 220px;
 	height: 100vh;
 	position: sticky;
 	position: -webkit-sticky;
