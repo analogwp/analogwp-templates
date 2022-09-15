@@ -9,6 +9,8 @@ namespace Analog\Settings;
 
 use Analog\Utils;
 use Analog\Options;
+use WP_Screen;
+
 /**
  * Register plugin menu.
  *
@@ -200,7 +202,7 @@ function settings_page() {
 function admin_body_class( $class ) {
 	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 
-	if ( ( $screen instanceof \WP_Screen ) && 'toplevel_page_analogwp_templates' !== $screen->base ) {
+	if ( $screen instanceof WP_Screen && 'toplevel_page_analogwp_templates' !== $screen->base ) {
 		return $class;
 	}
 
