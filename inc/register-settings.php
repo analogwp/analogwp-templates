@@ -8,7 +8,6 @@
 namespace Analog\Settings;
 
 use Analog\Utils;
-use Analog\Options;
 use WP_Screen;
 
 /**
