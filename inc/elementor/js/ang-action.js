@@ -249,66 +249,6 @@ jQuery( window ).on( 'elementor/init', function() {
 	const ControlANGAction = BaseData.extend( {
 		initialize: function( options ) {
 			BaseData.prototype.initialize.apply( this, arguments );
-
-			if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.8.0', '<' ) ) {
-				this.settingsModel = options.elementSettingsModel;
-			} else {
-				this.settingsModel = options.container.model;
-			}
-
-			if ( this.model.get( 'action' ) === 'update_token' ) {
-				this.listenTo( this.settingsModel, 'change', this.toggleControlVisibility );
-			}
-		},
-
-		toggleControlVisibility: function toggleControlVisibility() {
-			if ( this.model.get( 'action' ) !== 'update_token' ) {
-				return;
-			}
-
-			this.$el.find( 'button' ).attr( 'disabled', true );
-
-			if ( Object.keys( elementor.settings.page.model.changed ).length ) {
-				this.$el.find( 'button' ).attr( 'disabled', false );
-			}
-		},
-
-		ui: function() {
-			const ui = BaseData.prototype.ui.apply( this, arguments );
-
-			_.extend( ui, {
-				actionButton: 'button',
-			} );
-
-			return ui;
-		},
-
-		events: function() {
-			const events = BaseData.prototype.events.apply( this, arguments );
-
-			events[ 'click @ui.actionButton' ] = 'onChangeEvent';
-
-			return events;
-		},
-
-		actions: function() {
-			const actions = {
-				update_token: 'handleTokenUpdate',
-			};
-
-			return actions;
-		},
-
-		performAction: function( name ) {
-			const actions = this.actions();
-			return this[ actions[ name ] ]();
-		},
-
-		onChangeEvent: function( event ) {
-			const element = event.currentTarget;
-			const action = jQuery( element ).data( 'action' );
-
-			this.performAction( action );
 		},
 	} );
 
