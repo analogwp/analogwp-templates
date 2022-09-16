@@ -146,7 +146,6 @@ class Elementor {
 			array(
 				'is_settings_page' => false,
 				'global_kit'       => get_option( 'elementor_active_kit' ),
-				'stylekit_queue'   => Utils::get_stylekit_queue() ? array_values( Utils::get_stylekit_queue() ) : array(),
 			)
 		);
 
