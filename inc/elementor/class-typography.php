@@ -1184,7 +1184,7 @@ class Typography extends Module {
 			'ang_outer_gap',
 			array(
 				'label'         => __( 'Outer Section Padding', 'ang' ),
-				'description'   => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_section_padding' )", ' here.' ),
+				'description'   => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_section_padding' )", 'Edit in Style Kits' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => $default,
@@ -1311,7 +1311,7 @@ class Typography extends Module {
 			'ang_container_spacing_size',
 			array(
 				'label'         => __( 'Spacing Preset', 'ang' ),
-				'description'   => __( 'A Style Kits control that adds padding to your container. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_spacing' )", ' here.' ),
+				'description'   => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_spacing' )", __( 'Edit in Style Kits', 'ang' ) ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -1352,7 +1352,7 @@ class Typography extends Module {
 			'ang_container_bg_preset',
 			array(
 				'label'         => __( 'Background presets', 'ang' ),
-				'description'   => __( 'A Style Kits control that let\'s you style containers. You can edit the presets ', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', 'analog.openThemeStyles()', 'here' ),
+				'description'   => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', 'analog.openThemeStyles()', 'Edit in Style Kits' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2102,6 +2102,19 @@ class Typography extends Module {
 			)
 		);
 
+		$element->add_control(
+			'ang_box_shadow_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_shadows\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
 		$element->end_injection();
 
 		$element->start_injection(
@@ -2127,6 +2140,19 @@ class Typography extends Module {
 				'default'       => 'none',
 				'options'       => $hover_options,
 				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->add_control(
+			'ang_box_shadow_hover_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_shadows\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
@@ -2166,6 +2192,19 @@ class Typography extends Module {
 			)
 		);
 
+		$element->add_control(
+			'ang_sc_box_shadow_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_shadows\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
 		$element->end_injection();
 
 		$element->start_injection(
@@ -2191,6 +2230,19 @@ class Typography extends Module {
 				'default'       => 'none',
 				'options'       => $hover_options,
 				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->add_control(
+			'ang_sc_box_shadow_hover_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_shadows\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
@@ -2226,6 +2278,19 @@ class Typography extends Module {
 				'default'       => 'none',
 				'options'       => $options,
 				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->add_control(
+			'ang_container_box_shadow_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_shadows\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
@@ -2277,9 +2342,9 @@ class Typography extends Module {
 			'ang_typography_helper_description',
 			array(
 				'raw'             => sprintf(
-					'<a href="#" onClick="%1$s">%2$s</a>',
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
 					'analog.redirectToPanel( \'ang_typography_sizes\' )',
-					__( 'Edit sizes in Style Kit.', 'ang' )
+					__( 'Edit in Style Kits', 'ang' )
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -2306,9 +2371,9 @@ class Typography extends Module {
 			'ang_btn_sizes_helper_description',
 			array(
 				'raw'             => sprintf(
-					'<a href="#" onClick="%1$s">%2$s</a>',
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
 					'analog.redirectToPanel( \'ang_buttons\' )',
-					__( 'Edit sizes in Style Kit.', 'ang' )
+					__( 'Edit in Style Kits', 'ang' )
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
