@@ -120,10 +120,6 @@ export default class Blocks extends Component {
 
 		return (
 			<Fragment>
-
-				{ this.context.state.syncing && <Empty text={ __( 'Loading blocks...', 'ang' ) } /> }
-
-				{ ! this.context.state.syncing &&
 				<LibraryWrapper>
 					<Sidebar
 						state={ dataSet }
@@ -134,7 +130,7 @@ export default class Blocks extends Component {
 						favorites={ this.context.state.blockFavorites }
 						makeFavorite={ this.makeFavorite }
 					/>
-				</LibraryWrapper> }
+				</LibraryWrapper>
 			</Fragment>
 		);
 	}
