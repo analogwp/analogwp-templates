@@ -417,7 +417,6 @@ jQuery( window ).on( 'elementor/init', function() {
 
 								elementor.notifications.showToast( {
 									message: response.message,
-									classes: 'ang-notice blue',
 								} );
 							} ).catch( function( error ) {
 								elementorCommon.dialogsManager.createWidget( 'alert', {
@@ -426,7 +425,7 @@ jQuery( window ).on( 'elementor/init', function() {
 								} ).show();
 							} );
 						} else {
-							elementor.notifications.showToast( { message: 'Please enter a title to save your Kit.', classes: 'ang-notice yellow' } );
+							elementor.notifications.showToast( { message: 'Please enter a title to save your Kit.' } );
 						}
 					},
 				} );
@@ -505,7 +504,6 @@ jQuery( window ).on( 'elementor/init', function() {
 							navigator.clipboard.writeText( textToCopy ).then( () => {
 								elementor.notifications.showToast( {
 									message: ANG_Action.translate.cssCopied,
-									classes: 'ang-notice blue',
 								} );
 							} );
 						} else {
@@ -515,7 +513,6 @@ jQuery( window ).on( 'elementor/init', function() {
 
 							elementor.notifications.showToast( {
 								message: ANG_Action.translate.cssCopied,
-								classes: 'ang-notice blue',
 							} );
 						}
 					},
