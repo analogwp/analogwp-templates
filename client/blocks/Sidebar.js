@@ -188,6 +188,7 @@ const Sidebar = ( { state } ) => {
 					} }
 				/>
 			) }
+			{ ! context.state.syncing &&
 			<TabPanel
 				className="block-categories-tabs"
 				activeClass="active-tab"
@@ -198,7 +199,7 @@ const Sidebar = ( { state } ) => {
 				{
 					( tab ) => tabContent()
 				}
-			</TabPanel>
+			</TabPanel> }
 		</SidebarWrapper>
 	);
 }
