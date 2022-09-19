@@ -1052,7 +1052,7 @@ class Typography extends Module {
 			array(
 				'raw'             => __( 'You are editing the Global Style Kit.', 'ang' ),
 				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'ang-notice',
+				'content_classes' => 'ang-notice desc',
 				'condition'       => array(
 					'ang_action_tokens' => (string) $global_token,
 				),
