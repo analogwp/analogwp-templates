@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import Masonry from 'react-masonry-css';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import AnalogContext from '../AnalogContext';
 import { isNewTheme } from '../utils';
 import { NotificationConsumer } from '../Notifications';
@@ -14,6 +14,38 @@ const { decodeEntities } = wp.htmlEntities;
 const { __, sprintf } = wp.i18n;
 const { TextControl, Dashicon, Button, Card, CardBody, CardFooter } = wp.components;
 const { addQueryArgs } = wp.url;
+
+const rotateOpacity = keyframes`
+  0% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 0.7;
+  }
+`;
+
+const LoadingThumbs = styled.div`
+	display: flex;
+	margin-left: -25px;
+	width: auto;
+
+	img[src$="svg"].thumb {
+		width: 33.3333%;
+		padding-left: 25px;
+		background-clip: padding-box;
+		max-height: 300px;
+		object-fit: cover;
+		object-position: top;
+		opacity: 0.7;
+		transition: all 200ms ease-in-out;
+		animation: ${ rotateOpacity } 2s linear infinite;
+	}
+`;
 
 const Container = styled.div`
 	flex: 1;
@@ -218,9 +250,24 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 		return AGWP.blockMediaURL + block.id + '.jpg';
 	};
 
+	const loadingThumbs = () => {
+		const thumbs = [];
+		for ( let i = 1; i <= 3; i++ ) {
+			thumbs.push(
+				<img
+					key={ i }
+					className="thumb"
+					src={ `${ AGWP.pluginURL }assets/img/placeholder.svg` }
+					alt="Loading icon"
+				/>
+			);
+		}
+		return thumbs;
+	};
+
 	return (
 		<React.Fragment>
-			{ state.state.modalActive && (
+			{ ! context.state.syncing && state.state.modalActive && (
 				<Popup
 					title={ decodeEntities( state.state.activeBlock.title ) }
 					style={ {
@@ -287,16 +334,18 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 					<ProModal type={ __( 'blocks', 'ang' ) } />
 				) }
 
-				{ context.state.blocks.length < 1 && (
+				{ ! context.state.syncing && context.state.blocks.length < 1 && (
 					<Empty text={ __( 'No blocks found.', 'ang' ) } />
 				) }
+
+				{ context.state.syncing && <LoadingThumbs>{ loadingThumbs() }</LoadingThumbs> }
 
 				<Masonry
 					breakpointCols={ Boolean( AGWP.is_settings_page ) ? breakpointColumnsObj : 3 }
 					className="grid"
 					columnClassName="grid-item block-list"
 				>
-					{ filteredBlocks.map( ( block ) => {
+					{ ! context.state.syncing && filteredBlocks.map( ( block ) => {
 						return (
 							<div key={ block.id }>
 								<Card>
