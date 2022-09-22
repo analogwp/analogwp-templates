@@ -51,18 +51,6 @@ class Experiments extends Settings_Page {
 					'id'    => 'ang_experiments',
 				),
 				array(
-					'title'   => __( 'Container Spacing', 'ang' ),
-					'desc'    => sprintf(
-						/* translators: %s: SK Container Spacing experiment documentation link */
-						__( 'Manage the spacing of your containers, through a group of customisable spacing presets. You need to have the Containers experiment activated in Elementor, to test this feature. %s', 'ang' ),
-						'<a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">' . __( 'Learn more', 'ang' ) . '</a>'
-					),
-					'id'      => 'container_spacing_experiment',
-					'default' => 'inactive',
-					'type'    => 'select',
-					'options' => $options,
-				),
-				array(
 					'title'   => __( 'Style Kit Color palette', 'ang' ),
 					'desc'    => sprintf(
 					/* translators: %s: Style Kits Colors experiment documentation link */

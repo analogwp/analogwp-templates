@@ -90,13 +90,9 @@ class Typography extends Module {
 		add_action( 'elementor/element/section/section_advanced/before_section_end', array( $this, 'tweak_section_padding_control' ) );
 		add_action( 'elementor/element/column/section_advanced/before_section_end', array( $this, 'tweak_column_element' ) );
 
-		$container_spacing_experiment = Options::get_instance()->get( 'container_spacing_experiment' );
-
-		if ( 'active' === $container_spacing_experiment ) {
-			add_action( 'elementor/element/kit/section_settings-layout/before_section_end', array( $this, 'show_analog_container_spacing_hint' ), 10, 2 );
-			add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_container_spacing' ), 50, 2 );
-			add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
-		}
+		add_action( 'elementor/element/kit/section_settings-layout/before_section_end', array( $this, 'show_analog_container_spacing_hint' ), 10, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_container_spacing' ), 50, 2 );
+		add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
 
 		add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
 
@@ -118,9 +114,7 @@ class Typography extends Module {
 		add_action( 'elementor/element/section/section_border/before_section_end', array( $this, 'tweak_section_column_borders' ) );
 		add_action( 'elementor/element/column/section_border/before_section_end', array( $this, 'tweak_section_column_borders' ) );
 
-		if ( 'active' === $container_spacing_experiment ) {
-			add_action( 'elementor/element/container/section_border/before_section_end', array( $this, 'tweak_container_borders' ) );
-		}
+		add_action( 'elementor/element/container/section_border/before_section_end', array( $this, 'tweak_container_borders' ) );
 	}
 
 	/**

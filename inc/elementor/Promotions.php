@@ -31,11 +31,8 @@ final class Promotions extends Base {
 
 		add_action( 'analog_background_colors_tab_end', array( $this, 'add_background_color_accent_promo' ), 170, 1 );
 
-		$container_spacing_experiment = Options::get_instance()->get( 'container_spacing_experiment' );
+		add_action( 'analog_container_spacing_tabs_end', array( $this, 'add_additional_container_spacing_tabs_promo' ), 170, 2 );
 
-		if ( 'active' === $container_spacing_experiment ) {
-			add_action( 'analog_container_spacing_tabs_end', array( $this, 'add_additional_container_spacing_tabs_promo' ), 170, 2 );
-		}
 
 		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
 
