@@ -175,6 +175,15 @@ const Sidebar = ( { state } ) => {
 
 	return (
 		<SidebarWrapper className="sidebar">
+			<TextControl
+				placeholder={ AGWP.isContainer ? __( 'Search Patterns', 'ang' ) : __( 'Search Blocks', 'ang' ) }
+				value={ context.state.blocksSearchInput }
+				onChange={ ( value ) => {
+					context.handleSearch( value, 'blocks' );
+					context.dispatch( { blocksSearchInput: value } );
+				} }
+			/>
+
 			{ AGWP.license.status !== 'valid' && (
 				<ToggleControl
 					label={ __( 'Show Pro Blocks', 'ang' ) }

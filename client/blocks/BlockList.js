@@ -12,7 +12,7 @@ import Empty from '../helpers/Empty';
 
 const { decodeEntities } = wp.htmlEntities;
 const { __, sprintf } = wp.i18n;
-const { TextControl, Dashicon, Button, Card, CardBody, CardFooter } = wp.components;
+const { Dashicon, Button, Card, CardBody, CardFooter } = wp.components;
 const { addQueryArgs } = wp.url;
 
 const rotateOpacity = keyframes`
@@ -320,15 +320,6 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 			) }
 
 			<Container className="blocks-area">
-
-				<TextControl
-					placeholder={ AGWP.isContainer ? __( 'Search Patterns', 'ang' ) : __( 'Search Blocks', 'ang' ) }
-					value={ context.state.blocksSearchInput }
-					onChange={ ( value ) => {
-						context.handleSearch( value, 'blocks' );
-						context.dispatch( { blocksSearchInput: value } );
-					} }
-				/>
 
 				{ AGWP.license.status !== 'valid' && (
 					<ProModal type={ __( 'blocks', 'ang' ) } />
