@@ -98,12 +98,7 @@ class Typography extends Module {
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
 
-		$global_fonts_experiment = Options::get_instance()->get( 'global_fonts_experiment' );
-
-		if ( 'active' === $global_fonts_experiment ) {
-			// New Style Kits Global Fonts.
-			add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_fonts' ), 10, 2 );
-		}
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_fonts' ), 10, 2 );
 
 		add_action( 'elementor/element/heading/section_title/after_section_end', array( $this, 'add_typo_helper_link' ), 999, 2 );
 		add_action( 'elementor/element/button/section_button/after_section_end', array( $this, 'add_btn_sizes_helper_link' ), 999, 2 );
@@ -1429,16 +1424,6 @@ class Typography extends Module {
 			),
 			ANG_VERSION,
 			true
-		);
-
-		$global_fonts_experiment  = Options::get_instance()->get( 'global_fonts_experiment' );
-
-		wp_localize_script(
-			'ang_typography_script',
-			'ANG_Typo',
-			array(
-				'has_sk_fonts'  => 'active' === $global_fonts_experiment ?? 0,
-			)
 		);
 	}
 

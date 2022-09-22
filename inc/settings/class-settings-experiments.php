@@ -51,18 +51,6 @@ class Experiments extends Settings_Page {
 					'id'    => 'ang_experiments',
 				),
 				array(
-					'title'   => __( 'Style Kit Fonts', 'ang' ),
-					'desc'    => sprintf(
-					/* translators: %s: Style Kits Fonts experiment documentation link */
-						__( 'Activate this experiment to try the new %s under Site Settings > Global fonts.', 'ang' ),
-						'<a href="https://docs.analogwp.com/article/658-style-kits-fonts" target="_blank">' . __( 'Style Kit Fonts', 'ang' ) . '</a>'
-					),
-					'id'      => 'global_fonts_experiment',
-					'default' => 'inactive',
-					'type'    => 'select',
-					'options' => $options,
-				),
-				array(
 					'title'   => __( 'Container Library', 'ang' ),
 					'desc'    => __( 'Switches Style Kits library template, kits and blocks to an Elementor Container powered library.', 'ang' ),
 					'id'      => 'container_library_experiment',
