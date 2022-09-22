@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import AnalogContext from '../AnalogContext';
 const { __ } = wp.i18n;
-const { TabPanel, ToggleControl, Button } = wp.components;
+const { TextControl, TabPanel, ToggleControl, Button } = wp.components;
 
 const blockIdentifier = AGWP.isContainer ? 'all-patterns' : 'all-blocks';
 
@@ -186,7 +186,7 @@ const Sidebar = ( { state } ) => {
 
 			{ AGWP.license.status !== 'valid' && (
 				<ToggleControl
-					label={ __( 'Show Pro Blocks', 'ang' ) }
+					label={ AGWP.isContainer ? __( 'Show Pro Patterns', 'ang' ) : __( 'Show Pro Blocks', 'ang' ) }
 					checked={ ! context.state.showFree }
 					onChange={ () => {
 						context.dispatch( {
