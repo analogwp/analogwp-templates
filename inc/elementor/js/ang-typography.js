@@ -36,17 +36,12 @@ jQuery( document ).ready( function() {
 				title: elementor.translate( 'Theme Style' ),
 				callback: analog.openThemeStyles,
 			},
+			{
+				name: 'global_colors',
+				title: elementor.translate( 'Edit Style Kit Colors' ),
+				callback: analog.openGlobalColors,
+			},
 		];
-
-		if ( Boolean( parseInt( ANG_Typo.has_sk_colors ) ) ) {
-			actions.push(
-				{
-					name: 'global_colors',
-					title: elementor.translate( 'Edit Style Kit Colors' ),
-					callback: analog.openGlobalColors,
-				}
-			);
-		}
 
 		if ( Boolean( parseInt( ANG_Typo.has_sk_fonts ) ) ) {
 			actions.push(

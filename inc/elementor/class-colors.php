@@ -40,12 +40,8 @@ class Colors extends Module {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'tweak_theme_style_button' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_theme_style_typography' ), 20, 2 );
 
-		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_colors' ), 10, 2 );
 
-		if ( 'active' === $global_colors_experiment ) {
-			// New Style Kits Global Colors.
-			add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_colors' ), 10, 2 );
-		}
 	}
 
 	/**

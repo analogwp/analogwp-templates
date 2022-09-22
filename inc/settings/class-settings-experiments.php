@@ -51,18 +51,6 @@ class Experiments extends Settings_Page {
 					'id'    => 'ang_experiments',
 				),
 				array(
-					'title'   => __( 'Style Kit Color palette', 'ang' ),
-					'desc'    => sprintf(
-					/* translators: %s: Style Kits Colors experiment documentation link */
-						__( 'Activate this experiment to try the new %s under Site Settings > Global colors.', 'ang' ),
-						'<a href="https://docs.analogwp.com/article/657-style-kit-color-pallete" target="_blank">' . __( 'Style Kit Color palette', 'ang' ) . '</a>'
-					),
-					'id'      => 'global_colors_experiment',
-					'default' => 'inactive',
-					'type'    => 'select',
-					'options' => $options,
-				),
-				array(
 					'title'   => __( 'Style Kit Fonts', 'ang' ),
 					'desc'    => sprintf(
 					/* translators: %s: Style Kits Fonts experiment documentation link */
