@@ -60,13 +60,7 @@ class Elementor {
 
 		add_action( 'elementor/template-library/after_save_template', array( $this, 'fix_kit_import' ), 999, 2 );
 
-		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
-
-		if ( 'active' === $global_colors_experiment ) {
-			// This needs to be worked.
-			// add_action( 'elementor/init', array( $this, 'register_data_controllers' ), 999 );
-			$this->register_data_controllers();
-		}
+		$this->register_data_controllers();
 	}
 
 	/**
