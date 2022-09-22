@@ -51,8 +51,8 @@ class Experiments extends Settings_Page {
 					'id'    => 'ang_experiments',
 				),
 				array(
-					'title'   => __( 'Container Library', 'ang' ),
-					'desc'    => __( 'Switches Style Kits library template, kits and blocks to an Elementor Container powered library.', 'ang' ),
+					'title'   => __( 'Container-based Library', 'ang' ),
+					'desc'    => __( 'Get early access to the upcoming container-based library of Patterns. You need to have the Containers experiment activated in Elementor, to test the new library.', 'ang' ),
 					'id'      => 'container_library_experiment',
 					'default' => 'inactive',
 					'type'    => 'select',
