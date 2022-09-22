@@ -267,7 +267,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 
 	return (
 		<React.Fragment>
-			{ ! context.state.syncing && state.state.modalActive && (
+			{ state.state.modalActive && (
 				<Popup
 					title={ decodeEntities( state.state.activeBlock.title ) }
 					style={ {
@@ -334,18 +334,16 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 					<ProModal type={ __( 'blocks', 'ang' ) } />
 				) }
 
-				{ ! context.state.syncing && context.state.blocks.length < 1 && (
+				{ context.state.blocks.length < 1 && (
 					<Empty text={ __( 'No blocks found.', 'ang' ) } />
 				) }
-
-				{ context.state.syncing && <LoadingThumbs>{ loadingThumbs() }</LoadingThumbs> }
 
 				<Masonry
 					breakpointCols={ Boolean( AGWP.is_settings_page ) ? breakpointColumnsObj : 3 }
 					className="grid"
 					columnClassName="grid-item block-list"
 				>
-					{ ! context.state.syncing && filteredBlocks.map( ( block ) => {
+					{ filteredBlocks.length > 1 && filteredBlocks.map( ( block ) => {
 						return (
 							<div key={ block.id }>
 								<Card>

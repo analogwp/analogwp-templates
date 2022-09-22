@@ -188,7 +188,7 @@ const Sidebar = ( { state } ) => {
 					} }
 				/>
 			) }
-			{ ! context.state.syncing &&
+			{ tabGenerator( categoriesData() ).length > 1 &&
 			<TabPanel
 				className="block-categories-tabs"
 				activeClass="active-tab"
