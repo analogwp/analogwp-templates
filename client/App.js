@@ -374,14 +374,7 @@ class App extends React.Component {
 
 	async refreshAPI() {
 		this.setState( {
-			templates: [],
-			archive: [],
-			blockArchive: [],
-			count: null,
 			syncing: true,
-			kits: [],
-			styleKits: [],
-			blocks: [],
 			blocksSearchInput: '',
 		} );
 
