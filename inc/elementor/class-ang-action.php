@@ -90,6 +90,8 @@ class ANG_Action extends Base_Data_Control {
 			$sk_panels_allowed = false;
 		}
 
+		$options = Options::get_instance();
+
 		wp_localize_script(
 			'ang_action',
 			'ANG_Action',
@@ -139,6 +141,7 @@ class ANG_Action extends Base_Data_Control {
 					'resetShadowsDesc'             => __( 'This will revert the box shadow presets to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 				),
 				'skPanelsAllowed' => $sk_panels_allowed,
+				'prioritiseSKGlobals' => $options->get( 'prioritise_sk_globals' ),
 			)
 		);
 	}
