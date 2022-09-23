@@ -94,7 +94,7 @@ final class Promotions extends Base {
 		$element->start_controls_section(
 			'ang_forms_pro',
 			array(
-				'label' => _x( 'Forms (Extended)', 'Section Title', 'ang' ),
+				'label' => _x( 'Elementor Forms', 'Section Title', 'ang' ),
 				'tab'   => Utils::get_kit_settings_tab(),
 			)
 		);
