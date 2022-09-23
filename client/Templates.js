@@ -359,7 +359,7 @@ class Templates extends React.Component {
 				) }
 
 				{ AGWP.license.status !== 'valid' && (
-					<ProModal type={ __( 'templates', 'ang' ) } />
+					<ProModal />
 				) }
 
 				{ ! this.context.state.isOpen && this.context.state.templates.length < 1 && (

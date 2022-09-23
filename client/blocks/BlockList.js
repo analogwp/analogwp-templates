@@ -322,7 +322,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 			<Container className="blocks-area">
 
 				{ AGWP.license.status !== 'valid' && (
-					<ProModal type={ __( 'blocks', 'ang' ) } />
+					<ProModal />
 				) }
 
 				{ context.state.blocks.length < 1 && (
