@@ -120,6 +120,74 @@ jQuery( window ).on( 'elementor/init', function() {
 	analog.style_kit_updated = false;
 	analog.sk_modal_shown = false;
 
+	// Add space for Elementor Menu Anchor link
+	elementor.hooks.addFilter( 'controls/base/behaviors', function( behaviors, view ) {
+		// The view can be a UI control which does not have this method.
+		if (!view.isGlobalActive) {
+			return;
+		}
+
+		if (!ANG_Action.prioritiseSKGlobals) {
+			return behaviors;
+		}
+
+		const isGlobalActive = view.isGlobalActive();
+		const GlobalSelectControl = behaviors?.globals?.behaviorClass;
+		let updatedGlobalControl;
+
+		if ('popover_toggle' === view.options.model.get('type') && 'typography' === view.options.model.get('groupType') && isGlobalActive ) {
+			updatedGlobalControl = GlobalSelectControl.extend({
+				registerEvents: function () {
+					const _this = this;
+
+					this.ui.globalPopoverToggle.on('click', function (event) {
+						return _this.toggleGlobalPopover(event);
+					});
+					this.ui.manageGlobalsButton.on('click', function () {
+						analog.openGlobalFonts();
+
+						_this.popover.hide();
+					});
+				},
+			});
+
+			behaviors.globals = {
+				behaviorClass: updatedGlobalControl,
+				popoverTitle: 'Global Style Kit Fonts',
+				manageButtonText: 'Manage Global Style Kit Fonts',
+				tooltipText: 'Global Style Kit Fonts help you work smarter. Save a Typography, and use it anywhere throughout your site. Access and edit your global fonts by clicking the Manage button.',
+				newGlobalConfirmTitle: 'Create New Global Font',
+			};
+		}
+
+		if ('color' === view.options.model.get('type') && isGlobalActive) {
+			updatedGlobalControl = GlobalSelectControl.extend({
+				registerEvents: function () {
+					const _this = this;
+
+					this.ui.globalPopoverToggle.on('click', function (event) {
+						return _this.toggleGlobalPopover(event);
+					});
+					this.ui.manageGlobalsButton.on('click', function () {
+						analog.openGlobalColors();
+
+						_this.popover.hide();
+					});
+				},
+			});
+
+			behaviors.globals = {
+				behaviorClass: updatedGlobalControl,
+				popoverTitle: 'Global Style Kit Colors',
+				manageButtonText: 'Manage Global Style Kit Colors',
+				tooltipText: 'Global Style Kit Colors help you work smarter. Save a color, and use it anywhere throughout your site. Access and edit your global colors by clicking the Manage button.',
+				newGlobalConfirmTitle: 'Create New Global Color',
+			};
+		}
+
+		return behaviors;
+	} );
+
 	if ( ! ANG_Action.skPanelsAllowed ) {
 		jQuery('head').append(
 			'<style id="sk-panels-allowed">.elementor-panel [class*="elementor-control-ang_"], .elementor-panel [class*="elementor-control-description_ang_"] {display:none;}</style>'
