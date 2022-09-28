@@ -153,10 +153,10 @@ jQuery( window ).on( 'elementor/init', function() {
 
 			behaviors.globals = {
 				behaviorClass: updatedGlobalControl,
-				popoverTitle: 'Global Style Kit Fonts',
-				manageButtonText: 'Manage Global Style Kit Fonts',
-				tooltipText: 'Global Style Kit Fonts help you work smarter. Save a Typography, and use it anywhere throughout your site. Access and edit your global fonts by clicking the Manage button.',
-				newGlobalConfirmTitle: 'Create New Global Font',
+				popoverTitle: ANG_Action.translate.globalFontsTitle,
+				manageButtonText: ANG_Action.translate.globalFontsManage,
+				tooltipText: ANG_Action.translate.globalFontsTooltip,
+				newGlobalConfirmTitle: ANG_Action.translate.globalFontsConfirmTitle,
 			};
 		}
 
@@ -178,10 +178,10 @@ jQuery( window ).on( 'elementor/init', function() {
 
 			behaviors.globals = {
 				behaviorClass: updatedGlobalControl,
-				popoverTitle: 'Global Style Kit Colors',
-				manageButtonText: 'Manage Global Style Kit Colors',
-				tooltipText: 'Global Style Kit Colors help you work smarter. Save a color, and use it anywhere throughout your site. Access and edit your global colors by clicking the Manage button.',
-				newGlobalConfirmTitle: 'Create New Global Color',
+				popoverTitle: ANG_Action.translate.globalColorsTitle,
+				manageButtonText: ANG_Action.translate.globalColorsManage,
+				tooltipText: ANG_Action.translate.globalColorsTooltip,
+				newGlobalConfirmTitle: ANG_Action.translate.globalColorsConfirmTitle,
 			};
 		}
 
