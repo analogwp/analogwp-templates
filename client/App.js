@@ -325,7 +325,7 @@ class App extends React.Component {
 
 	handleSearch( value, library = 'templates' ) {
 		let searchData = this.state.blockArchive;
-		if ( 'blocks' !== library ) {
+		if ( 'templates' === library ) {
 			searchData = this.state.archive;
 		}
 		let filtered = [];
@@ -333,18 +333,19 @@ class App extends React.Component {
 
 		if ( value ) {
 			filtered = searchData.filter( single => {
-				if ( single.tags ) {
-					searchTags = single.tags.filter( tag => {
-						return tag.toLowerCase().includes( value );
-					} );
+				if ( 'patterns' === library && single.keywords ) {
+					searchTags = single.keywords.filter( keyword => keyword.toLowerCase().includes( value.toLowerCase() ) );
+				} else if ( single.tags ) {
+					searchTags = single.tags.filter( tag => tag.toLowerCase().includes( value.toLowerCase() ) );
 				}
+
 				return (
-					single.title.toLowerCase().includes( value ) || searchTags.length >= 1
+					single.title.toLowerCase().includes( value.toLowerCase() ) || searchTags.length >= 1
 				);
 			} );
 
 			if ( filtered.length > 0 ) {
-				if ( 'blocks' !== library ) {
+				if ( 'templates' === library ) {
 					this.setState( {
 						templates: filtered,
 					} );
@@ -360,7 +361,7 @@ class App extends React.Component {
 				return;
 			}
 		}
-		if ( 'blocks' !== library ) {
+		if ( 'templates' === library ) {
 			this.setState( {
 				templates: value ? [] : this.state.archive,
 			} );

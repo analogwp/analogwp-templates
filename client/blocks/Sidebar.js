@@ -179,7 +179,7 @@ const Sidebar = ( { state } ) => {
 				placeholder={ AGWP.isContainer ? __( 'Search Patterns', 'ang' ) : __( 'Search Blocks', 'ang' ) }
 				value={ context.state.blocksSearchInput }
 				onChange={ ( value ) => {
-					context.handleSearch( value, 'blocks' );
+					context.handleSearch( value, 'patterns' );
 					context.dispatch( { blocksSearchInput: value } );
 				} }
 			/>
