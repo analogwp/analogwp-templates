@@ -161,7 +161,9 @@ const Sidebar = ( { state } ) => {
 	}
 
 	const tabGenerator = (tabsArray) => {
-		return tabsArray.map( (item) => ({
+		const tabs = tabsArray.filter( tab => getItemCount(tab) > 0 );
+
+		return tabs.map( (item) => ({
 			name: item,
 			title:  titleGenerator(item),
 			className: `tab-${ item }`
