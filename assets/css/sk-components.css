@@ -79,9 +79,10 @@
 #analogwp-blocks .pro-modal-container {
 	background: var(--ang-sec-bg);
 	color: var(--ang-main-text);
-	padding: 6px 8px;
+	padding: 8px 8px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
+	gap: 8px;
 	align-items: center;
 	margin-bottom: 24px;
 	border-radius: 6px;
@@ -114,9 +115,10 @@
 
 #analogwp-templates .pro-modal-container a,
 #analogwp-blocks .pro-modal-container a {
-	color: #fff;
-	display: block;
-	padding: 6px 12px;
+	display: inline-block;
+	font-weight: bold;
+	text-decoration: underline;
+	color: var(--ang-main-text);
 }
 
 #analogwp-templates .notifications-container,
