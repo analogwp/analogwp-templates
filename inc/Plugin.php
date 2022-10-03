@@ -155,15 +155,15 @@ final class Plugin {
 			'ajaxurl'                 => admin_url( 'admin-ajax.php' ),
 			'favorites'               => $favorites,
 			'blockFavorites'          => $block_favorites,
-			'isPro'                   => false,
+			'isPro'                   => Utils::is_pro(),
 			'version'                 => ANG_VERSION,
 			'elementorURL'            => admin_url( 'edit.php?post_type=elementor_library' ),
 			'debugMode'               => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
 			'pluginURL'               => ANG_PLUGIN_URL,
-			'license'                 => array(
+			'license'                 => Utils::has_pro() ? array(
 				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 				'message' => get_transient( 'ang_license_message' ),
-			),
+			) : false,
 			'installed_kits'          => Utils::imported_remote_kits(),
 			'globalKit'               => array(
 				array(
