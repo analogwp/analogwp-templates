@@ -139,17 +139,8 @@ class ANG_Action extends Base_Data_Control {
 					'resetGlobalFontsMessage'      => __( 'This will revert the global font labels & values to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 					'resetContainerPaddingMessage' => __( 'This will revert the container preset labels & values to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 					'resetShadowsDesc'             => __( 'This will revert the box shadow presets to their defaults. You can undo this action from the revisions tab.', 'ang' ),
-					'globalFontsTitle'             => __( 'Global Style Kit Fonts', 'ang' ),
-					'globalFontsButton'            => __( 'Manage Global Style Kit Fonts', 'ang' ),
-					'globalFontsTooltip'           => __( 'Global Style Kit Fonts help you work smarter. Save a Typography, and use it anywhere throughout your site. Access and edit your global fonts by clicking the Manage button.', 'ang' ),
-					'globalFontsConfirm'           => __( 'Create New Global Font', 'ang' ),
-					'globalColorsTitle'            => __( 'Global Style Kit Colors', 'ang' ),
-					'globalColorsButton'           => __( 'Manage Global Style Kit Colors', 'ang' ),
-					'globalColorsTooltip'          => __( 'Global Style Kit Colors help you work smarter. Save a color, and use it anywhere throughout your site. Access and edit your global colors by clicking the Manage button.', 'ang' ),
-					'globalColorsConfirm'          => __( 'Create New Global Color', 'ang' ),
 				),
-				'skPanelsAllowed' => $sk_panels_allowed,
-				'prioritiseSKGlobals' => $options->get( 'prioritise_sk_globals' ),
+				'skPanelsAllowed' => $sk_panels_allowed
 			)
 		);
 	}

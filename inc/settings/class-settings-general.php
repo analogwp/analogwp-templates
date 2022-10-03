@@ -96,17 +96,6 @@ class General extends Settings_Page {
 						'default' => true,
 					),
 					array(
-						'id'      => 'prioritise_sk_globals',
-						'title'   => esc_html_x( 'Prioritise Style Kit Globals', 'settings title', 'ang' ),
-						'desc'    => sprintf(
-						/* translators: %s: Global Style Kit Documentation link */
-							__( 'Helps in modifying editor global font & color links to Style Kit font & colors section. %s', 'ang' ),
-							'<a href="https://docs.analogwp.com/article/637-template-import-method" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
-						),
-						'type'    => 'checkbox',
-						'default' => true,
-					),
-					array(
 						'type' => 'sectionend',
 						'id'   => 'ang_color_palette',
 					),
