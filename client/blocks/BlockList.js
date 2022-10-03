@@ -99,6 +99,7 @@ const Container = styled.div`
 			text-align: center;
 			width: 100%;
 			font-size: 14px !important;
+			text-transform: capitalize;
 		}
 
 		.actions {
