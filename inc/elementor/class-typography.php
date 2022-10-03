@@ -1422,7 +1422,7 @@ class Typography extends Module {
 				'jquery',
 				'editor',
 			),
-			ANG_VERSION,
+			filemtime( ANG_PLUGIN_DIR . "inc/elementor/js/ang-typography{$script_suffix}.js" ),
 			true
 		);
 	}
