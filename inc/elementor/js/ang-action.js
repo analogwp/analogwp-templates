@@ -245,15 +245,6 @@ jQuery( window ).on( 'elementor/init', function() {
 		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => analog.redirectToPanel( 'ang_tools' ) ));
 	};
 
-	const BaseData = elementor.modules.controls.BaseData;
-	const ControlANGAction = BaseData.extend( {
-		initialize: function( options ) {
-			BaseData.prototype.initialize.apply( this, arguments );
-		},
-	} );
-
-	elementor.addControlView( 'ang_action', ControlANGAction );
-
 	elementor.on( 'preview:loaded', () => {
 		jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
 	} );
