@@ -14,13 +14,16 @@ const rotate = keyframes`
 `;
 
 const Container = styled.div`
-	display: flex;
-    justify-content: space-between;
-    align-items: center;
 	padding: 0 24px;
 	margin-bottom: 30px;
 	background: #fff;
 	border-bottom: 1px solid #DFDFDF;
+
+	.ang-container {
+		display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	}
 
 	.logo img {
 		max-width: 42px;
@@ -74,11 +77,13 @@ const Header = () => {
 
 	return (
 		<Container theme={ theme }>
-			<div className="logo">
-				<img src={ AGWP.pluginURL + '/assets/img/analog.svg' } alt="" />
+			<div className="ang-container">
+				<div className="logo">
+					<img src={ AGWP.pluginURL + '/assets/img/analog.svg' } alt="" />
+				</div>
+				<Nav />
+				<Synchronization />
 			</div>
-			<Nav />
-			<Synchronization />
 		</Container>
 	);
 };

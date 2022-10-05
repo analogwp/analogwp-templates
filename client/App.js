@@ -454,7 +454,9 @@ class App extends React.Component {
 									<Header />
 
 									<div className="analogwp-content">
-										{ getPageComponents( this.state ) }
+										<div className="ang-container">
+											{ getPageComponents( this.state ) }
+										</div>
 									</div>
 								</AnalogContext.Provider>
 							</Notifications>
