@@ -180,10 +180,10 @@ class Admin_Settings {
 			}
 		} else {
 			// Single value.
-			if ( empty( $options[ $option_name ] ) ) {
+			if ( ! isset( $options[ $option_name ] ) ) {
 				$options[ $option_name ] = null;
 			}
-			$option_value = $options[ $option_name ];
+			$option_value = $options[ $option_name ] ?? null;
 		}
 
 		if ( is_array( $option_value ) ) {
@@ -456,6 +456,9 @@ class Admin_Settings {
 					<tr valign="top">
 						<?php if ( ! empty( $value['title'] ) ) { ?>
 						<th scope="row" class="titledesc">
+							<?php if ( false !== strpos( $value['id'], '_experiment' ) ) : ?>
+							<span class="experiment-indicator <?php echo ( $value['value'] === 'active' ) ? 'active' : 'inactive'?>"></span>
+							<?php endif; ?>
 							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
 						</th>
 						<?php } ?>

@@ -3,7 +3,7 @@ import AnalogContext from '../AnalogContext';
 import { requestBlockContent, doElementorInsert } from '../api';
 import Empty from '../helpers/Empty';
 import BlockList from './BlockList';
-import Sidebar from "./Sidebar";
+import Sidebar from './Sidebar';
 
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
@@ -19,7 +19,6 @@ const initialState = {
 	activeBlock: false,
 	blockImported: false,
 	modalActive: false,
-	tab: 'all-blocks',
 };
 
 export default class Blocks extends Component {
@@ -114,7 +113,6 @@ export default class Blocks extends Component {
 	};
 
 	render() {
-
 		const dataSet = {
 			state: this.state,
 			dispatch: action => this.setState( action ),
@@ -122,10 +120,6 @@ export default class Blocks extends Component {
 
 		return (
 			<Fragment>
-
-				{ this.context.state.syncing && <Empty text={ __( 'Loading blocks...', 'ang' ) } /> }
-
-				{ ! this.context.state.syncing &&
 				<LibraryWrapper>
 					<Sidebar
 						state={ dataSet }
@@ -136,7 +130,7 @@ export default class Blocks extends Component {
 						favorites={ this.context.state.blockFavorites }
 						makeFavorite={ this.makeFavorite }
 					/>
-				</LibraryWrapper> }
+				</LibraryWrapper>
 			</Fragment>
 		);
 	}

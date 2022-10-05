@@ -61,7 +61,7 @@ class Filters extends React.Component {
 									</Button>
 								</React.Fragment>
 							) }
-							
+
 							{ ! showingKit && (
 								<button
 									onClick={ this.context.toggleFavorites }
@@ -109,7 +109,7 @@ class Filters extends React.Component {
 											id="product-type"
 											options={ productTypeOptions }
 											onChange={ value => {
-												
+
 												let pro = false;
 												let free = false;
 
@@ -123,7 +123,7 @@ class Filters extends React.Component {
 													pro = false;
 													free = true;
 												}
-												
+
 												this.context.dispatch( {
 													showFree: free,
 													showPro: pro

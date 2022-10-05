@@ -3,10 +3,10 @@ const { __ } = wp.i18n;
 const { TabPanel } = wp.components;
 
 const ITEMS = [
+	{ key: 'blocks', label: AGWP.isContainer ? __( 'Patterns', 'ang' ) : __( 'Blocks', 'ang' ) },
 	{ key: 'templates', label: __( 'Templates', 'ang' ) },
 	// dont change the "styleKits" casing here
-	{ key: 'styleKits', label: __( 'Style Kits', 'ang' ) },
-	{ key: 'blocks', label: __( 'Blocks', 'ang' ) },
+	{ key: 'styleKits', label: __( 'Styles', 'ang' ) },
 ];
 
 const Nav = () => {
@@ -41,6 +41,14 @@ const Nav = () => {
 	};
 
 	const tabsGenerator = (tabsArray) => {
+		let templates = context.state.templates;
+		tabsArray = tabsArray.filter( (tab) => {
+			if ( tab.key === 'templates' && ( templates && ! templates.length ) ) {
+				return false;
+			}
+			return true;
+		});
+
 		return tabsArray.map( (item) => ({
 			name: item.key,
 			title:  titleGenerator(item),

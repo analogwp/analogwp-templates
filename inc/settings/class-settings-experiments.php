@@ -51,41 +51,14 @@ class Experiments extends Settings_Page {
 					'id'    => 'ang_experiments',
 				),
 				array(
-					'title'   => __( 'Container Spacing', 'ang' ),
-					'desc'    => sprintf(
-						/* translators: %s: SK Container Spacing experiment documentation link */
-						__( 'Manage the spacing of your containers, through a group of customisable spacing presets. You need to have the Containers experiment activated in Elementor, to test this feature. %s', 'ang' ),
-						'<a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">' . __( 'Learn more', 'ang' ) . '</a>'
-					),
-					'id'      => 'container_spacing_experiment',
+					'title'   => __( 'Container-based Library', 'ang' ),
+					'desc'    => __( 'Get early access to the upcoming container-based library of Patterns. You need to have the Containers experiment activated in Elementor, to test the new library.', 'ang' ),
+					'id'      => 'container_library_experiment',
 					'default' => 'inactive',
 					'type'    => 'select',
 					'options' => $options,
 				),
-				array(
-					'title'   => __( 'Style Kit Color palette', 'ang' ),
-					'desc'    => sprintf(
-					/* translators: %s: Style Kits Colors experiment documentation link */
-						__( 'Activate this experiment to try the new %s under Site Settings > Global colors.', 'ang' ),
-						'<a href="https://docs.analogwp.com/article/657-style-kit-color-pallete" target="_blank">' . __( 'Style Kit Color palette', 'ang' ) . '</a>'
-					),
-					'id'      => 'global_colors_experiment',
-					'default' => 'inactive',
-					'type'    => 'select',
-					'options' => $options,
-				),
-				array(
-					'title'   => __( 'Style Kit Fonts', 'ang' ),
-					'desc'    => sprintf(
-					/* translators: %s: Style Kits Fonts experiment documentation link */
-						__( 'Activate this experiment to try the new %s under Site Settings > Global fonts.', 'ang' ),
-						'<a href="https://docs.analogwp.com/article/658-style-kits-fonts" target="_blank">' . __( 'Style Kit Fonts', 'ang' ) . '</a>'
-					),
-					'id'      => 'global_fonts_experiment',
-					'default' => 'inactive',
-					'type'    => 'select',
-					'options' => $options,
-				),
+
 				array(
 					'type' => 'sectionend',
 					'id'   => 'ang_beta',

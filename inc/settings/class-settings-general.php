@@ -85,6 +85,17 @@ class General extends Settings_Page {
 						'type'  => 'checkbox',
 					),
 					array(
+						'id'      => 'allow_svg_uploads',
+						'title'   => esc_html_x( 'Allow SVG Uploads', 'settings title', 'ang' ),
+						'desc'    => sprintf(
+						/* translators: %s: Global Style Kit Documentation link */
+							__( 'Helps importing SVGs in templates. %s', 'ang' ),
+							'<a href="https://docs.analogwp.com/article/637-template-import-method" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
+						),
+						'type'    => 'checkbox',
+						'default' => true,
+					),
+					array(
 						'type' => 'sectionend',
 						'id'   => 'ang_color_palette',
 					),

@@ -10,6 +10,8 @@ const { Button, Card, CardBody, CardFooter } = wp.components;
 const Template = ( { template, setModalContent, importLayout, favorites, makeFavorite } ) => {
 	const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
 
+	const fallbackImage = AGWP.pluginURL + 'assets/img/placeholder.svg';
+
 	return (
 		<li>
 			<Card>
@@ -19,7 +21,7 @@ const Template = ( { template, setModalContent, importLayout, favorites, makeFav
 					) }
 
 					<figure>
-						{ template.thumbnail && <Image template={ template } /> }
+						{ template.thumbnail ? <Image template={ template } /> : <img src={fallbackImage} /> }
 						<div className="actions">
 							<Button isSecondary className="black-transparent" onClick={ () => setModalContent( template ) }>
 								{ __( 'Preview', 'ang' ) }

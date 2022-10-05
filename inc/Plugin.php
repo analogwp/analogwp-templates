@@ -91,7 +91,7 @@ final class Plugin {
 		}
 
 		wp_enqueue_style( 'wp-components' );
-		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', array(), '20190716' );
+		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap', array(), '20221016' );
 		wp_enqueue_style( 'ang-sk-main', ANG_PLUGIN_URL . 'assets/css/sk-main.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/sk-main.css' ) );
 		wp_enqueue_style( 'analogwp-components-css', ANG_PLUGIN_URL . 'assets/css/sk-components.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/sk-components.css' ) );
 
@@ -155,15 +155,15 @@ final class Plugin {
 			'ajaxurl'                 => admin_url( 'admin-ajax.php' ),
 			'favorites'               => $favorites,
 			'blockFavorites'          => $block_favorites,
-			'isPro'                   => false,
+			'isPro'                   => Utils::is_pro(),
 			'version'                 => ANG_VERSION,
 			'elementorURL'            => admin_url( 'edit.php?post_type=elementor_library' ),
 			'debugMode'               => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
 			'pluginURL'               => ANG_PLUGIN_URL,
-			'license'                 => array(
+			'license'                 => Utils::has_pro() ? array(
 				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
 				'message' => get_transient( 'ang_license_message' ),
-			),
+			) : false,
 			'installed_kits'          => Utils::imported_remote_kits(),
 			'globalKit'               => array(
 				array(
@@ -175,6 +175,7 @@ final class Plugin {
 			'blockMediaURL'           => 'https://bs.analogwp.com/',
 			'isGlobalSkEnabled'       => (bool) Options::get_instance()->get( 'use_global_sk' ),
 			'globalSkAlwaysEnableURL' => admin_url( 'admin.php?page=ang-settings&tab=general#use_global_sk' ),
+			'isContainer'             => Utils::is_container(),
 		);
 
 		$domains += $new_domains;
@@ -225,6 +226,7 @@ final class Plugin {
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-import-image.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-options.php';
+		require_once ANG_PLUGIN_DIR . 'inc/Core/SVGs/Allow.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Consumer.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notice.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notices.php';

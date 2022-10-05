@@ -8,11 +8,12 @@
 }
 
 #analogwp-templates-modal .dialog-widget-content {
-    width: 95vw;
-    height: 95vh;
+    width: 100vw;
+    height: 100vh;
     overflow-y: auto;
 	overflow-x: hidden;
 	background-color: #e3e3e3;
+	border-radius: none;
 }
 
 #analogwp-templates-modal p {
@@ -20,7 +21,7 @@
 }
 
 #analogwp-templates {
-	background-color: #e3e3e3;
+	background-color: #F1F1F1;
     text-align: left;
 }
 
@@ -55,11 +56,55 @@ button[data-action="save_token"] {
 	background-color: #8d62a0 !important;
 }
 
+.dialog-widget.ang-notice,
 .elementor-panel .ang-notice {
-	background: #e6f6ff;
+	display: inline-block;
 	padding: 10px;
 	line-height: 1.4;
-	border-radius: 3px;
+	font-size:12px;
+	font-style:normal;
+	color: rgba(0, 0, 0, 0.7) !important;
+	background: #EFEFEF !important;
+	border-radius: 4px;
+}
+
+.elementor-panel .ang-notice.desc {
+	background: transparent !important;
+	border: 1px solid rgba(255, 255, 255, .3) !important;
+	color: inherit !important;
+}
+
+.dialog-widget.ang-notice a,
+.elementor-panel .ang-notice a {
+	text-decoration: underline;
+}
+
+.dialog-widget.ang-notice a:hover,
+.elementor-panel .ang-notice a:hover {
+	text-decoration: none;
+}
+
+.dialog-widget.ang-notice {
+	padding: 10px !important;
+	left: 10px !important;
+	width: 260px !important;
+}
+
+.dialog-widget.ang-notice.yellow,
+.elementor-panel .ang-notice.yellow {
+	background: #FDEAB9 !important;
+}
+
+.dialog-widget.ang-notice.blue,
+.elementor-panel .ang-notice.blue {
+	background: #E6F6FF !important;
+	margin: 2px 0;
+	float: right;
+	padding: 6px 8px;
+}
+
+.elementor-panel .ang-notice.blue:hover {
+	border-bottom-color: transparent;
 }
 
 .hint--medium:after {
@@ -68,8 +113,8 @@ button[data-action="save_token"] {
 
 @media (prefers-color-scheme: dark) {
 	.elementor-panel .ang-notice {
-		background: transparent;
-		border: 1px solid rgba(255, 255, 255, .3);
+		background: #EFEFEF;;
+		border: none;
 	}
 
 	[class*=hint--][aria-label]:after {
@@ -83,10 +128,6 @@ button[data-action="save_token"] {
 	}
 }
 
-.dark-mode .elementor-panel .ang-notice {
-	background: transparent;
-	border: 1px solid rgba(255, 255, 255, .3);
-}
 
 .dark-mode [class*=hint--][aria-label]:after {
 	background: #34383C;

@@ -36,27 +36,17 @@ jQuery( document ).ready( function() {
 				title: elementor.translate( 'Theme Style' ),
 				callback: analog.openThemeStyles,
 			},
+			{
+				name: 'global_colors',
+				title: elementor.translate( 'Edit Style Kit Colors' ),
+				callback: analog.openGlobalColors,
+			},
+			{
+				name: 'global_fonts',
+				title: elementor.translate( 'Edit Style Kit Fonts' ),
+				callback: analog.openGlobalFonts,
+			},
 		];
-
-		if ( Boolean( parseInt( ANG_Typo.has_sk_colors ) ) ) {
-			actions.push(
-				{
-					name: 'global_colors',
-					title: elementor.translate( 'Edit Style Kit Colors' ),
-					callback: analog.openGlobalColors,
-				}
-			);
-		}
-
-		if ( Boolean( parseInt( ANG_Typo.has_sk_fonts ) ) ) {
-			actions.push(
-				{
-					name: 'global_fonts',
-					title: elementor.translate( 'Edit Style Kit Fonts' ),
-					callback: analog.openGlobalFonts,
-				}
-			);
-		}
 
 		const PageStyles = {
 			name: 'ang_styles',

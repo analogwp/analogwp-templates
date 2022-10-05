@@ -60,13 +60,7 @@ class Elementor {
 
 		add_action( 'elementor/template-library/after_save_template', array( $this, 'fix_kit_import' ), 999, 2 );
 
-		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
-
-		if ( 'active' === $global_colors_experiment ) {
-			// This needs to be worked.
-			// add_action( 'elementor/init', array( $this, 'register_data_controllers' ), 999 );
-			$this->register_data_controllers();
-		}
+		$this->register_data_controllers();
 	}
 
 	/**
@@ -139,7 +133,7 @@ class Elementor {
 
 		wp_enqueue_style( 'wp-components' );
 
-		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', array(), '20190716' );
+		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap', array(), '20221016' );
 
 		$i10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',

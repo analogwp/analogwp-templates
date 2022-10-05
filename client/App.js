@@ -25,7 +25,11 @@ const Analog = styled.div`
 	}
 
 	.components-form-toggle.is-checked .components-form-toggle__track {
-		background-color: var(--ang-accent);
+		background-color: var(--ang-primary);
+	}
+
+	.components-form-toggle .components-form-toggle__input:focus + .components-form-toggle__track {
+		box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ang-primary);
 	}
 
 	.ang-button {
@@ -160,7 +164,8 @@ class App extends React.Component {
 			group: true,
 			activeKit: false,
 			installedKits: AGWP.installed_kits || {},
-			tab: 'templates',
+			tab: 'blocks',
+			blocksTab: AGWP.isContainer ? 'all-patterns' : 'all-blocks',
 			hasPro: false,
 			settings: {
 				ang_sync_colors: true,
@@ -178,7 +183,7 @@ class App extends React.Component {
 						single.title.toLowerCase().includes( searchInput ) || searchTags.length >= 1
 					);
 				} );
-			}
+			},
 		};
 
 		this.refreshAPI = this.refreshAPI.bind( this );
@@ -273,7 +278,7 @@ class App extends React.Component {
 				return;
 			}
 
-			const filtered = blocks.filter( block => block.tags[0] === type );
+			const filtered = blocks.filter( block => block.tags[ 0 ] === type );
 			this.setState( { blocks: filtered } );
 		}
 	}
@@ -320,7 +325,7 @@ class App extends React.Component {
 
 	handleSearch( value, library = 'templates' ) {
 		let searchData = this.state.blockArchive;
-		if ( 'blocks' !== library ) {
+		if ( 'templates' === library ) {
 			searchData = this.state.archive;
 		}
 		let filtered = [];
@@ -328,18 +333,19 @@ class App extends React.Component {
 
 		if ( value ) {
 			filtered = searchData.filter( single => {
-				if ( single.tags ) {
-					searchTags = single.tags.filter( tag => {
-						return tag.toLowerCase().includes( value );
-					} );
+				if ( 'patterns' === library && single.keywords ) {
+					searchTags = single.keywords.filter( keyword => keyword.toLowerCase().includes( value.toLowerCase() ) );
+				} else if ( single.tags ) {
+					searchTags = single.tags.filter( tag => tag.toLowerCase().includes( value.toLowerCase() ) );
 				}
+
 				return (
-					single.title.toLowerCase().includes( value ) || searchTags.length >= 1
+					single.title.toLowerCase().includes( value.toLowerCase() ) || searchTags.length >= 1
 				);
 			} );
 
 			if ( filtered.length > 0 ) {
-				if ( 'blocks' !== library ) {
+				if ( 'templates' === library ) {
 					this.setState( {
 						templates: filtered,
 					} );
@@ -355,7 +361,7 @@ class App extends React.Component {
 				return;
 			}
 		}
-		if ( 'blocks' !== library ) {
+		if ( 'templates' === library ) {
 			this.setState( {
 				templates: value ? [] : this.state.archive,
 			} );
@@ -369,14 +375,7 @@ class App extends React.Component {
 
 	async refreshAPI() {
 		this.setState( {
-			templates: [],
-			archive: [],
-			blockArchive: [],
-			count: null,
 			syncing: true,
-			kits: [],
-			styleKits: [],
-			blocks: [],
 			blocksSearchInput: '',
 		} );
 
@@ -455,7 +454,9 @@ class App extends React.Component {
 									<Header />
 
 									<div className="analogwp-content">
-										{ getPageComponents( this.state ) }
+										<div className="ang-container">
+											{ getPageComponents( this.state ) }
+										</div>
 									</div>
 								</AnalogContext.Provider>
 							</Notifications>

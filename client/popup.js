@@ -1,8 +1,6 @@
 import Close from './icons/close';
 
-const { __ } = wp.i18n;
 const { Card, CardBody, CardDivider, CardHeader } = wp.components;
-
 
 const Popup = ( props ) => {
 	const { title, onRequestClose, children, ...rest } = props;

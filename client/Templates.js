@@ -28,7 +28,7 @@ const TemplatesContainer = styled.div`
 			position: absolute;
 			top: -8px;
 			right: -8px;
-			background: var(--ang-accent);
+			background: var(--ang-primary);
 			color: #fff;
 			z-index: 110;
 			font-weight: bold;
@@ -136,7 +136,7 @@ const TemplatesContainer = styled.div`
 				height: 0;
 				border-style: solid;
 				border-width: 42px 42px 0 0;
-				border-color: var(--ang-accent) transparent transparent transparent;
+				border-color: var(--ang-dark-bg) transparent transparent transparent;
 				position: absolute;
 				top: 0;
 				left: 0;
@@ -359,7 +359,7 @@ class Templates extends React.Component {
 				) }
 
 				{ AGWP.license.status !== 'valid' && (
-					<ProModal type={ __( 'templates', 'ang' ) } />
+					<ProModal />
 				) }
 
 				{ ! this.context.state.isOpen && this.context.state.templates.length < 1 && (
