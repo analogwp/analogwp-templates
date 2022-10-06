@@ -374,17 +374,10 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_container_spacing( Controls_Stack $element, $section_id ) {
-		$flexbox_container           = get_option( 'elementor_experiment-container' );
-		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
-
-		if ( 'default' === $flexbox_container ) {
-			$experiments                 = new \Elementor\Core\Experiments\Manager();
-			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
-		}
-
-		if ( ! $is_flexbox_container_active ) { // Return early if Flexbox container is not active.
+		if ( ! Utils::is_elementor_container() ) { // Return early if Flexbox container is not active.
 			return;
 		}
+
 		$element->start_controls_section(
 			'ang_container_spacing',
 			array(
@@ -1236,15 +1229,7 @@ class Typography extends Module {
 	 * @param Element_Base $element Element_Base Class.
 	 */
 	public function tweak_container_widget( Element_Base $element ) {
-		$flexbox_container           = get_option( 'elementor_experiment-container' );
-		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
-
-		if ( 'default' === $flexbox_container ) {
-			$experiments                 = new \Elementor\Core\Experiments\Manager();
-			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
-		}
-
-		if ( ! $is_flexbox_container_active ) { // Return early if Flexbox container is not active.
+		if ( ! Utils::is_elementor_container() ) { // Return early if Flexbox container is not active.
 			return;
 		}
 
@@ -1319,15 +1304,7 @@ class Typography extends Module {
 	 * @param Element_Base $element Element_Base Class.
 	 */
 	public function tweak_container_widget_styles( Element_Base $element ) {
-		$flexbox_container           = get_option( 'elementor_experiment-container' );
-		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
-
-		if ( 'default' === $flexbox_container ) {
-			$experiments                 = new \Elementor\Core\Experiments\Manager();
-			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
-		}
-
-		if ( ! $is_flexbox_container_active ) { // Return early if Flexbox container is not active.
+		if ( ! Utils::is_elementor_container() ) { // Return early if Flexbox container is not active.
 			return;
 		}
 
