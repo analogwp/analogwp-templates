@@ -339,7 +339,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 					className="grid"
 					columnClassName="grid-item block-list"
 				>
-					{ filteredBlocks.length > 1 && filteredBlocks.map( ( block ) => {
+					{ filteredBlocks.length >= 1 && filteredBlocks.map( ( block ) => {
 						return (
 							<div key={ block.id }>
 								<Card>

@@ -199,7 +199,7 @@ const Sidebar = ( { state } ) => {
 					} }
 				/>
 			) }
-			{ tabGenerator( categoriesData() ).length > 1 &&
+			{ tabGenerator( categoriesData() ).length >= 1 &&
 			<TabPanel
 				className="block-categories-tabs"
 				activeClass="active-tab"
