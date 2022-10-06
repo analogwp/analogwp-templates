@@ -731,6 +731,27 @@ class Utils extends Base {
 	}
 
 	/**
+	 * Returns true if Elementor Container experiment is on.
+	 *
+	 * @return bool
+	 */
+	public static function is_elementor_container() {
+		$flexbox_container           = get_option( 'elementor_experiment-container' );
+		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
+
+		if ( 'default' === $flexbox_container ) {
+			$experiments                 = new \Elementor\Core\Experiments\Manager();
+			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
+		}
+
+		if ( ! $is_flexbox_container_active ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Returns true if Container experiment is on.
 	 *
 	 * @return bool
