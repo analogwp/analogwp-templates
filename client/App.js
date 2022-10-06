@@ -230,6 +230,10 @@ class App extends React.Component {
 			} );
 		}
 
+		this.setState( {
+			syncing: true,
+		} );
+
 		const templates = await requestTemplateList();
 		const library = templates.library;
 
@@ -243,6 +247,7 @@ class App extends React.Component {
 			hasPro: hasProTemplates( library.templates ),
 			styleKits: library.stylekits,
 			blocks: library.blocks,
+			syncing: false,
 		} );
 
 		this.handleSort( 'latest', 'templates' );
