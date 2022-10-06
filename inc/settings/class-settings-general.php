@@ -51,56 +51,59 @@ class General extends Settings_Page {
 		global $current_section;
 
 		$sections = $this->get_sections();
-		$settings = array();
+		$default_import_method = array();
+
+		if ( ! Utils::is_elementor_container() ) {
+			$default_import_method = array(
+				'id'    => 'use_global_sk',
+				'title' => esc_html_x( 'Template import method', 'settings title', 'ang' ),
+				'desc'  => sprintf(
+				/* translators: %s: Global Style Kit Documentation link */
+					__( 'Always import templates using the Global Style Kit. %s', 'ang' ),
+					'<a href="https://docs.analogwp.com/article/637-template-import-method" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
+				),
+				'type'  => 'checkbox',
+			);
+		}
+
+		$settings = array(
+			array(
+				'title' => __( 'Elementor Settings', 'ang' ),
+				'type'  => 'title',
+				'id'    => 'ang_color_palette',
+			),
+			array(
+				'title'   => esc_html_x( 'Global Style Kit', 'settings title', 'ang' ),
+				'desc'    => sprintf(
+				/* translators: %s: Style Kit Documentation link */
+					__( 'Choosing a Style Kit will make it global and apply site-wide. Learn more about %s.', 'ang' ),
+					'<a href="https://docs.analogwp.com/article/554-what-are-style-kits" target="_blank">' . __( 'Style kits', 'ang' ) . '</a>'
+				),
+				'id'      => 'global_kit',
+				'default' => get_option( 'elementor_active_kit' ),
+				'type'    => 'select',
+				'options' => Utils::get_kits( false ),
+			),
+			$default_import_method,
+			array(
+				'id'      => 'allow_svg_uploads',
+				'title'   => esc_html_x( 'Allow SVG Uploads', 'settings title', 'ang' ),
+				'desc'    => sprintf(
+				/* translators: %s: Global Style Kit Documentation link */
+					__( 'Helps importing SVGs in templates. %s', 'ang' ),
+					'<a href="https://docs.analogwp.com/article/637-template-import-method" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
+				),
+				'type'    => 'checkbox',
+				'default' => true,
+			),
+			array(
+				'type' => 'sectionend',
+				'id'   => 'ang_color_palette',
+			),
+		);
 
 		if ( '' === $current_section ) {
-			$settings = apply_filters(
-				'ang_general_settings',
-				array(
-					array(
-						'title' => __( 'Elementor Settings', 'ang' ),
-						'type'  => 'title',
-						'id'    => 'ang_color_palette',
-					),
-					array(
-						'title'   => esc_html_x( 'Global Style Kit', 'settings title', 'ang' ),
-						'desc'    => sprintf(
-							/* translators: %s: Style Kit Documentation link */
-							__( 'Choosing a Style Kit will make it global and apply site-wide. Learn more about %s.', 'ang' ),
-							'<a href="https://docs.analogwp.com/article/554-what-are-style-kits" target="_blank">' . __( 'Style kits', 'ang' ) . '</a>'
-						),
-						'id'      => 'global_kit',
-						'default' => get_option( 'elementor_active_kit' ),
-						'type'    => 'select',
-						'options' => Utils::get_kits( false ),
-					),
-					array(
-						'id'    => 'use_global_sk',
-						'title' => esc_html_x( 'Template import method', 'settings title', 'ang' ),
-						'desc'  => sprintf(
-							/* translators: %s: Global Style Kit Documentation link */
-							__( 'Always import templates using the Global Style Kit. %s', 'ang' ),
-							'<a href="https://docs.analogwp.com/article/637-template-import-method" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
-						),
-						'type'  => 'checkbox',
-					),
-					array(
-						'id'      => 'allow_svg_uploads',
-						'title'   => esc_html_x( 'Allow SVG Uploads', 'settings title', 'ang' ),
-						'desc'    => sprintf(
-						/* translators: %s: Global Style Kit Documentation link */
-							__( 'Helps importing SVGs in templates. %s', 'ang' ),
-							'<a href="https://docs.analogwp.com/article/637-template-import-method" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
-						),
-						'type'    => 'checkbox',
-						'default' => true,
-					),
-					array(
-						'type' => 'sectionend',
-						'id'   => 'ang_color_palette',
-					),
-				)
-			);
+			$settings = apply_filters( 'ang_general_settings', $settings );
 		}
 
 		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
