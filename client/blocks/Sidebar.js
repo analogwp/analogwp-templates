@@ -149,7 +149,7 @@ const Sidebar = ( { state } ) => {
 	}
 
 	const categoriesData = () => {
-		return defaultTabs.concat( categories );
+		return defaultTabs.concat( categories.sort() );
 	}
 
 	const titleGenerator = (title) => {
