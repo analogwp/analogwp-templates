@@ -1938,7 +1938,7 @@ class Typography extends Module {
 				'global'   => array(
 					'active' => false,
 				),
-				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover, {{WRAPPER}} {{CURRENT_ITEM}}_external.elementor-element > .elementor-widget-container',
+				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover, {{WRAPPER}} {{CURRENT_ITEM}}_external.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.e-con, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-con:hover',
 			)
 		);
 
