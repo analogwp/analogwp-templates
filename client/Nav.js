@@ -43,7 +43,11 @@ const Nav = () => {
 	const tabsGenerator = (tabsArray) => {
 		let templates = context.state.templates;
 		tabsArray = tabsArray.filter( (tab) => {
-			if ( tab.key === 'templates' && ( templates && ! templates.length ) ) {
+			if ( ( tab.key === 'templates' && ( templates && ! templates.length ) ) || ( tab.key === 'styleKits' && ( AGWP.isContainer && ! AGWP.is_settings_page ) ) ) {
+				return false;
+			}
+
+			if ( tab.key === 'blocks' && ( AGWP.isContainer && AGWP.is_settings_page ) ) {
 				return false;
 			}
 			return true;
