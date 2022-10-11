@@ -317,12 +317,12 @@ class Kits_List_Table extends \WP_List_Table {
 function ang_kits_list() {
 	?>
 	<div class="wrap">
-		<h2><?php esc_html_e( 'Local Style Kits', 'ang' ); ?></h2>
-		<p><?php esc_html_e( 'A list of all the imported and custom Style Kits. You can set a Global Style Kit below.', 'ang' ); ?></p>
+		<h2 style="font-weight: bold;"><?php esc_html_e( 'Local Style Kits', 'ang' ); ?></h2>
+		<p style="margin: 20px 0;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. You can set a Global Style Kit below.', 'ang' ); ?></p>
 
-		<form action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="post" >
-			<label for="global_kit"><?php esc_html_e( 'Global Style Kit' ); ?></label>
-			<select name="global_kit" id="global_kit">
+		<form action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="post" style="margin-bottom: 30px;" >
+			<label for="global_kit" style="font-size: 16px; color: #000; font-weight: bold; margin-right: 16px;"><?php esc_html_e( 'Global Style Kit' ); ?></label>
+			<select name="global_kit" id="global_kit" style="padding: 4px 10px; ">
 				<?php
 				$kits = Utils::get_kits( false );
 				foreach ( $kits as $kit_id => $kit_title ) {
@@ -334,7 +334,7 @@ function ang_kits_list() {
 			</select>
 			<input type="hidden" name="action" value="ang_global_kit"/>
 			<?php wp_nonce_field( 'ang_global_kit', 'ang_global_kit_nonce' ); ?>
-			<input type="submit" value="<?php esc_html_e( 'Apply', 'ang' ); ?>" class="button button-primary">
+			<input type="submit" value="<?php esc_html_e( 'Apply', 'ang' ); ?>" style="padding: 4px 20px; text-transform: uppercase; font-weight: 600; background: #413EC5; color: #fff;" class="button">
 		</form>
 
 		<form id="style-kits" method="get">
