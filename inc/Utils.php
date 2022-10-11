@@ -731,6 +731,31 @@ class Utils extends Base {
 	}
 
 	/**
+	 * Get the current kit ID.
+	 *
+	 * @param $id int
+	 *
+	 * @return bool
+	 */
+	public static function set_elementor_active_kit( $id ) {
+		$default_kit       = Options::get_instance()->get( 'global_kit' );
+		$elementor_kit_key = Manager::OPTION_ACTIVE;
+		$elementor_kit     = \get_option( $elementor_kit_key );
+
+		if ( $id !== $default_kit || $id !== $elementor_kit ) {
+			if ( empty( $id ) || '-1' === $id ) {
+				\update_option( $elementor_kit_key, Options::get_instance()->get( 'default_kit' ) );
+			}
+
+			\update_option( $elementor_kit_key, $id );
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Returns true if Elementor Container experiment is on.
 	 *
 	 * @return bool
