@@ -75,7 +75,7 @@ class General extends Settings_Page {
 			array(
 				'title'   => esc_html_x( 'Global Style Kit', 'settings title', 'ang' ),
 				'desc'    => sprintf(
-				/* translators: %s: Style Kit Documentation link */
+				/* translators: %s: Local Style Kits page link */
 					__( 'This option is now in %s page.', 'ang' ),
 					'<a href="' . esc_url( admin_url( 'admin.php?page=style-kits' ) ) . '">' . __( 'Local Style Kits', 'ang' ) . '</a>'
 				),
