@@ -318,7 +318,7 @@ function ang_kits_list() {
 	?>
 	<div class="wrap">
 		<h2 style="font-weight: bold;"><?php esc_html_e( 'Local Style Kits', 'ang' ); ?></h2>
-		<p style="margin: 20px 0;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. You can set a Global Style Kit below.', 'ang' ); ?></p>
+		<p style="margin: 20px 0;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below.', 'ang' ); ?> <a href="#"><?php esc_html_e( 'Learn more' ) ?></a></p>
 
 		<form action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="post" style="margin-bottom: 30px;" >
 			<label for="global_kit" style="font-size: 16px; color: #000; font-weight: bold; margin-right: 16px;"><?php esc_html_e( 'Global Style Kit' ); ?></label>
