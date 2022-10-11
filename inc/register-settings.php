@@ -54,8 +54,8 @@ function register_menu() {
 
 	add_submenu_page(
 		$menu_slug,
-		__( 'Style Kits', 'ang' ),
-		__( 'Theme Style Kits', 'ang' ),
+		__( 'Local Style Kits', 'ang' ),
+		__( 'Local Style Kits', 'ang' ),
 		'manage_options',
 		'style-kits',
 		'Analog\Elementor\Kit\ang_kits_list'
