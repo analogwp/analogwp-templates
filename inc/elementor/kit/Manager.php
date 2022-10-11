@@ -54,6 +54,17 @@ class Manager {
 
 		add_action( 'wp_ajax_nopriv_ang_global_kit', array( $this, 'update_global_kit' ) );
 		add_action( 'wp_ajax_ang_global_kit', array( $this, 'update_global_kit' ) );
+
+		add_filter(
+			'analog_admin_notices',
+			function( $notices ) {
+				if ( isset( $_GET['success'] ) ) {
+					$notices[] = $this->get_kit_notification();
+				}
+				return $notices;
+			}
+		);
+
 		if ( ! $this->kits ) {
 			$this->kits = Utils::get_kits();
 		}
@@ -311,8 +322,30 @@ class Manager {
 			Utils::set_elementor_active_kit( $kit_id );
 
 			// Redirects back to settings page.
-			wp_redirect( admin_url( 'admin.php?page=style-kits' ) );
+			wp_redirect( admin_url( 'admin.php?page=style-kits&success=true' ) );
 		}
+	}
+
+	/**
+	 * Show kit update notification.
+	 *
+	 * @since 1.9.5
+	 *
+	 * @return Notice
+	 */
+	public function get_kit_notification() {
+		return new Notice(
+			'kit_notification',
+			array(
+				'content'         => esc_html__( 'All good! The Style Kit has been set as Global.', 'ang' ),
+				'type'            => Notice::TYPE_INFO,
+				'active_callback' => static function () {
+					$screen = get_current_screen();
+
+					return ! ( 'style-kits_page_style-kits' !== $screen->id );
+				},
+			)
+		);
 	}
 }
 
