@@ -76,13 +76,11 @@ class General extends Settings_Page {
 				'title'   => esc_html_x( 'Global Style Kit', 'settings title', 'ang' ),
 				'desc'    => sprintf(
 				/* translators: %s: Style Kit Documentation link */
-					__( 'Choosing a Style Kit will make it global and apply site-wide. Learn more about %s.', 'ang' ),
-					'<a href="https://docs.analogwp.com/article/554-what-are-style-kits" target="_blank">' . __( 'Style kits', 'ang' ) . '</a>'
+					__( 'This option is now in %s page.', 'ang' ),
+					'<a href="' . esc_url( admin_url( 'admin.php?page=style-kits' ) ) . '">' . __( 'Local Style Kits', 'ang' ) . '</a>'
 				),
-				'id'      => 'global_kit',
-				'default' => get_option( 'elementor_active_kit' ),
-				'type'    => 'select',
-				'options' => Utils::get_kits( false ),
+				'id'      => 'global_kit_helper',
+				'type'    => 'deprecated-notice',
 			),
 			$default_import_method,
 			array(
