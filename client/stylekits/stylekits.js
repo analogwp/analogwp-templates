@@ -182,8 +182,8 @@ export default class StyleKits extends React.Component {
 		return (
 			<Container>
 				<p className="tab-description">
-					{ __( 'These are some Style Kit presets that you can use as a starting point. Once you import a Style Kit, it will be added to your', 'ang' ) } <a href={ addQueryArgs( 'admin.php', { page: 'style-kits' } ) }>{ __( 'Style Kits list', 'ang' ) }</a>.
-					&nbsp;{ __( 'You will then be able to apply it on any Elementor page.', 'ang' ) }
+					{ __( 'Style Kits are ready-made configurations of theme styles. When you import a Style Kit, it will be available in the', 'ang' ) } <a href={ addQueryArgs( 'admin.php', { page: 'style-kits' } ) }>{ __( 'Local Style Kits', 'ang' ) }</a> { __( 'page', 'ang' ) }.
+					&nbsp;{ __( 'You will then be able apply it globally, or on any page.', 'ang' ) }
 					&nbsp;<a href="https://docs.analogwp.com/article/590-style-kit-library" target="_blank" rel="noopener noreferrer">{ __( 'Learn more', 'ang' ) }</a>.
 				</p>
 
