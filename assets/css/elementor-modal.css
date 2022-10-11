@@ -103,6 +103,11 @@ button[data-action="save_token"] {
 	padding: 6px 8px;
 }
 
+.dialog-widget.ang-notice.description,
+.elementor-panel .ang-notice.description {
+	width: 100%;
+}
+
 .elementor-panel .ang-notice.blue:hover {
 	border-bottom-color: transparent;
 }
