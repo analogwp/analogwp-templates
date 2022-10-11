@@ -317,7 +317,25 @@ class Kits_List_Table extends \WP_List_Table {
 function ang_kits_list() {
 	?>
 	<div class="wrap">
-		<h2><?php esc_html_e( 'Style Kits', 'ang' ); ?></h2>
+		<h2><?php esc_html_e( 'Local Style Kits', 'ang' ); ?></h2>
+		<p><?php esc_html_e( 'A list of all the imported and custom Style Kits. You can set a Global Style Kit below.', 'ang' ); ?></p>
+
+		<form action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="post" >
+			<label for="global_kit"><?php esc_html_e( 'Global Style Kit' ); ?></label>
+			<select name="global_kit" id="global_kit">
+				<?php
+				$kits = Utils::get_kits( false );
+				foreach ( $kits as $kit_id => $kit_title ) {
+					?>
+					<option value="<?php echo esc_attr( $kit_id ); ?>" <?php selected( $kit_id, get_option( 'elementor_active_kit' ) ); ?>><?php echo esc_html( $kit_title ); ?></option>
+					<?php
+				}
+				?>
+			</select>
+			<input type="hidden" name="action" value="ang_global_kit"/>
+			<?php wp_nonce_field( 'ang_global_kit', 'ang_global_kit_nonce' ); ?>
+			<input type="submit" value="<?php esc_html_e( 'Apply', 'ang' ); ?>" class="button button-primary">
+		</form>
 
 		<form id="style-kits" method="get">
 			<input type="hidden" name="page" value="style-kits" />
