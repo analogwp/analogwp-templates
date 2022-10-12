@@ -518,10 +518,11 @@
     font-weight: bold;
 }
 
-#analogwp-templates .analogwp-content .inner-popup-content p {
-    font-size: 13px;
-    line-height: 18px;
-    color: #565D65;
+#analogwp-templates .analogwp-content .inner-popup-content > *:first-child,
+#analogwp-templates .analogwp-content .inner-popup-content .stylekit-popup-content > *:first-child {
+	padding-top: 0;
+	margin-top: 0;
+	margin-bottom: 20px;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content .stylekit-popup-content p {
@@ -540,10 +541,6 @@
     margin-top: 15px;
 }
 
-#analogwp-templates .analogwp-content .inner-popup-content .components-button.is-primary {
-	margin-left: 10px !important;
-}
-
 #analogwp-templates .analogwp-content .inner-popup-content .components-button {
     padding: 0 20px;
 }
@@ -560,8 +557,9 @@
 	margin: 0;
 }
 
-.stylekit-popup-content {
-    margin-top: -20px;
+
+#analogwp-templates .popup-container .inner-popup-content .stylekit-popup-content {
+	text-align: left;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content  #gsk_name {
@@ -761,19 +759,24 @@
 #analogwp-templates .components-button.is-primary {
 	background: var(--ang-primary);
 	color: #fff;
-	line-height: 1.5;
-	min-height: 36px;
-	font-size: 14px;
-	border-radius: 0 !important;
-	font-weight: 600;
-	padding: 20px !important;
+}
+
+#analogwp-templates .components-button.is-secondary {
+	background: transparent;
+	color: var(--ang-primary);
 }
 
 #analogwp-templates .components-button.is-primary,
 #analogwp-templates .components-button.is-secondary {
 	box-shadow: none;
 	outline: none;
-	border-radius: 4px;
+	line-height: 1.5;
+	min-height: 36px;
+	font-size: 14px;
+	border-radius: 0 !important;
+	font-weight: 600;
+	padding: 20px !important;
+	border: 1px solid var(--ang-primary);
 }
 
 #analogwp-templates .components-button.is-secondary {
