@@ -31,6 +31,15 @@ const Container = styled.section`
     a {
     	color: var(--ang-primary);
     }
+    .tab-description {
+		font-size: 14px;
+		line-height: 1.5;
+		margin: 12px 0 40px;
+	    padding: 16px;
+	    background-color: #F9F9F8;
+	    border-radius: 6px;
+	    box-shadow: rgb(0 0 0 / 10%) 0px 0px 0px 1px;
+    }
 `;
 
 const ChildContainer = styled.ul`
