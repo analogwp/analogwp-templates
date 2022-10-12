@@ -181,6 +181,14 @@ export default class StyleKits extends React.Component {
 			} );
 	}
 
+	getPopupTitle( title, hasImported, hasError ) {
+		if ( hasImported && ! hasError ) {
+			return decodeEntities( title ) + __( ' Imported!', 'ang' );
+		}
+
+		return decodeEntities( title );
+	}
+
 	render() {
 		let successButtonProps = {
 			target: '_blank',
@@ -276,7 +284,7 @@ export default class StyleKits extends React.Component {
 
 				{ this.state.modalActive && (
 					<Popup
-						title={ decodeEntities( this.state.activeKit.title ) }
+						title={ this.getPopupTitle( this.state.activeKit.title, this.state.importedKit, this.state.hasError ) }
 						onRequestClose={ () => this.resetState() }
 					>
 						{ this.state.hasError && (
