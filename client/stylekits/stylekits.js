@@ -190,15 +190,10 @@ export default class StyleKits extends React.Component {
 	}
 
 	render() {
-		let successButtonProps = {
-			target: '_blank',
+		const successButtonProps = {
 			rel: 'noopener noreferrer',
 			href: addQueryArgs( 'admin.php', { page: 'style-kits' } ),
 		};
-
-		if ( ! Boolean( AGWP.is_settings_page ) ) {
-			successButtonProps = false;
-		}
 
 		const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
 		const fallbackImage = AGWP.pluginURL + 'assets/img/placeholder.svg';
@@ -331,9 +326,24 @@ export default class StyleKits extends React.Component {
 						{ ! this.state.hasError && ! this.state.importedKit && <Loader /> }
 
 						{ ! this.state.hasError && this.state.importedKit && (
-							<React.Fragment>
-								<p>{ __( 'The Style Kit has been imported and is now available in the list of the available Style Kits.', 'ang' ) }</p>
-								<p>
+							<div className="stylekit-popup-content" >
+								<p className="popup-description">{ decodeEntities( this.state.activeKit.title ) + __( ' has been successfully imported. You can now find it in the ', 'ang' ) }<a href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'list of your Local Style Kits' ) }</a>.</p>
+								<p className="success-buttons gap">
+									<a // eslint-disable-line
+										onClick={ ( e ) => {
+											this.resetState();
+
+											if ( ! Boolean( AGWP.is_settings_page ) ) {
+												e.preventDefault();
+												window.analogModal.hide();
+												analog.redirectToSection();
+											}
+										} }
+									>
+										<Button isPrimary>
+											{ __( 'Stay on this page', 'ang' ) }
+										</Button>
+									</a>
 									<a // eslint-disable-line
 										onClick={ ( e ) => {
 											this.resetState();
@@ -346,14 +356,14 @@ export default class StyleKits extends React.Component {
 										} }
 										{ ...successButtonProps }
 									>
-										<Button isPrimary>
-											{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
+										<Button isSecondary>
+											{ __( 'View local Style Kits', 'ang' ) }
 										</Button>
 									</a>
 								</p>
 
 								{ ! Boolean( AGWP.is_settings_page ) && <footer className="style-kit-footer" dangerouslySetInnerHTML={ { __html: footer } } /> }
-							</React.Fragment>
+							</div>
 						) }
 
 						{ ! this.state.hasError && ! this.state.importedKit && (
