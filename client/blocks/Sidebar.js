@@ -77,6 +77,10 @@ const SidebarWrapper = styled.div`
 		box-shadow: none;
 	}
 
+	.block-categories-tabs .components-button:not([aria-disabled=true]):active {
+		color: var(--ang-primary) !important;
+	}
+
 	.block-categories-tabs label,
 	.components-toggle-control
 	.components-base-control__field
