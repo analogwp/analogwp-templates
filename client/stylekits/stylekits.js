@@ -40,6 +40,13 @@ const Container = styled.section`
 	    border-radius: 6px;
 	    box-shadow: rgb(0 0 0 / 10%) 0px 0px 0px 1px;
     }
+    .popup-description {
+        text-align: left;
+		font-size: 14px;
+		line-height: 1.5;
+		color: var(--ang-main-text);
+		padding-bottom: 10px;
+    }
 `;
 
 const ChildContainer = styled.ul`
@@ -274,8 +281,8 @@ export default class StyleKits extends React.Component {
 					>
 						{ this.state.hasError && (
 							<div className="stylekit-popup-content" >
-								<p style={ { textAlign: 'left' } }>
-									{ __( 'A Style Kit already exists with the same name. To import it again please enter a new name below:', 'ang' ) }
+								<p className="popup-description">
+									{ __( 'A Style Kit named ', 'ang' ) + decodeEntities( this.state.activeKit.title ) + __( ' already exists in your website. To import it again please use a different name.', 'ang' ) }
 								</p>
 
 								{ this.context.state.installedKits.indexOf( this.state.kitname ) > -1 && (
@@ -285,6 +292,7 @@ export default class StyleKits extends React.Component {
 									<TextControl
 										placeholder={ __( 'Enter a Style Kit Name', 'ang' ) }
 										onChange={ val => this.setState( { kitname: val } ) }
+										className="kit-name"
 									/>
 
 									<NotificationConsumer>
