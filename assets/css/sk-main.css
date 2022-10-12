@@ -133,9 +133,9 @@
 #analogwp-templates .stylekit-list figure .components-button,
 #analogwp-templates .block-list figure .components-button{
     width: 185px;
-    height: 49px;
     text-align: center;
-    display: block;
+    display: inline-flex;
+	justify-content: center;
     font-size: 15px;
     font-weight: bold;
     margin-left: auto;
@@ -590,11 +590,17 @@
 
 #analogwp-templates .analogwp-content .inner-popup-content .flex-row button,
 #analogwp-templates .analogwp-content .inner-popup-content .flex-row [type=text]{
-    display: inline-block;
+	display: inline-flex;
+	justify-content: center;
     width: 196px;
-    height: 32px;
     text-align: center;
     border-radius: 3px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .flex-row .gap {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content .flex-row [type=text]{
