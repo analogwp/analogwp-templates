@@ -46,6 +46,25 @@ const Container = styled.section`
 		line-height: 1.5;
 		color: var(--ang-main-text);
 		padding-bottom: 10px;
+
+		a {
+			text-decoration: underline !important;
+		}
+    }
+
+	.gap {
+		display: flex;
+        gap: 10px;
+
+        & > button {
+            margin-left: 0 !important;
+        }
+	}
+
+    .success-buttons {
+        button {
+            margin-left: 0 !important;
+        }
     }
 `;
 
@@ -291,7 +310,7 @@ export default class StyleKits extends React.Component {
 								{ this.context.state.installedKits.indexOf( this.state.kitname ) > -1 && (
 									<p className="error">{ __( 'Please try a different as a Style Kit with same name already exists.', 'ang' ) }</p>
 								) }
-								<div className="form-row">
+								<div className="form-row gap">
 									<TextControl
 										placeholder={ __( 'Enter a Style Kit Name', 'ang' ) }
 										onChange={ val => this.setState( { kitname: val } ) }
