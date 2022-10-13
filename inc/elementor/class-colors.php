@@ -429,22 +429,22 @@ class Colors extends Module {
 		$default_surface_colors = array(
 			array(
 				'_id'   => 'sk_color_1',
-				'title' => esc_html__( 'Color Style 1', 'ang' ),
-				'color' => '',
+				'title' => esc_html__( 'Site background', 'ang' ),
+				'color' => '#FFFFFF',
 			),
 			array(
 				'_id'   => 'sk_color_2',
-				'title' => esc_html__( 'Color Style 2', 'ang' ),
-				'color' => '',
+				'title' => esc_html__( 'Light background', 'ang' ),
+				'color' => '#F4F4F4',
 			),
 			array(
 				'_id'   => 'sk_color_3',
-				'title' => esc_html__( 'Color Style 3', 'ang' ),
-				'color' => '',
+				'title' => esc_html__( 'Dark background', 'ang' ),
+				'color' => '#171720',
 			),
 			array(
 				'_id'   => 'sk_color_4',
-				'title' => esc_html__( 'Color Style 4', 'ang' ),
+				'title' => esc_html__( 'Background 4', 'ang' ),
 				'color' => '',
 			),
 		);
@@ -469,22 +469,22 @@ class Colors extends Module {
 		$default_accent_colors = array(
 			array(
 				'_id'   => 'sk_color_5',
-				'title' => esc_html__( 'Color Style 5', 'ang' ),
-				'color' => '',
+				'title' => esc_html__( 'Accent 1', 'ang' ),
+				'color' => '#413EC5',
 			),
 			array(
 				'_id'   => 'sk_color_6',
-				'title' => esc_html__( 'Color Style 6', 'ang' ),
+				'title' => esc_html__( 'Accent 2', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_7',
-				'title' => esc_html__( 'Color Style 7', 'ang' ),
+				'title' => esc_html__( 'Accent 3', 'ang' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_8',
-				'title' => esc_html__( 'Color Style 8', 'ang' ),
+				'title' => esc_html__( 'Accent 4', 'ang' ),
 				'color' => '',
 			),
 		);
@@ -508,23 +508,23 @@ class Colors extends Module {
 		$default_type_colors = array(
 			array(
 				'_id'   => 'sk_color_9',
-				'title' => esc_html__( 'Color Style 9', 'ang' ),
-				'color' => '',
+				'title' => esc_html__( 'Titles', 'ang' ),
+				'color' => '#1B1B1D',
 			),
 			array(
 				'_id'   => 'sk_color_10',
-				'title' => esc_html__( 'Color Style 10', 'ang' ),
-				'color' => '',
+				'title' => esc_html__( 'Normal text', 'ang' ),
+				'color' => '#1B1B1D',
 			),
 			array(
 				'_id'   => 'sk_color_11',
-				'title' => esc_html__( 'Color Style 11', 'ang' ),
-				'color' => '',
+				'title' => esc_html__( 'Secondary text', 'ang' ),
+				'color' => '#707071',
 			),
 			array(
 				'_id'   => 'sk_color_12',
-				'title' => esc_html__( 'Color Style 12', 'ang' ),
-				'color' => '',
+				'title' => esc_html__( 'Inverted text', 'ang' ),
+				'color' => '#FFFFFF',
 			),
 		);
 
@@ -547,8 +547,8 @@ class Colors extends Module {
 		$default_other_colors = array(
 			array(
 				'_id'   => 'sk_color_13',
-				'title' => esc_html__( 'Color Style 13', 'ang' ),
-				'color' => '',
+				'title' => esc_html__( 'Border', 'ang' ),
+				'color' => '#0000001A',
 			),
 			array(
 				'_id'   => 'sk_color_14',
