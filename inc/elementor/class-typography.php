@@ -444,7 +444,7 @@ class Typography extends Module {
 		$padding_defaults = array(
 			array(
 				'_id'            => 'ang_container_padding_1',
-				'title'          => __( 'Padding 1', 'ang' ),
+				'title'          => __( 'XXL - Hero Section', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '80',
@@ -472,7 +472,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_2',
-				'title'          => __( 'Padding 2', 'ang' ),
+				'title'          => __( 'XL - Primary Section', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '64',
@@ -500,7 +500,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_3',
-				'title'          => __( 'Padding 3', 'ang' ),
+				'title'          => __( 'Large - Box', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '40',
@@ -520,7 +520,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_4',
-				'title'   => __( 'Padding 4', 'ang' ),
+				'title'   => __( 'Medium - Box', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '24',
@@ -532,7 +532,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_5',
-				'title'   => __( 'Padding 5', 'ang' ),
+				'title'   => __( 'Small - Box', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '16',
