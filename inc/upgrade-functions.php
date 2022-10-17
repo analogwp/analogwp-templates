@@ -138,6 +138,10 @@ function do_automatic_upgrades() {
 		version_1_9_3_upgrades();
 	}
 
+	if ( version_compare( $installed_version, '1.9.5', '<' ) ) {
+		version_1_9_5_upgrades();
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
@@ -630,3 +634,81 @@ function version_1_9_3_upgrades() {
 	}
 }
 
+/**
+ * Version 1.9.5 upgrades.
+ *
+ * Migrate existing set controls to load with new additional defaults.
+ *
+ * @since 1.9.5
+ * @return void|bool
+ */
+function version_1_9_5_upgrades() {
+
+	// Settings to migrate.
+	$migration_keys = array(
+		'ang_container_padding',
+		// Global colors.
+		'ang_global_background_colors',
+		'ang_global_accent_colors',
+		'ang_global_text_colors',
+		'ang_global_extra_colors',
+		// Global typography.
+		'ang_global_title_fonts',
+		'ang_global_text_fonts',
+	);
+
+	$all_kits = \Analog\Utils::get_kits();
+
+	foreach ( $all_kits as $id => $title ) {
+		// Check if this is a valid kit or not.
+		if ( ! Plugin::elementor()->kits_manager->is_kit( $id ) ) {
+			return false;
+		}
+
+		$kit = Plugin::elementor()->documents->get_doc_for_frontend( $id );
+
+		// Use raw settings that doesn't have default values.
+		$kit_raw_settings = $kit->get_data( 'settings' );
+
+		foreach ( $migration_keys as $control_key ) {
+			if ( ! isset( $kit_raw_settings[ $control_key ] ) ) {
+				continue;
+			}
+
+			$existing_controls = $kit_raw_settings[ $control_key ];
+			$control           = $kit->get_controls( $control_key );
+
+			$default_controls = $control['default'];
+			$updated_settings = $default_controls;
+
+			// Loop over existing set controls.
+			foreach ( $existing_controls as $ex_control ) {
+
+				// Loop over default controls.
+				foreach ( $default_controls as $key => $default_control ) {
+
+					// If existing control id matches with default control id.
+					if ( $ex_control['_id'] === $default_control['_id'] ) {
+
+						// Then we loop over default control keys.
+						foreach ( $default_control as $id => $value ) {
+
+							// If existing control with the same key has a value set.
+							if ( isset( $ex_control[ $id ] ) ) {
+								$updated_settings[ $key ][ $id ] = $ex_control[ $id ];
+							}
+						}
+					}
+				}
+			}
+
+			$kit_raw_settings[ $control_key ] = $updated_settings;
+		}
+
+		$data = array(
+			'settings' => $kit_raw_settings,
+		);
+
+		$kit->save( $data );
+	}
+}
