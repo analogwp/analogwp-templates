@@ -1075,10 +1075,9 @@ class Typography extends Module {
 			array(
 				'raw'  => sprintf(
 					/* translators: %s: Link to Style Kits */
-					'<p class="ang-notice description">%1$s<a href="%2$s" target="_blank">%3$s</a>.</p>',
-					__( 'You can set a Global Style Kit ', 'ang' ),
+					'<p class="ang-notice description"><a href="%1$s" target="_blank">%2$s</a></p>',
 					admin_url( 'admin.php?page=style-kits' ),
-					__( 'here', 'ang' )
+					__( 'Set your Global Style Kit here', 'ang' ),
 				),
 				'type' => Controls_Manager::RAW_HTML,
 			)
