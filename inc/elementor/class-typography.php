@@ -1033,12 +1033,14 @@ class Typography extends Module {
 		$element->add_control(
 			'description_ang_global_stylekit',
 			array(
-				'raw'             => __( 'You are editing the Global Style Kit.', 'ang' ),
+				'raw'             => sprintf(
+									/* translators: %s: Link to Style Kits */
+									'<p>%1$s<a href="https://docs.analogwp.com/article/660-new-style-kits-panel" target="_blank">%2$s</a></p>',
+									__( 'You can preview and apply a different Style Kit for this page.', 'ang' ),
+									__( 'Learn more', 'ang' )
+								),
 				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'ang-notice desc',
-				'condition'       => array(
-					'ang_action_tokens' => (string) $global_token,
-				),
+				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
@@ -1046,7 +1048,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_tokens',
 			array(
-				'label'          => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'label'          => __( 'Select Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'           => Controls_Manager::SELECT2,
 				'select2options' => array(
 					'allowClear' => false,
@@ -1060,9 +1062,9 @@ class Typography extends Module {
 			'ang_edit_kit',
 			array(
 				'type'       => Controls_Manager::BUTTON,
-				'label'      => __( 'Edit Theme Style Kit', 'ang' ),
+				'label'      => __( 'Apply and Reload', 'ang' ),
 				'show_label' => false,
-				'text'       => __( 'Edit Theme Style Kit', 'ang' ),
+				'text'       => __( 'Apply and Reload', 'ang' ),
 				'separator'  => 'after',
 				'event'      => 'analog:editKit',
 			)
