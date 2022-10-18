@@ -1029,6 +1029,7 @@ class Typography extends Module {
 		if ( ! $global_token ) {
 			$global_token = -1;
 		}
+		$active_kit = Utils::get_document_kit_id( get_the_ID() );
 
 		$element->add_control(
 			'description_ang_global_stylekit',
@@ -1059,6 +1060,21 @@ class Typography extends Module {
 		);
 
 		$element->add_control(
+			'ang_revert_kit',
+			array(
+				'type'       => Controls_Manager::BUTTON,
+				'label'      => __( 'Revert', 'ang' ),
+				'show_label' => false,
+				'text'       => __( 'Revert', 'ang' ),
+				'separator'  => 'after',
+				'event'      => 'analog:revertKit',
+				'condition'       => array(
+					'ang_action_tokens!' => $active_kit,
+				),
+			)
+		);
+
+		$element->add_control(
 			'ang_edit_kit',
 			array(
 				'type'       => Controls_Manager::BUTTON,
@@ -1067,6 +1083,9 @@ class Typography extends Module {
 				'text'       => __( 'Apply and Reload', 'ang' ),
 				'separator'  => 'after',
 				'event'      => 'analog:editKit',
+				'condition'       => array(
+					'ang_action_tokens!' => $active_kit,
+				),
 			)
 		);
 
