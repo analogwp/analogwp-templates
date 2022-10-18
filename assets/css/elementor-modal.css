@@ -106,6 +106,12 @@ button[data-action="save_token"] {
 .dialog-widget.ang-notice.description,
 .elementor-panel .ang-notice.description {
 	width: 100%;
+	background: #E6F6FF !important;
+}
+
+.dialog-widget.ang-notice.description a,
+.elementor-panel .ang-notice.description a{
+	color: currentColor;
 }
 
 .elementor-panel .ang-notice.blue:hover {
@@ -191,17 +197,48 @@ button[data-action="save_token"] {
 .elementor-control-ang_action_tokens .select2-container {
 	min-width: 120px;
 }
+.elementor-control-ang_edit_kit,
+.elementor-control-ang_revert_kit {
+	display: inline-block;
+	padding: 8px 10px !important;
+}
+
+.elementor-control-ang_edit_kit:after {
+	display: none;
+}
+
+.elementor-control-ang_revert_kit {
+	width: 40%;
+	padding-right: 0 !important;
+}
+.elementor-control-ang_edit_kit {
+	width: 60%;
+}
 
 .elementor-control-ang_edit_kit .elementor-control-input-wrapper {
 	width: 100%;
 	margin-left: 0;
 }
 
+.elementor-control-ang_revert_kit .elementor-control-input-wrapper {
+	margin-left: 10px !important;
+}
+
+.elementor-control-ang_revert_kit .elementor-button.elementor-button-default,
 .elementor-control-ang_edit_kit .elementor-button.elementor-button-default {
 	width: 100%;
-	background: #5BC0DE;
 	padding: 10px 20px;
 	height: auto;
+}
+
+
+.elementor-control-ang_revert_kit .elementor-button.elementor-button-default {
+	padding: 10px 26px;
+}
+
+
+.elementor-control-ang_edit_kit .elementor-button.elementor-button-default {
+	background: #5BC0DE;
 }
 
 .elementor-control-ang_edit_kit .elementor-button.elementor-button-default:hover,
