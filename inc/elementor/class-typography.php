@@ -1060,6 +1060,15 @@ class Typography extends Module {
 		);
 
 		$element->add_control(
+			'ang_active_token',
+			array(
+				'label'     => __( 'Page Style Kit', 'ang' ),
+				'type'      => Controls_Manager::HIDDEN,
+				'default'   => $active_kit,
+			)
+		);
+
+		$element->add_control(
 			'ang_revert_kit',
 			array(
 				'type'       => Controls_Manager::BUTTON,
