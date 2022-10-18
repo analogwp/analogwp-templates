@@ -489,7 +489,13 @@ jQuery( window ).on( 'elementor/init', function() {
 		let defaultValues = {};
 
 		// Get defaults for each setting
-		ang_global_colors.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[elementor.config.kit_id].container.controls[setting].default );
+		ang_global_colors.forEach( ( setting ) => {
+			const options = elementor.documents.documents[elementor.config.kit_id].container.controls[setting];
+			if ( undefined === options || null === options ) {
+				return;
+			}
+			defaultValues[ setting ] = options.default;
+		} );
 
 		// Reset the selected settings to their default values
 		$e.run( 'document/elements/settings', {
@@ -530,7 +536,13 @@ jQuery( window ).on( 'elementor/init', function() {
 		let defaultValues = {};
 
 		// Get defaults for each setting
-		ang_global_fonts.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[elementor.config.kit_id].container.controls[setting].default );
+		ang_global_fonts.forEach( ( setting ) => {
+			const options = elementor.documents.documents[elementor.config.kit_id].container.controls[setting];
+			if ( undefined === options || null === options ) {
+				return;
+			}
+			defaultValues[ setting ] = options.default;
+		} );
 
 		// Reset the selected settings to their default values
 		$e.run( 'document/elements/settings', {
