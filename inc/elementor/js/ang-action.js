@@ -14,6 +14,33 @@
 				elementor.channels.editor.on( 'analog:editKit', () => applyKit() );
 				elementor.channels.editor.on( 'analog:revertKit', () => revertKit() );
 
+				class AngUpdaterAfterSave extends $e.modules.hookUI.After {
+					getCommand() {
+						return 'document/save/save';
+					}
+
+					getId() {
+						return 'ang-updater-after-save';
+					}
+
+					getConditions( args ) {
+						return true;
+					}
+
+					apply( args, result ) {
+						const container = elementor.documents.documents[elementor.config.initial_document.id].container;
+						const prevKit = container.settings.attributes.ang_active_token;
+						const kitSwitcher = container.settings.attributes.ang_action_tokens;
+
+						if ( elementor.config.kit_id !== prevKit || elementor.config.kit_id !== kitSwitcher ) {
+							elementor.settings.page.model.setExternalChange( 'ang_active_token', elementor.config.kit_id );
+							analog.openThemeStyles();
+						}
+					}
+				}
+
+				$e.hooks.registerUIAfter( new AngUpdaterAfterSave() );
+
 				if ( 'undefined' === typeof (elementor.config.initial_document.panel) || ! elementor.config.initial_document.panel.support_kit ) {
 					return;
 				}
