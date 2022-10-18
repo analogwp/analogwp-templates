@@ -11,7 +11,8 @@
 
 		function bindEvents() {
 			elementor.once( 'preview:loaded', function() {
-				elementor.channels.editor.on( 'analog:editKit', () => analog.openThemeStyles() );
+				elementor.channels.editor.on( 'analog:editKit', () => applyKit() );
+				elementor.channels.editor.on( 'analog:revertKit', () => revertKit() );
 
 				if ( 'undefined' === typeof (elementor.config.initial_document.panel) || ! elementor.config.initial_document.panel.support_kit ) {
 					return;
@@ -35,7 +36,7 @@
 					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', AGWP.global_kit );
 				}
 
-				elementor.settings.page.addChangeCallback( 'ang_action_tokens', refreshKit );
+				elementor.settings.page.addChangeCallback( 'ang_action_tokens', kitSwitcher );
 
 				if ( ANG_Action.globalKit && ! ( parseInt( elementor.settings.page.model.attributes.ang_action_tokens ) in elementor.settings.page.model.controls.ang_action_tokens.options ) ) {
 					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', ANG_Action.globalKit );
@@ -103,6 +104,49 @@
 			fixKitClasses(id);
 			loadDocumentAndEnqueueFonts( id );
 		}
+
+		function kitSwitcher( id ) {
+			refreshKit(id);
+			const pageContainer = elementor.documents.documents[elementor.config.initial_document.id].container;
+			const activeKit = pageContainer.settings.attributes.ang_active_token;
+
+			if ( activeKit !== id ) {
+				elementor.notifications.showToast( {
+					message: 'You are previewing a Style Kit on this page. For it to work properly, you need to Apply it on the page, or revert to the previous one.',
+					sticky: true,
+					classes: 'ang-kit-apply-notice',
+					buttons: [
+						{
+							name: 'ang_revert_kit',
+							text: 'Revert',
+							callback: function callback() {
+								revertKit();
+							},
+						},
+						{
+							name: 'ang_apply_kit',
+							text: 'Apply and Reload',
+							callback: function callback() {
+								applyKit();
+							},
+						}
+					]
+				} );
+			}
+		}
+
+		function applyKit() {
+			elementor.settings.page.model.setExternalChange( 'ang_active_token', elementor.config.kit_id );
+			$e.run('document/save/update').then( () => analog.openThemeStyles() );
+		}
+
+		function revertKit() {
+			const container = elementor.documents.documents[elementor.config.initial_document.id].container;
+			const prevKit = container.settings.attributes.ang_active_token;
+			elementor.settings.page.model.setExternalChange( 'ang_action_tokens', prevKit );
+			refreshKit( prevKit );
+			$e.run('document/save/update');
+		};
 
 		init();
 	};
