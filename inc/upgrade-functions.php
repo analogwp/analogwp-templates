@@ -683,20 +683,14 @@ function version_1_9_5_upgrades() {
 
 			// Loop over existing set controls.
 			foreach ( $existing_controls as $ex_control ) {
-
 				// Loop over default controls.
 				foreach ( $default_controls as $key => $default_control ) {
-
 					// If existing control id matches with default control id.
 					if ( $ex_control['_id'] === $default_control['_id'] ) {
-
-						// Then we loop over default control keys.
-						foreach ( $default_control as $id => $value ) {
-
-							// If existing control with the same key has a value set.
-							if ( isset( $ex_control[ $id ] ) ) {
-								$updated_settings[ $key ][ $id ] = $ex_control[ $id ];
-							}
+						// Then we loop over existing single control keys.
+						foreach ( $ex_control as $id => $value ) {
+							// We set the existing value.
+							$updated_settings[ $key ][ $id ] = $value;
 						}
 					}
 				}
