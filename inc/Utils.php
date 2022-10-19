@@ -690,7 +690,7 @@ class Utils extends Base {
 		}
 
 		$document = Plugin::elementor()->documents->get_doc_for_frontend( $post_id );
-		$kit_id   = $document->get_settings_for_display( 'ang_action_tokens' );
+		$kit_id   = $document->get_settings( 'ang_action_tokens' );
 
 		// Check if this is a valid kit or not.
 		if ( ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
@@ -717,7 +717,7 @@ class Utils extends Base {
 		}
 
 		$document = Plugin::elementor()->documents->get_doc_for_frontend( $post_id );
-		$kit_id   = $document->get_settings_for_display( 'ang_action_tokens' );
+		$kit_id   = $document->get_settings( 'ang_action_tokens' );
 
 		// Check if this is a valid kit or not.
 		if ( ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
