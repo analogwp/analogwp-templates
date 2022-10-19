@@ -1051,7 +1051,7 @@ class Typography extends Module {
 			array(
 				'label'     => __( 'Page Style Kit', 'ang' ),
 				'type'      => Controls_Manager::HIDDEN,
-				'default'   => Utils::get_document_kit_id( get_the_ID() ),
+				'default'   => '',
 			)
 		);
 
