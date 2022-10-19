@@ -20,8 +20,22 @@
 					const updatedKit = parseInt( elementor.settings.page.model.attributes.ang_updated_token );
 					const angToken = parseInt( elementor.settings.page.model.attributes.ang_action_tokens );
 
+					if ( isNaN( updatedKit ) ) {
+						return;
+					}
+
 					if ( angToken !== updatedKit ) {
+						const historyId = $e.internal( 'document/history/start-log', {
+							type: 'update',
+							title: 'Updated Style Kit',
+						} );
+
 						elementor.settings.page.model.setExternalChange( 'ang_updated_token', angToken );
+
+						$e.internal( 'document/history/end-log', {
+							id: historyId,
+						} );
+
 						$e.run( 'document/save/update', { force: true } );
 
 						elementor.notifications.showToast( {
@@ -129,9 +143,10 @@
 
 		function kitSwitcher( id ) {
 			if ( elementor.config.kit_id !== id ) {
+				elementor.settings.page.model.setExternalChange( 'ang_updated_token', elementor.config.kit_id );
 				refreshKit(id);
 				setTimeout( () => {
-					$e.run('document/save/update').then( () => window.location.reload() );
+					$e.run( 'document/save/update' ).then( () => window.location.reload() );
 				}, 1000 );
 			}
 		}
