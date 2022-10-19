@@ -1032,11 +1032,10 @@ class Typography extends Module {
 			)
 		);
 
-		$label = __( 'A Style Kit is a saved configuration of Theme Styles, that you can optionally apply on any page. This will override the Global theme Styles for this page.', 'ang' );
 		$element->add_control(
 			'ang_action_tokens',
 			array(
-				'label'          => __( 'Select Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'label'          => __( 'Select Style Kit', 'ang' ) . $this->get_tooltip( __( 'This will override your site\'s Global Style Kit for this page.', 'ang' ) ),
 				'type'           => Controls_Manager::SELECT2,
 				'select2options' => array(
 					'allowClear' => false,
