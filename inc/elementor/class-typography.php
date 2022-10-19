@@ -1047,14 +1047,11 @@ class Typography extends Module {
 		);
 
 		$element->add_control(
-			'ang_active_token',
+			'ang_updated_token',
 			array(
 				'label'     => __( 'Page Style Kit', 'ang' ),
 				'type'      => Controls_Manager::HIDDEN,
-				'default'   => $active_kit,
-			)
-		);
-
+				'default'   => Utils::get_document_kit_id( get_the_ID() ),
 			)
 		);
 

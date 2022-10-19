@@ -15,6 +15,31 @@
 					return;
 				}
 
+				// To keep the force update out of danger zone.
+				setTimeout( function() {
+					const updatedKit = parseInt( elementor.settings.page.model.attributes.ang_updated_token );
+					const angToken = parseInt( elementor.settings.page.model.attributes.ang_action_tokens );
+
+					if ( angToken !== updatedKit ) {
+						elementor.settings.page.model.setExternalChange( 'ang_updated_token', angToken );
+						$e.run( 'document/save/update', { force: true } );
+
+						elementor.notifications.showToast( {
+							message: 'All good. The new Style Kit has been applied on this page!',
+							classes: 'ang-kit-apply-notice',
+							buttons: [
+								{
+									name: 'ang_panel_redirect',
+									text: 'Switch Style Kit',
+									callback: function callback() {
+										analog.redirectToSection();
+									},
+								},
+							]
+						} );
+					}
+				}, 1000 );
+
 				if ( ! elementor.config.user.can_edit_kit ) {
 					return;
 				}
