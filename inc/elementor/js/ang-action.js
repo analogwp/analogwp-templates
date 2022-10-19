@@ -45,7 +45,7 @@
 					elementor.config.kit_id = activeKit;
 					fixKitClasses();
 					analog.setPanelTitle( activeKit );
-					loadDocumentAndEnqueueFonts(activeKit);
+					loadDocumentAndEnqueueFonts(activeKit, true);
 				}
 			});
 		}
@@ -58,7 +58,7 @@
 			elementor.$previewContents.find('body').addClass(`elementor-kit-${id}`);
 		}
 
-		function loadDocumentAndEnqueueFonts( id ) {
+		function loadDocumentAndEnqueueFonts( id, softReload = false ) {
 			elementor.documents.request(id)
 				.then( ( config ) => {
 					elementor.documents.addDocumentByConfig(config);
@@ -67,7 +67,7 @@
 					 * If for some reasons, Kit CSS wasn't enqueued.
 					 * This line forces Theme Style window to open, which re-renders the CSS for current kit.
 					 */
-					if ( ! elementor.$previewContents.find( `#elementor-post-${config.id}-css` ).length ) {
+					if ( ! elementor.$previewContents.find( `#elementor-post-${config.id}-css` ).length && softReload ) {
 						analog.openThemeStyles();
 					}
 				})
