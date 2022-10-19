@@ -103,6 +103,11 @@
 		}
 
 		function kitSwitcher( id ) {
+			if ( elementor.config.kit_id !== id ) {
+				refreshKit(id);
+				setTimeout( () => {
+					$e.run('document/save/update').then( () => window.location.reload() );
+				}, 1000 );
 			}
 		}
 
