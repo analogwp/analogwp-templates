@@ -104,10 +104,25 @@
 
 		function kitSwitcher( id ) {
 			if ( elementor.config.kit_id !== id ) {
-				elementor.settings.page.model.setExternalChange( 'ang_updated_token', elementor.config.kit_id );
 				refreshKit(id);
 				setTimeout( () => {
-					$e.run( 'document/save/update' ).then( () => window.location.reload() );
+					$e.run( 'document/save/update' ).then( () => {
+						$e.run( 'panel/global/open' );
+
+						elementor.notifications.showToast( {
+							message: 'All good. The new Style Kit has been applied on this page!',
+							classes: 'ang-kit-apply-notice',
+							buttons: [
+								{
+									name: 'ang_panel_redirect',
+									text: 'Switch Style Kit',
+									callback: function callback() {
+										$e.run( 'panel/global/close' ).then( () => analog.redirectToSection());
+									},
+								},
+							]
+						} );
+					} );
 				}, 1000 );
 			}
 		}
