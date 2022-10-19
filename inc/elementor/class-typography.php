@@ -1023,8 +1023,8 @@ class Typography extends Module {
 			array(
 				'raw'             => sprintf(
 									/* translators: %s: Link to Style Kits */
-									'<p>%1$s<a href="https://docs.analogwp.com/article/660-new-style-kits-panel" target="_blank">%2$s</a></p>',
-									__( 'You can preview and apply a different Style Kit for this page.', 'ang' ),
+									'<p>%1$s <a href="https://docs.analogwp.com/article/660-new-style-kits-panel" target="_blank">%2$s</a></p>',
+									__( 'Select a different Style Kit to be applied on this page. The page will reload after your selection.', 'ang' ),
 									__( 'Learn more', 'ang' )
 								),
 				'type'            => Controls_Manager::RAW_HTML,
