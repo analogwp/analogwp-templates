@@ -1018,19 +1018,6 @@ class Typography extends Module {
 			)
 		);
 
-		/**
-		 * Important:
-		 *
-		 * Setting Kit ID to "string" here on purpose. Elementor's condition arg expects the matching option to be a
-		 * string, where our option returns an integer.
-		 */
-		$global_token = Utils::get_global_kit_id();
-
-		if ( ! $global_token ) {
-			$global_token = -1;
-		}
-		$active_kit = Utils::get_document_kit_id( get_the_ID() );
-
 		$element->add_control(
 			'description_ang_global_stylekit',
 			array(
@@ -1068,33 +1055,6 @@ class Typography extends Module {
 			)
 		);
 
-		$element->add_control(
-			'ang_revert_kit',
-			array(
-				'type'       => Controls_Manager::BUTTON,
-				'label'      => __( 'Revert', 'ang' ),
-				'show_label' => false,
-				'text'       => __( 'Revert', 'ang' ),
-				'separator'  => 'after',
-				'event'      => 'analog:revertKit',
-				'condition'       => array(
-					'ang_action_tokens!' => $active_kit,
-				),
-			)
-		);
-
-		$element->add_control(
-			'ang_edit_kit',
-			array(
-				'type'       => Controls_Manager::BUTTON,
-				'label'      => __( 'Apply and Reload', 'ang' ),
-				'show_label' => false,
-				'text'       => __( 'Apply and Reload', 'ang' ),
-				'separator'  => 'after',
-				'event'      => 'analog:editKit',
-				'condition'       => array(
-					'ang_action_tokens!' => $active_kit,
-				),
 			)
 		);
 
