@@ -1046,6 +1046,15 @@ class Typography extends Module {
 		);
 
 		$element->add_control(
+			'ang_updated_token',
+			array(
+				'label'     => __( 'Page Style Kit', 'ang' ),
+				'type'      => Controls_Manager::HIDDEN,
+				'default'   => '',
+			)
+		);
+
+		$element->add_control(
 			'description_ang_stylekit_docs',
 			array(
 				'raw'  => sprintf(

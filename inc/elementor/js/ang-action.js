@@ -15,6 +15,65 @@
 					return;
 				}
 
+				// To keep the force update out of danger zone.
+				setTimeout( function() {
+					const updatedKit = parseInt( elementor.settings.page.model.attributes.ang_updated_token );
+					const angToken = parseInt( elementor.settings.page.model.attributes.ang_action_tokens );
+
+					if ( isNaN( updatedKit ) ) {
+						return;
+					}
+
+					if ( angToken !== updatedKit ) {
+						const historyId = $e.internal( 'document/history/start-log', {
+							type: 'update',
+							title: 'Switch Kit',
+						} );
+
+						elementor.settings.page.model.setExternalChange( 'ang_updated_token', angToken );
+
+						$e.internal( 'document/history/end-log', {
+							id: historyId,
+						} );
+
+						$e.run( 'document/save/update', { force: true } ).then(() => {
+							$e.run( 'panel/global/open' ).then( () => {
+								elementor.notifications.showToast( {
+									message: ANG_Action.translate.kitSwitcherNotice,
+									classes: 'ang-kit-apply-notice',
+									buttons: [
+										{
+											name: 'ang_panel_redirect',
+											text: ANG_Action.translate.kitSwitcherSKSwitch,
+											callback: function callback() {
+												const currentRoute = $e.routes.current.panel.toString();
+												if ( currentRoute.includes( 'panel/global' ) ) {
+													$e.run( 'panel/global/close' ).then( () => {
+														analog.redirectToSection();
+													} );
+												} else {
+													analog.redirectToSection();
+												}
+											},
+										},
+										{
+											name: 'back_to_editor',
+											text: ANG_Action.translate.kitSwitcherEditorSwitch,
+											callback: function callback() {
+												const currentRoute = $e.routes.current.panel.toString();
+												if ( currentRoute.includes( 'panel/global' ) ) {
+													$e.run( 'panel/global/close' );
+												}
+											},
+										},
+									]
+								} );
+							} );
+						});
+					}
+				}, 1000 );
+
+
 				if ( ! elementor.config.user.can_edit_kit ) {
 					return;
 				}
@@ -104,24 +163,11 @@
 
 		function kitSwitcher( id ) {
 			if ( elementor.config.kit_id !== id ) {
+				elementor.settings.page.model.setExternalChange( 'ang_updated_token', elementor.config.kit_id );
 				refreshKit(id);
 				setTimeout( () => {
 					$e.run( 'document/save/update' ).then( () => {
-						$e.run( 'panel/global/open' );
-
-						elementor.notifications.showToast( {
-							message: 'All good. The new Style Kit has been applied on this page!',
-							classes: 'ang-kit-apply-notice',
-							buttons: [
-								{
-									name: 'ang_panel_redirect',
-									text: 'Switch Style Kit',
-									callback: function callback() {
-										$e.run( 'panel/global/close' ).then( () => analog.redirectToSection());
-									},
-								},
-							]
-						} );
+						window.location.reload();
 					} );
 				}, 1000 );
 			}
