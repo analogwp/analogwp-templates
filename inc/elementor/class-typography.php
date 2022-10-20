@@ -1024,7 +1024,7 @@ class Typography extends Module {
 				'raw'             => sprintf(
 									/* translators: %s: Link to Style Kits */
 									'<p>%1$s <a href="https://docs.analogwp.com/article/660-new-style-kits-panel" target="_blank">%2$s</a></p>',
-									__( 'Select a Style Kit to be applied on this page.', 'ang' ),
+									__( 'Select a different Style Kit to be applied on this page. The page will reload after your selection.', 'ang' ),
 									__( 'Learn more', 'ang' )
 								),
 				'type'            => Controls_Manager::RAW_HTML,
