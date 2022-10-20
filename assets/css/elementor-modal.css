@@ -198,6 +198,11 @@ button[data-action="save_token"] {
 	min-width: 120px;
 }
 
+.elementor-control.elementor-control-description_ang_global_stylekit .elementor-descriptor {
+	font-style: normal;
+	color: currentColor;
+}
+
 .sub-arrow + .sub-arrow {
 	display: none;
 }
