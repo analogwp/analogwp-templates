@@ -139,6 +139,9 @@ class ANG_Action extends Base_Data_Control {
 					'resetGlobalFontsMessage'      => __( 'This will revert the global font labels & values to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 					'resetContainerPaddingMessage' => __( 'This will revert the container preset labels & values to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 					'resetShadowsDesc'             => __( 'This will revert the box shadow presets to their defaults. You can undo this action from the revisions tab.', 'ang' ),
+					'kitSwitcherNotice'            => __( 'All good. The new Style Kit has been applied on this page!', 'ang' ),
+					'kitSwitcherSKSwitch'          => __( 'Switch Style Kit', 'ang' ),
+					'kitSwitcherEditorSwitch'      => __( 'Back to Editor', 'ang' ),
 				),
 				'skPanelsAllowed' => $sk_panels_allowed
 			)
