@@ -47,10 +47,10 @@
 		var $bulk_row = $( '#bulk-edit' );
 
 		// get the selected post ids that are being edited
-		var $post_ids = new Array();
-		$bulk_row.find( '#bulk-titles' ).children().each( function() {
-			$post_ids.push( $( this ).attr( 'id' ).replace( /^(ttle)/i, '' ) );
-		});
+		const $post_ids = new Array();
+		$bulk_row.find( '#bulk-titles-list' ).children().each( function() {
+			$post_ids.push( $( this.firstChild ).attr( 'id' ).replace( /^(_)/i, '' ) );
+		} );
 
 		// get the data
 		var $style_kit = $bulk_row.find( 'select[name="ang_stylekit"]' ).val();
