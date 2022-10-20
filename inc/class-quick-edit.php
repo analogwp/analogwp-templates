@@ -200,6 +200,12 @@ class Quick_Edit extends Base {
 		$kit_id   = ( isset( $_POST['kit_id'] ) && ! empty( $_POST['kit_id'] ) ) ? $_POST['kit_id'] : false; // phpcs:ignore
 
 		if ( ! empty( $post_ids ) && is_array( $post_ids ) && $kit_id ) {
+			// Exit early in case the kit_id provided is not a valid kit.
+			if ( ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
+				return;
+			}
+
+			// Loop through each post and save updated kit.
 			foreach ( $post_ids as $post_id ) {
 				if ( User::is_current_user_can_edit( $post_id ) && Plugin::elementor()->documents->get( $post_id )->is_built_with_elementor() ) {
 					$this->update_posts_stylekit( $post_id, $kit_id );
