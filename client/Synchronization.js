@@ -20,8 +20,8 @@ const Synchronization = () => {
 								onClick={ e => {
 									e.preventDefault();
 									context.forceRefresh()
-										.then( () => add( __( 'Templates library refreshed', 'ang' ) ) )
-										.catch( () => add( __( 'Error refreshing templates library, please try again.', 'ang' ), 'error' ) );
+										.then( () => add( __( 'Library is now synced', 'ang' ) ) )
+										.catch( () => add( __( 'Something is not right, please try again.', 'ang' ), 'error' ) );
 								} }
 							>
 								{ context.state.syncing ?

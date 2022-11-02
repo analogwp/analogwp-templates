@@ -111,7 +111,7 @@ class Tools extends Base {
 	public function post_ang_rollback() {
 		check_admin_referer( 'ang_rollback' );
 
-		if ( ! current_user_can( 'update_plugins' ) ) {
+		if ( defined( 'STYLEKIT_DEBUG' ) || ! current_user_can( 'update_plugins' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to rollback Style Kits plugin for this site.', 'ang' ) );
 		}
 

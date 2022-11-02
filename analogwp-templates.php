@@ -144,36 +144,17 @@ function analog_fail_load() {
 	$is_not_activated = false;
 	$is_not_installed = false;
 
-	if ( version_compare( get_bloginfo( 'version' ), '5.5', 'gt' ) ) {
-		$request  = new WP_REST_Request( 'GET', '/wp/v2/plugins/elementor/elementor' );
-		$response = rest_do_request( $request );
+	if ( ! function_exists( 'get_plugins' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+	}
 
-		if ( $response->is_error() ) {
-			echo '<div class="error"><p>' . esc_html__( 'An error occurred while checking Elementor is Installed/Activated', 'ang' ) . '</p></div>';
-			return;
-		}
+	$installed_plugins = get_plugins();
+	$elementor         = isset( $installed_plugins[ $file_path ] );
 
-		$server = rest_get_server();
-		$data   = $server->response_to_data( $response, false );
-
-		if ( ! empty( $data['status'] ) && 'inactive' === $data['status'] ) {
-			$is_not_activated = true;
-		} elseif ( ! empty( $data['data']['status'] ) && 404 === $data['data']['status'] ) {
-			$is_not_installed = true;
-		}
+	if ( $elementor ) {
+		$is_not_activated = true;
 	} else {
-		if ( ! function_exists( 'get_plugins' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		$installed_plugins = get_plugins();
-		$elementor         = isset( $installed_plugins[ $file_path ] );
-
-		if ( $elementor ) {
-			$is_not_activated = true;
-		} else {
-			$is_not_installed = true;
-		}
+		$is_not_installed = true;
 	}
 
 	if ( $is_not_activated ) {

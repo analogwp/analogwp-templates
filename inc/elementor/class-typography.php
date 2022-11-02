@@ -108,6 +108,7 @@ class Typography extends Module {
 		add_action( 'elementor/element/common/_section_border/before_section_end', array( $this, 'tweak_common_borders' ) );
 		add_action( 'elementor/element/section/section_border/before_section_end', array( $this, 'tweak_section_column_borders' ) );
 		add_action( 'elementor/element/column/section_border/before_section_end', array( $this, 'tweak_section_column_borders' ) );
+		add_action( 'elementor/element/image/section_style_image/before_section_end', array( $this, 'tweak_image_borders' ) );
 
 		add_action( 'elementor/element/container/section_border/before_section_end', array( $this, 'tweak_container_borders' ) );
 	}
@@ -436,7 +437,7 @@ class Typography extends Module {
 		$element->start_controls_tabs(
 			'ang_container_spacing_tabs',
 			array(
-			'separator'       => 'before',
+				'separator' => 'before',
 			)
 		);
 
@@ -450,7 +451,7 @@ class Typography extends Module {
 		$padding_defaults = array(
 			array(
 				'_id'            => 'ang_container_padding_1',
-				'title'          => __( 'XL', 'ang' ),
+				'title'          => __( 'Padding 1', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '80',
@@ -478,7 +479,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_2',
-				'title'          => __( 'Large', 'ang' ),
+				'title'          => __( 'Padding 2', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '64',
@@ -506,7 +507,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_3',
-				'title'          => __( 'Normal', 'ang' ),
+				'title'          => __( 'Padding 3', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '40',
@@ -526,7 +527,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_4',
-				'title'   => __( 'Medium', 'ang' ),
+				'title'   => __( 'Padding 4', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '24',
@@ -538,7 +539,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_5',
-				'title'   => __( 'Small', 'ang' ),
+				'title'   => __( 'Padding 5', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '16',
@@ -550,15 +551,15 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'ang_container_padding_6',
-				'title' => __( 'style 6', 'ang' ),
+				'title' => __( 'Padding 6', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_7',
-				'title' => __( 'style 7', 'ang' ),
+				'title' => __( 'Padding 7', 'ang' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_8',
-				'title' => __( 'style 8', 'ang' ),
+				'title' => __( 'Padding 8', 'ang' ),
 			),
 		);
 
@@ -1726,35 +1727,35 @@ class Typography extends Module {
 		$title_typography = array(
 			array(
 				'_id'   => 'sk_type_1',
-				'title' => esc_html__( 'Display title', 'ang' ),
+				'title' => esc_html__( 'Font Style 1', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_2',
-				'title' => esc_html__( 'Title 1', 'ang' ),
+				'title' => esc_html__( 'Font Style 2', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_3',
-				'title' => esc_html__( 'Title 2', 'ang' ),
+				'title' => esc_html__( 'Font Style 3', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_4',
-				'title' => esc_html__( 'Title 3', 'ang' ),
+				'title' => esc_html__( 'Font Style 4', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_5',
-				'title' => esc_html__( 'Title 4', 'ang' ),
+				'title' => esc_html__( 'Font Style 5', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_6',
-				'title' => esc_html__( 'Title 5', 'ang' ),
+				'title' => esc_html__( 'Font Style 6', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_7',
-				'title' => esc_html__( 'Title 6', 'ang' ),
+				'title' => esc_html__( 'Font Style 7', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_8',
-				'title' => esc_html__( 'Overline / Subheader', 'ang' ),
+				'title' => esc_html__( 'Font Style 8', 'ang' ),
 			),
 		);
 
@@ -1775,35 +1776,35 @@ class Typography extends Module {
 		$text_typography = array(
 			array(
 				'_id'   => 'sk_type_9',
-				'title' => esc_html__( 'Display Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 9', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_10',
-				'title' => esc_html__( 'Large Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 10', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_11',
-				'title' => esc_html__( 'Normal Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 11', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_12',
-				'title' => esc_html__( 'Small Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 12', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_13',
-				'title' => esc_html__( 'Caption', 'ang' ),
+				'title' => esc_html__( 'Font Style 13', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_14',
-				'title' => esc_html__( 'Button Text', 'ang' ),
+				'title' => esc_html__( 'Font Style 14', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_15',
-				'title' => esc_html__( 'Label', 'ang' ),
+				'title' => esc_html__( 'Font Style 15', 'ang' ),
 			),
 			array(
 				'_id'   => 'sk_type_16',
-				'title' => esc_html__( 'Code', 'ang' ),
+				'title' => esc_html__( 'Font Style 16', 'ang' ),
 			),
 		);
 
@@ -1877,11 +1878,11 @@ class Typography extends Module {
 		$shadow_defaults = array(
 			array(
 				'_id'   => 'shadow_1',
-				'title' => __( 'Default', 'ang' ),
+				'title' => __( 'Shadow 1', 'ang' ),
 			),
 			array(
 				'_id'                    => 'shadow_2',
-				'title'                  => __( 'Small', 'ang' ),
+				'title'                  => __( 'Shadow 2', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1893,7 +1894,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_3',
-				'title'                  => __( 'Medium', 'ang' ),
+				'title'                  => __( 'Shadow 3', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1905,7 +1906,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_4',
-				'title'                  => __( 'Large', 'ang' ),
+				'title'                  => __( 'Shadow 4', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1917,7 +1918,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_5',
-				'title'                  => __( 'Extra Large', 'ang' ),
+				'title'                  => __( 'Shadow 5', 'ang' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1929,15 +1930,15 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'shadow_6',
-				'title' => __( 'style 6', 'ang' ),
+				'title' => __( 'Shadow 6', 'ang' ),
 			),
 			array(
 				'_id'   => 'shadow_7',
-				'title' => __( 'style 7', 'ang' ),
+				'title' => __( 'Shadow 7', 'ang' ),
 			),
 			array(
 				'_id'   => 'shadow_8',
-				'title' => __( 'style 8', 'ang' ),
+				'title' => __( 'Shadow 8', 'ang' ),
 			),
 		);
 
@@ -1960,7 +1961,7 @@ class Typography extends Module {
 				'global'   => array(
 					'active' => false,
 				),
-				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover',
+				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover, {{WRAPPER}} {{CURRENT_ITEM}}_external.elementor-element > .elementor-widget-container',
 			)
 		);
 
@@ -2070,7 +2071,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2111,10 +2112,10 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'none',
+				'default'       => 'none_hover',
 				'options'       => $hover_options,
 				'prefix_class'  => 'elementor-repeater-item-',
 			)
@@ -2130,6 +2131,43 @@ class Typography extends Module {
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Tweak Image widget for Box Shadow presets.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_image_borders( Element_Base $element ) {
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
+
+		$updated_options = array();
+
+		foreach ( $options as $key => $value ) {
+			$updated_options[ $key . '_external' ] = $value;
+		}
+
+		$element->start_injection(
+			array(
+				'of' => 'image_box_shadow_box_shadow_type',
+				'at' => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_image_box_shadow_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none_external',
+				'options'       => $updated_options,
+				'prefix_class'  => 'external_elementor-repeater-item-',
 			)
 		);
 
@@ -2160,7 +2198,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_sc_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2201,10 +2239,10 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_sc_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'none',
+				'default'       => 'none_hover',
 				'options'       => $hover_options,
 				'prefix_class'  => 'elementor-repeater-item-',
 			)
@@ -2249,7 +2287,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2290,10 +2328,10 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang-pro' ),
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
-				'default'       => 'none',
+				'default'       => 'none_hover',
 				'options'       => $hover_options,
 				'prefix_class'  => 'elementor-repeater-item-',
 			)
