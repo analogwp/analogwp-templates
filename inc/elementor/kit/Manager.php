@@ -337,7 +337,12 @@ class Manager {
 		return new Notice(
 			'kit_notification',
 			array(
-				'content'         => esc_html__( 'All good! The Style Kit has been set as Global.', 'ang' ),
+				'content'         => sprintf(
+					'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
+					__( 'All good! The Style Kit has been set as Global.', 'ang' ),
+					get_bloginfo( 'url' ),
+					__( 'View site', 'ang' )
+				),
 				'type'            => Notice::TYPE_INFO,
 				'active_callback' => static function () {
 					$screen = get_current_screen();
