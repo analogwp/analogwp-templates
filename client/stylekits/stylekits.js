@@ -31,6 +31,41 @@ const Container = styled.section`
     a {
     	color: var(--ang-primary);
     }
+    .tab-description {
+		font-size: 14px;
+		line-height: 1.5;
+		margin: 12px 0 40px;
+	    padding: 16px;
+	    background-color: #F9F9F8;
+	    border-radius: 6px;
+	    box-shadow: rgb(0 0 0 / 10%) 0px 0px 0px 1px;
+    }
+    .popup-description {
+        text-align: left;
+		font-size: 14px;
+		line-height: 1.5;
+		color: var(--ang-main-text);
+		padding-bottom: 10px;
+
+		a {
+			text-decoration: underline !important;
+		}
+    }
+
+	.gap {
+		display: flex;
+        gap: 10px;
+
+        & > button {
+            margin-left: 0 !important;
+        }
+	}
+
+    .success-buttons {
+        button {
+            margin-left: 0 !important;
+        }
+    }
 `;
 
 const ChildContainer = styled.ul`
@@ -165,16 +200,19 @@ export default class StyleKits extends React.Component {
 			} );
 	}
 
+	getPopupTitle( title, hasImported, hasError ) {
+		if ( hasImported && ! hasError ) {
+			return decodeEntities( title ) + __( ' Imported!', 'ang' );
+		}
+
+		return decodeEntities( title );
+	}
+
 	render() {
-		let successButtonProps = {
-			target: '_blank',
+		const successButtonProps = {
 			rel: 'noopener noreferrer',
 			href: addQueryArgs( 'admin.php', { page: 'style-kits' } ),
 		};
-
-		if ( ! Boolean( AGWP.is_settings_page ) ) {
-			successButtonProps = false;
-		}
 
 		const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
 		const fallbackImage = AGWP.pluginURL + 'assets/img/placeholder.svg';
@@ -182,8 +220,8 @@ export default class StyleKits extends React.Component {
 		return (
 			<Container>
 				<p className="tab-description">
-					{ __( 'These are some Style Kit presets that you can use as a starting point. Once you import a Style Kit, it will be added to your', 'ang' ) } <a href={ addQueryArgs( 'admin.php', { page: 'style-kits' } ) }>{ __( 'Style Kits list', 'ang' ) }</a>.
-					&nbsp;{ __( 'You will then be able to apply it on any Elementor page.', 'ang' ) }
+					{ __( 'Style Kits are ready-made configurations of theme styles. When you import a Style Kit, it will be available in the', 'ang' ) } <a href={ addQueryArgs( 'admin.php', { page: 'style-kits' } ) }>{ __( 'Local Style Kits', 'ang' ) }</a> { __( 'page', 'ang' ) }.
+					&nbsp;{ __( 'You will then be able apply it globally, or on any page.', 'ang' ) }
 					&nbsp;<a href="https://docs.analogwp.com/article/590-style-kit-library" target="_blank" rel="noopener noreferrer">{ __( 'Learn more', 'ang' ) }</a>.
 				</p>
 
@@ -260,22 +298,23 @@ export default class StyleKits extends React.Component {
 
 				{ this.state.modalActive && (
 					<Popup
-						title={ decodeEntities( this.state.activeKit.title ) }
+						title={ this.getPopupTitle( this.state.activeKit.title, this.state.importedKit, this.state.hasError ) }
 						onRequestClose={ () => this.resetState() }
 					>
 						{ this.state.hasError && (
 							<div className="stylekit-popup-content" >
-								<p style={ { textAlign: 'left' } }>
-									{ __( 'A Style Kit already exists with the same name. To import it again please enter a new name below:', 'ang' ) }
+								<p className="popup-description">
+									{ __( 'A Style Kit named ', 'ang' ) + decodeEntities( this.state.activeKit.title ) + __( ' already exists in your website. To import it again please use a different name.', 'ang' ) }
 								</p>
 
 								{ this.context.state.installedKits.indexOf( this.state.kitname ) > -1 && (
 									<p className="error">{ __( 'Please try a different as a Style Kit with same name already exists.', 'ang' ) }</p>
 								) }
-								<div className="form-row">
+								<div className="form-row gap">
 									<TextControl
 										placeholder={ __( 'Enter a Style Kit Name', 'ang' ) }
 										onChange={ val => this.setState( { kitname: val } ) }
+										className="kit-name"
 									/>
 
 									<NotificationConsumer>
@@ -306,9 +345,24 @@ export default class StyleKits extends React.Component {
 						{ ! this.state.hasError && ! this.state.importedKit && <Loader /> }
 
 						{ ! this.state.hasError && this.state.importedKit && (
-							<React.Fragment>
-								<p>{ __( 'The Style Kit has been imported and is now available in the list of the available Style Kits.', 'ang' ) }</p>
-								<p>
+							<div className="stylekit-popup-content" >
+								<p className="popup-description">{ decodeEntities( this.state.activeKit.title ) + __( ' has been successfully imported. You can now find it in the ', 'ang' ) }<a href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'list of your Local Style Kits' ) }</a>.</p>
+								<p className="success-buttons gap">
+									<a // eslint-disable-line
+										onClick={ ( e ) => {
+											this.resetState();
+
+											if ( ! Boolean( AGWP.is_settings_page ) ) {
+												e.preventDefault();
+												window.analogModal.hide();
+												analog.redirectToSection();
+											}
+										} }
+									>
+										<Button isPrimary>
+											{ __( 'Stay on this page', 'ang' ) }
+										</Button>
+									</a>
 									<a // eslint-disable-line
 										onClick={ ( e ) => {
 											this.resetState();
@@ -321,14 +375,14 @@ export default class StyleKits extends React.Component {
 										} }
 										{ ...successButtonProps }
 									>
-										<Button isPrimary>
-											{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
+										<Button isSecondary>
+											{ __( 'View local Style Kits', 'ang' ) }
 										</Button>
 									</a>
 								</p>
 
 								{ ! Boolean( AGWP.is_settings_page ) && <footer className="style-kit-footer" dangerouslySetInnerHTML={ { __html: footer } } /> }
-							</React.Fragment>
+							</div>
 						) }
 
 						{ ! this.state.hasError && ! this.state.importedKit && (

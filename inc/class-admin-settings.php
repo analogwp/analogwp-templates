@@ -634,6 +634,24 @@ class Admin_Settings {
 					}
 					break;
 
+				case 'deprecated-notice':
+					?>
+					<tr valign="top">
+						<?php if ( ! empty( $value['title'] ) ) { ?>
+						<th scope="row" class="titledesc">
+							<?php if ( false !== strpos( $value['id'], '_experiment' ) ) : ?>
+							<span class="experiment-indicator <?php echo ( $value['value'] === 'active' ) ? 'active' : 'inactive'?>"></span>
+							<?php endif; ?>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // phpcs:ignore ?></label>
+						</th>
+						<?php } ?>
+						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+							<?php echo $description; // phpcs:ignore ?>
+						</td>
+					</tr>
+					<?php
+					break;
+
 				// Default: run an action.
 				default:
 					do_action( 'ang_admin_field_' . $value['type'], $value );
