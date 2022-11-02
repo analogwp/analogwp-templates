@@ -53,7 +53,6 @@ class Tools extends Base {
 		add_filter( 'page_row_actions', array( $this, 'filter_post_row_actions' ), 15, 2 );
 
 		add_action( 'wp_ajax_ang_make_global', array( $this, 'post_global_stylekit' ) );
-		add_action( 'wp_ajax_ang_remove_kit_queue', array( $this, 'ang_remove_kit_queue' ) );
 
 		add_action( 'heartbeat_received', array( $this, 'heartbeat_received' ), 10, 2 );
 	}
@@ -296,26 +295,6 @@ class Tools extends Base {
 
 		wp_safe_redirect( wp_get_referer() );
 		exit;
-	}
-
-	/**
-	 * Ajax action to remove a stylekit from refresh queue.
-	 *
-	 * @return void
-	 * @since  1.2.3
-	 */
-	public function ang_remove_kit_queue() {
-		if ( ! isset( $_REQUEST['id'] ) ) {
-			wp_send_json_error(
-				array(
-					'message' => __( 'Invalid/empty Post ID.', 'ang' ),
-				)
-			);
-		}
-
-		Utils::remove_from_stylekit_queue( $_REQUEST['id'] );
-
-		wp_send_json_success();
 	}
 
 	/**
