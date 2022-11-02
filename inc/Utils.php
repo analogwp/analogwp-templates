@@ -782,7 +782,13 @@ class Utils extends Base {
 	 * @return bool
 	 */
 	public static function is_container() {
-		return 'active' === Options::get_instance()->get( 'container_library_experiment' );
+		$sk_container_lib = Options::get_instance()->get( 'container_library_experiment' );
+
+		if ( self::is_elementor_container() && ( 'default' === $sk_container_lib || false === $sk_container_lib ) ) {
+			return true;
+		}
+
+		return 'active' === $sk_container_lib;
 	}
 
 	/**
