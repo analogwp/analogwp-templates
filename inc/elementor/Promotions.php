@@ -31,23 +31,11 @@ final class Promotions extends Base {
 
 		add_action( 'analog_background_colors_tab_end', array( $this, 'add_background_color_accent_promo' ), 170, 1 );
 
-		$container_spacing_experiment = Options::get_instance()->get( 'container_spacing_experiment' );
+		add_action( 'analog_container_spacing_tabs_end', array( $this, 'add_additional_container_spacing_tabs_promo' ), 170, 2 );
 
-		if ( 'active' === $container_spacing_experiment ) {
-			add_action( 'analog_container_spacing_tabs_end', array( $this, 'add_additional_container_spacing_tabs_promo' ), 170, 2 );
-		}
+		add_action( 'analog_global_colors_tab_end', array( $this, 'add_additional_color_tabs_promo' ), 170, 2 );
 
-		$global_colors_experiment = Options::get_instance()->get( 'global_colors_experiment' );
-
-		if ( 'active' === $global_colors_experiment ) {
-			add_action( 'analog_global_colors_tab_end', array( $this, 'add_additional_color_tabs_promo' ), 170, 2 );
-		}
-
-		$global_fonts_experiment = Options::get_instance()->get( 'global_fonts_experiment' );
-
-		if ( 'active' === $global_fonts_experiment ) {
-			add_action( 'analog_global_fonts_tab_end', array( $this, 'add_additional_font_tabs_promo' ), 170, 2 );
-		}
+		add_action( 'analog_global_fonts_tab_end', array( $this, 'add_additional_font_tabs_promo' ), 170, 2 );
 
 		add_action( 'analog_box_shadows_tab_end', array( $this, 'add_additional_shadow_tabs_promo' ), 170, 2 );
 	}
@@ -106,7 +94,7 @@ final class Promotions extends Base {
 		$element->start_controls_section(
 			'ang_forms_pro',
 			array(
-				'label' => _x( 'Forms (Extended)', 'Section Title', 'ang' ),
+				'label' => _x( 'Elementor Forms', 'Section Title', 'ang' ),
 				'tab'   => Utils::get_kit_settings_tab(),
 			)
 		);

@@ -8,7 +8,6 @@ import Popup from '../popup';
 
 const { Fragment, useState, useContext, useEffect } = React;
 
-const { decodeEntities } = wp.htmlEntities;
 const { Button, TextControl, ExternalLink, CardDivider } = wp.components;
 const { __, sprintf } = wp.i18n;
 const { addQueryArgs } = wp.url;
@@ -139,9 +138,9 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 	);
 
 	//componentDidMount
-	useEffect(() => {
+	useEffect( () => {
 		handler( { kit: defaultDropdownValue.value } );
-	}, []);
+	}, [] );
 
 	return (
 		<Popup
@@ -151,20 +150,20 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 			<Container>
 				{ ( step === 1 ) && (
 					<div>
-						{ ( AGWP.isGlobalSkEnabled )
-							? <h3>{ __( 'The Global Style Kit will be applied on this template', 'ang' ) }</h3>
-							: <h3>{ __( 'Choose a Theme Style Kit to apply on the page.', 'ang' ) }</h3>
+						{ ( AGWP.isGlobalSkEnabled ) ?
+							<h3>{ __( 'The Global Style Kit will be applied on this template', 'ang' ) }</h3> :
+							<h3>{ __( 'Choose a Theme Style Kit to apply on the page.', 'ang' ) }</h3>
 						}
-						{ ( AGWP.isGlobalSkEnabled )
-							? <p id='gsk_name'>{ sprintf(
-									/* translators: 1: Global Style Kit label */
-									__( '%1$s', 'ang' ),
-									AGWP.globalKit[ 0 ].label
-								) }</p>
-							: <p>{ __( 'The original Style Kit is pre-selected for you.', 'ang' ) }</p>
+						{ ( AGWP.isGlobalSkEnabled ) ?
+							<p id="gsk_name">{ sprintf(
+								/* translators: 1: Global Style Kit label */
+								__( '%1$s', 'ang' ),
+								AGWP.globalKit[ 0 ].label
+							) }</p> :
+							<p>{ __( 'The original Style Kit is pre-selected for you.', 'ang' ) }</p>
 						}
 						{ ( ! AGWP.isGlobalSkEnabled ) &&
-							<div className="row" style={{width: '42%'}}>
+							<div className="row" style={ { width: '42%' } }>
 								<Select
 									options={ groupedOptions }
 									formatGroupLabel={ formatGroupLabel }
@@ -177,17 +176,17 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 								/>
 							</div>
 						}
-						{ ( AGWP.isGlobalSkEnabled )
-							?<>
+						{ ( AGWP.isGlobalSkEnabled ) ?
+							<>
 								<p>
-								{ __( 'You can change the default import method at the ', 'ang' ) }
-								<ExternalLink href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
+									{ __( 'You can change the default import method at the ', 'ang' ) }
+									<ExternalLink href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
 								</p>
-							</>
-							:<>
+							</> :
+							<>
 								<p>
-								{ __( 'You can manage and set a Global Style Kit at the ', 'ang' ) }
-								<ExternalLink href={ AGWP.adminURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
+									{ __( 'You can manage and set a Global Style Kit at the ', 'ang' ) }
+									<ExternalLink href={ AGWP.adminURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
 								</p>
 							</>
 						}
@@ -210,15 +209,13 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 										<Button
 											isPrimary
 											onClick={ () => {
-
 												handler( {
 													showingModal: true,
 													importing: true,
-													importingElementor: true
-													} );
+													importingElementor: true,
+												} );
 
 												setStep( 2 );
-
 											} }
 										>
 											{ __( 'Import to current page', 'ang' ) }

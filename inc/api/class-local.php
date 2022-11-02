@@ -274,12 +274,14 @@ class Local extends Base {
 			'post_content' => '',
 		);
 
+		$type = Utils::is_container() ? 'container' : 'section';
+
 		$post_id = wp_insert_post( $args );
 
 		if ( $post_id && ! is_wp_error( $post_id ) ) {
 			\update_post_meta( $post_id, '_elementor_data', wp_slash( wp_json_encode( $data['content'] ) ) );
 			\update_post_meta( $post_id, '_elementor_edit_mode', 'builder' );
-			\update_post_meta( $post_id, '_elementor_template_type', 'section' );
+			\update_post_meta( $post_id, '_elementor_template_type', $type );
 			\update_post_meta( $post_id, '_wp_page_template', 'default' );
 
 			\update_post_meta( $post_id, '_ang_import_type', $method );
@@ -292,7 +294,7 @@ class Local extends Base {
 				)
 			);
 
-			\wp_set_object_terms( $post_id, 'section', 'elementor_library_type' );
+			\wp_set_object_terms( $post_id, $type, 'elementor_library_type' );
 		}
 
 		return (int) $post_id;

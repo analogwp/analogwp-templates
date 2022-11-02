@@ -90,13 +90,15 @@ class ANG_Action extends Base_Data_Control {
 			$sk_panels_allowed = false;
 		}
 
+		$options = Options::get_instance();
+
 		wp_localize_script(
 			'ang_action',
 			'ANG_Action',
 			array(
 				'saveToken'       => rest_url( 'agwp/v1/tokens/save' ),
 				'cssDir'          => \Elementor\Core\Files\Base::get_base_uploads_url() . \Elementor\Core\Files\Base::DEFAULT_FILES_DIR,
-				'globalKit'       => Options::get_instance()->get( 'global_kit' ),
+				'globalKit'       => $options->get( 'global_kit' ),
 				'translate'       => array(
 					'resetMessage'                 => __( 'This will clean-up all the values from the current Theme Style kit. If you need to revert, you can do so at the Revisions tab.', 'ang' ),
 					'resetHeader'                  => __( 'Are you sure?', 'ang' ),
@@ -138,7 +140,7 @@ class ANG_Action extends Base_Data_Control {
 					'resetContainerPaddingMessage' => __( 'This will revert the container preset labels & values to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 					'resetShadowsDesc'             => __( 'This will revert the box shadow presets to their defaults. You can undo this action from the revisions tab.', 'ang' ),
 				),
-				'skPanelsAllowed' => $sk_panels_allowed,
+				'skPanelsAllowed' => $sk_panels_allowed
 			)
 		);
 	}

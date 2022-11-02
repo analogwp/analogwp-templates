@@ -29,14 +29,13 @@ const Container = styled.section`
     	text-align: left;
     }
     a {
-    	color: var(--ang-accent);
+    	color: var(--ang-primary);
     }
 `;
 
 const ChildContainer = styled.ul`
     > li {
     	border-radius: 4px;
-    	overflow: hidden;
     	background: #fff;
     }
 
@@ -178,6 +177,7 @@ export default class StyleKits extends React.Component {
 		}
 
 		const isValid = ( isPro ) => ! ( isPro && AGWP.license.status !== 'valid' );
+		const fallbackImage = AGWP.pluginURL + 'assets/img/placeholder.svg';
 
 		return (
 			<Container>
@@ -210,8 +210,11 @@ export default class StyleKits extends React.Component {
 							<li key={ kit.id + '-' + kit.site_id }>
 								<Card>
 									<CardBody>
+										{ kit.is_pro && (
+											<span className="pro">{ __( 'Pro', 'ang' ) }</span>
+										) }
 										<figure>
-											<img src={ kit.image } alt={ kit.title } />
+											<img src={ kit.image || fallbackImage } alt={ kit.title } />
 
 											<div className="preview">
 												{ kit.preview && (
@@ -247,9 +250,6 @@ export default class StyleKits extends React.Component {
 									<CardFooter>
 										<div className="content">
 											<h3>{ kit.title }</h3>
-											{ kit.is_pro && (
-												<span className="pro">{ __( 'Pro', 'ang' ) }</span>
-											) }
 										</div>
 									</CardFooter>
 								</Card>

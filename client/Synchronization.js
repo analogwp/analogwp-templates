@@ -8,43 +8,37 @@ const { Button } = wp.components;
 
 const Synchronization = () => {
 	return (
-		<>
-			<div id="sk-library-heading">
-				<h1>{ __( 'Style Kits Library', 'ang' ) }</h1>
-				<div>
-					<AnalogContext.Consumer>
-						{ context => (
-							<NotificationConsumer>
-								{ ( { add } ) => (
-									<Button isPrimary
-										className={ classNames( 'alignright', {
-											'is-active': context.state.syncing,
-										} ) }
-										onClick={ e => {
-											e.preventDefault();
-											context.forceRefresh()
-												.then( () => add( __( 'Library is now synced', 'ang' ) ) )
-												.catch( () => add( __( 'Something is not right, please try again.', 'ang' ), 'error' ) );
-										} }
-									>
-										{ context.state.syncing ?
-											__( 'Syncing...', 'ang' ) :
-											__( 'Sync Library', 'ang' ) }
-										{ /*<Refresh />*/ }
-									</Button>
-								) }
-							</NotificationConsumer>
+		<div>
+			<AnalogContext.Consumer>
+				{ context => (
+					<NotificationConsumer>
+						{ ( { add } ) => (
+							<Button isPrimary
+								className={ classNames( 'ang-sync', {
+									'is-active': context.state.syncing,
+								} ) }
+								onClick={ e => {
+									e.preventDefault();
+									context.forceRefresh()
+										.then( () => add( __( 'Library is now synced', 'ang' ) ) )
+										.catch( () => add( __( 'Something is not right, please try again.', 'ang' ), 'error' ) );
+								} }
+							>
+								{ context.state.syncing ?
+									__( 'Syncing...', 'ang' ) :
+									__( 'Sync Library', 'ang' ) }
+								{ /*<Refresh />*/ }
+							</Button>
 						) }
-					</AnalogContext.Consumer>
-					{ ! AGWP.is_settings_page && (
-						<Button isSecondary className="close-modal">
-							{ __( 'Close', 'ang' ) } <Close />
-						</Button>
-					) }
-				</div>
-			</div>
-			<hr className="wp-header-end"></hr>
-		</>
+					</NotificationConsumer>
+				) }
+			</AnalogContext.Consumer>
+			{ ! AGWP.is_settings_page && (
+				<Button isSecondary className="close-modal">
+					{ __( 'Close', 'ang' ) } <Close />
+				</Button>
+			) }
+		</div>
 	);
 };
 

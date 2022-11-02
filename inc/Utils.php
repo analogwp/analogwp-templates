@@ -820,6 +820,34 @@ class Utils extends Base {
 
 		return $tab;
 	}
+
+	/**
+	 * Returns true if Container experiment is on.
+	 *
+	 * @return bool
+	 */
+	public static function is_container() {
+		return 'active' === Options::get_instance()->get( 'container_library_experiment' );
+	}
+
+	/**
+	 * Returns true if the Pro plugin is active.
+	 *
+	 * @return bool
+	 */
+	public static function has_pro() {
+		return defined( 'ANG_PRO_PLUGIN_BASE' );
+	}
+
+	/**
+	 * Returns true if Pro license is active.
+	 *
+	 * @return bool
+	 */
+	public static function is_pro() {
+		$status = Options::get_instance()->get( 'ang_license_key_status' );
+		return self::has_pro() && 'valid' === $status;
+	}
 }
 
 new Utils();

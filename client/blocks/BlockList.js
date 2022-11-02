@@ -1,19 +1,51 @@
 import classnames from 'classnames';
 import Masonry from 'react-masonry-css';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import AnalogContext from '../AnalogContext';
 import { isNewTheme } from '../utils';
 import { NotificationConsumer } from '../Notifications';
 import Star from '../icons/star';
-import Popup from "../popup";
-import Loader from "../icons/loader";
-import ProModal from "../ProModal";
-import Empty from "../helpers/Empty";
+import Popup from '../popup';
+import Loader from '../icons/loader';
+import ProModal from '../ProModal';
+import Empty from '../helpers/Empty';
 
 const { decodeEntities } = wp.htmlEntities;
-const { __ } = wp.i18n;
-const { TextControl, Dashicon, Button, Card, CardBody, CardFooter } = wp.components;
+const { __, sprintf } = wp.i18n;
+const { Dashicon, Button, Card, CardBody, CardFooter } = wp.components;
 const { addQueryArgs } = wp.url;
+
+const rotateOpacity = keyframes`
+  0% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 0.7;
+  }
+`;
+
+const LoadingThumbs = styled.div`
+	display: flex;
+	margin-left: -25px;
+	width: auto;
+
+	img[src$="svg"].thumb {
+		width: 33.3333%;
+		padding-left: 25px;
+		background-clip: padding-box;
+		max-height: 300px;
+		object-fit: cover;
+		object-position: top;
+		opacity: 0.7;
+		transition: all 200ms ease-in-out;
+		animation: ${ rotateOpacity } 2s linear infinite;
+	}
+`;
 
 const Container = styled.div`
 	flex: 1;
@@ -41,22 +73,6 @@ const Container = styled.div`
 		}
 	}
 
-	.new {
-		position: absolute;
-		top: -8px;
-		right: -8px;
-		background: var(--ang-accent);
-		color: #fff;
-		z-index: 110;
-		font-weight: bold;
-		padding: 8px 10px;
-		line-height: 1;
-		border-radius: 4px;
-		text-transform: uppercase;
-		font-size: 14.22px;
-		letter-spacing: .5px;
-	}
-
 	figure {
 		position: relative;
 		overflow: hidden;
@@ -75,6 +91,15 @@ const Container = styled.div`
 			.favorite {
 				opacity: 1;
 			}
+		}
+
+		.pattern-title {
+			position: absolute;
+			bottom: 10px;
+			text-align: center;
+			width: 100%;
+			font-size: 14px !important;
+			text-transform: capitalize;
 		}
 
 		.actions {
@@ -111,7 +136,7 @@ const Container = styled.div`
 			height: 0;
 			border-style: solid;
 			border-width: 42px 42px 0 0;
-			border-color: var(--ang-accent) transparent transparent transparent;
+			border-color: var(--ang-dark-bg) transparent transparent transparent;
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -200,24 +225,6 @@ const Container = styled.div`
 	}
 `;
 
-const getHeight = ( url ) => {
-	/**
-	 * Split at image width to get the height next.
-	 *
-	 * Should return "448.png" where 448 is image height.
-	 * @type {*|string[]}
-	 */
-	const parts = url.split( '768x' );
-
-	if ( ! parts[ 1 ] ) {
-		return false;
-	}
-
-	const p2 = parts[ 1 ].split( '.' );
-
-	return p2[ 0 ];
-};
-
 const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 	const context = React.useContext( AnalogContext );
 
@@ -234,6 +241,29 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 		1600: 3,
 		1300: 2,
 		900: 1,
+	};
+
+	const getScreenshot = ( block ) => {
+		if ( AGWP.isContainer ) {
+			return block.thumbnail || AGWP.blockMediaURL + `patterns/${ block.id }.webp?modified=${ block.modified }`;
+		}
+
+		return AGWP.blockMediaURL + block.id + '.jpg';
+	};
+
+	const loadingThumbs = () => {
+		const thumbs = [];
+		for ( let i = 1; i <= 3; i++ ) {
+			thumbs.push(
+				<img
+					key={ i }
+					className="thumb"
+					src={ `${ AGWP.pluginURL }assets/img/placeholder.svg` }
+					alt="Loading icon"
+				/>
+			);
+		}
+		return thumbs;
 	};
 
 	return (
@@ -256,7 +286,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 					{ state.state.blockImported && (
 						<React.Fragment>
 							<p>
-								{ __( 'The block has been imported and is now available in the', 'ang' ) }
+								{ sprintf( __( 'The %s has been imported and is now available in the', 'ang' ), AGWP.isContainer ? 'container' : 'section' ) }
 								{ ' ' }
 								<a
 									target="_blank"
@@ -264,10 +294,10 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 									href={ addQueryArgs( 'edit.php', {
 										post_type: 'elementor_library',
 										tabs_group: true,
-										elementor_library_type: 'section',
+										elementor_library_type: AGWP.isContainer ? 'container' : 'section',
 									} ) }
 								>
-									{ __( 'Elementor section library', 'ang' ) }
+									{ sprintf( __( 'Elementor %s library', 'ang' ), AGWP.isContainer ? 'container' : 'section' ) }
 								</a>.
 							</p>
 							<p>
@@ -292,84 +322,80 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 
 			<Container className="blocks-area">
 
-			<TextControl
-				placeholder={ __( 'Search blocks', 'ang' ) }
-				value={ context.state.blocksSearchInput }
-				onChange={ ( value ) => {
-					context.handleSearch( value, 'blocks' );
-					context.dispatch( { blocksSearchInput: value } );
-				} }
-			/>
+				{ AGWP.license.status !== 'valid' && (
+					<ProModal />
+				) }
 
-			{ AGWP.license.status !== 'valid' && (
-				<ProModal type={ __( 'blocks', 'ang' ) } />
-			) }
-
-			{ context.state.blocks.length < 1 && (
-				<Empty text={ __( 'No blocks found.', 'ang' ) }/>
-			) }
+				{ context.state.blocks.length < 1 && (
+					<Empty text={ __( 'No blocks found.', 'ang' ) } />
+				) }
 
 				<Masonry
 					breakpointCols={ Boolean( AGWP.is_settings_page ) ? breakpointColumnsObj : 3 }
 					className="grid"
 					columnClassName="grid-item block-list"
 				>
-				{ filteredBlocks.map( ( block ) => {
-					return (
-						<div key={ block.id }>
-							<Card>
-								<CardBody>
-									{ ( isNewTheme( block.published ) > -14 ) && (
-										<span className="new">{ __( 'New', 'ang' ) }</span>
-									) }
+					{ filteredBlocks.length > 1 && filteredBlocks.map( ( block ) => {
+						return (
+							<div key={ block.id }>
+								<Card>
+									<CardBody>
+										{ block.is_pro && (
+											<span className="pro">{ __( 'Pro', 'ang' ) }</span>
+										) }
 
-									<figure>
-										<img
-											src={ AGWP.blockMediaURL + block.id + '.jpg' }
-											loading="lazy"
-											width="768"
-											height={ getHeight( block.thumbnail ) || undefined }
-											alt={ block.title }
-										/>
+										<figure>
+											<img
+												src={ getScreenshot( block ) }
+												loading="lazy"
+												width="720"
+												height="100"
+												alt={ block.title }
+											/>
 
-										<div className="actions">
-											{ ! isValid( block.is_pro ) && (
-												<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank">
-													<Button isPrimary>{ __( 'Go Pro', 'ang' ) }</Button>
-												</a>
-											) }
-											<NotificationConsumer>
-												{ ( { add } ) => (
-													isValid( block.is_pro ) && (
-														<Button isPrimary onClick={ () => importBlock( block, add ) }>
-															{ __( 'Import', 'ang' ) }
-														</Button>
-													)
+											<div className="actions">
+												{ ! isValid( block.is_pro ) && (
+													<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank">
+														<Button isPrimary>{ __( 'Go Pro', 'ang' ) }</Button>
+													</a>
 												) }
-											</NotificationConsumer>
+												<NotificationConsumer>
+													{ ( { add } ) => (
+														isValid( block.is_pro ) && (
+															<Button isPrimary onClick={ () => importBlock( block, add ) }>
+																{ __( 'Import', 'ang' ) }
+															</Button>
+														)
+													) }
+												</NotificationConsumer>
+												{ AGWP.isContainer &&
+													<div className="pattern-title">
+														<h3>{ decodeEntities( block.title ) }</h3>
+													</div>
+												}
+											</div>
+											<button
+												className={ classnames( 'button-plain favorite', {
+													'is-active': block.id in favorites,
+												} ) }
+												onClick={ () => makeFavorite( block.id ) }
+											>
+												<Star />
+											</button>
+										</figure>
+									</CardBody>
+									{ ! AGWP.isContainer && <CardFooter>
+										<div className="content">
+											<h3>{ decodeEntities( block.title ) }</h3>
+											{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
 										</div>
-										<button
-											className={ classnames( 'button-plain favorite', {
-												'is-active': block.id in favorites,
-											} ) }
-											onClick={ () => makeFavorite( block.id ) }
-										>
-											<Star />
-										</button>
-									</figure>
-								</CardBody>
-								<CardFooter>
-									<div className="content">
-										<h3>{ decodeEntities( block.title ) }</h3>
-										{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
-									</div>
-								</CardFooter>
-							</Card>
-						</div>
-					);
-				} ) }
-			</Masonry>
-		</Container>
+									</CardFooter> }
+								</Card>
+							</div>
+						);
+					} ) }
+				</Masonry>
+			</Container>
 		</React.Fragment>
 	);
 };

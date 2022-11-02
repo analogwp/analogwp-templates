@@ -8,7 +8,8 @@
 namespace Analog\Settings;
 
 use Analog\Utils;
-use Analog\Options;
+use WP_Screen;
+
 /**
  * Register plugin menu.
  *
@@ -181,10 +182,37 @@ function new_settings_page() {
 function settings_page() {
 	do_action( 'ang_loaded_templates' );
 	?>
-	<style>body { background: #E3E3E3; }</style>
-	<div id="analogwp-templates" class="wrap"></div>
+	<style>body { background: #F1F1F1; }</style>
+	<div id="analogwp-templates" class=""></div>
 	<?php
 }
+
+/**
+ * Filter the list of admin classes.
+ *
+ * Makes sure the admin menu is collapsed when accessing
+ * the library.
+ *
+ * @since 1.9.5
+ *
+ * @param string|mixed $class Current classes.
+ * @return string|mixed $class List of Classes.
+ */
+function admin_body_class( $class ) {
+	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+	if ( $screen instanceof WP_Screen && 'toplevel_page_analogwp_templates' !== $screen->base ) {
+		return $class;
+	}
+
+	// Overrides regular WordPress behavior by collapsing the admin menu by default.
+	if ( false === strpos( $class, 'folded' ) ) {
+		$class .= ' folded';
+	}
+
+	return $class;
+}
+add_filter( 'admin_body_class', 'Analog\Settings\admin_body_class', 99 );
 
 /**
  * Default options.
@@ -261,8 +289,7 @@ function theme_style_kit_onboarding() {
 				<div class="content-wrapper">
 					<h3 class="entry-title"><?php esc_html_e( 'Style Kits are now integrated into Elementor Theme Styles', 'ang' ); ?></h3>
 					<div class="entry-content">
-						<p class="intro">
-							<?php echo __( 'With the introduction of Theme Styles in Elementor v2.9.0, 	Style Kits are now <strong>integrated into the Theme Styles panel</strong>, bringing you a consistent, native experience.', 'ang' ); ?>
+						<p class="intro"><?php esc_html_e( 'With the introduction of Theme Styles in Elementor v2.9.0, Style Kits are now &nbsp;', 'ang' ); ?><strong><?php esc_html_e( 'integrated into the Theme Styles panel', 'ang' ); ?></strong><?php esc_html_e( 'bringing you a consistent, native experience.', 'ang' ); ?>
 						</p>
 						<div class="video-wrapper">
 							<?php echo $wp_embed->autoembed( 'https://www.youtube.com/watch?v=ItcKsNztJJU' ); //phpcs:ignore ?>
