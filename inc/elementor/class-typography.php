@@ -444,7 +444,7 @@ class Typography extends Module {
 		$padding_defaults = array(
 			array(
 				'_id'            => 'ang_container_padding_1',
-				'title'          => __( 'Padding 1', 'ang' ),
+				'title'          => __( 'XXL - Hero Section', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '80',
@@ -472,7 +472,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_2',
-				'title'          => __( 'Padding 2', 'ang' ),
+				'title'          => __( 'XL - Primary Section', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '64',
@@ -500,7 +500,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_3',
-				'title'          => __( 'Padding 3', 'ang' ),
+				'title'          => __( 'Large - Box', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '40',
@@ -520,7 +520,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_4',
-				'title'   => __( 'Padding 4', 'ang' ),
+				'title'   => __( 'Medium - Box', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '24',
@@ -532,7 +532,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_5',
-				'title'   => __( 'Padding 5', 'ang' ),
+				'title'   => __( 'Small - Box', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '16',
@@ -1706,35 +1706,75 @@ class Typography extends Module {
 		$title_typography = array(
 			array(
 				'_id'   => 'sk_type_1',
-				'title' => esc_html__( 'Font Style 1', 'ang' ),
+				'title' => esc_html__( 'Display title', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 5,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_2',
-				'title' => esc_html__( 'Font Style 2', 'ang' ),
+				'title' => esc_html__( 'Title 1', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 4,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_3',
-				'title' => esc_html__( 'Font Style 3', 'ang' ),
+				'title' => esc_html__( 'Title 2', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 3,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_4',
-				'title' => esc_html__( 'Font Style 4', 'ang' ),
+				'title' => esc_html__( 'Title 3', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 2,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_5',
-				'title' => esc_html__( 'Font Style 5', 'ang' ),
+				'title' => esc_html__( 'Title 4', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1.5,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_6',
-				'title' => esc_html__( 'Font Style 6', 'ang' ),
+				'title' => esc_html__( 'Title 5', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1.2,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_7',
-				'title' => esc_html__( 'Font Style 7', 'ang' ),
+				'title' => esc_html__( 'Title 6', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_8',
-				'title' => esc_html__( 'Font Style 8', 'ang' ),
+				'title' => esc_html__( 'Overline / Subheader', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 0.8,
+					'unit' => 'em',
+				),
 			),
 		);
 
@@ -1755,35 +1795,75 @@ class Typography extends Module {
 		$text_typography = array(
 			array(
 				'_id'   => 'sk_type_9',
-				'title' => esc_html__( 'Font Style 9', 'ang' ),
+				'title' => esc_html__( 'Display text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 2,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_10',
-				'title' => esc_html__( 'Font Style 10', 'ang' ),
+				'title' => esc_html__( 'Large text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1.5,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_11',
-				'title' => esc_html__( 'Font Style 11', 'ang' ),
+				'title' => esc_html__( 'Normal text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_12',
-				'title' => esc_html__( 'Font Style 12', 'ang' ),
+				'title' => esc_html__( 'Small text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 0.95,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_13',
-				'title' => esc_html__( 'Font Style 13', 'ang' ),
+				'title' => esc_html__( 'Caption', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 0.8,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_14',
-				'title' => esc_html__( 'Font Style 14', 'ang' ),
+				'title' => esc_html__( 'Button text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_15',
-				'title' => esc_html__( 'Font Style 15', 'ang' ),
+				'title' => esc_html__( 'Form label', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_16',
 				'title' => esc_html__( 'Font Style 16', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 48,
+					'unit' => 'px',
+				),
 			),
 		);
 
