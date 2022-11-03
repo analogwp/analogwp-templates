@@ -106,6 +106,12 @@ button[data-action="save_token"] {
 .dialog-widget.ang-notice.description,
 .elementor-panel .ang-notice.description {
 	width: 100%;
+	background: #E6F6FF !important;
+}
+
+.dialog-widget.ang-notice.description a,
+.elementor-panel .ang-notice.description a{
+	color: currentColor;
 }
 
 .elementor-panel .ang-notice.blue:hover {
@@ -192,22 +198,9 @@ button[data-action="save_token"] {
 	min-width: 120px;
 }
 
-.elementor-control-ang_edit_kit .elementor-control-input-wrapper {
-	width: 100%;
-	margin-left: 0;
-}
-
-.elementor-control-ang_edit_kit .elementor-button.elementor-button-default {
-	width: 100%;
-	background: #5BC0DE;
-	padding: 10px 20px;
-	height: auto;
-}
-
-.elementor-control-ang_edit_kit .elementor-button.elementor-button-default:hover,
-.elementor-control-ang_edit_kit .elementor-button.elementor-button-default:focus {
-	box-shadow: none;
-	background: #5c32b6;
+.elementor-control.elementor-control-description_ang_global_stylekit .elementor-descriptor {
+	font-style: normal;
+	color: currentColor;
 }
 
 .sub-arrow + .sub-arrow {

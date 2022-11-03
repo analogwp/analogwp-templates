@@ -1018,35 +1018,24 @@ class Typography extends Module {
 			)
 		);
 
-		/**
-		 * Important:
-		 *
-		 * Setting Kit ID to "string" here on purpose. Elementor's condition arg expects the matching option to be a
-		 * string, where our option returns an integer.
-		 */
-		$global_token = Utils::get_global_kit_id();
-
-		if ( ! $global_token ) {
-			$global_token = -1;
-		}
-
 		$element->add_control(
 			'description_ang_global_stylekit',
 			array(
-				'raw'             => __( 'You are editing the Global Style Kit.', 'ang' ),
+				'raw'             => sprintf(
+									/* translators: %s: Link to Style Kits */
+									'<p>%1$s <a href="https://docs.analogwp.com/article/660-new-style-kits-panel" target="_blank">%2$s</a></p>',
+									__( 'Select a different Style Kit to be applied on this page. The page will reload after your selection.', 'ang' ),
+									__( 'Learn more', 'ang' )
+								),
 				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'ang-notice desc',
-				'condition'       => array(
-					'ang_action_tokens' => (string) $global_token,
-				),
+				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
-		$label = __( 'A Style Kit is a saved configuration of Theme Styles, that you can optionally apply on any page. This will override the Global theme Styles for this page.', 'ang' );
 		$element->add_control(
 			'ang_action_tokens',
 			array(
-				'label'          => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'label'          => __( 'Select Style Kit', 'ang' ) . $this->get_tooltip( __( 'This will override your site\'s Global Style Kit for this page.', 'ang' ) ),
 				'type'           => Controls_Manager::SELECT2,
 				'select2options' => array(
 					'allowClear' => false,
@@ -1057,14 +1046,11 @@ class Typography extends Module {
 		);
 
 		$element->add_control(
-			'ang_edit_kit',
+			'ang_updated_token',
 			array(
-				'type'       => Controls_Manager::BUTTON,
-				'label'      => __( 'Edit Theme Style Kit', 'ang' ),
-				'show_label' => false,
-				'text'       => __( 'Edit Theme Style Kit', 'ang' ),
-				'separator'  => 'after',
-				'event'      => 'analog:editKit',
+				'label'     => __( 'Page Style Kit', 'ang' ),
+				'type'      => Controls_Manager::HIDDEN,
+				'default'   => '',
 			)
 		);
 
@@ -1073,10 +1059,9 @@ class Typography extends Module {
 			array(
 				'raw'  => sprintf(
 					/* translators: %s: Link to Style Kits */
-					'<p class="ang-notice description">%1$s<a href="%2$s" target="_blank">%3$s</a>.</p>',
-					__( 'You can set a Global Style Kit ', 'ang' ),
+					'<p class="ang-notice description"><a href="%1$s" target="_blank">%2$s</a></p>',
 					admin_url( 'admin.php?page=style-kits' ),
-					__( 'here', 'ang' )
+					__( 'Set your Global Style Kit here', 'ang' ),
 				),
 				'type' => Controls_Manager::RAW_HTML,
 			)

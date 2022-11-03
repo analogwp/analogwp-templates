@@ -321,6 +321,9 @@ class Manager {
 			Options::get_instance()->set( $kit_key, $kit_id );
 			Utils::set_elementor_active_kit( $kit_id );
 
+			// Regenerate Elementor CSS.
+			Plugin::elementor()->files_manager->clear_cache();
+
 			// Redirects back to settings page.
 			wp_redirect( admin_url( 'admin.php?page=style-kits&success=true' ) );
 		}
@@ -337,7 +340,12 @@ class Manager {
 		return new Notice(
 			'kit_notification',
 			array(
-				'content'         => esc_html__( 'All good! The Style Kit has been set as Global.', 'ang' ),
+				'content'         => sprintf(
+					'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
+					__( 'All good! The Style Kit has been set as Global.', 'ang' ),
+					get_bloginfo( 'url' ),
+					__( 'View site', 'ang' )
+				),
 				'type'            => Notice::TYPE_INFO,
 				'active_callback' => static function () {
 					$screen = get_current_screen();

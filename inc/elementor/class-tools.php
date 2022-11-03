@@ -10,6 +10,7 @@ namespace Analog\Elementor;
 use Analog\Base;
 use Analog\Plugin;
 use Analog\Utils;
+use Elementor\Core\Base\Document;
 use Elementor\Rollback;
 use Elementor\TemplateLibrary\Source_Local;
 use Elementor\User;
@@ -203,11 +204,19 @@ class Tools extends Base {
 	public function stylekit_post_state( $post_states, $post ) {
 		global $pagenow;
 
+		$page = Plugin::elementor()->documents->get( $post->ID );
+
+		// Bail if not a document.
+		if ( ! $page instanceof Document ) {
+			return $post_states;
+		}
+   
 		$supported_pages = array( 'edit.php', 'admin-ajax.php' );
 
 		if (
 			User::is_current_user_can_edit( $post->ID ) &&
-			Plugin::elementor()->documents->get( $post->ID )->is_built_with_elementor() && in_array( $pagenow, $supported_pages, true )
+			$page->is_built_with_elementor() &&
+			in_array( $pagenow, $supported_pages, true )
 		) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
 			$global_kit = (string) Utils::get_global_kit_id();

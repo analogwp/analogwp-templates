@@ -33,6 +33,7 @@ class Experiments extends Settings_Page {
 	public function get_settings() {
 
 		$options = array(
+			'default'  => __( 'Default', 'ang' ),
 			'active'   => __( 'Active', 'ang' ),
 			'inactive' => __( 'Inactive', 'ang' ),
 		);
@@ -54,7 +55,7 @@ class Experiments extends Settings_Page {
 					'title'   => __( 'Container-based Library', 'ang' ),
 					'desc'    => __( 'Get early access to the upcoming container-based library of Patterns. You need to have the Containers experiment activated in Elementor, to test the new library.', 'ang' ),
 					'id'      => 'container_library_experiment',
-					'default' => 'inactive',
+					'default' => 'default',
 					'type'    => 'select',
 					'options' => $options,
 				),

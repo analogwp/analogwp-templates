@@ -79,8 +79,7 @@ class Remote extends Base {
 	public static function transient_key() {
 		$key = 'analogwp_template_info';
 
-		$container_library = Options::get_instance()->get( 'container_library_experiment' );
-		if ( 'active' === $container_library ) {
+		if ( Utils::is_container() ) {
 			$key .= '_v3';
 		}
 
@@ -95,8 +94,7 @@ class Remote extends Base {
 	public static function api_endpoint() {
 		$endpoint = self::STORE_URL . 'wp-json/analogwp/v2/info/';
 
-		$container_library = Options::get_instance()->get( 'container_library_experiment' );
-		if ( 'active' === $container_library ) {
+		if ( Utils::is_container() ) {
 			$endpoint = self::STORE_URL . 'wp-json/analogwp/v3/info/';
 		}
 
