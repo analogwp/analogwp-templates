@@ -109,11 +109,8 @@ Our dedicated support team has your back. Please reach out via our website at ht
 = 1.9.5 - November 04, 2022 =
 * New: Container-based Pattern library experiment
 * New: Library UI v2
+* New: Style Kit Global Colors and Fonts now in stable
 * New: Default labels and values for Global Colors, Fonts, Container Spacing and Shadows
-* Fix: Quick edit and bulk quick edit for applying Style Kits
-* Fix: Plugin throwing warning at activation when Elementor is not installed/active
-* Fix: Update Box shadows CSS classes in support with Elementor v3.8.0
-* Fix: Rating notice appearing on new installs
 * Improvements: Define Global Style Kit on the new Local Style Kits page
 * Improvements: Migrate existing Global Colors, Fonts, and Container Spacing with new defaults and format
 * Improvements: Remove outdated onboarding screen
@@ -123,6 +120,10 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * Improvements: PHP 8 Compatibility
 * Improvements: Compatibility with Elementor v3.8.0 & Elementor Pro v3.8.0
 * Improvements: Compatible up to WordPress v6.1
+* Fix: Quick edit and bulk quick edit for applying Style Kits
+* Fix: Plugin throwing warning at activation when Elementor is not installed/active
+* Fix: Update Box shadows CSS classes in support with Elementor v3.8.0
+* Fix: Rating notice appearing on new installs
 
 = 1.9.4 - August 31, 2022 =
 * Fix: Potential fatal error at custom kit usage checker (props to Mark Westguard)
