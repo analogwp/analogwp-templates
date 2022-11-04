@@ -1845,10 +1845,6 @@ class Typography extends Module {
 				'_id'   => 'sk_type_16',
 				'title' => esc_html__( 'Font Style 16', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
-					'size' => 48,
-					'unit' => 'px',
-				),
 			),
 		);
 
