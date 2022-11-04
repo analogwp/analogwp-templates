@@ -111,6 +111,7 @@ Our dedicated support team has your back. Please reach out via our website at ht
 * New: Library UI v2
 * New: Style Kit Global Colors and Fonts now in stable
 * New: Default labels and values for Global Colors, Fonts, Container Spacing and Shadows
+* New: Add SVG support and toggle at settings
 * Improvements: Define Global Style Kit on the new Local Style Kits page
 * Improvements: Migrate existing Global Colors, Fonts, and Container Spacing with new defaults and format
 * Improvements: Remove outdated onboarding screen
