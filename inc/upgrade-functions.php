@@ -140,8 +140,6 @@ function do_automatic_upgrades() {
 
 	if ( version_compare( $installed_version, '1.9.5', '<' ) ) {
 		version_1_9_5_upgrades();
-		// Regenerate Elementor CSS.
-		Utils::clear_elementor_cache();
 	}
 
 	if ( $did_upgrade ) {
@@ -707,4 +705,7 @@ function version_1_9_5_upgrades() {
 
 		$kit->save( $data );
 	}
+
+	// Regenerate Elementor CSS.
+	Utils::clear_elementor_cache();
 }
