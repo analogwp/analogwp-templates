@@ -8,6 +8,7 @@
 
 namespace Analog\Upgrade;
 
+use Analog\Admin\Notice;
 use Analog\Core\Util\Migration;
 use Analog\Plugin;
 use Analog\Utils;
@@ -136,6 +137,30 @@ function do_automatic_upgrades() {
 
 	if ( version_compare( $installed_version, '1.9.5', '<' ) ) {
 		version_1_9_5_upgrades();
+	}
+
+	// Dismissible sticky notice for v1.9.5.
+	if ( version_compare( ANG_VERSION, '1.9.5', '=' ) ) {
+		// Add notice.
+		add_filter(
+			'analog_admin_notices',
+			function( $notices ) {
+				$notices[] = new Notice(
+					'update_success',
+					array(
+						'content'     => sprintf(
+							'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
+							__( 'Welcome to Style Kits 1.9.5. This version includes a brand new container-based pattern library, and a lot of other improvements.', 'ang' ),
+							'https://analogwp.com/stylekits-195/',
+							__( 'See what’s new.', 'ang' )
+						),
+						'type'        => Notice::TYPE_INFO,
+						'dismissible' => true,
+					)
+				);
+				return $notices;
+			}
+		);
 	}
 
 	if ( $did_upgrade ) {
