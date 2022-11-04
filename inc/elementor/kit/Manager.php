@@ -322,7 +322,7 @@ class Manager {
 			Utils::set_elementor_active_kit( $kit_id );
 
 			// Regenerate Elementor CSS.
-			Plugin::elementor()->files_manager->clear_cache();
+			Utils::clear_elementor_cache();
 
 			// Redirects back to settings page.
 			wp_redirect( admin_url( 'admin.php?page=style-kits&success=true' ) );
