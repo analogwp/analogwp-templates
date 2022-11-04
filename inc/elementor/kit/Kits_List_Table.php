@@ -322,7 +322,7 @@ function ang_kits_list() {
 
 		<form action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="post" style="margin-bottom: 30px;" >
 			<label for="global_kit" style="font-size: 16px; color: #000; font-weight: bold; margin-right: 16px;"><?php esc_html_e( 'Global Style Kit' ); ?></label>
-			<select name="global_kit" id="global_kit" style="width: 15rem; padding: 12px 10px; font-size: 14px; line-height: 1;">
+			<select name="global_kit" id="global_kit" style="width: auto; padding: 12px 25px 12px 10px; font-size: 14px; line-height: 1;">
 				<?php
 				$kits = Utils::get_kits( false );
 				foreach ( $kits as $kit_id => $kit_title ) {
