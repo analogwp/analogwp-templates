@@ -112,10 +112,6 @@ function do_automatic_upgrades() {
 		 && ! Options::get_instance()->get( 'theme_style_kit_migrated' )
 	) {
 		version_1_6_0_upgrades();
-
-		// Redirect to onboarding page.
-		wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
-		exit;
 	}
 
 	if ( version_compare( $installed_version, '1.6.3', '<' ) ) {
