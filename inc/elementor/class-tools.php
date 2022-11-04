@@ -210,11 +210,13 @@ class Tools extends Base {
 		if ( ! $page instanceof Document ) {
 			return $post_states;
 		}
+   
+		$supported_pages = array( 'edit.php', 'admin-ajax.php' );
 
 		if (
 			User::is_current_user_can_edit( $post->ID ) &&
 			$page->is_built_with_elementor() &&
-			'edit.php' === $pagenow
+			in_array( $pagenow, $supported_pages, true )
 		) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
 			$global_kit = (string) Utils::get_global_kit_id();
