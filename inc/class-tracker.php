@@ -133,6 +133,10 @@ class Tracker {
 				),
 				'type'            => Notice::TYPE_INFO,
 				'active_callback' => static function() {
+					if ( 0 === absint( self::$intalled_time ) || ! self::$intalled_time ) {
+						return false;
+					}
+
 					return current_user_can( 'manage_options' ) && ( self::$intalled_time < strtotime( '-2 week' ) );
 				},
 				'dismissible'     => true,
