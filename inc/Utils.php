@@ -677,6 +677,33 @@ class Utils extends Base {
 	/**
 	 * Get Kit active on document.
 	 *
+	 * @since 1.9.5
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @return mixed
+	 */
+	public static function get_document_kit_id( $post_id ) {
+		// Exit early if no post id provided.
+		if ( ! $post_id ) {
+			return false;
+		}
+
+		$document = Plugin::elementor()->documents->get_doc_for_frontend( $post_id );
+		$kit_id   = $document->get_settings( 'ang_action_tokens' );
+
+		// Check if this is a valid kit or not.
+		if ( ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
+			return false;
+		}
+
+		return $kit_id;
+	}
+
+
+	/**
+	 * Get Kit active on document.
+	 *
 	 * @since 1.9.0
 	 *
 	 * @param int $post_id Post ID.
@@ -690,7 +717,7 @@ class Utils extends Base {
 		}
 
 		$document = Plugin::elementor()->documents->get_doc_for_frontend( $post_id );
-		$kit_id   = $document->get_settings_for_display( 'ang_action_tokens' );
+		$kit_id   = $document->get_settings( 'ang_action_tokens' );
 
 		// Check if this is a valid kit or not.
 		if ( ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
@@ -731,12 +758,64 @@ class Utils extends Base {
 	}
 
 	/**
+	 * Get the current kit ID.
+	 *
+	 * @param $id int
+	 *
+	 * @return bool
+	 */
+	public static function set_elementor_active_kit( $id ) {
+		$default_kit       = Options::get_instance()->get( 'global_kit' );
+		$elementor_kit_key = Manager::OPTION_ACTIVE;
+		$elementor_kit     = \get_option( $elementor_kit_key );
+
+		if ( $id !== $default_kit || $id !== $elementor_kit ) {
+			if ( empty( $id ) || '-1' === $id ) {
+				\update_option( $elementor_kit_key, Options::get_instance()->get( 'default_kit' ) );
+			}
+
+			\update_option( $elementor_kit_key, $id );
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns true if Elementor Container experiment is on.
+	 *
+	 * @return bool
+	 */
+	public static function is_elementor_container() {
+		$flexbox_container           = get_option( 'elementor_experiment-container' );
+		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
+
+		if ( 'default' === $flexbox_container ) {
+			$experiments                 = new \Elementor\Core\Experiments\Manager();
+			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
+		}
+
+		if ( ! $is_flexbox_container_active ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Returns true if Container experiment is on.
 	 *
 	 * @return bool
 	 */
 	public static function is_container() {
-		return 'active' === Options::get_instance()->get( 'container_library_experiment' );
+		$sk_container_lib = Options::get_instance()->get( 'container_library_experiment' );
+
+		if ( self::is_elementor_container() && ( 'default' === $sk_container_lib || false === $sk_container_lib ) ) {
+			return true;
+		}
+
+		return 'active' === $sk_container_lib;
 	}
 
 	/**

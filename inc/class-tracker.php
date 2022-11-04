@@ -35,13 +35,13 @@ class Tracker {
 	 *
 	 * @var bool|int
 	 */
-	private static $intalled_time = false;
+	private static $installed_time = false;
 
 	/**
 	 * Tracker constructor.
 	 */
 	public function __construct() {
-		self::$intalled_time = self::get_installed_time();
+		self::$installed_time = self::get_installed_time();
 
 		add_action( 'analog/tracker/send_event', array( __CLASS__, 'send_tracking_data' ) );
 
@@ -133,7 +133,11 @@ class Tracker {
 				),
 				'type'            => Notice::TYPE_INFO,
 				'active_callback' => static function() {
-					return current_user_can( 'manage_options' ) && ( self::$intalled_time < strtotime( '-2 week' ) );
+					if ( 0 === absint( self::$installed_time ) || ! self::$installed_time ) {
+						return false;
+					}
+
+					return current_user_can( 'manage_options' ) && ( self::$installed_time < strtotime( '-2 week' ) );
 				},
 				'dismissible'     => true,
 			)

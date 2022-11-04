@@ -326,8 +326,12 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 					<ProModal />
 				) }
 
-				{ context.state.blocks.length < 1 && (
-					<Empty text={ __( 'No blocks found.', 'ang' ) } />
+				{ ! context.state.syncing && context.state.blocks.length < 1 && (
+					<Empty text={ AGWP.isContainer ? __( 'No patterns found', 'ang' ) : __( 'No blocks found', 'ang' ) } />
+				) }
+
+				{ context.state.syncing && context.state.blocks.length < 1 && (
+					<Empty text={ AGWP.isContainer ? __( 'Loading Patterns...', 'ang' ) : __( 'Loading Blocks...', 'ang' ) } />
 				) }
 
 				<Masonry
@@ -335,7 +339,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 					className="grid"
 					columnClassName="grid-item block-list"
 				>
-					{ filteredBlocks.length > 1 && filteredBlocks.map( ( block ) => {
+					{ filteredBlocks.length >= 1 && filteredBlocks.map( ( block ) => {
 						return (
 							<div key={ block.id }>
 								<Card>

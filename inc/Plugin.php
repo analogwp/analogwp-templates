@@ -174,7 +174,7 @@ final class Plugin {
 			'adminURL'                => admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' ),
 			'blockMediaURL'           => 'https://bs.analogwp.com/',
 			'isGlobalSkEnabled'       => (bool) Options::get_instance()->get( 'use_global_sk' ),
-			'globalSkAlwaysEnableURL' => admin_url( 'admin.php?page=ang-settings&tab=general#use_global_sk' ),
+			'globalSkAlwaysEnableURL' => admin_url( 'admin.php?page=style-kits' ),
 			'isContainer'             => Utils::is_container(),
 		);
 

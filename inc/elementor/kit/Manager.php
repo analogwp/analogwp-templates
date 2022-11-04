@@ -52,10 +52,15 @@ class Manager {
 		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ), 999 );
 		add_action( 'delete_post', array( $this, 'restore_default_kit' ) );
 
+		add_action( 'wp_ajax_nopriv_ang_global_kit', array( $this, 'update_global_kit' ) );
+		add_action( 'wp_ajax_ang_global_kit', array( $this, 'update_global_kit' ) );
+
 		add_filter(
 			'analog_admin_notices',
 			function( $notices ) {
-				$notices[] = $this->get_kit_notification();
+				if ( isset( $_GET['success'] ) ) {
+					$notices[] = $this->get_kit_notification();
+				}
 				return $notices;
 			}
 		);
@@ -296,9 +301,38 @@ class Manager {
 	}
 
 	/**
-	 * Show Kit screen notification.
+	 * Update global kit.
+	 * Hack to prevent showing incorrect kit via standard ajax.
 	 *
-	 * @since 1.6.3
+	 * @since 1.9.5
+	 *
+	 * @return void
+	 */
+	public function update_global_kit() {
+		$kit_key = 'global_kit';
+
+		if ( ! isset( $_REQUEST[ $kit_key ] ) ) {
+			wp_send_json_error();
+			return;
+		}
+
+		if ( isset( $_REQUEST['ang_global_kit_nonce'] ) && check_ajax_referer( 'ang_global_kit', 'ang_global_kit_nonce' )) {
+			$kit_id = wp_unslash( $_REQUEST[ $kit_key ] );
+			Options::get_instance()->set( $kit_key, $kit_id );
+			Utils::set_elementor_active_kit( $kit_id );
+
+			// Regenerate Elementor CSS.
+			Utils::clear_elementor_cache();
+
+			// Redirects back to settings page.
+			wp_redirect( admin_url( 'admin.php?page=style-kits&success=true' ) );
+		}
+	}
+
+	/**
+	 * Show kit update notification.
+	 *
+	 * @since 1.9.5
 	 *
 	 * @return Notice
 	 */
@@ -307,13 +341,13 @@ class Manager {
 			'kit_notification',
 			array(
 				'content'         => sprintf(
-					/* translators: %1$s: Settings library link. %2$s: Settings page link. */
-					__( 'Here is a quick overview of your available Theme Style Kits. They are also available in the %1$s. You can define a Global Theme Style Kit in %2$s.', 'ang' ),
-					'<a href="' . esc_url( admin_url( 'edit.php?post_type=elementor_library&all_posts=1' ) ) . '">' . __( 'Elementor Template Library', 'ang' ) . '</a>',
-					'<a href="' . esc_url( admin_url( 'admin.php?page=ang-settings#global_kit' ) ) . '">' . __( 'Settings', 'ang' ) . '</a>'
+					'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
+					__( 'All good! The Style Kit has been set as Global.', 'ang' ),
+					get_bloginfo( 'url' ),
+					__( 'View site', 'ang' )
 				),
 				'type'            => Notice::TYPE_INFO,
-				'active_callback' => static function() {
+				'active_callback' => static function () {
 					$screen = get_current_screen();
 
 					return ! ( 'style-kits_page_style-kits' !== $screen->id );

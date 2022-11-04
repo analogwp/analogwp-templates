@@ -1,6 +1,6 @@
 {
   "name": "analogwp-templates",
-  "version": "1.9.4",
+  "version": "1.9.5",
   "description": "Handfully crafted Elementor templates packs.",
   "main": "/client/index.js",
   "private": true,
@@ -64,7 +64,7 @@
     "gulp-wp-pot": "^2.3.3",
     "gulp-zip": "^5.0.1",
     "lodash": "^4.17.15",
-    "node-sass": "^4.9.4",
+    "node-sass": "^7.0.3",
     "postcss-loader": "^3.0.0",
     "prettier": "^1.9.1",
     "raw-loader": "^0.5.1",

@@ -75,6 +75,7 @@ final class BackgroundColorClasses extends Module {
 			array(
 				'label'     => __( 'Background Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#F4F4F4',
 				'variable'  => 'ang_background_light_background',
 				'selectors' => array(
 					'{{WRAPPER}}' => '--ang_background_light_background: {{VALUE}};',
@@ -161,6 +162,7 @@ final class BackgroundColorClasses extends Module {
 			array(
 				'label'     => __( 'Background Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#171720',
 				'variable'  => 'ang_background_dark_background',
 				'selectors' => array(
 					'{{WRAPPER}}' => '--ang_background_dark_background: {{VALUE}};',
@@ -175,6 +177,7 @@ final class BackgroundColorClasses extends Module {
 			array(
 				'label'     => __( 'Text Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
 				'variable'  => 'ang_color_text_dark',
 				'selectors' => array(
 					'{{WRAPPER}} .sk-dark-bg'   => 'color: {{VALUE}};',
@@ -218,6 +221,7 @@ final class BackgroundColorClasses extends Module {
 			array(
 				'label'     => __( 'Headings Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
 				'variable'  => 'ang_background_dark_heading',
 				'selectors' => array(
 					'{{WRAPPER}}'           => '--ang_background_dark_heading: {{VALUE}};',

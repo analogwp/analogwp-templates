@@ -9,7 +9,7 @@
 namespace Analog\Settings;
 
 use Analog\Options;
-use Elementor\Core\Kits\Manager;
+use Analog\Utils;
 
 /**
  * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
@@ -86,18 +86,9 @@ function ang_update_elementor_kit() {
 
 	$data              = $_POST; // phpcs:ignore
 	$key               = 'global_kit';
-	$elementor_kit_key = Manager::OPTION_ACTIVE;
-	$kit_id            = Options::get_instance()->get( 'global_kit' );
 
-	$raw_value     = isset( $data[ $key ] ) ? wp_unslash( $data[ $key ] ) : $kit_id;
-	$elementor_kit = \get_option( $elementor_kit_key );
+	$kit_id = wp_unslash( $data[ $key ] ?? Options::get_instance()->get( $key ) );
 
-	if ( $raw_value !== $kit_id || $raw_value !== $elementor_kit ) {
-		if ( empty( $raw_value ) || '-1' === $raw_value ) {
-			\update_option( $elementor_kit_key, Options::get_instance()->get( 'default_kit' ) );
-		}
-
-		\update_option( $elementor_kit_key, $raw_value );
-	}
+	Utils::set_elementor_active_kit( $kit_id );
 }
 add_action( 'ang_update_option', __NAMESPACE__ . '\ang_update_elementor_kit' );

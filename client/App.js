@@ -146,6 +146,8 @@ class App extends React.Component {
 	constructor() {
 		super( ...arguments );
 
+		const initialContainerTab = ! AGWP.is_settings_page ? 'blocks' : 'styleKits';
+
 		this.state = {
 			templates: [],
 			kits: [],
@@ -164,7 +166,7 @@ class App extends React.Component {
 			group: true,
 			activeKit: false,
 			installedKits: AGWP.installed_kits || {},
-			tab: 'blocks',
+			tab: AGWP.isContainer ? initialContainerTab : 'blocks',
 			blocksTab: AGWP.isContainer ? 'all-patterns' : 'all-blocks',
 			hasPro: false,
 			settings: {
@@ -230,6 +232,10 @@ class App extends React.Component {
 			} );
 		}
 
+		this.setState( {
+			syncing: true,
+		} );
+
 		const templates = await requestTemplateList();
 		const library = templates.library;
 
@@ -243,6 +249,7 @@ class App extends React.Component {
 			hasPro: hasProTemplates( library.templates ),
 			styleKits: library.stylekits,
 			blocks: library.blocks,
+			syncing: false,
 		} );
 
 		this.handleSort( 'latest', 'templates' );

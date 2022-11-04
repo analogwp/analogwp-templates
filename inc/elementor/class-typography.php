@@ -374,17 +374,10 @@ class Typography extends Module {
 	 * @param string         $section_id Section ID.
 	 */
 	public function register_container_spacing( Controls_Stack $element, $section_id ) {
-		$flexbox_container           = get_option( 'elementor_experiment-container' );
-		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
-
-		if ( 'default' === $flexbox_container ) {
-			$experiments                 = new \Elementor\Core\Experiments\Manager();
-			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
-		}
-
-		if ( ! $is_flexbox_container_active ) { // Return early if Flexbox container is not active.
+		if ( ! Utils::is_elementor_container() ) { // Return early if Flexbox container is not active.
 			return;
 		}
+
 		$element->start_controls_section(
 			'ang_container_spacing',
 			array(
@@ -451,7 +444,7 @@ class Typography extends Module {
 		$padding_defaults = array(
 			array(
 				'_id'            => 'ang_container_padding_1',
-				'title'          => __( 'Padding 1', 'ang' ),
+				'title'          => __( 'XXL - Hero Section', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '80',
@@ -479,7 +472,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_2',
-				'title'          => __( 'Padding 2', 'ang' ),
+				'title'          => __( 'XL - Primary Section', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '64',
@@ -507,7 +500,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_3',
-				'title'          => __( 'Padding 3', 'ang' ),
+				'title'          => __( 'Large - Box', 'ang' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '40',
@@ -527,7 +520,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_4',
-				'title'   => __( 'Padding 4', 'ang' ),
+				'title'   => __( 'Medium - Box', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '24',
@@ -539,7 +532,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_5',
-				'title'   => __( 'Padding 5', 'ang' ),
+				'title'   => __( 'Small - Box', 'ang' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '16',
@@ -1025,35 +1018,24 @@ class Typography extends Module {
 			)
 		);
 
-		/**
-		 * Important:
-		 *
-		 * Setting Kit ID to "string" here on purpose. Elementor's condition arg expects the matching option to be a
-		 * string, where our option returns an integer.
-		 */
-		$global_token = Utils::get_global_kit_id();
-
-		if ( ! $global_token ) {
-			$global_token = -1;
-		}
-
 		$element->add_control(
 			'description_ang_global_stylekit',
 			array(
-				'raw'             => __( 'You are editing the Global Style Kit.', 'ang' ),
+				'raw'             => sprintf(
+									/* translators: %s: Link to Style Kits */
+									'<p>%1$s <a href="https://docs.analogwp.com/article/660-new-style-kits-panel" target="_blank">%2$s</a></p>',
+									__( 'Select a different Style Kit to be applied on this page. The page will reload after your selection.', 'ang' ),
+									__( 'Learn more', 'ang' )
+								),
 				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'ang-notice desc',
-				'condition'       => array(
-					'ang_action_tokens' => (string) $global_token,
-				),
+				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
-		$label = __( 'A Style Kit is a saved configuration of Theme Styles, that you can optionally apply on any page. This will override the Global theme Styles for this page.', 'ang' );
 		$element->add_control(
 			'ang_action_tokens',
 			array(
-				'label'          => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'label'          => __( 'Select Style Kit', 'ang' ) . $this->get_tooltip( __( 'This will override your site\'s Global Style Kit for this page.', 'ang' ) ),
 				'type'           => Controls_Manager::SELECT2,
 				'select2options' => array(
 					'allowClear' => false,
@@ -1064,14 +1046,11 @@ class Typography extends Module {
 		);
 
 		$element->add_control(
-			'ang_edit_kit',
+			'ang_updated_token',
 			array(
-				'type'       => Controls_Manager::BUTTON,
-				'label'      => __( 'Edit Theme Style Kit', 'ang' ),
-				'show_label' => false,
-				'text'       => __( 'Edit Theme Style Kit', 'ang' ),
-				'separator'  => 'after',
-				'event'      => 'analog:editKit',
+				'label'     => __( 'Page Style Kit', 'ang' ),
+				'type'      => Controls_Manager::HIDDEN,
+				'default'   => '',
 			)
 		);
 
@@ -1080,8 +1059,9 @@ class Typography extends Module {
 			array(
 				'raw'  => sprintf(
 					/* translators: %s: Link to Style Kits */
-					__( 'You can set a Global Style Kit <a href="%s" target="_blank">here</a>.', 'ang' ),
-					admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' )
+					'<p class="ang-notice description"><a href="%1$s" target="_blank">%2$s</a></p>',
+					admin_url( 'admin.php?page=style-kits' ),
+					__( 'Set your Global Style Kit here', 'ang' ),
 				),
 				'type' => Controls_Manager::RAW_HTML,
 			)
@@ -1236,15 +1216,7 @@ class Typography extends Module {
 	 * @param Element_Base $element Element_Base Class.
 	 */
 	public function tweak_container_widget( Element_Base $element ) {
-		$flexbox_container           = get_option( 'elementor_experiment-container' );
-		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
-
-		if ( 'default' === $flexbox_container ) {
-			$experiments                 = new \Elementor\Core\Experiments\Manager();
-			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
-		}
-
-		if ( ! $is_flexbox_container_active ) { // Return early if Flexbox container is not active.
+		if ( ! Utils::is_elementor_container() ) { // Return early if Flexbox container is not active.
 			return;
 		}
 
@@ -1319,15 +1291,7 @@ class Typography extends Module {
 	 * @param Element_Base $element Element_Base Class.
 	 */
 	public function tweak_container_widget_styles( Element_Base $element ) {
-		$flexbox_container           = get_option( 'elementor_experiment-container' );
-		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
-
-		if ( 'default' === $flexbox_container ) {
-			$experiments                 = new \Elementor\Core\Experiments\Manager();
-			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
-		}
-
-		if ( ! $is_flexbox_container_active ) { // Return early if Flexbox container is not active.
+		if ( ! Utils::is_elementor_container() ) { // Return early if Flexbox container is not active.
 			return;
 		}
 
@@ -1727,35 +1691,75 @@ class Typography extends Module {
 		$title_typography = array(
 			array(
 				'_id'   => 'sk_type_1',
-				'title' => esc_html__( 'Font Style 1', 'ang' ),
+				'title' => esc_html__( 'Display title', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 5,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_2',
-				'title' => esc_html__( 'Font Style 2', 'ang' ),
+				'title' => esc_html__( 'Title 1', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 4,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_3',
-				'title' => esc_html__( 'Font Style 3', 'ang' ),
+				'title' => esc_html__( 'Title 2', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 3,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_4',
-				'title' => esc_html__( 'Font Style 4', 'ang' ),
+				'title' => esc_html__( 'Title 3', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 2,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_5',
-				'title' => esc_html__( 'Font Style 5', 'ang' ),
+				'title' => esc_html__( 'Title 4', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1.5,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_6',
-				'title' => esc_html__( 'Font Style 6', 'ang' ),
+				'title' => esc_html__( 'Title 5', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1.2,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_7',
-				'title' => esc_html__( 'Font Style 7', 'ang' ),
+				'title' => esc_html__( 'Title 6', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_8',
-				'title' => esc_html__( 'Font Style 8', 'ang' ),
+				'title' => esc_html__( 'Overline / Subheader', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 0.8,
+					'unit' => 'em',
+				),
 			),
 		);
 
@@ -1776,35 +1780,71 @@ class Typography extends Module {
 		$text_typography = array(
 			array(
 				'_id'   => 'sk_type_9',
-				'title' => esc_html__( 'Font Style 9', 'ang' ),
+				'title' => esc_html__( 'Display text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 2,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_10',
-				'title' => esc_html__( 'Font Style 10', 'ang' ),
+				'title' => esc_html__( 'Large text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1.5,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_11',
-				'title' => esc_html__( 'Font Style 11', 'ang' ),
+				'title' => esc_html__( 'Normal text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_12',
-				'title' => esc_html__( 'Font Style 12', 'ang' ),
+				'title' => esc_html__( 'Small text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 0.95,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_13',
-				'title' => esc_html__( 'Font Style 13', 'ang' ),
+				'title' => esc_html__( 'Caption', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 0.8,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_14',
-				'title' => esc_html__( 'Font Style 14', 'ang' ),
+				'title' => esc_html__( 'Button text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_15',
-				'title' => esc_html__( 'Font Style 15', 'ang' ),
+				'title' => esc_html__( 'Form label', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
 			),
 			array(
 				'_id'   => 'sk_type_16',
 				'title' => esc_html__( 'Font Style 16', 'ang' ),
+				'typography_typography' => 'custom',
 			),
 		);
 
@@ -1961,7 +2001,7 @@ class Typography extends Module {
 				'global'   => array(
 					'active' => false,
 				),
-				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover, {{WRAPPER}} {{CURRENT_ITEM}}_external.elementor-element > .elementor-widget-container',
+				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover, {{WRAPPER}} {{CURRENT_ITEM}}_external.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.e-con, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-con:hover',
 			)
 		);
 

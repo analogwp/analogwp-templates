@@ -263,7 +263,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 								<h3>{ __( 'Import to a new page', 'ang' ) }</h3>
 								<p>{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }</p>
 							</div>
-							<div className="col2">
+							<div className="col2 gap">
 								<TextControl
 									placeholder={ __( 'Enter a Page Name', 'ang' ) }
 									onChange={ val => {

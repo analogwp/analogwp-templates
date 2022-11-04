@@ -11,11 +11,68 @@
 
 		function bindEvents() {
 			elementor.once( 'preview:loaded', function() {
-				elementor.channels.editor.on( 'analog:editKit', () => analog.openThemeStyles() );
-
 				if ( 'undefined' === typeof (elementor.config.initial_document.panel) || ! elementor.config.initial_document.panel.support_kit ) {
 					return;
 				}
+
+				// To keep the force update out of danger zone.
+				setTimeout( function() {
+					const updatedKit = parseInt( elementor.settings.page.model.attributes.ang_updated_token );
+					const angToken = parseInt( elementor.settings.page.model.attributes.ang_action_tokens );
+
+					if ( isNaN( updatedKit ) ) {
+						return;
+					}
+
+					if ( angToken !== updatedKit ) {
+						const historyId = $e.internal( 'document/history/start-log', {
+							type: 'update',
+							title: 'Switch Kit',
+						} );
+
+						elementor.settings.page.model.setExternalChange( 'ang_updated_token', angToken );
+
+						$e.internal( 'document/history/end-log', {
+							id: historyId,
+						} );
+
+						$e.run( 'document/save/update', { force: true } ).then(() => {
+							$e.run( 'panel/global/open' ).then( () => {
+								elementor.notifications.showToast( {
+									message: ANG_Action.translate.kitSwitcherNotice,
+									classes: 'ang-kit-apply-notice',
+									buttons: [
+										{
+											name: 'ang_panel_redirect',
+											text: ANG_Action.translate.kitSwitcherSKSwitch,
+											callback: function callback() {
+												const currentRoute = $e.routes.current.panel.toString();
+												if ( currentRoute.includes( 'panel/global' ) ) {
+													$e.run( 'panel/global/close' ).then( () => {
+														analog.redirectToSection();
+													} );
+												} else {
+													analog.redirectToSection();
+												}
+											},
+										},
+										{
+											name: 'back_to_editor',
+											text: ANG_Action.translate.kitSwitcherEditorSwitch,
+											callback: function callback() {
+												const currentRoute = $e.routes.current.panel.toString();
+												if ( currentRoute.includes( 'panel/global' ) ) {
+													$e.run( 'panel/global/close' );
+												}
+											},
+										},
+									]
+								} );
+							} );
+						});
+					}
+				}, 1000 );
+
 
 				if ( ! elementor.config.user.can_edit_kit ) {
 					return;
@@ -35,7 +92,7 @@
 					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', AGWP.global_kit );
 				}
 
-				elementor.settings.page.addChangeCallback( 'ang_action_tokens', refreshKit );
+				elementor.settings.page.addChangeCallback( 'ang_action_tokens', kitSwitcher );
 
 				if ( ANG_Action.globalKit && ! ( parseInt( elementor.settings.page.model.attributes.ang_action_tokens ) in elementor.settings.page.model.controls.ang_action_tokens.options ) ) {
 					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', ANG_Action.globalKit );
@@ -47,7 +104,7 @@
 					elementor.config.kit_id = activeKit;
 					fixKitClasses();
 					analog.setPanelTitle( activeKit );
-					loadDocumentAndEnqueueFonts(activeKit);
+					loadDocumentAndEnqueueFonts(activeKit, true);
 				}
 			});
 		}
@@ -60,7 +117,7 @@
 			elementor.$previewContents.find('body').addClass(`elementor-kit-${id}`);
 		}
 
-		function loadDocumentAndEnqueueFonts( id ) {
+		function loadDocumentAndEnqueueFonts( id, softReload = false ) {
 			elementor.documents.request(id)
 				.then( ( config ) => {
 					elementor.documents.addDocumentByConfig(config);
@@ -69,7 +126,7 @@
 					 * If for some reasons, Kit CSS wasn't enqueued.
 					 * This line forces Theme Style window to open, which re-renders the CSS for current kit.
 					 */
-					if ( ! elementor.$previewContents.find( `#elementor-post-${config.id}-css` ).length ) {
+					if ( ! elementor.$previewContents.find( `#elementor-post-${config.id}-css` ).length && softReload ) {
 						analog.openThemeStyles();
 					}
 				})
@@ -102,6 +159,18 @@
 			elementor.config.kit_id = id;
 			fixKitClasses(id);
 			loadDocumentAndEnqueueFonts( id );
+		}
+
+		function kitSwitcher( id ) {
+			if ( elementor.config.kit_id !== id ) {
+				elementor.settings.page.model.setExternalChange( 'ang_updated_token', elementor.config.kit_id );
+				refreshKit(id);
+				setTimeout( () => {
+					$e.run( 'document/save/update' ).then( () => {
+						window.location.reload();
+					} );
+				}, 1000 );
+			}
 		}
 
 		init();
@@ -489,7 +558,13 @@ jQuery( window ).on( 'elementor/init', function() {
 		let defaultValues = {};
 
 		// Get defaults for each setting
-		ang_global_colors.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[elementor.config.kit_id].container.controls[setting].default );
+		ang_global_colors.forEach( ( setting ) => {
+			const options = elementor.documents.documents[elementor.config.kit_id].container.controls[setting];
+			if ( undefined === options || null === options ) {
+				return;
+			}
+			defaultValues[ setting ] = options.default;
+		} );
 
 		// Reset the selected settings to their default values
 		$e.run( 'document/elements/settings', {
@@ -530,7 +605,13 @@ jQuery( window ).on( 'elementor/init', function() {
 		let defaultValues = {};
 
 		// Get defaults for each setting
-		ang_global_fonts.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[elementor.config.kit_id].container.controls[setting].default );
+		ang_global_fonts.forEach( ( setting ) => {
+			const options = elementor.documents.documents[elementor.config.kit_id].container.controls[setting];
+			if ( undefined === options || null === options ) {
+				return;
+			}
+			defaultValues[ setting ] = options.default;
+		} );
 
 		// Reset the selected settings to their default values
 		$e.run( 'document/elements/settings', {

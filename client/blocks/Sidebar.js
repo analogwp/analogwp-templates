@@ -77,6 +77,10 @@ const SidebarWrapper = styled.div`
 		box-shadow: none;
 	}
 
+	.block-categories-tabs .components-button:not([aria-disabled=true]):active {
+		color: var(--ang-primary) !important;
+	}
+
 	.block-categories-tabs label,
 	.components-toggle-control
 	.components-base-control__field
@@ -149,7 +153,7 @@ const Sidebar = ( { state } ) => {
 	}
 
 	const categoriesData = () => {
-		return defaultTabs.concat( categories );
+		return defaultTabs.concat( categories.sort() );
 	}
 
 	const titleGenerator = (title) => {
@@ -199,7 +203,7 @@ const Sidebar = ( { state } ) => {
 					} }
 				/>
 			) }
-			{ tabGenerator( categoriesData() ).length > 1 &&
+			{ tabGenerator( categoriesData() ).length >= 1 &&
 			<TabPanel
 				className="block-categories-tabs"
 				activeClass="active-tab"

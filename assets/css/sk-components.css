@@ -72,7 +72,7 @@
 #analogwp-templates .inner-popup-content .form-row,
 #analogwp-blocks .inner-popup-content .form-row {
 	display: flex;
-	align-items: baseline;
+	align-items: center;
 }
 
 #analogwp-templates .pro-modal-container,

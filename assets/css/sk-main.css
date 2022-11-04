@@ -8,11 +8,6 @@
 	font-family: Inter, 'sans-serif';
 }
 
-#analogwp-templates .ang-container {
-	max-width: 1200px;
-	margin: 0 auto;
-}
-
 /*Top navigation tab CSS*/
 /*START*/
 #sk-library-heading {
@@ -133,9 +128,9 @@
 #analogwp-templates .stylekit-list figure .components-button,
 #analogwp-templates .block-list figure .components-button{
     width: 185px;
-    height: 49px;
     text-align: center;
-    display: block;
+    display: inline-flex;
+	justify-content: center;
     font-size: 15px;
     font-weight: bold;
     margin-left: auto;
@@ -509,6 +504,7 @@
 
 #analogwp-templates .analogwp-content .inner-popup-content {
 	font-size: 14px;
+	padding-bottom: 20px;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content h3 {
@@ -517,10 +513,11 @@
     font-weight: bold;
 }
 
-#analogwp-templates .analogwp-content .inner-popup-content p {
-    font-size: 13px;
-    line-height: 18px;
-    color: #565D65;
+#analogwp-templates .analogwp-content .inner-popup-content > *:first-child,
+#analogwp-templates .analogwp-content .inner-popup-content .stylekit-popup-content > *:first-child {
+	padding-top: 0;
+	margin-top: 0;
+	margin-bottom: 20px;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content .stylekit-popup-content p {
@@ -539,21 +536,25 @@
     margin-top: 15px;
 }
 
-#analogwp-templates .analogwp-content .inner-popup-content .components-button.is-primary {
-    margin-top: 16px;
-    margin-bottom: 16px;
-}
-
 #analogwp-templates .analogwp-content .inner-popup-content .components-button {
     padding: 0 20px;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content .components-text-control__input {
-    height: 36px;
+    min-height: 36px;
+	border-color: var(--ang-border);
+	border-radius: 2px;
+	color: var(--ang-main-text);
+	line-height: 1.5;
 }
 
-.stylekit-popup-content {
-    margin-top: -20px;
+#analogwp-templates .analogwp-content .inner-popup-content .components-base-control__field {
+	margin: 0;
+}
+
+
+#analogwp-templates .popup-container .inner-popup-content .stylekit-popup-content {
+	text-align: left;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content  #gsk_name {
@@ -584,11 +585,17 @@
 
 #analogwp-templates .analogwp-content .inner-popup-content .flex-row button,
 #analogwp-templates .analogwp-content .inner-popup-content .flex-row [type=text]{
-    display: inline-block;
+	display: inline-flex;
+	justify-content: center;
     width: 196px;
-    height: 32px;
     text-align: center;
     border-radius: 3px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .flex-row .gap {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content .flex-row [type=text]{
@@ -753,14 +760,24 @@
 #analogwp-templates .components-button.is-primary {
 	background: var(--ang-primary);
 	color: #fff;
+}
 
+#analogwp-templates .components-button.is-secondary {
+	background: transparent;
+	color: var(--ang-primary);
 }
 
 #analogwp-templates .components-button.is-primary,
 #analogwp-templates .components-button.is-secondary {
 	box-shadow: none;
 	outline: none;
-	border-radius: 4px;
+	line-height: 1.5;
+	min-height: 36px;
+	font-size: 14px;
+	border-radius: 0 !important;
+	font-weight: 600;
+	padding: 20px !important;
+	border: 1px solid var(--ang-primary);
 }
 
 #analogwp-templates .components-button.is-secondary {
