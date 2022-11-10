@@ -1,8 +1,8 @@
 {
   "name": "analogwp-templates",
-  "version": "1.5.5",
+  "version": "1.9.5",
   "description": "Handfully crafted Elementor templates packs.",
-  "main": "/src/js/app/index.js",
+  "main": "/client/index.js",
   "private": true,
   "scripts": {
     "build": "cross-env BABEL_ENV=default NODE_ENV=production webpack",
@@ -58,9 +58,6 @@
     "gulp-babel": "8.0.0",
     "gulp-checktextdomain": "^2.2.0",
     "gulp-copy": "^4.0.1",
-    "gulp-download": "^0.0.1",
-    "gulp-exec": "^4.0.0",
-    "gulp-json-editor": "^2.5.4",
     "gulp-rename": "^1.4.0",
     "gulp-rsync": "^0.0.8",
     "gulp-run-command": "^0.0.9",
