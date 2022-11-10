@@ -12,9 +12,12 @@ defined( 'ABSPATH' ) || exit;
 use Analog\Utils;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
+use Elementor\Core\Kits\Controls\Repeater as Global_Style_Repeater;
 use Elementor\Core\Settings\Manager;
 use Elementor\Core\Base\Module;
 use Elementor\Element_Base;
+use Elementor\Repeater;
+use Analog\Options;
 
 /**
  * Class Colors.
@@ -36,6 +39,9 @@ class Colors extends Module {
 		add_action( 'elementor/element/nav-menu/section_style_main-menu/before_section_end', array( $this, 'tweak_nav_menu' ) );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'tweak_theme_style_button' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_theme_style_typography' ), 20, 2 );
+
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_colors' ), 10, 2 );
+
 	}
 
 	/**
@@ -146,7 +152,7 @@ class Colors extends Module {
 	/**
 	 * Tweak default theme style button bg color - increases class priority.
 	 *
-	 * @since 1.7.6
+	 * @since 1.8.0
 	 * @param Controls_Stack $element Elementor element.
 	 * @param string         $section_id Section ID.
 	 */
@@ -173,7 +179,7 @@ class Colors extends Module {
 	/**
 	 * Tweak default theme style typography.
 	 *
-	 * @since 1.7.6
+	 * @since 1.8.0
 	 * @param Controls_Stack $element Elementor element.
 	 * @param string         $section_id Section ID.
 	 */
@@ -349,6 +355,250 @@ class Colors extends Module {
 	 */
 	protected function get_tooltip( $text ) {
 		return ' <span class="hint--top-right hint--medium" aria-label="' . $text . '"><i class="fa fa-info-circle"></i></span>';
+	}
+
+	/**
+	 * Register Style Kits Global Color controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_global_colors( Controls_Stack $element, $section_id ) {
+
+		$element->start_controls_section(
+			'ang_global_colors_section',
+			array(
+				'label' => esc_html__( 'Style Kit Colors', 'ang' ),
+				'tab'   => 'global-colors',
+			)
+		);
+
+		$element->add_control(
+			'ang_global_colors_description',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="https://docs.analogwp.com/article/657-style-kit-color-pallete" target="_blank">%2$s</a>',
+					__( 'The Style Kit\'s color palette.', 'ang' ),
+					__( 'Read more', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->start_controls_tabs(
+			'ang_global_colors_section_tabs',
+			array(
+				'separator' => 'before',
+			)
+		);
+
+		$element->start_controls_tab(
+			'ang_tab_global_colors_primary',
+			array( 'label' => __( '1-16', 'ang' ) )
+		);
+
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'title',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'required'    => true,
+			)
+		);
+
+		// Color Value.
+		$repeater->add_control(
+			'color',
+			array(
+				'type'        => Controls_Manager::COLOR,
+				'label_block' => true,
+				'dynamic'     => array(),
+				'selectors'   => array(
+					'{{WRAPPER}}' => '--e-global-color-{{_id.VALUE}}: {{VALUE}}',
+				),
+				'global'      => array(
+					'active' => false,
+				),
+			)
+		);
+
+		// Background Colors.
+		$default_surface_colors = array(
+			array(
+				'_id'   => 'sk_color_1',
+				'title' => esc_html__( 'Site background', 'ang' ),
+				'color' => '#FFFFFF',
+			),
+			array(
+				'_id'   => 'sk_color_2',
+				'title' => esc_html__( 'Light background', 'ang' ),
+				'color' => '#F4F4F4',
+			),
+			array(
+				'_id'   => 'sk_color_3',
+				'title' => esc_html__( 'Dark background', 'ang' ),
+				'color' => '#171720',
+			),
+			array(
+				'_id'   => 'sk_color_4',
+				'title' => esc_html__( 'Background 4', 'ang' ),
+				'color' => '',
+			),
+		);
+
+		$element->add_control(
+			'ang_global_background_colors',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $default_surface_colors,
+				'item_actions' => array(
+					'add'    => false,
+					'remove' => false,
+					'sort'   => false,
+
+				),
+				'separator'    => 'after',
+			)
+		);
+
+		// Accents Colors.
+		$default_accent_colors = array(
+			array(
+				'_id'   => 'sk_color_5',
+				'title' => esc_html__( 'Accent 1', 'ang' ),
+				'color' => '#413EC5',
+			),
+			array(
+				'_id'   => 'sk_color_6',
+				'title' => esc_html__( 'Accent 2', 'ang' ),
+				'color' => '',
+			),
+			array(
+				'_id'   => 'sk_color_7',
+				'title' => esc_html__( 'Accent 3', 'ang' ),
+				'color' => '',
+			),
+			array(
+				'_id'   => 'sk_color_8',
+				'title' => esc_html__( 'Accent 4', 'ang' ),
+				'color' => '',
+			),
+		);
+
+		$element->add_control(
+			'ang_global_accent_colors',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $default_accent_colors,
+				'item_actions' => array(
+					'add'    => false,
+					'remove' => false,
+					'sort'   => false,
+				),
+				'separator'    => 'after',
+			)
+		);
+
+		// Text Colors.
+		$default_type_colors = array(
+			array(
+				'_id'   => 'sk_color_9',
+				'title' => esc_html__( 'Titles', 'ang' ),
+				'color' => '#1B1B1D',
+			),
+			array(
+				'_id'   => 'sk_color_10',
+				'title' => esc_html__( 'Normal text', 'ang' ),
+				'color' => '#1B1B1D',
+			),
+			array(
+				'_id'   => 'sk_color_11',
+				'title' => esc_html__( 'Secondary text', 'ang' ),
+				'color' => '#707071',
+			),
+			array(
+				'_id'   => 'sk_color_12',
+				'title' => esc_html__( 'Inverted text', 'ang' ),
+				'color' => '#FFFFFF',
+			),
+		);
+
+		$element->add_control(
+			'ang_global_text_colors',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $default_type_colors,
+				'item_actions' => array(
+					'add'    => false,
+					'remove' => false,
+					'sort'   => false,
+				),
+				'separator'    => 'before',
+			)
+		);
+
+		// Extra Colors.
+		$default_other_colors = array(
+			array(
+				'_id'   => 'sk_color_13',
+				'title' => esc_html__( 'Border', 'ang' ),
+				'color' => '#0000001A',
+			),
+			array(
+				'_id'   => 'sk_color_14',
+				'title' => esc_html__( 'Color Style 14', 'ang' ),
+				'color' => '',
+			),
+			array(
+				'_id'   => 'sk_color_15',
+				'title' => esc_html__( 'Color Style 15', 'ang' ),
+				'color' => '',
+			),
+			array(
+				'_id'   => 'sk_color_16',
+				'title' => esc_html__( 'Color Style 16', 'ang' ),
+				'color' => '',
+			),
+		);
+
+		$element->add_control(
+			'ang_global_extra_colors',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $default_other_colors,
+				'item_actions' => array(
+					'add'    => false,
+					'remove' => false,
+					'sort'   => false,
+				),
+				'separator'    => '',
+			)
+		);
+
+		$element->end_controls_tab();
+
+		do_action( 'analog_global_colors_tab_end', $element, $repeater );
+
+		$element->end_controls_tabs();
+
+		$element->add_control(
+			'ang_global_reset_colors',
+			array(
+				'label' => __( 'Reset labels & colors', 'ang' ),
+				'type'  => 'button',
+				'text'  => __( 'Reset', 'ang' ),
+				'event' => 'analog:resetGlobalColors',
+			)
+		);
+
+		$element->end_controls_section();
 	}
 }
 

@@ -1,4 +1,4 @@
-/* global jQuery, elementor, elementorCommon, ANG_Action, cssbeautify, elementorModules */
+/* global jQuery, elementor, elementorCommon, ANG_Action, cssbeautify, elementorModules, $e */
 ( function( window, $ ) {
 	'use strict';
 
@@ -11,11 +11,68 @@
 
 		function bindEvents() {
 			elementor.once( 'preview:loaded', function() {
-				elementor.channels.editor.on( 'analog:editKit', () => analog.openThemeStyles() );
-
 				if ( 'undefined' === typeof (elementor.config.initial_document.panel) || ! elementor.config.initial_document.panel.support_kit ) {
 					return;
 				}
+
+				// To keep the force update out of danger zone.
+				setTimeout( function() {
+					const updatedKit = parseInt( elementor.settings.page.model.attributes.ang_updated_token );
+					const angToken = parseInt( elementor.settings.page.model.attributes.ang_action_tokens );
+
+					if ( isNaN( updatedKit ) ) {
+						return;
+					}
+
+					if ( angToken !== updatedKit ) {
+						const historyId = $e.internal( 'document/history/start-log', {
+							type: 'update',
+							title: 'Switch Kit',
+						} );
+
+						elementor.settings.page.model.setExternalChange( 'ang_updated_token', angToken );
+
+						$e.internal( 'document/history/end-log', {
+							id: historyId,
+						} );
+
+						$e.run( 'document/save/update', { force: true } ).then(() => {
+							$e.run( 'panel/global/open' ).then( () => {
+								elementor.notifications.showToast( {
+									message: ANG_Action.translate.kitSwitcherNotice,
+									classes: 'ang-kit-apply-notice',
+									buttons: [
+										{
+											name: 'ang_panel_redirect',
+											text: ANG_Action.translate.kitSwitcherSKSwitch,
+											callback: function callback() {
+												const currentRoute = $e.routes.current.panel.toString();
+												if ( currentRoute.includes( 'panel/global' ) ) {
+													$e.run( 'panel/global/close' ).then( () => {
+														analog.redirectToSection();
+													} );
+												} else {
+													analog.redirectToSection();
+												}
+											},
+										},
+										{
+											name: 'back_to_editor',
+											text: ANG_Action.translate.kitSwitcherEditorSwitch,
+											callback: function callback() {
+												const currentRoute = $e.routes.current.panel.toString();
+												if ( currentRoute.includes( 'panel/global' ) ) {
+													$e.run( 'panel/global/close' );
+												}
+											},
+										},
+									]
+								} );
+							} );
+						});
+					}
+				}, 1000 );
+
 
 				if ( ! elementor.config.user.can_edit_kit ) {
 					return;
@@ -35,7 +92,7 @@
 					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', AGWP.global_kit );
 				}
 
-				elementor.settings.page.addChangeCallback( 'ang_action_tokens', refreshKit );
+				elementor.settings.page.addChangeCallback( 'ang_action_tokens', kitSwitcher );
 
 				if ( ANG_Action.globalKit && ! ( parseInt( elementor.settings.page.model.attributes.ang_action_tokens ) in elementor.settings.page.model.controls.ang_action_tokens.options ) ) {
 					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', ANG_Action.globalKit );
@@ -47,7 +104,7 @@
 					elementor.config.kit_id = activeKit;
 					fixKitClasses();
 					analog.setPanelTitle( activeKit );
-					loadDocumentAndEnqueueFonts(activeKit);
+					loadDocumentAndEnqueueFonts(activeKit, true);
 				}
 			});
 		}
@@ -60,7 +117,7 @@
 			elementor.$previewContents.find('body').addClass(`elementor-kit-${id}`);
 		}
 
-		function loadDocumentAndEnqueueFonts( id ) {
+		function loadDocumentAndEnqueueFonts( id, softReload = false ) {
 			elementor.documents.request(id)
 				.then( ( config ) => {
 					elementor.documents.addDocumentByConfig(config);
@@ -69,7 +126,7 @@
 					 * If for some reasons, Kit CSS wasn't enqueued.
 					 * This line forces Theme Style window to open, which re-renders the CSS for current kit.
 					 */
-					if ( ! elementor.$previewContents.find( `#elementor-post-${config.id}-css` ).length ) {
+					if ( ! elementor.$previewContents.find( `#elementor-post-${config.id}-css` ).length && softReload ) {
 						analog.openThemeStyles();
 					}
 				})
@@ -104,15 +161,27 @@
 			loadDocumentAndEnqueueFonts( id );
 		}
 
+		function kitSwitcher( id ) {
+			if ( elementor.config.kit_id !== id ) {
+				elementor.settings.page.model.setExternalChange( 'ang_updated_token', elementor.config.kit_id );
+				refreshKit(id);
+				setTimeout( () => {
+					$e.run( 'document/save/update' ).then( () => {
+						window.location.reload();
+					} );
+				}, 1000 );
+			}
+		}
+
 		init();
 	};
 
-	$( window ).on( 'elementor:init', function() {
+	$(window).on( 'elementor/init', function () {
 		new App();
 	});
 }( window, jQuery ) );
 
-jQuery( window ).on( 'elementor:init', function() {
+jQuery( window ).on( 'elementor/init', function() {
 	const analog = window.analog = window.analog || {};
 	const elementorSettings = elementor.settings.page.model.attributes;
 
@@ -152,6 +221,14 @@ jQuery( window ).on( 'elementor:init', function() {
 		}
 	};
 
+	analog.openGlobalColors = () => {
+		analog.redirectToPanel( 'ang_global_colors_section', 'global-colors' );
+	};
+
+	analog.openGlobalFonts = () => {
+		analog.redirectToPanel( 'ang_global_fonts_section', 'global-typography' );
+	};
+
 	/**
 	 * Escape charcters in during Regexp.
 	 *
@@ -188,9 +265,14 @@ jQuery( window ).on( 'elementor:init', function() {
 		return ! ( key.startsWith( 'ang_action' ) || key.startsWith( 'post' ) || key.startsWith( 'preview' ) );
 	};
 
-	analog.redirectToSection = function redirectToSection( tab = 'settings', section = 'ang_style_settings', page = 'page_settings' ) {
-		$e.route( `panel/page-settings/${ tab }` );
-		elementor.getPanelView().getCurrentPageView().activateSection('ang_style_settings')._renderChildren();
+	analog.redirectToSection = function redirectToSection( tab = 'settings', section = 'ang_style_settings', page = 'page-settings', kit = false ) {
+		$e.route( `panel/${ page }/${ tab }` );
+
+		if ( kit ) {
+			elementor.getPanelView().getCurrentPageView().content.currentView.activateSection(section).render();
+		} else {
+			elementor.getPanelView().getCurrentPageView().activateSection(section)._renderChildren();
+		}
 
 		return false;
 	};
@@ -201,12 +283,13 @@ jQuery( window ).on( 'elementor:init', function() {
 	 * @since 1.6.2
 	 *
 	 * @param {string} section Panel/Section ID.
+	 * @param {string} panel Panel ID for Theme Style window panels.
 	 * @returns void
 	 */
-	analog.redirectToPanel = ( section ) => {
+	analog.redirectToPanel = ( section, panel = 'theme-style-kits' ) => {
 		$e.run( 'panel/global/open' ).then( () => {
-			const tab = ( 'panel/global/theme-style' in $e.routes.components ) ? 'theme-style' : 'style';
-			elementor.getPanelView().setPage('kit_settings').content.currentView.activateSection( section ).activateTab(tab);
+			$e.route( `panel/global/${panel}` );
+			elementor.getPanelView().getCurrentPageView().content.currentView.activateSection(section).render();
 		});
 	};
 
@@ -221,304 +304,18 @@ jQuery( window ).on( 'elementor:init', function() {
 		elementor.getPanelView().setPage('kit_settings').content.currentView.activateSection( section ).activateTab('style');
 	};
 
-	// analog.showStyleKitAttentionDialog = () => {
-	// 	const introduction = new elementorModules.editor.utils.Introduction( {
-	// 		introductionKey: 'angStylekit',
-	// 		dialogType: 'confirm',
-	// 		dialogOptions: {
-	// 			id: 'ang-stylekit-attention-dialog',
-	// 			headerMessage: ANG_Action.translate.sk_header,
-	// 			message: ANG_Action.translate.sk_message,
-	// 			position: {
-	// 				my: 'center center',
-	// 				at: 'center center',
-	// 			},
-	// 			strings: {
-	// 				confirm: ANG_Action.translate.sk_learn,
-	// 				cancel: elementor.translate( 'got_it' ),
-	// 			},
-	// 			hide: {
-	// 				onButtonClick: false,
-	// 			},
-	// 			onCancel: () => {
-	// 				introduction.setViewed();
-	// 				introduction.getDialog().hide();
-	// 			},
-	// 			onConfirm: () => {
-	// 				introduction.setViewed();
-	// 				introduction.getDialog().hide();
-	// 				analog.redirectToSection();
-	// 			},
-	// 		},
-	// 	} );
-	//
-	// 	introduction.show();
-	// };
-
-	// analog.styleKitUpdateDialog = () => {
-	// 	const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
-	// 		id: 'ang-stylekit-update',
-	// 		headerMessage: ANG_Action.translate.skUpdate,
-	// 		message: ANG_Action.translate.skUpdateDesc,
-	// 		hide: {
-	// 			onOutsideClick: false,
-	// 			onBackgroundClick: false,
-	// 			onEscKeyPress: false,
-	// 		},
-	// 	} );
-	//
-	// 	modal.addButton( {
-	// 		name: 'ang_discard',
-	// 		text: ANG_Action.translate.discard,
-	// 		callback() {
-	// 			analog.removeFromQueue();
-	// 			// Set to negative value to avoid queue of Global Style Kit.
-	// 			elementor.settings.page.model.set( 'ang_action_tokens', '-1' );
-	// 		},
-	// 	} );
-	//
-	// 	modal.addButton( {
-	// 		name: 'ang_apply',
-	// 		text: ANG_Action.translate.apply,
-	// 		callback() {
-	// 			analog.removeFromQueue();
-	// 			analog.applyStyleKit( elementorSettings.ang_action_tokens );
-	// 		},
-	// 	} );
-	//
-	// 	return modal;
-	// };
-
-	// analog.hasGlobalKit = () => {
-	// 	const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
-	// 		id: 'ang-has-globalkit',
-	// 		headerMessage: ANG_Action.translate.pageStyleHeader,
-	// 		message: ANG_Action.translate.pageStyleDesc,
-	// 		hide: {
-	// 			onOutsideClick: false,
-	// 			onBackgroundClick: false,
-	// 			onEscKeyPress: false,
-	// 		},
-	// 	} );
-	//
-	// 	modal.addButton( {
-	// 		name: 'ang_discard',
-	// 		text: ANG_Action.translate.discard,
-	// 		callback() {
-	// 			elementor.settings.page.model.set( 'uses_style_kit', false );
-	// 			elementor.saver.defaultSave();
-	// 		},
-	// 	} );
-	//
-	// 	modal.addButton( {
-	// 		name: 'ang_apply',
-	// 		text: ANG_Action.translate.gotoPageStyle,
-	// 		callback() {
-	// 			elementor.settings.page.model.set( 'uses_style_kit', false );
-	// 			analog.redirectToSection();
-	// 			elementor.saver.defaultSave();
-	// 		},
-	// 	} );
-	//
-	// 	modal.show();
-	// };
-
-	// if ( elementor.settings.page.getSettings().settings.uses_style_kit ) {
-	// 	analog.hasGlobalKit();
-	// }
-
-	// analog.StyleKitUpdateModal = analog.styleKitUpdateDialog();
-
 	analog.resetStyles = () => {
 		$e.run( 'document/elements/reset-settings', {
 			container: elementor.documents.documents[elementor.config.kit_id].container,
-			settings: null
+			settings: null,
 		} );
+
+		// Reset value render hack.
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => analog.redirectToPanel( 'ang_tools' ) ));
 	};
 
-	// analog.applyStyleKit = ( value ) => {
-	// 	if ( ! value || value === '' ) {
-	// 		console.warn( 'No value provided.', value );
-	// 		return;
-	// 	}
-	//
-	// 	wp.apiFetch( {
-	// 		method: 'post',
-	// 		path: 'agwp/v1/tokens/get',
-	// 		data: {
-	// 			id: value,
-	// 		},
-	// 	} ).then( function( response ) {
-	// 		const data = JSON.parse( response.data );
-	//
-	// 		if ( Object.keys( data ).length ) {
-	// 			elementor.settings.page.model.set( data );
-	// 			elementor.settings.page.model.set( 'ang_recently_imported', 'no' );
-	// 		}
-	// 	} ).catch( function( error ) {
-	// 		console.error( error );
-	// 	} );
-	// };
-
-	// analog.removeFromQueue = ( id = elementor.config.document.id ) => {
-	// 	jQuery.ajax( {
-	// 		type: 'POST',
-	// 		url: AGWP.ajaxurl,
-	// 		data: {
-	// 			action: 'ang_remove_kit_queue',
-	// 			id: id,
-	// 		},
-	// 		success: ( response ) => {
-	// 			if ( ! response.success ) {
-	// 				elementorCommon.dialogsManager.createWidget( 'alert', {
-	// 					message: response.data.message,
-	// 				} ).show();
-	// 			}
-	// 		},
-	// 		dataType: 'JSON',
-	// 	} );
-	// };
-
-	// elementor.on( 'preview:loaded', () => {
-	// 	if ( ! elementor.config.user.introduction.angStylekit ) {
-	// 		analog.showStyleKitAttentionDialog();
-	// 	}
-	//
-	// 	const settings = elementor.settings.page.model.attributes;
-	//
-	// 	if ( settings.ang_action_tokens && settings.ang_action_tokens !== '-1' ) {
-	// 		analog.applyStyleKit( settings.ang_action_tokens );
-	// 	}
-	// } );
-
-	const BaseData = elementor.modules.controls.BaseData;
-	const ControlANGAction = BaseData.extend( {
-		initialize: function( options ) {
-			BaseData.prototype.initialize.apply( this, arguments );
-
-			if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.8.0', '<' ) ) {
-				this.settingsModel = options.elementSettingsModel;
-			} else {
-				this.settingsModel = options.container.model;
-			}
-
-			if ( this.model.get( 'action' ) === 'update_token' ) {
-				this.listenTo( this.settingsModel, 'change', this.toggleControlVisibility );
-			}
-		},
-
-		toggleControlVisibility: function toggleControlVisibility() {
-			if ( this.model.get( 'action' ) !== 'update_token' ) {
-				return;
-			}
-
-			this.$el.find( 'button' ).attr( 'disabled', true );
-
-			if ( Object.keys( elementor.settings.page.model.changed ).length ) {
-				this.$el.find( 'button' ).attr( 'disabled', false );
-			}
-		},
-
-		ui: function() {
-			const ui = BaseData.prototype.ui.apply( this, arguments );
-
-			_.extend( ui, {
-				actionButton: 'button',
-			} );
-
-			return ui;
-		},
-
-		events: function() {
-			const events = BaseData.prototype.events.apply( this, arguments );
-
-			events[ 'click @ui.actionButton' ] = 'onChangeEvent';
-
-			return events;
-		},
-
-		actions: function() {
-			const actions = {
-				update_token: 'handleTokenUpdate',
-			};
-
-			return actions;
-		},
-
-		performAction: function( name ) {
-			const actions = this.actions();
-			return this[ actions[ name ] ]();
-		},
-
-		onChangeEvent: function( event ) {
-			const element = event.currentTarget;
-			const action = jQuery( element ).data( 'action' );
-
-			this.performAction( action );
-		},
-	} );
-
-	elementor.addControlView( 'ang_action', ControlANGAction );
-
-	// jQuery( document ).on( 'heartbeat-tick', function( event, response ) {
-	// 	const post_id = elementor.config.document.id;
-	// 	const posts = response.sk_posts;
-	//
-	// 	if ( posts && posts.indexOf(post_id) >= 0 ) {
-	// 		if ( ! analog.sk_modal_shown ) {
-	// 			analog.sk_modal_shown = true;
-	// 			analog.StyleKitUpdateModal.show();
-	//
-	// 			setTimeout( () => {
-	// 				analog.sk_modal_shown = false;
-	// 			}, 60*1000);
-	// 		}
-	// 	}
-	// } );
-
-	// jQuery( document ).on( 'heartbeat-send', function( event, data ) {
-	// 	const kitID = elementor.settings.page.model.attributes.ang_action_tokens;
-	// 	if ( kitID ) {
-	// 		data.ang_sk_post = {
-	// 			post_id: elementor.config.document.id,
-	// 			kit_id: kitID,
-	// 			updated: analog.style_kit_updated,
-	// 		};
-	//
-	// 		analog.style_kit_updated = false;
-	// 	}
-	// });
-
 	elementor.on( 'preview:loaded', () => {
-		if ( elementor.helpers.compareVersions( ElementorConfig.version, '2.7.6', '>' ) ) {
-			jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
-		}
-
-		const globalComponent = $e.components.get('panel/global');
-
-		if ( 'undefined' !== typeof globalComponent && ! globalComponent.hasTab('theme-style-kits') ) {
-			globalComponent.addTab(
-				'theme-style-kits',
-				{
-					title: 'Style Kits',
-					icon: 'eicon-global-settings',
-					helpUrl: 'https://docs.analogwp.com/'
-				},
-				6
-			);
-		}
-
-		const kitMenuItem = elementor.getPanelView('kit_menu').getPages().kit_menu;
-
-		if ( 'undefined' !== typeof kitMenuItem ) {
-			const PanelView = kitMenuItem.view;
-			PanelView.addItem( PanelView.getGroups(), {
-				name: 'theme-style-kits',
-				icon: 'eicon-global-settings',
-				title: 'Style Kits',
-				callback: () => $e.route( 'panel/global/theme-style-kits' ),
-			}, 'theme_style' );
-		}
+		jQuery('body').toggleClass( 'dark-mode', elementor.settings.editorPreferences.model.attributes.ui_theme === 'dark' );
 	} );
 
 	jQuery('#elementor-panel').on('change', '[data-setting="ui_theme"]', function(e) {
@@ -539,6 +336,18 @@ jQuery( window ).on( 'elementor:init', function() {
 			onConfirm: analog.resetStyles,
 		} ).show();
 	};
+
+	function refreshPageConfig( id ) {
+		elementor.documents.invalidateCache( id );
+		elementor.documents.request( id )
+			.then( ( config ) => {
+				elementor.documents.addDocumentByConfig(config);
+
+				$e.internal( 'editor/documents/load', { config } ).then( () => {
+					elementor.reloadPreview();
+				} );
+			});
+	}
 
 	analog.handleSaveToken = () => {
 		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
@@ -582,25 +391,29 @@ jQuery( window ).on( 'elementor:init', function() {
 									settings: JSON.stringify( angSettings ),
 								},
 							} ).then( function( response ) {
-								const options = elementor.documents.documents[elementor.config.initial_document.id].container.controls.ang_action_tokens.options;
-								options[ response.id ] = title;
-
 								elementor.config.kit_id = response.id;
 
 								modal.destroy();
 
-								analog.setPanelTitle(response.id);
+								analog.setPanelTitle( response.id );
 
 								// Ensure current changes are not saved to active document.
-								$e.run( 'document/save/discard' );
+								$e.run( 'document/save/discard' ); // TODO: Fix console TypeError while closing kit panel.
 
 								/**
 								 * Open Document is not accessible while Kit is active.
 								 * So we close the Kit panel and then save Style Kit value.
 								 */
 								$e.run( 'panel/global/close' ).then( () => {
-									elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
+									// Re-renders an updated page config.
+									refreshPageConfig( elementor.config.initial_document.id );
+
+									// Set Style Kit to the newly created kit once preview frame loads.
+									jQuery( '#elementor-preview-iframe' ).load( function() {
+										elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
+									} );
 								} );
+
 
 								elementor.notifications.showToast( {
 									message: response.message,
@@ -684,9 +497,24 @@ jQuery( window ).on( 'elementor:init', function() {
 					name: 'ok',
 					text: ANG_Action.translate.copyCSS,
 					callback: function() {
-						const content = modal.getElements( 'content' );
-						jQuery( content.find( 'textarea' ) ).select();
-						document.execCommand( 'copy' );
+						const content = modal.getElements( 'content' ).find('#ang-export-css');
+
+						if( navigator.clipboard ) {
+							const textToCopy = content[0].innerHTML;
+							navigator.clipboard.writeText( textToCopy ).then( () => {
+								elementor.notifications.showToast( {
+									message: ANG_Action.translate.cssCopied,
+								} );
+							} );
+						} else {
+							// execCommand method is not recommended anymore and soon will be dropped by browsers.
+							jQuery( content ).select();
+							document.execCommand('copy');
+
+							elementor.notifications.showToast( {
+								message: ANG_Action.translate.cssCopied,
+							} );
+						}
 					},
 				} );
 			},
@@ -715,6 +543,190 @@ jQuery( window ).on( 'elementor:init', function() {
 		jQuery( window ).resize();
 	}
 
+	analog.resetGlobalColors = () => {
+		const ang_global_colors = [
+				'ang_global_background_colors',
+				'ang_global_accent_colors',
+				'ang_global_text_colors',
+				'ang_global_extra_colors',
+				'ang_global_secondary_part_one_colors',
+				'ang_global_secondary_part_two_colors',
+				'ang_global_tertiary_part_one_colors',
+				'ang_global_tertiary_part_two_colors',
+			];
+
+		let defaultValues = {};
+
+		// Get defaults for each setting
+		ang_global_colors.forEach( ( setting ) => {
+			const options = elementor.documents.documents[elementor.config.kit_id].container.controls[setting];
+			if ( undefined === options || null === options ) {
+				return;
+			}
+			defaultValues[ setting ] = options.default;
+		} );
+
+		// Reset the selected settings to their default values
+		$e.run( 'document/elements/settings', {
+			container: elementor.documents.documents[elementor.config.kit_id].container,
+			settings: defaultValues,
+			options: {
+				external: true,
+			},
+		} );
+
+		// Reset value render hack.
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => analog.openGlobalColors() ));
+	};
+
+	analog.handleGlobalColorsReset = () => {
+		elementorCommon.dialogsManager.createWidget( 'confirm', {
+			message: ANG_Action.translate.resetGlobalColorsMessage,
+			headerMessage: ANG_Action.translate.resetHeader,
+			strings: {
+				confirm: elementor.translate( 'yes' ),
+				cancel: elementor.translate( 'cancel' ),
+			},
+			defaultOption: 'cancel',
+			onConfirm: analog.resetGlobalColors,
+		} ).show();
+	};
+
+	analog.resetGlobalFonts = () => {
+		const ang_global_fonts = [
+			'ang_global_title_fonts',
+			'ang_global_text_fonts',
+			'ang_global_secondary_part_one_fonts',
+			'ang_global_secondary_part_two_fonts',
+			'ang_global_tertiary_part_one_fonts',
+			'ang_global_tertiary_part_two_fonts',
+		];
+
+		let defaultValues = {};
+
+		// Get defaults for each setting
+		ang_global_fonts.forEach( ( setting ) => {
+			const options = elementor.documents.documents[elementor.config.kit_id].container.controls[setting];
+			if ( undefined === options || null === options ) {
+				return;
+			}
+			defaultValues[ setting ] = options.default;
+		} );
+
+		// Reset the selected settings to their default values
+		$e.run( 'document/elements/settings', {
+			container: elementor.documents.documents[elementor.config.kit_id].container,
+			settings: defaultValues,
+			options: {
+				external: true,
+			},
+		} );
+
+		// Reset value render hack.
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => analog.openGlobalFonts() ));
+	};
+
+	analog.handleGlobalFontsReset = () => {
+		elementorCommon.dialogsManager.createWidget( 'confirm', {
+			message: ANG_Action.translate.resetGlobalFontsMessage,
+			headerMessage: ANG_Action.translate.resetHeader,
+			strings: {
+				confirm: elementor.translate( 'yes' ),
+				cancel: elementor.translate( 'cancel' ),
+			},
+			defaultOption: 'cancel',
+			onConfirm: analog.resetGlobalFonts,
+		} ).show();
+	};
+
+	analog.resetContainerPadding = () => {
+		const ang_container_padding = [
+			'ang_container_padding',
+			'ang_container_padding_part_two',
+			'ang_container_padding_secondary',
+			'ang_container_padding_tertiary',
+			'ang_custom_container_padding',
+		];
+
+		let defaultValues = {};
+
+		// Get defaults for each setting
+		ang_container_padding.forEach( ( setting ) => {
+			const options = elementor.documents.documents[elementor.config.kit_id].container.controls[setting];
+			if ( undefined === options || null === options ) {
+				return;
+			}
+			defaultValues[ setting ] = options.default;
+		} );
+
+		// Reset the selected settings to their default values
+		$e.run( 'document/elements/settings', {
+			container: elementor.documents.documents[elementor.config.kit_id].container,
+			settings: defaultValues,
+			options: {
+				external: true,
+			},
+		} );
+
+		// Reset value render hack.
+		$e.run('document/save/update').then( () => $e.run( 'panel/global/close' ).then( () => analog.redirectToPanel( 'ang_container_spacing' ) ));
+	};
+
+	analog.handleContainerPaddingReset = () => {
+		elementorCommon.dialogsManager.createWidget( 'confirm', {
+			message: ANG_Action.translate.resetContainerPaddingMessage,
+			headerMessage: ANG_Action.translate.resetHeader,
+			strings: {
+				confirm: elementor.translate( 'yes' ),
+				cancel: elementor.translate( 'cancel' ),
+			},
+			defaultOption: 'cancel',
+			onConfirm: analog.resetContainerPadding,
+		} ).show();
+	};
+
+	analog.resetBoxShadows = () => {
+		const ang_box_shadows = [
+			'ang_box_shadows',
+			'ang_box_shadows_secondary',
+			'ang_box_shadows_tertiary'
+		];
+
+		const defaultValues = {};
+
+		// Get defaults for each setting
+		ang_box_shadows.forEach( ( setting ) => defaultValues[ setting ] = elementor.documents.documents[ elementor.config.kit_id ].container.controls[ setting ].default );
+
+		// Reset the selected settings to their default values
+		$e.run( 'document/elements/settings', {
+			container: elementor.documents.documents[ elementor.config.kit_id ].container,
+			settings: defaultValues,
+			options: {
+				external: true,
+			},
+		} );
+
+		// Reset value render hack.
+		$e.run( 'document/save/update' ).then( () => $e.run( 'panel/global/close' ).then( () => analog.redirectToPanel( 'ang_shadows' ) ) );
+	};
+
+	analog.handleResetBoxShadows = () => {
+		elementorCommon.dialogsManager.createWidget( 'confirm', {
+			message: ANG_Action.translate.resetShadowsDesc,
+			headerMessage: ANG_Action.translate.resetHeader,
+			strings: {
+				confirm: elementor.translate( 'yes' ),
+				cancel: elementor.translate( 'cancel' ),
+			},
+			defaultOption: 'cancel',
+			onConfirm: analog.resetBoxShadows,
+		} ).show();
+	};
+
+	elementor.channels.editor.on( 'analog:resetContainerPadding', analog.handleContainerPaddingReset );
+	elementor.channels.editor.on( 'analog:resetGlobalColors', analog.handleGlobalColorsReset );
+	elementor.channels.editor.on( 'analog:resetGlobalFonts', analog.handleGlobalFontsReset );
+	elementor.channels.editor.on( 'analog:resetBoxShadows', analog.handleResetBoxShadows );
 	elementor.channels.editor.on( 'analog:resetKit', analog.handleCSSReset );
 	elementor.channels.editor.on( 'analog:saveKit', analog.handleSaveToken );
 	elementor.channels.editor.on( 'analog:exportCSS', analog.handleCSSExport );

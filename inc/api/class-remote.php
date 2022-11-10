@@ -9,6 +9,7 @@ namespace Analog\API;
 
 use \Analog\Base;
 use Analog\Options;
+use Analog\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -18,8 +19,7 @@ defined( 'ABSPATH' ) || exit;
  * @package Analog\API
  */
 class Remote extends Base {
-	const TRANSIENT_KEY = 'analogwp_template_info';
-	const ENDPOINT      = 'https://analogwp.com/wp-json/analogwp/v2/info/';
+	const STORE_URL = 'https://analogwp.com/';
 
 	/**
 	 * API template URL.
@@ -27,7 +27,7 @@ class Remote extends Base {
 	 *
 	 * @var string API template URL.
 	 */
-	private static $template_url = 'https://analogwp.com/wp-json/analogwp/v1/templates/%d';
+	private static $template_url = self::STORE_URL . 'wp-json/analogwp/v1/templates/%d';
 
 	/**
 	 * Style kits API endpoint.
@@ -35,7 +35,7 @@ class Remote extends Base {
 	 * @since 1.3.4
 	 * @var string API endpoint for style kits.
 	 */
-	private static $kits_endpoint = 'https://analogwp.com/wp-json/analogwp/v2/stylekits/';
+	private static $kits_endpoint = self::STORE_URL . 'wp-json/analogwp/v2/stylekits/';
 
 	/**
 	 * Blocks API endpoint.
@@ -43,7 +43,14 @@ class Remote extends Base {
 	 * @since 1.4.0
 	 * @var string API endpoint for style kits.
 	 */
-	private static $blocks_endpoint = 'https://analogwp.com/wp-json/analogwp/v1/blocks/';
+	private static $blocks_endpoint = self::STORE_URL . 'wp-json/analogwp/v1/blocks/';
+
+	/**
+	 * Patterns API endpoint.
+	 *
+	 * @var string
+	 */
+	private static $patterns_endpoint = self::STORE_URL . 'wp-json/analogwp/v1/patterns/';
 
 	/**
 	 * Common API call args.
@@ -65,17 +72,47 @@ class Remote extends Base {
 	}
 
 	/**
+	 * Transient key for library data, changes if container experiment is active.
+	 *
+	 * @return string
+	 */
+	public static function transient_key() {
+		$key = 'analogwp_template_info';
+
+		if ( Utils::is_container() ) {
+			$key .= '_v3';
+		}
+
+		return $key;
+	}
+
+	/**
+	 * Returns API endpoint for remote library, changes if container experiment is active.
+	 *
+	 * @return string
+	 */
+	public static function api_endpoint() {
+		$endpoint = self::STORE_URL . 'wp-json/analogwp/v2/info/';
+
+		if ( Utils::is_container() ) {
+			$endpoint = self::STORE_URL . 'wp-json/analogwp/v3/info/';
+		}
+
+		return $endpoint;
+	}
+
+	/**
 	 * Retrieve template library and save as a transient.
 	 *
 	 * @param boolean $force_update Force new info from remote API.
 	 * @return void
 	 */
 	public static function set_templates_info( $force_update = false ) {
-		$transient = get_transient( self::TRANSIENT_KEY );
+		$transient = get_transient( self::transient_key() );
 
 		if ( ! $transient || $force_update ) {
 			$info = self::request_remote_templates_info( $force_update );
-			set_transient( self::TRANSIENT_KEY, $info, DAY_IN_SECONDS );
+			set_transient( self::transient_key(), $info, DAY_IN_SECONDS );
 		}
 	}
 
@@ -87,10 +124,10 @@ class Remote extends Base {
 	 * @return array
 	 */
 	public function get_templates_info( $force_update = false ) {
-		if ( ! get_transient( self::TRANSIENT_KEY ) || $force_update ) {
+		if ( ! get_transient( self::transient_key() ) || $force_update ) {
 			self::set_templates_info( true );
 		}
-		return get_transient( self::TRANSIENT_KEY );
+		return get_transient( self::transient_key() );
 	}
 
 	/**
@@ -104,8 +141,12 @@ class Remote extends Base {
 
 		$body_args = apply_filters( 'analog/api/get_templates/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
 
+		if ( $force_update ) {
+			$body_args['force_update'] = $force_update;
+		}
+
 		$request = wp_remote_get(
-			self::ENDPOINT,
+			self::api_endpoint(),
 			array(
 				'timeout'    => $force_update ? 25 : 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
@@ -128,6 +169,10 @@ class Remote extends Base {
 	 */
 	public function get_block_content( $block_id, $license, $method, $site_id ) {
 		$url = self::$blocks_endpoint . $block_id;
+
+		if ( Utils::is_container() ) {
+			$url = self::$patterns_endpoint . $block_id;
+		}
 
 		$body_args = apply_filters( 'analog/api/get_block_content/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
 		$body_args = array_merge(

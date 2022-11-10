@@ -1,3 +1,13 @@
+#analogwp-templates {
+	--ang-primary: #413EC5;
+	--ang-border: #DFDFDF;
+	--ang-main-text: #474747;
+	--ang-sec-text: #828282;
+	--ang-dark-bg: #252421;
+	--ang-sec-bg: #D1D0ED;
+	font-family: Inter, 'sans-serif';
+}
+
 /*Top navigation tab CSS*/
 /*START*/
 #sk-library-heading {
@@ -19,21 +29,26 @@
     text-align: center;
 }
 
-#sk-library-heading .close-modal svg {
-    width: 15px;
-    position: relative;
-    bottom: 3px;
+#analogwp-templates .close-modal {
+	margin-left: 8px;
 }
 
-#sk-library-tab .components-tab-panel__tabs {
-    background-color: #fff;
+#analogwp-templates .close-modal svg {
+    width: 15px;
+	margin-left: 6px;
 }
 
 #sk-library-tab .components-button {
-    padding: 20px 20px 30px 20px;
-    margin: 10px 10px 0 10px;
-    border-radius: 0;
-    font-size: 15px;
+	padding: 32px 20px;
+	margin: 0 10px;
+	border-radius: 0;
+	font-weight: bold;
+	color: #828282;
+	text-transform: uppercase;
+}
+
+#sk-library-tab .components-button:not(:last-of-type) {
+	border-right: 1px solid #DFDFDF;
 }
 
 #sk-library-tab .components-button:hover {
@@ -41,14 +56,14 @@
 }
 
 #sk-library-tab .components-button.is-active{
-    box-shadow: inset 0 -3px #007cba;
-    font-weight: bold;
+    box-shadow: none;
+	color: #474747;
     position: relative;
 }
 /*END*/
 
 #analogwp-templates .analogwp-content {
-    background: #e3e3e3;
+    background: #F1F1F1;
 	padding: 4px 24px;
 	min-height: calc(100% - 51px);
 	position: relative;
@@ -73,10 +88,6 @@
     z-index: 100;
 }
 
-#analogwp-templates .stylekit-list .pro {
-    position: inherit;
-}
-
 #analogwp-templates .templates-collection .actions,
 #analogwp-templates .templates-list .actions,
 #analogwp-templates .stylekit-list .preview,
@@ -94,8 +105,6 @@
     left: 0;
     z-index: 100;
     transition: all 200ms;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
 }
 
 #analogwp-templates .templates-collection .actions:hover,
@@ -119,9 +128,9 @@
 #analogwp-templates .stylekit-list figure .components-button,
 #analogwp-templates .block-list figure .components-button{
     width: 185px;
-    height: 49px;
     text-align: center;
-    display: block;
+    display: inline-flex;
+	justify-content: center;
     font-size: 15px;
     font-weight: bold;
     margin-left: auto;
@@ -318,12 +327,17 @@
 #analogwp-templates .templates-list .pro,
 #analogwp-templates .stylekit-list .pro,
 #analogwp-templates .block-list .pro{
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	z-index: 9999;
     border-radius: 4px;
     letter-spacing: .5px;
-    font-size: 13px;
-    padding: 4px 7px;
-    border: 1px solid #127DB8;
-    color: #127DB8;
+	text-transform: uppercase;
+    font-size: 14px;
+    padding: 8px 16px;
+	background-color: var(--ang-dark-bg);
+    color: #fff;
     text-align: center;
 }
 
@@ -361,8 +375,7 @@
 
 #analogwp-templates .template-filter .top,
 #analogwp-templates .block-filter .top {
-    margin: -20px;
-    padding: 0 20px 20px;
+    padding: 0 0 20px;
     display: flex;
     align-items: center;
 }
@@ -370,10 +383,10 @@
 #analogwp-templates .template-filter .top .kit-title,
 #analogwp-templates .block-filter .top .block-title {
     margin-right: 2vw;
-    margin-top: 37px;
+    margin-top: 0;
+	margin-bottom: 0;
     font-size: 19px;
     font-weight: normal;
-    margin-bottom: 33px;
     color: #000000;
 }
 
@@ -389,7 +402,6 @@
 
 #analogwp-templates .template-filter .favorites,
 #analogwp-templates .block-filter .favorites {
-    margin-left: auto;
     margin-right: 3vw;
     margin-bottom: 12px;
     font-weight: normal;
@@ -399,8 +411,6 @@
 #analogwp-templates .block-filter .favorites,
 #analogwp-templates .template-filter .group-by,
 #analogwp-templates .block-filter .group-by {
-    position: relative;
-    bottom: 35px;
     font-size: 15px;
     color: #555d66;
 }
@@ -429,6 +439,12 @@
 
 #analogwp-templates .sidebar {
     display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#analogwp-templates .sidebar [class^='slide-'], #analogwp-templates .sidebar [class*=' slide-'] {
+    color: #23282d;
 }
 
 #analogwp-templates .block-categories-tabs {
@@ -488,6 +504,7 @@
 
 #analogwp-templates .analogwp-content .inner-popup-content {
 	font-size: 14px;
+	padding-bottom: 20px;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content h3 {
@@ -496,10 +513,11 @@
     font-weight: bold;
 }
 
-#analogwp-templates .analogwp-content .inner-popup-content p {
-    font-size: 13px;
-    line-height: 18px;
-    color: #565D65;
+#analogwp-templates .analogwp-content .inner-popup-content > *:first-child,
+#analogwp-templates .analogwp-content .inner-popup-content .stylekit-popup-content > *:first-child {
+	padding-top: 0;
+	margin-top: 0;
+	margin-bottom: 20px;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content .stylekit-popup-content p {
@@ -518,21 +536,25 @@
     margin-top: 15px;
 }
 
-#analogwp-templates .analogwp-content .inner-popup-content .components-button.is-primary {
-    margin-top: 16px;
-    margin-bottom: 16px;
-}
-
 #analogwp-templates .analogwp-content .inner-popup-content .components-button {
     padding: 0 20px;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content .components-text-control__input {
-    height: 36px;
+    min-height: 36px;
+	border-color: var(--ang-border);
+	border-radius: 2px;
+	color: var(--ang-main-text);
+	line-height: 1.5;
 }
 
-.stylekit-popup-content {
-    margin-top: -20px;
+#analogwp-templates .analogwp-content .inner-popup-content .components-base-control__field {
+	margin: 0;
+}
+
+
+#analogwp-templates .popup-container .inner-popup-content .stylekit-popup-content {
+	text-align: left;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content  #gsk_name {
@@ -563,11 +585,17 @@
 
 #analogwp-templates .analogwp-content .inner-popup-content .flex-row button,
 #analogwp-templates .analogwp-content .inner-popup-content .flex-row [type=text]{
-    display: inline-block;
+	display: inline-flex;
+	justify-content: center;
     width: 196px;
-    height: 32px;
     text-align: center;
     border-radius: 3px;
+}
+
+#analogwp-templates .analogwp-content .inner-popup-content .flex-row .gap {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 #analogwp-templates .analogwp-content .inner-popup-content .flex-row [type=text]{
@@ -653,24 +681,6 @@
 	transform: none;
 }
 
-#analogwp-templates .template-filter input[type="search"] {
-    -webkit-appearance: textfield;
-    padding: 0 8px;
-    /* inherits font size 14px */
-    font-size: 14px;
-	line-height: 2; /* 28px */
-	/* Only necessary for IE11 */
-    min-height: 30px;
-    box-shadow: 0 0 0 transparent;
-	border-radius: 4px;
-	border: 1px solid #7e8993;
-	background-color: #fff;
-    color: #32373c;
-    box-sizing: border-box;
-	font-family: inherit;
-	font-weight: inherit;
-}
-
 #analogwp-templates input[type=text] {
     background-color: #fff;
     color: #32373c;
@@ -679,7 +689,7 @@
 
 /*Clone Admin CSS in elementor stylekit AnalogWP Template widget modal*/
 /*START*/
-#analogwp-templates.wrap h1 {
+#analogwp-templates h1 {
     font-size: 23px;
 	font-weight: 400;
 	margin: 0;
@@ -688,32 +698,94 @@
     color: #23282d;
 }
 
-#analogwp-templates.wrap .tab-description {
+#analogwp-templates .tab-description {
     color: #444;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
-#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .popup-container {
+#analogwp-templates-modal #analogwp-templates .analogwp-content .popup-container {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
-#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .inner-popup-content #gsk_name {
+#analogwp-templates-modal #analogwp-templates .analogwp-content .inner-popup-content #gsk_name {
     color: #127DB8;
 }
 
-#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .inner-popup-content p,
-#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .style-kit-footer {
+#analogwp-templates-modal #analogwp-templates .analogwp-content .inner-popup-content p,
+#analogwp-templates-modal #analogwp-templates .analogwp-content .style-kit-footer {
     font-size: 13px;
     line-height: 18px;
     color: #565D65;
 }
 
-#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .style-kit-footer a {
+#analogwp-templates-modal #analogwp-templates .analogwp-content .style-kit-footer a {
     color: #0073aa;
 }
 
-#analogwp-templates-modal #analogwp-templates.wrap .analogwp-content .style-kit-footer a:hover {
+#analogwp-templates-modal #analogwp-templates .analogwp-content .style-kit-footer a:hover {
     color: #006799;
 }
 
+#analogwp-templates-modal .wp-header-end {
+    visibility: hidden;
+    margin: -2px 0 0;
+}
+
 /*END*/
+
+/* Additional Styles */
+#analogwp-templates .components-text-control__input, .components-text-control__input[type=text],
+#analogwp-templates .components-text-control__input[type=tel],
+#analogwp-templates .components-text-control__input[type=time],
+#analogwp-templates .components-text-control__input[type=url],
+#analogwp-templates .components-text-control__input[type=week],
+#analogwp-templates .components-text-control__input[type=password],
+#analogwp-templates .components-text-control__input[type=color],
+#analogwp-templates .components-text-control__input[type=date],
+#analogwp-templates .components-text-control__input[type=datetime],
+#analogwp-templates .components-text-control__input[type=datetime-local],
+#analogwp-templates .components-text-control__input[type=email],
+#analogwp-templates .components-text-control__input[type=month],
+#analogwp-templates .components-text-control__input[type=number] {
+	border-color: #DFDFDF;
+	padding: 8px 12px;
+	border-radius: 4px;
+	font-size: 16px;
+	line-height: normal;
+	box-shadow: 0 0 0 transparent;
+	background: #fff;
+	color: var(--ang-main-text);
+}
+
+#analogwp-templates .components-button.is-primary {
+	background: var(--ang-primary);
+	color: #fff;
+}
+
+#analogwp-templates .components-button.is-secondary {
+	background: transparent;
+	color: var(--ang-primary);
+}
+
+#analogwp-templates .components-button.is-primary,
+#analogwp-templates .components-button.is-secondary {
+	box-shadow: none;
+	outline: none;
+	line-height: 1.5;
+	min-height: 36px;
+	font-size: 14px;
+	border-radius: 0 !important;
+	font-weight: 600;
+	padding: 20px !important;
+	border: 1px solid var(--ang-primary);
+}
+
+#analogwp-templates .components-button.is-secondary {
+	box-shadow: inset 0 0 0 1px var(--ang-primary);
+	color: var(--ang-primary);
+}
+
+#analogwp-templates .components-button.is-secondary.black-transparent {
+	background-color: var(--ang-dark-bg);
+	color: #fff;
+}

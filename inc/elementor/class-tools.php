@@ -10,6 +10,7 @@ namespace Analog\Elementor;
 use Analog\Base;
 use Analog\Plugin;
 use Analog\Utils;
+use Elementor\Core\Base\Document;
 use Elementor\Rollback;
 use Elementor\TemplateLibrary\Source_Local;
 use Elementor\User;
@@ -53,7 +54,6 @@ class Tools extends Base {
 		add_filter( 'page_row_actions', array( $this, 'filter_post_row_actions' ), 15, 2 );
 
 		add_action( 'wp_ajax_ang_make_global', array( $this, 'post_global_stylekit' ) );
-		add_action( 'wp_ajax_ang_remove_kit_queue', array( $this, 'ang_remove_kit_queue' ) );
 
 		add_action( 'heartbeat_received', array( $this, 'heartbeat_received' ), 10, 2 );
 	}
@@ -111,7 +111,7 @@ class Tools extends Base {
 	public function post_ang_rollback() {
 		check_admin_referer( 'ang_rollback' );
 
-		if ( ! current_user_can( 'update_plugins' ) ) {
+		if ( defined( 'STYLEKIT_DEBUG' ) || ! current_user_can( 'update_plugins' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to rollback Style Kits plugin for this site.', 'ang' ) );
 		}
 
@@ -204,10 +204,18 @@ class Tools extends Base {
 	public function stylekit_post_state( $post_states, $post ) {
 		global $pagenow;
 
+		$page = Plugin::elementor()->documents->get( $post->ID );
+
+		// Bail if not a document.
+		if ( ! $page instanceof Document ) {
+			return $post_states;
+		}
+
+		$supported_pages = array( 'edit.php', 'admin-ajax.php' );
+
 		if (
 			User::is_current_user_can_edit( $post->ID ) &&
-			Plugin::elementor()->db->is_built_with_elementor( $post->ID ) &&
-			'edit.php' === $pagenow
+			$page->is_built_with_elementor() && in_array( $pagenow, $supported_pages, true )
 		) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
 			$global_kit = (string) Utils::get_global_kit_id();
@@ -245,7 +253,7 @@ class Tools extends Base {
 	 * @return mixed
 	 */
 	public function filter_post_row_actions( $actions, $post ) {
-		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::elementor()->db->is_built_with_elementor( $post->ID ) ) {
+		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::elementor()->documents->get( $post->ID )->is_built_with_elementor() ) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
 			$global_kit = (string) Utils::get_global_kit_id();
 
@@ -296,26 +304,6 @@ class Tools extends Base {
 
 		wp_safe_redirect( wp_get_referer() );
 		exit;
-	}
-
-	/**
-	 * Ajax action to remove a stylekit from refresh queue.
-	 *
-	 * @return void
-	 * @since  1.2.3
-	 */
-	public function ang_remove_kit_queue() {
-		if ( ! isset( $_REQUEST['id'] ) ) {
-			wp_send_json_error(
-				array(
-					'message' => __( 'Invalid/empty Post ID.', 'ang' ),
-				)
-			);
-		}
-
-		Utils::remove_from_stylekit_queue( $_REQUEST['id'] );
-
-		wp_send_json_success();
 	}
 
 	/**

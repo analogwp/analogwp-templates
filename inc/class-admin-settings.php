@@ -49,6 +49,7 @@ class Admin_Settings {
 			include_once dirname( __FILE__ ) . '/settings/class-settings-page.php';
 
 			$settings[] = include 'settings/class-settings-general.php';
+			$settings[] = include 'settings/class-settings-experiments.php';
 			$settings[] = include 'settings/class-settings-misc.php';
 			$settings[] = include 'settings/class-settings-extensions.php';
 			$settings[] = include 'settings/class-settings-version-control.php';
@@ -179,10 +180,10 @@ class Admin_Settings {
 			}
 		} else {
 			// Single value.
-			if ( empty( $options[ $option_name ] ) ) {
+			if ( ! isset( $options[ $option_name ] ) ) {
 				$options[ $option_name ] = null;
 			}
-			$option_value = $options[ $option_name ];
+			$option_value = $options[ $option_name ] ?? null;
 		}
 
 		if ( is_array( $option_value ) ) {
@@ -455,6 +456,9 @@ class Admin_Settings {
 					<tr valign="top">
 						<?php if ( ! empty( $value['title'] ) ) { ?>
 						<th scope="row" class="titledesc">
+							<?php if ( false !== strpos( $value['id'], '_experiment' ) ) : ?>
+							<span class="experiment-indicator <?php echo ( $value['value'] === false || $value['value'] === 'default' || $value['value'] === 'active' ) ? 'active' : 'inactive'?>"></span>
+							<?php endif; ?>
 							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
 						</th>
 						<?php } ?>
@@ -628,6 +632,24 @@ class Admin_Settings {
 							</fieldset>
 						<?php
 					}
+					break;
+
+				case 'deprecated-notice':
+					?>
+					<tr valign="top">
+						<?php if ( ! empty( $value['title'] ) ) { ?>
+						<th scope="row" class="titledesc">
+							<?php if ( false !== strpos( $value['id'], '_experiment' ) ) : ?>
+							<span class="experiment-indicator <?php echo ( $value['value'] === 'active' ) ? 'active' : 'inactive'?>"></span>
+							<?php endif; ?>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // phpcs:ignore ?></label>
+						</th>
+						<?php } ?>
+						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+							<?php echo $description; // phpcs:ignore ?>
+						</td>
+					</tr>
+					<?php
 					break;
 
 				// Default: run an action.

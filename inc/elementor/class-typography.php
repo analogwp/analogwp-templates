@@ -7,10 +7,12 @@
 
 namespace Analog\Elementor;
 
+use Analog\Options;
 use Analog\Plugin;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
+use Elementor\Core\Kits\Controls\Repeater as Global_Style_Repeater;
 use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
@@ -18,6 +20,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Settings\Manager;
 use Analog\Utils;
+use Elementor\Repeater;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,7 +34,8 @@ class Typography extends Module {
 
 	/**
 	 * Tab to which add settings to.
-	 * @since n.e.x.t
+	 *
+	 * @since 1.8.0
 	 *
 	 * @var string
 	 */
@@ -70,8 +74,8 @@ class Typography extends Module {
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_typography_sizes' ), 30, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 40, 2 );
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_outer_section_padding' ), 50, 2 );
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_columns_gap' ), 60, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_outer_section_padding' ), 60, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_columns_gap' ), 70, 2 );
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_styling_settings' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_tools' ), 999, 2 );
 
@@ -86,7 +90,27 @@ class Typography extends Module {
 		add_action( 'elementor/element/section/section_advanced/before_section_end', array( $this, 'tweak_section_padding_control' ) );
 		add_action( 'elementor/element/column/section_advanced/before_section_end', array( $this, 'tweak_column_element' ) );
 
+		add_action( 'elementor/element/kit/section_settings-layout/before_section_end', array( $this, 'show_analog_container_spacing_hint' ), 10, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_container_spacing' ), 50, 2 );
+		add_action( 'elementor/element/container/section_layout_container/before_section_end', array( $this, 'tweak_container_widget' ) );
+
+		add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
+
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
+
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_fonts' ), 10, 2 );
+
+		add_action( 'elementor/element/heading/section_title/after_section_end', array( $this, 'add_typo_helper_link' ), 999, 2 );
+		add_action( 'elementor/element/button/section_button/after_section_end', array( $this, 'add_btn_sizes_helper_link' ), 999, 2 );
+
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_shadows' ), 47, 2 );
+
+		add_action( 'elementor/element/common/_section_border/before_section_end', array( $this, 'tweak_common_borders' ) );
+		add_action( 'elementor/element/section/section_border/before_section_end', array( $this, 'tweak_section_column_borders' ) );
+		add_action( 'elementor/element/column/section_border/before_section_end', array( $this, 'tweak_section_column_borders' ) );
+		add_action( 'elementor/element/image/section_style_image/before_section_end', array( $this, 'tweak_image_borders' ) );
+
+		add_action( 'elementor/element/container/section_border/before_section_end', array( $this, 'tweak_container_borders' ) );
 	}
 
 	/**
@@ -344,6 +368,302 @@ class Typography extends Module {
 	}
 
 	/**
+	 * Register Container spacing controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_container_spacing( Controls_Stack $element, $section_id ) {
+		if ( ! Utils::is_elementor_container() ) { // Return early if Flexbox container is not active.
+			return;
+		}
+
+		$element->start_controls_section(
+			'ang_container_spacing',
+			array(
+				'label' => __( 'Container Spacing', 'ang' ),
+				'tab'   => $this->settings_tab,
+			)
+		);
+
+		$element->add_control(
+			'ang_container_default_padding_hint',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="#" onClick="%2$s">%3$s</a>',
+					__( 'The default container padding is set in Elementor Theme Styles > Layout Settings > ', 'ang' ),
+					"analog.redirectToSection( 'settings-layout', 'section_settings-layout', 'global', true )",
+					__( 'Container padding', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->add_control(
+			'ang_container_padding_description',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">%2$s</a>',
+					__( 'Create additional spacing presets.', 'ang' ),
+					__( 'Read more', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+				'separator'       => 'before',
+			)
+		);
+
+		// Hack for adding no padding styles at container presets.
+		$element->add_control(
+			'ang_container_no_padding_hidden',
+			array(
+				'label'     => __( 'No Padding Styles', 'ang' ),
+				'type'      => Controls_Manager::HIDDEN,
+				'default'   => 'no',
+				'selectors' => array(
+					'{{WRAPPER}} .elementor-repeater-item-ang_container_no_padding.elementor-element' => '--padding-top: 0px; --padding-right: 0px; --padding-bottom: 0px; --padding-left: 0px;',
+				),
+			)
+		);
+
+		$element->start_controls_tabs(
+			'ang_container_spacing_tabs',
+			array(
+				'separator' => 'before',
+			)
+		);
+
+		$element->start_controls_tab(
+			'ang_tab_container_spacing_primary',
+			array(
+				'label' => __( '1-8', 'ang' ),
+			)
+		);
+
+		$padding_defaults = array(
+			array(
+				'_id'            => 'ang_container_padding_1',
+				'title'          => __( 'XXL - Hero Section', 'ang' ),
+				'padding'        => array(
+					'unit'     => 'px',
+					'top'      => '80',
+					'right'    => '24',
+					'bottom'   => '80',
+					'left'     => '24',
+					'isLinked' => false,
+				),
+				'padding_tablet' => array(
+					'unit'     => 'px',
+					'top'      => '72',
+					'right'    => '24',
+					'bottom'   => '72',
+					'left'     => '24',
+					'isLinked' => false,
+				),
+				'padding_mobile' => array(
+					'unit'     => 'px',
+					'top'      => '64',
+					'right'    => '24',
+					'bottom'   => '64',
+					'left'     => '24',
+					'isLinked' => false,
+				),
+			),
+			array(
+				'_id'            => 'ang_container_padding_2',
+				'title'          => __( 'XL - Primary Section', 'ang' ),
+				'padding'        => array(
+					'unit'     => 'px',
+					'top'      => '64',
+					'right'    => '24',
+					'bottom'   => '64',
+					'left'     => '24',
+					'isLinked' => false,
+				),
+				'padding_tablet' => array(
+					'unit'     => 'px',
+					'top'      => '56',
+					'right'    => '24',
+					'bottom'   => '56',
+					'left'     => '24',
+					'isLinked' => false,
+				),
+				'padding_mobile' => array(
+					'unit'     => 'px',
+					'top'      => '40',
+					'right'    => '24',
+					'bottom'   => '40',
+					'left'     => '24',
+					'isLinked' => false,
+				),
+			),
+			array(
+				'_id'            => 'ang_container_padding_3',
+				'title'          => __( 'Large - Box', 'ang' ),
+				'padding'        => array(
+					'unit'     => 'px',
+					'top'      => '40',
+					'right'    => '40',
+					'bottom'   => '40',
+					'left'     => '40',
+					'isLinked' => true,
+				),
+				'padding_tablet' => array(
+					'unit'     => 'px',
+					'top'      => '32',
+					'right'    => '32',
+					'bottom'   => '32',
+					'left'     => '32',
+					'isLinked' => true,
+				),
+			),
+			array(
+				'_id'     => 'ang_container_padding_4',
+				'title'   => __( 'Medium - Box', 'ang' ),
+				'padding' => array(
+					'unit'     => 'px',
+					'top'      => '24',
+					'right'    => '24',
+					'bottom'   => '24',
+					'left'     => '24',
+					'isLinked' => true,
+				),
+			),
+			array(
+				'_id'     => 'ang_container_padding_5',
+				'title'   => __( 'Small - Box', 'ang' ),
+				'padding' => array(
+					'unit'     => 'px',
+					'top'      => '16',
+					'right'    => '16',
+					'bottom'   => '16',
+					'left'     => '16',
+					'isLinked' => true,
+				),
+			),
+			array(
+				'_id'   => 'ang_container_padding_6',
+				'title' => __( 'Padding 6', 'ang' ),
+			),
+			array(
+				'_id'   => 'ang_container_padding_7',
+				'title' => __( 'Padding 7', 'ang' ),
+			),
+			array(
+				'_id'   => 'ang_container_padding_8',
+				'title' => __( 'Padding 8', 'ang' ),
+			),
+		);
+
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'title',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'required'    => true,
+			)
+		);
+
+		// Padding Value.
+		$repeater->add_responsive_control(
+			'padding',
+			array(
+				'type'        => Controls_Manager::DIMENSIONS,
+				'label_block' => true,
+				'dynamic'     => array(),
+				'default'     => array(
+					'unit' => 'px',
+				),
+				'size_units'  => array( 'px', 'em', '%' ),
+				'selectors'   => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element' => '--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
+				),
+				'global'      => array(
+					'active' => false,
+				),
+			)
+		);
+
+		$element->add_control(
+			'ang_container_padding',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $padding_defaults,
+				'item_actions' => array(
+					'add'       => false,
+					'remove'    => false,
+					'sort'      => false,
+					'duplicate' => false,
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+
+		do_action( 'analog_container_spacing_tabs_end', $element, $repeater );
+
+		$element->end_controls_tabs();
+
+		do_action( 'analog_container_spacing_section_end', $element, $repeater );
+
+		$element->add_control(
+			'ang_container_padding_reset',
+			array(
+				'label' => __( 'Reset labels and values to default', 'ang' ),
+				'type'  => 'button',
+				'text'  => __( 'Reset', 'ang' ),
+				'event' => 'analog:resetContainerPadding',
+			)
+		);
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Show hint for Style Kit Container spacing presets.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function show_analog_container_spacing_hint( Controls_Stack $element, $section_id ) {
+		$element->start_injection(
+			array(
+				'of' => 'container_padding',
+				'at' => 'after',
+			)
+		);
+
+		$element->add_control(
+			'analog_container_padding_hint',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="#" onClick="%2$s">%3$s</a>',
+					__( 'Create additional spacing presets in ', 'ang' ),
+					"analog.redirectToSection( 'theme-style-kits', 'ang_container_spacing', 'global', true );",
+					__( 'Style Kits', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+				'separator'       => 'before',
+			)
+		);
+
+		$element->add_control(
+			'analog_container_padding_hint_separator',
+			array(
+				'type'  => Controls_Manager::DIVIDER,
+				'style' => 'thick',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
 	 * Register Outer Section padding controls.
 	 *
 	 * @param Controls_Stack $element Controls object.
@@ -429,10 +749,16 @@ class Typography extends Module {
 			)
 		);
 
-		$optimized_dom = get_option( 'elementor_optimized_dom_output' );
-		$elementor_row = '';
+		$elementor_row   = '';
+		$optimized_dom   = get_option( 'elementor_experiment-e_dom_optimization' );
+		$is_optimize_dom = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $optimized_dom;
 
-		if ( 'enabled' !== $optimized_dom ) {
+		if ( 'default' === $optimized_dom ) {
+			$experiments     = new \Elementor\Core\Experiments\Manager();
+			$is_optimize_dom = $experiments->is_feature_active( 'e_dom_optimization' );
+		}
+
+		if ( ! $is_optimize_dom ) { // Add row class if DOM optimization is not active.
 			$elementor_row = ' > .elementor-row ';
 		}
 
@@ -677,7 +1003,7 @@ class Typography extends Module {
 		$id = get_the_ID();
 		if ( $id ) {
 			$document = Plugin::elementor()->documents->get_doc_or_auto_save( $id );
-			$config   = $document::get_editor_panel_config();
+			$config   = is_object( $document ) ? $document::get_editor_panel_config() : array();
 
 			if ( isset( $config['support_kit'] ) && ! $config['support_kit'] ) {
 				return;
@@ -692,35 +1018,24 @@ class Typography extends Module {
 			)
 		);
 
-		/**
-		 * Important:
-		 *
-		 * Setting Kit ID to "string" here on purpose. Elementor's condition arg expects the matching option to be a
-		 * string, where our option returns an integer.
-		 */
-		$global_token = Utils::get_global_kit_id();
-
-		if ( ! $global_token ) {
-			$global_token = -1;
-		}
-
 		$element->add_control(
 			'description_ang_global_stylekit',
 			array(
-				'raw'             => __( 'You are editing the Global Style Kit.', 'ang' ),
+				'raw'             => sprintf(
+									/* translators: %s: Link to Style Kits */
+									'<p>%1$s <a href="https://docs.analogwp.com/article/660-new-style-kits-panel" target="_blank">%2$s</a></p>',
+									__( 'Select a different Style Kit to be applied on this page. The page will reload after your selection.', 'ang' ),
+									__( 'Learn more', 'ang' )
+								),
 				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'ang-notice',
-				'condition'       => array(
-					'ang_action_tokens' => (string) $global_token,
-				),
+				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
-		$label = __( 'A Style Kit is a saved configuration of Theme Styles, that you can optionally apply on any page. This will override the Global theme Styles for this page.', 'ang' );
 		$element->add_control(
 			'ang_action_tokens',
 			array(
-				'label'          => __( 'Page Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'label'          => __( 'Select Style Kit', 'ang' ) . $this->get_tooltip( __( 'This will override your site\'s Global Style Kit for this page.', 'ang' ) ),
 				'type'           => Controls_Manager::SELECT2,
 				'select2options' => array(
 					'allowClear' => false,
@@ -731,14 +1046,11 @@ class Typography extends Module {
 		);
 
 		$element->add_control(
-			'ang_edit_kit',
+			'ang_updated_token',
 			array(
-				'type'       => Controls_Manager::BUTTON,
-				'label'      => __( 'Edit Theme Style Kit', 'ang' ),
-				'show_label' => false,
-				'text'       => __( 'Edit Theme Style Kit', 'ang' ),
-				'separator'  => 'after',
-				'event'      => 'analog:editKit',
+				'label'     => __( 'Page Style Kit', 'ang' ),
+				'type'      => Controls_Manager::HIDDEN,
+				'default'   => '',
 			)
 		);
 
@@ -747,8 +1059,9 @@ class Typography extends Module {
 			array(
 				'raw'  => sprintf(
 					/* translators: %s: Link to Style Kits */
-					__( 'You can set a Global Style Kit <a href="%s" target="_blank">here</a>.', 'ang' ),
-					admin_url( 'admin.php?page=ang-settings&tab=general#global_kit' )
+					'<p class="ang-notice description"><a href="%1$s" target="_blank">%2$s</a></p>',
+					admin_url( 'admin.php?page=style-kits' ),
+					__( 'Set your Global Style Kit here', 'ang' ),
 				),
 				'type' => Controls_Manager::RAW_HTML,
 			)
@@ -769,7 +1082,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_tools',
 			array(
-				'label' => __( 'Theme Style Kit', 'ang' ),
+				'label' => __( 'Manage Style Kit', 'ang' ),
 				'tab'   => $this->settings_tab,
 			)
 		);
@@ -841,7 +1154,7 @@ class Typography extends Module {
 			'ang_outer_gap',
 			array(
 				'label'         => __( 'Outer Section Padding', 'ang' ),
-				'description'   => __( 'A Style Kits control that adds padding to your outer sections. You can edit the values', 'ang' ) . sprintf( '<a href="#" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_section_padding' )", ' here.' ),
+				'description'   => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_section_padding' )", 'Edit in Style Kits' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => $default,
@@ -895,6 +1208,122 @@ class Typography extends Module {
 				),
 			)
 		);
+	}
+
+	/**
+	 * Tweak default Container widget.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_container_widget( Element_Base $element ) {
+		if ( ! Utils::is_elementor_container() ) { // Return early if Flexbox container is not active.
+			return;
+		}
+
+		$element->start_injection(
+			array(
+				'of' => 'content_width',
+				'at' => 'after',
+			)
+		);
+
+		// Register default options array.
+		$options = array(
+			'none'                     => __( 'Default', 'ang' ),
+			'ang_container_no_padding' => __( 'No Padding', 'ang' ),
+		);
+
+		/**
+		 * Get current kit settings.
+		 */
+		$kit = Utils::get_document_kit( get_the_ID() );
+
+		if ( $kit ) {
+			$controls = array(
+				'ang_container_padding',
+				'ang_container_padding_secondary',
+				'ang_container_padding_tertiary',
+				'ang_custom_container_padding',
+			);
+
+			// Use raw settings that doesn't have default values.
+			$kit_raw_settings = $kit->get_data( 'settings' );
+
+			foreach ( $controls as $control ) {
+				// Get SK Container padding preset labels.
+				if ( isset( $kit_raw_settings[ $control ] ) ) {
+					$padding_items = $kit_raw_settings[ $control ];
+				} else {
+					// Get default items, but without empty defaults.
+					$control       = $kit->get_controls( $control );
+					$padding_items = $control['default'] ?? array();
+				}
+
+				if ( ! empty( $padding_items ) ) {
+					foreach ( $padding_items as $padding ) {
+						if ( isset( $padding['padding'] ) || isset( $padding['padding_tablet'] ) || isset( $padding['padding_mobile'] ) ) {
+							$options[ $padding['_id'] ] = $padding['title'];
+						}
+					}
+				}
+			}
+		}
+
+		$element->add_control(
+			'ang_container_spacing_size',
+			array(
+				'label'         => __( 'Spacing Preset', 'ang' ),
+				'description'   => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_spacing' )", __( 'Edit in Style Kits', 'ang' ) ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => $options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Tweak Container widget for SK BG classes preset.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_container_widget_styles( Element_Base $element ) {
+		if ( ! Utils::is_elementor_container() ) { // Return early if Flexbox container is not active.
+			return;
+		}
+
+		$element->start_injection(
+			array(
+				'of' => 'background_background',
+				'at' => 'after',
+			)
+		);
+
+		$element->add_control(
+			'ang_container_bg_preset',
+			array(
+				'label'         => __( 'Background presets', 'ang' ),
+				'description'   => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', 'analog.openThemeStyles()', 'Edit in Style Kits' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => array(
+					'none'      => __( 'None', 'ang' ),
+					'light-bg'  => __( 'Light Background', 'ang' ),
+					'dark-bg'   => __( 'Dark background', 'ang' ),
+					'accent-bg' => __( 'Accent Background', 'ang' ),
+				),
+				'prefix_class'  => 'sk-',
+				'condition'     => array(
+					'background_background' => array( 'classic' ),
+				),
+			)
+		);
+
+		$element->end_injection();
 	}
 
 	/**
@@ -958,7 +1387,7 @@ class Typography extends Module {
 				'jquery',
 				'editor',
 			),
-			ANG_VERSION,
+			filemtime( ANG_PLUGIN_DIR . "inc/elementor/js/ang-typography{$script_suffix}.js" ),
 			true
 		);
 	}
@@ -1099,7 +1528,7 @@ class Typography extends Module {
 			)
 		);
 
-		$default_fonts = Manager::get_settings_managers( 'general' )->get_model()->get_settings( 'elementor_default_generic_fonts' );
+		$default_fonts = Plugin::elementor()->kits_manager->get_current_settings( 'default_generic_fonts' );
 
 		if ( $default_fonts ) {
 			$default_fonts = ', ' . $default_fonts;
@@ -1142,6 +1571,865 @@ class Typography extends Module {
 			'ang_description_default_heading',
 			array(
 				'raw'             => __( 'You can set individual heading font and colors below.', 'ang' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Register Style Kits Global Font controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_global_fonts( Controls_Stack $element, $section_id ) {
+		$element->start_controls_section(
+			'ang_global_fonts_section',
+			array(
+				'label' => esc_html__( 'Style Kit Fonts', 'ang' ),
+				'tab'   => 'global-typography',
+			)
+		);
+
+		$element->add_control(
+			'ang_global_fonts_description',
+			array(
+				'raw'             => sprintf(
+					'%1$s <a href="https://docs.analogwp.com/article/658-style-kits-fonts" target="_blank">%2$s</a>',
+					__( 'The Style Kit\'s typographic styles.', 'ang' ),
+					__( 'Read more', 'ang' ),
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->start_controls_tabs(
+			'ang_global_fonts_section_tabs',
+			array(
+				'separator' => 'before',
+			)
+		);
+
+		$element->start_controls_tab(
+			'ang_tab_global_fonts_primary',
+			array( 'label' => __( '1-16', 'ang' ) )
+		);
+
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'title',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'required'    => true,
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'typography',
+				'label'          => '',
+				'global'         => array(
+					'active' => false,
+				),
+				'fields_options' => array(
+					'font_family'     => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-font-family: "{{VALUE}}"',
+						),
+					),
+					'font_size'       => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-font-size: {{SIZE}}{{UNIT}}',
+						),
+					),
+					'font_weight'     => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-font-weight: {{VALUE}}',
+						),
+					),
+					'text_transform'  => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-text-transform: {{VALUE}}',
+						),
+					),
+					'font_style'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-font-style: {{VALUE}}',
+						),
+					),
+					'text_decoration' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-text-decoration: {{VALUE}}',
+						),
+					),
+					'line_height'     => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-line-height: {{SIZE}}{{UNIT}}',
+						),
+					),
+					'letter_spacing'  => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-letter-spacing: {{SIZE}}{{UNIT}}',
+						),
+					),
+					'word_spacing'    => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => '--e-global-typography-{{external._id.VALUE}}-word-spacing: {{SIZE}}{{UNIT}}',
+						),
+					),
+				),
+			)
+		);
+
+		$title_typography = array(
+			array(
+				'_id'   => 'sk_type_1',
+				'title' => esc_html__( 'Display title', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 5,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_2',
+				'title' => esc_html__( 'Title 1', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 4,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_3',
+				'title' => esc_html__( 'Title 2', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 3,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_4',
+				'title' => esc_html__( 'Title 3', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 2,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_5',
+				'title' => esc_html__( 'Title 4', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1.5,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_6',
+				'title' => esc_html__( 'Title 5', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1.2,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_7',
+				'title' => esc_html__( 'Title 6', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_8',
+				'title' => esc_html__( 'Overline / Subheader', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 0.8,
+					'unit' => 'em',
+				),
+			),
+		);
+
+		$element->add_control(
+			'ang_global_title_fonts',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $title_typography,
+				'item_actions' => array(
+					'add'    => false,
+					'remove' => false,
+					'sort'   => false,
+				),
+			)
+		);
+
+		$text_typography = array(
+			array(
+				'_id'   => 'sk_type_9',
+				'title' => esc_html__( 'Display text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 2,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_10',
+				'title' => esc_html__( 'Large text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1.5,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_11',
+				'title' => esc_html__( 'Normal text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_12',
+				'title' => esc_html__( 'Small text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 0.95,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_13',
+				'title' => esc_html__( 'Caption', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 0.8,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_14',
+				'title' => esc_html__( 'Button text', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_15',
+				'title' => esc_html__( 'Form label', 'ang' ),
+				'typography_typography' => 'custom',
+				'typography_font_size' => array(
+					'size' => 1,
+					'unit' => 'em',
+				),
+			),
+			array(
+				'_id'   => 'sk_type_16',
+				'title' => esc_html__( 'Font Style 16', 'ang' ),
+				'typography_typography' => 'custom',
+			),
+		);
+
+		$element->add_control(
+			'ang_global_text_fonts',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $text_typography,
+				'item_actions' => array(
+					'add'    => false,
+					'remove' => false,
+					'sort'   => false,
+				),
+				'separator'    => 'before',
+			)
+		);
+
+		$element->end_controls_tab();
+
+		do_action( 'analog_global_fonts_tab_end', $element, $repeater );
+
+		$element->end_controls_tabs();
+
+		$element->add_control(
+			'ang_global_reset_fonts',
+			array(
+				'label' => __( 'Reset labels & fonts', 'ang' ),
+				'type'  => 'button',
+				'text'  => __( 'Reset', 'ang' ),
+				'event' => 'analog:resetGlobalFonts',
+			)
+		);
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Register Global Shadow controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 */
+	public function register_shadows( Controls_Stack $element, $section_id ) {
+		$element->start_controls_section(
+			'ang_shadows',
+			array(
+				'label' => __( 'Shadows', 'ang' ),
+				'tab'   => Utils::get_kit_settings_tab(),
+			)
+		);
+
+		$element->add_control(
+			'ang_shadows_description',
+			array(
+				'raw'             => __( 'Add global shadow presets by using these controls.', 'ang' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->start_controls_tabs( 'ang_shadows_tabs' );
+
+		$element->start_controls_tab(
+			'ang_tab_shadows_primary',
+			array(
+				'label' => __( '1-8', 'ang' ),
+			)
+		);
+
+		$shadow_defaults = array(
+			array(
+				'_id'   => 'shadow_1',
+				'title' => __( 'Shadow 1', 'ang' ),
+			),
+			array(
+				'_id'                    => 'shadow_2',
+				'title'                  => __( 'Shadow 2', 'ang' ),
+				'shadow_box_shadow_type' => 'yes',
+				'shadow_box_shadow'      => array(
+					'horizontal' => 0,
+					'vertical'   => 4,
+					'blur'       => 16,
+					'spread'     => 0,
+					'color'      => 'rgba(0,0,0,0.15)',
+				),
+			),
+			array(
+				'_id'                    => 'shadow_3',
+				'title'                  => __( 'Shadow 3', 'ang' ),
+				'shadow_box_shadow_type' => 'yes',
+				'shadow_box_shadow'      => array(
+					'horizontal' => 0,
+					'vertical'   => 20,
+					'blur'       => 20,
+					'spread'     => 0,
+					'color'      => 'rgba(0,0,0,0.15)',
+				),
+			),
+			array(
+				'_id'                    => 'shadow_4',
+				'title'                  => __( 'Shadow 4', 'ang' ),
+				'shadow_box_shadow_type' => 'yes',
+				'shadow_box_shadow'      => array(
+					'horizontal' => 0,
+					'vertical'   => 30,
+					'blur'       => 55,
+					'spread'     => 0,
+					'color'      => 'rgba(0,0,0,0.15)',
+				),
+			),
+			array(
+				'_id'                    => 'shadow_5',
+				'title'                  => __( 'Shadow 5', 'ang' ),
+				'shadow_box_shadow_type' => 'yes',
+				'shadow_box_shadow'      => array(
+					'horizontal' => 0,
+					'vertical'   => 80,
+					'blur'       => 80,
+					'spread'     => 0,
+					'color'      => 'rgba(0,0,0,0.15)',
+				),
+			),
+			array(
+				'_id'   => 'shadow_6',
+				'title' => __( 'Shadow 6', 'ang' ),
+			),
+			array(
+				'_id'   => 'shadow_7',
+				'title' => __( 'Shadow 7', 'ang' ),
+			),
+			array(
+				'_id'   => 'shadow_8',
+				'title' => __( 'Shadow 8', 'ang' ),
+			),
+		);
+
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'title',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'required'    => true,
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'shadow',
+				'label'    => '',
+				'global'   => array(
+					'active' => false,
+				),
+				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover, {{WRAPPER}} {{CURRENT_ITEM}}_external.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.e-con, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-con:hover',
+			)
+		);
+
+		$element->add_control(
+			'ang_box_shadows',
+			array(
+				'type'         => Global_Style_Repeater::CONTROL_TYPE,
+				'fields'       => $repeater->get_controls(),
+				'default'      => $shadow_defaults,
+				'item_actions' => array(
+					'add'       => false,
+					'remove'    => false,
+					'sort'      => false,
+					'duplicate' => false,
+				),
+				'separator'    => 'after',
+			)
+		);
+
+		$element->end_controls_tab();
+
+		do_action( 'analog_box_shadows_tab_end', $element, $repeater );
+
+		$element->end_controls_tabs();
+
+		$element->add_control(
+			'ang_box_shadows_reset',
+			array(
+				'label' => __( 'Reset to default', 'ang' ),
+				'type'  => 'button',
+				'text'  => __( 'Reset', 'ang' ),
+				'event' => 'analog:resetBoxShadows',
+			)
+		);
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Gets set Box Shadow presets.
+	 */
+	public function get_kit_shadow_presets() {
+		// Register default options array.
+		$options = array(
+			'none' => __( 'None', 'ang' ),
+		);
+
+		/**
+		 * Get current kit settings.
+		 */
+		$kit = Utils::get_document_kit( get_the_ID() );
+
+		if ( $kit ) {
+			$controls = array(
+				'ang_box_shadows',
+				'ang_box_shadows_secondary',
+				'ang_box_shadows_tertiary',
+			);
+
+			// Use raw settings that doesn't have default values.
+			$kit_raw_settings = $kit->get_data( 'settings' );
+
+			foreach ( $controls as $control ) {
+				// Get SK Container padding preset labels.
+				if ( isset( $kit_raw_settings[ $control ] ) ) {
+					$shadow_items = $kit_raw_settings[ $control ];
+				} else {
+					// Get default items, but without empty defaults.
+					$control      = $kit->get_controls( $control );
+					$shadow_items = $control['default'] ?? array();
+				}
+
+				if ( ! empty( $shadow_items ) ) {
+					foreach ( $shadow_items as $shadow ) {
+						if ( isset( $shadow['shadow_box_shadow_type'] ) && 'yes' === $shadow['shadow_box_shadow_type'] ) {
+							$options[ $shadow['_id'] ] = $shadow['title'];
+						}
+					}
+				}
+			}
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Tweak Common widgets for Box Shadow presets.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_common_borders( Element_Base $element ) {
+
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
+
+		/**
+		 * Common widgets.
+		 */
+		$element->start_injection(
+			array(
+				'tab' => '_tab_border_normal',
+				'of'  => '_box_shadow_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_box_shadow_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => $options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->add_control(
+			'ang_box_shadow_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_shadows\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->end_injection();
+
+		$element->start_injection(
+			array(
+				'tab' => '_tab_border_hover',
+				'of'  => '_box_shadow_hover_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$hover_options = array();
+
+		foreach ( $options as $key => $value ) {
+			$hover_options[ $key . '_hover' ] = $value;
+		}
+
+		$element->add_control(
+			'ang_box_shadow_hover_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none_hover',
+				'options'       => $hover_options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->add_control(
+			'ang_box_shadow_hover_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_shadows\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Tweak Image widget for Box Shadow presets.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_image_borders( Element_Base $element ) {
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
+
+		$updated_options = array();
+
+		foreach ( $options as $key => $value ) {
+			$updated_options[ $key . '_external' ] = $value;
+		}
+
+		$element->start_injection(
+			array(
+				'of' => 'image_box_shadow_box_shadow_type',
+				'at' => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_image_box_shadow_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none_external',
+				'options'       => $updated_options,
+				'prefix_class'  => 'external_elementor-repeater-item-',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Tweak Section & Column widgets for Box Shadow presets.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_section_column_borders( Element_Base $element ) {
+
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
+
+		/**
+		 * Column & Section widgets.
+		 */
+		$element->start_injection(
+			array(
+				'tab' => 'tab_border_normal',
+				'of'  => 'box_shadow_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_sc_box_shadow_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => $options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->add_control(
+			'ang_sc_box_shadow_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_shadows\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->end_injection();
+
+		$element->start_injection(
+			array(
+				'tab' => 'tab_border_hover',
+				'of'  => 'box_shadow_hover_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$hover_options = array();
+
+		foreach ( $options as $key => $value ) {
+			$hover_options[ $key . '_hover' ] = $value;
+		}
+
+		$element->add_control(
+			'ang_sc_box_shadow_hover_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none_hover',
+				'options'       => $hover_options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->add_control(
+			'ang_sc_box_shadow_hover_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_shadows\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Tweak Container widget for Box Shadow presets.
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function tweak_container_borders( Element_Base $element ) {
+		// Get presets options array.
+		$options = $this->get_kit_shadow_presets();
+
+		/**
+		 * Container.
+		 */
+		$element->start_injection(
+			array(
+				'tab' => 'tab_border',
+				'of'  => 'box_shadow_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$element->add_control(
+			'ang_container_box_shadow_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none',
+				'options'       => $options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->add_control(
+			'ang_container_box_shadow_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_shadows\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->end_injection();
+
+		$element->start_injection(
+			array(
+				'tab' => 'tab_border_hover',
+				'of'  => 'box_shadow_hover_box_shadow_type',
+				'at'  => 'before',
+			)
+		);
+
+		$hover_options = array();
+
+		foreach ( $options as $key => $value ) {
+			$hover_options[ $key . '_hover' ] = $value;
+		}
+
+		$element->add_control(
+			'ang_container_box_shadow_hover_preset',
+			array(
+				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'type'          => Controls_Manager::SELECT,
+				'hide_in_inner' => true,
+				'default'       => 'none_hover',
+				'options'       => $hover_options,
+				'prefix_class'  => 'elementor-repeater-item-',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Tweak Heading widget for typographic helper link
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function add_typo_helper_link( Element_Base $element ) {
+		$element->start_injection(
+			array(
+				'of' => 'size',
+				'at' => 'after',
+			)
+		);
+
+		$element->add_control(
+			'ang_typography_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_typography_sizes\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$element->end_injection();
+	}
+
+	/**
+	 * Tweak Button widget for Button sizes helper link
+	 *
+	 * @param Element_Base $element Element_Base Class.
+	 */
+	public function add_btn_sizes_helper_link( Element_Base $element ) {
+		$element->start_injection(
+			array(
+				'of' => 'size',
+				'at' => 'after',
+			)
+		);
+
+		$element->add_control(
+			'ang_btn_sizes_helper_description',
+			array(
+				'raw'             => sprintf(
+					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
+					'analog.redirectToPanel( \'ang_buttons\' )',
+					__( 'Edit in Style Kits', 'ang' )
+				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)

@@ -69,9 +69,6 @@ class Local extends Base {
 			'/tokens/get'              => array(
 				WP_REST_Server::CREATABLE => 'get_token',
 			),
-			'/tokens/update'           => array(
-				WP_REST_Server::CREATABLE => 'update_token',
-			),
 			'/import/kit'              => array(
 				WP_REST_Server::CREATABLE => 'handle_kit_import',
 			),
@@ -274,12 +271,14 @@ class Local extends Base {
 			'post_content' => '',
 		);
 
+		$type = Utils::is_container() ? 'container' : 'section';
+
 		$post_id = wp_insert_post( $args );
 
 		if ( $post_id && ! is_wp_error( $post_id ) ) {
 			\update_post_meta( $post_id, '_elementor_data', wp_slash( wp_json_encode( $data['content'] ) ) );
 			\update_post_meta( $post_id, '_elementor_edit_mode', 'builder' );
-			\update_post_meta( $post_id, '_elementor_template_type', 'section' );
+			\update_post_meta( $post_id, '_elementor_template_type', $type );
 			\update_post_meta( $post_id, '_wp_page_template', 'default' );
 
 			\update_post_meta( $post_id, '_ang_import_type', $method );
@@ -292,7 +291,7 @@ class Local extends Base {
 				)
 			);
 
-			\wp_set_object_terms( $post_id, 'section', 'elementor_library_type' );
+			\wp_set_object_terms( $post_id, $type, 'elementor_library_type' );
 		}
 
 		return (int) $post_id;
@@ -508,35 +507,6 @@ class Local extends Base {
 			),
 			200
 		);
-	}
-
-	/**
-	 * Update a token.
-	 *
-	 * @param WP_REST_Request $request Request object.
-	 *
-	 * @return WP_REST_Response|WP_Error
-	 */
-	public function update_token( WP_REST_Request $request ) {
-		$id         = $request->get_param( 'id' );
-		$tokens     = $request->get_param( 'tokens' );
-		$current_id = $request->get_param( 'current_id' );
-
-		if ( ! $id ) {
-			return new WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'ang' ) );
-		}
-
-		$data = \update_post_meta( $id, '_tokens_data', wp_slash( $tokens ) );
-
-		do_action( 'analog/token/update', $id, $data );
-
-		// Update other posts using Style kit. Avoid updating Style kit itself when being edited.
-		if ( $id !== $current_id ) {
-			Utils::refresh_posts_using_stylekit( $tokens, $id, $current_id );
-			Utils::clear_elementor_cache();
-		}
-
-		return new WP_REST_Response( $data, 200 );
 	}
 
 	/**

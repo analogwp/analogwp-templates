@@ -8,9 +8,11 @@
 namespace Analog\Elementor;
 
 use Analog\Base;
+use Analog\Options;
 use Analog\Utils;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
+use Elementor\Repeater;
 
 /**
  * Class Promotions
@@ -28,6 +30,14 @@ final class Promotions extends Base {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_form_controls' ), 45, 2 );
 
 		add_action( 'analog_background_colors_tab_end', array( $this, 'add_background_color_accent_promo' ), 170, 1 );
+
+		add_action( 'analog_container_spacing_tabs_end', array( $this, 'add_additional_container_spacing_tabs_promo' ), 170, 2 );
+
+		add_action( 'analog_global_colors_tab_end', array( $this, 'add_additional_color_tabs_promo' ), 170, 2 );
+
+		add_action( 'analog_global_fonts_tab_end', array( $this, 'add_additional_font_tabs_promo' ), 170, 2 );
+
+		add_action( 'analog_box_shadows_tab_end', array( $this, 'add_additional_shadow_tabs_promo' ), 170, 2 );
 	}
 
 	/**
@@ -84,7 +94,7 @@ final class Promotions extends Base {
 		$element->start_controls_section(
 			'ang_forms_pro',
 			array(
-				'label' => _x( 'Forms (Extended)', 'Section Title', 'ang' ),
+				'label' => _x( 'Elementor Forms', 'Section Title', 'ang' ),
 				'tab'   => Utils::get_kit_settings_tab(),
 			)
 		);
@@ -109,6 +119,43 @@ final class Promotions extends Base {
 	}
 
 	/**
+	 * Register Shadows panel.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 * @return void
+	 */
+	public function register_shadow_controls( Controls_Stack $element, $section_id ) {
+		$element->start_controls_section(
+			'ang_shadows_pro',
+			array(
+				'label' => _x( 'Shadows', 'Section Title', 'ang' ),
+				'tab'   => Utils::get_kit_settings_tab(),
+			)
+		);
+
+		$element->add_control(
+			'ang_promo_shadows',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_teaser_template(
+					array(
+						'title'    => __( 'Shadow Presets', 'ang' ),
+						'messages' => array(
+							__( 'Offers controls to create box shadow presets, which then can be applied on widgets.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'panel-shadows' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_section();
+	}
+
+	/**
 	 * Get promotional teaser template.
 	 *
 	 * @since 1.6.0
@@ -118,16 +165,23 @@ final class Promotions extends Base {
 	 */
 	public function get_teaser_template( $texts ) {
 		ob_start();
+		$messages = $texts['messages'];
 		?>
 		<div class="elementor-nerd-box">
 			<img class="elementor-nerd-box-icon" style="width:45px;margin-right:0;" alt="Style Kits for Elementor" src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/analog.svg' ); ?>" />
+			<?php if ( isset( $texts['title'] ) && $texts['title'] ) : ?>
 			<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
-			<?php foreach ( $texts['messages'] as $message ) { ?>
-				<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
 				<?php
-			}
+			endif;
+			if ( ! empty( $messages ) ) :
+				foreach ( $messages as $message ) {
+					?>
+					<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+					<?php
+				}
+			endif;
 
-			if ( $texts['link'] ) {
+			if ( isset( $texts['link'] ) && $texts['link'] ) {
 				?>
 				<a
 					class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro"
@@ -137,6 +191,53 @@ final class Promotions extends Base {
 					<?php esc_html_e( 'Go Pro', 'ang' ); ?>
 				</a>
 			<?php } ?>
+		</div>
+		<?php
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * Get promotional teaser template (Updated).
+	 *
+	 * @since 1.9.3
+	 * @param array $texts Text arguments.
+	 *
+	 * @return false|string
+	 */
+	public function get_updated_teaser_template( $texts ) {
+		ob_start();
+		$messages = $texts['messages'];
+		?>
+		<div class="elementor-nerd-box" style="padding: 0; display: flex; align-items: baseline; gap: 10px; text-align: left;">
+			<div style="align-self: center;">
+
+				<?php
+				if ( isset( $texts['title'] ) && $texts['title'] ) :
+					?>
+					<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
+					<?php
+				endif;
+				if ( ! empty( $messages ) ) :
+					foreach ( $messages as $message ) {
+						?>
+						<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+						<?php
+					}
+				endif;
+
+				if ( isset( $texts['link'] ) && $texts['link'] ) {
+					?>
+					<a
+							class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro"
+							href="<?php echo esc_url( Utils::get_pro_link( $texts['link'] ) ); ?>"
+							style="background-color:var(--ang-accent)"
+							target="_blank">
+						<?php esc_html_e( 'Learn More', 'ang' ); ?>
+					</a>
+				<?php } ?>
+			</div>
+			<img class="elementor-nerd-box-icon" style="width:45px;margin-right:0;" alt="Style Kits for Elementor" src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/analog.svg' ); ?>" />
 		</div>
 		<?php
 
@@ -167,6 +268,224 @@ final class Promotions extends Base {
 							__( 'Enjoy better background color control in your layouts by adding a third background color class. Available in Style Kits Pro.', 'ang' ),
 						),
 						'link'     => array( 'utm_source' => 'panel-shortcuts' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+	}
+
+	/**
+	 * Modify original "Container Spacing" tabs.
+	 *
+	 * @hook analog_container_spacing_tabs_end
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 * @param Repeater       $repeater Elementor repeater element.
+	 */
+	public function add_additional_container_spacing_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
+		$element->start_controls_tab(
+			'ang_tab_container_spacing_secondary',
+			array( 'label' => __( '9-16', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_container_spacing_secondary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your container spacing system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-container-spacing' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+
+		$element->start_controls_tab(
+			'ang_tab_container_spacing_tertiary',
+			array( 'label' => __( '17-24', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_container_spacing_tertiary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your container spacing system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-container-spacing' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+	}
+
+	/**
+	 * Modify original "Style Kit Colors" tabs.
+	 *
+	 * @hook analog_global_colors_tab_end
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 * @param Repeater       $repeater Elementor repeater element.
+	 */
+	public function add_additional_color_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
+		$element->start_controls_tab(
+			'ang_tab_global_colors_secondary',
+			array( 'label' => __( '17-32', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_global_colors_secondary_tab_promo',
+			array(
+				'type'      => Controls_Manager::RAW_HTML,
+				'raw'       => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your color system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-global-colors' ),
+					)
+				),
+				'separator' => 'before',
+			)
+		);
+
+		$element->end_controls_tab();
+
+		$element->start_controls_tab(
+			'ang_tab_global_colors_tertiary',
+			array( 'label' => __( '33-48', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_global_colors_tertiary_tab_promo',
+			array(
+				'type'      => Controls_Manager::RAW_HTML,
+				'raw'       => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your color system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-global-colors' ),
+					)
+				),
+				'separator' => 'before',
+			)
+		);
+
+		$element->end_controls_tab();
+	}
+
+	/**
+	 * Modify original "Style Kit Fonts" tabs.
+	 *
+	 * @hook analog_global_fonts_tab_end
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 * @param Repeater       $repeater Elementor repeater element.
+	 */
+	public function add_additional_font_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
+		$element->start_controls_tab(
+			'ang_tab_global_fonts_secondary',
+			array( 'label' => __( '17-32', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_global_fonts_secondary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your typography system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-global-fonts' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+
+		$element->start_controls_tab(
+			'ang_tab_global_fonts_tertiary',
+			array( 'label' => __( '33-48', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_global_fonts_tertiary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your typography system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-global-fonts' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+	}
+
+	/**
+	 * Modify original "Style Kit Shadows" tabs.
+	 *
+	 * @hook analog_box_shadows_tab_end
+	 *
+	 * @param Controls_Stack $element Elementor element.
+	 * @param Repeater       $repeater Elementor repeater element.
+	 */
+	public function add_additional_shadow_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
+		$element->start_controls_tab(
+			'ang_tab_box_shadows_secondary',
+			array( 'label' => __( '9-16', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_box_shadows_secondary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your shadows system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-box-shadows' ),
+					)
+				),
+			)
+		);
+
+		$element->end_controls_tab();
+
+		$element->start_controls_tab(
+			'ang_tab_box_shadows_tertiary',
+			array( 'label' => __( '17-24', 'ang' ) )
+		);
+
+		$element->add_control(
+			'ang_box_shadows_tertiary_tab_promo',
+			array(
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => $this->get_updated_teaser_template(
+					array(
+						'messages' => array(
+							__( 'Extend your shadows system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+						),
+						'link'     => array( 'utm_source' => 'ang-box-shadows' ),
 					)
 				),
 			)

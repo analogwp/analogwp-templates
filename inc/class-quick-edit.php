@@ -54,6 +54,15 @@ class Quick_Edit extends Base {
 	 * @return void
 	 */
 	protected function update_posts_stylekit( $post_id, $kit_id ) {
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+
+		if ( ! check_admin_referer( plugin_basename( __FILE__ ), 'ang_sk_update_nonce' ) ) {
+			return;
+		}
+
 		if ( ! $kit_id || '-1' === $kit_id ) {
 			return;
 		}
@@ -156,14 +165,6 @@ class Quick_Edit extends Base {
 	 * @return void
 	 */
 	public function quick_edit_save( $post_id ) {
-		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			return;
-		}
-
-		if ( isset( $_POST['ang_sk_update_nonce'] ) && ! wp_verify_nonce( $_POST['ang_sk_update_nonce'], plugin_basename( __FILE__ ) ) ) { // phpcs:ignore
-			return;
-		}
-
 		if ( isset( $_POST['ang_stylekit'] ) && '-1' !== $_POST['ang_stylekit'] ) {
 			$this->update_posts_stylekit( $post_id, $_POST['ang_stylekit'] ); // phpcs:ignore
 		}
@@ -199,8 +200,14 @@ class Quick_Edit extends Base {
 		$kit_id   = ( isset( $_POST['kit_id'] ) && ! empty( $_POST['kit_id'] ) ) ? $_POST['kit_id'] : false; // phpcs:ignore
 
 		if ( ! empty( $post_ids ) && is_array( $post_ids ) && $kit_id ) {
+			// Exit early in case the kit_id provided is not a valid kit.
+			if ( ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
+				return;
+			}
+
+			// Loop through each post and save updated kit.
 			foreach ( $post_ids as $post_id ) {
-				if ( User::is_current_user_can_edit( $post_id ) && Plugin::elementor()->db->is_built_with_elementor( $post_id ) ) {
+				if ( User::is_current_user_can_edit( $post_id ) && Plugin::elementor()->documents->get( $post_id )->is_built_with_elementor() ) {
 					$this->update_posts_stylekit( $post_id, $kit_id );
 				}
 			}

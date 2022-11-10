@@ -3,27 +3,29 @@
  * Plugin main file.
  *
  * @package     Analog
- * @copyright   2019-2020 Dashwork Studio Pvt. Ltd.
+ * @copyright   2019-2022 Dashwork Studio Pvt. Ltd.
  * @link        https://analogwp.com
  *
  * @wordpress-plugin
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits extends the Elementor theme styles editor with more global styling options. Boost your design workflow in Elementor with intuitive global controls and theme style presets.
- * Version:     1.7.5
+ * Version:     1.9.5
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: ang
+ * Elementor tested up to: 3.8.0
+ * Elementor Pro tested up to: 3.8.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ANG_ELEMENTOR_MINIMUM', '3.0.0' );
+define( 'ANG_ELEMENTOR_MINIMUM', '3.5.0' );
 define( 'ANG_PHP_MINIMUM', '5.6.0' );
-define( 'ANG_WP_MINIMUM', '5.0' );
-define( 'ANG_VERSION', '1.7.5' );
+define( 'ANG_WP_MINIMUM', '5.2' );
+define( 'ANG_VERSION', '1.9.5' );
 define( 'ANG_PLUGIN_FILE', __FILE__ );
 define( 'ANG_PLUGIN_URL', plugin_dir_url( ANG_PLUGIN_FILE ) );
 define( 'ANG_PLUGIN_DIR', plugin_dir_path( ANG_PLUGIN_FILE ) );
@@ -89,15 +91,17 @@ function analog_fail_wp_version() {
  * @return mixed
  */
 function analog_require_minimum_elementor() {
+	$file_path = 'elementor/elementor.php';
+
 	$link = add_query_arg(
 		array(
 			'action' => 'upgrade-plugin',
-			'plugin' => 'elementor/elementor.php',
+			'plugin' => $file_path,
 		),
-		self_admin_url( 'update.php' )
+		admin_url( 'update.php' )
 	);
 
-	$update_url = wp_nonce_url( $link );
+	$update_url = wp_nonce_url( $link, 'upgrade-plugin_' . $file_path );
 
 	/* translators: %s: Minimum required Elementor version. */
 	$message = '<p>' . sprintf( __( 'Style Kits requires Elementor v%s or newer in order to work. Please update Elementor to the latest version.', 'ang' ), ANG_ELEMENTOR_MINIMUM ) . '</p>';
@@ -140,36 +144,17 @@ function analog_fail_load() {
 	$is_not_activated = false;
 	$is_not_installed = false;
 
-	if ( version_compare( get_bloginfo( 'version' ), '5.5', 'gt' ) ) {
-		$request  = new WP_REST_Request( 'GET', '/wp/v2/plugins/elementor/elementor' );
-		$response = rest_do_request( $request );
+	if ( ! function_exists( 'get_plugins' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+	}
 
-		if ( $response->is_error() ) {
-			echo '<div class="error"><p>' . esc_html__( 'An error occurred while checking Elementor is Installed/Activated', 'ang' ) . '</p></div>';
-			return;
-		}
+	$installed_plugins = get_plugins();
+	$elementor         = isset( $installed_plugins[ $file_path ] );
 
-		$server = rest_get_server();
-		$data   = $server->response_to_data( $response, false );
-
-		if ( ! empty( $data['status'] ) && 'inactive' === $data['status'] ) {
-			$is_not_activated = true;
-		} elseif ( ! empty( $data['data']['status'] ) && 404 === $data['data']['status'] ) {
-			$is_not_installed = true;
-		}
+	if ( $elementor ) {
+		$is_not_activated = true;
 	} else {
-		if ( ! function_exists( 'get_plugins' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		$installed_plugins = get_plugins();
-		$elementor         = isset( $installed_plugins[ $file_path ] );
-
-		if ( $elementor ) {
-			$is_not_activated = true;
-		} else {
-			$is_not_installed = true;
-		}
+		$is_not_installed = true;
 	}
 
 	if ( $is_not_activated ) {
@@ -191,6 +176,13 @@ function analog_fail_load() {
 	}
 
 	echo '<div class="error"><p>' . $message . '</p></div>'; // @codingStandardsIgnoreLine
+}
+
+// Third party dependencies.
+$vendor_file = __DIR__ . '/third-party/vendor/scoper-autoload.php';
+
+if ( is_readable( $vendor_file ) ) {
+	require_once $vendor_file;
 }
 
 /**

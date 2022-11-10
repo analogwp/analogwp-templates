@@ -8,11 +8,12 @@
 namespace Analog;
 
 use Analog\Elementor\ANG_Action;
-use Analog\Elementor\Google_Fonts;
+use Analog\Elementor\Globals\Controller;
 use Elementor\Core\Common\Modules\Finder\Categories_Manager;
 use Elementor\Core\DynamicTags\Manager;
 use Analog\Elementor\Tags\Light_Background;
 use Analog\Elementor\Tags\Dark_Background;
+use Elementor\TemplateLibrary\Source_Local as Local;
 
 /**
  * Intializes scripts/styles needed for AnalogWP modal on Elementor editing page.
@@ -28,15 +29,14 @@ class Elementor {
 		add_action( 'wp_ajax_elementor_library_direct_actions', array( $this, 'maybe_add_elementor_data' ) );
 
 		add_action(
-			'elementor/finder/categories/init',
+			'elementor/finder/register',
 			static function ( Categories_Manager $categories_manager ) {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
-
-				$categories_manager->add_category( 'ang-shortcuts', new Finder_Shortcuts() );
+				$categories_manager->register( new Finder_Shortcuts(), 'ang-shortcuts' );
 			}
 		);
 
-		add_action( 'elementor/controls/controls_registered', array( $this, 'register_controls' ) );
+		add_action( 'elementor/controls/register', array( $this, 'register_controls' ) );
 
 		add_action(
 			'elementor/dynamic_tags/register_tags',
@@ -52,23 +52,38 @@ class Elementor {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-dark-background.php';
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/tags/class-light-background.php';
 
-				$dynamic_tags->register_tag( Light_Background::class );
-				$dynamic_tags->register_tag( Dark_Background::class );
+				$dynamic_tags->register( new Light_Background() );
+				$dynamic_tags->register( new Dark_Background() );
+
 			}
 		);
 
-		add_filter(
-			'elementor/fonts/additional_fonts',
-			static function( $additional_fonts ) {
-				$fonts = Google_Fonts::get_google_fonts();
+		add_action( 'elementor/template-library/after_save_template', array( $this, 'fix_kit_import' ), 999, 2 );
 
-				if ( count( $fonts ) ) {
-					$additional_fonts = array_merge( $additional_fonts, $fonts );
-				}
+		$this->register_data_controllers();
+	}
 
-				return $additional_fonts;
+	/**
+	 * Register custom Elementor REST data controllers.
+	 *
+	 * @return void
+	 */
+	public function register_data_controllers() {
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/globals/class-controller.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/globals/class-colors.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/globals/class-typography.php';
+
+		add_action(
+			'elementor/editor/init',
+			function() {
+				/**
+				 * Set current page id.
+				 */
+				Options::get_instance()->set( 'ang_current_page_id', get_the_ID() );
 			}
 		);
+
+		Plugin::elementor()->data_manager_v2->register_controller( new Controller() );
 	}
 
 	/**
@@ -78,7 +93,8 @@ class Elementor {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-ang-action.php';
 
 		$controls_manager = Plugin::elementor()->controls_manager;
-		$controls_manager->register_control( 'ang_action', new ANG_Action() );
+
+		$controls_manager->register( new ANG_Action() );
 	}
 
 	/**
@@ -117,14 +133,13 @@ class Elementor {
 
 		wp_enqueue_style( 'wp-components' );
 
-		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', array(), '20190716' );
+		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap', array(), '20221016' );
 
 		$i10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
 			array(
 				'is_settings_page' => false,
 				'global_kit'       => get_option( 'elementor_active_kit' ),
-				'stylekit_queue'   => Utils::get_stylekit_queue() ? array_values( Utils::get_stylekit_queue() ) : array(),
 			)
 		);
 
@@ -152,6 +167,23 @@ class Elementor {
 					update_post_meta( $template_id, '_elementor_data', $kit->get_kit_content() );
 				}
 			}
+		}
+	}
+
+	/**
+	 * Fixes kit imports.
+	 *
+	 * @param int   $id Template id.
+	 * @param array $data Template data.
+	 *
+	 * @return void
+	 */
+	public function fix_kit_import( $id, $data ) {
+		if ( ! empty( $data['type'] ) && 'kit' === $data['type'] ) {
+			$post_data['ID']        = $id;
+			$post_data['post_type'] = Local::CPT;
+
+			wp_update_post( $post_data );
 		}
 	}
 }

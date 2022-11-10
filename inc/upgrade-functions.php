@@ -8,6 +8,7 @@
 
 namespace Analog\Upgrade;
 
+use Analog\Admin\Notice;
 use Analog\Core\Util\Migration;
 use Analog\Plugin;
 use Analog\Utils;
@@ -19,7 +20,7 @@ use Analog\Options;
 /**
  * Perform automatic upgrades when necessary.
  *
- * @deprecated n.e.x.t Use class Database_Upgrader instead.
+ * @deprecated 1.8.0 Use class Database_Upgrader instead.
  *
  * @return void
  */
@@ -112,10 +113,6 @@ function do_automatic_upgrades() {
 		 && ! Options::get_instance()->get( 'theme_style_kit_migrated' )
 	) {
 		version_1_6_0_upgrades();
-
-		// Redirect to onboarding page.
-		wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
-		exit;
 	}
 
 	if ( version_compare( $installed_version, '1.6.3', '<' ) ) {
@@ -132,6 +129,38 @@ function do_automatic_upgrades() {
 
 	if ( version_compare( $installed_version, '1.6.8', '<' ) ) {
 		Utils::clear_elementor_cache();
+	}
+
+	if ( version_compare( $installed_version, '1.9.3', '<' ) ) {
+		version_1_9_3_upgrades();
+	}
+
+	if ( version_compare( $installed_version, '1.9.5', '<' ) ) {
+		version_1_9_5_upgrades();
+	}
+
+	// Dismissible sticky notice for v1.9.5.
+	if ( version_compare( ANG_VERSION, '1.9.5', '=' ) ) {
+		// Add notice.
+		add_filter(
+			'analog_admin_notices',
+			function( $notices ) {
+				$notices[] = new Notice(
+					'update_success',
+					array(
+						'content'     => sprintf(
+							'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
+							__( 'Welcome to Style Kits 1.9.5. This version includes a brand new container-based pattern library, and a lot of other improvements.', 'ang' ),
+							'https://analogwp.com/stylekits-195/',
+							__( 'See what’s new.', 'ang' )
+						),
+						'type'        => Notice::TYPE_INFO,
+						'dismissible' => true,
+					)
+				);
+				return $notices;
+			}
+		);
 	}
 
 	if ( $did_upgrade ) {
@@ -566,4 +595,138 @@ function version_1_6_6_upgrades() {
 		$posts_using_different_kit = Utils::posts_using_stylekit( $kit_id );
 		$fix_osp( $posts_using_different_kit );
 	}
+}
+
+/**
+ * Version 1.9.3 upgrades.
+ *
+ * Migrate existing set controls to load with new additional defaults.
+ *
+ * @since 1.9.3
+ * @return void|bool
+ */
+function version_1_9_3_upgrades() {
+
+	$migration_keys = array(
+		'ang_box_shadows',
+		'ang_container_padding',
+	);
+
+	$all_kits = \Analog\Utils::get_kits();
+
+	foreach ( $all_kits as $id => $title ) {
+		// Check if this is a valid kit or not.
+		if ( ! Plugin::elementor()->kits_manager->is_kit( $id ) ) {
+			return false;
+		}
+
+		$kit = Plugin::elementor()->documents->get_doc_for_frontend( $id );
+
+		// Use raw settings that doesn't have default values.
+		$kit_raw_settings = $kit->get_data( 'settings' );
+
+		foreach ( $migration_keys as $control_key ) {
+			if ( ! isset( $kit_raw_settings[ $control_key ] ) ) {
+				continue;
+			}
+
+			$existing_controls = $kit_raw_settings[ $control_key ];
+			$control           = $kit->get_controls( $control_key );
+
+			$default_controls = $control['default'];
+			$updated_settings = $default_controls;
+
+			foreach ( $existing_controls as $ex_control ) {
+				foreach ( $default_controls as $key => $default_control ) {
+					if ( $ex_control['_id'] === $default_control['_id'] ) {
+						$updated_settings[ $key ] = $ex_control;
+					}
+				}
+			}
+
+			$kit_raw_settings[ $control_key ] = $updated_settings;
+		}
+
+		$data = array(
+			'settings' => $kit_raw_settings,
+		);
+
+		$kit->save( $data );
+	}
+}
+
+/**
+ * Version 1.9.5 upgrades.
+ *
+ * Migrate existing set controls to load with new additional defaults.
+ *
+ * @since 1.9.5
+ * @return void|bool
+ */
+function version_1_9_5_upgrades() {
+
+	// Settings to migrate.
+	$migration_keys = array(
+		'ang_container_padding',
+		// Global colors.
+		'ang_global_background_colors',
+		'ang_global_accent_colors',
+		'ang_global_text_colors',
+		'ang_global_extra_colors',
+		// Global typography.
+		'ang_global_title_fonts',
+		'ang_global_text_fonts',
+	);
+
+	$all_kits = \Analog\Utils::get_kits();
+
+	foreach ( $all_kits as $id => $title ) {
+		// Check if this is a valid kit or not.
+		if ( ! Plugin::elementor()->kits_manager->is_kit( $id ) ) {
+			return false;
+		}
+
+		$kit = Plugin::elementor()->documents->get_doc_for_frontend( $id );
+
+		// Use raw settings that doesn't have default values.
+		$kit_raw_settings = $kit->get_data( 'settings' );
+
+		foreach ( $migration_keys as $control_key ) {
+			if ( ! isset( $kit_raw_settings[ $control_key ] ) ) {
+				continue;
+			}
+
+			$existing_controls = $kit_raw_settings[ $control_key ];
+			$control           = $kit->get_controls( $control_key );
+
+			$default_controls = $control['default'];
+			$updated_settings = $default_controls;
+
+			// Loop over existing set controls.
+			foreach ( $existing_controls as $ex_control ) {
+				// Loop over default controls.
+				foreach ( $default_controls as $key => $default_control ) {
+					// If existing control id matches with default control id.
+					if ( $ex_control['_id'] === $default_control['_id'] ) {
+						// Then we loop over existing single control keys.
+						foreach ( $ex_control as $id => $value ) {
+							// We set the existing value.
+							$updated_settings[ $key ][ $id ] = $value;
+						}
+					}
+				}
+			}
+
+			$kit_raw_settings[ $control_key ] = $updated_settings;
+		}
+
+		$data = array(
+			'settings' => $kit_raw_settings,
+		);
+
+		$kit->save( $data );
+	}
+
+	// Regenerate Elementor CSS.
+	Utils::clear_elementor_cache();
 }

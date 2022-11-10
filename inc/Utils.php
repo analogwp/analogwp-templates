@@ -8,7 +8,6 @@
 namespace Analog;
 
 use Analog\Core\Storage\Transients;
-use Elementor\Controls_Manager;
 use Elementor\Core\Base\Document;
 use Elementor\Core\Kits\Manager;
 use Elementor\TemplateLibrary\Source_Local;
@@ -288,97 +287,6 @@ class Utils extends Base {
 		wp_reset_postdata();
 
 		return $posts;
-	}
-
-	/**
-	 * Refresh all posts using a specific Style Kit.
-	 *
-	 * @param array $token Token/Style Kit data.
-	 * @param bool  $kit_id Style Kit ID.
-	 * @param bool  $current_id ID of post being edited.
-	 *
-	 * @since 1.2.3
-	 *
-	 * @return bool
-	 */
-	public static function refresh_posts_using_stylekit( $token, $kit_id = false, $current_id = false ) {
-		if ( self::get_global_kit_id() === (int) $kit_id ) {
-			$posts = self::posts_using_stylekit();
-		} else {
-			$posts = self::posts_using_stylekit( $kit_id );
-		}
-
-		// Return early if there aren't any posts.
-		if ( ! $posts ) {
-			return false;
-		}
-
-		foreach ( $posts as $post_id ) {
-			if ( (int) $current_id === $post_id ) {
-				continue;
-			}
-
-			self::add_to_stylekit_queue( $post_id );
-
-			$tokens = json_decode( $token, ARRAY_A );
-
-			$tokens['ang_action_tokens'] = $kit_id;
-
-			self::update_style_kit_for_post( $post_id, $tokens );
-		}
-
-		return true;
-	}
-
-	/**
-	 * Add a post to Stylekit queue.
-	 *
-	 * A style kit queue holds an array of posts
-	 * that needs their style kit data refreshed.
-	 *
-	 * @since 1.2.3
-	 * @param int $posts Post ID.
-	 *
-	 * @return void
-	 */
-	public static function add_to_stylekit_queue( $posts ) {
-		$queue = Options::get_instance()->get( 'stylekit_refresh_queue' );
-
-		if ( ! $queue ) {
-			$queue = array();
-		}
-
-		$queue[] = $posts;
-
-		Options::get_instance()->set( 'stylekit_refresh_queue', array_unique( $queue ) );
-	}
-
-	/**
-	 * Remove a post from Stylekit.
-	 *
-	 * @param int $item Post ID.
-	 * @since 1.2.3
-	 * @return void
-	 */
-	public static function remove_from_stylekit_queue( $item ) {
-		$queue = Options::get_instance()->get( 'stylekit_refresh_queue' );
-		$key   = array_search( (int) $item, $queue, true );
-
-		if ( false !== $key ) {
-			unset( $queue[ $key ] );
-		}
-
-		Options::get_instance()->set( 'stylekit_refresh_queue', $queue );
-	}
-
-	/**
-	 * Get a list of posts in style kit queue.
-	 *
-	 * @since 1.2.3
-	 * @return array|bool
-	 */
-	public static function get_stylekit_queue() {
-		return Options::get_instance()->get( 'stylekit_refresh_queue' );
 	}
 
 	/**
@@ -767,11 +675,64 @@ class Utils extends Base {
 	}
 
 	/**
+	 * Get Kit active on document.
+	 *
+	 * @since 1.9.5
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @return mixed
+	 */
+	public static function get_document_kit_id( $post_id ) {
+		// Exit early if no post id provided.
+		if ( ! $post_id ) {
+			return false;
+		}
+
+		$document = Plugin::elementor()->documents->get_doc_for_frontend( $post_id );
+		$kit_id   = $document->get_settings( 'ang_action_tokens' );
+
+		// Check if this is a valid kit or not.
+		if ( ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
+			return false;
+		}
+
+		return $kit_id;
+	}
+
+
+	/**
+	 * Get Kit active on document.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @return mixed
+	 */
+	public static function get_document_kit( $post_id ) {
+		// Exit early if no post id provided.
+		if ( ! $post_id ) {
+			return false;
+		}
+
+		$document = Plugin::elementor()->documents->get_doc_for_frontend( $post_id );
+		$kit_id   = $document->get_settings( 'ang_action_tokens' );
+
+		// Check if this is a valid kit or not.
+		if ( ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
+			return false;
+		}
+
+		return Plugin::elementor()->documents->get_doc_for_frontend( $kit_id );
+	}
+
+	/**
 	 * Check if the installed version of Elementor is older than a specified version.
 	 *
 	 * @param string $version Version number.
 	 *
-	 * @since n.e.x.t
+	 * @since 1.8.0
 	 *
 	 * @return bool
 	 */
@@ -791,13 +752,89 @@ class Utils extends Base {
 	 * @return string
 	 */
 	public static function get_kit_settings_tab() {
-		if ( self::is_elementor_pre( '3.0' ) ) {
-			$tab = Controls_Manager::TAB_STYLE;
-		} else {
-			$tab = 'theme-style-kits';
-		}
+		$tab = 'theme-style-kits';
 
 		return $tab;
+	}
+
+	/**
+	 * Get the current kit ID.
+	 *
+	 * @param $id int
+	 *
+	 * @return bool
+	 */
+	public static function set_elementor_active_kit( $id ) {
+		$default_kit       = Options::get_instance()->get( 'global_kit' );
+		$elementor_kit_key = Manager::OPTION_ACTIVE;
+		$elementor_kit     = \get_option( $elementor_kit_key );
+
+		if ( $id !== $default_kit || $id !== $elementor_kit ) {
+			if ( empty( $id ) || '-1' === $id ) {
+				\update_option( $elementor_kit_key, Options::get_instance()->get( 'default_kit' ) );
+			}
+
+			\update_option( $elementor_kit_key, $id );
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns true if Elementor Container experiment is on.
+	 *
+	 * @return bool
+	 */
+	public static function is_elementor_container() {
+		$flexbox_container           = get_option( 'elementor_experiment-container' );
+		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
+
+		if ( 'default' === $flexbox_container ) {
+			$experiments                 = new \Elementor\Core\Experiments\Manager();
+			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
+		}
+
+		if ( ! $is_flexbox_container_active ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Returns true if Container experiment is on.
+	 *
+	 * @return bool
+	 */
+	public static function is_container() {
+		$sk_container_lib = Options::get_instance()->get( 'container_library_experiment' );
+
+		if ( self::is_elementor_container() && ( 'default' === $sk_container_lib || false === $sk_container_lib ) ) {
+			return true;
+		}
+
+		return 'active' === $sk_container_lib;
+	}
+
+	/**
+	 * Returns true if the Pro plugin is active.
+	 *
+	 * @return bool
+	 */
+	public static function has_pro() {
+		return defined( 'ANG_PRO_PLUGIN_BASE' );
+	}
+
+	/**
+	 * Returns true if Pro license is active.
+	 *
+	 * @return bool
+	 */
+	public static function is_pro() {
+		$status = Options::get_instance()->get( 'ang_license_key_status' );
+		return self::has_pro() && 'valid' === $status;
 	}
 }
 

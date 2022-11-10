@@ -1,9 +1,9 @@
 === Style Kits - Advanced Theme Styles for Elementor ===
 Contributors: analogwp, mauryaratan
-Requires at least: 5.0
+Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 5.5.1
-Stable tag: 1.7.5
+Tested up to: 6.1
+Stable tag: 1.9.5
 Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -76,9 +76,6 @@ Yes, you can. You can use the templates in any number of personal or client proj
 = What are Style Kits? =
 Style Kits (since v1.2) is a collection of the custom Typography and Spacing styles that you have added to your templates, which can be reused with other templates, making the process of creating new templates a lot easier.
 
-= How frequently do you add new designs? =
-We try to follow a consistent release cycle of two templates per week.
-
 = Will the templates work with my theme? =
 Definitely, given that you have Elementor in your theme setup, the templates will get imported and work just fine.
 
@@ -108,6 +105,114 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.9.5 - November 04, 2022 =
+* New: Container-based Pattern library experiment
+* New: Library UI v2
+* New: Style Kit Global Colors and Fonts now in stable
+* New: Default labels and values for Global Colors, Fonts, Container Spacing and Shadows
+* New: Add SVG support and toggle at settings
+* Improvements: Define Global Style Kit on the new Local Style Kits page
+* Improvements: Migrate existing Global Colors, Fonts, and Container Spacing with new defaults and format
+* Improvements: Remove outdated onboarding screen
+* Improvements: Improved loading sequence when switching Style Kits on pages
+* Improvements: Add Box shadows control to Image widget borders
+* Improvements: Unused code cleanup
+* Improvements: PHP 8 Compatibility
+* Improvements: Compatibility with Elementor v3.8.0 & Elementor Pro v3.8.0
+* Improvements: Compatible up to WordPress v6.1
+* Fix: Quick edit and bulk quick edit for applying Style Kits
+* Fix: Plugin throwing warning at activation when Elementor is not installed/active
+* Fix: Update Box shadows CSS classes in support with Elementor v3.8.0
+* Fix: Rating notice appearing on new installs
+
+= 1.9.4 - August 31, 2022 =
+* Fix: Potential fatal error at custom kit usage checker (props to Mark Westguard)
+* Fix: Promotions teaser template warnings (props to Mayur Thakkkar)
+* Improvements: Compatibility with Elementor v3.7.3 & Elementor Pro v3.7.4
+* Improvements: Compatible up to WordPress v6.0.2
+
+= 1.9.3 - August 26, 2022 =
+* New: Additional controls for Global fonts and colors in a tabbed layout
+* New: Additional Container Spacing controls in a tabbed layout
+* New: Global Shadow presets now in Style Kits free
+* New: Show a redirect hint to Container Spacing at Elementor Layout site settings
+* Improvements: Update Container Spacing presets to work with the new Default Elementor padding
+* Improvements: Conditionally only load Container Spacing and Shadow presets with values at widgets
+* Improvements: Migrates old Shadows and Container Spacing controls to the new multi-tab controls
+* Improvements: Compatibility with Elementor v3.7.2 & Elementor Pro v3.7.3
+* Improvements: Compatible up to WordPress v6.0.1
+* Fix: Background classes presets not working
+* Fix: `elementorDevTools` notice at console due to deprecated $control_id param at Control registrations
+* Fix: Section redirect script at Site settings
+* Fix: Kit reset action not working
+
+= 1.9.2 - June 24, 2022 =
+* New: Added Kit sizes helper links at Heading & Button widgets
+* New: Added default values for Container spacing presets
+* Improvements: Show Style Kit colors & fonts links at Contextual popup with respect to active experiments
+* Improvements: Reset actions now directly take you to their respected sections
+* Improvements: Remove section titles & revise labels from Style Kit fonts
+* Improvements: Remove section titles from Style Kit colors
+* Fix: Style Kit font presets reset button not working
+* Fix: Contextual links now directly take you to their respected sections
+
+= 1.9.1 - June 18, 2022 =
+* New: Add "Edit Style Kit Fonts" link to the context menu
+* New: Add "Edit Style Kit Colors" link to the context menu
+* New: Added Container Background Classes experiment to stable
+* Experiments: Added Style Kits Global Fonts experiment
+* Experiments: Added Style Kits Global Colors experiment
+* Improvements: Rename Style Kit's last section to "Manage Style Kit"
+* Improvements: Compatibility with Elementor v3.6.6 & Elementor Pro v3.7.2
+* Improvements: Compatible up to WordPress v6.0
+* Fix: Kit Settings section redirect not working
+
+= 1.9.0 - May 11, 2022 =
+* New: Added Experiments tab at Style Kits Settings
+* Experiments: Added Flexbox Container Padding control presets to tweak container padding
+* Experiments: Added Flexbox Container Style Kits Background Classes preset to tweak container styles
+* Fix: Elementor kit imports not working
+* Improvements: Compatibility with Elementor v3.6.5 and Elementor Pro v3.7.0
+
+= 1.8.5 - April 13, 2022 =
+* Fix: Editor not loading due to a deprecated class (h/t Ryan HS#5914 )
+* Fix: Improve CSS export handling using the newer Clipboard API with backwards compat
+* Improvements: Compatibility with Elementor v3.6.3 & Elementor Pro v3.6.5
+* Improvements: Compatible upto WordPress v5.9.3
+
+= 1.8.4 - Feb 08, 2022 =
+* Fix: Template imports not working
+* Improvements: Compatibility with Elementor Pro v3.6+
+
+= 1.8.3 - Jan 24, 2022 =
+* New: Compatible up to WordPress v5.9
+* New: Elementor required version is now v3.5+
+* Fix: Column gaps not working with fresh installs and Optimized DOM feature
+* Fix: Required Elementor version notice update link not working
+* Improvements: Compatibility with Elementor v3.5+ & Elementor Pro v3.5.2
+* Improvements: Remove unused Google fonts class
+
+= 1.8.2 - June 14, 2021 =
+* New: Compatible up to WordPress v5.7.2
+* Fix: Kit re-saving control not working as expected
+* Improvements: Fix fatal error at search/archive pages for Elementor based pages (h/t Anthony HS#5639)
+* Improvements: Compatibility with Elementor v3.2+ & Elementor Pro v3.3
+
+= 1.8.1 - Feb 12, 2021 =
+* Fix: Issue with nonce verification when quick editing a post/page
+
+= 1.8.0 - Jan 30, 2021 =
+* New: Self updating Google fonts library, updated every 24 hours
+* Fix: Horizontal line glitch in template library at Elementor editor popup
+* Fix: Fix Elementor menus not showing up at site settings
+* Improvements: Added Elementor 3.1 compatibility tags
+* Improvements: Detect DOM optimization key in Elementor 3.1 and prior version to work accordingly
+
+= 1.7.6 - Nov 26, 2020 =
+* New: Compatible up to WordPress 5.6
+* Fix: Increase "Theme Style" button background color class priority
+* Fix: Increase "Theme Style" link CSS priority
 
 = 1.7.5 - Oct 29, 2020 =
 * New: Theme Style Kits list now shows the respective pages using the specific Kit
@@ -513,3 +618,6 @@ Fixes an bug with inconsistent Outer Section Padding on Sections
 
 = 1.7.0 =
 Requires Elementor v3.0+, adds compatibility and redesigned library
+
+= 1.9.0 =
+Introduce two new Experiments (found under Settings), and kit import bug fix.

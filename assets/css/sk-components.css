@@ -72,19 +72,20 @@
 #analogwp-templates .inner-popup-content .form-row,
 #analogwp-blocks .inner-popup-content .form-row {
 	display: flex;
-	align-items: baseline;
+	align-items: center;
 }
 
 #analogwp-templates .pro-modal-container,
 #analogwp-blocks .pro-modal-container {
-	background: var(--ang-accent);
-color: #fff;
-padding: 20px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 24px;
-border-radius: 6px;
+	background: var(--ang-sec-bg);
+	color: var(--ang-main-text);
+	padding: 8px 8px;
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	align-items: center;
+	margin-bottom: 24px;
+	border-radius: 6px;
 }
 
 #analogwp-templates .pro-modal-container p,
@@ -96,6 +97,28 @@ border-radius: 6px;
 #analogwp-templates .pro-modal-container span,
 #analogwp-blocks .pro-modal-container span {
 	font-weight: bold;
+}
+
+#analogwp-templates .pro-modal-container button,
+#analogwp-blocks .pro-modal-container button {
+	border: 3px solid transparent;
+	background: var(--ang-primary);
+	border-radius: 6px;
+	padding: 0;
+	box-shadow: none;
+}
+
+#analogwp-templates .pro-modal-container button:active,
+#analogwp-blocks .pro-modal-container button:active {
+	background: transparent;
+}
+
+#analogwp-templates .pro-modal-container a,
+#analogwp-blocks .pro-modal-container a {
+	display: inline-block;
+	font-weight: bold;
+	text-decoration: underline;
+	color: var(--ang-main-text);
 }
 
 #analogwp-templates .notifications-container,
@@ -249,7 +272,7 @@ border-radius: 6px;
 	width: 13px;
 	height: 13px;
 	border-radius: 50%;
-	background: var(--ang-accent);
+	background: var(--ang-primary);
 	animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 
@@ -306,6 +329,66 @@ border-radius: 6px;
 
 #analogwp-templates .components-external-link,
 #analogwp-blocks .components-external-link {
-	color: var(--ang-accent);
+	color: var(--ang-primary);
 	text-decoration: none;
+}
+
+/**
+ * Container spacing control repeater styles.
+ */
+
+.elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields,
+.elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-fields,
+.elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-fields,
+.elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields {
+	margin-bottom: 25px;
+	display: flex;
+}
+
+.elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled,
+.elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled,
+.elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled,
+.elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove--disabled {
+	display: none;
+}
+
+.elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-tool-remove {
+	position: absolute;
+	z-index: 999;
+	top: -1px;
+	left: 136px;
+}
+
+.elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-row-controls,
+.elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-row-controls,
+.elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-row-controls,
+.elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-row-controls {
+	flex-direction: column;
+	gap: 8px;
+	align-items: flex-start;
+}
+
+.elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers,
+.elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers,
+.elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers,
+.elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers {
+	top: -35px;
+	left: 135px;
+	position: absolute;
+	margin: 0;
+}
+
+.elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-control-responsive-switchers {
+	left: 162px;
+}
+
+.elementor-control.elementor-control-ang_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices,
+.elementor-control.elementor-control-ang_container_padding_secondary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices,
+.elementor-control.elementor-control-ang_container_padding_tertiary.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices,
+.elementor-control.elementor-control-ang_custom_container_padding.elementor-control-type-global-style-repeater .elementor-repeater-fields .elementor-control-type-dimensions.elementor-control-separator-default .elementor-units-choices {
+	margin-top: -50px;
+}
+
+.elementor-control.elementor-control-ang_container_padding {
+	padding-bottom: 0;
 }
