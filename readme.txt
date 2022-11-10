@@ -8,44 +8,55 @@ Tags: elementor, templates, landing page, template kit, design, website builder,
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Style Kits extends the flexibility of Elementor Theme Styles and introduces the first library of Theme-Style-ready template kits and blocks that will transform your design workflow in Elementor.
+Power-up your Elementor workflow with global theme style presets, container-based patterns, and more global design controls.
 
 == Description ==
 
-[Style Kits](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) extends the flexibility of Elementor Theme Styles and introduces the first library of Theme-Style-ready template kits and blocks.
+[Style Kits](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) extends the flexibility of Elementor theme styles with more global design controls, and introduces the most advanced container-based pattern library and theme style presets that will jumpstart your design process in Elementor.
 
-https://www.youtube.com/watch?v=ItcKsNztJJU
+Style Kits creates the foundation for a design framework that will help you create better, more consistent websites with Elementor.
 
-### Advanced Theme Styles
+### Library of Theme Style Presets
 
-Style Kits for Elementor adds meaningful UI controls to Theme Styles for the most important variables of your layout system in Elementor:
+Get an unfair design advantage by importing read-made theme style presets for pre-configured  typography, colors, spacing and more. Give your Elementor website a completely different look in just a few clicks.
 
-- Column Gaps
+- Use them as a starting point, customise them or create your own.
 - Outer Section Padding
-- Buttons Colors (per size)
-- Accent colors
-- Background classes and many more...
+- Override your global theme styles on specific pages, with another theme style preset
+- Import and export style presets across sites.
 
-#### Theme Style Presets
+### The most advanced Elementor Pattern library
 
-Get an unfair design advantage by importing read-made theme style presets for pre-configured styling on typography, colors, forms, spacing and more. Design more consistent layouts through global styling.
+A one-of-a-kind pattern library for Elementor, powered by flexbox containers and native widgets. Skyrocket your layout-building process with a collection of mix-and-match patterns that automatically adapt to your Global theme styles.
 
-#### Theme-style-ready template kits and blocks library
+- 100% built with Elementor flexbox containers
+- Consistent, customisable styles across all patterns, that automatically adapt to the theme styles of your site
+- Wide collection of patterns to facilitate all your layout-building needs
 
-The first-of-it's-kind template library for Elementor.
+### More tools for global design control
 
-In the Style Kits library, each template kit comes with its own theme style preset. Mix-and-match theme styles and layouts and enjoy built-in design consistency.
+Manage container spacing globally, adjust button styles per size, and many more tools that will help you scale-up your layouts with consistency.
+
+Style Kits for Elementor adds a set of extra UI controls to Theme Styles editor, for the most important aspects of your Elementor design system.
+
+- Global Style Kit fonts
+- Global Style Kit colors
+- Containers Padding
+- Shadows
+- Background classes
+- Button Styles per size
+- Outer Section Padding
+- Column Gaps
+- Text Sizes
 
 ### Boost your Elementor design workflow with Style Kits Pro
 
-- **Unlimited access** to a hand-made library of premium Template Kits, Theme Style Presets and Blocks that adapt to your existing Theme Styles.
-- **Inline style cleanup tools** that reset your layouts from inline styles. Turn your existing pages into theme-style-friendly layouts with a few clicks.
-- **Smart highlight tools** that help you identify elements with custom classes or custom CSS applied to them.
-- **Advanced Theme Style tools.** Enjoy more design flexibility in the editor with more UI controls in theme styles.
-- **User Role management**
-- **Unsplash integration**
-- **Dynamic colors** (Requires Elementor Pro v2.9+)
-- **Cards** (Soon)
+- **Unlimited access** to all container-based patterns
+- **Unlimited access** to all theme style presets
+- **Unlimited access** to all global design controls
+- **User Role** management to hide Style Kits from your clients
+- **Cleanup tools** to help you clean layouts from inline styles
+- Many more PRO features and tools to improve your workflow
 
 **Find us**:
 - [Visit the AnalogWP Website](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp)
@@ -64,45 +75,30 @@ This section describes how to install the plugin and get it working. e.g.
 
 == Frequently Asked Questions ==
 
-= Do the templates require Elementor Pro? =
-No, you do not need Elementor Pro at this point. All the templates that are provided for free are only using the Contact Form widget (which is an Elementor Pro feature). But you can always replace with your favorite contact form plugin.
+= Do I need to have containers activated in my Elementor site in order to use Style Kits? =
+Ideally, yes. To take advantage of the new Style Kits pattern library you will need to activate the Elementor experiment at your website. If you still work with sections and columns though, you will still get access to the old library of Template Kits.
 
-= What fonts are you using in designs? =
-All font pairs in our templates are Google web fonts, we love typography and are always in the look-out for great font combinations.
+= Do I need Elementor PRO in order to use Style Kits? =
+No, Style Kits will still work with the FREE version of Elementor. However, any patterns that include Elementor PRO widgets (Contact form, Call to action etc) will not be imported into your pages. The rest of the Style Kits functionality will work with the free version of Elementor.
 
-= Can I use the templates for client projects as well? =
-Yes, you can. You can use the templates in any number of personal or client projects. However you cannot re-distribute the templates without our prior consent. You can view the full terms and template licensing here: https://analogwp.com/terms-of-use/.
+= What is a Style Kit? =
+In simple words, a Style Kit is a collection of your Global theme styles. Includes Typography, Colors, spacing and more. In Style Kits for Elementor you get access to a number of such theme style presets that you can import and apply on your website.
 
-= What are Style Kits? =
-Style Kits (since v1.2) is a collection of the custom Typography and Spacing styles that you have added to your templates, which can be reused with other templates, making the process of creating new templates a lot easier.
+= Will the patterns work with my existing theme? =
+Yes, if you have Elementor installed and activated. In general, patterns will inherit the styles of your existing theme (especially for typography). However it is recommended that you use Style Kits on a fresh site, and apply any of the included theme style presets as a starting point for your Global styles.
+Using Elementor Hello theme is also recommended.
 
-= Will the templates work with my theme? =
-Definitely, given that you have Elementor in your theme setup, the templates will get imported and work just fine.
-
-= Where can I get help? =
-Our dedicated support team has your back. Please reach out via our website at https://analogwp.com/.
+= Do I get support if I need help? =
+We offer high-level support for all Style Kits users. Reach out to https://analogwp.com/support/ and submit a support request. We’ll get back to you asap.
 
 == Screenshots ==
 
-1. Main Plugin screen, displaying grouped templates.
-2. Template import modal.
-3. Style Kits tab
-4. Blocks tab, grouped by kind.
-5. Expanded Templates group view.
-6. Expanded Blocks group view.
-7. Analog Modal launcher inside Elementor editor.
-8. Plugin settings page.
-9. Style kit panel inside Elementor style tab.
-10. "Body Typography" panel inside Elementor style tab.
-11. "Headings Typography" panel inside Elementor style tab.
-12. "Headings Sizes" panel inside Elementor style tab.
-13. "Text Sizes" panel inside Elementor style tab.
-14. "Main Colors" panel inside Elementor style tab.
-15. "Background Colors" panel inside Elementor style tab.
-16. "Buttons" panel inside Elementor style tab.
-17. "Outer Section Padding" panel inside Elementor style tab.
-18. "Columns Gaps" panel inside Elementor style tab.
-19. "Tools" panel inside Elementor style tab.
+1. The Style Kits pattern library
+2. A collection of ready-to-import theme style presets
+3. Tools for better global design control
+4. Style Kits Global Fonts
+5. Style Kits Global Colors
+6. Container spacing presets
 
 == Changelog ==
 
