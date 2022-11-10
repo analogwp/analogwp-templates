@@ -1,0 +1,37 @@
+name: Deploy to WordPress.org
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  tag:
+    name: New tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Install Composer dependencies
+        uses: php-actions/composer@v6
+        with:
+            composer_version: 1
+            php_version: '8.0'
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '10'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Prepare release build
+        run: yarn run build:release
+
+      - name: WordPress Plugin Deploy
+        uses: 10up/action-wordpress-plugin-deploy@master
+        env:
+          BUILD_DIR: './build/analogwp-templates'
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
