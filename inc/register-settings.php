@@ -80,6 +80,15 @@ function register_menu() {
 		'ang-instance-list',
 		'Analog\Elementor\Kit\ang_instance_list'
 	);
+
+	add_submenu_page(
+		null,
+		__( 'Welcome to Style Kits', 'ang' ),
+		__( 'Welcome to Style Kits', 'ang' ),
+		'manage_options',
+		'analog_onboarding',
+		__NAMESPACE__ . '\theme_style_kit_onboarding'
+	);
 }
 
 add_action( 'admin_menu', __NAMESPACE__ . '\register_menu' );
@@ -209,3 +218,101 @@ function create_options() {
 	}
 }
 add_action( 'init', 'Analog\Settings\create_options' );
+
+/**
+ * Admin page contents for Theme Style Kit migration screen.
+ *
+ * @since 1.9.6
+ * @return void
+ */
+function theme_style_kit_onboarding() {
+	wp_enqueue_style(
+		'analog-onboarding-screen',
+		ANG_PLUGIN_URL . 'assets/css/onboarding-screen.css',
+		array(),
+		filemtime( ANG_PLUGIN_DIR . 'assets/css/onboarding-screen.css' )
+	);
+
+
+	$steps = array(
+		array(
+			'id'          => 'install-elementor',
+			'label'       => __( 'Install and Activate Elementor', 'ang' ),
+			'description' => __( 'This will install and activate Elementor from the WordPress repository', 'ang' ),
+			'checked'     => true,
+		),
+		array(
+			'id'          => 'enable-el-experiment',
+			'label'       => __( 'Enable Elementor container experiment', 'ang' ),
+			'description' => __( 'Style Kits 2.0 works with Elementor containers. We will enable this experiment in Elementor', 'ang' ),
+			'checked'     => true,
+		),
+		array(
+			'id'          => 'disable-el-defaults',
+			'label'       => __( 'Disable Elementor default colors and fonts', 'ang' ),
+			'description' => __( 'For Global Styles to work properly, Elementor default fonts and colors need to be disabled', 'ang' ),
+			'checked'     => true,
+		),
+		array(
+			'id'          => 'install-hello-theme',
+			'label'       => __( 'Install and activate Hello Elementor Theme', 'ang' ),
+			'description' => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'ang' ),
+			'checked'     => false,
+		),
+		array(
+			'id'          => 'import-base-kit',
+			'label'       => __( 'Import a starter theme style preset', 'ang' ),
+			'description' => __( 'Use a basic Style Kit as your starting point. This will replace your existing global styles', 'ang' ),
+			'checked'     => true,
+		),
+	);
+
+	?>
+	<div id="analog-welcome-screen" class="analog-welcome-screen">
+		<form id="onboarding-modal" class="onboarding-modal">
+			<div class="entry-header">
+				<div class="logo">
+						<span class="brand-icon">
+							<svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="20.5" cy="20.5" r="20.5" fill="#413EC5"/>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M21.5261 10.1484C21.1412 9.48177 20.1789 9.48177 19.794 10.1484L9.73663 27.5684C9.35173 28.235 9.83285 29.0684 10.6027 29.0684H30.7174C31.4872 29.0684 31.9684 28.235 31.5835 27.5684L21.5261 10.1484ZM21.5261 17.8359C21.1412 17.1693 20.1789 17.1693 19.794 17.8359L16.3942 23.7246C16.0093 24.3913 16.4904 25.2246 17.2602 25.2246H24.0599C24.8297 25.2246 25.3108 24.3913 24.9259 23.7246L21.5261 17.8359Z" fill="white"/>
+							</svg>
+						</span>
+						<span class="brand-title">Style Kits</span>
+				</div>
+				<nav>
+					<a href="<?php echo esc_url( 'https://docs.analogwp.com' ); ?>" target="_blank"><?php esc_html_e( 'Docs', 'ang' ); ?></a>
+				</nav>
+			</div>
+			<div class="content-wrapper">
+				<p class="short-description"><?php esc_html_e( 'Setup Elementor properly for a seamless Style Kits Experience.', 'ang' ); ?>
+					<a href="#">Learn more</a></p>
+				<div class="steps-wrapper">
+					<?php foreach ( $steps as $step ) : ?>
+						<div class="step <?php echo esc_attr( 'step-' . $step['id'] ); ?>">
+							<div class="switch">
+								<div class="switch__field">
+									<input id="<?php echo esc_attr( $step['id'] ); ?>" type="checkbox" <?php echo $step['checked'] ? esc_attr( 'checked' ) : ''; ?>>
+									<label for="<?php echo esc_attr( $step['id'] ); ?>"></label>
+								</div>
+							</div>
+							<div>
+								<p class="switch-label"><?php echo esc_html( $step['label'] ); ?></p>
+								<p class="switch-description"><?php echo esc_html( $step['description'] ); ?></p>
+							</div>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
+			<div class="entry-footer">
+				<div class="prev">
+					<a href="#">Skip wizard</a>
+				</div>
+				<div class="next">
+					<button id="start-onboarding" class="button btn-primary">Apply</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<?php
+}

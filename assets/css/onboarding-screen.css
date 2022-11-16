@@ -1,13 +1,29 @@
-.analog-welcome-screen .after-migration {
-	margin: 20px auto 60px;
+body.admin_page_analog_onboarding #adminmenuback,
+body.admin_page_analog_onboarding #adminmenuwrap {
+	display: none;
+}
+
+body.admin_page_analog_onboarding #wpcontent,
+body.admin_page_analog_onboarding #wpfooter {
+	margin-left: 0;
+}
+
+.analog-welcome-screen .onboarding-modal {
+	margin: 40px auto 60px;
 	border: 1px solid #DCDCDC;
-	max-width: 526px;
+	max-width: 700px;
 	background-color: #fff;
 	position: relative;
 }
 
 .analog-welcome-screen .content-wrapper {
-	padding: 18px 18px 0;
+	padding: 0 18px 0;
+}
+
+.analog-welcome-screen .short-description {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.7;
 }
 
 .analog-welcome-screen .entry-footer {
@@ -17,7 +33,10 @@
 
 .analog-welcome-screen .entry-header {
 	padding: 16px 16px;
-	background-color: #6133C1;
+	border-bottom: 1px solid #DFDFDF;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .analog-welcome-screen .logo {
@@ -29,41 +48,117 @@
 }
 
 .analog-welcome-screen .brand-icon {
-	background-color: #7B3DFD;
 	display: inline-block;
-	padding: 7px;
-	border-radius: 50%;
 	margin-right: 10px;
 }
 
-.analog-welcome-screen iframe {
-	padding: 18px 0 0;
-	max-width: 100%;
+.analog-welcome-screen .brand-title {
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 1.6;
 }
 
-.analog-welcome-screen h3 {
-	margin-top: 0;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 22px;
-}
-
-.analog-welcome-screen .redirect-btn {
-	background-color: #6133C1;
-	padding: 10px 20px;
+.analog-welcome-screen .btn-primary {
+	background-color: #413EC5;
+	padding: 4px 40px;
 	color: white;
 	text-decoration: none;
 	font-weight: 600;
-	transform: translateY(60px);
 	display: inline-block;
-}
-.analog-welcome-screen .redirect-btn a {
-	display: inline-block;
-	color: #fff;
-	padding: 15px;
-	text-decoration: none;
+	border: none;
+	outline: none;
+	box-shadow: none;
 }
 
 .analog-welcome-screen .actions {
 	text-align: center;
+}
+
+.analog-welcome-screen .step {
+	display: flex;
+	align-items: flex-start;
+	gap: 20px;
+	padding: 20px 0;
+}
+
+.analog-welcome-screen .step:not(:last-child) {
+	border-bottom: 1px solid #DFDFDF;
+}
+
+
+.analog-welcome-screen .step .switch-label,
+.analog-welcome-screen .step .switch-description {
+	margin: 0;
+}
+
+.analog-welcome-screen .step .switch-label {
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 1.6;
+}
+
+.analog-welcome-screen .step .switch-description {
+	font-size: 14px;
+	line-height: 1.7;
+	color: #828282;
+}
+
+.analog-welcome-screen .entry-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+
+/*  SWITCH  */
+.analog-welcome-screen .switch {
+	display: grid;
+	grid-gap: 3rem;
+	justify-self: center;
+	margin-top: 4px;
+}
+.analog-welcome-screen .switch input {
+	display: none;
+}
+.analog-welcome-screen .switch__field {
+	width: 36px;
+}
+
+.analog-welcome-screen .switch__field label {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 1.2rem;
+	box-shadow: 0.3rem 0.3rem 0.6rem #E4EBF5, -0.2rem -0.2rem 0.5rem #FFFFFF;
+	background: rgba(255, 255, 255, 0);
+	position: relative;
+	cursor: pointer;
+	border-radius: 1.6rem;
+}
+.analog-welcome-screen .switch__field label::after {
+	content: "";
+	position: absolute;
+	left: 0.25rem;
+	width: 0.85rem;
+	height: 0.85rem;
+	border-radius: 50%;
+	background: white;
+	transition: all 0.4s ease;
+}
+.analog-welcome-screen .switch__field label::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	background: #B8B8B8;
+	opacity: 1;
+	transition: all 0.4s ease;
+}
+.analog-welcome-screen .switch input:checked ~ label::before {
+	opacity: 1;
+	background: linear-gradient(330deg, #413EC5 0%, #5b0eeb 50%, #6d5dfc 100%);
+}
+.analog-welcome-screen .switch input:checked ~ label::after {
+	left: 50%;
+	background: #E4EBF5;
 }
