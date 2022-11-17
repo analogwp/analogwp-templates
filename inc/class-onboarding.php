@@ -67,30 +67,33 @@ class Onboarding {
 		// Show this option in case of Elementor is not active.
 		if ( ! did_action( 'elementor/loaded' ) ) {
 			$steps[] = array(
-				'id'          => 'install-elementor',
-				'label'       => __( 'Install and Activate Elementor', 'ang' ),
-				'description' => __( 'This will install and activate Elementor from the WordPress repository', 'ang' ),
-				'checked'     => true,
+				'id'            => 'install-elementor',
+				'label'         => __( 'Install and Activate Elementor', 'ang' ),
+				'description'   => __( 'This will install and activate Elementor from the WordPress repository', 'ang' ),
+				'label_success' => __( 'Elementor is installed and activated', 'ang' ),
+				'checked'       => true,
 			);
 		}
 
 		// Show this option in case of Elementor is not active or Elementor Container experiment is not enabled.
 		if ( ! did_action( 'elementor/loaded' ) || ( method_exists( '\Analog\Utils', 'is_elementor_container' ) && ! \Analog\Utils::is_elementor_container() ) ) {
 			$steps[] = array(
-				'id'          => 'enable-el-container-experiment',
-				'label'       => __( 'Enable Elementor container experiment', 'ang' ),
-				'description' => __( 'Style Kits 2.0 works with Elementor containers. We will enable this experiment in Elementor', 'ang' ),
-				'checked'     => true,
+				'id'            => 'enable-el-container-experiment',
+				'label'         => __( 'Enable Elementor container experiment', 'ang' ),
+				'description'   => __( 'Style Kits 2.0 works with Elementor containers. We will enable this experiment in Elementor', 'ang' ),
+				'label_success' => __( 'Container experiment is now active', 'ang' ),
+				'checked'       => true,
 			);
 		}
 
 		// Show this option in case of either Elementor default colors or fonts are not disabled.
 		if ( ! get_option( 'elementor_disable_color_schemes' ) || ! get_option( 'elementor_disable_typography_schemes' ) ) {
 			$steps[] = array(
-				'id'          => 'disable-el-defaults',
-				'label'       => __( 'Disable Elementor default colors and fonts', 'ang' ),
-				'description' => __( 'For Global Styles to work properly, Elementor default fonts and colors need to be disabled', 'ang' ),
-				'checked'     => true,
+				'id'            => 'disable-el-defaults',
+				'label'         => __( 'Disable Elementor default colors and fonts', 'ang' ),
+				'description'   => __( 'For Global Styles to work properly, Elementor default fonts and colors need to be disabled', 'ang' ),
+				'label_success' => __( 'Elementor default colors and fonts are disabled', 'ang' ),
+				'checked'       => true,
 			);
 		}
 
@@ -101,10 +104,11 @@ class Onboarding {
 
 		if ( ! in_array( $needle, array_keys( $themes ), true ) || $needle !== $current_theme ) {
 			$steps[] = array(
-				'id'          => 'install-hello-theme',
-				'label'       => __( 'Install and activate Hello Elementor Theme', 'ang' ),
-				'description' => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'ang' ),
-				'checked'     => false,
+				'id'            => 'install-hello-theme',
+				'label'         => __( 'Install and activate Hello Elementor Theme', 'ang' ),
+				'description'   => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'ang' ),
+				'label_success' => __( 'Hello Elementor theme is installed and activated', 'ang' ),
+				'checked'       => false,
 			);
 
 		}
@@ -114,10 +118,11 @@ class Onboarding {
 
 		if ( ! in_array( 'Style Kit: Base', array_values( $all_kits ), true ) ) {
 			$steps[] = array(
-				'id'          => 'import-base-kit',
-				'label'       => __( 'Import a starter theme style preset', 'ang' ),
-				'description' => __( 'Use a basic Style Kit as your starting point. This will replace your existing global styles', 'ang' ),
-				'checked'     => true,
+				'id'            => 'import-base-kit',
+				'label'         => __( 'Import a starter theme style preset', 'ang' ),
+				'description'   => __( 'Use a basic Style Kit as your starting point. This will replace your existing global styles', 'ang' ),
+				'label_success' => __( 'A theme style preset "Style Kit: Base" has been imported', 'ang' ),
+				'checked'       => true,
 			);
 		}
 
@@ -205,7 +210,7 @@ class Onboarding {
 										</svg>
 									</div>
 									<div>
-										<p class="switch-label"><?php echo esc_html( $step['label'] ); ?></p>
+										<p class="switch-label"><?php echo esc_html( $step['label_success'] ); ?></p>
 									</div>
 								</div>
 							</div>
