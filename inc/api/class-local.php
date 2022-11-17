@@ -529,63 +529,6 @@ class Local extends Base {
 	}
 
 	/**
-	 * Process a Style Kit import.
-	 *
-	 * @since 1.3.8
-	 *
-	 * @uses \Analog\Elementor\Kit\Manager
-	 *
-	 * @param array $kit Array containing Style Kit info to import.
-	 * @return WP_Error|array
-	 */
-	protected function process_kit_import( $kit ) {
-		if ( isset( $kit['is_pro'] ) && $kit['is_pro'] && ! Utils::has_valid_license() ) {
-			return new WP_Error( 'import_error', 'Invalid license provided.' );
-		}
-
-		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit );
-
-		if ( isset( $remote_kit['message'], $remote_kit['code'] ) ) {
-			return new WP_Error( $remote_kit['code'], $remote_kit['message'] );
-		}
-
-		if ( is_wp_error( $remote_kit ) ) {
-			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'ang' ) );
-		}
-
-		$kit_data     = $remote_kit['data'];
-		$kit_manager  = new Manager();
-		$kit_settings = maybe_unserialize( $kit_data );
-
-		$kit_id = $kit_manager->create_kit(
-			$kit['title'],
-			array(
-				'_elementor_data'          => $kit_manager->get_kit_content(),
-				'_elementor_page_settings' => $kit_settings,
-				'_is_analog_kit'           => true,
-			)
-		);
-
-		if ( is_wp_error( $kit_id ) ) {
-			return new WP_Error( 'kit_post_error', $kit_id->get_error_message() );
-		}
-
-		$attachment = Import_Image::get_instance()->import(
-			array(
-				'id'  => wp_rand( 000, 999 ),
-				'url' => $kit['image'],
-			)
-		);
-
-		update_post_meta( $kit_id, '_thumbnail_id', $attachment['id'] );
-
-		return array(
-			'message' => __( 'Style Kit imported', 'ang' ),
-			'id'      => $kit_id,
-		);
-	}
-
-	/**
 	 * Fetch a Style Kit's tokens.
 	 *
 	 * @since 1.3.8
