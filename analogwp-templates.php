@@ -201,6 +201,9 @@ add_action(
 			);
 		}
 
+		// Begin onboarding.
+		require_once ANG_PLUGIN_DIR . 'inc/class-onboarding.php';
+
 		if ( ! did_action( 'elementor/loaded' ) ) {
 			add_action( 'admin_notices', 'analog_fail_load' );
 			return;
