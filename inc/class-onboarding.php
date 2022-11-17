@@ -70,6 +70,15 @@ class Onboarding {
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/onboarding-screen.js' ),
 			true
 		);
+
+		wp_localize_script(
+			'analog-onboarding-screen',
+			'analogOnboarding',
+			array(
+				'nonce'          => wp_create_nonce( 'analog_onboarding' ),
+				'processingText' => __( 'Working...', 'ang' ),
+			)
+		);
 	}
 
 	/**

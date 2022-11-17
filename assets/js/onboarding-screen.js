@@ -1,5 +1,5 @@
 /* jQuery */
-( function( $ ) {
+( function( $, data ) {
 	$(
 		function() {
 			function processOnboarding( e ) {
@@ -9,7 +9,7 @@
 				const elSubmitBtn = $( '#start-onboarding' );
 				const elNextNav = $( '.next' );
 				const elNextSuccessNav = $( '.next-success' );
-				const status = 'Working...';
+				const status = data.processingText;
 
 				elSubmitBtn.text( status );
 				elSubmitBtn.attr( 'disabled', 'disabled' );
@@ -59,13 +59,14 @@
 							cache: false,
 							data: {
 								action: 'analog_onboarding',
+								nonce: data.nonce,
 								stepId: step,
 								stepValue,
 							},
 						} ).fail( function() {
 							stepInProcess.toggleClass( 'current' );
 							stepFailed.toggleClass( 'current' );
-						} ).done( function( response ) {
+						} ).done( function() {
 							stepInProcess.toggleClass( 'current' );
 							stepSuccess.toggleClass( 'current' );
 						} );
@@ -83,4 +84,4 @@
 			$( '#onboarding-modal' ).submit( processOnboarding );
 		}
 	);
-}( jQuery ) );
+}( jQuery, analogOnboarding ) );
