@@ -455,13 +455,13 @@ class Local extends Base {
 			return new WP_Error( 'kit_title_error', __( 'Please provide a title.', 'ang' ) );
 		}
 
-		$tokens = json_decode( $settings, true );
-		$kit    = new Manager();
+		$tokens      = json_decode( $settings, true );
+		$kit_manager = new Manager();
 
-		$post_id = $kit->create_kit(
+		$post_id = $kit_manager->create_kit(
 			$title,
 			array(
-				'_elementor_data'          => $kit->get_kit_content(),
+				'_elementor_data'          => $kit_manager->get_kit_content(),
 				'_elementor_page_settings' => $tokens,
 				'_duplicate_of'            => $belongs_to,
 				'_is_analog_user_kit'      => true,
