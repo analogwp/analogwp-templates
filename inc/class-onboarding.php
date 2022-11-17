@@ -402,6 +402,41 @@ class Onboarding {
 	}
 
 	/**
+	 * Imports base style kit.
+	 *
+	 * @return array
+	 */
+	private function import_base_kit() {
+		$kit = array(
+			'id'             => 6491,
+			'title'          => 'Style Kit: Base',
+			'image'          => 'https://preview.analogwp.com/designsystem/wp-content/uploads/sites/26/2022/11/base.svg',
+			'site_id'        => 26,
+			'is_pro'         => false,
+			'uses_container' => true,
+		);
+
+		if ( method_exists( 'Analog\Elementor\Kit\Manager', 'import_kit' ) ) {
+			$kit_manager = new \Analog\Elementor\Kit\Manager();
+			$result      = $kit_manager->import_kit( $kit );
+
+			if ( is_wp_error( $result ) ) {
+				return array(
+					'error' => $result->get_error_message(),
+				);
+			}
+
+			return array(
+				'success' => true,
+			);
+		}
+
+		return array(
+			'error' => 'Failed to import Style Kit: Base.',
+		);
+	}
+
+	/**
 	 * AJAX actions to complete onboarding steps.
 	 *
 	 * @return void
@@ -424,6 +459,7 @@ class Onboarding {
 				$results[ $action ] = $this->install_hello_elementor();
 				break;
 			case 'import-base-kit':
+				$results[ $action ] = $this->import_base_kit();
 				break;
 		}
 
