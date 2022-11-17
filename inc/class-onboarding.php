@@ -378,7 +378,7 @@ class Onboarding {
 
 		if ( ! $result ) {
 			return array(
-				'error' => 'Failed to enable Elementor Container Experiment.',
+				'error' => __( 'Failed to activate Elementor Container Experiment.', 'ang' ),
 			);
 		}
 		return array(
@@ -436,7 +436,7 @@ class Onboarding {
 		}
 
 		return array(
-			'error' => 'Failed to import Style Kit: Base.',
+			'error' => __( 'Failed to import Style Kit: Base', 'ang' ),
 		);
 	}
 
