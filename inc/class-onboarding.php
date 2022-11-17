@@ -219,10 +219,14 @@ class Onboarding {
 				</div>
 				<div class="entry-footer">
 					<div class="prev">
-						<a href="#">Skip wizard</a>
+						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings' ) ); ?>"><?php esc_html_e( 'Skip wizard', 'ang' ); ?></a>
 					</div>
-					<div class="next">
-						<button id="start-onboarding" class="button btn-primary">Apply</button>
+					<div class="next <?php echo empty( $steps ) ? esc_attr( 'hidden' ) : ''; ?>">
+						<button id="start-onboarding" class="button btn-primary"><?php esc_html_e( 'Apply', 'ang' ); ?></button>
+					</div>
+					<div class="next-success <?php echo ! empty( $steps ) ? esc_attr( 'hidden' ) : ''; ?>">
+						<a href="<?php echo esc_url( admin_url( 'index.php' ) ); ?>" class="button btn-secondary">Go to Dashboard</a>
+						<a href="#" class="button btn-primary">Open a template</a>
 					</div>
 				</div>
 			</form>
