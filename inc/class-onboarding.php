@@ -258,8 +258,8 @@ class Onboarding {
 						<button id="start-onboarding" class="button btn-primary"><?php esc_html_e( 'Apply', 'ang' ); ?></button>
 					</div>
 					<div class="next-success <?php echo ! empty( $steps ) ? esc_attr( 'hidden' ) : ''; ?>">
-						<a href="<?php echo esc_url( admin_url( 'index.php' ) ); ?>" class="button btn-secondary">Go to Dashboard</a>
-						<a href="#" class="button btn-primary">Open a template</a>
+						<a href="<?php echo esc_url( admin_url( 'index.php' ) ); ?>" class="button btn-secondary"><?php esc_html_e( 'Go to Dashboard', 'ang' ); ?></a>
+						<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=elementor_library' ) ); ?>" class="button btn-primary"><?php esc_html_e( 'Open a new template', 'ang' ); ?></a>
 					</div>
 				</div>
 			</form>
