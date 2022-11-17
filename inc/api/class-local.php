@@ -523,7 +523,8 @@ class Local extends Base {
 			return new WP_Error( 'kit_import_error', __( 'Invalid Style Kit ID.', 'ang' ) );
 		}
 
-		$data = $this->process_kit_import( $kit );
+		$kit_manager = new Manager();
+		$data        = $kit_manager->import_kit( $kit );
 
 		return new WP_REST_Response( $data, 200 );
 	}
@@ -544,7 +545,8 @@ class Local extends Base {
 				return new WP_Error( 'kit_import_error', 'Invalid license provided.' );
 			}
 
-			$import = $this->process_kit_import( $kit );
+			$kit_manager = new Manager();
+			$import      = $kit_manager->import_kit( $kit );
 
 			if ( ! is_wp_error( $import ) ) {
 				$post_id = $import['id'];
