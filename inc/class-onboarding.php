@@ -96,6 +96,7 @@ class Onboarding {
 				'label'         => __( 'Install and Activate Elementor', 'ang' ),
 				'description'   => __( 'This will install and activate Elementor from the WordPress repository', 'ang' ),
 				'label_success' => __( 'Elementor is installed and activated', 'ang' ),
+				'label_failed'  => __( 'Failed to install and activate Elementor', 'ang' ),
 				'checked'       => true,
 			);
 		}
@@ -107,6 +108,7 @@ class Onboarding {
 				'label'         => __( 'Enable Elementor container experiment', 'ang' ),
 				'description'   => __( 'Style Kits 2.0 works with Elementor containers. We will enable this experiment in Elementor', 'ang' ),
 				'label_success' => __( 'Container experiment is now active', 'ang' ),
+				'label_failed'  => __( 'Failed to activate Elementor container experiment', 'ang' ),
 				'checked'       => true,
 			);
 		}
@@ -118,6 +120,7 @@ class Onboarding {
 				'label'         => __( 'Disable Elementor default colors and fonts', 'ang' ),
 				'description'   => __( 'For Global Styles to work properly, Elementor default fonts and colors need to be disabled', 'ang' ),
 				'label_success' => __( 'Elementor default colors and fonts are disabled', 'ang' ),
+				'label_failed'  => __( 'Failed to disable Elementor default colors and fonts', 'ang' ),
 				'checked'       => true,
 			);
 		}
@@ -133,6 +136,7 @@ class Onboarding {
 				'label'         => __( 'Install and activate Hello Elementor Theme', 'ang' ),
 				'description'   => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'ang' ),
 				'label_success' => __( 'Hello Elementor theme is installed and activated', 'ang' ),
+				'label_failed'  => __( 'Failed to install and activate Hello Elementor', 'ang' ),
 				'checked'       => false,
 			);
 
@@ -147,6 +151,7 @@ class Onboarding {
 				'label'         => __( 'Import a starter theme style preset', 'ang' ),
 				'description'   => __( 'Use a basic Style Kit as your starting point. This will replace your existing global styles', 'ang' ),
 				'label_success' => __( 'A theme style preset "Style Kit: Base" has been imported', 'ang' ),
+				'label_failed'  => __( 'Failed to import a kit', 'ang' ),
 				'checked'       => true,
 			);
 		}
@@ -227,7 +232,7 @@ class Onboarding {
 										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><title>Close Circle</title><path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm75.31 260.69a16 16 0 11-22.62 22.62L256 278.63l-52.69 52.68a16 16 0 01-22.62-22.62L233.37 256l-52.68-52.69a16 16 0 0122.62-22.62L256 233.37l52.69-52.68a16 16 0 0122.62 22.62L278.63 256z" fill="#7F6097"/></svg>
 									</div>
 									<div>
-										<p class="switch-label"><?php echo esc_html( $step['label'] ); ?></p>
+										<p class="switch-label"><?php echo esc_html( $step['label_failed'] ); ?></p>
 									</div>
 								</div>
 								<div class="success">
