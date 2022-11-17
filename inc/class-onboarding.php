@@ -62,10 +62,11 @@ class Onboarding {
 	 * @return array[]
 	 */
 	public function get_steps() {
+		$steps = array();
+
 		// Show this option in case of Elementor is not active.
-		$elementor_installer = array();
 		if ( ! did_action( 'elementor/loaded' ) ) {
-			$elementor_installer = array(
+			$steps[] = array(
 				'id'          => 'install-elementor',
 				'label'       => __( 'Install and Activate Elementor', 'ang' ),
 				'description' => __( 'This will install and activate Elementor from the WordPress repository', 'ang' ),
@@ -74,20 +75,18 @@ class Onboarding {
 		}
 
 		// Show this option in case of Elementor is not active or Elementor Container experiment is not enabled.
-		$el_container_experiment = array(
-			'id'          => 'enable-el-container-experiment',
-			'label'       => __( 'Enable Elementor container experiment', 'ang' ),
-			'description' => __( 'Style Kits 2.0 works with Elementor containers. We will enable this experiment in Elementor', 'ang' ),
-			'checked'     => true,
-		);
-		if ( method_exists( '\Analog\Utils', 'is_elementor_container' ) && \Analog\Utils::is_elementor_container() ) {
-			$el_container_experiment = array();
+		if ( ! did_action( 'elementor/loaded' ) || ( method_exists( '\Analog\Utils', 'is_elementor_container' ) && ! \Analog\Utils::is_elementor_container() ) ) {
+			$steps[] = array(
+				'id'          => 'enable-el-container-experiment',
+				'label'       => __( 'Enable Elementor container experiment', 'ang' ),
+				'description' => __( 'Style Kits 2.0 works with Elementor containers. We will enable this experiment in Elementor', 'ang' ),
+				'checked'     => true,
+			);
 		}
 
 		// Show this option in case of either Elementor default colors or fonts are not disabled.
-		$disable_default_colors = array();
 		if ( ! get_option( 'elementor_disable_color_schemes' ) || ! get_option( 'elementor_disable_typography_schemes' ) ) {
-			$disable_default_colors = array(
+			$steps[] = array(
 				'id'          => 'disable-el-defaults',
 				'label'       => __( 'Disable Elementor default colors and fonts', 'ang' ),
 				'description' => __( 'For Global Styles to work properly, Elementor default fonts and colors need to be disabled', 'ang' ),
@@ -96,13 +95,12 @@ class Onboarding {
 		}
 
 		// Show this option in case of either Hello Elementor theme is not installed and active.
-		$hello_theme_installer = array();
-		$themes                = wp_get_themes();
-		$current_theme         = wp_get_theme()->get_stylesheet();
-		$needle                = 'hello-elementor';
+		$themes        = wp_get_themes();
+		$current_theme = wp_get_theme()->get_stylesheet();
+		$needle        = 'hello-elementor';
 
 		if ( ! in_array( $needle, array_keys( $themes ), true ) || $needle !== $current_theme ) {
-			$hello_theme_installer = array(
+			$steps[] = array(
 				'id'          => 'install-hello-theme',
 				'label'       => __( 'Install and activate Hello Elementor Theme', 'ang' ),
 				'description' => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'ang' ),
@@ -111,18 +109,19 @@ class Onboarding {
 
 		}
 
-		return array(
-			$elementor_installer,
-			$el_container_experiment,
-			$disable_default_colors,
-			$hello_theme_installer,
-			array(
+		// Show this option in case of base kit is not imported.
+		$all_kits = method_exists( '\Analog\Utils', 'get_kits' ) ? \Analog\Utils::get_kits() : array();
+
+		if ( ! in_array( 'Style Kit: Base', array_values( $all_kits ), true ) ) {
+			$steps[] = array(
 				'id'          => 'import-base-kit',
 				'label'       => __( 'Import a starter theme style preset', 'ang' ),
 				'description' => __( 'Use a basic Style Kit as your starting point. This will replace your existing global styles', 'ang' ),
 				'checked'     => true,
-			),
-		);
+			);
+		}
+
+		return $steps;
 	}
 
 	/**
