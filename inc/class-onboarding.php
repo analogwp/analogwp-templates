@@ -8,15 +8,31 @@
 namespace Analog;
 
 /**
- * Initializes onboarding.
+ * Initializes plugin onboarding.
  */
 class Onboarding {
+
+	/**
+	 * Onboarding version.
+	 *
+	 * @var string
+	 */
+	public static $version = '2.0.0';
+
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
 		add_action( 'wp_ajax_analog_onboarding', array( $this, 'ajax_actions' ) );
+
+		$existing_version = get_option( 'analog_onboarding' );
+
+		if ( version_compare( self::$version, $existing_version, '>' ) ) {
+			// Redirect to onboarding page.
+			wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
+			update_option( 'analog_onboarding', self::$version );
+		}
 	}
 
 	/**
