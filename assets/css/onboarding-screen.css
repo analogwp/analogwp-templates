@@ -59,10 +59,12 @@ body.admin_page_analog_onboarding #wpfooter {
 	line-height: 1.6;
 }
 
-.analog-welcome-screen .btn-primary {
-	background-color: #413EC5;
-	padding: 4px 40px;
-	color: white;
+.analog-welcome-screen a {
+	color: currentColor;
+}
+
+.analog-welcome-screen .button {
+	padding: 4px 35px;
 	text-decoration: none;
 	font-weight: 600;
 	display: inline-block;
@@ -70,6 +72,21 @@ body.admin_page_analog_onboarding #wpfooter {
 	outline: none;
 	box-shadow: none;
 }
+
+.analog-welcome-screen .btn-primary {
+	background-color: #413EC5;
+	color: white;
+	border: 2px solid #413EC5;
+}
+
+.analog-welcome-screen .btn-secondary {
+	background-color: white;
+	border: 2px solid #413EC5;
+	border-radius: 4px;
+	color: #413EC5;
+	margin-right: 10px;
+}
+
 
 .analog-welcome-screen .actions {
 	text-align: center;
@@ -112,6 +129,10 @@ body.admin_page_analog_onboarding #wpfooter {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.analog-welcome-screen .entry-footer .hidden {
+	display: none;
 }
 
 
