@@ -302,7 +302,7 @@ class Onboarding {
 	/**
 	 * Install and activate Elementor plugin.
 	 *
-	 * @return array
+	 * @return bool
 	 */
 	private function install_elementor() {
 		// Include required files.
@@ -327,37 +327,31 @@ class Onboarding {
 			);
 
 			if ( is_wp_error( $api ) ) {
-				return array(
-					'error' => $api->get_error_message(),
-				);
+				return false;
 			}
 
 			$results = $installer->install(
 				$api->download_link,
 			);
 
-			if ( is_wp_error( $results ) ) {
-				return array( 'error' => $results->get_error_message() );
-			} elseif ( ! $results ) {
-				return array( 'error' => $results );
+			if ( is_wp_error( $results ) || ! $results ) {
+				return false;
 			}
 		}
 
 		$results = activate_plugin( $file );
 
 		if ( is_wp_error( $results ) ) {
-			return array( 'error' => $results->get_error_message() );
+			return false;
 		}
 
-		return array(
-			'success' => true,
-		);
+		return true;
 	}
 
 	/**
 	 * Install and activate Elementor Pro plugin.
 	 *
-	 * @return array
+	 * @return bool
 	 */
 	private function install_hello_elementor() {
 		// Include required files.
@@ -381,71 +375,75 @@ class Onboarding {
 			);
 
 			if ( is_wp_error( $api ) ) {
-				return array(
-					'error' => $api->get_error_message(),
-				);
+				return false;
 			}
 
 			$results = $installer->install(
 				$api->download_link,
 			);
 
-			if ( is_wp_error( $results ) ) {
-				return array( 'error' => $results->get_error_message() );
-			} elseif ( ! $results ) {
-				return array( 'error' => $results );
+			if ( is_wp_error( $results ) || ! $results ) {
+				return false;
 			}
 		}
 
 		// Switch theme.
 		switch_theme( 'hello-elementor' );
 
-		return array(
-			'success' => true,
-		);
+		return true;
 	}
 
 	/**
 	 * Enables Elementor Container Experiment.
 	 *
-	 * @return array
+	 * @return bool
 	 */
 	private function enable_el_container_experiment() {
-		$result = update_option( 'elementor_experiment-container', 'active' );
+		if ( ! did_action( 'elementor/loaded' ) ) {
+			return false;
+		}
+
+		$key = 'elementor_experiment-container';
+
+		if ( 'active' === get_option( $key ) ) {
+			return true;
+		}
+
+		$result = update_option( $key, 'active' );
 
 		if ( ! $result ) {
-			return array(
-				'error' => __( 'Failed to activate Elementor Container Experiment.', 'ang' ),
-			);
+			return false;
 		}
-		return array(
-			'success' => true,
-		);
+
+		return true;
 	}
 
 	/**
 	 * Enables Elementor Container Experiment.
 	 *
-	 * @return array
+	 * @return bool
 	 */
 	private function disable_el_defaults() {
-		$color_schemes      = update_option( 'elementor_disable_color_schemes', 'yes' );
-		$typography_schemes = update_option( 'elementor_disable_typography_schemes', 'yes' );
+		$color_key = 'elementor_disable_color_schemes';
+		$fonts_key = 'elementor_disable_typography_schemes';
 
-		if ( ! $color_schemes || ! $typography_schemes ) {
-			return array(
-				'error' => 'Failed to disable Elementor default colors and fonts.',
-			);
+		if ( 'yes' === get_option( $color_key ) && 'yes' === get_option( $fonts_key ) ) {
+			return true;
 		}
-		return array(
-			'success' => true,
-		);
+
+		$color_schemes = update_option( $color_key, 'yes' );
+		$font_schemes  = update_option( $fonts_key, 'yes' );
+
+		if ( ! $color_schemes && ! $font_schemes ) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
 	 * Imports base style kit.
 	 *
-	 * @return array
+	 * @return bool
 	 */
 	private function import_base_kit() {
 		$kit = array(
@@ -462,19 +460,13 @@ class Onboarding {
 			$result      = $kit_manager->import_kit( $kit );
 
 			if ( is_wp_error( $result ) ) {
-				return array(
-					'error' => $result->get_error_message(),
-				);
+				return false;
 			}
 
-			return array(
-				'success' => true,
-			);
+			return true;
 		}
 
-		return array(
-			'error' => __( 'Failed to import Style Kit: Base', 'ang' ),
-		);
+		return false;
 	}
 
 	/**
@@ -483,28 +475,47 @@ class Onboarding {
 	 * @return void
 	 */
 	public function ajax_actions() {
-		$action  = isset( $_POST['stepId'] ) ? sanitize_key( $_POST['stepId'] ) : '';
-		$results = array();
+		if ( isset( $_REQUEST['nonce'] ) && check_ajax_referer( 'analog_onboarding', 'nonce' ) ) {
+			$action = isset( $_POST['stepId'] ) ? sanitize_key( $_POST['stepId'] ) : '';
+			$value  = isset( $_POST['stepValue'] ) ? wp_validate_boolean( wp_unslash( $_POST['stepValue'] ) ) : '';
 
-		switch ( $action ) {
-			case 'install-elementor':
-				$results[ $action ] = $this->install_elementor();
-				break;
-			case 'enable-el-container-experiment':
-				$results[ $action ] = $this->enable_el_container_experiment();
-				break;
-			case 'disable-el-defaults':
-				$results[ $action ] = $this->disable_el_defaults();
-				break;
-			case 'install-hello-theme':
-				$results[ $action ] = $this->install_hello_elementor();
-				break;
-			case 'import-base-kit':
-				$results[ $action ] = $this->import_base_kit();
-				break;
+			if ( ! $value ) {
+				wp_send_json_error();
+				return;
+			}
+
+			$result = array();
+
+			switch ( $action ) {
+				case 'install-elementor':
+					$result = $this->install_elementor();
+					break;
+				case 'enable-el-container-experiment':
+					$result = $this->enable_el_container_experiment();
+					break;
+				case 'disable-el-defaults':
+					$result = $this->disable_el_defaults();
+					break;
+				case 'install-hello-theme':
+					$result = $this->install_hello_elementor();
+					break;
+				case 'import-base-kit':
+					$result = $this->import_base_kit();
+					break;
+			}
+
+			if ( ! $result ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'Oops, something went wrong at action: ', 'ang' ) . $action,
+					),
+					406
+				);
+
+				return;
+			}
+			wp_send_json_success();
 		}
-
-		wp_send_json_success( $results );
 	}
 }
 
