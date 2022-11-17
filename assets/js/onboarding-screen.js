@@ -7,7 +7,10 @@
 					e.preventDefault();
 				}
 				const elSubmitBtn = $( '#start-onboarding' );
+				const elNextNav = $( '.next' );
+				const elNextSuccessNav = $( '.next-success' );
 				const status = 'Working...';
+
 				elSubmitBtn.text( status );
 				elSubmitBtn.attr( 'disabled', 'disabled' );
 
@@ -67,7 +70,10 @@
 							stepSuccess.toggleClass( 'current' );
 						} );
 
-						elSubmitBtn.text( 'All Done' );
+						if ( ( steps.length - 1 ) === currentIndex ) {
+							elNextNav.toggleClass( 'hidden' );
+							elNextSuccessNav.toggleClass( 'hidden' );
+						}
 					}, 10 );
 				}
 
