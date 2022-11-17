@@ -158,8 +158,10 @@ class Onboarding {
 					</nav>
 				</div>
 				<div class="content-wrapper">
-					<p class="short-description"><?php esc_html_e( 'Setup Elementor properly for a seamless Style Kits Experience.', 'ang' ); ?>
-						<a href="#">Learn more</a></p>
+					<?php if ( empty( $steps ) ) : ?>
+						<p class="short-description"><?php esc_html_e( 'Looks like you have everything in place.', 'ang' ); ?></p>
+					<?php else : ?>
+					<p class="short-description"><?php esc_html_e( 'Setup Elementor properly for a seamless Style Kits Experience.', 'ang' ); ?> <a href="#">Learn more</a></p>
 					<div class="steps-wrapper">
 						<?php
 						foreach ( $steps as $step ) :
@@ -216,6 +218,7 @@ class Onboarding {
 							</div>
 						<?php endforeach; ?>
 					</div>
+					<?php endif; ?>
 				</div>
 				<div class="entry-footer">
 					<div class="prev">
