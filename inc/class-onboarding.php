@@ -172,7 +172,7 @@ class Onboarding {
 		$steps = $this->get_steps();
 		?>
 		<div id="analog-welcome-screen" class="analog-welcome-screen">
-			<form id="onboarding-modal" class="onboarding-modal">
+			<form id="onboarding-modal" class="onboarding-modal" action="<?php esc_url( admin_url( '/edit.php' ) ); ?>">
 				<div class="entry-header">
 					<div class="logo">
 						<span class="brand-icon">
@@ -258,8 +258,11 @@ class Onboarding {
 						<button id="start-onboarding" class="button btn-primary"><?php esc_html_e( 'Apply', 'ang' ); ?></button>
 					</div>
 					<div class="next-success <?php echo ! empty( $steps ) ? esc_attr( 'hidden' ) : ''; ?>">
+						<input type="hidden" name="action" value="analog_elementor_new_post">
+						<?php // PHPCS - a nonce doesn't have to be escaped. ?>
+						<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'analog_elementor_new_post_action' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 						<a href="<?php echo esc_url( admin_url( 'index.php' ) ); ?>" class="button btn-secondary"><?php esc_html_e( 'Go to Dashboard', 'ang' ); ?></a>
-						<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=elementor_library' ) ); ?>" class="button btn-primary"><?php esc_html_e( 'Open a new template', 'ang' ); ?></a>
+						<button type="submit" class="button btn-primary"><?php esc_html_e( 'Open a new template', 'ang' ); ?></button>
 					</div>
 				</div>
 			</form>
