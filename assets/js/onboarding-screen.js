@@ -81,7 +81,7 @@
 				// eslint-disable-next-line no-mixed-spaces-and-tabs
 				  return false;
 			}
-			$( '#onboarding-modal' ).submit( processOnboarding );
+			$( '#start-onboarding' ).on( 'click', processOnboarding );
 		}
 	);
 }( jQuery, analogOnboarding ) );
