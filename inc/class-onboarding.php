@@ -25,6 +25,7 @@ class Onboarding {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
 		add_action( 'wp_ajax_analog_onboarding', array( $this, 'ajax_actions' ) );
+		add_action( 'admin_action_analog_elementor_new_post', array( $this, 'create_elementor_template' ) );
 
 		$existing_version = get_option( 'analog_onboarding' );
 
@@ -470,6 +471,39 @@ class Onboarding {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Creates a new elementor template and redirects to it.
+	 *
+	 * @return void
+	 */
+	public function create_elementor_template() {
+		check_admin_referer( 'analog_elementor_new_post_action' );
+
+		$post_type = 'elementor_library';
+
+		if ( ! did_action( 'elementor/loaded' ) || ! \Elementor\User::is_current_user_can_edit_post_type( $post_type ) ) {
+			wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
+			return;
+		}
+
+		$type = 'page';
+
+		$post_data = array(
+			'post_title' => __( 'Style Kit: Test Page', 'ang' ),
+			'post_type'  => $post_type,
+		);
+
+		$document = Plugin::elementor()->documents->create( $type, $post_data, array() );
+
+		if ( is_wp_error( $document ) ) {
+			wp_die( $document ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
+
+		wp_safe_redirect( $document->get_edit_url() );
+
+		die;
 	}
 
 	/**
