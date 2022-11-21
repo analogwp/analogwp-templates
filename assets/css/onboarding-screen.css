@@ -63,6 +63,10 @@ body.admin_page_analog_onboarding #wpfooter {
 	color: currentColor;
 }
 
+.analog-welcome-screen .hidden {
+	display: none;
+}
+
 .analog-welcome-screen .button {
 	padding: 4px 35px;
 	text-decoration: none;
@@ -129,10 +133,6 @@ body.admin_page_analog_onboarding #wpfooter {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-}
-
-.analog-welcome-screen .entry-footer .hidden {
-	display: none;
 }
 
 
