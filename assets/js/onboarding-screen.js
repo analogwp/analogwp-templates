@@ -39,12 +39,6 @@
 				steps.map(
 					( step ) => {
 						const stepInput = $( `#${ step }` );
-						const stepValue = stepInput.is( ':checked' );
-
-						if ( ! stepValue ) {
-							$( `.step-${ step }` ).hide();
-						}
-
 						stepInput.attr( 'disabled', 'disabled' );
 					}
 				);
