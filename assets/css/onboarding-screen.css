@@ -1,5 +1,6 @@
 body.admin_page_analog_onboarding #adminmenuback,
 body.admin_page_analog_onboarding #adminmenuwrap,
+body.admin_page_analog_onboarding #wpbody-content .notice,
 body.admin_page_analog_onboarding #wpbody-content .error {
 	display: none;
 }
