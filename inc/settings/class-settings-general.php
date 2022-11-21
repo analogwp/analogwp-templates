@@ -70,25 +70,6 @@ class General extends Settings_Page {
 			array(
 				'title' => '',
 				'type'  => 'title',
-				'id'    => 'ang_general_settings',
-			),
-			array(
-				'id'    => 'onboarding_link',
-				'title' => esc_html_x( 'Restart Onboarding', 'settings title', 'ang' ),
-				'desc'  => __( 'Restarts the onboarding setup wizard', 'ang' ),
-				'to'    => admin_url( 'admin.php?page=analog_onboarding' ),
-				'type'  => 'button',
-				'class' => 'ang-rollback-version-button ang-button button-secondary',
-				'value' => __( 'Restart Onboarding', 'ang' ),
-			),
-			array(
-				'type' => 'sectionend',
-				'id'   => 'ang_general_settings',
-			),
-
-			array(
-				'title' => __( 'Elementor Settings', 'ang' ),
-				'type'  => 'title',
 				'id'    => 'ang_color_palette',
 			),
 			array(
@@ -112,6 +93,15 @@ class General extends Settings_Page {
 				),
 				'type'    => 'checkbox',
 				'default' => true,
+			),
+			array(
+				'id'    => 'onboarding_link',
+				'title' => esc_html_x( 'Setup', 'settings title', 'ang' ),
+				'desc'  => __( 'Trigger the setup wizard manually', 'ang' ),
+				'to'    => admin_url( 'admin.php?page=analog_onboarding' ),
+				'type'  => 'button',
+				'class' => 'ang-button button-secondary',
+				'value' => __( 'Restart wizard', 'ang' ),
 			),
 			array(
 				'type' => 'sectionend',
