@@ -88,74 +88,63 @@ class Onboarding {
 	 * @return array[]
 	 */
 	public function get_steps() {
-		$steps = array();
-
-		// Show this option in case of Elementor is not active.
-		if ( ! did_action( 'elementor/loaded' ) ) {
-			$steps[] = array(
+		$steps = array(
+			array(
 				'id'            => 'install-elementor',
 				'label'         => __( 'Install and Activate Elementor', 'ang' ),
 				'description'   => __( 'This will install and activate Elementor from the WordPress repository', 'ang' ),
 				'label_success' => __( 'Elementor is installed and activated', 'ang' ),
 				'label_failed'  => __( 'Failed to install and activate Elementor', 'ang' ),
 				'checked'       => true,
-			);
-		}
-
-		// Show this option in case of Elementor is not active or Elementor Container experiment is not enabled.
-		if ( ! did_action( 'elementor/loaded' ) || ( method_exists( '\Analog\Utils', 'is_elementor_container' ) && ! \Analog\Utils::is_elementor_container() ) ) {
-			$steps[] = array(
+				'todo'          => ! did_action( 'elementor/loaded' ),
+			),
+			array(
 				'id'            => 'enable-el-container-experiment',
 				'label'         => __( 'Enable Elementor container experiment', 'ang' ),
-				'description'   => __( 'Style Kits 2.0 works with Elementor containers. We will enable this experiment in Elementor', 'ang' ),
+				'description'   => __( 'The latest Style Kits version works best with flexbox containers. We will enable the Containers experiment in Elementor.', 'ang' ),
 				'label_success' => __( 'Container experiment is now active', 'ang' ),
 				'label_failed'  => __( 'Failed to activate Elementor container experiment', 'ang' ),
 				'checked'       => true,
-			);
-		}
-
-		// Show this option in case of either Elementor default colors or fonts are not disabled.
-		if ( ! get_option( 'elementor_disable_color_schemes' ) || ! get_option( 'elementor_disable_typography_schemes' ) ) {
-			$steps[] = array(
+				'todo'          => ! did_action( 'elementor/loaded' ) || ( method_exists( '\Analog\Utils', 'is_elementor_container' ) && ! \Analog\Utils::is_elementor_container() ),
+			),
+			array(
 				'id'            => 'disable-el-defaults',
 				'label'         => __( 'Disable Elementor default colors and fonts', 'ang' ),
 				'description'   => __( 'For Global Styles to work properly, Elementor default fonts and colors need to be disabled', 'ang' ),
 				'label_success' => __( 'Elementor default colors and fonts are disabled', 'ang' ),
 				'label_failed'  => __( 'Failed to disable Elementor default colors and fonts', 'ang' ),
 				'checked'       => true,
-			);
-		}
+				'todo'          => ! get_option( 'elementor_disable_color_schemes' ) || ! get_option( 'elementor_disable_typography_schemes' ),
+			),
+		);
 
 		// Show this option in case of either Hello Elementor theme is not installed and active.
 		$themes        = wp_get_themes();
 		$current_theme = wp_get_theme()->get_stylesheet();
 		$needle        = 'hello-elementor';
 
-		if ( ! in_array( $needle, array_keys( $themes ), true ) || $needle !== $current_theme ) {
-			$steps[] = array(
-				'id'            => 'install-hello-theme',
-				'label'         => __( 'Install and activate Hello Elementor Theme', 'ang' ),
-				'description'   => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'ang' ),
-				'label_success' => __( 'Hello Elementor theme is installed and activated', 'ang' ),
-				'label_failed'  => __( 'Failed to install and activate Hello Elementor', 'ang' ),
-				'checked'       => true,
-			);
-
-		}
+		$steps[] = array(
+			'id'            => 'install-hello-theme',
+			'label'         => __( 'Install and activate Hello Elementor Theme', 'ang' ),
+			'description'   => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'ang' ),
+			'label_success' => __( 'Hello Elementor theme is installed and activated', 'ang' ),
+			'label_failed'  => __( 'Failed to install and activate Hello Elementor', 'ang' ),
+			'checked'       => true,
+			'todo'          => ( ! in_array( $needle, array_keys( $themes ), true ) || $needle !== $current_theme ),
+		);
 
 		// Show this option in case of base kit is not imported.
 		$all_kits = method_exists( '\Analog\Utils', 'get_kits' ) ? \Analog\Utils::get_kits() : array();
 
-		if ( ! in_array( 'Style Kit: Base', array_values( $all_kits ), true ) ) {
-			$steps[] = array(
-				'id'            => 'import-base-kit',
-				'label'         => __( 'Import a starter theme style preset', 'ang' ),
-				'description'   => __( 'Use a basic Style Kit as your starting point. This will replace your existing global styles', 'ang' ),
-				'label_success' => __( 'A theme style preset "Style Kit: Base" has been imported', 'ang' ),
-				'label_failed'  => __( 'Failed to import a kit', 'ang' ),
-				'checked'       => true,
-			);
-		}
+		$steps[] = array(
+			'id'            => 'import-base-kit',
+			'label'         => __( 'Import a starter theme style preset', 'ang' ),
+			'description'   => __( 'Use a basic Style Kit as your starting point. This will replace your site’s default kit but you can always revert back to it later.', 'ang' ),
+			'label_success' => __( 'A theme style preset "Style Kit: Base" has been imported', 'ang' ),
+			'label_failed'  => __( 'Failed to import a kit', 'ang' ),
+			'checked'       => true,
+			'todo'          => ( ! in_array( 'Style Kit: Base', array_values( $all_kits ), true ) ),
+		);
 
 		return $steps;
 	}
@@ -196,47 +185,46 @@ class Onboarding {
 					<div class="steps-wrapper">
 						<?php
 						foreach ( $steps as $step ) :
-							if ( empty( $step ) ) {
-								continue;
-							}
 							?>
 
 							<div class="step <?php echo esc_attr( 'step-' . $step['id'] ); ?>">
-								<div class="control current">
-									<div class="switch">
-										<div class="switch__field">
-											<input id="<?php echo esc_attr( $step['id'] ); ?>" type="checkbox" <?php echo $step['checked'] ? esc_attr( 'checked' ) : ''; ?>>
-											<label for="<?php echo esc_attr( $step['id'] ); ?>"></label>
-										</div>
-									</div>
-									<div>
-										<p class="switch-label"><?php echo esc_html( $step['label'] ); ?></p>
-										<p class="switch-description"><?php echo esc_html( $step['description'] ); ?></p>
-									</div>
-								</div>
-								<div class="in-process">
-									<div>
-										<div class="spinner-box">
-											<div class="pulse-container">
-												<div class="pulse-bubble pulse-bubble-1"></div>
-												<div class="pulse-bubble pulse-bubble-2"></div>
-												<div class="pulse-bubble pulse-bubble-3"></div>
+								<?php if ( $step['todo'] ) : ?>
+									<div class="control current">
+										<div class="switch">
+											<div class="switch__field">
+												<input id="<?php echo esc_attr( $step['id'] ); ?>" type="checkbox" <?php echo $step['checked'] ? esc_attr( 'checked' ) : ''; ?>>
+												<label for="<?php echo esc_attr( $step['id'] ); ?>"></label>
 											</div>
 										</div>
+										<div>
+											<p class="switch-label"><?php echo esc_html( $step['label'] ); ?></p>
+											<p class="switch-description"><?php echo esc_html( $step['description'] ); ?></p>
+										</div>
 									</div>
-									<div>
-										<p class="switch-label"><?php echo esc_html( $step['label'] ); ?></p>
+									<div class="in-process">
+										<div>
+											<div class="spinner-box">
+												<div class="pulse-container">
+													<div class="pulse-bubble pulse-bubble-1"></div>
+													<div class="pulse-bubble pulse-bubble-2"></div>
+													<div class="pulse-bubble pulse-bubble-3"></div>
+												</div>
+											</div>
+										</div>
+										<div>
+											<p class="switch-label"><?php echo esc_html( $step['label'] ); ?></p>
+										</div>
 									</div>
-								</div>
-								<div class="failed">
-									<div>
-										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><title>Close Circle</title><path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm75.31 260.69a16 16 0 11-22.62 22.62L256 278.63l-52.69 52.68a16 16 0 01-22.62-22.62L233.37 256l-52.68-52.69a16 16 0 0122.62-22.62L256 233.37l52.69-52.68a16 16 0 0122.62 22.62L278.63 256z" fill="#7F6097"/></svg>
+									<div class="failed">
+										<div>
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><title>Close Circle</title><path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm75.31 260.69a16 16 0 11-22.62 22.62L256 278.63l-52.69 52.68a16 16 0 01-22.62-22.62L233.37 256l-52.68-52.69a16 16 0 0122.62-22.62L256 233.37l52.69-52.68a16 16 0 0122.62 22.62L278.63 256z" fill="#7F6097"/></svg>
+										</div>
+										<div>
+											<p class="switch-label"><?php echo esc_html( $step['label_failed'] ); ?></p>
+										</div>
 									</div>
-									<div>
-										<p class="switch-label"><?php echo esc_html( $step['label_failed'] ); ?></p>
-									</div>
-								</div>
-								<div class="success">
+								<?php endif; ?>
+								<div class="success <?php echo ! $step['todo'] ? esc_attr( 'current' ) : ''; ?>">
 									<div>
 										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M8.79289 19.1643L2.29288 12.6643C1.90237 12.2738 1.90237 11.6406 2.29288 11.2501L3.70706 9.83585C4.09757 9.44531 4.73077 9.44531 5.12128 9.83585L9.5 14.2145L18.8787 4.83585C19.2692 4.44534 19.9024 4.44534 20.2929 4.83585L21.7071 6.25007C22.0976 6.64058 22.0976 7.27374 21.7071 7.66429L10.2071 19.1643C9.81656 19.5548 9.1834 19.5548 8.79289 19.1643Z" fill="#6DB17C"/>
@@ -249,7 +237,6 @@ class Onboarding {
 							</div>
 						<?php endforeach; ?>
 					</div>
-					<?php endif; ?>
 				</div>
 				<div class="entry-footer">
 					<div class="prev">
