@@ -2,13 +2,27 @@
 ( function( $, data ) {
 	$(
 		function() {
+			function switchContent( stepsLength, currentIndex ) {
+				if ( ( stepsLength - 1 ) !== currentIndex ) {
+					return;
+				}
+				const elDesc = $( '.analog-welcome-screen .description-todo' );
+				const elDescSuccess = $( '.analog-welcome-screen .description-success' );
+				const elNextNav = $( '.analog-welcome-screen .next' );
+				const elNextSuccessNav = $( '.analog-welcome-screen .next-success' );
+
+				elDesc.toggleClass( 'hidden' );
+				elDescSuccess.toggleClass( 'hidden' );
+				elNextNav.toggleClass( 'hidden' );
+				elNextSuccessNav.toggleClass( 'hidden' );
+			}
+
 			function processOnboarding( e ) {
 				if ( e.preventDefault ) {
 					e.preventDefault();
 				}
 				const elSubmitBtn = $( '#start-onboarding' );
-				const elNextNav = $( '.next' );
-				const elNextSuccessNav = $( '.next-success' );
+
 				const status = data.processingText;
 
 				elSubmitBtn.text( status );
@@ -71,10 +85,7 @@
 							stepSuccess.toggleClass( 'current' );
 						} );
 
-						if ( ( steps.length - 1 ) === currentIndex ) {
-							elNextNav.toggleClass( 'hidden' );
-							elNextSuccessNav.toggleClass( 'hidden' );
-						}
+						switchContent( steps.length, currentIndex );
 					}, 10 );
 				}
 
