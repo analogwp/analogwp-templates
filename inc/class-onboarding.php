@@ -138,7 +138,7 @@ class Onboarding {
 				'description'   => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'ang' ),
 				'label_success' => __( 'Hello Elementor theme is installed and activated', 'ang' ),
 				'label_failed'  => __( 'Failed to install and activate Hello Elementor', 'ang' ),
-				'checked'       => false,
+				'checked'       => true,
 			);
 
 		}
