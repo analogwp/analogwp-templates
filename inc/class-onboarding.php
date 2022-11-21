@@ -150,6 +150,24 @@ class Onboarding {
 	}
 
 	/**
+	 * Is onboarding complete.
+	 *
+	 * @return bool
+	 */
+	private function is_onboarding_complete() {
+		$steps    = $this->get_steps();
+		$finished = true;
+
+		foreach ( $steps as $step ) {
+			if ( $step['todo'] ) {
+				$finished = ! $step['todo'];
+			}
+		}
+
+		return $finished;
+	}
+
+	/**
 	 * Admin page contents for Theme Style Kit migration screen.
 	 *
 	 * @return void
@@ -159,7 +177,8 @@ class Onboarding {
 		$this->enqueue_assets();
 
 		// Gets available steps.
-		$steps = $this->get_steps();
+		$steps    = $this->get_steps();
+		$finished = $this->is_onboarding_complete();
 		?>
 		<div id="analog-welcome-screen" class="analog-welcome-screen">
 			<form id="onboarding-modal" class="onboarding-modal" action="<?php esc_url( admin_url( '/edit.php' ) ); ?>">
@@ -240,10 +259,10 @@ class Onboarding {
 					<div class="prev">
 						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings' ) ); ?>"><?php esc_html_e( 'Skip wizard', 'ang' ); ?></a>
 					</div>
-					<div class="next <?php echo empty( $steps ) ? esc_attr( 'hidden' ) : ''; ?>">
+					<div class="next <?php echo $finished ? esc_attr( 'hidden' ) : ''; ?>">
 						<button id="start-onboarding" class="button btn-primary"><?php esc_html_e( 'Apply', 'ang' ); ?></button>
 					</div>
-					<div class="next-success <?php echo ! empty( $steps ) ? esc_attr( 'hidden' ) : ''; ?>">
+					<div class="next-success <?php echo ! $finished ? esc_attr( 'hidden' ) : ''; ?>">
 						<input type="hidden" name="action" value="analog_elementor_new_post">
 						<?php // PHPCS - a nonce doesn't have to be escaped. ?>
 						<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'analog_elementor_new_post_action' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
