@@ -178,10 +178,8 @@ class Onboarding {
 					</nav>
 				</div>
 				<div class="content-wrapper">
-					<?php if ( empty( $steps ) ) : ?>
-						<p class="short-description"><?php esc_html_e( 'Looks like you have everything in place.', 'ang' ); ?></p>
-					<?php else : ?>
-					<p class="short-description"><?php esc_html_e( 'Setup Elementor properly for a seamless Style Kits Experience.', 'ang' ); ?> <a href="#">Learn more</a></p>
+					<p class="short-description description-todo <?php echo $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Setup Elementor properly for a seamless Style Kits Experience.', 'ang' ); ?> <a href="https://docs.analogwp.com/article/661-wizard-setup" target="_blank"><?php esc_html_e( 'Learn more', 'ang' ); ?></a></p>
+					<p class="short-description description-success <?php echo ! $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Looks like you have everything in place.', 'ang' ); ?></p>
 					<div class="steps-wrapper">
 						<?php
 						foreach ( $steps as $step ) :
