@@ -21,7 +21,15 @@
 }
 
 .ang .forminp-button {
-	padding: 0 0 15px;
+	padding: 15px 10px;
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+
+.ang .forminp-button .description {
+	margin-top: 0;
 }
 
 .ang .collapsible {
