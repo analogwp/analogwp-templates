@@ -45,10 +45,17 @@
 
 				for ( let currentIndex = 0; currentIndex < steps.length; currentIndex++ ) {
 					const step = steps[ currentIndex ];
+
+					const stepControl = $( `.step-${ step } > .control` );
+
+					if ( ! stepControl.length ) {
+						switchContent( steps.length, currentIndex );
+						continue;
+					}
+
 					const stepInput = $( `#${ step }` );
 					const stepValue = stepInput.is( ':checked' );
 
-					const stepControl = $( `.step-${ step } > .control` );
 					const stepInProcess = $( `.step-${ step } > .in-process` );
 					const stepFailed = $( `.step-${ step } > .failed` );
 					const stepSuccess = $( `.step-${ step } > .success` );
