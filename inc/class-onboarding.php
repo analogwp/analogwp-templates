@@ -467,6 +467,12 @@ class Onboarding {
 				return false;
 			}
 
+			// Set imported kit as global.
+			if ( isset( $result['id'] ) ) {
+				\Analog\Options::get_instance()->set( 'global_kit', $result['id'] );
+				\Analog\Utils::set_elementor_active_kit( $result['id'] );
+			}
+
 			return true;
 		}
 
