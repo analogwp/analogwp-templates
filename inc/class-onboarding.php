@@ -457,7 +457,6 @@ class Onboarding {
 		$kit = array(
 			'id'             => 6491,
 			'title'          => 'Style Kit: Base',
-			'image'          => 'https://preview.analogwp.com/designsystem/wp-content/uploads/sites/26/2022/11/base.svg',
 			'site_id'        => 26,
 			'is_pro'         => false,
 			'uses_container' => true,
