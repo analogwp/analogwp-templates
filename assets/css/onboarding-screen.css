@@ -108,6 +108,11 @@ body.admin_page_analog_onboarding #wpfooter {
 	padding: 20px 0;
 }
 
+.analog-welcome-screen .step > *.current > :first-child {
+	min-width: 40px;
+	text-align: center;
+}
+
 .analog-welcome-screen .step:not(:last-child) {
 	border-bottom: 1px solid #DFDFDF;
 }
