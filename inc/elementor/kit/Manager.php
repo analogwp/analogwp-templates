@@ -329,15 +329,6 @@ class Manager {
 			return new WP_Error( 'kit_post_error', $kit_id->get_error_message() );
 		}
 
-		$attachment = Import_Image::get_instance()->import(
-			array(
-				'id'  => wp_rand( 000, 999 ),
-				'url' => $kit['image'],
-			)
-		);
-
-		update_post_meta( $kit_id, '_thumbnail_id', $attachment['id'] );
-
 		return array(
 			'message' => __( 'Style Kit imported', 'ang' ),
 			'id'      => $kit_id,
