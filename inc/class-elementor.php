@@ -111,7 +111,6 @@ class Elementor {
 
 		wp_enqueue_script( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/js/elementor-modal.js', array( 'jquery' ), filemtime( ANG_PLUGIN_DIR . 'assets/js/elementor-modal.js' ), false );
 		wp_enqueue_style( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/css/elementor-modal.css', array( 'dashicons' ), filemtime( ANG_PLUGIN_DIR . 'assets/css/elementor-modal.css' ) );
-		wp_enqueue_style( 'ang-sk-main', ANG_PLUGIN_URL . 'assets/css/sk-main.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/sk-main.css' ) );
 
 		wp_enqueue_script(
 			'analogwp-app',
