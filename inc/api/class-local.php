@@ -455,16 +455,19 @@ class Local extends Base {
 			return new WP_Error( 'kit_title_error', __( 'Please provide a title.', 'ang' ) );
 		}
 
+		$elementor_controls = \get_post_meta( $belongs_to, '_elementor_controls_usage', true );
+
 		$tokens = json_decode( $settings, true );
 		$kit    = new Manager();
 
 		$post_id = $kit->create_kit(
 			$title,
 			array(
-				'_elementor_data'          => $kit->get_kit_content(),
-				'_elementor_page_settings' => $tokens,
-				'_duplicate_of'            => $belongs_to,
-				'_is_analog_user_kit'      => true,
+				'_elementor_data'           => $kit->get_kit_content(),
+				'_elementor_page_settings'  => $tokens,
+				'_duplicate_of'             => $belongs_to,
+				'_is_analog_user_kit'       => true,
+				'_elementor_controls_usage' => $elementor_controls,
 			)
 		);
 
