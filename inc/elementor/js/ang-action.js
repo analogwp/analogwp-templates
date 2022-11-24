@@ -391,11 +391,7 @@ jQuery( window ).on( 'elementor/init', function() {
 									settings: JSON.stringify( angSettings ),
 								},
 							} ).then( function( response ) {
-								elementor.config.kit_id = response.id;
-
 								modal.destroy();
-
-								analog.setPanelTitle( response.id );
 
 								// Ensure current changes are not saved to active document.
 								$e.run( 'document/save/discard' ); // TODO: Fix console TypeError while closing kit panel.
@@ -405,13 +401,8 @@ jQuery( window ).on( 'elementor/init', function() {
 								 * So we close the Kit panel and then save Style Kit value.
 								 */
 								$e.run( 'panel/global/close' ).then( () => {
-									// Re-renders an updated page config.
-									refreshPageConfig( elementor.config.initial_document.id );
-
-									// Set Style Kit to the newly created kit once preview frame loads.
-									jQuery( '#elementor-preview-iframe' ).load( function() {
-										elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
-									} );
+									elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
+									analog.kitSwitcher( response.id );
 								} );
 
 
