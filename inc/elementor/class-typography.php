@@ -1102,9 +1102,9 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_save_token',
 			array(
-				'label' => __( 'Save Theme Style Kit as', 'ang' ) . $this->get_tooltip( $label ),
+				'label' => __( 'Clone Style Kit', 'ang' ) . $this->get_tooltip( $label ),
 				'type'  => 'button',
-				'text'  => __( 'Save as&hellip;', 'ang' ),
+				'text'  => __( 'Clone', 'ang' ),
 				'event' => 'analog:saveKit',
 			)
 		);

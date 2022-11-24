@@ -80,7 +80,7 @@
 
 				if ( elementor.config.initial_document.type === 'kit' ) {
 					elementor.$previewContents.find('body').removeClass(`elementor-kit-${elementor.config.kit_id}`).addClass(`elementor-kit-${elementor.config.document.id}`);
-					enqueueFonts();
+					analog.enqueueFonts();
 					return;
 				}
 
@@ -92,7 +92,7 @@
 					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', AGWP.global_kit );
 				}
 
-				elementor.settings.page.addChangeCallback( 'ang_action_tokens', kitSwitcher );
+				elementor.settings.page.addChangeCallback( 'ang_action_tokens', analog.kitSwitcher );
 
 				if ( ANG_Action.globalKit && ! ( parseInt( elementor.settings.page.model.attributes.ang_action_tokens ) in elementor.settings.page.model.controls.ang_action_tokens.options ) ) {
 					elementor.settings.page.model.setExternalChange( 'ang_action_tokens', ANG_Action.globalKit );
@@ -102,75 +102,11 @@
 
 				if ( undefined !== activeKit ) {
 					elementor.config.kit_id = activeKit;
-					fixKitClasses();
+					analog.fixKitClasses();
 					analog.setPanelTitle( activeKit );
-					loadDocumentAndEnqueueFonts(activeKit, true);
+					analog.loadDocumentAndEnqueueFonts(activeKit, true);
 				}
 			});
-		}
-
-		function fixKitClasses( id = elementor.config.kit_id ) {
-			const classes = elementor.$previewContents.find('body').classList().filter(word => word.startsWith('elementor-kit-'));
-			classes.forEach( className => {
-				elementor.$previewContents.find('body').removeClass(className);
-			} );
-			elementor.$previewContents.find('body').addClass(`elementor-kit-${id}`);
-		}
-
-		function loadDocumentAndEnqueueFonts( id, softReload = false ) {
-			elementor.documents.request(id)
-				.then( ( config ) => {
-					elementor.documents.addDocumentByConfig(config);
-
-					/**
-					 * If for some reasons, Kit CSS wasn't enqueued.
-					 * This line forces Theme Style window to open, which re-renders the CSS for current kit.
-					 */
-					if ( ! elementor.$previewContents.find( `#elementor-post-${config.id}-css` ).length && softReload ) {
-						analog.openThemeStyles();
-					}
-				})
-				.then( () => {
-					const document = elementor.documents.get(id);
-					const settings = document.config.settings.settings;
-					const controls = document.config.settings.controls;
-
-					for (let [key, value] of Object.entries( settings ) ) {
-						if ( controls[ key ] && 'font' === controls[ key ].type && value ) {
-							elementor.helpers.enqueueFont( value );
-						}
-					}
-				} );
-		}
-
-		function enqueueFonts() {
-			const attributes = elementor.settings.page.model.attributes;
-			const controls = elementor.settings.page.model.controls;
-
-			for (let [key, value] of Object.entries(attributes)) {
-				if ( controls[ key ] && 'font' === controls[ key ].type && value ) {
-					elementor.helpers.enqueueFont( value );
-				}
-			}
-		}
-
-		function refreshKit( id ) {
-			analog.setPanelTitle(id);
-			elementor.config.kit_id = id;
-			fixKitClasses(id);
-			loadDocumentAndEnqueueFonts( id );
-		}
-
-		function kitSwitcher( id ) {
-			if ( elementor.config.kit_id !== id ) {
-				elementor.settings.page.model.setExternalChange( 'ang_updated_token', elementor.config.kit_id );
-				refreshKit(id);
-				setTimeout( () => {
-					$e.run( 'document/save/update' ).then( () => {
-						window.location.reload();
-					} );
-				}, 1000 );
-			}
 		}
 
 		init();
@@ -193,6 +129,70 @@ jQuery( window ).on( 'elementor/init', function() {
 		jQuery('head').append(
 			'<style id="sk-panels-allowed">.elementor-panel [class*="elementor-control-ang_"], .elementor-panel [class*="elementor-control-description_ang_"] {display:none;}</style>'
 		);
+	}
+
+	analog.fixKitClasses = ( id = elementor.config.kit_id ) => {
+		const classes = elementor.$previewContents.find('body').classList().filter(word => word.startsWith('elementor-kit-'));
+		classes.forEach( className => {
+			elementor.$previewContents.find('body').removeClass(className);
+		} );
+		elementor.$previewContents.find('body').addClass(`elementor-kit-${id}`);
+	}
+
+	analog.loadDocumentAndEnqueueFonts = ( id, softReload = false ) => {
+		elementor.documents.request(id)
+			.then( ( config ) => {
+				elementor.documents.addDocumentByConfig(config);
+
+				/**
+				 * If for some reasons, Kit CSS wasn't enqueued.
+				 * This line forces Theme Style window to open, which re-renders the CSS for current kit.
+				 */
+				if ( ! elementor.$previewContents.find( `#elementor-post-${config.id}-css` ).length && softReload ) {
+					analog.openThemeStyles();
+				}
+			})
+			.then( () => {
+				const document = elementor.documents.get(id);
+				const settings = document.config.settings.settings;
+				const controls = document.config.settings.controls;
+
+				for (let [key, value] of Object.entries( settings ) ) {
+					if ( controls[ key ] && 'font' === controls[ key ].type && value ) {
+						elementor.helpers.enqueueFont( value );
+					}
+				}
+			} );
+	}
+
+	analog.enqueueFonts = () => {
+		const attributes = elementor.settings.page.model.attributes;
+		const controls = elementor.settings.page.model.controls;
+
+		for (let [key, value] of Object.entries(attributes)) {
+			if ( controls[ key ] && 'font' === controls[ key ].type && value ) {
+				elementor.helpers.enqueueFont( value );
+			}
+		}
+	}
+
+	analog.refreshKit = ( id ) => {
+		analog.setPanelTitle(id);
+		elementor.config.kit_id = id;
+		analog.fixKitClasses(id);
+		analog.loadDocumentAndEnqueueFonts( id );
+	}
+
+	analog.kitSwitcher = ( id ) => {
+		if ( elementor.config.kit_id !== id ) {
+			elementor.settings.page.model.setExternalChange( 'ang_updated_token', elementor.config.kit_id );
+			analog.refreshKit(id);
+			setTimeout( () => {
+				$e.run( 'document/save/update' ).then( () => {
+					window.location.reload();
+				} );
+			}, 1000 );
+		}
 	}
 
 	analog.setPanelTitle = ( id = false ) => {
@@ -391,11 +391,7 @@ jQuery( window ).on( 'elementor/init', function() {
 									settings: JSON.stringify( angSettings ),
 								},
 							} ).then( function( response ) {
-								elementor.config.kit_id = response.id;
-
 								modal.destroy();
-
-								analog.setPanelTitle( response.id );
 
 								// Ensure current changes are not saved to active document.
 								$e.run( 'document/save/discard' ); // TODO: Fix console TypeError while closing kit panel.
@@ -405,13 +401,8 @@ jQuery( window ).on( 'elementor/init', function() {
 								 * So we close the Kit panel and then save Style Kit value.
 								 */
 								$e.run( 'panel/global/close' ).then( () => {
-									// Re-renders an updated page config.
-									refreshPageConfig( elementor.config.initial_document.id );
-
-									// Set Style Kit to the newly created kit once preview frame loads.
-									jQuery( '#elementor-preview-iframe' ).load( function() {
-										elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
-									} );
+									elementor.settings.page.model.setExternalChange( 'ang_action_tokens', response.id );
+									analog.kitSwitcher( response.id );
 								} );
 
 
