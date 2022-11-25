@@ -103,8 +103,8 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 == Changelog ==
 
 = 1.9.6 - November 25, 2022 =
-* New: Onboarding wizard for v2.0
-* New: Translation support for library (Javascript files)
+* New: Onboarding wizard for simpler setup
+* New: Translation support for JS files
 * Improvements: Revamped Kit "Save as" feature to "Clone Kit"
 * Improvements: Remove feature image from Kit imports
 * Improvements: Compatibility with Elementor v3.8.1 & Elementor Pro v3.8.2
