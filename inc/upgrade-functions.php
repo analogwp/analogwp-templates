@@ -163,8 +163,11 @@ function do_automatic_upgrades() {
 		);
 	}
 
-	// Dismissible sticky notice for v1.9.6
-	if ( version_compare( ANG_VERSION, '1.9.6', '=' ) ) {
+	// Use global options table as it is stored there intentionally.
+	$ran_onboarding = get_option( 'ran_onboarding' );
+
+	// Dismissible sticky notice for v1.9.6.
+	if ( ! $ran_onboarding && version_compare( ANG_VERSION, '1.9.6', '=' ) ) {
 		// Add notice.
 		add_filter(
 			'analog_admin_notices',
