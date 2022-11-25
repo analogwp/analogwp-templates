@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 6.1
-Stable tag: 1.9.5
+Tested up to: 6.1.1
+Stable tag: 1.9.6
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -101,6 +101,14 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 1.9.6 - November 25, 2022 =
+* New: Onboarding wizard for simpler setup
+* New: Translation support for JS files
+* Improvements: Revamped Kit "Save as" feature to "Clone Kit"
+* Improvements: Remove feature image from Kit imports
+* Improvements: Compatibility with Elementor v3.8.1 & Elementor Pro v3.8.2
+* Improvements: Compatible up to WordPress v6.1.1
 
 = 1.9.5 - November 04, 2022 =
 * New: Container-based Pattern library experiment

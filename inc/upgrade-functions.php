@@ -163,6 +163,33 @@ function do_automatic_upgrades() {
 		);
 	}
 
+	// Use global options table as it is stored there intentionally.
+	$ran_onboarding = get_option( 'ran_onboarding' );
+
+	// Dismissible sticky notice for v1.9.6.
+	if ( ! $ran_onboarding && version_compare( ANG_VERSION, '1.9.6', '=' ) ) {
+		// Add notice.
+		add_filter(
+			'analog_admin_notices',
+			function( $notices ) {
+				$notices[] = new Notice(
+					'update_success_196',
+					array(
+						'content'     => sprintf(
+							'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
+							__( 'The New version of Style Kits introduces a setup wizard. You can trigger it at any time under Style Kits Settings.', 'ang' ),
+							'https://docs.analogwp.com/article/661-wizard-setup',
+							__( 'Learn more', 'ang' )
+						),
+						'type'        => Notice::TYPE_INFO,
+						'dismissible' => true,
+					)
+				);
+				return $notices;
+			}
+		);
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
