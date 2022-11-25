@@ -174,9 +174,13 @@ class Onboarding {
 	 * @return void
 	 */
 	public function render_markup() {
+		$ran_onboarding = get_option( 'ran_onboarding' );
+
 		// Checks off onboarding if the user has been through it.
 		// Uses global options table as onboarding runs even without all our files active.
-		update_option( 'ran_onboarding', true );
+		if ( ! $ran_onboarding ) {
+			update_option( 'ran_onboarding', true );
+		}
 
 		// Enqueue assets.
 		$this->enqueue_assets();
