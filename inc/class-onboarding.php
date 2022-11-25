@@ -28,8 +28,9 @@ class Onboarding {
 		add_action( 'admin_action_analog_elementor_new_post', array( $this, 'create_elementor_template' ) );
 
 		$existing_version = get_option( 'analog_onboarding' );
+		$options_table    = get_option( 'ang_options' );
 
-		if ( version_compare( self::$version, $existing_version, '>' ) ) {
+		if ( ! $options_table || version_compare( self::$version, $existing_version, '>' ) ) {
 			// Redirect to onboarding page.
 			wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
 			update_option( 'analog_onboarding', self::$version );
