@@ -174,9 +174,9 @@ function do_automatic_upgrades() {
 					array(
 						'content'     => sprintf(
 							'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
-							__( 'Welcome to Style Kits v1.9.6, this version features a new setup wizard. Feel free to trigger it at any point under Style Kits Settings.', 'ang' ),
-							'https://wordpress.org/plugins/analogwp-templates/#developers',
-							__( 'See what’s new.', 'ang' )
+							__( 'The New version of Style Kits introduces a setup wizard. You can trigger it at any time under Style Kits Settings.', 'ang' ),
+							'https://docs.analogwp.com/article/661-wizard-setup',
+							__( 'Learn more', 'ang' )
 						),
 						'type'        => Notice::TYPE_INFO,
 						'dismissible' => true,
