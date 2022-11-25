@@ -163,6 +163,30 @@ function do_automatic_upgrades() {
 		);
 	}
 
+	// Dismissible sticky notice for v1.10.0
+	if ( version_compare( ANG_VERSION, '1.10.0', '=' ) ) {
+		// Add notice.
+		add_filter(
+			'analog_admin_notices',
+			function( $notices ) {
+				$notices[] = new Notice(
+					'update_success_110',
+					array(
+						'content'     => sprintf(
+							'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
+							__( 'Welcome to Style Kits v1.10.0, this version features a new setup wizard. Feel free to trigger it at any point under Style Kits Settings.', 'ang' ),
+							'https://wordpress.org/plugins/analogwp-templates/#developers',
+							__( 'See what’s new.', 'ang' )
+						),
+						'type'        => Notice::TYPE_INFO,
+						'dismissible' => true,
+					)
+				);
+				return $notices;
+			}
+		);
+	}
+
 	if ( $did_upgrade ) {
 		// Bump version.
 		Options::get_instance()->set( 'version', ANG_VERSION );
