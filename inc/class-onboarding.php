@@ -30,7 +30,7 @@ class Onboarding {
 		$existing_version = get_option( 'analog_onboarding' );
 		$options_table    = get_option( 'ang_options' );
 
-		if ( ! $options_table || version_compare( self::$version, $existing_version, '>' ) ) {
+		if ( ! $options_table && version_compare( self::$version, $existing_version, '>' ) ) {
 			// Redirect to onboarding page.
 			wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
 			update_option( 'analog_onboarding', self::$version );
