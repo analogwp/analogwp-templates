@@ -102,6 +102,11 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
+= 1.9.7 - November 29, 2022 =
+* Fix: Library sidebar is not scrollable
+* Fix: Accent background appears in dropdown even if PRO is not active
+* Fix: Onboarding wizard shows all items completed regardless of toggled actions
+
 = 1.9.6 - November 25, 2022 =
 * New: Onboarding wizard for simpler setup
 * New: Translation support for JS files
