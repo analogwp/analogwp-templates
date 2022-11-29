@@ -1302,6 +1302,16 @@ class Typography extends Module {
 			)
 		);
 
+		$bg_presets = array(
+			'none'     => __( 'None', 'ang' ),
+			'light-bg' => __( 'Light Background', 'ang' ),
+			'dark-bg'  => __( 'Dark background', 'ang' ),
+		);
+
+		if ( Utils::has_pro() ) {
+			$bg_presets['accent-bg'] = __( 'Accent Background', 'ang' );
+		}
+
 		$element->add_control(
 			'ang_container_bg_preset',
 			array(
@@ -1310,12 +1320,7 @@ class Typography extends Module {
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
-				'options'       => array(
-					'none'      => __( 'None', 'ang' ),
-					'light-bg'  => __( 'Light Background', 'ang' ),
-					'dark-bg'   => __( 'Dark background', 'ang' ),
-					'accent-bg' => __( 'Accent Background', 'ang' ),
-				),
+				'options'       => $bg_presets,
 				'prefix_class'  => 'sk-',
 				'condition'     => array(
 					'background_background' => array( 'classic' ),
