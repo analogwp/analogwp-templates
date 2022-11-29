@@ -1023,10 +1023,10 @@ class Typography extends Module {
 			array(
 				'raw'             => sprintf(
 									/* translators: %s: Link to Style Kits */
-									'<p>%1$s <a href="https://docs.analogwp.com/article/660-new-style-kits-panel" target="_blank">%2$s</a></p>',
-									__( 'Select a different Style Kit to be applied on this page. The page will reload after your selection.', 'ang' ),
-									__( 'Learn more', 'ang' )
-								),
+					'<p>%1$s <a href="https://docs.analogwp.com/article/660-new-style-kits-panel" target="_blank">%2$s</a></p>',
+					__( 'Select a different Style Kit to be applied on this page. The page will reload after your selection.', 'ang' ),
+					__( 'Learn more', 'ang' )
+				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -1048,9 +1048,9 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_updated_token',
 			array(
-				'label'     => __( 'Page Style Kit', 'ang' ),
-				'type'      => Controls_Manager::HIDDEN,
-				'default'   => '',
+				'label'   => __( 'Page Style Kit', 'ang' ),
+				'type'    => Controls_Manager::HIDDEN,
+				'default' => '',
 			)
 		);
 
@@ -1302,6 +1302,16 @@ class Typography extends Module {
 			)
 		);
 
+		$bg_presets = array(
+			'none'     => __( 'None', 'ang' ),
+			'light-bg' => __( 'Light Background', 'ang' ),
+			'dark-bg'  => __( 'Dark background', 'ang' ),
+		);
+
+		if ( Utils::has_pro() ) {
+			$bg_presets['accent-bg'] = __( 'Accent Background', 'ang' );
+		}
+
 		$element->add_control(
 			'ang_container_bg_preset',
 			array(
@@ -1310,12 +1320,7 @@ class Typography extends Module {
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
-				'options'       => array(
-					'none'      => __( 'None', 'ang' ),
-					'light-bg'  => __( 'Light Background', 'ang' ),
-					'dark-bg'   => __( 'Dark background', 'ang' ),
-					'accent-bg' => __( 'Accent Background', 'ang' ),
-				),
+				'options'       => $bg_presets,
 				'prefix_class'  => 'sk-',
 				'condition'     => array(
 					'background_background' => array( 'classic' ),
@@ -1690,73 +1695,73 @@ class Typography extends Module {
 
 		$title_typography = array(
 			array(
-				'_id'   => 'sk_type_1',
-				'title' => esc_html__( 'Display title', 'ang' ),
+				'_id'                   => 'sk_type_1',
+				'title'                 => esc_html__( 'Display title', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 5,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_2',
-				'title' => esc_html__( 'Title 1', 'ang' ),
+				'_id'                   => 'sk_type_2',
+				'title'                 => esc_html__( 'Title 1', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 4,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_3',
-				'title' => esc_html__( 'Title 2', 'ang' ),
+				'_id'                   => 'sk_type_3',
+				'title'                 => esc_html__( 'Title 2', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 3,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_4',
-				'title' => esc_html__( 'Title 3', 'ang' ),
+				'_id'                   => 'sk_type_4',
+				'title'                 => esc_html__( 'Title 3', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 2,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_5',
-				'title' => esc_html__( 'Title 4', 'ang' ),
+				'_id'                   => 'sk_type_5',
+				'title'                 => esc_html__( 'Title 4', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 1.5,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_6',
-				'title' => esc_html__( 'Title 5', 'ang' ),
+				'_id'                   => 'sk_type_6',
+				'title'                 => esc_html__( 'Title 5', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 1.2,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_7',
-				'title' => esc_html__( 'Title 6', 'ang' ),
+				'_id'                   => 'sk_type_7',
+				'title'                 => esc_html__( 'Title 6', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 1,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_8',
-				'title' => esc_html__( 'Overline / Subheader', 'ang' ),
+				'_id'                   => 'sk_type_8',
+				'title'                 => esc_html__( 'Overline / Subheader', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 0.8,
 					'unit' => 'em',
 				),
@@ -1779,71 +1784,71 @@ class Typography extends Module {
 
 		$text_typography = array(
 			array(
-				'_id'   => 'sk_type_9',
-				'title' => esc_html__( 'Display text', 'ang' ),
+				'_id'                   => 'sk_type_9',
+				'title'                 => esc_html__( 'Display text', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 2,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_10',
-				'title' => esc_html__( 'Large text', 'ang' ),
+				'_id'                   => 'sk_type_10',
+				'title'                 => esc_html__( 'Large text', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 1.5,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_11',
-				'title' => esc_html__( 'Normal text', 'ang' ),
+				'_id'                   => 'sk_type_11',
+				'title'                 => esc_html__( 'Normal text', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 1,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_12',
-				'title' => esc_html__( 'Small text', 'ang' ),
+				'_id'                   => 'sk_type_12',
+				'title'                 => esc_html__( 'Small text', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 0.95,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_13',
-				'title' => esc_html__( 'Caption', 'ang' ),
+				'_id'                   => 'sk_type_13',
+				'title'                 => esc_html__( 'Caption', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 0.8,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_14',
-				'title' => esc_html__( 'Button text', 'ang' ),
+				'_id'                   => 'sk_type_14',
+				'title'                 => esc_html__( 'Button text', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 1,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_15',
-				'title' => esc_html__( 'Form label', 'ang' ),
+				'_id'                   => 'sk_type_15',
+				'title'                 => esc_html__( 'Form label', 'ang' ),
 				'typography_typography' => 'custom',
-				'typography_font_size' => array(
+				'typography_font_size'  => array(
 					'size' => 1,
 					'unit' => 'em',
 				),
 			),
 			array(
-				'_id'   => 'sk_type_16',
-				'title' => esc_html__( 'Font Style 16', 'ang' ),
+				'_id'                   => 'sk_type_16',
+				'title'                 => esc_html__( 'Font Style 16', 'ang' ),
 				'typography_typography' => 'custom',
 			),
 		);

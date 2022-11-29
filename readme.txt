@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.1.1
-Stable tag: 1.9.6
+Stable tag: 1.9.7
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -101,6 +101,11 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 1.9.7 - November 29, 2022 =
+* Fix: Library sidebar is not scrollable
+* Fix: Accent background appears in dropdown even if PRO is not active
+* Fix: Onboarding wizard shows all items completed regardless of toggled actions
 
 = 1.9.6 - November 25, 2022 =
 * New: Onboarding wizard for simpler setup
