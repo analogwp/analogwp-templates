@@ -46,15 +46,21 @@
 				for ( let currentIndex = 0; currentIndex < steps.length; currentIndex++ ) {
 					const step = steps[ currentIndex ];
 
+					const stepParent = $( `.step-${ step }` );
 					const stepControl = $( `.step-${ step } > .control` );
+					const stepInput = $( `#${ step }` );
+					const stepValue = stepInput.is( ':checked' );
+
+					if ( stepControl.length && ! stepValue ) {
+						stepParent.hide();
+						switchContent( steps.length, currentIndex );
+						continue;
+					}
 
 					if ( ! stepControl.length ) {
 						switchContent( steps.length, currentIndex );
 						continue;
 					}
-
-					const stepInput = $( `#${ step }` );
-					const stepValue = stepInput.is( ':checked' );
 
 					const stepInProcess = $( `.step-${ step } > .in-process` );
 					const stepFailed = $( `.step-${ step } > .failed` );
