@@ -532,9 +532,15 @@ class Onboarding {
 			$action = isset( $_POST['stepId'] ) ? sanitize_key( $_POST['stepId'] ) : '';
 			$value  = isset( $_POST['stepValue'] ) ? wp_validate_boolean( wp_unslash( $_POST['stepValue'] ) ) : '';
 
+			$error_response = __( 'Oops, something went wrong at action: ', 'ang' ) . $action;
+
 			if ( ! $value ) {
-				wp_send_json_error();
-				return;
+				wp_send_json_error(
+					array(
+						'message' => $error_response,
+					),
+					406
+				);
 			}
 
 			$result = array();
@@ -560,7 +566,7 @@ class Onboarding {
 			if ( ! $result ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'Oops, something went wrong at action: ', 'ang' ) . $action,
+						'message' => $error_response,
 					),
 					406
 				);
