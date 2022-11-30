@@ -354,13 +354,18 @@ class Admin_Settings {
 					$option_value = $value['value'];
 					?>
 					<tr valign="top">
+						<?php if ( isset( $value['title'] ) && ! empty( $value['title'] ) ) : ?>
+							<th scope="row" class="titledesc">
+								<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // phpcs:ignore ?></label>
+							</th>
+						<?php endif; ?>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<a  href="<?php echo esc_attr( $value['to'] ); ?>"
 								id="<?php echo esc_attr( $value['id'] ); ?>"
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
-								><?php echo esc_html( $option_value ); ?></a><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // WPCS: XSS ok. ?>
+								<?php echo implode( ' ', $custom_attributes ); // phpcs:ignore ?>
+								><?php echo esc_html( $option_value ); ?></a><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // phpcs:ignore ?>
 						</td>
 					</tr>
 					<?php

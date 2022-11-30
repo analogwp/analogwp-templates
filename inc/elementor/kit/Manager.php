@@ -8,12 +8,15 @@
 namespace Analog\Elementor\Kit;
 
 use Analog\Admin\Notice;
+use Analog\API\Remote;
+use Analog\Classes\Import_Image;
 use Analog\Options;
 use Analog\Plugin;
 use Analog\Utils;
 use Elementor\Core\Files\CSS\Post as Post_CSS;
 use Elementor\Core\Kits\Manager as KitManager;
 use Elementor\TemplateLibrary\Source_Local;
+use WP_Error;
 
 /**
  * Class Manager.
@@ -283,6 +286,53 @@ class Manager {
 		);
 
 		return $kit->get_id();
+	}
+
+	/**
+	 * Process a Style Kit import.
+	 *
+	 * @since 1.9.6
+	 *
+	 * @uses \Analog\Elementor\Kit\Manager
+	 *
+	 * @param array $kit Array containing Style Kit info to import.
+	 * @return WP_Error|array
+	 */
+	public function import_kit( $kit ) {
+		if ( isset( $kit['is_pro'] ) && $kit['is_pro'] && ! Utils::has_valid_license() ) {
+			return new WP_Error( 'import_error', 'Invalid license provided.' );
+		}
+
+		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit );
+
+		if ( isset( $remote_kit['message'], $remote_kit['code'] ) ) {
+			return new WP_Error( $remote_kit['code'], $remote_kit['message'] );
+		}
+
+		if ( is_wp_error( $remote_kit ) ) {
+			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'ang' ) );
+		}
+
+		$kit_data     = $remote_kit['data'];
+		$kit_settings = maybe_unserialize( $kit_data );
+
+		$kit_id = $this->create_kit(
+			$kit['title'],
+			array(
+				'_elementor_data'          => $this->get_kit_content(),
+				'_elementor_page_settings' => $kit_settings,
+				'_is_analog_kit'           => true,
+			)
+		);
+
+		if ( is_wp_error( $kit_id ) ) {
+			return new WP_Error( 'kit_post_error', $kit_id->get_error_message() );
+		}
+
+		return array(
+			'message' => __( 'Style Kit imported', 'ang' ),
+			'id'      => $kit_id,
+		);
 	}
 
 	/**

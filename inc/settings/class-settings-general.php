@@ -50,7 +50,7 @@ class General extends Settings_Page {
 	public function get_settings( $current_section = '' ) {
 		global $current_section;
 
-		$sections = $this->get_sections();
+		$sections              = $this->get_sections();
 		$default_import_method = array();
 
 		if ( ! Utils::is_elementor_container() ) {
@@ -68,19 +68,19 @@ class General extends Settings_Page {
 
 		$settings = array(
 			array(
-				'title' => __( 'Elementor Settings', 'ang' ),
+				'title' => '',
 				'type'  => 'title',
 				'id'    => 'ang_color_palette',
 			),
 			array(
-				'title'   => esc_html_x( 'Global Style Kit', 'settings title', 'ang' ),
-				'desc'    => sprintf(
+				'title' => esc_html_x( 'Global Style Kit', 'settings title', 'ang' ),
+				'desc'  => sprintf(
 				/* translators: %s: Local Style Kits page link */
 					__( 'This option is now in %s page.', 'ang' ),
 					'<a href="' . esc_url( admin_url( 'admin.php?page=style-kits' ) ) . '">' . __( 'Local Style Kits', 'ang' ) . '</a>'
 				),
-				'id'      => 'global_kit_helper',
-				'type'    => 'deprecated-notice',
+				'id'    => 'global_kit_helper',
+				'type'  => 'deprecated-notice',
 			),
 			$default_import_method,
 			array(
@@ -93,6 +93,15 @@ class General extends Settings_Page {
 				),
 				'type'    => 'checkbox',
 				'default' => true,
+			),
+			array(
+				'id'    => 'onboarding_link',
+				'title' => esc_html_x( 'Setup', 'settings title', 'ang' ),
+				'desc'  => __( 'Trigger the setup wizard manually', 'ang' ),
+				'to'    => admin_url( 'admin.php?page=analog_onboarding' ),
+				'type'  => 'button',
+				'class' => 'ang-button button-secondary',
+				'value' => __( 'Restart wizard', 'ang' ),
 			),
 			array(
 				'type' => 'sectionend',

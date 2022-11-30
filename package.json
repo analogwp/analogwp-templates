@@ -1,6 +1,6 @@
 {
   "name": "analogwp-templates",
-  "version": "1.9.5",
+  "version": "1.9.7",
   "description": "Handfully crafted Elementor templates packs.",
   "main": "/client/index.js",
   "private": true,
@@ -8,8 +8,9 @@
     "build": "cross-env BABEL_ENV=default NODE_ENV=production webpack",
     "dev": "cross-env BABEL_ENV=default webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "fonts": "gulp googleFonts",
     "makePot": "wp i18n make-pot . ./languages/ang.pot",
-    "convertPot2json": "npx po2json ./languages/ang.pot ./languages/ang-analogwp-app.json -f jed1.x"
+    "convertPot2json": "npx po2json ./languages/ang.pot ./languages/ang-analogwp-app.json -f jed1.x",
     "build:release": "yarn gulp build"
   },
   "repository": {
@@ -65,7 +66,7 @@
     "gulp-wp-pot": "^2.3.3",
     "gulp-zip": "^5.0.1",
     "lodash": "^4.17.15",
-    "node-sass": "^7.0.3",
+    "node-sass": "^8.0.0",
     "po2json": "^0.4.5",
     "postcss-loader": "^3.0.0",
     "prettier": "^1.9.1",

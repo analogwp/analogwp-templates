@@ -102,10 +102,10 @@ class ANG_Action extends Base_Data_Control {
 				'translate'       => array(
 					'resetMessage'                 => __( 'This will clean-up all the values from the current Theme Style kit. If you need to revert, you can do so at the Revisions tab.', 'ang' ),
 					'resetHeader'                  => __( 'Are you sure?', 'ang' ),
-					'saveToken'                    => __( 'Save Style Kit as', 'ang' ),
+					'saveToken'                    => __( 'Clone Style Kit', 'ang' ),
 					'saveToken2'                   => __( 'Save', 'ang' ),
 					'cancel'                       => __( 'Cancel', 'ang' ),
-					'enterTitle'                   => __( 'Enter a title', 'ang' ),
+					'enterTitle'                   => __( 'Style Kit name', 'ang' ),
 					'insertToken'                  => __( 'Insert Style Kit', 'ang' ),
 					'tokenWarning'                 => __( 'Please select a Style Kit first.', 'ang' ),
 					'selectKit'                    => __( '— Select a Style Kit —', 'ang' ),
