@@ -320,8 +320,8 @@ function ang_kits_list() {
 		<h2 style="font-weight: bold;"><?php esc_html_e( 'Local Style Kits', 'ang' ); ?></h2>
 		<p style="margin: 20px 0; font-size: 14px; line-height: 1.5;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below.', 'ang' ); ?> <a href="https://docs.analogwp.com/article/659-local-style-kits" target="_blank"><?php esc_html_e( 'Learn more' ) ?></a></p>
 
-		<form action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="post" style="margin-bottom: 30px;" >
 			<label for="global_kit" style="font-size: 16px; color: #000; font-weight: bold; margin-right: 16px;"><?php esc_html_e( 'Global Style Kit' ); ?></label>
+		<form style="margin-bottom: 30px;" >
 			<select name="global_kit" id="global_kit" style="width: auto; padding: 12px 25px 12px 10px; font-size: 14px; line-height: 1;">
 				<?php
 				$kits = Utils::get_kits( false );
@@ -332,9 +332,7 @@ function ang_kits_list() {
 				}
 				?>
 			</select>
-			<input type="hidden" name="action" value="ang_global_kit"/>
-			<?php wp_nonce_field( 'ang_global_kit', 'ang_global_kit_nonce' ); ?>
-			<input type="submit" value="<?php esc_html_e( 'Apply', 'ang' ); ?>" style="padding: 12px 20px; text-transform: uppercase; font-weight: 600; background: #413EC5; color: #fff; font-size: 14px; line-height: 1; box-shadow: none !important; outline: none !important;" class="button">
+			<input id="apply-kit" type="submit" value="<?php esc_html_e( 'Apply', 'ang' ); ?>" style="padding: 12px 20px; text-transform: uppercase; font-weight: 600; background: #413EC5; color: #fff; font-size: 14px; line-height: 1; box-shadow: none !important; outline: none !important;" class="button">
 		</form>
 
 		<form id="style-kits" method="get">
