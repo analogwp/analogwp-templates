@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.1.1
-Stable tag: 1.9.7
+Stable tag: 1.9.8
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -101,6 +101,9 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 1.9.8 - November 30, 2022 =
+* Fix: Failed redirects after assigning a global kit at Local Kits page
 
 = 1.9.7 - November 29, 2022 =
 * Fix: Library sidebar is not scrollable
