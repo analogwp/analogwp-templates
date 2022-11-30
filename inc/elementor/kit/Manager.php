@@ -9,7 +9,6 @@ namespace Analog\Elementor\Kit;
 
 use Analog\Admin\Notice;
 use Analog\API\Remote;
-use Analog\Classes\Import_Image;
 use Analog\Options;
 use Analog\Plugin;
 use Analog\Utils;
@@ -366,7 +365,7 @@ class Manager {
 			return;
 		}
 
-		if ( isset( $_REQUEST['ang_global_kit_nonce'] ) && check_ajax_referer( 'ang_global_kit', 'ang_global_kit_nonce' )) {
+		if ( isset( $_REQUEST['ang_global_kit_nonce'] ) && check_ajax_referer( 'ang_global_kit', 'ang_global_kit_nonce' ) ) {
 			$kit_id = wp_unslash( $_REQUEST[ $kit_key ] );
 			Options::get_instance()->set( $kit_key, $kit_id );
 			Utils::set_elementor_active_kit( $kit_id );
@@ -374,8 +373,7 @@ class Manager {
 			// Regenerate Elementor CSS.
 			Utils::clear_elementor_cache();
 
-			// Redirects back to settings page.
-			wp_redirect( admin_url( 'admin.php?page=style-kits&success=true' ) );
+			wp_send_json_success();
 		}
 	}
 
