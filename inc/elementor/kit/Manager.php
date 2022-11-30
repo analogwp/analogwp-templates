@@ -374,8 +374,7 @@ class Manager {
 			// Regenerate Elementor CSS.
 			Utils::clear_elementor_cache();
 
-			// Redirects back to settings page.
-			wp_redirect( admin_url( 'admin.php?page=style-kits&success=true' ) );
+			wp_send_json_success();
 		}
 	}
 
