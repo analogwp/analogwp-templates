@@ -9,7 +9,6 @@ namespace Analog\Elementor\Kit;
 
 use Analog\Admin\Notice;
 use Analog\API\Remote;
-use Analog\Classes\Import_Image;
 use Analog\Options;
 use Analog\Plugin;
 use Analog\Utils;
