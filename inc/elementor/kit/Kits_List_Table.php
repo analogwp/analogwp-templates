@@ -315,6 +315,26 @@ class Kits_List_Table extends \WP_List_Table {
  * @return void
  */
 function ang_kits_list() {
+	// Enqueue assets.
+	wp_enqueue_script(
+		'analog-kit-list',
+		ANG_PLUGIN_URL . 'assets/js/kit-list.js',
+		array( 'jquery' ),
+		filemtime( ANG_PLUGIN_DIR . 'assets/js/kit-list.js' ),
+		true
+	);
+
+	wp_localize_script(
+		'analog-kit-list',
+		'angLocalKits',
+		array(
+			'nonce'             => wp_create_nonce( 'ang_global_kit' ),
+			'redirectURL'       => esc_url( admin_url( 'admin.php?page=style-kits&success=true' ) ),
+			'processingBtnText' => __( 'Working...', 'ang' ),
+			'initialBtnText'    => __( 'Apply', 'ang' ),
+		)
+	);
+
 	?>
 	<div class="wrap">
 		<h2 style="font-weight: bold;"><?php esc_html_e( 'Local Style Kits', 'ang' ); ?></h2>
