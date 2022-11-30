@@ -30,6 +30,7 @@
 					).fail(
 						function() {
 							elSubmitBtn.val( data.initialBtnText );
+							elSubmitBtn.removeAttr( 'disabled' );
 						}
 					).done(
 						function() {
