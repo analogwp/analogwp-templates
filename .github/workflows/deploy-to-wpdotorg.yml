@@ -15,19 +15,19 @@ jobs:
       - name: Install Composer dependencies
         uses: php-actions/composer@v6
         with:
-            composer_version: 1
-            php_version: '8.0'
+          version: 2
+          php_version: '8.0'
 
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '12'
+          node-version: '16'
 
       - name: Install dependencies
         run: yarn install
 
       - name: Prepare release build
-        run: yarn run build:release
+        run: yarn run gh:release
 
       - name: WordPress Plugin Deploy
         uses: 10up/action-wordpress-plugin-deploy@master

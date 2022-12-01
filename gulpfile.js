@@ -121,6 +121,18 @@ gulp.task( 'build', gulp.series(
 	} )
 );
 
+gulp.task( 'github-build', gulp.series(
+	'scripts',
+	'checktextdomain',
+	'yarnBuild',
+	'clean',
+	'copy',
+	'zip',
+	function( done ) {
+		done();
+	} )
+);
+
 gulp.task( 'deploy', gulp.series(
 	'build',
 	function() {

@@ -11,7 +11,8 @@
     "fonts": "gulp googleFonts",
     "makePot": "wp i18n make-pot . ./languages/ang.pot",
     "convertPot2json": "npx po2json ./languages/ang.pot ./languages/ang-analogwp-app.json -f jed1.x",
-    "build:release": "yarn gulp build"
+    "build:release": "yarn gulp build",
+    "gh:release": "yarn gulp github-build"
   },
   "repository": {
     "type": "git",
