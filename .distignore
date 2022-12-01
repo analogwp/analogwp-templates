@@ -4,12 +4,14 @@
 /.github
 /.babelrc
 /.eslintignore
+/.vscode
 /phpcs.xml
 /node_modules
 /tests
 /bin
 /phpunit.xml
 /build
+/client
 .nvmrc
 .wp-env.json
 phpcs.xml.dist
@@ -26,6 +28,12 @@ phpcs.xml.dist
 .eslintrc.json
 .gitignore
 .editorconfig
+.travisyml
+.codeception.dist.yml
+DOCKER_ENV
+docker_tag
+Dockerfile-php-build
+output.log
 CHANGELOG.md
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
