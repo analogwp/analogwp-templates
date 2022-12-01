@@ -44,16 +44,10 @@ const buildFiles = [
 const buildDestination = `./build/${ project }/`;
 const buildZipDestination = './build/';
 const cleanFiles = [ `./build/${ project }/`, `./build/${ project }.zip` ];
-const jsPotFile = [ './languages/ang-js.pot', `./build/${ project }/languages/ang-js.pot` ];
 
 gulp.task( 'yarnBuild', run( 'yarn run build' ) );
 gulp.task( 'yarnMakePot', run( 'yarn run makePot' ) );
 gulp.task( 'yarnConvertPot2json', run('yarn run convertPot2json' ) );
-
-gulp.task( 'removeJSPotFile', function( done ) {
-	return del( jsPotFile );
-	done(); // eslint-disable-line
-} );
 
 gulp.task( 'clean', function( done ) {
 	return del( cleanFiles );
@@ -119,6 +113,18 @@ gulp.task( 'build', gulp.series(
 	'yarnBuild',
 	'yarnMakePot',
 	'yarnConvertPot2json',
+	'clean',
+	'copy',
+	'zip',
+	function( done ) {
+		done();
+	} )
+);
+
+gulp.task( 'github-build', gulp.series(
+	'scripts',
+	'checktextdomain',
+	'yarnBuild',
 	'clean',
 	'copy',
 	'zip',
