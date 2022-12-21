@@ -119,43 +119,6 @@ final class Promotions extends Base {
 	}
 
 	/**
-	 * Register Shadows panel.
-	 *
-	 * @since 1.9.0
-	 *
-	 * @param Controls_Stack $element Controls object.
-	 * @param string         $section_id Section ID.
-	 * @return void
-	 */
-	public function register_shadow_controls( Controls_Stack $element, $section_id ) {
-		$element->start_controls_section(
-			'ang_shadows_pro',
-			array(
-				'label' => _x( 'Shadows', 'Section Title', 'ang' ),
-				'tab'   => Utils::get_kit_settings_tab(),
-			)
-		);
-
-		$element->add_control(
-			'ang_promo_shadows',
-			array(
-				'type' => Controls_Manager::RAW_HTML,
-				'raw'  => $this->get_teaser_template(
-					array(
-						'title'    => __( 'Shadow Presets', 'ang' ),
-						'messages' => array(
-							__( 'Offers controls to create box shadow presets, which then can be applied on widgets.', 'ang' ),
-						),
-						'link'     => array( 'utm_source' => 'panel-shadows' ),
-					)
-				),
-			)
-		);
-
-		$element->end_controls_section();
-	}
-
-	/**
 	 * Get promotional teaser template.
 	 *
 	 * @since 1.6.0
