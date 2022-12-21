@@ -1905,7 +1905,11 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_shadows_description',
 			array(
-				'raw'             => __( 'Add global shadow presets by using these controls.', 'ang' ),
+				'raw'             => sprintf(
+					'%1$s <a href="https://analogwp.com/docs/global-shadows/" target="_blank">%2$s</a>',
+					__( 'Add global shadow presets by using these controls.', 'ang' ),
+					__( 'Learn more', 'ang' ),
+				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
