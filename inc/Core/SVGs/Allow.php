@@ -54,7 +54,7 @@ final class Allow {
 	}
 
 	/**
-	 * Allow SVG Uploads
+	 * Enable SVG Uploads
 	 *
 	 * @param array $mimes Mime types keyed by the file extension regex corresponding to those types.
 	 *

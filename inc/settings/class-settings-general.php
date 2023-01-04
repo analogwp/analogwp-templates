@@ -85,11 +85,11 @@ class General extends Settings_Page {
 			$default_import_method,
 			array(
 				'id'      => 'allow_svg_uploads',
-				'title'   => esc_html_x( 'Allow SVG Uploads', 'settings title', 'ang' ),
+				'title'   => esc_html_x( 'Enable SVG Uploads', 'settings title', 'ang' ),
 				'desc'    => sprintf(
 				/* translators: %s: Global Style Kit Documentation link */
 					__( 'Helps importing SVGs in templates. %s', 'ang' ),
-					'<a href="https://analogwp.com/docs/default-template-import-method/" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
+					'<a href="https://analogwp.com/docs/enable-svg-imports-in-patterns" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
 				),
 				'type'    => 'checkbox',
 				'default' => true,
