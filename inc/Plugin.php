@@ -175,6 +175,10 @@ final class Plugin {
 			'isGlobalSkEnabled'       => (bool) Options::get_instance()->get( 'use_global_sk' ),
 			'globalSkAlwaysEnableURL' => admin_url( 'admin.php?page=style-kits' ),
 			'isContainer'             => Utils::is_container(),
+			'activePlugins'              => array(
+				Utils::has_elementor_pro() ? 'elementor-pro': '',
+				Utils::has_woocommerce() ? 'woocommerce': ''
+			),
 		);
 
 		$domains += $new_domains;

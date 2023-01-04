@@ -340,6 +340,17 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 					columnClassName="grid-item block-list"
 				>
 					{ filteredBlocks.length >= 1 && filteredBlocks.map( ( block ) => {
+						let requiresElementorPro = false;
+						if ( block.requiredPlugins && block.requiredPlugins.length > 0 ) {
+							const unresolvedPlugins = block.requiredPlugins.filter( ( plugin ) => ! AGWP.activePlugins.includes( plugin )
+							 );
+
+							// We are intentionally hiding patterns for now.
+							if ( unresolvedPlugins.length > 0 && unresolvedPlugins.includes( 'woocommerce' ) ) {
+								return null;
+							}
+							requiresElementorPro = unresolvedPlugins && unresolvedPlugins.includes( 'elementor-pro' );
+						}
 						return (
 							<div key={ block.id }>
 								<Card>
@@ -363,9 +374,16 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 														<Button isPrimary>{ __( 'Go Pro', 'ang' ) }</Button>
 													</a>
 												) }
+												{ isValid( block.is_pro ) && requiresElementorPro && (
+													<a className="ang-requirements" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank">
+														<img className="required-logo" src={ AGWP.pluginURL + '/assets/img/elementor.svg' } />
+														<h4 className="title">Elementor PRO</h4>
+														<p className="description">This pattern is using Elementor PRO widgets.</p>
+													</a>
+												) }
 												<NotificationConsumer>
 													{ ( { add } ) => (
-														isValid( block.is_pro ) && (
+														! requiresElementorPro && isValid( block.is_pro ) && (
 															<Button isPrimary onClick={ () => importBlock( block, add ) }>
 																{ __( 'Import', 'ang' ) }
 															</Button>
