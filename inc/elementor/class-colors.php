@@ -235,7 +235,7 @@ class Colors extends Module {
 			'ang_colors_description',
 			array(
 				/* translators: %1$s: Link to documentation, %2$s: Link text. */
-				'raw'             => __( 'Set the accent colors of your layout.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/574-working-with-colours', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Set the accent colors of your layout.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/style-kit-global-colors/', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -377,7 +377,7 @@ class Colors extends Module {
 			'ang_global_colors_description',
 			array(
 				'raw'             => sprintf(
-					'%1$s <a href="https://docs.analogwp.com/article/657-style-kit-color-pallete" target="_blank">%2$s</a>',
+					'%1$s <a href="https://analogwp.com/docs/style-kit-global-colors/" target="_blank">%2$s</a>',
 					__( 'The Style Kit\'s color palette.', 'ang' ),
 					__( 'Read more', 'ang' ),
 				),

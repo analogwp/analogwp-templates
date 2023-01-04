@@ -46,7 +46,7 @@ class Experiments extends Settings_Page {
 					'desc'  => sprintf(
 						/* translators: %s: Style Kits Experiments Documentation link */
 						__( 'Below you can activate experimental features for Style Kits and Style Kits Pro. We suggest that you don’t use these features on a production site. %s about how this works.', 'ang' ),
-						'<a href="https://docs.analogwp.com/article/548-beta-features" target="_blank">' . __( 'Learn more', 'ang' ) . '</a>'
+						'<a href="https://analogwp.com/docs/style-kits-experiments/" target="_blank">' . __( 'Learn more', 'ang' ) . '</a>'
 					),
 					'type'  => 'title',
 					'id'    => 'ang_experiments',

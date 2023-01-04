@@ -284,7 +284,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_typography_sizes_description',
 			array(
-				'raw'             => __( 'Edit the available sizes for the Heading Element.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Edit the available sizes for the Heading Element.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/typographic-sizes/', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -333,7 +333,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_text_sizes_description',
 			array(
-				'raw'             => __( 'Edit the available sizes for the p, span, and div tags of the Heading Element.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/575-text-and-heading-sizes', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Edit the available sizes for the p, span, and div tags of the Heading Element.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/typographic-sizes/', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -404,7 +404,7 @@ class Typography extends Module {
 			'ang_container_padding_description',
 			array(
 				'raw'             => sprintf(
-					'%1$s <a href="https://docs.analogwp.com/article/655-container-presets" target="_blank">%2$s</a>',
+					'%1$s <a href="https://analogwp.com/docs/container-spacing/" target="_blank">%2$s</a>',
 					__( 'Create additional spacing presets.', 'ang' ),
 					__( 'Read more', 'ang' ),
 				),
@@ -690,7 +690,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_section_padding_description',
 			array(
-				'raw'             => __( 'Add padding to the outer sections of your layouts by using these controls.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/587-outer-section-padding', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Add padding to the outer sections of your layouts by using these controls.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/outer-section-padding/', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -743,7 +743,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_column_gaps_description',
 			array(
-				'raw'             => __( 'Column Gap presets add padding to the columns of a section.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/588-working-with-column-gaps', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Column Gap presets add padding to the columns of a section.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/column-gaps/', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -811,7 +811,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_buttons_description',
 			array(
-				'raw'             => __( 'Define the default styles for every button size.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/586-button-styles-and-sizes', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Define the default styles for every button size.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/button-sizes/', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -1023,7 +1023,7 @@ class Typography extends Module {
 			array(
 				'raw'             => sprintf(
 									/* translators: %s: Link to Style Kits */
-					'<p>%1$s <a href="https://docs.analogwp.com/article/660-new-style-kits-panel" target="_blank">%2$s</a></p>',
+					'<p>%1$s <a href="https://analogwp.com/docs/overriding-global-style-kit/" target="_blank">%2$s</a></p>',
 					__( 'Select a different Style Kit to be applied on this page. The page will reload after your selection.', 'ang' ),
 					__( 'Learn more', 'ang' )
 				),
@@ -1603,7 +1603,7 @@ class Typography extends Module {
 			'ang_global_fonts_description',
 			array(
 				'raw'             => sprintf(
-					'%1$s <a href="https://docs.analogwp.com/article/658-style-kits-fonts" target="_blank">%2$s</a>',
+					'%1$s <a href="https://analogwp.com/docs/style-kit-global-fonts/" target="_blank">%2$s</a>',
 					__( 'The Style Kit\'s typographic styles.', 'ang' ),
 					__( 'Read more', 'ang' ),
 				),

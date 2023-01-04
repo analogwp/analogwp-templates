@@ -204,7 +204,7 @@ class Onboarding {
 					</nav>
 				</div>
 				<div class="content-wrapper">
-					<p class="short-description description-todo <?php echo $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Setup Elementor properly for a seamless Style Kits Experience.', 'ang' ); ?> <a href="https://docs.analogwp.com/article/661-wizard-setup" target="_blank"><?php esc_html_e( 'Learn more', 'ang' ); ?></a></p>
+					<p class="short-description description-todo <?php echo $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Setup Elementor properly for a seamless Style Kits Experience.', 'ang' ); ?> <a href="https://analogwp.com/docs/the-setup-wizard/" target="_blank"><?php esc_html_e( 'Learn more', 'ang' ); ?></a></p>
 					<p class="short-description description-success <?php echo ! $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Looks like you have everything in place.', 'ang' ); ?></p>
 					<div class="steps-wrapper">
 						<?php

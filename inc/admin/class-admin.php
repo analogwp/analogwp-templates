@@ -62,7 +62,7 @@ final class Admin extends Base {
 	public function plugin_row_meta( $plugin_meta, $plugin_file ) {
 		if ( ANG_PLUGIN_BASE === $plugin_file ) {
 			$row_meta = array(
-				'ang_docs'    => '<a href="https://docs.analogwp.com/" aria-label="' . esc_attr( __( 'View Documentation', 'ang' ) ) . '" target="_blank">' . __( 'Documentation', 'ang' ) . '</a>',
+				'ang_docs'    => '<a href="https://analogwp.com/docs/" aria-label="' . esc_attr( __( 'View Documentation', 'ang' ) ) . '" target="_blank">' . __( 'Documentation', 'ang' ) . '</a>',
 				'ang_support' => '<a href="https://analogwp.com/support/" aria-label="' . esc_attr( __( 'Get Support', 'ang' ) ) . '" target="_blank">' . __( 'Get Support', 'ang' ) . '</a>',
 			);
 

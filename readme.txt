@@ -63,7 +63,7 @@ Style Kits for Elementor adds a set of extra UI controls to Theme Styles editor,
 - [Follow on Twitter](https://twitter.com/AnalogWP/)
 - [Like us on Facebook](https://www.facebook.com/analogwp)
 - [Join our Facebook community](https://www.facebook.com/groups/analogwp/)
-- [Documentation](https://docs.analogwp.com/)
+- [Documentation](https://analogwp.com/docs/)
 
 == Installation ==
 

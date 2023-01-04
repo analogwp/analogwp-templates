@@ -97,7 +97,7 @@ if ( ! $tab_exists ) {
 					<h3><?php esc_html_e( 'Documentation', 'ang' ); ?></h3>
 					<p>
 						<?php esc_html_e( 'Need help with Style Kits?', 'ang' ); ?>
-						<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Visit the online docs', 'ang' ); ?></a>
+						<a href="<?php echo esc_url( 'https://analogwp.com/docs/' ); ?>" target="_blank"><?php esc_html_e( 'Visit the online docs', 'ang' ); ?></a>
 					</p>
 				</div>
 				<div class="social-group">
