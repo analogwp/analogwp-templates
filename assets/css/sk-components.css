@@ -114,6 +114,32 @@
 	opacity: 1;
 }
 
+#analogwp-templates .block-list .actions .ang-requirements {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	color: #23282d;
+	text-align: center;
+}
+
+#analogwp-templates .block-list .actions .ang-requirements img {
+	width: 45px;
+	height: 45px;
+}
+
+
+#analogwp-templates .block-list .actions .ang-requirements .title {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#analogwp-templates .block-list .actions .ang-requirements p {
+	margin: 0 0 10px;
+	font-weight: 500;
+}
+
 #analogwp-templates .stylekit-list .preview {
 	min-width: 110px;
 }
