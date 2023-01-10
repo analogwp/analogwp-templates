@@ -39,7 +39,7 @@ class Elementor {
 		add_action( 'elementor/controls/register', array( $this, 'register_controls' ) );
 
 		add_action(
-			'elementor/dynamic_tags/register_tags',
+			'elementor/dynamic_tags/register',
 			static function( Manager $dynamic_tags ) {
 
 				$dynamic_tags->register_group(
