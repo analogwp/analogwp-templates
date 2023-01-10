@@ -14,6 +14,17 @@ use Elementor\Core\Common\Modules\Finder\Base_Category;
  */
 class Finder_Shortcuts extends Base_Category {
 	/**
+	 * Get ID.
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_id() {
+		return 'ang-shortcuts';
+	}
+
+	/**
 	 * Get title.
 	 *
 	 * @access public

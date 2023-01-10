@@ -32,7 +32,7 @@ class Elementor {
 			'elementor/finder/register',
 			static function ( Categories_Manager $categories_manager ) {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
-				$categories_manager->register( new Finder_Shortcuts(), 'ang-shortcuts' );
+				$categories_manager->register( new Finder_Shortcuts() );
 			}
 		);
 
