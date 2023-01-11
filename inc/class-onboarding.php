@@ -42,12 +42,13 @@ class Onboarding {
 	 */
 	public function register_menu() {
 		add_submenu_page(
-			null,
+			'ang',
 			__( 'Welcome to Style Kits', 'ang' ),
 			__( 'Welcome to Style Kits', 'ang' ),
 			'manage_options',
 			'analog_onboarding',
-			array( $this, 'render_markup' )
+			array( $this, 'render_markup' ),
+			1
 		);
 	}
 
