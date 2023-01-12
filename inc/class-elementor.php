@@ -134,7 +134,7 @@ class Elementor {
 
 		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap', array(), '20221016' );
 
-		$i10n = apply_filters( // phpcs:ignore
+		$l10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
 			array(
 				'is_settings_page' => false,
@@ -142,7 +142,7 @@ class Elementor {
 			)
 		);
 
-		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
+		wp_localize_script( 'analogwp-app', 'AGWP', $l10n );
 	}
 
 	/**
