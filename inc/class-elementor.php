@@ -14,6 +14,7 @@ use Elementor\Core\DynamicTags\Manager;
 use Analog\Elementor\Tags\Light_Background;
 use Analog\Elementor\Tags\Dark_Background;
 use Elementor\TemplateLibrary\Source_Local as Local;
+use Analog\Options;
 
 /**
  * Intializes scripts/styles needed for AnalogWP modal on Elementor editing page.
@@ -134,11 +135,17 @@ class Elementor {
 
 		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap', array(), '20221016' );
 
+		$options = Options::get_instance();
+
+		// By default, set it to allow.
+		$is_legacy_hidden = $options->has( 'hide_legacy_features' ) ? $options->get( 'hide_legacy_features' ) : true;
+
 		$l10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
 			array(
 				'is_settings_page' => false,
 				'global_kit'       => get_option( 'elementor_active_kit' ),
+				'is_legacy_hidden' => $is_legacy_hidden,
 			)
 		);
 
