@@ -95,6 +95,17 @@ class General extends Settings_Page {
 				'default' => true,
 			),
 			array(
+				'id'      => 'hide_legacy_features',
+				'title'   => esc_html_x( 'Hide legacy features', 'settings title', 'ang' ),
+				'desc'    => sprintf(
+				/* translators: %s: Legacy features Documentation link */
+					__( 'Hide legacy features from the Style Kit panel. %s', 'ang' ),
+					'<a href="https://analogwp.com/docs/enable-svg-imports-in-patterns" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
+				),
+				'type'    => 'checkbox',
+				'default' => true,
+			),
+			array(
 				'id'    => 'onboarding_link',
 				'title' => esc_html_x( 'Setup', 'settings title', 'ang' ),
 				'desc'  => __( 'Trigger the setup wizard manually', 'ang' ),
