@@ -31,7 +31,10 @@ class Colors extends Module {
 	 * Colors constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_color_settings' ), 20, 2 );
+
+		// Legacy feature ( Accent Colors ) - deprecated to be removed.
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_color_settings' ), 300, 2 );
+
 		add_action( 'elementor/element/divider/section_divider_style/before_section_end', array( $this, 'tweak_divider_style' ) );
 		add_action( 'elementor/element/icon-box/section_style_content/before_section_end', array( $this, 'tweak_icon_box' ) );
 		add_action( 'elementor/element/image-box/section_style_content/before_section_end', array( $this, 'tweak_image_box' ) );
