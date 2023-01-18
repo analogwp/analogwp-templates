@@ -195,3 +195,11 @@
 	font-size: 18px;
 	line-height: 0;
 }
+
+.gopro-content a.ang-button.button-primary {
+	background: #413EC5;
+	border-color: #413EC5;
+	text-transform: uppercase;
+	padding: 4px 15px;
+	font-weight: 600;
+}
