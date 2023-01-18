@@ -190,3 +190,8 @@
 .experiment-indicator.active {
 	background: #39b54a;
 }
+
+.gopro-content ul li::marker {
+	font-size: 18px;
+	line-height: 0;
+}
