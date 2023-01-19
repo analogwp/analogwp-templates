@@ -100,7 +100,7 @@ class General extends Settings_Page {
 				'desc'    => sprintf(
 				/* translators: %s: Legacy features Documentation link */
 					__( 'Hide legacy features from the Style Kit panel. %s', 'ang' ),
-					'<a href="https://analogwp.com/docs/enable-svg-imports-in-patterns" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
+					'<a href="https://analogwp.com/docs/what-are-legacy-features/" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
 				),
 				'type'    => 'checkbox',
 				'default' => true,
