@@ -61,14 +61,15 @@ function register_menu() {
 		'Analog\Elementor\Kit\ang_kits_list'
 	);
 
-	add_submenu_page(
-		$menu_slug,
-		__( 'Instances', 'ang' ),
-		__( 'Instances List', 'ang' ),
-		'manage_options',
-		'ang-instance-list',
-		'Analog\Elementor\Kit\ang_instance_list'
-	);
+	// Hidden instances menu. Maybe delete later if not needed.
+	//	add_submenu_page(
+	//		$menu_slug,
+	//		__( 'Instances', 'ang' ),
+	//		__( 'Instances List', 'ang' ),
+	//		'manage_options',
+	//		'ang-instance-list',
+	//		'Analog\Elementor\Kit\ang_instance_list'
+	//	);
 
 	if ( ! defined( 'ANG_PRO_VERSION' ) ) {
 		add_submenu_page(
