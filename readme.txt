@@ -102,7 +102,7 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
-= 2.0.0 - Feb **, 2023 =
+= 2.0.0 - Feb 01, 2023 =
 * New: Kit trashing and confirmation page from Local Kits screen
 * New: Settings toggle for Legacy features
 * New: Rearranged the Style Kits panel for legacy features
@@ -111,6 +111,7 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 * Improvements: Code cleanup and improve uninstall process
 * Improvements: PHP 8.1 Compatibility
 * Improvements: Compatibility with Elementor v3.10.2 & Elementor Pro v3.10.3
+* Improvements: Synchronisation of version numbers for Style Kits free and Pro (2.0)
 * Fix: Deprecated dynamic tags hook
 * Fix: Deprecated params at finder shortcuts
 * Fix: Incorrect feature links for docs
