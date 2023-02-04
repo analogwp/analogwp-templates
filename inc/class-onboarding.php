@@ -201,7 +201,7 @@ class Onboarding {
 						<span class="brand-title">Style Kits</span>
 					</div>
 					<nav>
-						<a href="<?php echo esc_url( 'https://docs.analogwp.com' ); ?>" target="_blank"><?php esc_html_e( 'Docs', 'ang' ); ?></a>
+						<a href="<?php echo esc_url( 'https://analogwp.com/docs/' ); ?>" target="_blank"><?php esc_html_e( 'Docs', 'ang' ); ?></a>
 					</nav>
 				</div>
 				<div class="content-wrapper">

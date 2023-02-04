@@ -598,7 +598,7 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 = 1.1 - March 13, 2019 =
 * New: All new designed settings page. 🎉
-* New: Added option to Strip Typography under settings tab. [More info](https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements).
+* New: Added option to Strip Typography under settings tab.
 * New: Lazy load images on templates page to avoid unnecessary loading, making page load faster.
 * New: Keep a log of imported templates for user.
 * New: Added an option to opt-in data tracking, optional.
