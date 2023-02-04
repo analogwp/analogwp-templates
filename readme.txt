@@ -102,7 +102,7 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
-= 2.0.0 - Feb 01, 2023 =
+= 2.0.0 - Feb 04, 2023 =
 * New: Kit trashing and confirmation page from Local Kits screen
 * New: Settings toggle for Legacy features
 * New: Rearranged the Style Kits panel for legacy features
