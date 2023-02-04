@@ -178,7 +178,7 @@ function do_automatic_upgrades() {
 						'content'     => sprintf(
 							'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
 							__( 'The New version of Style Kits introduces a setup wizard. You can trigger it at any time under Style Kits Settings.', 'ang' ),
-							'https://docs.analogwp.com/article/661-wizard-setup',
+							'https://analogwp.com/docs/the-setup-wizard/',
 							__( 'Learn more', 'ang' )
 						),
 						'type'        => Notice::TYPE_INFO,

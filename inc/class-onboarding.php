@@ -42,12 +42,13 @@ class Onboarding {
 	 */
 	public function register_menu() {
 		add_submenu_page(
-			null,
+			'ang',
 			__( 'Welcome to Style Kits', 'ang' ),
 			__( 'Welcome to Style Kits', 'ang' ),
 			'manage_options',
 			'analog_onboarding',
-			array( $this, 'render_markup' )
+			array( $this, 'render_markup' ),
+			1
 		);
 	}
 
@@ -200,11 +201,11 @@ class Onboarding {
 						<span class="brand-title">Style Kits</span>
 					</div>
 					<nav>
-						<a href="<?php echo esc_url( 'https://docs.analogwp.com' ); ?>" target="_blank"><?php esc_html_e( 'Docs', 'ang' ); ?></a>
+						<a href="<?php echo esc_url( 'https://analogwp.com/docs/' ); ?>" target="_blank"><?php esc_html_e( 'Docs', 'ang' ); ?></a>
 					</nav>
 				</div>
 				<div class="content-wrapper">
-					<p class="short-description description-todo <?php echo $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Setup Elementor properly for a seamless Style Kits Experience.', 'ang' ); ?> <a href="https://docs.analogwp.com/article/661-wizard-setup" target="_blank"><?php esc_html_e( 'Learn more', 'ang' ); ?></a></p>
+					<p class="short-description description-todo <?php echo $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Setup Elementor properly for a seamless Style Kits Experience.', 'ang' ); ?> <a href="https://analogwp.com/docs/the-setup-wizard/" target="_blank"><?php esc_html_e( 'Learn more', 'ang' ); ?></a></p>
 					<p class="short-description description-success <?php echo ! $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Looks like you have everything in place.', 'ang' ); ?></p>
 					<div class="steps-wrapper">
 						<?php

@@ -45,7 +45,7 @@ class Misc extends Settings_Page {
 					'default'       => false,
 					'type'          => 'checkbox',
 					'checkboxgroup' => 'start',
-					'desc_tip'      => __( 'We guarantee no sensitive data is collected. ', 'ang' ) . '<a class="ang-link" href="https://docs.analogwp.com/article/547-what-data-is-tracked-by-the-plugin" target="_blank">' . __( 'More Info', 'ang' ) . '</a>',
+					'desc_tip'      => __( 'We guarantee no sensitive data is collected. ', 'ang' ) . '<a class="ang-link" href="https://analogwp.com/docs/what-usage-data-is-tracked-by-style-kits/" target="_blank">' . __( 'More Info', 'ang' ) . '</a>',
 				),
 				array(
 					'title'         => __( 'Remove Data on Uninstall', 'ang' ),

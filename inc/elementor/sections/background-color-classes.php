@@ -65,7 +65,11 @@ final class BackgroundColorClasses extends Module {
 			'ang_tab_background_light_desc',
 			array(
 				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'Add the class <strong>sk-light-bg</strong> to a section or column to apply these colors.', 'ang' ),
+				'raw'     => sprintf(
+					'%1$s <a href="https://analogwp.com/docs/background-color-classes/" target="_blank">%2$s</a>',
+					__( 'Add the class <strong>sk-light-bg</strong> to a section or column to apply these colors.', 'ang' ),
+					__( 'Learn more', 'ang' ),
+				),
 				'classes' => 'elementor-descriptor',
 			)
 		);
@@ -152,7 +156,11 @@ final class BackgroundColorClasses extends Module {
 			'ang_tab_background_dark_desc',
 			array(
 				'type'    => Controls_Manager::RAW_HTML,
-				'raw'     => __( 'Add the class <strong>sk-dark-bg</strong> to a section or column to apply these colors.', 'ang' ),
+				'raw'     => sprintf(
+					'%1$s <a href="https://analogwp.com/docs/background-color-classes/" target="_blank">%2$s</a>',
+					__( 'Add the class <strong>sk-dark-bg</strong> to a section or column to apply these colors.', 'ang' ),
+					__( 'Learn more', 'ang' ),
+				),
 				'classes' => 'elementor-descriptor',
 			)
 		);

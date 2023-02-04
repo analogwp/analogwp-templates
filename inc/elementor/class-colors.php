@@ -31,7 +31,10 @@ class Colors extends Module {
 	 * Colors constructor.
 	 */
 	public function __construct() {
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_color_settings' ), 20, 2 );
+
+		// Legacy feature ( Accent Colors ) - deprecated to be removed.
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_color_settings' ), 300, 2 );
+
 		add_action( 'elementor/element/divider/section_divider_style/before_section_end', array( $this, 'tweak_divider_style' ) );
 		add_action( 'elementor/element/icon-box/section_style_content/before_section_end', array( $this, 'tweak_icon_box' ) );
 		add_action( 'elementor/element/image-box/section_style_content/before_section_end', array( $this, 'tweak_image_box' ) );
@@ -235,7 +238,7 @@ class Colors extends Module {
 			'ang_colors_description',
 			array(
 				/* translators: %1$s: Link to documentation, %2$s: Link text. */
-				'raw'             => __( 'Set the accent colors of your layout.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://docs.analogwp.com/article/574-working-with-colours', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Set the accent colors of your layout.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/style-kit-global-colors/', __( 'Learn more.', 'ang' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -377,7 +380,7 @@ class Colors extends Module {
 			'ang_global_colors_description',
 			array(
 				'raw'             => sprintf(
-					'%1$s <a href="https://docs.analogwp.com/article/657-style-kit-color-pallete" target="_blank">%2$s</a>',
+					'%1$s <a href="https://analogwp.com/docs/style-kit-global-colors/" target="_blank">%2$s</a>',
 					__( 'The Style Kit\'s color palette.', 'ang' ),
 					__( 'Read more', 'ang' ),
 				),

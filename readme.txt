@@ -3,7 +3,7 @@ Contributors: analogwp, mauryaratan
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.1.1
-Stable tag: 1.9.8
+Stable tag: 2.0.0
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -63,7 +63,7 @@ Style Kits for Elementor adds a set of extra UI controls to Theme Styles editor,
 - [Follow on Twitter](https://twitter.com/AnalogWP/)
 - [Like us on Facebook](https://www.facebook.com/analogwp)
 - [Join our Facebook community](https://www.facebook.com/groups/analogwp/)
-- [Documentation](https://docs.analogwp.com/)
+- [Documentation](https://analogwp.com/docs/)
 
 == Installation ==
 
@@ -101,6 +101,21 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.0.0 - Feb 04, 2023 =
+* New: Kit trashing and confirmation page from Local Kits screen
+* New: Settings toggle for Legacy features
+* New: Rearranged the Style Kits panel for legacy features
+* New: Add pattern plugin requirements warning and hide Woo patterns if unfulfilled
+* Improvements: Updated Settings sidebar form and Promo page
+* Improvements: Code cleanup and improve uninstall process
+* Improvements: PHP 8.1 Compatibility
+* Improvements: Compatibility with Elementor v3.10.2 & Elementor Pro v3.10.3
+* Improvements: Synchronisation of version numbers for Style Kits free and Pro (2.0)
+* Fix: Deprecated dynamic tags hook
+* Fix: Deprecated params at finder shortcuts
+* Fix: Incorrect feature links for docs
+* Fix: Updated translation files
 
 = 1.9.8 - November 30, 2022 =
 * Fix: Failed redirects after assigning a global kit at Local Kits page
@@ -583,7 +598,7 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 = 1.1 - March 13, 2019 =
 * New: All new designed settings page. 🎉
-* New: Added option to Strip Typography under settings tab. [More info](https://docs.analogwp.com/article/544-remove-styling-from-typographic-elements).
+* New: Added option to Strip Typography under settings tab.
 * New: Lazy load images on templates page to avoid unnecessary loading, making page load faster.
 * New: Keep a log of imported templates for user.
 * New: Added an option to opt-in data tracking, optional.

@@ -32,14 +32,14 @@ class Elementor {
 			'elementor/finder/register',
 			static function ( Categories_Manager $categories_manager ) {
 				include_once ANG_PLUGIN_DIR . 'inc/elementor/class-finder-shortcuts.php';
-				$categories_manager->register( new Finder_Shortcuts(), 'ang-shortcuts' );
+				$categories_manager->register( new Finder_Shortcuts() );
 			}
 		);
 
 		add_action( 'elementor/controls/register', array( $this, 'register_controls' ) );
 
 		add_action(
-			'elementor/dynamic_tags/register_tags',
+			'elementor/dynamic_tags/register',
 			static function( Manager $dynamic_tags ) {
 
 				$dynamic_tags->register_group(
@@ -134,7 +134,23 @@ class Elementor {
 
 		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap', array(), '20221016' );
 
-		$i10n = apply_filters( // phpcs:ignore
+		$options = Options::get_instance();
+
+		// By default, set it to allow.
+		$is_legacy_hidden = $options->has( 'hide_legacy_features' ) ? $options->get( 'hide_legacy_features' ) : true;
+
+		if ( $is_legacy_hidden ) {
+			wp_add_inline_style(
+				'analogwp-components-css',
+				".elementor-control.elementor-control-ang_section_padding,
+						 .elementor-control.elementor-control-ang_column_gaps,
+						 .elementor-control.elementor-control-ang_colors {
+					      display: none !important;
+					}"
+			);
+		}
+
+		$l10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
 			array(
 				'is_settings_page' => false,
@@ -142,7 +158,7 @@ class Elementor {
 			)
 		);
 
-		wp_localize_script( 'analogwp-app', 'AGWP', $i10n );
+		wp_localize_script( 'analogwp-app', 'AGWP', $l10n );
 	}
 
 	/**

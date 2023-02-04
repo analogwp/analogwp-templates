@@ -153,10 +153,19 @@ class Kits_List_Table extends \WP_List_Table {
 
 		$output .= '</strong>';
 
+		$args = array(
+			'ang_action' => 'trash',
+		);
+
 		// Get actions.
 		$actions = array(
 			'edit'            => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'ang' ) . '</a>',
-			'trash'           => '<a href="' . esc_url( get_delete_post_link( $item['id'] ) ) . '" class="submitdelete">' . __( 'Trash', 'ang' ) . '</a>',
+			'trash'           => '<a href="' . esc_url(
+				add_query_arg(
+					$args,
+					get_delete_post_link( $item['id'] )
+				)
+			) . '" class="submitdelete">' . __( 'Trash', 'ang' ) . '</a>',
 			'export-template' => '<a href="' . esc_url( $this->get_export_link( $item['id'] ) ) . '">' . __( 'Export Theme Style Kit', 'ang' ) . '</a>',
 			// 'edit_with_elementor' => '<a href="' . esc_url( $document->get_edit_url() ) . '">' . __( 'Edit with Elementor', 'ang' ) . '</a>',
 		);
@@ -338,7 +347,7 @@ function ang_kits_list() {
 	?>
 	<div class="wrap">
 		<h2 style="font-weight: bold;"><?php esc_html_e( 'Local Style Kits', 'ang' ); ?></h2>
-		<p style="margin: 20px 0; font-size: 14px; line-height: 1.5;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below.', 'ang' ); ?> <a href="https://docs.analogwp.com/article/659-local-style-kits" target="_blank"><?php esc_html_e( 'Learn more' ); ?></a></p>
+		<p style="margin: 20px 0; font-size: 14px; line-height: 1.5;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below.', 'ang' ); ?> <a href="https://analogwp.com/docs/local-style-kits/" target="_blank"><?php esc_html_e( 'Learn more' ); ?></a></p>
 
 		<form style="margin-bottom: 30px;" >
 			<label for="global_kit" style="font-size: 16px; color: #000; font-weight: bold; margin-right: 16px;"><?php esc_html_e( 'Global Style Kit', 'ang' ); ?></label>

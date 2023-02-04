@@ -70,7 +70,7 @@ class Theme_Style_Kits extends Tab_Base {
 	 * @return string
 	 */
 	public function get_help_url() {
-		return 'https://docs.analogwp.com/';
+		return 'https://analogwp.com/docs/';
 	}
 
 	/**

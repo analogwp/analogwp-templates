@@ -62,21 +62,12 @@ if ( ! $tab_exists ) {
 			<?php if ( ! class_exists( '\AnalogPro\Plugin' ) ) : ?>
 			<div class="upgrade-box">
 				<h3><?php esc_html_e( 'Upgrade to Style Kits Pro with a 15% discount', 'ang' ); ?></h3>
-				<ul>
-					<li><?php esc_html_e( 'Unlimited access to Pro Template Kits, Blocks, and Theme Style presets', 'ang' ); ?></li>
-					<li><?php esc_html_e( 'More Theme Style UI Controls', 'ang' ); ?></li>
-					<li><?php esc_html_e( 'User Role management', 'ang' ); ?></li>
-					<li><?php esc_html_e( 'Unsplash integration', 'ang' ); ?></li>
-					<li><?php esc_html_e( 'Better color management', 'ang' ); ?></li>
-					<li><?php esc_html_e( 'Smart layout tools', 'ang' ); ?></li>
-				</ul>
 
-				<p><a target="_blank" href="<?php echo esc_url( Utils::get_pro_link() ); ?>"><?php esc_html_e( 'Find out more', 'ang' ); ?></a></p>
+				<p>Add your email address and we will send you a 15% discount code for your Style Kits PRO purchase.</p>
 
 				<form id="js-ang-request-discount" method="post">
 					<input required type="email" class="regular-text" name="email" value="<?php echo esc_attr( $current_user->user_email ); ?>" placeholder="<?php esc_attr_e( 'Your Email', 'ang' ); ?>">
 					<input required type="text" class="regular-text" name="first_name" value="<?php echo esc_attr( $current_user->first_name ); ?>" placeholder="<?php esc_attr_e( 'First Name', 'ang' ); ?>">
-					<input required type="text" class="regular-text" name="last_name" value="<?php echo esc_attr( $current_user->last_name ); ?>" placeholder="<?php esc_attr_e( 'Last Name', 'ang' ); ?>">
 					<input type="submit" class="button" style="width:100%" value="<?php esc_attr_e( 'Send me the coupon', 'ang' ); ?>">
 				</form>
 
@@ -97,7 +88,7 @@ if ( ! $tab_exists ) {
 					<h3><?php esc_html_e( 'Documentation', 'ang' ); ?></h3>
 					<p>
 						<?php esc_html_e( 'Need help with Style Kits?', 'ang' ); ?>
-						<a href="<?php echo esc_url( 'https://docs.analogwp.com/' ); ?>" target="_blank"><?php esc_html_e( 'Visit the online docs', 'ang' ); ?></a>
+						<a href="<?php echo esc_url( 'https://analogwp.com/docs/' ); ?>" target="_blank"><?php esc_html_e( 'Visit the online docs', 'ang' ); ?></a>
 					</p>
 				</div>
 				<div class="social-group">

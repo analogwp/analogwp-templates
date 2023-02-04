@@ -132,7 +132,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 	const footer = sprintf(
 		__( 'Learn more about this in %s.', 'ang' ),
 		sprintf(
-			'<a href="https://docs.analogwp.com/article/608-sk-select-template-import" target="_blank" rel="noopener noreferer">%s</a>',
+			'<a href="https://analogwp.com/docs/default-template-import-method/" target="_blank" rel="noopener noreferer">%s</a>',
 			__( 'Style Kits Docs', 'ang' )
 		)
 	);

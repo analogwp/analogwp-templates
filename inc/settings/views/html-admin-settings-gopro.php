@@ -11,15 +11,18 @@ namespace Analog\Settings\views;
 ?>
 
 <div class="gopro-content">
-	<h1 class="tab-heading"><?php _e( 'Style Kits Pro gives you access to <u>premium template kits, blocks and Style Kits</u>, <br>plus a number of extra design features to power-up your design workflow in Elementor.', 'ang' ); ?></h1>
+	<h1 class="tab-heading"><?php _e( 'Transform your design workflow in Elementor with Style Kits PRO', 'ang' ); ?></h1>
+	<p>Excited with the free version of Style Kits? Try out Style Kits PRO and optimise your Elementor design workflow with more features:</p>
 	<ul>
-		<li><?php _e( '<strong>User role management</strong> so you can restrict access to Style Kits for your clients or editors', 'ang' ); ?></li>
-		<li><?php _e( 'Handy tools to <strong>highlight Elements</strong> using custom CSS or custom CSS classes', 'ang' ); ?></li>
-		<li><?php _e( '<strong>Tools to clean-up</strong> any of your templates and layouts from inline styles, and make them Style-Kit-ready', 'ang' ); ?></li>
-		<li><?php _e( '<strong>Unsplash integration</strong> so you can import images from Unsplash right into your WordPress media gallery', 'ang' ); ?></li>
+		<li><?php _e( 'Unlimited access to the container-based pattern library', 'ang' ); ?></li>
+		<li><?php _e( 'Unlimited access to the entire collection of Global theme style presets', 'ang' ); ?></li>
+		<li><?php _e( 'Unlock up to 48 Global Style Kit Fonts and Colors', 'ang' ); ?></li>
+		<li><?php _e( 'Unlock up to 24 container spacing  presets', 'ang' ); ?></li>
+		<li><?php _e( 'Hide any Style Kit reference from your clients, based on user roles', 'ang' ); ?></li>
+		<li><?php _e( 'Style Kits front-end switcher', 'ang' ); ?></li>
+		<li><?php _e( 'Selectively de-activate Style Kits Panels from the site settings sidebar', 'ang' ); ?></li>
 	</ul>
-	<p><?php _e( 'And many more meaningful features', 'ang' ); ?></p>
-	<a href="<?php echo esc_url( 'https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro' ); ?>" class="ang-button button-primary" target="_blank"><?php esc_html_e( 'Explore Style Kits Pro', 'ang' ); ?></a>
-	<img src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/gopro_frames.png' ); ?>" alt="">
+	<p><?php _e( '.. and much more.', 'ang' ); ?></p>
+	<a href="<?php echo esc_url( 'https://analogwp.com/pricing/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro' ); ?>" class="ang-button button-primary" target="_blank"><?php esc_html_e( 'Explore Style Kits Pro', 'ang' ); ?></a>
 </div>
 

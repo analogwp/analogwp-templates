@@ -150,6 +150,9 @@ final class Plugin {
 
 		$global_kit_title = get_the_title( Utils::get_global_kit_id() );
 
+		$plugins = get_option( 'active_plugins' );
+		$plugins = array_map( array( $this, 'filter_plugins' ), $plugins );
+
 		$new_domains = array(
 			'ajaxurl'                 => admin_url( 'admin-ajax.php' ),
 			'favorites'               => $favorites,
@@ -175,11 +178,23 @@ final class Plugin {
 			'isGlobalSkEnabled'       => (bool) Options::get_instance()->get( 'use_global_sk' ),
 			'globalSkAlwaysEnableURL' => admin_url( 'admin.php?page=style-kits' ),
 			'isContainer'             => Utils::is_container(),
+			'activePlugins'           => array_values( $plugins ),
 		);
 
 		$domains += $new_domains;
 
 		return $domains;
+	}
+
+	/**
+	 * Filter plugin name.
+	 *
+	 * @param string $plugin Plugin name.
+	 * @return string
+	 */
+	public function filter_plugins( $plugin ) {
+		$plugin = explode( '/', $plugin );
+		return $plugin[0];
 	}
 
 	/**

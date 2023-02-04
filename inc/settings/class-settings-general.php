@@ -60,7 +60,7 @@ class General extends Settings_Page {
 				'desc'  => sprintf(
 				/* translators: %s: Global Style Kit Documentation link */
 					__( 'Always import templates using the Global Style Kit. %s', 'ang' ),
-					'<a href="https://docs.analogwp.com/article/637-template-import-method" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
+					'<a href="https://analogwp.com/docs/default-template-import-method/" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
 				),
 				'type'  => 'checkbox',
 			);
@@ -85,11 +85,22 @@ class General extends Settings_Page {
 			$default_import_method,
 			array(
 				'id'      => 'allow_svg_uploads',
-				'title'   => esc_html_x( 'Allow SVG Uploads', 'settings title', 'ang' ),
+				'title'   => esc_html_x( 'Enable SVG Uploads', 'settings title', 'ang' ),
 				'desc'    => sprintf(
 				/* translators: %s: Global Style Kit Documentation link */
 					__( 'Helps importing SVGs in templates. %s', 'ang' ),
-					'<a href="https://docs.analogwp.com/article/637-template-import-method" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
+					'<a href="https://analogwp.com/docs/enable-svg-imports-in-patterns" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
+				),
+				'type'    => 'checkbox',
+				'default' => true,
+			),
+			array(
+				'id'      => 'hide_legacy_features',
+				'title'   => esc_html_x( 'Hide legacy features', 'settings title', 'ang' ),
+				'desc'    => sprintf(
+				/* translators: %s: Legacy features Documentation link */
+					__( 'Hide legacy features from the Style Kit panel. %s', 'ang' ),
+					'<a href="https://analogwp.com/docs/what-are-legacy-features/" target="_blank">' . __( 'Read more', 'ang' ) . '</a>'
 				),
 				'type'    => 'checkbox',
 				'default' => true,

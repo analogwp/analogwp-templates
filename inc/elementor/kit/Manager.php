@@ -54,8 +54,14 @@ class Manager {
 		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ), 999 );
 		add_action( 'delete_post', array( $this, 'restore_default_kit' ) );
 
+		add_action( 'wp_trash_post', function ( $post_id ) {
+			$this->before_delete_kit( $post_id );
+		} );
+
 		add_action( 'wp_ajax_nopriv_ang_global_kit', array( $this, 'update_global_kit' ) );
 		add_action( 'wp_ajax_ang_global_kit', array( $this, 'update_global_kit' ) );
+
+		add_action( 'wp_ajax_ang_trash_kit', array( $this, 'trash_kit' ) );
 
 		add_filter(
 			'analog_admin_notices',
@@ -90,6 +96,65 @@ class Manager {
 		if ( $global_kit && $post_id === (int) $global_kit ) {
 			update_option( self::OPTION_ACTIVE, Options::get_instance()->get( 'default_kit' ) );
 		}
+	}
+
+
+	/**
+	 * Trash a kit.
+	 */
+	public function trash_kit() {
+		$kit_id = (int) $_REQUEST['kit_id'];
+
+		if ( ! $kit_id ) {
+			wp_send_json_error();
+		}
+
+		if ( isset( $_REQUEST['ang_trash_kit_nonce'] ) && check_ajax_referer( 'ang_trash_kit', 'ang_trash_kit_nonce' ) ) {
+			$kit = get_post( $kit_id );
+
+			if ( ! $kit ) {
+				wp_send_json_error();
+			}
+
+			$global_kit = Options::get_instance()->get( 'global_kit' );
+
+			if ( $global_kit && $kit_id === (int) $global_kit ) {
+				update_option( self::OPTION_ACTIVE, Options::get_instance()->get( 'default_kit' ) );
+			}
+
+			wp_trash_post( $kit_id );
+
+			wp_safe_redirect( admin_url() . "admin.php?page=style-kits&trashed=${kit_id}" );
+			exit();
+		}
+	}
+
+	/**
+	 * Send a confirm message before move a kit to trash, or if delete permanently not for trash.
+	 *
+	 * @param       $post_id
+	 * @param false $is_permanently_delete
+	 */
+	private function before_delete_kit( $post_id ) {
+		$document = Plugin::elementor()->documents->get( $post_id );
+
+		if (
+			! $document ||
+			! Plugin::elementor()->kits_manager->is_kit( $post_id ) ||
+			! isset( $_GET['ang_action'] ) ||
+			isset( $_GET['force_delete_kit'] ) ||  // phpcs:ignore -- nonce validation is not require here.
+			( $document->is_trash() )
+		) {
+			return;
+		}
+
+		ob_start();
+		require __DIR__ . '/views/trash-kit-confirmation.php';
+
+		$confirmation_content = ob_get_clean();
+
+		// PHPCS - the content does not contain user input value.
+		wp_die( new \WP_Error( 'cant_delete_kit', $confirmation_content ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**

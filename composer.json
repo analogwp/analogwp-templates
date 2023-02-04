@@ -23,10 +23,8 @@
 	},
     "require-dev": {
         "civicrm/composer-downloads-plugin": "*",
-        "codeception/module-filesystem": "*",
         "ergebnis/composer-normalize": "*",
         "flow/jsonpath": "*",
-        "lucatume/wp-browser": "*",
         "sniccowp/php-scoper-wordpress-excludes": "*"
     },
 	"extra": {

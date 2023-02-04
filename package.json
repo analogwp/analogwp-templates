@@ -1,6 +1,6 @@
 {
   "name": "analogwp-templates",
-  "version": "1.9.8",
+  "version": "2.0.0",
   "description": "Handfully crafted Elementor templates packs.",
   "main": "/client/index.js",
   "private": true,
@@ -12,7 +12,8 @@
     "makePot": "wp i18n make-pot . ./languages/ang.pot",
     "convertPot2json": "npx po2json ./languages/ang.pot ./languages/ang-analogwp-app.json -f jed1.x",
     "build:release": "yarn gulp build",
-    "gh:release": "yarn gulp github-build"
+    "gh:release": "yarn gulp github-build",
+    "build:deploy": "yarn gulp deploy"
   },
   "repository": {
     "type": "git",
