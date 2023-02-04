@@ -342,11 +342,11 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 					{ filteredBlocks.length >= 1 && filteredBlocks.map( ( block ) => {
 						let requiresElementorPro = false;
 						if ( block.requiredPlugins && block.requiredPlugins.length > 0 ) {
-							const unresolvedPlugins = block.requiredPlugins.filter( ( plugin ) => ! AGWP.activePlugins.includes( plugin )
+							const unresolvedPlugins = block.requiredPlugins.filter( ( plugin ) => plugin !== '' && ! AGWP.activePlugins.includes( plugin )
 							 );
 
 							// We are intentionally hiding patterns for now.
-							if ( unresolvedPlugins.length > 0 && unresolvedPlugins.includes( 'woocommerce' ) ) {
+							if ( unresolvedPlugins.length > 0 && ! unresolvedPlugins.includes( 'elementor-pro' ) ) {
 								return null;
 							}
 							requiresElementorPro = unresolvedPlugins && unresolvedPlugins.includes( 'elementor-pro' );
