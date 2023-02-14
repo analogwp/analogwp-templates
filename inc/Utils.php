@@ -690,6 +690,12 @@ class Utils extends Base {
 		}
 
 		$document = Plugin::elementor()->documents->get_doc_for_frontend( $post_id );
+
+		// Check if document exists.
+		if ( ! $document ) {
+			return false;
+		}
+
 		$kit_id   = $document->get_settings( 'ang_action_tokens' );
 
 		// Check if this is a valid kit or not.
@@ -717,6 +723,12 @@ class Utils extends Base {
 		}
 
 		$document = Plugin::elementor()->documents->get_doc_for_frontend( $post_id );
+
+		// Check if document exists.
+		if ( ! $document ) {
+			return false;
+		}
+
 		$kit_id   = $document->get_settings( 'ang_action_tokens' );
 
 		// Check if this is a valid kit or not.
