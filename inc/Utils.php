@@ -674,38 +674,6 @@ class Utils extends Base {
 		return $document->get_settings( $setting );
 	}
 
-	/**
-	 * Get Kit active on document.
-	 *
-	 * @since 1.9.5
-	 *
-	 * @param int $post_id Post ID.
-	 *
-	 * @return mixed
-	 */
-	public static function get_document_kit_id( $post_id ) {
-		// Exit early if no post id provided.
-		if ( ! $post_id ) {
-			return false;
-		}
-
-		$document = Plugin::elementor()->documents->get_doc_for_frontend( $post_id );
-
-		// Check if document exists.
-		if ( ! $document ) {
-			return false;
-		}
-
-		$kit_id   = $document->get_settings( 'ang_action_tokens' );
-
-		// Check if this is a valid kit or not.
-		if ( ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
-			return false;
-		}
-
-		return $kit_id;
-	}
-
 
 	/**
 	 * Get Kit active on document.
