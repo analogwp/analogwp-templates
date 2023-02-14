@@ -102,6 +102,11 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
+= 2.0.1 - Feb 14, 2023 =
+* Fix: Issue with undefined documents in some rare cases
+* Improvements: Compatibility with Elementor v3.11.0 & Elementor Pro v3.11.0
+* Improvements: Remove unused code
+
 = 2.0.0 - Feb 04, 2023 =
 * New: Kit trashing and confirmation page from Local Kits screen
 * New: Settings toggle for Legacy features
