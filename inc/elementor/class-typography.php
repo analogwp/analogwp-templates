@@ -579,7 +579,7 @@ class Typography extends Module {
 				'default'     => array(
 					'unit' => 'px',
 				),
-				'size_units'  => array( 'px', 'em', '%', 'rem', 'custom' ),
+				'size_units'  => array( 'px', 'em', '%', 'rem', 'vw', 'custom' ),
 				'selectors'   => array(
 					'{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element' => '--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
 				),
@@ -707,7 +707,7 @@ class Typography extends Module {
 					'default'    => array(
 						'unit' => 'em',
 					),
-					'size_units' => array( 'px', 'em', '%', 'rem', 'custom' ),
+					'size_units' => array( 'px', 'em', '%', 'rem', 'vw', 'custom' ),
 					'selectors'  => array(
 						"{{WRAPPER}} .ang-section-padding-{$key}.elementor-top-section" =>
 						'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
@@ -770,7 +770,7 @@ class Typography extends Module {
 				array(
 					'label'      => $label,
 					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => array( 'px', 'em', '%', 'rem', 'custom' ),
+					'size_units' => array( 'px', 'em', '%', 'rem', 'vw', 'custom' ),
 					'selectors'  => array(
 						"{{WRAPPER}} .elementor-column-gap-{$key} {$elementor_row} > .elementor-column > .elementor-element-populated"
 						=> 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
@@ -973,7 +973,7 @@ class Typography extends Module {
 				array(
 					'label'      => __( 'Padding', 'ang' ),
 					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => array( 'px', 'em', '%', 'rem', 'custom' ),
+					'size_units' => array( 'px', 'em', '%', 'rem', 'vw', 'custom' ),
 					'selectors'  => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 					),
