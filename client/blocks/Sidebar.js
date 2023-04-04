@@ -179,6 +179,32 @@ const Sidebar = ( { state } ) => {
 		return null;
 	}
 
+	const getInitialTab = (defaultTab) => {
+		let initialTab = defaultTab ? defaultTab : 'all-patterns';
+		if ( elementor && elementor.config ) {
+			const type = elementor.config.document.type;
+            const categories = categoriesData();
+			switch ( type ) {
+				case 'header':
+					initialTab = categories.includes( 'Headers' ) ? 'Headers' : defaultTab;
+					break;
+				case 'footer':
+					initialTab = categories.includes( 'Footers' ) ? 'Footers' : defaultTab;
+					break;
+				case 'single-page':
+				case 'single-post':
+				case 'page':
+					initialTab = categories.includes( 'Post Templates' ) ? 'Post Templates' : defaultTab;
+					break;
+				default:
+					break;
+			}
+
+		}
+
+		return initialTab;
+	}
+
 	return (
 		<SidebarWrapper className="sidebar">
 			<TextControl
@@ -207,7 +233,7 @@ const Sidebar = ( { state } ) => {
 			<TabPanel
 				className="block-categories-tabs"
 				activeClass="active-tab"
-				initialTabName={ context.state.blocksTab }
+				initialTabName={ getInitialTab( context.state.blocksTab ) }
 				onSelect={onSelect}
 				tabs={ tabGenerator( categoriesData() ) }
 				>
