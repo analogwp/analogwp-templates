@@ -179,6 +179,14 @@ const Sidebar = ( { state } ) => {
 		return null;
 	}
 
+	const toggleProBlocks = () => {
+		context.dispatch( {
+			showFree: ! context.state.showFree,
+		} );
+
+		window.localStorage.setItem( 'analog::show-free', ! context.state.showFree );
+	}
+
 	const getInitialTab = (defaultTab) => {
 		let initialTab = defaultTab ? defaultTab : 'all-patterns';
 		if ( elementor && elementor.config ) {
@@ -220,13 +228,7 @@ const Sidebar = ( { state } ) => {
 				<ToggleControl
 					label={ AGWP.isContainer ? __( 'Show Pro Patterns', 'ang' ) : __( 'Show Pro Blocks', 'ang' ) }
 					checked={ ! context.state.showFree }
-					onChange={ () => {
-						context.dispatch( {
-							showFree: ! context.state.showFree,
-						} );
-
-						window.localStorage.setItem( 'analog::show-free', ! context.state.showFree );
-					} }
+					onChange={ toggleProBlocks }
 				/>
 			) }
 			{ tabGenerator( categoriesData() ).length >= 1 &&
