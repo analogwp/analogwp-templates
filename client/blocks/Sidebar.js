@@ -188,7 +188,7 @@ const Sidebar = ( { state } ) => {
 	}
 
 	const getInitialTab = (defaultTab) => {
-		let initialTab = defaultTab ? defaultTab : 'all-patterns';
+		let initialTab = defaultTab ? defaultTab : context.state.blocksTab;
 		if ( elementor && elementor.config ) {
 			const type = elementor.config.document.type;
             const categories = categoriesData();
