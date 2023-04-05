@@ -192,6 +192,11 @@ const Sidebar = ( { state } ) => {
 		if ( elementor && elementor.config ) {
 			const type = elementor.config.document.type;
             const categories = categoriesData();
+
+			if ( context.state.showFree && AGWP.license.status !== 'valid' ) {
+				return initialTab;
+			}
+
 			switch ( type ) {
 				case 'header':
 					initialTab = categories.includes( 'Headers' ) ? 'Headers' : defaultTab;
