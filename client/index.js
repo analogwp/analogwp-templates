@@ -1,7 +1,5 @@
 import App from './App';
 
-const { createRoot } = wp.element;
-
 const containerElementID = 'analogwp-templates';
 
 const waitForEl = ( selector, callback ) => {
@@ -18,6 +16,13 @@ const waitForEl = ( selector, callback ) => {
 
 // We don't use a variable here because in Elementor modal the element is added dynamically.
 waitForEl( document.getElementById( containerElementID ), () => {
-	const containerRoot = createRoot( document.getElementById( containerElementID ) );
-	containerRoot.render( <App /> );
+	if ( window.AGWP && window.AGWP.wp_version && window.AGWP.wp_version >= '6.2' ) {
+		const { createRoot } = wp.element;
+		const containerRoot = createRoot( document.getElementById( containerElementID ) );
+		containerRoot.render( <App /> );
+	} else {
+		// Ensure compatibility with React 17 and lower.
+		const { render } = wp.element;
+		render( <App />, document.getElementById( containerElementID ) );
+	}
 } );
