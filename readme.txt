@@ -102,6 +102,15 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
+= 2.0.2 - April 05, 2023 =
+* New: Preselect pattern category based on theme builder template type
+* New: Updated size units for controls with newly supported units such as rem, vw, custom
+* New: Bumped minimum WordPress and PHP required versions to v5.9 and v7.0 respectively
+* Improvements: Updated client side React dependency to support v18 with Backwards compatibility
+* Improvements: Compatible up to WordPress v6.2.0
+* Improvements: Compatibility with Elementor v3.12.1 & Elementor Pro v3.12.1
+* Improvements: Updated translation files
+
 = 2.0.1 - Feb 14, 2023 =
 * Fix: Issue with undefined documents in some rare cases
 * Improvements: Compatibility with Elementor v3.11.0 & Elementor Pro v3.11.0
