@@ -179,6 +179,45 @@ const Sidebar = ( { state } ) => {
 		return null;
 	}
 
+	const toggleProBlocks = () => {
+		context.dispatch( {
+			showFree: ! context.state.showFree,
+		} );
+
+		window.localStorage.setItem( 'analog::show-free', ! context.state.showFree );
+	}
+
+	const getInitialTab = (defaultTab) => {
+		let initialTab = defaultTab ? defaultTab : context.state.blocksTab;
+		if ( elementor && elementor.config ) {
+			const type = elementor.config.document.type;
+            const categories = categoriesData();
+
+			if ( context.state.showFree && AGWP.license.status !== 'valid' ) {
+				return initialTab;
+			}
+
+			switch ( type ) {
+				case 'header':
+					initialTab = categories.includes( 'Headers' ) ? 'Headers' : defaultTab;
+					break;
+				case 'footer':
+					initialTab = categories.includes( 'Footers' ) ? 'Footers' : defaultTab;
+					break;
+				case 'single-page':
+				case 'single-post':
+				case 'page':
+					initialTab = categories.includes( 'Post Templates' ) ? 'Post Templates' : defaultTab;
+					break;
+				default:
+					break;
+			}
+
+		}
+
+		return initialTab;
+	}
+
 	return (
 		<SidebarWrapper className="sidebar">
 			<TextControl
@@ -194,20 +233,14 @@ const Sidebar = ( { state } ) => {
 				<ToggleControl
 					label={ AGWP.isContainer ? __( 'Show Pro Patterns', 'ang' ) : __( 'Show Pro Blocks', 'ang' ) }
 					checked={ ! context.state.showFree }
-					onChange={ () => {
-						context.dispatch( {
-							showFree: ! context.state.showFree,
-						} );
-
-						window.localStorage.setItem( 'analog::show-free', ! context.state.showFree );
-					} }
+					onChange={ toggleProBlocks }
 				/>
 			) }
 			{ tabGenerator( categoriesData() ).length >= 1 &&
 			<TabPanel
 				className="block-categories-tabs"
 				activeClass="active-tab"
-				initialTabName={ context.state.blocksTab }
+				initialTabName={ getInitialTab( context.state.blocksTab ) }
 				onSelect={onSelect}
 				tabs={ tabGenerator( categoriesData() ) }
 				>

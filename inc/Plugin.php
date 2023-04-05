@@ -179,6 +179,7 @@ final class Plugin {
 			'globalSkAlwaysEnableURL' => admin_url( 'admin.php?page=style-kits' ),
 			'isContainer'             => Utils::is_container(),
 			'activePlugins'           => array_values( $plugins ),
+			'wp_version'              => get_bloginfo( 'version' ),
 		);
 
 		$domains += $new_domains;
