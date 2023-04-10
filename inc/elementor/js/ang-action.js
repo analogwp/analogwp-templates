@@ -352,6 +352,7 @@ jQuery( window ).on( 'elementor/init', function() {
 	analog.handleSaveToken = () => {
 		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
 			id: 'ang-modal-save-token',
+			className: 'dialog-type-confirm',
 			headerMessage: ANG_Action.translate.saveToken,
 			message: '',
 			position: {
@@ -469,6 +470,7 @@ jQuery( window ).on( 'elementor/init', function() {
 
 		const modal = elementorCommon.dialogsManager.createWidget( 'lightbox', {
 			id: 'ang-modal-export-css',
+			className: 'dialog-type-confirm',
 			headerMessage: ANG_Action.translate.exportCSS,
 			message: '',
 			position: {
