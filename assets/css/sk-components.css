@@ -1242,3 +1242,12 @@
 .elementor-control.elementor-control-ang_container_padding {
 	padding-bottom: 0;
 }
+#elementor-toast.ang-kit-apply-notice .dialog-buttons-wrapper {
+	justify-content: flex-start;
+}
+
+#elementor-toast.ang-kit-apply-notice .dialog-button {
+	outline: 1px solid currentColor;
+	padding: 2.5px 6px !important;
+	margin-right: 10px;
+}
