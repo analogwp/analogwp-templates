@@ -657,6 +657,43 @@ class Admin_Settings {
 					<?php
 					break;
 
+				case 'starter-kits':
+					$kits = $value['kits'] ?? array();
+					$id   = $value['id'] ?? '';
+					?>
+						<div id="<?php echo esc_attr( $value['id'] ); ?>">
+							<div class="titledesc">
+							<?php
+							if ( ! empty( $value['title'] ) ) {
+								echo '<h1 id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-title">' . esc_html( $value['title'] ) . '</h1>';
+							}
+							if ( ! empty( $value['desc'] ) ) {
+								echo '<p id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-desc">' . wp_kses_post( $value['desc'] ) . '</p>';
+							}
+							?>
+							</div>
+							<ul class="<?php echo esc_attr( sanitize_title( $value['id'] ) ); ?>-list">
+							<?php foreach ( $kits as $key => $kit ) : ?>
+								<li class="starter-kit-<?php echo esc_attr( $key ); ?>">
+									<div>
+										<img class="kit-img" src="<?php echo esc_url( $kit['thumbnail_url'] ?? '' ); ?>" alt="<?php echo esc_attr( $kit['title'] ?? '' ); ?>"/>
+									</div>
+
+									<div>
+										<h4 class="kit-title"><?php echo esc_html( $kit['title'] ?? '' ); ?></h4>
+										<span class="kit-description"><?php echo esc_html( $kit['desc'] ?? '' ); ?></span>
+										<div class="kit-btns">
+											<a href="<?php echo esc_url( $kit['download_url'] ); ?>" class="button button-primary kit-download-btn"><?php echo esc_html( $value['download_btn_text'] ?? '' ); ?></a>
+											<a href="<?php echo esc_url( $kit['demo_url'] ); ?>" class="button button-secondary kit-demo-btn" target="_blank"><?php echo esc_html( $value['demo_btn_text'] ?? '' ); ?></a>
+										</div>
+									</div>
+								</li>
+							<?php endforeach; ?>
+							</ul>
+						</div>
+					<?php
+					break;
+
 				// Default: run an action.
 				default:
 					do_action( 'ang_admin_field_' . $value['type'], $value );
