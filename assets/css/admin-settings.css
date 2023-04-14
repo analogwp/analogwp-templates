@@ -74,6 +74,48 @@
 	transition: max-height 0.2s ease-out;
 }
 
+.ang #ang-starter-kits .titledesc {
+	margin-top: 20px;
+}
+
+.ang .ang-starter-kits-list li {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	margin-top: 25px;
+}
+
+.ang .ang-starter-kits-list img {
+	width: 160px;
+	border: 1px solid #828282;
+	border-radius: 5px;
+	height: auto;
+}
+
+.ang .ang-starter-kits-list .kit-title {
+	font-size: 18px;
+	font-weight: 500;
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+.ang .ang-starter-kits-list .kit-description {
+	display: inline-block;
+	font-size: 14px;
+	color: #50575e;
+	margin-top: 0;
+	margin-bottom: 20px;
+}
+
+.ang .ang-starter-kits-list .kit-btns > * {
+	margin-right: 5px;
+	margin-top: 5px;
+}
+
+.ang #ang-starter-kits + .submit {
+	display: none;
+}
+
 .ang.gopro .submit {
 	display: none;
 }
