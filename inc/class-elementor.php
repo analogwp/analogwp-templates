@@ -222,8 +222,6 @@ class Elementor {
 
 			Utils::clear_elementor_cache();
 		}
-
-		Utils::clear_elementor_cache();
 	}
 }
 
