@@ -366,13 +366,6 @@ class Remote extends Base {
 		global $wp_version;
 
 		$body_args = apply_filters( 'analog/api/get_starterkits/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
-		$body_args = array_merge(
-			$body_args,
-			array(
-				'license' => Options::get_instance()->get( 'ang_license_key' ),
-				'url'     => home_url(),
-			)
-		);
 
 		if ( $force_update ) {
 			$body_args['force_update'] = $force_update;
