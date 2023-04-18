@@ -131,9 +131,12 @@ class Admin_Settings {
 			'ang_settings',
 			'ang_settings_data',
 			array(
-				'i18n_nav_warning'  => __( 'The changes you made will be lost if you navigate away from this page.', 'ang' ),
-				'rollback_url'      => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
-				'rollback_versions' => Utils::get_rollback_versions(),
+				'i18n_nav_warning'          => __( 'The changes you made will be lost if you navigate away from this page.', 'ang' ),
+				'rollback_url'              => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
+				'rollback_versions'         => Utils::get_rollback_versions(),
+				'sitekit_importer_notice'   => __( 'Template Kit file downloaded.', 'ang' ),
+				'sitekit_importer_url_text' => __( 'Import it into Elementor', 'ang' ),
+				'sitekit_importer_url'      => esc_url( admin_url( 'admin.php?page=elementor-tools#tab-import-export-kit' ) ),
 			)
 		);
 
