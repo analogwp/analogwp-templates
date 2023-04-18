@@ -151,6 +151,14 @@
 			})
 		}
 
-		$('#js-ang-request-discount').on( 'submit', submitDiscountRequest);
+		function processKitDownload() {
+			if ( ! $( '.titledesc + #starter-kits-message' ).length ) {
+				const el = $( '.titledesc' ),
+					content = '<div id="starter-kits-message" class="updated inline"><p>' + data.sitekit_importer_notice + '&nbsp;<a href="' + data.sitekit_importer_url + '">' + data.sitekit_importer_url_text + '</a></p></div>';
+
+				el.after( content );
+			}
+		}
+		$( '.kit-btns .kit-download-btn' ).on( 'click', processKitDownload );
 	} );
 }( jQuery, ang_settings_data, wp ) );
