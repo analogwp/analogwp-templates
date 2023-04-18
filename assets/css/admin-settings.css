@@ -74,10 +74,8 @@
 	transition: max-height 0.2s ease-out;
 }
 
-.ang #ang-starter-kits .titledesc {
-	margin-top: 20px;
-}
 
+.ang #ang-starter-kits .titledesc .header,
 .ang .ang-starter-kits-list li {
 	display: flex;
 	gap: 20px;
@@ -87,7 +85,6 @@
 
 .ang .ang-starter-kits-list img {
 	width: 160px;
-	border: 1px solid #828282;
 	border-radius: 5px;
 	height: auto;
 }
