@@ -672,7 +672,7 @@ class Admin_Settings {
 										echo '<h1 id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-title">' . esc_html( $value['title'] ) . '</h1>';
 									}
 									?>
-									<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=general&section=starter-kit&refresh=true' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Refresh' ); ?></a>
+									<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=general&section=starter-kit&refresh=true' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Refresh', 'ang' ); ?></a>
 								</div>
 
 							<?php
