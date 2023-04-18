@@ -663,10 +663,16 @@ class Admin_Settings {
 					?>
 						<div id="<?php echo esc_attr( $value['id'] ); ?>">
 							<div class="titledesc">
+								<div class="header">
+									<?php
+									if ( ! empty( $value['title'] ) ) {
+										echo '<h1 id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-title">' . esc_html( $value['title'] ) . '</h1>';
+									}
+									?>
+									<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=general&section=starter-kit&refresh=true' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Refresh' ); ?></a>
+								</div>
+
 							<?php
-							if ( ! empty( $value['title'] ) ) {
-								echo '<h1 id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-title">' . esc_html( $value['title'] ) . '</h1>';
-							}
 							if ( ! empty( $value['desc'] ) ) {
 								echo '<p id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-desc">' . wp_kses_post( $value['desc'] ) . '</p>';
 							}
