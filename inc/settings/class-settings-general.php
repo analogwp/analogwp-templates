@@ -135,7 +135,7 @@ class General extends Settings_Page {
 					'id'                => 'ang-starter-kits',
 					'title'             => __( 'Download Starter Kit', 'ang' ),
 					'desc'              => sprintf(
-						'%1$s <a href="https://analogwp.com/docs/selectively-deactivate-disable-style-kit-panels/" target="_blank">%2$s</a>',
+						'%1$s <a href="https://analogwp.com/docs/pulse-starter-kit/" target="_blank">%2$s</a>',
 						__( 'Download a site kit zip that you can import into your website.', 'ang-pro' ),
 						__( 'Learn more', 'ang-pro' ),
 					),
