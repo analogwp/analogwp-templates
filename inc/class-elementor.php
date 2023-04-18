@@ -147,11 +147,11 @@ class Elementor {
 		if ( $is_legacy_hidden ) {
 			wp_add_inline_style(
 				'analogwp-components-css',
-				".elementor-control.elementor-control-ang_section_padding,
+				'.elementor-control.elementor-control-ang_section_padding,
 						 .elementor-control.elementor-control-ang_column_gaps,
 						 .elementor-control.elementor-control-ang_colors {
 					      display: none !important;
-					}"
+					}'
 			);
 		}
 

@@ -79,6 +79,7 @@ class Manager {
 		if ( ! $this->kits ) {
 			$this->kits = Utils::get_kits();
 		}
+
 	}
 
 	/**
