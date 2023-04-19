@@ -131,9 +131,12 @@ class Admin_Settings {
 			'ang_settings',
 			'ang_settings_data',
 			array(
-				'i18n_nav_warning'  => __( 'The changes you made will be lost if you navigate away from this page.', 'ang' ),
-				'rollback_url'      => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
-				'rollback_versions' => Utils::get_rollback_versions(),
+				'i18n_nav_warning'          => __( 'The changes you made will be lost if you navigate away from this page.', 'ang' ),
+				'rollback_url'              => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
+				'rollback_versions'         => Utils::get_rollback_versions(),
+				'sitekit_importer_notice'   => __( 'Template Kit file downloaded.', 'ang' ),
+				'sitekit_importer_url_text' => __( 'Import it into Elementor', 'ang' ),
+				'sitekit_importer_url'      => esc_url( admin_url( 'admin.php?page=elementor-tools#tab-import-export-kit' ) ),
 			)
 		);
 
@@ -462,7 +465,7 @@ class Admin_Settings {
 						<?php if ( ! empty( $value['title'] ) ) { ?>
 						<th scope="row" class="titledesc">
 							<?php if ( false !== strpos( $value['id'], '_experiment' ) ) : ?>
-							<span class="experiment-indicator <?php echo ( $value['value'] === false || $value['value'] === 'default' || $value['value'] === 'active' ) ? 'active' : 'inactive'?>"></span>
+							<span class="experiment-indicator <?php echo ( $value['value'] === false || $value['value'] === 'default' || $value['value'] === 'active' ) ? 'active' : 'inactive'; ?>"></span>
 							<?php endif; ?>
 							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
 						</th>
@@ -645,7 +648,7 @@ class Admin_Settings {
 						<?php if ( ! empty( $value['title'] ) ) { ?>
 						<th scope="row" class="titledesc">
 							<?php if ( false !== strpos( $value['id'], '_experiment' ) ) : ?>
-							<span class="experiment-indicator <?php echo ( $value['value'] === 'active' ) ? 'active' : 'inactive'?>"></span>
+							<span class="experiment-indicator <?php echo ( $value['value'] === 'active' ) ? 'active' : 'inactive'; ?>"></span>
 							<?php endif; ?>
 							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // phpcs:ignore ?></label>
 						</th>
@@ -654,6 +657,49 @@ class Admin_Settings {
 							<?php echo $description; // phpcs:ignore ?>
 						</td>
 					</tr>
+					<?php
+					break;
+
+				case 'starter-kits':
+					$kits = $value['kits'] ?? array();
+					$id   = $value['id'] ?? '';
+					?>
+						<div id="<?php echo esc_attr( $value['id'] ); ?>">
+							<div class="titledesc">
+								<div class="header">
+									<?php
+									if ( ! empty( $value['title'] ) ) {
+										echo '<h1 id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-title">' . esc_html( $value['title'] ) . '</h1>';
+									}
+									?>
+									<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=general&section=starter-kit&refresh=true' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Refresh', 'ang' ); ?></a>
+								</div>
+
+							<?php
+							if ( ! empty( $value['desc'] ) ) {
+								echo '<p id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-desc">' . wp_kses_post( $value['desc'] ) . '</p>';
+							}
+							?>
+							</div>
+							<ul class="<?php echo esc_attr( sanitize_title( $value['id'] ) ); ?>-list">
+							<?php foreach ( $kits as $key => $kit ) : ?>
+								<li class="starter-kit-<?php echo esc_attr( $key ); ?>">
+									<div>
+										<img class="kit-img" src="<?php echo esc_url( $kit['thumbnail_url'] ?? '' ); ?>" alt="<?php echo esc_attr( $kit['title'] ?? '' ); ?>"/>
+									</div>
+
+									<div>
+										<h4 class="kit-title"><?php echo esc_html( $kit['title'] ?? '' ); ?></h4>
+										<span class="kit-description"><?php echo esc_html( $kit['desc'] ?? '' ); ?></span>
+										<div class="kit-btns">
+											<a href="<?php echo esc_url( $kit['download_url'] ); ?>" class="button button-primary kit-download-btn"><?php echo esc_html( $value['download_btn_text'] ?? '' ); ?></a>
+											<a href="<?php echo esc_url( $kit['demo_url'] ); ?>" class="button button-secondary kit-demo-btn" target="_blank"><?php echo esc_html( $value['demo_btn_text'] ?? '' ); ?></a>
+										</div>
+									</div>
+								</li>
+							<?php endforeach; ?>
+							</ul>
+						</div>
 					<?php
 					break;
 

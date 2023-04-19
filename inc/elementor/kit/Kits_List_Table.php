@@ -346,7 +346,20 @@ function ang_kits_list() {
 
 	?>
 	<div class="wrap">
-		<h2 style="font-weight: bold;"><?php esc_html_e( 'Local Style Kits', 'ang' ); ?></h2>
+		<h1 class="wp-heading-inline" style="font-weight: bold;"><?php esc_html_e( 'Local Style Kits', 'ang' ); ?></h1>
+		<a href="http://sk.test/wp-admin/post-new.php?post_type=page" class="page-title-action" id="import-kit">Import</a>
+		<hr class="wp-header-end">
+		<div id="analog-import-template-area" style="display: none; margin: 50px 0 30px; text-align: center;">
+			<div id="analog-import-template-title" style="font-size: 18px; color: #555d66;"><?php echo esc_html__( 'Choose an Elementor template JSON file or a .zip archive of Elementor templates, and add them to the list of templates available in your library.', 'ang' ); ?></div>
+			<form id="analog-import-template-form" style="display: inline-block;margin-top: 30px;padding: 30px 50px;background-color: #FFFFFF;border: 1px solid #e5e5e5;" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" enctype="multipart/form-data">
+				<input type="hidden" name="action" value="analog_local_kits_import">
+				<input type="hidden" name="_nonce" value="<?php echo wp_create_nonce( 'analog_local_kits_import_nonce' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+				<fieldset id="elementor-import-template-form-inputs">
+					<input type="file" name="file" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" required="">
+					<input id="analog-import-template-action" type="submit" class="button" value="<?php echo esc_attr__( 'Import Now', 'ang' ); ?>">
+				</fieldset>
+			</form>
+		</div>
 		<p style="margin: 20px 0; font-size: 14px; line-height: 1.5;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below.', 'ang' ); ?> <a href="https://analogwp.com/docs/local-style-kits/" target="_blank"><?php esc_html_e( 'Learn more' ); ?></a></p>
 
 		<form style="margin-bottom: 30px;" >

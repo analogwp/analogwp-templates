@@ -15,6 +15,7 @@ use Analog\Utils;
 use Elementor\Core\Files\CSS\Post as Post_CSS;
 use Elementor\Core\Kits\Manager as KitManager;
 use Elementor\TemplateLibrary\Source_Local;
+use Elementor\User;
 use WP_Error;
 
 /**
@@ -63,6 +64,8 @@ class Manager {
 
 		add_action( 'wp_ajax_ang_trash_kit', array( $this, 'trash_kit' ) );
 
+		add_action( 'wp_ajax_analog_local_kits_import', array( $this, 'handle_template_import' ) );
+
 		add_filter(
 			'analog_admin_notices',
 			function( $notices ) {
@@ -76,6 +79,7 @@ class Manager {
 		if ( ! $this->kits ) {
 			$this->kits = Utils::get_kits();
 		}
+
 	}
 
 	/**
@@ -127,6 +131,42 @@ class Manager {
 			wp_safe_redirect( admin_url() . "admin.php?page=style-kits&trashed=${kit_id}" );
 			exit();
 		}
+	}
+
+	/**
+	 * Throws a wp die error page.
+	 *
+	 * @since 2.0.3
+	 * @retun void
+	 */
+	public function handle_error( $message ) {
+		_default_wp_die_handler( $message, 'Style Kits Library' );
+	}
+
+	/**
+	 * Import kit action from the local style kits library.
+	 *
+	 * @since 2.0.3
+	 * @return void
+	 */
+	public function handle_template_import() {
+		if ( ! User::is_current_user_can_edit_post_type( Source_Local::CPT ) ) {
+			return;
+		}
+
+		if ( ! check_ajax_referer( 'analog_local_kits_import_nonce', '_nonce' ) ) {
+			$this->handle_error( 'Access Denied' );
+		}
+
+		$result = Plugin::elementor()->templates_manager->direct_import_template();
+
+		if ( is_wp_error( $result ) ) {
+			$this->handle_error( $result->get_error_message() . '.' );
+		}
+
+		wp_safe_redirect( admin_url( 'admin.php?page=style-kits' ) );
+
+		die;
 	}
 
 	/**

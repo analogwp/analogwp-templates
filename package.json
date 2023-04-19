@@ -1,6 +1,6 @@
 {
   "name": "analogwp-templates",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "Handfully crafted Elementor templates packs.",
   "main": "/client/index.js",
   "private": true,

@@ -40,6 +40,16 @@
 				}, 1 );
 			}
 			$( '#apply-kit' ).on( 'click', processGlobalKitChange );
+
+			function processImporterToggle( e ) {
+				if ( e.preventDefault ) {
+					e.preventDefault();
+				}
+
+				$( '#analog-import-template-area' ).toggle();
+			}
+
+			$( '#import-kit' ).on( 'click', processImporterToggle );
 		}
 	);
 }( jQuery, angLocalKits ) );

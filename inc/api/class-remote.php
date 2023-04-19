@@ -53,6 +53,20 @@ class Remote extends Base {
 	private static $patterns_endpoint = self::STORE_URL . 'wp-json/analogwp/v1/patterns/';
 
 	/**
+	 * Starter Kits API endpoint.
+	 *
+	 * @var string
+	 */
+	private static $starterkits_endpoint = self::STORE_URL . 'wp-json/analogwp/v1/starterkits/';
+
+	/**
+	 * Starter Kits transient key.
+	 *
+	 * @var array
+	 */
+	public static $starterkits_transient_key = 'analogwp_starterkits_info';
+
+	/**
 	 * Common API call args.
 	 *
 	 * @var array
@@ -311,6 +325,63 @@ class Remote extends Base {
 		}
 
 		return $template_content;
+	}
+
+	/**
+	 * Retrieve starter kits and save as a transient.
+	 *
+	 * @param boolean $force_update Force new info from remote API.
+	 * @return void
+	 */
+	public static function set_starterkits_info( $force_update = false ) {
+		$transient = get_transient( self::$starterkits_transient_key );
+
+		if ( ! $transient || $force_update ) {
+			$info = self::request_remote_starterkits_info( $force_update );
+			set_transient( self::$starterkits_transient_key, $info, DAY_IN_SECONDS );
+		}
+	}
+
+	/**
+	 * Get Starter kits info.
+	 *
+	 * @param boolean $force_update Force new info from remote API.
+	 *
+	 * @return array
+	 */
+	public function get_starterkits_info( $force_update = false ) {
+		if ( ! get_transient( self::$starterkits_transient_key ) || $force_update ) {
+			self::set_starterkits_info( true );
+		}
+		return get_transient( self::$starterkits_transient_key );
+	}
+
+	/**
+	 * Fetch starter kits info.
+	 *
+	 * @param boolean $force_update Force update.
+	 * @return array $response AnalogWP Starter Kits.
+	 */
+	public static function request_remote_starterkits_info( $force_update ) {
+		global $wp_version;
+
+		$body_args = apply_filters( 'analog/api/get_starterkits/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
+
+		if ( $force_update ) {
+			$body_args['force_update'] = $force_update;
+		}
+
+		$request = wp_remote_get(
+			self::$starterkits_endpoint,
+			array(
+				'timeout'    => $force_update ? 25 : 10,
+				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
+				'body'       => $body_args,
+				'sslverify'  => false,
+			)
+		);
+
+		return json_decode( wp_remote_retrieve_body( $request ), true );
 	}
 }
 

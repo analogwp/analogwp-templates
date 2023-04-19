@@ -14,6 +14,7 @@ use Elementor\Core\DynamicTags\Manager;
 use Analog\Elementor\Tags\Light_Background;
 use Analog\Elementor\Tags\Dark_Background;
 use Elementor\TemplateLibrary\Source_Local as Local;
+use Elementor\Core\Kits\Manager as Kits_Manager;
 
 /**
  * Intializes scripts/styles needed for AnalogWP modal on Elementor editing page.
@@ -59,6 +60,10 @@ class Elementor {
 		);
 
 		add_action( 'elementor/template-library/after_save_template', array( $this, 'fix_kit_import' ), 999, 2 );
+
+		// Update global kit data when active kit is changed, also fixes issues with Site kit importer.
+		$active_kit_key = Kits_Manager::OPTION_ACTIVE;
+		add_action( "update_option_{$active_kit_key}", array( $this, 'fix_active_kit_updates' ), 999, 2 );
 
 		$this->register_data_controllers();
 	}
@@ -142,11 +147,11 @@ class Elementor {
 		if ( $is_legacy_hidden ) {
 			wp_add_inline_style(
 				'analogwp-components-css',
-				".elementor-control.elementor-control-ang_section_padding,
+				'.elementor-control.elementor-control-ang_section_padding,
 						 .elementor-control.elementor-control-ang_column_gaps,
 						 .elementor-control.elementor-control-ang_colors {
 					      display: none !important;
-					}"
+					}'
 			);
 		}
 
@@ -199,6 +204,23 @@ class Elementor {
 			$post_data['post_type'] = Local::CPT;
 
 			wp_update_post( $post_data );
+		}
+	}
+
+	/**
+	 * Fixes global kit updates.
+	 *
+	 * @param int $old_value Old Kit id.
+	 * @param int $value New Kit id.
+	 *
+	 * @return void
+	 */
+	public function fix_active_kit_updates( $old_value, $value ) {
+		if ( $value && $old_value !== $value ) {
+			Options::get_instance()->set( 'global_kit', $value );
+			Utils::set_elementor_active_kit( $value );
+
+			Utils::clear_elementor_cache();
 		}
 	}
 }

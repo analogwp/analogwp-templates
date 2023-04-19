@@ -121,15 +121,15 @@
 			}
 		}
 
-		function submitDiscountRequest(e) {
+		function submitDiscountRequest( e ) {
 			e.preventDefault();
 
-			const email = $(this).find('input[name="email"]').val();
-			const fname = $(this).find('input[name="first_name"]').val();
-			const lname = $(this).find('input[name="last_name"]').val();
+			const email = $( this ).find( 'input[name="email"]' ).val();
+			const fname = $( this ).find( 'input[name="first_name"]' ).val();
+			const lname = $( this ).find( 'input[name="last_name"]' ).val();
 
-			const elSubmitBtn = $(this).find('input[type=submit]');
-			elSubmitBtn.val('Sending...');
+			const elSubmitBtn = $( this ).find( 'input[type=submit]' );
+			elSubmitBtn.val( 'Sending...' );
 
 			$.post(
 				'https://analogwp.com/?ang-api=analogwp-templates&request=discount_code',
@@ -138,19 +138,29 @@
 					first_name: fname,
 					last_name: lname,
 				}
-			).done(function(){
+			).done( function() {
 				status = 'Coupon sent!';
 				elSubmitBtn.val( status );
 				elSubmitBtn.attr( 'disabled', 'disabled' );
-			}).fail(function(){
+			} ).fail( function() {
 				status = 'Failed to send, please contact support.';
 				elSubmitBtn.val( status );
 				setTimeout( function() {
 					elSubmitBtn.val( 'Send me the coupon' );
 				}, 2000 );
-			})
+			} );
 		}
 
-		$('#js-ang-request-discount').on( 'submit', submitDiscountRequest);
+		$( '#js-ang-request-discount' ).on( 'submit', submitDiscountRequest );
+
+		function processKitDownload() {
+			if ( ! $( '.titledesc + #starter-kits-message' ).length ) {
+				const el = $( '.titledesc' ),
+					content = '<div id="starter-kits-message" class="updated inline"><p>' + data.sitekit_importer_notice + '&nbsp;<a href="' + data.sitekit_importer_url + '">' + data.sitekit_importer_url_text + '</a></p></div>';
+
+				el.after( content );
+			}
+		}
+		$( '.kit-btns .kit-download-btn' ).on( 'click', processKitDownload );
 	} );
 }( jQuery, ang_settings_data, wp ) );
