@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.0.2\n"
+"Project-Id-Version: Style Kits for Elementor 2.0.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-05T11:55:10+00:00\n"
+"POT-Creation-Date: 2023-04-19T09:35:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: ang\n"
@@ -156,9 +156,21 @@ msgstr ""
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr ""
 
-#: inc/class-admin-settings.php:559
-#: inc/class-admin-settings.php:624
+#: inc/class-admin-settings.php:137
+msgid "Template Kit file downloaded."
+msgstr ""
+
+#: inc/class-admin-settings.php:138
+msgid "Import it into Elementor"
+msgstr ""
+
+#: inc/class-admin-settings.php:562
+#: inc/class-admin-settings.php:627
 msgid "Toggle"
+msgstr ""
+
+#: inc/class-admin-settings.php:675
+msgid "Refresh"
 msgstr ""
 
 #: inc/class-base.php:39
@@ -170,7 +182,7 @@ msgstr ""
 msgid "Once Weekly"
 msgstr ""
 
-#: inc/class-elementor.php:48
+#: inc/class-elementor.php:49
 msgid "AnalogWP Classes"
 msgstr ""
 
@@ -296,7 +308,7 @@ msgstr ""
 
 #: inc/class-onboarding.php:271
 #: inc/elementor/kit/Kits_List_Table.php:343
-#: inc/elementor/kit/Kits_List_Table.php:364
+#: inc/elementor/kit/Kits_List_Table.php:377
 msgid "Apply"
 msgstr ""
 
@@ -560,9 +572,9 @@ msgstr ""
 #: inc/elementor/class-colors.php:385
 #: inc/elementor/class-typography.php:411
 #: inc/elementor/class-typography.php:1610
-#: inc/settings/class-settings-general.php:63
-#: inc/settings/class-settings-general.php:92
-#: inc/settings/class-settings-general.php:103
+#: inc/settings/class-settings-general.php:66
+#: inc/settings/class-settings-general.php:95
+#: inc/settings/class-settings-general.php:106
 msgid "Read more"
 msgstr ""
 
@@ -1328,7 +1340,7 @@ msgid "Draft"
 msgstr ""
 
 #: inc/elementor/kit/Kits_List_Table.php:151
-#: inc/elementor/kit/Kits_List_Table.php:353
+#: inc/elementor/kit/Kits_List_Table.php:366
 msgid "Global Style Kit"
 msgstr ""
 
@@ -1339,29 +1351,37 @@ msgstr ""
 #: inc/elementor/kit/Kits_List_Table.php:349
 #: inc/register-settings.php:57
 #: inc/register-settings.php:58
-#: inc/settings/class-settings-general.php:80
+#: inc/settings/class-settings-general.php:83
 #: assets/js/app.js:27
 #: client/stylekits/stylekits.js:223
 msgid "Local Style Kits"
 msgstr ""
 
-#: inc/elementor/kit/Kits_List_Table.php:350
+#: inc/elementor/kit/Kits_List_Table.php:353
+msgid "Choose an Elementor template JSON file or a .zip archive of Elementor templates, and add them to the list of templates available in your library."
+msgstr ""
+
+#: inc/elementor/kit/Kits_List_Table.php:359
+msgid "Import Now"
+msgstr ""
+
+#: inc/elementor/kit/Kits_List_Table.php:363
 msgid "A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:377
+#: inc/elementor/kit/Manager.php:417
 msgid "Error occured while requesting Style Kit data."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:397
+#: inc/elementor/kit/Manager.php:437
 msgid "Style Kit imported"
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:458
+#: inc/elementor/kit/Manager.php:498
 msgid "All good! The Style Kit has been set as Global."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:460
+#: inc/elementor/kit/Manager.php:500
 msgid "View site"
 msgstr ""
 
@@ -1547,57 +1567,73 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: inc/settings/class-settings-general.php:59
+#: inc/settings/class-settings-general.php:39
+msgid "Starter Kit"
+msgstr ""
+
+#: inc/settings/class-settings-general.php:62
 msgctxt "settings title"
 msgid "Template import method"
 msgstr ""
 
 #. translators: %s: Global Style Kit Documentation link
-#: inc/settings/class-settings-general.php:62
+#: inc/settings/class-settings-general.php:65
 msgid "Always import templates using the Global Style Kit. %s"
 msgstr ""
 
-#: inc/settings/class-settings-general.php:76
+#: inc/settings/class-settings-general.php:79
 msgctxt "settings title"
 msgid "Global Style Kit"
 msgstr ""
 
 #. translators: %s: Local Style Kits page link
-#: inc/settings/class-settings-general.php:79
+#: inc/settings/class-settings-general.php:82
 msgid "This option is now in %s page."
 msgstr ""
 
-#: inc/settings/class-settings-general.php:88
+#: inc/settings/class-settings-general.php:91
 msgctxt "settings title"
 msgid "Enable SVG Uploads"
 msgstr ""
 
 #. translators: %s: Global Style Kit Documentation link
-#: inc/settings/class-settings-general.php:91
+#: inc/settings/class-settings-general.php:94
 msgid "Helps importing SVGs in templates. %s"
 msgstr ""
 
-#: inc/settings/class-settings-general.php:99
+#: inc/settings/class-settings-general.php:102
 msgctxt "settings title"
 msgid "Hide legacy features"
 msgstr ""
 
 #. translators: %s: Legacy features Documentation link
-#: inc/settings/class-settings-general.php:102
+#: inc/settings/class-settings-general.php:105
 msgid "Hide legacy features from the Style Kit panel. %s"
 msgstr ""
 
-#: inc/settings/class-settings-general.php:110
+#: inc/settings/class-settings-general.php:113
 msgctxt "settings title"
 msgid "Setup"
 msgstr ""
 
-#: inc/settings/class-settings-general.php:111
+#: inc/settings/class-settings-general.php:114
 msgid "Trigger the setup wizard manually"
 msgstr ""
 
-#: inc/settings/class-settings-general.php:115
+#: inc/settings/class-settings-general.php:118
 msgid "Restart wizard"
+msgstr ""
+
+#: inc/settings/class-settings-general.php:136
+msgid "Download Starter Kit"
+msgstr ""
+
+#: inc/settings/class-settings-general.php:143
+msgid "Download ZIP"
+msgstr ""
+
+#: inc/settings/class-settings-general.php:144
+msgid "View Demo"
 msgstr ""
 
 #: inc/settings/class-settings-gopro.php:27
