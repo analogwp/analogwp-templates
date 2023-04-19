@@ -102,6 +102,14 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
+= 2.0.3 - April 19, 2023 =
+* New: Starter Kit downloads at settings page
+* Fix: Global kit issues when it is not in sync with the active kit
+* Fix: Dialog widgets not appearing correct in editor
+* Improvements: Toast styles for kit changes in editor
+* Improvements: Compatibility with Elementor Pro v3.12.2
+* Improvements: Updated translation files
+
 = 2.0.2 - April 05, 2023 =
 * New: Preselect pattern category based on theme builder template type
 * New: Updated size units for controls with newly supported units such as rem, vw, custom
