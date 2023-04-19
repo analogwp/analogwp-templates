@@ -103,10 +103,10 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 == Changelog ==
 
 = 2.0.3 - April 19, 2023 =
-* New: Starter Kit downloads at settings page
+* New: Starter Kit downloads at the settings page
 * Fix: Global kit issues when it is not in sync with the active kit
-* Fix: Dialog widgets not appearing correct in editor
-* Improvements: Toast styles for kit changes in editor
+* Fix: Dialog widgets appearing unstyled in the editor
+* Improvements: Toast styles for kit changes in the editor
 * Improvements: Compatibility with Elementor Pro v3.12.2
 * Improvements: Updated translation files
 
