@@ -383,7 +383,7 @@ class Local extends Base {
 		$value = $request->get_param( 'value' );
 
 		if ( ! $key ) {
-			return new WP_Error( 'settings_error', 'No options key provided.' );
+			return new WP_Error( 'settings_error', __( 'No options key provided.', 'ang' ) );
 		}
 
 		Options::get_instance()->set( $key, $value );
@@ -545,7 +545,7 @@ class Local extends Base {
 
 		if ( is_array( $kit ) && isset( $kit['id'] ) ) {
 			if ( isset( $kit['is_pro'] ) && $kit['is_pro'] && ! Utils::has_valid_license() ) {
-				return new WP_Error( 'kit_import_error', 'Invalid license provided.' );
+				return new WP_Error( 'kit_import_error', __( 'Invalid license provided.', 'ang' ) );
 			}
 
 			$kit_manager = new Manager();
@@ -612,7 +612,7 @@ class Local extends Base {
 		$license = Options::get_instance()->get( 'ang_license_key' );
 
 		if ( isset( $block['is_pro'] ) && $block['is_pro'] && ! Utils::has_valid_license() ) {
-			return new WP_Error( 'block_import_error', 'Invalid license provided.' );
+			return new WP_Error( 'block_import_error', __( 'Invalid license provided.', 'ang' ) );
 		}
 
 		$raw_data = Remote::get_instance()->get_block_content( $block['id'], $license, $method, $block['siteID'] );
