@@ -816,24 +816,6 @@ class Utils extends Base {
 		$status = Options::get_instance()->get( 'ang_license_key_status' );
 		return self::has_pro() && 'valid' === $status;
 	}
-
-	/**
-	 * Returns true if the Elementor Pro plugin is active.
-	 *
-	 * @return bool
-	 */
-	public static function has_elementor_pro() {
-		return defined( 'ELEMENTOR_PRO_VERSION' );
-	}
-
-	/**
-	 * Returns true if the WooCommerce plugin is active.
-	 *
-	 * @return bool
-	 */
-	public static function has_woocommerce() {
-		return defined( 'WOOCOMMERCE_VERSION' );
-	}
 }
 
 new Utils();
