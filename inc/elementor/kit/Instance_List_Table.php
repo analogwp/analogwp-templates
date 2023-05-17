@@ -424,7 +424,7 @@ class Instance_List_Table extends \WP_List_Table {
 	/**
 	 * Include the columns which can be sortable.
 	 *
-	 * @return Array $sortable_columns Return array of sortable columns.
+	 * @return array[] $sortable_columns Return array of sortable columns.
 	 */
 	public function get_sortable_columns() {
 
@@ -470,7 +470,7 @@ add_action(
 			return;
 		}
 
-		echo '<style type="text/css">';
+		echo '<style>';
 		echo '.wp-list-table .column-kit { width: 10%; }';
 		echo '.wp-list-table .column-type { width: 10%; }';
 		echo '</style>';
