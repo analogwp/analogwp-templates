@@ -697,7 +697,7 @@ class Utils extends Base {
 			return false;
 		}
 
-		$kit_id   = $document->get_settings( 'ang_action_tokens' );
+		$kit_id = $document->get_settings( 'ang_action_tokens' );
 
 		// Check if this is a valid kit or not.
 		if ( ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
@@ -815,24 +815,6 @@ class Utils extends Base {
 	public static function is_pro() {
 		$status = Options::get_instance()->get( 'ang_license_key_status' );
 		return self::has_pro() && 'valid' === $status;
-	}
-
-	/**
-	 * Returns true if the Elementor Pro plugin is active.
-	 *
-	 * @return bool
-	 */
-	public static function has_elementor_pro() {
-		return defined( 'ELEMENTOR_PRO_VERSION' );
-	}
-
-	/**
-	 * Returns true if the WooCommerce plugin is active.
-	 *
-	 * @return bool
-	 */
-	public static function has_woocommerce() {
-		return defined( 'WOOCOMMERCE_VERSION' );
 	}
 }
 

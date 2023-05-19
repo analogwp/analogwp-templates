@@ -182,6 +182,11 @@
 	padding: 5px 30px 25px;
 }
 
+.ang .sidebar .social {
+	display: flex;
+	gap: 15px;
+}
+
 .ang .upgrade-box li {
 	list-style: disc;
 	font-size: 1.1em;
