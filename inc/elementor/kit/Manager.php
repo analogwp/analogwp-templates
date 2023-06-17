@@ -128,7 +128,7 @@ class Manager {
 
 			wp_trash_post( $kit_id );
 
-			wp_safe_redirect( admin_url() . "admin.php?page=style-kits&trashed=${kit_id}" );
+			wp_safe_redirect( admin_url() . "admin.php?page=style-kits&trashed={$kit_id}" );
 			exit();
 		}
 	}
