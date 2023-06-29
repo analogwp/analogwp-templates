@@ -513,6 +513,8 @@ class Manager {
 
 		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit );
 
+		$remote_kit['title'] = $kit['title'] ?? '';
+
 		if ( isset( $remote_kit['message'], $remote_kit['code'] ) ) {
 			return new WP_Error( $remote_kit['code'], $remote_kit['message'] );
 		}
