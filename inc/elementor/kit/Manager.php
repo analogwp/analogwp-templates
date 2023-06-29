@@ -201,6 +201,79 @@ class Manager {
 	}
 
 	/**
+	 * Export a kit.
+	 *
+	 * @since 2.0.5
+	 *
+	 * @param array $args Kit arguments.
+	 *
+	 * @return mixed Whether the export succeeded or failed.
+	 */
+	public function export_kit( array $args ) {
+		$validate_args = $this->ensure_args( array( 'kit_id' ), $args );
+
+		if ( is_wp_error( $validate_args ) ) {
+			return $validate_args;
+		}
+
+		$file_data = $this->prepare_kit_export( $args['kit_id'] );
+
+		if ( is_wp_error( $file_data ) ) {
+			return $file_data;
+		}
+
+		header( 'Content-Type: application/octet-stream' );
+		header( 'Content-Disposition: attachment; filename=' . $file_data['name'] );
+		header( 'Expires: 0' );
+		header( 'Cache-Control: must-revalidate' );
+		header( 'Pragma: public' );
+		header( 'Content-Length: ' . strlen( $file_data['content'] ) );
+
+		// Clear buffering just in case.
+		@ob_end_clean();
+
+		flush();
+
+		// Output file contents.
+		// PHPCS - Export widget json
+		echo $file_data['content']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		die;
+	}
+
+	/**
+	 * Prepare kit to export.
+	 *
+	 * Retrieve the relevant template data and return them as an array.
+	 *
+	 * @since 2.0.5
+	 * @access private
+	 *
+	 * @param int $kit_id The kit ID.
+	 *
+	 * @return \WP_Error|array Exported kit data.
+	 */
+	private function prepare_kit_export( $kit_id ) {
+		$kit = get_post( $kit_id );
+
+		if ( ! $kit ) {
+			return new \WP_Error( 'stylekit_error', 'Style Kit source not found.' );
+		}
+
+		$kit_data = serialize( get_post_meta( $kit_id, '_elementor_page_settings', true ) );
+
+		$export_data = array(
+			'title' => $kit->post_title,
+			'data' => $kit_data,
+		);
+
+		return array(
+			'name'    => 'stylekits-' . $kit_id . '-' . gmdate( 'Y-m-d' ) . '.json',
+			'content' => wp_json_encode( $export_data ),
+		);
+	}
+
+	/**
 	 * Send a confirm message before move a kit to trash, or if delete permanently not for trash.
 	 *
 	 * @param       $post_id
@@ -548,6 +621,31 @@ class Manager {
 				},
 			)
 		);
+	}
+
+	/**
+	 * Ensure arguments exist.
+	 *
+	 * Checks whether the required arguments exist in the specified arguments.
+	 *
+	 * @since 2.0.5
+	 * @access private
+	 *
+	 * @param array $required_args  Required arguments to check whether they
+	 *                              exist.
+	 * @param array $specified_args The list of all the specified arguments to
+	 *                              check against.
+	 *
+	 * @return \WP_Error|true True on success, 'WP_Error' otherwise.
+	 */
+	private function ensure_args( array $required_args, array $specified_args ) {
+		$not_specified_args = array_diff( $required_args, array_keys( $specified_args ) );
+
+		if ( $not_specified_args ) {
+			return new \WP_Error( 'arguments_not_specified', sprintf( 'The required argument(s) "%s" not specified.', implode( ', ', $not_specified_args ) ) );
+		}
+
+		return true;
 	}
 }
 
