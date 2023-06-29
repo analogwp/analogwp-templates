@@ -424,7 +424,7 @@ class Manager {
 	}
 
 	/**
-	 * Process a Style Kit import.
+	 * Process a Style Kit remote import.
 	 *
 	 * @since 1.9.6
 	 *
@@ -448,8 +448,18 @@ class Manager {
 			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'ang' ) );
 		}
 
-		$kit_data     = $remote_kit['data'];
-		$kit_settings = maybe_unserialize( $kit_data );
+		return $this->direct_kit_import( $remote_kit );
+	}
+
+	/**
+	 * Import kit.
+	 *
+	 * @param array $kit Array containing Style Kit info to import.
+	 *
+	 * @return WP_Error|array
+	 */
+	public function direct_kit_import( $kit ) {
+		$kit_settings = maybe_unserialize( $kit['data'] );
 
 		$kit_id = $this->create_kit(
 			$kit['title'],
