@@ -55,9 +55,12 @@ class Manager {
 		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ), 999 );
 		add_action( 'delete_post', array( $this, 'restore_default_kit' ) );
 
-		add_action( 'wp_trash_post', function ( $post_id ) {
-			$this->before_delete_kit( $post_id );
-		} );
+		add_action(
+			'wp_trash_post',
+			function ( $post_id ) {
+				$this->before_delete_kit( $post_id );
+			}
+		);
 
 		add_action( 'wp_ajax_nopriv_ang_global_kit', array( $this, 'update_global_kit' ) );
 		add_action( 'wp_ajax_ang_global_kit', array( $this, 'update_global_kit' ) );
@@ -331,7 +334,7 @@ class Manager {
 	 * Send a confirm message before move a kit to trash, or if delete permanently not for trash.
 	 *
 	 * @param       $post_id
-	 * @param false $is_permanently_delete
+	 * @param false   $is_permanently_delete
 	 */
 	private function before_delete_kit( $post_id ) {
 		$document = Plugin::elementor()->documents->get( $post_id );
