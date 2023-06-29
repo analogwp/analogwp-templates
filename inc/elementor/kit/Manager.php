@@ -66,6 +66,8 @@ class Manager {
 
 		add_action( 'wp_ajax_analog_local_kits_import', array( $this, 'handle_template_import' ) );
 
+		add_action( 'wp_ajax_stylekits_library_direct_actions', array( $this, 'handle_library_actions' ) );
+
 		add_filter(
 			'analog_admin_notices',
 			function( $notices ) {
@@ -161,6 +163,35 @@ class Manager {
 		$result = Plugin::elementor()->templates_manager->direct_import_template();
 
 		if ( is_wp_error( $result ) ) {
+			$this->handle_error( $result->get_error_message() . '.' );
+		}
+
+		wp_safe_redirect( admin_url( 'admin.php?page=style-kits' ) );
+
+		die;
+	}
+
+	/**
+	 * Handle local kits library actions.
+	 *
+	 * @since 2.0.5
+	 * @return void
+	 */
+	public function handle_library_actions() {
+		if ( ! User::is_current_user_can_edit_post_type( Source_Local::CPT ) ) {
+			return;
+		}
+
+		if ( ! check_ajax_referer( 'stylekits_ajax', '_nonce' ) ) {
+			$this->handle_error( 'Access Denied' );
+		}
+
+		$action = Utils::get_super_global_value( $_REQUEST, 'library_action' ); // phpcs:ignore -- Nonce already verified.
+
+		$result = $this->$action( $_REQUEST ); // phpcs:ignore -- Nonce already verified.
+
+		if ( is_wp_error( $result ) ) {
+			/** @var \WP_Error $result */
 			$this->handle_error( $result->get_error_message() . '.' );
 		}
 
