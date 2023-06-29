@@ -245,11 +245,10 @@ class Kits_List_Table extends \WP_List_Table {
 	private function get_export_link( $id ) {
 		return add_query_arg(
 			array(
-				'action'         => 'elementor_library_direct_actions',
-				'library_action' => 'export_template',
-				'source'         => 'local',
-				'_nonce'         => wp_create_nonce( 'elementor_ajax' ),
-				'template_id'    => $id,
+				'action'         => 'stylekits_library_direct_actions',
+				'library_action' => 'export_kit',
+				'_nonce'         => wp_create_nonce( 'stylekits_ajax' ),
+				'kit_id'    => $id,
 			),
 			admin_url( 'admin-ajax.php' )
 		);
