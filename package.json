@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mauryaratan/analogwp-templates.git"
+    "url": "git+https://github.com/analogwp/analogwp-templates.git"
   },
   "author": "Ram Ratan Maurya",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mauryaratan/analogwp-templates/issues"
+    "url": "https://github.com/analogwp/analogwp-templates/issues"
   },
-  "homepage": "https://github.com/mauryaratan/analogwp-templates#readme",
+  "homepage": "https://github.com/analogwp/analogwp-templates#readme",
   "dependencies": {
     "classnames": "^2.2.6",
     "react-masonry-css": "^1.0.14",
