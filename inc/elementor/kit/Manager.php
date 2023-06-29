@@ -201,6 +201,60 @@ class Manager {
 	}
 
 	/**
+	 * Process a Style kit local import.
+	 *
+	 * @since 2.0.5
+	 *
+	 * @param array $args Kit arguments.
+	 *
+	 * @return mixed Whether the export succeeded or failed.
+	 */
+	public function import_local_kit( array $args ) {
+		$file = Utils::get_super_global_value( $_FILES, 'file' );
+
+		if ( empty( $file ) ) {
+			return new \WP_Error( 'file_error', 'Please upload a file to import' );
+		}
+
+		return $this->process_uploaded_kit( $file['tmp_name'] );
+
+	}
+
+	/**
+	 * Import template from a file.
+	 *
+	 * @since 2.0.5
+	 * @access public
+	 *
+	 * @param string $path - The file path.
+	 *
+	 * @return \WP_Error|array An array of items on success, 'WP_Error' on failure.
+	 */
+	public function process_uploaded_kit( $path ) {
+		// @todo: Maybe handle multi-uploads.
+		// If the import file is a single JSON file.
+		$data = json_decode( Utils::file_get_contents( $path ), true );
+
+		if ( empty( $data ) ) {
+			return new \WP_Error( 'file_error', 'Invalid File' );
+		}
+
+		$content = maybe_unserialize( $data['data'] );
+
+		if ( ! is_array( $content ) ) {
+			return new \WP_Error( 'file_error', 'Invalid Content In File' );
+		}
+
+		$kit_id = $this->direct_kit_import( $data );
+
+		if ( is_wp_error( $kit_id ) ) {
+			return $kit_id;
+		}
+
+		return get_post( $kit_id );
+	}
+
+	/**
 	 * Export a kit.
 	 *
 	 * @since 2.0.5
