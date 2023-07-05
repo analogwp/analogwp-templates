@@ -102,6 +102,15 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
+= 2.0.5 - July 05, 2023 =
+* New: Added new method to support Kit Import/Export via Local Kits library
+* Fix: Warnings at editor for missing `active_breakpoints` data in kits
+* Fix: Warning at Kit trashing action for string interpolation
+* Improvements: Compatibility with Elementor v3.14.1 and Elementor Pro v3.14.1
+* Improvements: Compatibility with WordPress v6.2.2
+* Improvements: Updated translation files
+* Improvements: Other minor code changes
+
 = 2.0.4 - May 18, 2023 =
 * Fix: Missing translation strings
 * Improvements: Remove unused utility functions
