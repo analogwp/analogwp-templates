@@ -36,6 +36,7 @@ class Database_Upgrader {
 			'1.7.0' => 'upgrade_1_7',
 			'1.7.2' => 'upgrade_1_7_2',
 			'2.0.0' => 'upgrade_2_0',
+			'2.0.5' => 'upgrade_2_0_5',
 		);
 
 		$version = get_option( self::OPTION, '0.0.0' );
