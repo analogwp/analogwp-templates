@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.9
 Requires PHP: 7.0
-Tested up to: 6.2.1
-Stable tag: 2.0.4
+Tested up to: 6.2.2
+Stable tag: 2.0.5
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
