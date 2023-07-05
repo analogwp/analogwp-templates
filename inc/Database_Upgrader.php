@@ -150,7 +150,7 @@ class Database_Upgrader {
 					continue;
 				}
 
-				$control           = $kit->get_controls( $control_key );
+				$control = $kit->get_controls( $control_key );
 
 				$default_controls = $control['default'];
 				$updated_settings = $default_controls;
@@ -166,9 +166,9 @@ class Database_Upgrader {
 				'settings' => $kit_raw_settings,
 			);
 
-			 $kit->save( $data );
+			$kit->save( $data );
 		}
 		// Regenerate Elementor CSS.
-		 Utils::clear_elementor_cache();
+		Utils::clear_elementor_cache();
 	}
 }
