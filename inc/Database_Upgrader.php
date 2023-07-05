@@ -119,4 +119,56 @@ class Database_Upgrader {
 			$options->set( 'hide_legacy_features', true );
 		}
 	}
+
+	/**
+	 * Set `active_breakpoints` if not set already in kits.
+	 *
+	 * @return void
+	 */
+	protected function upgrade_2_0_5() {
+		// Settings to migrate.
+		$migration_keys = array(
+			'active_breakpoints',
+		);
+
+		$all_kits = \Analog\Utils::get_kits();
+
+		foreach ( $all_kits as $id => $title ) {
+			// Check if this is a valid kit or not.
+			if ( ! Plugin::elementor()->kits_manager->is_kit( $id ) ) {
+				continue;
+			}
+
+			$kit = Plugin::elementor()->documents->get_doc_for_frontend( $id );
+
+			// Use raw settings that doesn't have default values.
+			$kit_raw_settings = $kit->get_data( 'settings' );
+			$ex_raw_settings  = $kit_raw_settings;
+
+			foreach ( $migration_keys as $control_key ) {
+				if ( isset( $kit_raw_settings[ $control_key ] ) ) {
+					continue;
+				}
+
+				$control           = $kit->get_controls( $control_key );
+
+				$default_controls = $control['default'];
+				$updated_settings = $default_controls;
+
+				$kit_raw_settings[ $control_key ] = $updated_settings;
+			}
+
+			if ( $ex_raw_settings === $kit_raw_settings ) {
+				continue;
+			}
+
+			$data = array(
+				'settings' => $kit_raw_settings,
+			);
+
+			 $kit->save( $data );
+		}
+		// Regenerate Elementor CSS.
+		 Utils::clear_elementor_cache();
+	}
 }
