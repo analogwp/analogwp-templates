@@ -102,7 +102,7 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
-= 2.0.5 - July 05, 2023 =
+= 2.0.5 - July 10, 2023 =
 * New: Added new method to support Kit Import/Export via Local Kits library
 * Fix: Warnings at editor for missing `active_breakpoints` data in kits
 * Fix: Warning at Kit trashing action for string interpolation
