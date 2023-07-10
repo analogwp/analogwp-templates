@@ -2,16 +2,16 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.0.4\n"
+"Project-Id-Version: Style Kits for Elementor 2.0.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-17T03:28:03+00:00\n"
+"POT-Creation-Date: 2023-07-05T08:54:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: ang\n"
 
 #. Plugin Name of the plugin
@@ -201,7 +201,7 @@ msgid "Welcome to Style Kits"
 msgstr ""
 
 #: inc/class-onboarding.php:82
-#: inc/elementor/kit/Kits_List_Table.php:342
+#: inc/elementor/kit/Kits_List_Table.php:341
 msgid "Working..."
 msgstr ""
 
@@ -316,7 +316,7 @@ msgid "Skip wizard"
 msgstr ""
 
 #: inc/class-onboarding.php:271
-#: inc/elementor/kit/Kits_List_Table.php:343
+#: inc/elementor/kit/Kits_List_Table.php:342
 #: inc/elementor/kit/Kits_List_Table.php:377
 msgid "Apply"
 msgstr ""
@@ -1307,13 +1307,13 @@ msgid "Edit with Elementor"
 msgstr ""
 
 #: inc/elementor/kit/Instance_List_Table.php:281
-#: inc/elementor/kit/Kits_List_Table.php:267
+#: inc/elementor/kit/Kits_List_Table.php:266
 msgid "Move to Trash"
 msgstr ""
 
 #. translators: %s: Number of posts.
 #: inc/elementor/kit/Instance_List_Table.php:297
-#: inc/elementor/kit/Kits_List_Table.php:285
+#: inc/elementor/kit/Kits_List_Table.php:284
 msgctxt "posts"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
@@ -1357,7 +1357,7 @@ msgstr ""
 msgid "Export Theme Style Kit"
 msgstr ""
 
-#: inc/elementor/kit/Kits_List_Table.php:349
+#: inc/elementor/kit/Kits_List_Table.php:348
 #: inc/register-settings.php:57
 #: inc/register-settings.php:58
 #: inc/settings/class-settings-general.php:83
@@ -1366,7 +1366,7 @@ msgstr ""
 msgid "Local Style Kits"
 msgstr ""
 
-#: inc/elementor/kit/Kits_List_Table.php:353
+#: inc/elementor/kit/Kits_List_Table.php:352
 msgid "Choose an Elementor template JSON file or a .zip archive of Elementor templates, and add them to the list of templates available in your library."
 msgstr ""
 
@@ -1378,19 +1378,19 @@ msgstr ""
 msgid "A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:417
+#: inc/elementor/kit/Manager.php:580
 msgid "Error occured while requesting Style Kit data."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:437
+#: inc/elementor/kit/Manager.php:610
 msgid "Style Kit imported"
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:498
+#: inc/elementor/kit/Manager.php:671
 msgid "All good! The Style Kit has been set as Global."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:500
+#: inc/elementor/kit/Manager.php:673
 msgid "View site"
 msgstr ""
 

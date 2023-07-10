@@ -55,9 +55,12 @@ class Manager {
 		add_filter( 'body_class', array( $this, 'should_remove_global_kit_class' ), 999 );
 		add_action( 'delete_post', array( $this, 'restore_default_kit' ) );
 
-		add_action( 'wp_trash_post', function ( $post_id ) {
-			$this->before_delete_kit( $post_id );
-		} );
+		add_action(
+			'wp_trash_post',
+			function ( $post_id ) {
+				$this->before_delete_kit( $post_id );
+			}
+		);
 
 		add_action( 'wp_ajax_nopriv_ang_global_kit', array( $this, 'update_global_kit' ) );
 		add_action( 'wp_ajax_ang_global_kit', array( $this, 'update_global_kit' ) );
@@ -65,6 +68,8 @@ class Manager {
 		add_action( 'wp_ajax_ang_trash_kit', array( $this, 'trash_kit' ) );
 
 		add_action( 'wp_ajax_analog_local_kits_import', array( $this, 'handle_template_import' ) );
+
+		add_action( 'wp_ajax_stylekits_library_direct_actions', array( $this, 'handle_library_actions' ) );
 
 		add_filter(
 			'analog_admin_notices',
@@ -128,7 +133,7 @@ class Manager {
 
 			wp_trash_post( $kit_id );
 
-			wp_safe_redirect( admin_url() . "admin.php?page=style-kits&trashed=${kit_id}" );
+			wp_safe_redirect( admin_url() . "admin.php?page=style-kits&trashed={$kit_id}" );
 			exit();
 		}
 	}
@@ -170,10 +175,166 @@ class Manager {
 	}
 
 	/**
+	 * Handle local kits library actions.
+	 *
+	 * @since 2.0.5
+	 * @return void
+	 */
+	public function handle_library_actions() {
+		if ( ! User::is_current_user_can_edit_post_type( Source_Local::CPT ) ) {
+			return;
+		}
+
+		if ( ! check_ajax_referer( 'stylekits_ajax', '_nonce' ) ) {
+			$this->handle_error( 'Access Denied' );
+		}
+
+		$action = Utils::get_super_global_value( $_REQUEST, 'library_action' ); // phpcs:ignore -- Nonce already verified.
+
+		$result = $this->$action( $_REQUEST ); // phpcs:ignore -- Nonce already verified.
+
+		if ( is_wp_error( $result ) ) {
+			/** @var \WP_Error $result */
+			$this->handle_error( $result->get_error_message() . '.' );
+		}
+
+		wp_safe_redirect( admin_url( 'admin.php?page=style-kits' ) );
+
+		die;
+	}
+
+	/**
+	 * Process a Style kit local import.
+	 *
+	 * @since 2.0.5
+	 *
+	 * @param array $args Kit arguments.
+	 *
+	 * @return mixed Whether the export succeeded or failed.
+	 */
+	public function import_local_kit( array $args ) {
+		$file = Utils::get_super_global_value( $_FILES, 'file' );
+
+		if ( empty( $file ) ) {
+			return new \WP_Error( 'file_error', 'Please upload a file to import' );
+		}
+
+		return $this->process_uploaded_kit( $file['tmp_name'] );
+
+	}
+
+	/**
+	 * Import template from a file.
+	 *
+	 * @since 2.0.5
+	 * @access public
+	 *
+	 * @param string $path - The file path.
+	 *
+	 * @return \WP_Error|array An array of items on success, 'WP_Error' on failure.
+	 */
+	public function process_uploaded_kit( $path ) {
+		// @todo: Maybe handle multi-uploads.
+		// If the import file is a single JSON file.
+		$data = json_decode( Utils::file_get_contents( $path ), true );
+
+		if ( empty( $data ) ) {
+			return new \WP_Error( 'file_error', 'Invalid File' );
+		}
+
+		$content = maybe_unserialize( $data['data'] );
+
+		if ( ! is_array( $content ) ) {
+			return new \WP_Error( 'file_error', 'Invalid Content In File' );
+		}
+
+		$kit_id = $this->direct_kit_import( $data );
+
+		if ( is_wp_error( $kit_id ) ) {
+			return $kit_id;
+		}
+
+		return get_post( $kit_id );
+	}
+
+	/**
+	 * Export a kit.
+	 *
+	 * @since 2.0.5
+	 *
+	 * @param array $args Kit arguments.
+	 *
+	 * @return mixed Whether the export succeeded or failed.
+	 */
+	public function export_kit( array $args ) {
+		$validate_args = $this->ensure_args( array( 'kit_id' ), $args );
+
+		if ( is_wp_error( $validate_args ) ) {
+			return $validate_args;
+		}
+
+		$file_data = $this->prepare_kit_export( $args['kit_id'] );
+
+		if ( is_wp_error( $file_data ) ) {
+			return $file_data;
+		}
+
+		header( 'Content-Type: application/octet-stream' );
+		header( 'Content-Disposition: attachment; filename=' . $file_data['name'] );
+		header( 'Expires: 0' );
+		header( 'Cache-Control: must-revalidate' );
+		header( 'Pragma: public' );
+		header( 'Content-Length: ' . strlen( $file_data['content'] ) );
+
+		// Clear buffering just in case.
+		@ob_end_clean();
+
+		flush();
+
+		// Output file contents.
+		// PHPCS - Export widget json
+		echo $file_data['content']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		die;
+	}
+
+	/**
+	 * Prepare kit to export.
+	 *
+	 * Retrieve the relevant template data and return them as an array.
+	 *
+	 * @since 2.0.5
+	 * @access private
+	 *
+	 * @param int $kit_id The kit ID.
+	 *
+	 * @return \WP_Error|array Exported kit data.
+	 */
+	private function prepare_kit_export( $kit_id ) {
+		$kit = get_post( $kit_id );
+
+		if ( ! $kit ) {
+			return new \WP_Error( 'stylekit_error', 'Style Kit source not found.' );
+		}
+
+		$kit_data = serialize( get_post_meta( $kit_id, '_elementor_page_settings', true ) );
+
+		$export_data = array(
+			'title' => $kit->post_title,
+			'data' => $kit_data,
+		);
+
+		return array(
+			'name'    => 'stylekits-' . $kit_id . '-' . gmdate( 'Y-m-d' ) . '.json',
+			'content' => wp_json_encode( $export_data ),
+		);
+	}
+
+	/**
 	 * Send a confirm message before move a kit to trash, or if delete permanently not for trash.
 	 *
 	 * @param       $post_id
-	 * @param false $is_permanently_delete
+	 * @param false   $is_permanently_delete
 	 */
 	private function before_delete_kit( $post_id ) {
 		$document = Plugin::elementor()->documents->get( $post_id );
@@ -393,7 +554,7 @@ class Manager {
 	}
 
 	/**
-	 * Process a Style Kit import.
+	 * Process a Style Kit remote import.
 	 *
 	 * @since 1.9.6
 	 *
@@ -409,6 +570,8 @@ class Manager {
 
 		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit );
 
+		$remote_kit['title'] = $kit['title'] ?? '';
+
 		if ( isset( $remote_kit['message'], $remote_kit['code'] ) ) {
 			return new WP_Error( $remote_kit['code'], $remote_kit['message'] );
 		}
@@ -417,8 +580,18 @@ class Manager {
 			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'ang' ) );
 		}
 
-		$kit_data     = $remote_kit['data'];
-		$kit_settings = maybe_unserialize( $kit_data );
+		return $this->direct_kit_import( $remote_kit );
+	}
+
+	/**
+	 * Import kit.
+	 *
+	 * @param array $kit Array containing Style Kit info to import.
+	 *
+	 * @return WP_Error|array
+	 */
+	public function direct_kit_import( $kit ) {
+		$kit_settings = maybe_unserialize( $kit['data'] );
 
 		$kit_id = $this->create_kit(
 			$kit['title'],
@@ -507,6 +680,31 @@ class Manager {
 				},
 			)
 		);
+	}
+
+	/**
+	 * Ensure arguments exist.
+	 *
+	 * Checks whether the required arguments exist in the specified arguments.
+	 *
+	 * @since 2.0.5
+	 * @access private
+	 *
+	 * @param array $required_args  Required arguments to check whether they
+	 *                              exist.
+	 * @param array $specified_args The list of all the specified arguments to
+	 *                              check against.
+	 *
+	 * @return \WP_Error|true True on success, 'WP_Error' otherwise.
+	 */
+	private function ensure_args( array $required_args, array $specified_args ) {
+		$not_specified_args = array_diff( $required_args, array_keys( $specified_args ) );
+
+		if ( $not_specified_args ) {
+			return new \WP_Error( 'arguments_not_specified', sprintf( 'The required argument(s) "%s" not specified.', implode( ', ', $not_specified_args ) ) );
+		}
+
+		return true;
 	}
 }
 

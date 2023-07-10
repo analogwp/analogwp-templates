@@ -245,11 +245,10 @@ class Kits_List_Table extends \WP_List_Table {
 	private function get_export_link( $id ) {
 		return add_query_arg(
 			array(
-				'action'         => 'elementor_library_direct_actions',
-				'library_action' => 'export_template',
-				'source'         => 'local',
-				'_nonce'         => wp_create_nonce( 'elementor_ajax' ),
-				'template_id'    => $id,
+				'action'         => 'stylekits_library_direct_actions',
+				'library_action' => 'export_kit',
+				'_nonce'         => wp_create_nonce( 'stylekits_ajax' ),
+				'kit_id'    => $id,
 			),
 			admin_url( 'admin-ajax.php' )
 		);
@@ -352,8 +351,9 @@ function ang_kits_list() {
 		<div id="analog-import-template-area" style="display: none; margin: 50px 0 30px; text-align: center;">
 			<div id="analog-import-template-title" style="font-size: 18px; color: #555d66;"><?php echo esc_html__( 'Choose an Elementor template JSON file or a .zip archive of Elementor templates, and add them to the list of templates available in your library.', 'ang' ); ?></div>
 			<form id="analog-import-template-form" style="display: inline-block;margin-top: 30px;padding: 30px 50px;background-color: #FFFFFF;border: 1px solid #e5e5e5;" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" enctype="multipart/form-data">
-				<input type="hidden" name="action" value="analog_local_kits_import">
-				<input type="hidden" name="_nonce" value="<?php echo wp_create_nonce( 'analog_local_kits_import_nonce' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+				<input type="hidden" name="action" value="stylekits_library_direct_actions">
+				<input type="hidden" name="library_action" value="import_local_kit">
+				<input type="hidden" name="_nonce" value="<?php echo wp_create_nonce( 'stylekits_ajax' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 				<fieldset id="elementor-import-template-form-inputs">
 					<input type="file" name="file" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" required="">
 					<input id="analog-import-template-action" type="submit" class="button" value="<?php echo esc_attr__( 'Import Now', 'ang' ); ?>">

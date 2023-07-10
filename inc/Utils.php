@@ -816,6 +816,46 @@ class Utils extends Base {
 		$status = Options::get_instance()->get( 'ang_license_key_status' );
 		return self::has_pro() && 'valid' === $status;
 	}
+
+	/**
+	 * Returns sanitized super global value from super globals if exists.
+	 *
+	 * @since 2.0.5
+	 *
+	 * @param $super_global
+	 * @param $key
+	 * @return mixed|null
+	 */
+	public static function get_super_global_value( $super_global, $key ) {
+		if ( ! isset( $super_global[ $key ] ) ) {
+			return null;
+		}
+
+		if ( $_FILES === $super_global ) {
+			$super_global[ $key ]['name'] = sanitize_file_name( $super_global[ $key ]['name'] );
+
+			return $super_global[ $key ];
+		}
+
+		return wp_kses_post_deep( wp_unslash( $super_global[ $key ] ) );
+	}
+
+	/**
+	 * Returns file content.
+	 *
+	 * @since 2.0.5
+	 *
+	 * @param $file
+	 * @param mixed ...$args
+	 * @return false|string
+	 */
+	public static function file_get_contents( $file, ...$args ) {
+		if ( ! is_file( $file ) || ! is_readable( $file ) ) {
+			return false;
+		}
+
+		return file_get_contents( $file, ...$args );
+	}
 }
 
 new Utils();
