@@ -37,6 +37,7 @@ class Database_Upgrader {
 			'1.7.2' => 'upgrade_1_7_2',
 			'2.0.0' => 'upgrade_2_0',
 			'2.0.5' => 'upgrade_2_0_5',
+			'2.0.6' => 'upgrade_2_0_6',
 		);
 
 		$version = get_option( self::OPTION, '0.0.0' );
@@ -168,6 +169,16 @@ class Database_Upgrader {
 
 			$kit->save( $data );
 		}
+		// Regenerate Elementor CSS.
+		Utils::clear_elementor_cache();
+	}
+
+	/**
+	 * Regenerate CSS for migrated container spacing styles.
+	 *
+	 * @return void
+	 */
+	protected function upgrade_2_0_6() {
 		// Regenerate Elementor CSS.
 		Utils::clear_elementor_cache();
 	}
