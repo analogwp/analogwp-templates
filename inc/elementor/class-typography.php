@@ -1231,7 +1231,7 @@ class Typography extends Module {
 
 		// Register default options array.
 		$options = array(
-			'none'                     => __( 'Default', 'ang' ),
+			'default_padding'          => __( 'Default', 'ang' ),
 			'ang_container_no_padding' => __( 'No Padding', 'ang' ),
 		);
 
