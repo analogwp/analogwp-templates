@@ -416,6 +416,25 @@ class Typography extends Module {
 			)
 		);
 
+		$no_padding_styles = array(
+			'{{WRAPPER}} .elementor-repeater-item-ang_container_no_padding.elementor-element' => '--padding-block-start: 0px; --padding-inline-end: 0px; --padding-block-end: 0px; --padding-inline-start: 0px;',
+		);
+
+		$padding_preset_styles = array(
+			'{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element' => '--padding-block-start: {{TOP}}{{UNIT}}; --padding-inline-end: {{RIGHT}}{{UNIT}}; --padding-block-end: {{BOTTOM}}{{UNIT}}; --padding-inline-start: {{LEFT}}{{UNIT}}',
+		);
+
+		// Backwards compatibility with v3.15.3 and lower.
+		if ( Utils::is_elementor_pre( '3.16.0' ) ) {
+			$no_padding_styles = array(
+				'{{WRAPPER}} .elementor-repeater-item-ang_container_no_padding.elementor-element' => '--padding-top: 0px; --padding-right: 0px; --padding-bottom: 0px; --padding-left: 0px;',
+			);
+
+			$padding_preset_styles = array(
+				'{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element' => '--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
+			);
+		}
+
 		// Hack for adding no padding styles at container presets.
 		$element->add_control(
 			'ang_container_no_padding_hidden',
@@ -423,9 +442,7 @@ class Typography extends Module {
 				'label'     => __( 'No Padding Styles', 'ang' ),
 				'type'      => Controls_Manager::HIDDEN,
 				'default'   => 'no',
-				'selectors' => array(
-					'{{WRAPPER}} .elementor-repeater-item-ang_container_no_padding.elementor-element' => '--padding-top: 0px; --padding-right: 0px; --padding-bottom: 0px; --padding-left: 0px;',
-				),
+				'selectors' => $no_padding_styles,
 			)
 		);
 
@@ -580,9 +597,7 @@ class Typography extends Module {
 					'unit' => 'px',
 				),
 				'size_units'  => array( 'px', 'em', '%', 'rem', 'vw', 'custom' ),
-				'selectors'   => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element' => '--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
-				),
+				'selectors'   => $padding_preset_styles,
 				'global'      => array(
 					'active' => false,
 				),
