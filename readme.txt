@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.9
 Requires PHP: 7.0
-Tested up to: 6.2.2
-Stable tag: 2.0.5
+Tested up to: 6.3.1
+Stable tag: 2.0.6
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -101,6 +101,15 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.0.6 - September 16, 2023 =
+* New: Added support for spacing presets and bg classes in nested containers
+* Fix: Inline padding values being respected in Containers
+* Fix: Nested containers taking spacing styles from parent
+* Improvements: Compatibility with Elementor v3.16.3 and Elementor Pro v3.16.1
+* Improvements: Compatibility with WordPress v6.3.1
+* Improvements: Updated translation files
+* Improvements: Other minor code changes
 
 = 2.0.5 - July 10, 2023 =
 * New: Added new method to support Kit Import/Export via Local Kits library

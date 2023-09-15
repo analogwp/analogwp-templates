@@ -416,6 +416,25 @@ class Typography extends Module {
 			)
 		);
 
+		$no_padding_styles = array(
+			'{{WRAPPER}} .elementor-repeater-item-ang_container_no_padding.elementor-element' => '--padding-block-start: 0px; --padding-inline-end: 0px; --padding-block-end: 0px; --padding-inline-start: 0px;',
+		);
+
+		$padding_preset_styles = array(
+			'{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element' => '--padding-block-start: {{TOP}}{{UNIT}}; --padding-inline-end: {{RIGHT}}{{UNIT}}; --padding-block-end: {{BOTTOM}}{{UNIT}}; --padding-inline-start: {{LEFT}}{{UNIT}}',
+		);
+
+		// Backwards compatibility with v3.15.3 and lower.
+		if ( Utils::is_elementor_pre( '3.16.0' ) ) {
+			$no_padding_styles = array(
+				'{{WRAPPER}} .elementor-repeater-item-ang_container_no_padding.elementor-element' => '--padding-top: 0px; --padding-right: 0px; --padding-bottom: 0px; --padding-left: 0px;',
+			);
+
+			$padding_preset_styles = array(
+				'{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element' => '--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
+			);
+		}
+
 		// Hack for adding no padding styles at container presets.
 		$element->add_control(
 			'ang_container_no_padding_hidden',
@@ -423,9 +442,7 @@ class Typography extends Module {
 				'label'     => __( 'No Padding Styles', 'ang' ),
 				'type'      => Controls_Manager::HIDDEN,
 				'default'   => 'no',
-				'selectors' => array(
-					'{{WRAPPER}} .elementor-repeater-item-ang_container_no_padding.elementor-element' => '--padding-top: 0px; --padding-right: 0px; --padding-bottom: 0px; --padding-left: 0px;',
-				),
+				'selectors' => $no_padding_styles,
 			)
 		);
 
@@ -580,9 +597,7 @@ class Typography extends Module {
 					'unit' => 'px',
 				),
 				'size_units'  => array( 'px', 'em', '%', 'rem', 'vw', 'custom' ),
-				'selectors'   => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element' => '--padding-top: {{TOP}}{{UNIT}}; --padding-right: {{RIGHT}}{{UNIT}}; --padding-bottom: {{BOTTOM}}{{UNIT}}; --padding-left: {{LEFT}}{{UNIT}}',
-				),
+				'selectors'   => $padding_preset_styles,
 				'global'      => array(
 					'active' => false,
 				),
@@ -1218,6 +1233,7 @@ class Typography extends Module {
 	 * @param Element_Base $element Element_Base Class.
 	 */
 	public function tweak_container_widget( Element_Base $element ) {
+
 		if ( ! Utils::is_elementor_container() ) { // Return early if Flexbox container is not active.
 			return;
 		}
@@ -1231,7 +1247,7 @@ class Typography extends Module {
 
 		// Register default options array.
 		$options = array(
-			'none'                     => __( 'Default', 'ang' ),
+			'default_padding'          => __( 'Default', 'ang' ),
 			'ang_container_no_padding' => __( 'No Padding', 'ang' ),
 		);
 
@@ -1274,13 +1290,14 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_spacing_size',
 			array(
-				'label'         => __( 'Spacing Preset', 'ang' ),
-				'description'   => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_spacing' )", __( 'Edit in Style Kits', 'ang' ) ),
-				'type'          => Controls_Manager::SELECT,
-				'hide_in_inner' => true,
-				'default'       => 'none',
-				'options'       => $options,
-				'prefix_class'  => 'elementor-repeater-item-',
+				'label'              => __( 'Spacing Preset', 'ang' ),
+				'description'        => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_spacing' )", __( 'Edit in Style Kits', 'ang' ) ),
+				'type'               => Controls_Manager::SELECT,
+				'hide_in_inner'      => false,
+				'default'            => 'default_padding',
+				'options'            => $options,
+				'prefix_class'       => 'elementor-repeater-item-',
+				'frontend_available' => true,
 			)
 		);
 
@@ -1320,7 +1337,7 @@ class Typography extends Module {
 				'label'         => __( 'Background presets', 'ang' ),
 				'description'   => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', 'analog.openThemeStyles()', 'Edit in Style Kits' ),
 				'type'          => Controls_Manager::SELECT,
-				'hide_in_inner' => true,
+				'hide_in_inner' => false,
 				'default'       => 'none',
 				'options'       => $bg_presets,
 				'prefix_class'  => 'sk-',
