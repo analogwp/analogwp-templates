@@ -102,6 +102,15 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
+= 2.0.6 - September 16, 2023 =
+* New: Added support for spacing presets and bg classes in nested containers
+* Fix: Inline padding values being respected in Containers
+* Fix: Nested containers taking spacing styles from parent
+* Improvements: Compatibility with Elementor v3.16.3 and Elementor Pro v3.16.1
+* Improvements: Compatibility with WordPress v6.3.1
+* Improvements: Updated translation files
+* Improvements: Other minor code changes
+
 = 2.0.5 - July 10, 2023 =
 * New: Added new method to support Kit Import/Export via Local Kits library
 * Fix: Warnings at editor for missing `active_breakpoints` data in kits
