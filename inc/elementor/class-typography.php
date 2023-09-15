@@ -1233,6 +1233,7 @@ class Typography extends Module {
 	 * @param Element_Base $element Element_Base Class.
 	 */
 	public function tweak_container_widget( Element_Base $element ) {
+
 		if ( ! Utils::is_elementor_container() ) { // Return early if Flexbox container is not active.
 			return;
 		}
@@ -1289,13 +1290,14 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_spacing_size',
 			array(
-				'label'         => __( 'Spacing Preset', 'ang' ),
-				'description'   => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_spacing' )", __( 'Edit in Style Kits', 'ang' ) ),
-				'type'          => Controls_Manager::SELECT,
+				'label'              => __( 'Spacing Preset', 'ang' ),
+				'description'        => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_spacing' )", __( 'Edit in Style Kits', 'ang' ) ),
+				'type'               => Controls_Manager::SELECT,
 				'hide_in_inner'      => false,
-				'default'       => 'none',
-				'options'       => $options,
-				'prefix_class'  => 'elementor-repeater-item-',
+				'default'            => 'default_padding',
+				'options'            => $options,
+				'prefix_class'       => 'elementor-repeater-item-',
+				'frontend_available' => true,
 			)
 		);
 
