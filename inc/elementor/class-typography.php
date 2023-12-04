@@ -98,7 +98,7 @@ class Typography extends Module {
 
 		add_action( 'elementor/element/container/section_background/before_section_end', array( $this, 'tweak_container_widget_styles' ) );
 
-		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
+		add_action( 'elementor/element/kit/section_typography/before_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_fonts' ), 10, 2 );
 
