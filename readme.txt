@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.9
 Requires PHP: 7.0
-Tested up to: 6.3.1
-Stable tag: 2.0.6
+Tested up to: 6.4.1
+Stable tag: 2.0.7
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -101,6 +101,10 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.0.7 - December 04, 2023 =
+* Fix: Cannot add a control outside of a section at Typography Section in Kit Settings
+* Improvements: Compatibility with Elementor v3.18.0 and Elementor Pro v3.18.0
 
 = 2.0.6 - September 16, 2023 =
 * New: Added support for spacing presets and bg classes in nested containers
