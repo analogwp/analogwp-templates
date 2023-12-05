@@ -199,7 +199,9 @@ class Typography extends Module {
 					/* translators: %s: Heading 1-6 type */
 					'label'    => sprintf( __( 'Heading %s', 'ang' ), $i ),
 					'selector' => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
-					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'global' => [
+						'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
+					],
 				)
 			);
 		}
@@ -245,7 +247,9 @@ class Typography extends Module {
 				'name'     => 'ang_body',
 				'label'    => __( 'Body Typography', 'ang' ),
 				'selector' => '{{WRAPPER}}',
-				'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_3,
+				'global' => [
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_TEXT,
+				],
 			)
 		);
 
