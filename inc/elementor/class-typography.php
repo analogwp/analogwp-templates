@@ -13,6 +13,7 @@ use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
 use Elementor\Core\Kits\Controls\Repeater as Global_Style_Repeater;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
@@ -200,7 +201,7 @@ class Typography extends Module {
 					'label'    => sprintf( __( 'Heading %s', 'ang' ), $i ),
 					'selector' => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
 					'global' => [
-						'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
+						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
 					],
 				)
 			);
@@ -248,7 +249,7 @@ class Typography extends Module {
 				'label'    => __( 'Body Typography', 'ang' ),
 				'selector' => '{{WRAPPER}}',
 				'global' => [
-					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_TEXT,
+					'default' => Global_Typography::TYPOGRAPHY_TEXT,
 				],
 			)
 		);
