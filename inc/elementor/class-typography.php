@@ -7,12 +7,12 @@
 
 namespace Analog\Elementor;
 
-use Analog\Options;
 use Analog\Plugin;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
 use Elementor\Core\Kits\Controls\Repeater as Global_Style_Repeater;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Element_Base;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
@@ -154,6 +154,8 @@ class Typography extends Module {
 	/**
 	 * Register Heading typography controls.
 	 *
+	 * @deprecated TODO: Remove in v2.0.9
+	 *
 	 * @param Controls_Stack $element Controls object.
 	 * @param string         $section_id Section ID.
 	 */
@@ -199,7 +201,9 @@ class Typography extends Module {
 					/* translators: %s: Heading 1-6 type */
 					'label'    => sprintf( __( 'Heading %s', 'ang' ), $i ),
 					'selector' => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
-					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'global' => [
+						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+					],
 				)
 			);
 		}
@@ -209,6 +213,8 @@ class Typography extends Module {
 
 	/**
 	 * Register Body and Paragraph typography controls.
+	 *
+	 * @deprecated TODO: Remove in v2.0.9
 	 *
 	 * @param Controls_Stack $element Controls object.
 	 * @param string         $section_id Section ID.
@@ -245,7 +251,9 @@ class Typography extends Module {
 				'name'     => 'ang_body',
 				'label'    => __( 'Body Typography', 'ang' ),
 				'selector' => '{{WRAPPER}}',
-				'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_3,
+				'global' => [
+					'default' => Global_Typography::TYPOGRAPHY_TEXT,
+				],
 			)
 		);
 
@@ -316,7 +324,9 @@ class Typography extends Module {
 				array(
 					'name'     => 'ang_size_' . $setting[0],
 					'label'    => __( 'Heading', 'ang' ) . ' ' . $setting[1],
-					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'global' => [
+						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+					],
 					'selector' => $selectors,
 					'exclude'  => $size_controls,
 				)
@@ -355,7 +365,9 @@ class Typography extends Module {
 				array(
 					'name'     => 'ang_text_size_' . $setting[0],
 					'label'    => __( 'Text', 'ang' ) . ' ' . $setting[1],
-					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'global' => [
+						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+					],
 					'selector' => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
 					'exclude'  => $size_controls,
 				)

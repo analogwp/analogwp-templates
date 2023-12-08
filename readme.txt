@@ -1,9 +1,9 @@
 === Style Kits - Advanced Theme Styles for Elementor ===
 Contributors: analogwp, mauryaratan
-Requires at least: 5.9
+Requires at least: 6.0
 Requires PHP: 7.0
-Tested up to: 6.4.1
-Stable tag: 2.0.7
+Tested up to: 6.4.2
+Stable tag: 2.0.8
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -101,6 +101,13 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.0.8 - December 08, 2023 =
+* New: Bumped minimum WordPress and Elementor required versions to v6.0 and v3.10.0 respectively
+* Fix: Fix typography controls deprecated schemes
+* Fix: Minimum system requirements checkers
+* Improvements: Compatibility with Elementor v3.18.2 and Elementor Pro v3.18.1
+* Improvements: Other minor code changes
 
 = 2.0.7 - December 04, 2023 =
 * Fix: Cannot add a control outside of a section at Typography Section in Kit Settings

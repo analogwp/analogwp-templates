@@ -10,22 +10,22 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits extends the Elementor theme styles editor with more global styling options. Boost your design workflow in Elementor with intuitive global controls and theme style presets.
- * Version:     2.0.7
+ * Version:     2.0.8
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: ang
- * Elementor tested up to: 3.18.0
- * Elementor Pro tested up to: 3.16.1
+ * Elementor tested up to: 3.18.2
+ * Elementor Pro tested up to: 3.18.1
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ANG_ELEMENTOR_MINIMUM', '3.5.0' );
+define( 'ANG_ELEMENTOR_MINIMUM', '3.10.0' );
 define( 'ANG_PHP_MINIMUM', '7.0' );
-define( 'ANG_WP_MINIMUM', '5.9' );
-define( 'ANG_VERSION', '2.0.7' );
+define( 'ANG_WP_MINIMUM', '6.0' );
+define( 'ANG_VERSION', '2.0.8' );
 define( 'ANG_PLUGIN_FILE', __FILE__ );
 define( 'ANG_PLUGIN_URL', plugin_dir_url( ANG_PLUGIN_FILE ) );
 define( 'ANG_PLUGIN_DIR', plugin_dir_path( ANG_PLUGIN_FILE ) );
@@ -193,10 +193,10 @@ if ( is_readable( $vendor_file ) ) {
 add_action(
 	'plugins_loaded',
 	static function() {
-		if ( version_compare( PHP_VERSION, '5.6.0', '<' ) ) {
+		if ( version_compare( PHP_VERSION, ANG_PHP_MINIMUM, '<' ) ) {
 			wp_die(
 			/* translators: %s: version number */
-				esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'ang' ), '5.6.0' ) ),
+				esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'ang' ), ANG_PHP_MINIMUM ) ),
 				esc_html__( 'Error Activating', 'ang' )
 			);
 		}
@@ -220,7 +220,7 @@ add_action(
 			return;
 		}
 
-		if ( ! version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) ) {
+		if ( ! version_compare( get_bloginfo( 'version' ), ANG_WP_MINIMUM, '>=' ) ) {
 			add_action( 'admin_notices', 'analog_fail_wp_version' );
 			return;
 		}
