@@ -107,6 +107,7 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 * Fix: Fix typography controls deprecated schemes
 * Fix: Minimum system requirements checkers
 * Improvements: Compatibility with Elementor v3.18.2 and Elementor Pro v3.18.1
+* Improvements: Other minor code changes
 
 = 2.0.7 - December 04, 2023 =
 * Fix: Cannot add a control outside of a section at Typography Section in Kit Settings
