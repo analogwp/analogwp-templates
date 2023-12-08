@@ -154,6 +154,8 @@ class Typography extends Module {
 	/**
 	 * Register Heading typography controls.
 	 *
+	 * @deprecated TODO: Remove in v2.0.9
+	 *
 	 * @param Controls_Stack $element Controls object.
 	 * @param string         $section_id Section ID.
 	 */
@@ -211,6 +213,8 @@ class Typography extends Module {
 
 	/**
 	 * Register Body and Paragraph typography controls.
+	 *
+	 * @deprecated TODO: Remove in v2.0.9
 	 *
 	 * @param Controls_Stack $element Controls object.
 	 * @param string         $section_id Section ID.
