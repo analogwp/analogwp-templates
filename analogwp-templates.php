@@ -193,10 +193,10 @@ if ( is_readable( $vendor_file ) ) {
 add_action(
 	'plugins_loaded',
 	static function() {
-		if ( version_compare( PHP_VERSION, '5.6.0', '<' ) ) {
+		if ( version_compare( PHP_VERSION, ANG_PHP_MINIMUM, '<' ) ) {
 			wp_die(
 			/* translators: %s: version number */
-				esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'ang' ), '5.6.0' ) ),
+				esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'ang' ), ANG_PHP_MINIMUM ) ),
 				esc_html__( 'Error Activating', 'ang' )
 			);
 		}
@@ -220,7 +220,7 @@ add_action(
 			return;
 		}
 
-		if ( ! version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) ) {
+		if ( ! version_compare( get_bloginfo( 'version' ), ANG_WP_MINIMUM, '>=' ) ) {
 			add_action( 'admin_notices', 'analog_fail_wp_version' );
 			return;
 		}
