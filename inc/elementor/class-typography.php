@@ -321,7 +321,9 @@ class Typography extends Module {
 				array(
 					'name'     => 'ang_size_' . $setting[0],
 					'label'    => __( 'Heading', 'ang' ) . ' ' . $setting[1],
-					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'global' => [
+						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+					],
 					'selector' => $selectors,
 					'exclude'  => $size_controls,
 				)
@@ -360,7 +362,9 @@ class Typography extends Module {
 				array(
 					'name'     => 'ang_text_size_' . $setting[0],
 					'label'    => __( 'Text', 'ang' ) . ' ' . $setting[1],
-					'scheme'   => \Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'global' => [
+						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+					],
 					'selector' => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
 					'exclude'  => $size_controls,
 				)
