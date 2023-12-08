@@ -7,7 +7,6 @@
 
 namespace Analog\Elementor;
 
-use Analog\Options;
 use Analog\Plugin;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
