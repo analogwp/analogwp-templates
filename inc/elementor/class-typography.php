@@ -103,7 +103,10 @@ class Typography extends Module {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_fonts' ), 10, 2 );
 
 		add_action( 'elementor/element/heading/section_title/after_section_end', array( $this, 'add_typo_helper_link' ), 999, 2 );
-		add_action( 'elementor/element/button/section_button/after_section_end', array( $this, 'add_btn_sizes_helper_link' ), 999, 2 );
+
+		if ( Utils::is_elementor_pre( '3.20.0' ) ) {
+			add_action( 'elementor/element/button/section_button/after_section_end', array( $this, 'add_btn_sizes_helper_link' ), 999, 2 );
+		}
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_shadows' ), 47, 2 );
 
