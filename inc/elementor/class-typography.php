@@ -778,7 +778,7 @@ class Typography extends Module {
 			)
 		);
 
-		$elementor_row   = '';
+		$elementor_row = '';
 
 		if ( Utils::is_elementor_pre( '3.19.0' ) ) {
 
@@ -1379,7 +1379,7 @@ class Typography extends Module {
 		$page_settings_model   = $page_settings_manager->get_model( $post_id );
 
 		$keys = apply_filters(
-			'analog/elementor/typography/keys',
+			'analog/elementor/typography/keys', // phpcs:ignore.
 			array(
 				'ang_heading_1',
 				'ang_heading_2',
