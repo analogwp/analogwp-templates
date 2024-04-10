@@ -45,7 +45,7 @@ class Experiments extends Settings_Page {
 					'title' => __( 'Style Kits Experiments', 'ang' ),
 					'desc'  => sprintf(
 						/* translators: %s: Style Kits Experiments Documentation link */
-						__( 'Below you can activate experimental features for Style Kits and Style Kits Pro. We suggest that you don’t use these features on a production site. %s about how this works.', 'ang' ),
+						__( 'Below you can activate experimental features for Style Kits and Style Kits Pro. We suggest you to turn on backups while using these experiments. %s about how this works.', 'ang' ),
 						'<a href="https://analogwp.com/docs/style-kits-experiments/" target="_blank">' . __( 'Learn more', 'ang' ) . '</a>'
 					),
 					'type'  => 'title',
@@ -53,7 +53,7 @@ class Experiments extends Settings_Page {
 				),
 				array(
 					'title'   => __( 'Container-based Library', 'ang' ),
-					'desc'    => __( 'Get early access to the upcoming container-based library of Patterns. You need to have the Containers experiment activated in Elementor, to test the new library.', 'ang' ),
+					'desc'    => __( 'Get access to the container-based library of Patterns. You need to have the Containers Feature activated in Elementor, to test the new library.', 'ang' ),
 					'id'      => 'container_library_experiment',
 					'default' => 'default',
 					'type'    => 'select',
