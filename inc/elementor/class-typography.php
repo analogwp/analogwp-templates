@@ -73,11 +73,11 @@ class Typography extends Module {
 		$this->settings_tab = Utils::get_kit_settings_tab();
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_typography_sizes' ), 30, 2 );
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 40, 2 );
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_styling_settings' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_tools' ), 270, 2 );
 
-		// Legacy features ( Outer Section Padding & Column Gaps ) - deprecated to be removed.
+		// Legacy features ( Button Sizes, Outer Section Padding and Column Gaps ) - deprecated to be removed.
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 40, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_outer_section_padding' ), 280, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_columns_gap' ), 290, 2 );
 
@@ -836,7 +836,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_buttons',
 			array(
-				'label' => __( 'Button Sizes', 'ang' ),
+				'label' => __( 'Button Sizes (Legacy)', 'ang' ),
 				'tab'   => $this->settings_tab,
 			)
 		);
