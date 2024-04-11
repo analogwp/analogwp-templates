@@ -77,7 +77,7 @@ class Typography extends Module {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_tools' ), 270, 2 );
 
 		// Legacy features ( Button Sizes, Outer Section Padding and Column Gaps ) - deprecated to be removed.
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 40, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 275, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_outer_section_padding' ), 280, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_columns_gap' ), 290, 2 );
 
@@ -839,7 +839,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_buttons',
 			array(
-				'label' => __( 'Button Sizes (Legacy)', 'ang' ),
+				'label' => __( 'Button Sizes', 'ang' ),
 				'tab'   => $this->settings_tab,
 			)
 		);
