@@ -847,7 +847,13 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_buttons_description',
 			array(
-				'raw'             => __( 'Define the default styles for every button size.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/button-sizes/', __( 'Learn more.', 'ang' ) ),
+				'raw'             => sprintf(
+					'%1$s<br/>%2$s <a href="%3$s" target="_blank">%4$s</a>',
+					__( 'Heads-up! This is a legacy feature, no longer supported in Elementor.', 'ang' ),
+					__( 'Define the default styles for every button size.', 'ang' ),
+					'https://analogwp.com/docs/button-sizes/',
+					__( 'Learn more.', 'ang' )
+				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
