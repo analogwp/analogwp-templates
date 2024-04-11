@@ -59,7 +59,6 @@ class Experiments extends Settings_Page {
 					'type'    => 'select',
 					'options' => $options,
 				),
-
 				array(
 					'type' => 'sectionend',
 					'id'   => 'ang_beta',
