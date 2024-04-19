@@ -106,7 +106,7 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 * New: Deprecate Button Sizes Panel in support of new changes from Elementor v3.20.0
 * New: Move Button sizes at Style Kits Panel to legacy section
 * New: Show "Edit in stylekits" button prior to Elementor v3.20.0
-* Fix: Legacy Column gaps not workin due to always active DOM optimization (props @marian-kadanka)
+* Fix: Legacy Column gaps not workin due to always active DOM optimization (props to @marian-kadanka)
 * Improvements: Improve SK Container experiment -> feature dialogues
 * Improvements: Compatibility with WordPress v6.5.2
 * Improvements: Compatibility with Elementor v3.21.1 and Elementor Pro v3.21.0
