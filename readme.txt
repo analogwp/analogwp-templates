@@ -102,6 +102,17 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
+= 2.0.9 - April 19, 2024 =
+* New: Deprecate Button Sizes Panel in support of new changes from Elementor v3.20.0
+* New: Move Button sizes at Style Kits Panel to legacy section
+* New: Show "Edit in stylekits" button prior to Elementor v3.20.0
+* Fix: Legacy Column gaps not workin due to always active DOM optimization (props @marian-kadanka)
+* Improvements: Improve SK Container experiment -> feature dialogues
+* Improvements: Compatibility with WordPress v6.5.2
+* Improvements: Compatibility with Elementor v3.21.1 and Elementor Pro v3.21.0
+* Improvements: Updated translation files
+* Improvements: Other minor code changes
+
 = 2.0.8 - December 08, 2023 =
 * New: Bumped minimum WordPress and Elementor required versions to v6.0 and v3.10.0 respectively
 * Fix: Fix typography controls deprecated schemes
