@@ -73,11 +73,11 @@ class Typography extends Module {
 		$this->settings_tab = Utils::get_kit_settings_tab();
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_typography_sizes' ), 30, 2 );
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 40, 2 );
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_styling_settings' ), 20, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_tools' ), 270, 2 );
 
-		// Legacy features ( Outer Section Padding & Column Gaps ) - deprecated to be removed.
+		// Legacy features ( Button Sizes, Outer Section Padding and Column Gaps ) - deprecated to be removed.
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 275, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_outer_section_padding' ), 280, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_columns_gap' ), 290, 2 );
 
@@ -103,7 +103,10 @@ class Typography extends Module {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_fonts' ), 10, 2 );
 
 		add_action( 'elementor/element/heading/section_title/after_section_end', array( $this, 'add_typo_helper_link' ), 999, 2 );
-		add_action( 'elementor/element/button/section_button/after_section_end', array( $this, 'add_btn_sizes_helper_link' ), 999, 2 );
+
+		if ( Utils::is_elementor_pre( '3.20.0' ) ) {
+			add_action( 'elementor/element/button/section_button/after_section_end', array( $this, 'add_btn_sizes_helper_link' ), 999, 2 );
+		}
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_shadows' ), 47, 2 );
 
@@ -201,9 +204,9 @@ class Typography extends Module {
 					/* translators: %s: Heading 1-6 type */
 					'label'    => sprintf( __( 'Heading %s', 'ang' ), $i ),
 					'selector' => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
-					'global' => [
+					'global'   => array(
 						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-					],
+					),
 				)
 			);
 		}
@@ -251,9 +254,9 @@ class Typography extends Module {
 				'name'     => 'ang_body',
 				'label'    => __( 'Body Typography', 'ang' ),
 				'selector' => '{{WRAPPER}}',
-				'global' => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
-				],
+				),
 			)
 		);
 
@@ -324,9 +327,9 @@ class Typography extends Module {
 				array(
 					'name'     => 'ang_size_' . $setting[0],
 					'label'    => __( 'Heading', 'ang' ) . ' ' . $setting[1],
-					'global' => [
+					'global'   => array(
 						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-					],
+					),
 					'selector' => $selectors,
 					'exclude'  => $size_controls,
 				)
@@ -365,9 +368,9 @@ class Typography extends Module {
 				array(
 					'name'     => 'ang_text_size_' . $setting[0],
 					'label'    => __( 'Text', 'ang' ) . ' ' . $setting[1],
-					'global' => [
+					'global'   => array(
 						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-					],
+					),
 					'selector' => "{{WRAPPER}} .elementor-widget-heading .elementor-heading-title.elementor-size-{$setting[0]}:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)",
 					'exclude'  => $size_controls,
 				)
@@ -778,17 +781,21 @@ class Typography extends Module {
 			)
 		);
 
-		$elementor_row   = '';
-		$optimized_dom   = get_option( 'elementor_experiment-e_dom_optimization' );
-		$is_optimize_dom = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $optimized_dom;
+		$elementor_row = '';
 
-		if ( 'default' === $optimized_dom ) {
-			$experiments     = new \Elementor\Core\Experiments\Manager();
-			$is_optimize_dom = $experiments->is_feature_active( 'e_dom_optimization' );
-		}
+		if ( Utils::is_elementor_pre( '3.19.0' ) ) {
 
-		if ( ! $is_optimize_dom ) { // Add row class if DOM optimization is not active.
-			$elementor_row = ' > .elementor-row ';
+			$optimized_dom   = get_option( 'elementor_experiment-e_dom_optimization' );
+			$is_optimize_dom = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $optimized_dom;
+
+			if ( 'default' === $optimized_dom ) {
+				$experiments     = new \Elementor\Core\Experiments\Manager();
+				$is_optimize_dom = $experiments->is_feature_active( 'e_dom_optimization' );
+			}
+
+			if ( ! $is_optimize_dom ) { // Add row class if DOM optimization is not active.
+				$elementor_row = ' > .elementor-row ';
+			}
 		}
 
 		foreach ( $gaps as $key => $label ) {
@@ -840,7 +847,13 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_buttons_description',
 			array(
-				'raw'             => __( 'Define the default styles for every button size.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/button-sizes/', __( 'Learn more.', 'ang' ) ),
+				'raw'             => sprintf(
+					'%1$s<br/>%2$s <a href="%3$s" target="_blank">%4$s</a>',
+					__( 'Heads-up! This is a legacy feature, no longer supported in Elementor.', 'ang' ),
+					__( 'Define the default styles for every button size.', 'ang' ),
+					'https://analogwp.com/docs/button-sizes/',
+					__( 'Learn more.', 'ang' )
+				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -1375,7 +1388,7 @@ class Typography extends Module {
 		$page_settings_model   = $page_settings_manager->get_model( $post_id );
 
 		$keys = apply_filters(
-			'analog/elementor/typography/keys',
+			'analog/elementor/typography/keys', // phpcs:ignore.
 			array(
 				'ang_heading_1',
 				'ang_heading_2',

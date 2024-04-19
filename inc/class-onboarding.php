@@ -102,9 +102,9 @@ class Onboarding {
 			),
 			array(
 				'id'            => 'enable-el-container-experiment',
-				'label'         => __( 'Enable Elementor container experiment', 'ang' ),
-				'description'   => __( 'The latest Style Kits version works best with flexbox containers. We will enable the Containers experiment in Elementor.', 'ang' ),
-				'label_success' => __( 'Container experiment is now active', 'ang' ),
+				'label'         => __( 'Enable Elementor container feature', 'ang' ),
+				'description'   => __( 'The latest Style Kits version works best with flexbox containers. We will enable the Containers feature in Elementor.', 'ang' ),
+				'label_success' => __( 'Container feature is now active', 'ang' ),
 				'label_failed'  => __( 'Failed to activate Elementor container experiment', 'ang' ),
 				'checked'       => true,
 				'todo'          => ! did_action( 'elementor/loaded' ) || ( method_exists( '\Analog\Utils', 'is_elementor_container' ) && ! \Analog\Utils::is_elementor_container() ),
