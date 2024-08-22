@@ -103,9 +103,9 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 = 2.1.0 - August 22, 2024 =
 * Fix: Fixed an issue where in some cases the patterns would not load in the library
-* Fix: React throwing regenerator-runtime issue at pattern library
+* Fix: React throwing `regenerator-runtime` issue at pattern library
 * Fix: Fixed an issue with google fonts causing a fatal error
-* Fix: Fix count function throwing an error on null values
+* Fix: Fix `count` function throwing an error on null values
 * Improvements: Changed the way that pattern thumbnails are served
 * Improvements: Includes a migration upgrader to sync library
 * Improvements: Compatibility with latest elementor version
