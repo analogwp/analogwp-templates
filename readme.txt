@@ -2,8 +2,8 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.0
-Tested up to: 6.5.2
-Stable tag: 2.0.9
+Tested up to: 6.6.1
+Stable tag: 2.1.0
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -62,7 +62,6 @@ Style Kits for Elementor adds a set of extra UI controls to Theme Styles editor,
 - [Visit the AnalogWP Website](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp)
 - [Follow on Twitter](https://twitter.com/AnalogWP/)
 - [Like us on Facebook](https://www.facebook.com/analogwp)
-- [Join our Facebook community](https://www.facebook.com/groups/analogwp/)
 - [Documentation](https://analogwp.com/docs/)
 
 == Installation ==
@@ -101,6 +100,19 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.1.0 - August 22, 2024 =
+* Fix: Fixed an issue where in some cases the patterns would not load in the library
+* Fix: React throwing regenerator-runtime issue at pattern library
+* Fix: Fixed an issue with google fonts causing a fatal error
+* Fix: Fix count function throwing an error on null values
+* Improvements: Changed the way that pattern thumbnails are served
+* Improvements: Includes a migration upgrader to sync library
+* Improvements: Compatibility with latest elementor version
+* Improvements: Compatibility with WordPress v6.6.1
+* Improvements: Compatibility with Elementor v3.23.4 and Elementor Pro v3.23.3
+* Improvements: Updated translation files
+* Improvements: Other minor code changes
 
 = 2.0.9 - April 19, 2024 =
 * New: Deprecate Button Sizes Panel in support of new changes from Elementor v3.20.0
