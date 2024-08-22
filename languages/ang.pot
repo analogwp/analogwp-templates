@@ -2,19 +2,20 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.0.9\n"
+"Project-Id-Version: Style Kits for Elementor 2.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-11T06:54:56+00:00\n"
+"POT-Creation-Date: 2024-08-22T09:30:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: ang\n"
 
 #. Plugin Name of the plugin
+#: analogwp-templates.php
 #: inc/admin/class-admin.php:44
 #: inc/class-tracker.php:131
 #: inc/register-settings.php:27
@@ -23,14 +24,17 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
+#: analogwp-templates.php
 msgid "https://analogwp.com/"
 msgstr ""
 
 #. Description of the plugin
+#: analogwp-templates.php
 msgid "Style Kits extends the Elementor theme styles editor with more global styling options. Boost your design workflow in Elementor with intuitive global controls and theme style presets."
 msgstr ""
 
 #. Author of the plugin
+#: analogwp-templates.php
 msgid "AnalogWP"
 msgstr ""
 
@@ -1791,34 +1795,22 @@ msgid "Visit the online docs"
 msgstr ""
 
 #: inc/settings/views/html-admin-settings.php:95
-msgid "Join our Facebook group"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:97
-msgid "Get insights, tips and updates in our facebook community."
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:98
-msgid "Join now"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:102
 msgid "Sign up for email updates"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:103
+#: inc/settings/views/html-admin-settings.php:96
 msgid "Stay in the loop with Style Kits development by signing up to our newsletter."
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:106
+#: inc/settings/views/html-admin-settings.php:99
 msgid "Sign me up"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:108
+#: inc/settings/views/html-admin-settings.php:101
 msgid "By signing up you agree to our"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:108
+#: inc/settings/views/html-admin-settings.php:101
 msgid "privacy and terms"
 msgstr ""
 
@@ -1857,17 +1849,17 @@ msgid "Subscribed"
 msgstr ""
 
 #: assets/js/app.js:1
-#: client/api.js:213
+#: client/api.js:214
 msgid "Template"
 msgstr ""
 
 #: assets/js/app.js:1
-#: client/api.js:216
+#: client/api.js:217
 msgid "Block"
 msgstr ""
 
 #: assets/js/app.js:1
-#: client/api.js:224
+#: client/api.js:225
 msgid "Add Style Kits"
 msgstr ""
 
