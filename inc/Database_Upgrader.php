@@ -7,6 +7,8 @@
 
 namespace Analog;
 
+use Analog\API\Remote;
+
 /**
  * Class Database_Upgrader
  */
@@ -38,6 +40,7 @@ class Database_Upgrader {
 			'2.0.0' => 'upgrade_2_0',
 			'2.0.5' => 'upgrade_2_0_5',
 			'2.0.6' => 'upgrade_2_0_6',
+			'2.1.0' => 'upgrade_2_1',
 		);
 
 		$version = get_option( self::OPTION, '0.0.0' );
@@ -181,5 +184,15 @@ class Database_Upgrader {
 	protected function upgrade_2_0_6() {
 		// Regenerate Elementor CSS.
 		Utils::clear_elementor_cache();
+	}
+
+	/**
+	 * Refresh the templates library.
+	 *
+	 * @return void
+	 */
+	protected function upgrade_2_1() {
+		// Refresh templates library.
+		Remote::get_instance()->get_templates_info( true );
 	}
 }
