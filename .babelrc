@@ -4,12 +4,6 @@
 		"@babel/preset-react"
 	],
 	"plugins": [
-		"@babel/plugin-proposal-class-properties"/*,
-		[
-			"@wordpress/babel-plugin-makepot",
-			{
-				"output": "languages/ang-js.pot"
-			}
-		]*/
+		"@babel/plugin-proposal-class-properties"
 	]
 }

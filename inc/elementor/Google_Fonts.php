@@ -57,7 +57,7 @@ class Google_Fonts {
 
 		if ( $fonts ) {
 			$fonts = json_decode( $fonts, true );
-			if ( count( $fonts ) ) {
+			if ( is_array( $fonts ) && count( $fonts ) ) {
 				$formatted_fonts = array();
 
 				foreach ( $fonts as $font ) {

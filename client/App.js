@@ -6,6 +6,7 @@ import Header from './Header';
 import Notifications from './Notifications';
 import { getTime, getPageComponents, hasProTemplates } from './utils';
 const { apiFetch } = wp;
+import 'regenerator-runtime/runtime';
 
 const Analog = styled.div`
 	margin: 0 0 0 -20px;

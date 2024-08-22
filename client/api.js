@@ -1,6 +1,7 @@
 /* global elementorCommon, analog */
 const { apiFetch } = wp;
 const { __ } = wp.i18n;
+import 'regenerator-runtime/runtime';
 
 export async function markFavorite( id, favorite = true, type = 'template' ) {
 	return await apiFetch( {
