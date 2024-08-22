@@ -91,13 +91,6 @@ if ( ! $tab_exists ) {
 						<a href="<?php echo esc_url( 'https://analogwp.com/docs/' ); ?>" target="_blank"><?php esc_html_e( 'Visit the online docs', 'ang' ); ?></a>
 					</p>
 				</div>
-				<div class="social-group">
-					<h3><?php esc_html_e( 'Join our Facebook group', 'ang' ); ?></h3>
-					<p>
-						<?php esc_html_e( 'Get insights, tips and updates in our facebook community.', 'ang' ); ?>
-						<a href="<?php echo esc_url( 'https://www.facebook.com/groups/analogwp/' ); ?>" target="_blank"><?php esc_html_e( 'Join now', 'ang' ); ?></a>
-					</p>
-				</div>
 				<div class="newsletter-list">
 					<h3><?php esc_html_e( 'Sign up for email updates', 'ang' ); ?></h3>
 					<p><?php esc_html_e( 'Stay in the loop with Style Kits development by signing up to our newsletter.', 'ang' ); ?></p>
