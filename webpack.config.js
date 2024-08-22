@@ -17,7 +17,7 @@ const externals = {
 
 // Webpack config
 const config = {
-	entry: './client/index.js',
+	entry: ['regenerator-runtime/runtime.js', './client/index.js'],
 	externals,
 	output: {
 		filename: 'assets/js/app.js',
