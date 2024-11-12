@@ -1,6 +1,6 @@
 {
   "name": "analogwp-templates",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Handfully crafted Elementor templates packs.",
   "main": "/client/index.js",
   "private": true,
@@ -19,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/analogwp/analogwp-templates.git"
   },
-  "author": "Ram Ratan Maurya",
+  "author": "AnalogWP",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/analogwp/analogwp-templates/issues"
