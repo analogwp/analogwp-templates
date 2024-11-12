@@ -24,3 +24,5 @@ tests/_support/_generated/*
 tests/cache/*
 tests/error.log
 .DS_Store
+
+analogwp-templates.zip
