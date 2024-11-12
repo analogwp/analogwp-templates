@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.1.0\n"
+"Project-Id-Version: Style Kits for Elementor 2.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-22T09:30:19+00:00\n"
+"POT-Creation-Date: 2024-11-12T13:25:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: ang\n"
@@ -306,7 +306,6 @@ msgstr ""
 #: inc/elementor/sections/background-color-classes.php:162
 #: inc/settings/class-settings-experiments.php:49
 #: inc/upgrade-functions.php:182
-#: assets/js/app.js:27
 #: client/stylekits/stylekits.js:225
 msgid "Learn more"
 msgstr ""
@@ -897,7 +896,6 @@ msgstr ""
 #: inc/elementor/class-typography.php:1204
 #: inc/elementor/class-typography.php:1275
 #: inc/settings/class-settings-experiments.php:36
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:102
 msgid "Default"
 msgstr ""
@@ -1369,7 +1367,6 @@ msgstr ""
 #: inc/register-settings.php:57
 #: inc/register-settings.php:58
 #: inc/settings/class-settings-general.php:83
-#: assets/js/app.js:27
 #: client/stylekits/stylekits.js:223
 msgid "Local Style Kits"
 msgstr ""
@@ -1444,8 +1441,6 @@ msgstr ""
 #: inc/elementor/Promotions.php:154
 #: inc/Plugin.php:222
 #: inc/register-settings.php:78
-#: assets/js/app.js:11
-#: assets/js/app.js:27
 #: client/blocks/BlockList.js:374
 #: client/stylekits/stylekits.js:272
 #: client/Template.js:31
@@ -1848,54 +1843,49 @@ msgstr ""
 msgid "Subscribed"
 msgstr ""
 
-#: assets/js/app.js:1
+#: assets/js/app/index.js:1
 #: client/api.js:214
 msgid "Template"
 msgstr ""
 
-#: assets/js/app.js:1
+#: assets/js/app/index.js:1
 #: client/api.js:217
 msgid "Block"
 msgstr ""
 
-#: assets/js/app.js:1
+#: assets/js/app/index.js:1
 #: client/api.js:225
 msgid "Add Style Kits"
 msgstr ""
 
-#: assets/js/app.js:11
-#: client/ProModal.js:6
-msgid "Get unlimited access to the Style Kits library and features with the PRO version."
+#: client/blocks/BlockList.js:289
+msgid "The %s has been imported and is now available in the"
 msgstr ""
 
-#: assets/js/app.js:11
-#: client/ProModal.js:7
-msgid "View Plans"
+#: client/blocks/BlockList.js:300
+msgid "Elementor %s library"
 msgstr ""
 
-#: assets/js/app.js:11
-#: client/Template.js:20
-msgid "New"
+#: client/blocks/BlockList.js:314
+msgid "Ok, thanks"
 msgstr ""
 
-#: assets/js/app.js:11
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:266
-#: client/Template.js:27
-msgid "Preview"
+#: client/blocks/BlockList.js:330
+msgid "No patterns found"
 msgstr ""
 
-#: assets/js/app.js:11
-#: assets/js/app.js:27
-#: client/blocks/BlockList.js:388
-#: client/stylekits/stylekits.js:281
-#: client/stylekits/stylekits.js:337
-#: client/Template.js:36
-msgid "Import"
+#: client/blocks/BlockList.js:330
+msgid "No blocks found"
 msgstr ""
 
-#: assets/js/app.js:11
-#: assets/js/app.js:27
+#: client/blocks/BlockList.js:334
+msgid "Loading Patterns..."
+msgstr ""
+
+#: client/blocks/BlockList.js:334
+msgid "Loading Blocks..."
+msgstr ""
+
 #: client/blocks/BlockList.js:359
 #: client/blocks/BlockList.js:412
 #: client/filters.js:38
@@ -1904,388 +1894,306 @@ msgstr ""
 msgid "Pro"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/Nav.js:6
-msgid "Patterns"
+#: client/blocks/BlockList.js:388
+#: client/stylekits/stylekits.js:281
+#: client/stylekits/stylekits.js:337
+#: client/Template.js:36
+msgid "Import"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/Nav.js:6
-msgid "Blocks"
+#: client/blocks/Sidebar.js:224
+msgid "Search Patterns"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/Nav.js:7
-msgid "Templates"
+#: client/blocks/Sidebar.js:224
+msgid "Search Blocks"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/Nav.js:9
-msgid "Styles"
+#: client/blocks/Sidebar.js:234
+msgid "Show Pro Patterns"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/Synchronization.js:23
-msgid "Library is now synced"
+#: client/blocks/Sidebar.js:234
+msgid "Show Pro Blocks"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/Synchronization.js:24
-msgid "Something is not right, please try again."
+#: client/collection/Collection.js:112
+msgid "View Templates"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/Synchronization.js:28
-msgid "Syncing..."
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/Synchronization.js:29
-msgid "Sync Library"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/Synchronization.js:38
-msgid "Close"
-msgstr ""
-
-#: assets/js/app.js:27
 #: client/filters.js:27
 msgid "All template types"
 msgstr ""
 
-#: assets/js/app.js:27
 #: client/filters.js:32
 msgid "Newest first"
 msgstr ""
 
-#: assets/js/app.js:27
 #: client/filters.js:33
 msgid "Popular"
 msgstr ""
 
-#: assets/js/app.js:27
 #: client/filters.js:37
 msgid "Both Free and Pro"
 msgstr ""
 
-#: assets/js/app.js:27
 #: client/filters.js:39
 msgid "Free"
 msgstr ""
 
-#: assets/js/app.js:27
 #: client/filters.js:50
 msgid "Template Kit"
 msgstr ""
 
-#: assets/js/app.js:27
 #: client/filters.js:60
 msgid "Back to all Kits"
 msgstr ""
 
-#: assets/js/app.js:27
 #: client/filters.js:74
 msgid "Back to all"
 msgstr ""
 
-#: assets/js/app.js:27
 #: client/filters.js:75
 msgid "Favorites"
 msgstr ""
 
-#: assets/js/app.js:27
 #: client/filters.js:146
 msgid "Search templates..."
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:126
-msgid "%s <span class=\"footer-text\">in WordPress dashboard.</span>"
+#: client/Modal.js:82
+msgid "Exit preview"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:129
-msgid "Manage your Style Kits"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:205
-msgid " Imported!"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:223
-msgid "Style Kits are ready-made configurations of theme styles. When you import a Style Kit, it will be available in the"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:223
-msgid "page"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:224
-msgid "You will then be able apply it globally, or on any page."
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:235
-msgid "Import Style Kit"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:307
-msgid "A Style Kit named "
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:307
-msgid " already exists in your website. To import it again please use a different name."
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:311
-msgid "Please try a different as a Style Kit with same name already exists."
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:315
-msgid "Enter a Style Kit Name"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:349
-msgid " has been successfully imported. You can now find it in the "
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:363
-msgid "Stay on this page"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:379
-msgid "View local Style Kits"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/stylekits/stylekits.js:389
-msgid "Importing "
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/modal/Preview.js:86
-msgid "Back to Library"
-msgstr ""
-
-#: assets/js/app.js:27
-#: assets/js/app.js:43
 #: client/Modal.js:87
 #: client/modal/Preview.js:91
 msgid "Open in new tab"
 msgstr ""
 
-#: assets/js/app.js:27
-#: assets/js/app.js:43
 #: client/Modal.js:93
 #: client/modal/Preview.js:97
 msgid "Import Template"
 msgstr ""
 
-#: assets/js/app.js:27
+#: client/modal/Preview.js:86
+msgid "Back to Library"
+msgstr ""
+
 #: client/modal/Preview.js:104
 msgid "Loading icon"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/blocks/BlockList.js:289
-msgid "The %s has been imported and is now available in the"
+#: client/Nav.js:6
+msgid "Patterns"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/blocks/BlockList.js:300
-msgid "Elementor %s library"
+#: client/Nav.js:6
+msgid "Blocks"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/blocks/BlockList.js:314
-msgid "Ok, thanks"
+#: client/Nav.js:7
+msgid "Templates"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/blocks/BlockList.js:330
-msgid "No patterns found"
+#: client/Nav.js:9
+msgid "Styles"
 msgstr ""
 
-#: assets/js/app.js:27
-#: client/blocks/BlockList.js:330
-msgid "No blocks found"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/blocks/BlockList.js:334
-msgid "Loading Patterns..."
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/blocks/BlockList.js:334
-msgid "Loading Blocks..."
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/blocks/Sidebar.js:224
-msgid "Search Patterns"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/blocks/Sidebar.js:224
-msgid "Search Blocks"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/blocks/Sidebar.js:234
-msgid "Show Pro Patterns"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/blocks/Sidebar.js:234
-msgid "Show Pro Blocks"
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/Templates.js:268
-msgid "This template requires an updated version, please update your plugin to latest version."
-msgstr ""
-
-#: assets/js/app.js:27
-#: client/collection/Collection.js:112
-msgid "View Templates"
-msgstr ""
-
-#: assets/js/app.js:43
-#: client/Modal.js:82
-msgid "Exit preview"
-msgstr ""
-
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:74
 msgid "Import template"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:98
 msgid "Global"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:106
 msgid "Installed"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:133
 msgid "Learn more about this in %s."
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:136
 msgid "Style Kits Docs"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:154
 msgid "The Global Style Kit will be applied on this template"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:155
 msgid "Choose a Theme Style Kit to apply on the page."
 msgstr ""
 
 #. translators: 1: Global Style Kit label
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:160
 msgid "%1$s"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:163
 msgid "The original Style Kit is pre-selected for you."
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:171
 msgid "Choose a Style Kit..."
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:182
 msgid "You can change the default import method at the "
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:183
 #: client/popups/ImportTemplate.js:189
 msgid "Settings Page"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:188
 msgid "You can manage and set a Global Style Kit at the "
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:203
 msgid "Import the template in the current page."
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:221
 msgid "Import to current page"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:232
 msgid "Import this template to your library to make it available in your Elementor "
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:233
 msgid "Saved Templates"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:234
 msgid " list for future use."
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:254
 msgid "Import to Library"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:263
 msgid "Import to a new page"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:264
 msgid "Create a new page from this template to make it available as a draft page in your Pages list."
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:268
 msgid "Enter a Page Name"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:283
 msgid "Import to page"
 msgstr ""
 
-#: assets/js/app.js:43
 #: client/popups/ImportTemplate.js:296
 msgid "All done! The template has been imported."
+msgstr ""
+
+#: client/ProModal.js:6
+msgid "Get unlimited access to the Style Kits library and features with the PRO version."
+msgstr ""
+
+#: client/ProModal.js:7
+msgid "View Plans"
+msgstr ""
+
+#: client/stylekits/stylekits.js:126
+msgid "%s <span class=\"footer-text\">in WordPress dashboard.</span>"
+msgstr ""
+
+#: client/stylekits/stylekits.js:129
+msgid "Manage your Style Kits"
+msgstr ""
+
+#: client/stylekits/stylekits.js:205
+msgid " Imported!"
+msgstr ""
+
+#: client/stylekits/stylekits.js:223
+msgid "Style Kits are ready-made configurations of theme styles. When you import a Style Kit, it will be available in the"
+msgstr ""
+
+#: client/stylekits/stylekits.js:223
+msgid "page"
+msgstr ""
+
+#: client/stylekits/stylekits.js:224
+msgid "You will then be able apply it globally, or on any page."
+msgstr ""
+
+#: client/stylekits/stylekits.js:235
+msgid "Import Style Kit"
+msgstr ""
+
+#: client/stylekits/stylekits.js:266
+#: client/Template.js:27
+msgid "Preview"
+msgstr ""
+
+#: client/stylekits/stylekits.js:307
+msgid "A Style Kit named "
+msgstr ""
+
+#: client/stylekits/stylekits.js:307
+msgid " already exists in your website. To import it again please use a different name."
+msgstr ""
+
+#: client/stylekits/stylekits.js:311
+msgid "Please try a different as a Style Kit with same name already exists."
+msgstr ""
+
+#: client/stylekits/stylekits.js:315
+msgid "Enter a Style Kit Name"
+msgstr ""
+
+#: client/stylekits/stylekits.js:349
+msgid " has been successfully imported. You can now find it in the "
+msgstr ""
+
+#: client/stylekits/stylekits.js:363
+msgid "Stay on this page"
+msgstr ""
+
+#: client/stylekits/stylekits.js:379
+msgid "View local Style Kits"
+msgstr ""
+
+#: client/stylekits/stylekits.js:389
+msgid "Importing "
+msgstr ""
+
+#: client/Synchronization.js:23
+msgid "Library is now synced"
+msgstr ""
+
+#: client/Synchronization.js:24
+msgid "Something is not right, please try again."
+msgstr ""
+
+#: client/Synchronization.js:28
+msgid "Syncing..."
+msgstr ""
+
+#: client/Synchronization.js:29
+msgid "Sync Library"
+msgstr ""
+
+#: client/Synchronization.js:38
+msgid "Close"
+msgstr ""
+
+#: client/Template.js:20
+msgid "New"
+msgstr ""
+
+#: client/Templates.js:268
+msgid "This template requires an updated version, please update your plugin to latest version."
 msgstr ""
