@@ -16,7 +16,7 @@
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: ang
- * Elementor tested up to: 3.25.4
+ * Elementor tested up to: 3.25.6
  * Elementor Pro tested up to: 3.25.2
  */
 

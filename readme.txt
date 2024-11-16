@@ -2,7 +2,7 @@
 Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 8.0
-Tested up to: 6.6.2
+Tested up to: 6.7
 Stable tag: 2.2.0
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
