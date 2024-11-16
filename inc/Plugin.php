@@ -2,7 +2,7 @@
 /**
  * Class Analog\Plugin.
  *
- * @copyright 2020 Dashwork Studio Pvt. Ltd.
+ * @copyright 2024 SmallTownDev
  * @package Analog
  */
 
