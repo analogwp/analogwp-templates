@@ -132,7 +132,7 @@
 			elSubmitBtn.val( 'Sending...' );
 
 			$.post(
-				'https://analogwp.test/web/?ang-api=analogwp-templates&request=freemius_discount_code',
+				'https://analogwp.com/?ang-api=analogwp-templates&request=freemius_discount_code',
 				{
 					email: email,
 					first_name: JSON.stringify( fname ),
