@@ -19,15 +19,15 @@ jobs:
           php_version: '8.0'
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v1
         with:
-          node-version: '16'
+          node-version: '21'
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Prepare release build
-        run: yarn run gh:release
+        run: npm run gh:release
 
       - name: WordPress Plugin Deploy
         uses: 10up/action-wordpress-plugin-deploy@master
