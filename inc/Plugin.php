@@ -2,7 +2,7 @@
 /**
  * Class Analog\Plugin.
  *
- * @copyright 2020 Dashwork Studio Pvt. Ltd.
+ * @copyright 2024 SmallTownDev
  * @package Analog
  */
 
@@ -96,7 +96,7 @@ final class Plugin {
 
 		wp_enqueue_script(
 			'analogwp-app',
-			ANG_PLUGIN_URL . 'assets/js/app.js',
+			ANG_PLUGIN_URL . 'assets/js/app/index.js',
 			array(
 				'react',
 				'react-dom',
@@ -108,7 +108,7 @@ final class Plugin {
 				'wp-api-fetch',
 				'wp-html-entities',
 			),
-			filemtime( ANG_PLUGIN_DIR . 'assets/js/app.js' ),
+			filemtime( ANG_PLUGIN_DIR . 'assets/js/app/index.js' ),
 			true
 		);
 		wp_set_script_translations( 'analogwp-app', 'ang', ANG_PLUGIN_DIR . 'languages' );
@@ -163,7 +163,7 @@ final class Plugin {
 			'debugMode'               => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
 			'pluginURL'               => ANG_PLUGIN_URL,
 			'license'                 => Utils::has_pro() ? array(
-				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
+				'status'  => Utils::get_license_status(),
 				'message' => get_transient( 'ang_license_message' ),
 			) : false,
 			'installed_kits'          => Utils::imported_remote_kits(),

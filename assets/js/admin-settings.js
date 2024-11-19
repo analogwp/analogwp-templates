@@ -132,17 +132,17 @@
 			elSubmitBtn.val( 'Sending...' );
 
 			$.post(
-				'https://analogwp.com/?ang-api=analogwp-templates&request=discount_code',
+				'https://analogwp.com/?ang-api=analogwp-templates&request=freemius_discount_code',
 				{
 					email: email,
-					first_name: fname,
-					last_name: lname,
+					first_name: JSON.stringify( fname ),
+					last_name: JSON.stringify( lname ),
 				}
-			).done( function() {
+			).done( function( res ) {
 				status = 'Coupon sent!';
 				elSubmitBtn.val( status );
 				elSubmitBtn.attr( 'disabled', 'disabled' );
-			} ).fail( function() {
+			} ).fail( function(res) {
 				status = 'Failed to send, please contact support.';
 				elSubmitBtn.val( status );
 				setTimeout( function() {

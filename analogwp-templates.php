@@ -3,29 +3,29 @@
  * Plugin main file.
  *
  * @package     Analog
- * @copyright   2019-2023 Dashwork Studio Pvt. Ltd.
+ * @copyright   2019-2024 SmallTownDev.
  * @link        https://analogwp.com
  *
  * @wordpress-plugin
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits extends the Elementor theme styles editor with more global styling options. Boost your design workflow in Elementor with intuitive global controls and theme style presets.
- * Version:     2.1.0
+ * Version:     2.2.0
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: ang
- * Elementor tested up to: 3.23.4
- * Elementor Pro tested up to: 3.23.3
+ * Elementor tested up to: 3.25.7
+ * Elementor Pro tested up to: 3.25.3
  */
 
 defined( 'ABSPATH' ) || exit;
 
 define( 'ANG_ELEMENTOR_MINIMUM', '3.10.0' );
-define( 'ANG_PHP_MINIMUM', '7.0' );
+define( 'ANG_PHP_MINIMUM', '8.0' );
 define( 'ANG_WP_MINIMUM', '6.0' );
-define( 'ANG_VERSION', '2.1.0' );
+define( 'ANG_VERSION', '2.2.0' );
 define( 'ANG_PLUGIN_FILE', __FILE__ );
 define( 'ANG_PLUGIN_URL', plugin_dir_url( ANG_PLUGIN_FILE ) );
 define( 'ANG_PLUGIN_DIR', plugin_dir_path( ANG_PLUGIN_FILE ) );
@@ -183,6 +183,40 @@ $vendor_file = __DIR__ . '/third-party/vendor/scoper-autoload.php';
 
 if ( is_readable( $vendor_file ) ) {
 	require_once $vendor_file;
+}
+
+if ( ! function_exists( 'sk_fs' ) ) {
+	// Create a helper function for easy SDK access.
+	function sk_fs() {
+		global $sk_fs;
+
+		if ( ! isset( $sk_fs ) ) {
+			// Include Freemius SDK.
+			require_once dirname(__FILE__) . '/freemius/start.php';
+
+			$sk_fs = fs_dynamic_init( array(
+				'id'                  => '17032',
+				'slug'                => 'analogwp-templates',
+				'type'                => 'plugin',
+				'public_key'          => 'pk_e05579cda0ad78db31e94616185cc',
+				'is_premium'          => false,
+				'has_addons'          => false,
+				'has_paid_plans'      => false,
+				'menu'                => array(
+					'slug'           => 'analogwp_templates',
+					'first-path'     => 'admin.php?page=analog_onboarding&from=freemius',
+					'support'        => false,
+				),
+			) );
+		}
+
+		return $sk_fs;
+	}
+
+	// Init Freemius.
+	sk_fs();
+	// Signal that SDK was initiated.
+	do_action( 'sk_fs_loaded' );
 }
 
 /**

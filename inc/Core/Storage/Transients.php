@@ -3,7 +3,7 @@
  * Class Analog\Core\Storage\Transients
  *
  * @package   Analog
- * @copyright 2020 Dashwork Studio Pvt. Ltd.
+ * @copyright 2024 SmallTownDev
  */
 
 namespace Analog\Core\Storage;

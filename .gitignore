@@ -2,6 +2,7 @@
 /assets/js/app.js.map
 /build
 /assets/js/app.js
+/assets/js/app/
 node_modules/
 /assets/fonts/
 /assets/js/blocksLibrary.js
@@ -23,3 +24,5 @@ tests/_support/_generated/*
 tests/cache/*
 tests/error.log
 .DS_Store
+
+analogwp-templates.zip

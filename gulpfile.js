@@ -45,9 +45,9 @@ const buildDestination = `./build/${ project }/`;
 const buildZipDestination = './build/';
 const cleanFiles = [ `./build/${ project }/`, `./build/${ project }.zip` ];
 
-gulp.task( 'yarnBuild', run( 'yarn run build' ) );
-gulp.task( 'yarnMakePot', run( 'yarn run makePot' ) );
-gulp.task( 'yarnConvertPot2json', run('yarn run convertPot2json' ) );
+gulp.task( 'scriptBuildApp', run( 'npm run build-app' ) );
+gulp.task( 'scriptMakePot', run( 'npm run makePot' ) );
+gulp.task( 'scriptConvertPot2json', run('npm run convertPot2json' ) );
 
 gulp.task( 'clean', function( done ) {
 	return del( cleanFiles );
@@ -110,9 +110,9 @@ gulp.task( 'checktextdomain', ( done ) => {
 gulp.task( 'build', gulp.series(
 	'scripts',
 	'checktextdomain',
-	'yarnBuild',
-	'yarnMakePot',
-	'yarnConvertPot2json',
+	'scriptBuildApp',
+	'scriptMakePot',
+	'scriptConvertPot2json',
 	'clean',
 	'copy',
 	'zip',
@@ -124,7 +124,7 @@ gulp.task( 'build', gulp.series(
 gulp.task( 'github-build', gulp.series(
 	'scripts',
 	'checktextdomain',
-	'yarnBuild',
+	'scriptBuildApp',
 	'clean',
 	'copy',
 	'zip',

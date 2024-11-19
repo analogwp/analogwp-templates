@@ -1,4 +1,4 @@
-[![WordPress plugin](https://img.shields.io/wordpress/plugin/dt/analogwp-templates.svg?style=flat)](https://wordpress.org/plugins/analogwp-templates/) [![Installs](https://img.shields.io/wordpress/plugin/installs/analogwp-templates.svg)](https://wordpress.org/plugins/analogwp-templates/) [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/mauryaratan/analogwp-templates/blob/master/license.txt) ![build](https://img.shields.io/travis/mauryaratan/analogwp-templates)
+[![WordPress plugin](https://img.shields.io/wordpress/plugin/dt/analogwp-templates.svg?style=flat)](https://wordpress.org/plugins/analogwp-templates/) [![Installs](https://img.shields.io/wordpress/plugin/installs/analogwp-templates.svg)](https://wordpress.org/plugins/analogwp-templates/) [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/analogwp/analogwp-templates/blob/master/license.txt) ![build](https://img.shields.io/travis/analogwp/analogwp-templates)
 
 ![](https://img.shields.io/wordpress/plugin/wp-version/analogwp-templates)
 [![WordPress](https://img.shields.io/wordpress/v/analogwp-templates.svg?style=flat)]()
@@ -17,4 +17,4 @@ More information can be found at [analogwp.com](https://analogwp.com/).
 - `gulp build` for building distribution zip file.
 
 ### Bugs
-If you find a 🐞 or an issue, please [create an issue](https://github.com/mauryaratan/stag-blocks/issues/new).
+If you find a 🐞 or an issue, please [create an issue](https://github.com/analogwp/stag-blocks/issues/new).

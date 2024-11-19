@@ -261,6 +261,9 @@ class Admin_Settings {
 			$description       = $field_description['description'];
 			$tooltip_html      = $field_description['tooltip_html'];
 
+			// Disabled flag.
+			$disabled = isset( $value['disabled'] ) ? absint( $value['disabled'] ) : false;
+
 			// Switch based on type.
 			switch ( $value['type'] ) {
 
@@ -363,12 +366,16 @@ class Admin_Settings {
 							</th>
 						<?php endif; ?>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+							<?php if ( ! $disabled ) : ?>
 							<a  href="<?php echo esc_attr( $value['to'] ); ?>"
 								id="<?php echo esc_attr( $value['id'] ); ?>"
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								<?php echo implode( ' ', $custom_attributes ); // phpcs:ignore ?>
-								><?php echo esc_html( $option_value ); ?></a><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // phpcs:ignore ?>
+								><?php echo esc_html( $option_value ); ?></a>
+							<?php endif; ?>
+
+							<?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // phpcs:ignore ?>
 						</td>
 					</tr>
 					<?php
@@ -478,6 +485,7 @@ class Admin_Settings {
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
 								<?php echo 'multiselect' === $value['type'] ? 'multiple="multiple"' : ''; ?>
+								<?php echo $disabled ? ' disabled="true"': ''; ?>
 								>
 								<?php
 								foreach ( $value['options'] as $key => $val ) {
@@ -496,7 +504,7 @@ class Admin_Settings {
 									<?php
 								}
 								?>
-							</select> <?php echo $description; // WPCS: XSS ok. ?>
+							</select>
 						</td>
 					</tr>
 					<?php

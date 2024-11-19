@@ -475,8 +475,8 @@ class Utils extends Base {
 	 * @return bool Whether license is valid or not.
 	 */
 	public static function has_valid_license() {
-		$license = Options::get_instance()->get( 'ang_license_key' );
-		$message = Options::get_instance()->get( 'ang_license_key_status' );
+		$license = self::get_license_key();
+		$message = self::get_license_status();
 
 		return ! empty( $license ) && 'valid' === $message;
 	}
@@ -855,6 +855,34 @@ class Utils extends Base {
 		}
 
 		return file_get_contents( $file, ...$args );
+	}
+
+	/**
+	 * Returns license key for the product.
+	 *
+	 * @return string
+	 */
+	public static function get_license_key() {
+		return apply_filters( 'sk_pro_license_key', Options::get_instance()->get( 'ang_license_key' ) );
+	}
+
+	/**
+	 * Returns status string for license.
+	 *
+	 * @return string
+	 */
+	public static function get_license_status() {
+		return apply_filters( 'sk_pro_license_status', Options::get_instance()->get( 'ang_license_key_status' ) );
+	}
+
+	/**
+	 * Adds Freemius related product data.
+	 *
+	 * @return array
+	 */
+	public static function get_freemius_product_query_data() {
+		// Needs via_freemius and product_id.
+		return apply_filters( 'sk_pro_freemius_product_query_data', array() );
 	}
 }
 

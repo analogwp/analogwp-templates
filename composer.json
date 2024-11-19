@@ -1,12 +1,12 @@
 {
-    "name": "mauryaratan/analogwp-templates",
+    "name": "analogwp/analogwp-templates",
     "description": "Style Kits for Elementor adds a number of intuitive styling controls in the Elementor editor that allow you to apply styles globally or per page.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0",
     "authors": [
         {
-            "name": "Ram Ratan Maurya",
-            "email": "ratan.maurya@gmail.com"
+            "name": "AnalogWP",
+            "email": "hello@analogwp.com"
         }
     ],
     "minimum-stability": "dev",

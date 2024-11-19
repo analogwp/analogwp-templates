@@ -119,7 +119,7 @@ class Elementor {
 
 		wp_enqueue_script(
 			'analogwp-app',
-			ANG_PLUGIN_URL . 'assets/js/app.js',
+			ANG_PLUGIN_URL . 'assets/js/app/index.js',
 			array(
 				'react',
 				'react-dom',
@@ -130,7 +130,7 @@ class Elementor {
 				'wp-api-fetch',
 				'wp-html-entities',
 			),
-			filemtime( ANG_PLUGIN_DIR . 'assets/js/app.js' ),
+			filemtime( ANG_PLUGIN_DIR . 'assets/js/app/index.js' ),
 			true
 		);
 		wp_set_script_translations( 'analogwp-app', 'ang', ANG_PLUGIN_DIR . 'languages' );

@@ -35,6 +35,15 @@ class Onboarding {
 			wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
 			update_option( 'analog_onboarding', self::$version );
 		}
+
+		$from = isset( $_GET['from'] ) ? sanitize_text_field( wp_unslash( $_GET['from'] ) ) : '';
+		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+		$is_freemius_redirect = 'freemius' === $from;
+		$is_onboarding = 'analog_onboarding' === $page;
+
+		if ( $is_onboarding && $is_freemius_redirect && $options_table && version_compare( self::$version, $existing_version, '>=' ) ) {
+			wp_safe_redirect( admin_url( 'admin.php?page=analogwp_templates' ) );
+		}
 	}
 
 	/**

@@ -1,9 +1,9 @@
 === Style Kits - Advanced Theme Styles for Elementor ===
-Contributors: analogwp, mauryaratan
+Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
-Requires PHP: 7.0
-Tested up to: 6.6.1
-Stable tag: 2.1.0
+Requires PHP: 8.0
+Tested up to: 6.7
+Stable tag: 2.2.0
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -100,6 +100,14 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.2.0 - Novemeber 19, 2024 =
+* New: Freemius integration for licensing and payments
+* New: Adds notices for Freemius migration conditionally to existing EDD based SK Pro users
+* Improvements: Remove unused code
+* Improvements: Other major code changes
+* Improvements: Compatibility with WordPress v6.7
+* Improvements: Compatibility with Elementor v3.25.7 and Elementor Pro v3.25.3
 
 = 2.1.0 - August 22, 2024 =
 * Fix: Fixed an issue where in some cases the patterns would not load in the library
@@ -475,11 +483,11 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 = 1.4.0 - January 06, 2020 =
 * New: Added Version Control tab under Settings
 * New: Option to become a Beta Tester
-* Fix: Minor issue with Settings page [footer links](https://github.com/mauryaratan/analogwp-templates/issues/233) inherting Settings styles
-* Fix: Critical error caused sometimes during [Quick Post](https://github.com/mauryaratan/analogwp-templates/issues/251) update
+* Fix: Minor issue with Settings page [footer links](https://github.com/analogwp/analogwp-templates/issues/233) inherting Settings styles
+* Fix: Critical error caused sometimes during [Quick Post](https://github.com/analogwp/analogwp-templates/issues/251) update
 * Fix: Global SK values not updating properly due to a recent change
-* Improve: Added [backward compatibility](https://github.com/mauryaratan/analogwp-templates/issues/249) with < Elementor v2.8.0
-* Improve: Added [Close link](https://github.com/mauryaratan/analogwp-templates/issues/250) to Style Kit import popup.
+* Improve: Added [backward compatibility](https://github.com/analogwp/analogwp-templates/issues/249) with < Elementor v2.8.0
+* Improve: Added [Close link](https://github.com/analogwp/analogwp-templates/issues/250) to Style Kit import popup.
 * Improve: Heavily improved performance, caused due to a memory leak
 
 = 1.3.17 - December 12, 2019 =
@@ -535,26 +543,26 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 * Improve: Ensure “Do not apply link” setting is respected
 
 = 1.3.9 - October 26, 2019 =
-* Fix: Disable Style Kit settings from [Popups](https://github.com/mauryaratan/analogwp-templates/issues/202)
-* Fix: Divider widget not being able to [override accent color](https://github.com/mauryaratan/analogwp-templates/issues/207)
-* Fix: Icon/Image box not being able to [override accent color](https://github.com/mauryaratan/analogwp-templates/issues/203)
-* Fix: All Style Kits not being [listed](https://github.com/mauryaratan/analogwp-templates/issues/200) during import
+* Fix: Disable Style Kit settings from [Popups](https://github.com/analogwp/analogwp-templates/issues/202)
+* Fix: Divider widget not being able to [override accent color](https://github.com/analogwp/analogwp-templates/issues/207)
+* Fix: Icon/Image box not being able to [override accent color](https://github.com/analogwp/analogwp-templates/issues/203)
+* Fix: All Style Kits not being [listed](https://github.com/analogwp/analogwp-templates/issues/200) during import
 * Fix: A rare case with undefined jQuery error within Elementor editor
 * Improve: Tweak Settings page styles
 
 = 1.3.8 - October 22, 2019 =
-* New: Added new [Template Collection](https://github.com/mauryaratan/analogwp-templates/issues/176) interface.
-* New: Added [new Settings Page](https://github.com/mauryaratan/analogwp-templates/issues/178) in Style Kits > Settings
-* New: [Template import](https://github.com/mauryaratan/analogwp-templates/issues/161) flow, allowing to select a Style Kit during import
-* Fix: Links inside Headings having 2x size when used with [EM units](https://github.com/mauryaratan/analogwp-templates/issues/175)
+* New: Added new [Template Collection](https://github.com/analogwp/analogwp-templates/issues/176) interface.
+* New: Added [new Settings Page](https://github.com/analogwp/analogwp-templates/issues/178) in Style Kits > Settings
+* New: [Template import](https://github.com/analogwp/analogwp-templates/issues/161) flow, allowing to select a Style Kit during import
+* Fix: Links inside Headings having 2x size when used with [EM units](https://github.com/analogwp/analogwp-templates/issues/175)
 * Fix: Issue with a `WP_Query` call interfering with Elementor queries
-* Fix: An issue with inline color style on the [Accordion widget title](https://github.com/mauryaratan/analogwp-templates/issues/180) does not override accent color
-* Fix: Apply accent color properly on stacked and framed variants of [icons](https://github.com/mauryaratan/analogwp-templates/issues/187).
+* Fix: An issue with inline color style on the [Accordion widget title](https://github.com/analogwp/analogwp-templates/issues/180) does not override accent color
+* Fix: Apply accent color properly on stacked and framed variants of [icons](https://github.com/analogwp/analogwp-templates/issues/187).
 * Fix: Added `wp-api-fetch` as script dependency inside Elementor editor
 * Fix: Error not showing up when an unallowed version of template was being imported
 * Fix: H6 selector for Default Font Family control of Headings Typography
 * Fix: Style Kits library not force refreshing
-* Improve: [Empty state](https://github.com/mauryaratan/analogwp-templates/issues/170) when templates are empty
+* Improve: [Empty state](https://github.com/analogwp/analogwp-templates/issues/170) when templates are empty
 * Improve: Added Templates/Style Kits count in header
 * Improve: Updated readme.txt changelog to include release dates
 
@@ -590,13 +598,13 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 * Fix: An issue with Analog modal not launching in Elementor screen
 
 = 1.3.4 - August 28, 2019 =
-* New: All new *[Style Kits](https://github.com/mauryaratan/analogwp-templates/issues/135)* library page to import pre-build Style Kits.
+* New: All new *[Style Kits](https://github.com/analogwp/analogwp-templates/issues/135)* library page to import pre-build Style Kits.
 * New: Added Quick Edit and Bulk edit actions on posts list, to assign a Style Kit to multiple posts/pages at once.
 * New: Reorganized nav menu and settings tab for better access to different pages.
-* Fix: Section colors not being able to override Style Kit colors. [#138](https://github.com/mauryaratan/analogwp-templates/issues/138)
+* Fix: Section colors not being able to override Style Kit colors. [#138](https://github.com/analogwp/analogwp-templates/issues/138)
 * Fix: Rename Dynamic tag classes to be in line with generated classes
 * Fix: Elementor's + button taking accent color from Style Kits.
-* Improve: Added docs link in description of controls to official documentation. [#140](https://github.com/mauryaratan/analogwp-templates/issues/140)
+* Improve: Added docs link in description of controls to official documentation. [#140](https://github.com/analogwp/analogwp-templates/issues/140)
 * Improve: Added link to AnalogWP facebook group on Settings page.
 * Improve: Style kit can be imported from Elementor screen as well
 * Improve: Loading of data sent to app
@@ -608,7 +616,7 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 = 1.3.2 - August 16, 2019 =
 * Improve: Rename and reorder Global Color setting labels
 * Improve: Rename Outer Section Padding labels to avoid confusions
-* Improve: Extend Primary Accent colors to Icon + Progress bar widgets. Feel it should extend to more? [Sound off](https://github.com/mauryaratan/analogwp-templates/issues/new).
+* Improve: Extend Primary Accent colors to Icon + Progress bar widgets. Feel it should extend to more? [Sound off](https://github.com/analogwp/analogwp-templates/issues/new).
 
 = 1.3.1 - August 15, 2019 =
 * New: Added Color Controls in page settings
@@ -637,14 +645,14 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 * Improve: Reorganize settings in Heading and Text sizes sections
 
 = 1.2.3 - May 30, 2019 =
-* New: Added a [notice](https://github.com/mauryaratan/analogwp-templates/issues/92) to reopen tabs when setting a global Style Kit.
-* New: [Updating](https://github.com/mauryaratan/analogwp-templates/issues/107) an existing Style Kit now shows a modal window on pages using the same kit, to choose whether to pull latest changes or keep old.
-* New: Added option to [rollback](https://github.com/mauryaratan/analogwp-templates/issues/99) to a previous stable version under AnalogWP > Settings.
-* New: Added a visual [indicator](https://github.com/mauryaratan/analogwp-templates/issues/101) on posts list to display which Style Kit is active.
+* New: Added a [notice](https://github.com/analogwp/analogwp-templates/issues/92) to reopen tabs when setting a global Style Kit.
+* New: [Updating](https://github.com/analogwp/analogwp-templates/issues/107) an existing Style Kit now shows a modal window on pages using the same kit, to choose whether to pull latest changes or keep old.
+* New: Added option to [rollback](https://github.com/analogwp/analogwp-templates/issues/99) to a previous stable version under AnalogWP > Settings.
+* New: Added a visual [indicator](https://github.com/analogwp/analogwp-templates/issues/101) on posts list to display which Style Kit is active.
 * New: Added a quick post action to "Apply Global Style Kit"
-* Fix: Clear Elementor cache when a Style Kit is [updated](https://github.com/mauryaratan/analogwp-templates/issues/103), so other posts sharing same kit can take effect.
-* Fix: [Extend](https://github.com/mauryaratan/analogwp-templates/issues/106) heading selector to include `a` tags inside to match styles.
-* Improve: Stop users from creating a new style kit directly from CPT [page](https://github.com/mauryaratan/analogwp-templates/issues/97), as it results in empty style kit.
+* Fix: Clear Elementor cache when a Style Kit is [updated](https://github.com/analogwp/analogwp-templates/issues/103), so other posts sharing same kit can take effect.
+* Fix: [Extend](https://github.com/analogwp/analogwp-templates/issues/106) heading selector to include `a` tags inside to match styles.
+* Improve: Stop users from creating a new style kit directly from CPT [page](https://github.com/analogwp/analogwp-templates/issues/97), as it results in empty style kit.
 
 = 1.2.2 - May 19, 2019 =
 * Fixed an issue with padding section media queries

@@ -3,7 +3,7 @@
  * Class Analog\Core\SVGs\Allow
  *
  * @package   Analog
- * @copyright 2022 Dashwork Studio Pvt. Ltd.
+ * @copyright 2024 SmallTownDev
  */
 
 namespace Analog\Core\SVGs;
