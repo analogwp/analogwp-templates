@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-16T15:51:43+00:00\n"
+"POT-Creation-Date: 2024-11-19T06:55:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: ang\n"
@@ -18,7 +18,7 @@ msgstr ""
 #: analogwp-templates.php
 #: inc/admin/class-admin.php:44
 #: inc/class-tracker.php:131
-#: inc/register-settings.php:27
+#: inc/register-settings.php:28
 msgid "Style Kits for Elementor"
 msgstr ""
 
@@ -40,12 +40,12 @@ msgstr ""
 
 #. translators: %s: version number
 #: analogwp-templates.php:47
-#: analogwp-templates.php:234
+#: analogwp-templates.php:233
 msgid "Style Kit for Elementor requires PHP version %s"
 msgstr ""
 
 #: analogwp-templates.php:48
-#: analogwp-templates.php:235
+#: analogwp-templates.php:234
 msgid "Error Activating"
 msgstr ""
 
@@ -177,12 +177,12 @@ msgstr ""
 msgid "Import it into Elementor"
 msgstr ""
 
-#: inc/class-admin-settings.php:562
-#: inc/class-admin-settings.php:627
+#: inc/class-admin-settings.php:570
+#: inc/class-admin-settings.php:635
 msgid "Toggle"
 msgstr ""
 
-#: inc/class-admin-settings.php:675
+#: inc/class-admin-settings.php:683
 msgid "Refresh"
 msgstr ""
 
@@ -453,7 +453,7 @@ msgstr ""
 #: inc/elementor/class-typography.php:679
 #: inc/elementor/class-typography.php:1058
 #: inc/elementor/kit/tabs/Theme_Style_Kits.php:46
-#: inc/register-settings.php:28
+#: inc/register-settings.php:29
 msgid "Style Kits"
 msgstr ""
 
@@ -683,7 +683,7 @@ msgstr ""
 
 #: inc/elementor/class-finder-shortcuts.php:53
 #: inc/Plugin.php:216
-#: inc/register-settings.php:47
+#: inc/register-settings.php:48
 msgid "Settings"
 msgstr ""
 
@@ -1364,8 +1364,8 @@ msgid "Export Theme Style Kit"
 msgstr ""
 
 #: inc/elementor/kit/Kits_List_Table.php:348
-#: inc/register-settings.php:57
 #: inc/register-settings.php:58
+#: inc/register-settings.php:59
 #: inc/settings/class-settings-general.php:83
 #: client/stylekits/stylekits.js:223
 msgid "Local Style Kits"
@@ -1440,7 +1440,7 @@ msgstr ""
 #. translators: %1$s: Link to Style Kits Pro. %2$s: Go Pro text.
 #: inc/elementor/Promotions.php:154
 #: inc/Plugin.php:222
-#: inc/register-settings.php:78
+#: inc/register-settings.php:79
 #: client/blocks/BlockList.js:374
 #: client/stylekits/stylekits.js:272
 #: client/Template.js:31
@@ -1528,17 +1528,22 @@ msgstr ""
 msgid "Dark Background"
 msgstr ""
 
-#: inc/register-settings.php:38
+#: inc/register-settings.php:39
 msgid "Style Kits Library"
 msgstr ""
 
-#: inc/register-settings.php:39
+#: inc/register-settings.php:40
 msgid "Library"
 msgstr ""
 
-#: inc/register-settings.php:46
+#: inc/register-settings.php:47
 #: inc/settings/views/html-admin-settings.php:28
 msgid "Style Kits Settings"
+msgstr ""
+
+#: inc/register-settings.php:227
+#: inc/register-settings.php:253
+msgid "that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at"
 msgstr ""
 
 #: inc/settings/class-settings-experiments.php:23
