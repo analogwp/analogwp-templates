@@ -101,6 +101,14 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
+= 2.2.0 - Novemeber 19, 2024 =
+* New: Freemius integration for licensing and payments
+* New: Adds notices for Freemius migration conditionally to existing EDD based SK Pro users
+* Improvements: Remove unused code
+* Improvements: Other major code changes
+* Improvements: Compatibility with WordPress v6.7
+* Improvements: Compatibility with Elementor v3.25.7 and Elementor Pro v3.25.3
+
 = 2.1.0 - August 22, 2024 =
 * Fix: Fixed an issue where in some cases the patterns would not load in the library
 * Fix: React throwing `regenerator-runtime` issue at pattern library
