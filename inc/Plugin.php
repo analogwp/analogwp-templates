@@ -163,7 +163,7 @@ final class Plugin {
 			'debugMode'               => ( defined( 'ANALOG_DEV_DEBUG' ) && ANALOG_DEV_DEBUG ),
 			'pluginURL'               => ANG_PLUGIN_URL,
 			'license'                 => Utils::has_pro() ? array(
-				'status'  => Options::get_instance()->get( 'ang_license_key_status' ),
+				'status'  => Utils::get_license_status(),
 				'message' => get_transient( 'ang_license_message' ),
 			) : false,
 			'installed_kits'          => Utils::imported_remote_kits(),

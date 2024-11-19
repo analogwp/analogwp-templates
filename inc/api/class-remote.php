@@ -196,7 +196,8 @@ class Remote extends Base {
 				'url'     => home_url(),
 				'method'  => $method,
 				'site_id' => $site_id,
-			)
+			),
+			Utils::get_freemius_product_query_data()
 		);
 
 		$response = wp_remote_get(
@@ -248,10 +249,11 @@ class Remote extends Base {
 		$body_args = array_merge(
 			$body_args,
 			array(
-				'license' => Options::get_instance()->get( 'ang_license_key' ),
+				'license' => Utils::get_license_key(),
 				'url'     => home_url(),
 				'site_id' => $kit['site_id'],
-			)
+			),
+			Utils::get_freemius_product_query_data()
 		);
 
 		$request = wp_remote_get(
@@ -291,7 +293,8 @@ class Remote extends Base {
 				'url'     => home_url(),
 				'method'  => $method,
 				'site_id' => $site_id,
-			)
+			),
+			Utils::get_freemius_product_query_data()
 		);
 
 		$response = wp_remote_get(

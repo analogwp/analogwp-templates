@@ -135,7 +135,7 @@ class Local extends Base {
 			array(
 				'template_id'    => $template_id,
 				'editor_post_id' => $editor_id,
-				'license'        => Options::get_instance()->get( 'ang_license_key' ),
+				'license'        => Utils::get_license_key(),
 				'method'         => 'elementor',
 				'site_id'        => $site_id,
 			)
@@ -609,7 +609,7 @@ class Local extends Base {
 	 * @return array|WP_Error
 	 */
 	protected function process_block_import( $block, $method = 'library' ) {
-		$license = Options::get_instance()->get( 'ang_license_key' );
+		$license = Utils::get_license_key();
 
 		if ( isset( $block['is_pro'] ) && $block['is_pro'] && ! Utils::has_valid_license() ) {
 			return new WP_Error( 'block_import_error', __( 'Invalid license provided.', 'ang' ) );

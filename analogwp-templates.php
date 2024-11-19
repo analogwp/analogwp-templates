@@ -205,7 +205,6 @@ if ( ! function_exists( 'sk_fs' ) ) {
 				'menu'                => array(
 					'slug'           => 'analogwp_templates',
 					'first-path'     => 'admin.php?page=analog_onboarding&from=freemius',
-					'account'        => false,
 					'support'        => false,
 				),
 			) );
