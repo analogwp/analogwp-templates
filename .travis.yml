@@ -3,28 +3,21 @@ dist: trusty
 sudo: false
 
 php:
-  - "5.6"
-  - "7.0"
-  - "7.2"
-  - "7.3"
   - "7.4"
+  - "8.0"
+  - "8.1"
 
 env:
   - WP_VERSION=latest WP_MULTISITE=0
-  - WP_VERSION=5.1 WP_MULTISITE=0
-  - WP_VERSION=5.0 WP_MULTISITE=0
+  - WP_VERSION=6.6 WP_MULTISITE=0
 
 matrix:
   include:
+    - php: "8.1"
+      env: WP_VERSION=latest WP_MULTISITE=0
+    - php: "8.0"
+      env: WP_VERSION=latest WP_MULTISITE=0
     - php: "7.4"
-      env: WP_VERSION=latest WP_MULTISITE=0
-    - php: "7.3"
-      env: WP_VERSION=latest WP_MULTISITE=0
-    - php: "7.1"
-      env: WP_VERSION=latest WP_MULTISITE=0
-    - php: "7.1"
-      env: WP_VERSION=5.0 WP_MULTISITE=0
-    - php: "5.6"
       env: WP_VERSION=latest WP_MULTISITE=0
 
 branches:
