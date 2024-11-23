@@ -2371,7 +2371,7 @@ class Typography extends Module {
 			array(
 				'label'         => __( 'Box Shadow Preset', 'ang' ),
 				'type'          => Controls_Manager::SELECT,
-				'hide_in_inner' => true,
+				'hide_in_inner' => false,
 				'default'       => 'none',
 				'options'       => $options,
 				'prefix_class'  => 'elementor-repeater-item-',
