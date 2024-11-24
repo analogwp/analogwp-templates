@@ -772,21 +772,6 @@ class Typography extends Module {
 
 		$elementor_row = '';
 
-		if ( Utils::is_elementor_pre( '3.19.0' ) ) {
-
-			$optimized_dom   = get_option( 'elementor_experiment-e_dom_optimization' );
-			$is_optimize_dom = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $optimized_dom;
-
-			if ( 'default' === $optimized_dom ) {
-				$experiments     = new \Elementor\Core\Experiments\Manager();
-				$is_optimize_dom = $experiments->is_feature_active( 'e_dom_optimization' );
-			}
-
-			if ( ! $is_optimize_dom ) { // Add row class if DOM optimization is not active.
-				$elementor_row = ' > .elementor-row ';
-			}
-		}
-
 		foreach ( $gaps as $key => $label ) {
 			$element->add_responsive_control(
 				'ang_column_gap_' . $key,
