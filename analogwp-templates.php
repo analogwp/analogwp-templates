@@ -200,7 +200,7 @@ if ( ! function_exists( 'sk_fs' ) ) {
 				'type'                => 'plugin',
 				'public_key'          => 'pk_e05579cda0ad78db31e94616185cc',
 				'is_premium'          => false,
-				'has_addons'          => false,
+				'has_addons'          => true,
 				'has_paid_plans'      => false,
 				'menu'                => array(
 					'slug'           => 'analogwp_templates',
