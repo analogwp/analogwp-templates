@@ -3,7 +3,7 @@ Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 8.0
 Tested up to: 6.7
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -100,6 +100,14 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.2.1 - November 25, 2024 =
+* New: Freemius Addons page at admin
+* Fix: Manual container padding overrides not working [#673](https://github.com/analogwp/analogwp-templates/issues/673)
+* Improvement: Enables box shadow presets in nested containers [#674](https://github.com/analogwp/analogwp-templates/issues/674)
+* Improvement: Remove old migrations till v1.5 and DOM optimization class target for El v3.19 and down
+* Improvement: Other minor code changes
+* Improvement: Compatibility with Elementor v3.25.10 and Elementor Pro v3.25.4
 
 = 2.2.0 - Novemeber 19, 2024 =
 * New: Freemius integration for licensing and payments
