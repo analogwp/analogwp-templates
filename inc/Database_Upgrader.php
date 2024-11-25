@@ -41,6 +41,7 @@ class Database_Upgrader {
 			'2.0.5' => 'upgrade_2_0_5',
 			'2.0.6' => 'upgrade_2_0_6',
 			'2.1.0' => 'upgrade_2_1',
+			'2.2.1' => 'upgrade_2_2_1',
 		);
 
 		$version = get_option( self::OPTION, '0.0.0' );
@@ -192,6 +193,16 @@ class Database_Upgrader {
 	 * @return void
 	 */
 	protected function upgrade_2_1() {
+		// Refresh templates library.
+		Remote::get_instance()->get_templates_info( true );
+	}
+
+	/**
+	 * Migration for v2.2.1
+	 *
+	 * @return void
+	 */
+	protected function upgrade_2_2_1() {
 		// Refresh templates library.
 		Remote::get_instance()->get_templates_info( true );
 	}
