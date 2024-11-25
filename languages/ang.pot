@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.2.0\n"
+"Project-Id-Version: Style Kits for Elementor 2.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-19T06:55:50+00:00\n"
+"POT-Creation-Date: 2024-11-25T10:33:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: ang\n"
@@ -300,12 +300,12 @@ msgstr ""
 #. translators: %s: Link text
 #: inc/class-onboarding.php:217
 #: inc/elementor/class-ang-action.php:121
-#: inc/elementor/class-typography.php:1070
-#: inc/elementor/class-typography.php:1955
+#: inc/elementor/class-typography.php:1044
+#: inc/elementor/class-typography.php:1929
 #: inc/elementor/sections/background-color-classes.php:71
 #: inc/elementor/sections/background-color-classes.php:162
 #: inc/settings/class-settings-experiments.php:49
-#: inc/upgrade-functions.php:182
+#: inc/upgrade-functions.php:119
 #: client/stylekits/stylekits.js:225
 msgid "Learn more"
 msgstr ""
@@ -370,16 +370,16 @@ msgstr ""
 #: inc/Core/SVGs/Allow.php:174
 #: inc/elementor/class-typography.php:310
 #: inc/elementor/class-typography.php:361
-#: inc/elementor/class-typography.php:709
-#: inc/elementor/class-typography.php:1208
+#: inc/elementor/class-typography.php:698
+#: inc/elementor/class-typography.php:1182
 msgid "Medium"
 msgstr ""
 
 #: inc/Core/SVGs/Allow.php:175
 #: inc/elementor/class-typography.php:309
 #: inc/elementor/class-typography.php:360
-#: inc/elementor/class-typography.php:710
-#: inc/elementor/class-typography.php:1209
+#: inc/elementor/class-typography.php:699
+#: inc/elementor/class-typography.php:1183
 msgid "Large"
 msgstr ""
 
@@ -392,7 +392,7 @@ msgid "Are you sure?"
 msgstr ""
 
 #: inc/elementor/class-ang-action.php:105
-#: inc/elementor/class-typography.php:1147
+#: inc/elementor/class-typography.php:1121
 msgid "Clone Style Kit"
 msgstr ""
 
@@ -450,8 +450,8 @@ msgstr ""
 #: inc/elementor/class-ang-action.php:124
 #: inc/elementor/class-post-type.php:32
 #: inc/elementor/class-post-type.php:41
-#: inc/elementor/class-typography.php:679
-#: inc/elementor/class-typography.php:1058
+#: inc/elementor/class-typography.php:668
+#: inc/elementor/class-typography.php:1032
 #: inc/elementor/kit/tabs/Theme_Style_Kits.php:46
 #: inc/register-settings.php:29
 msgid "Style Kits"
@@ -551,9 +551,9 @@ msgstr ""
 #: inc/elementor/class-colors.php:241
 #: inc/elementor/class-typography.php:300
 #: inc/elementor/class-typography.php:351
-#: inc/elementor/class-typography.php:725
-#: inc/elementor/class-typography.php:778
-#: inc/elementor/class-typography.php:855
+#: inc/elementor/class-typography.php:714
+#: inc/elementor/class-typography.php:767
+#: inc/elementor/class-typography.php:829
 msgid "Learn more."
 msgstr ""
 
@@ -583,7 +583,7 @@ msgstr ""
 
 #: inc/elementor/class-colors.php:385
 #: inc/elementor/class-typography.php:426
-#: inc/elementor/class-typography.php:1652
+#: inc/elementor/class-typography.php:1626
 #: inc/settings/class-settings-general.php:66
 #: inc/settings/class-settings-general.php:95
 #: inc/settings/class-settings-general.php:106
@@ -591,7 +591,7 @@ msgid "Read more"
 msgstr ""
 
 #: inc/elementor/class-colors.php:401
-#: inc/elementor/class-typography.php:1668
+#: inc/elementor/class-typography.php:1642
 msgid "1-16"
 msgstr ""
 
@@ -604,7 +604,7 @@ msgid "Light background"
 msgstr ""
 
 #: inc/elementor/class-colors.php:445
-#: inc/elementor/class-typography.php:1352
+#: inc/elementor/class-typography.php:1326
 msgid "Dark background"
 msgstr ""
 
@@ -633,7 +633,7 @@ msgid "Titles"
 msgstr ""
 
 #: inc/elementor/class-colors.php:519
-#: inc/elementor/class-typography.php:1850
+#: inc/elementor/class-typography.php:1824
 msgid "Normal text"
 msgstr ""
 
@@ -666,10 +666,10 @@ msgid "Reset labels & colors"
 msgstr ""
 
 #: inc/elementor/class-colors.php:599
-#: inc/elementor/class-typography.php:650
-#: inc/elementor/class-typography.php:1138
-#: inc/elementor/class-typography.php:1926
-#: inc/elementor/class-typography.php:2088
+#: inc/elementor/class-typography.php:639
+#: inc/elementor/class-typography.php:1112
+#: inc/elementor/class-typography.php:1900
+#: inc/elementor/class-typography.php:2062
 msgid "Reset"
 msgstr ""
 
@@ -800,14 +800,14 @@ msgstr ""
 
 #: inc/elementor/class-typography.php:308
 #: inc/elementor/class-typography.php:359
-#: inc/elementor/class-typography.php:867
+#: inc/elementor/class-typography.php:841
 msgid "XL"
 msgstr ""
 
 #: inc/elementor/class-typography.php:311
 #: inc/elementor/class-typography.php:362
-#: inc/elementor/class-typography.php:708
-#: inc/elementor/class-typography.php:1207
+#: inc/elementor/class-typography.php:697
+#: inc/elementor/class-typography.php:1181
 msgid "Small"
 msgstr ""
 
@@ -843,409 +843,409 @@ msgstr ""
 msgid "Create additional spacing presets."
 msgstr ""
 
-#: inc/elementor/class-typography.php:457
+#: inc/elementor/class-typography.php:446
 msgid "No Padding Styles"
 msgstr ""
 
-#: inc/elementor/class-typography.php:474
-#: inc/elementor/class-typography.php:1967
+#: inc/elementor/class-typography.php:463
+#: inc/elementor/class-typography.php:1941
 msgid "1-8"
 msgstr ""
 
-#: inc/elementor/class-typography.php:481
+#: inc/elementor/class-typography.php:470
 msgid "XXL - Hero Section"
 msgstr ""
 
-#: inc/elementor/class-typography.php:509
+#: inc/elementor/class-typography.php:498
 msgid "XL - Primary Section"
 msgstr ""
 
-#: inc/elementor/class-typography.php:537
+#: inc/elementor/class-typography.php:526
 msgid "Large - Box"
 msgstr ""
 
-#: inc/elementor/class-typography.php:557
+#: inc/elementor/class-typography.php:546
 msgid "Medium - Box"
 msgstr ""
 
-#: inc/elementor/class-typography.php:569
+#: inc/elementor/class-typography.php:558
 msgid "Small - Box"
 msgstr ""
 
-#: inc/elementor/class-typography.php:581
+#: inc/elementor/class-typography.php:570
 msgid "Padding 6"
 msgstr ""
 
-#: inc/elementor/class-typography.php:585
+#: inc/elementor/class-typography.php:574
 msgid "Padding 7"
 msgstr ""
 
-#: inc/elementor/class-typography.php:589
+#: inc/elementor/class-typography.php:578
 msgid "Padding 8"
 msgstr ""
 
-#: inc/elementor/class-typography.php:648
+#: inc/elementor/class-typography.php:637
 msgid "Reset labels and values to default"
 msgstr ""
 
-#: inc/elementor/class-typography.php:677
+#: inc/elementor/class-typography.php:666
 msgid "Create additional spacing presets in "
 msgstr ""
 
-#: inc/elementor/class-typography.php:706
-#: inc/elementor/class-typography.php:1204
-#: inc/elementor/class-typography.php:1275
+#: inc/elementor/class-typography.php:695
+#: inc/elementor/class-typography.php:1178
+#: inc/elementor/class-typography.php:1249
 #: inc/settings/class-settings-experiments.php:36
 #: client/popups/ImportTemplate.js:102
 msgid "Default"
 msgstr ""
 
-#: inc/elementor/class-typography.php:707
-#: inc/elementor/class-typography.php:1206
+#: inc/elementor/class-typography.php:696
+#: inc/elementor/class-typography.php:1180
 msgid "Normal"
 msgstr ""
 
-#: inc/elementor/class-typography.php:711
-#: inc/elementor/class-typography.php:1210
+#: inc/elementor/class-typography.php:700
+#: inc/elementor/class-typography.php:1184
 msgid "Extra Large"
 msgstr ""
 
-#: inc/elementor/class-typography.php:717
-#: inc/elementor/class-typography.php:1198
+#: inc/elementor/class-typography.php:706
+#: inc/elementor/class-typography.php:1172
 msgid "Outer Section Padding"
 msgstr ""
 
-#: inc/elementor/class-typography.php:725
+#: inc/elementor/class-typography.php:714
 msgid "Add padding to the outer sections of your layouts by using these controls."
 msgstr ""
 
-#: inc/elementor/class-typography.php:760
+#: inc/elementor/class-typography.php:749
 msgid "Default Padding"
 msgstr ""
 
-#: inc/elementor/class-typography.php:761
+#: inc/elementor/class-typography.php:750
 msgid "Narrow Padding"
 msgstr ""
 
-#: inc/elementor/class-typography.php:762
+#: inc/elementor/class-typography.php:751
 msgid "Extended Padding"
 msgstr ""
 
-#: inc/elementor/class-typography.php:763
+#: inc/elementor/class-typography.php:752
 msgid "Wide Padding"
 msgstr ""
 
-#: inc/elementor/class-typography.php:764
+#: inc/elementor/class-typography.php:753
 msgid "Wider Padding"
 msgstr ""
 
-#: inc/elementor/class-typography.php:770
+#: inc/elementor/class-typography.php:759
 msgid "Column Gaps"
 msgstr ""
 
-#: inc/elementor/class-typography.php:778
+#: inc/elementor/class-typography.php:767
 msgid "Column Gap presets add padding to the columns of a section."
 msgstr ""
 
-#: inc/elementor/class-typography.php:819
+#: inc/elementor/class-typography.php:793
 msgid "Space Between Widgets"
 msgstr ""
 
-#: inc/elementor/class-typography.php:820
+#: inc/elementor/class-typography.php:794
 msgid "Sets the default space between widgets, overrides the default value set in Elementor > Style > Space Between Widgets."
 msgstr ""
 
-#: inc/elementor/class-typography.php:842
+#: inc/elementor/class-typography.php:816
 msgid "Button Sizes"
 msgstr ""
 
-#: inc/elementor/class-typography.php:852
+#: inc/elementor/class-typography.php:826
 msgid "Heads-up! This is a legacy feature, no longer supported in Elementor."
 msgstr ""
 
-#: inc/elementor/class-typography.php:853
+#: inc/elementor/class-typography.php:827
 msgid "Define the default styles for every button size."
 msgstr ""
 
-#: inc/elementor/class-typography.php:863
+#: inc/elementor/class-typography.php:837
 msgid "XS"
 msgstr ""
 
-#: inc/elementor/class-typography.php:864
+#: inc/elementor/class-typography.php:838
 msgid "S"
 msgstr ""
 
-#: inc/elementor/class-typography.php:865
+#: inc/elementor/class-typography.php:839
 msgid "M"
 msgstr ""
 
-#: inc/elementor/class-typography.php:866
+#: inc/elementor/class-typography.php:840
 msgid "L"
 msgstr ""
 
-#: inc/elementor/class-typography.php:879
+#: inc/elementor/class-typography.php:853
 msgid "Typography"
 msgstr ""
 
-#: inc/elementor/class-typography.php:896
+#: inc/elementor/class-typography.php:870
 msgid "Normal Styling"
 msgstr ""
 
-#: inc/elementor/class-typography.php:904
-#: inc/elementor/class-typography.php:963
+#: inc/elementor/class-typography.php:878
+#: inc/elementor/class-typography.php:937
 #: inc/elementor/sections/background-color-classes.php:95
 #: inc/elementor/sections/background-color-classes.php:186
 msgid "Text Color"
 msgstr ""
 
-#: inc/elementor/class-typography.php:915
-#: inc/elementor/class-typography.php:974
+#: inc/elementor/class-typography.php:889
+#: inc/elementor/class-typography.php:948
 #: inc/elementor/sections/background-color-classes.php:80
 #: inc/elementor/sections/background-color-classes.php:171
 msgid "Background Color"
 msgstr ""
 
-#: inc/elementor/class-typography.php:942
-#: inc/elementor/class-typography.php:1001
+#: inc/elementor/class-typography.php:916
+#: inc/elementor/class-typography.php:975
 msgid "Border Radius"
 msgstr ""
 
-#: inc/elementor/class-typography.php:955
+#: inc/elementor/class-typography.php:929
 msgid "Hover Styling"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1014
+#: inc/elementor/class-typography.php:988
 msgid "Padding"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1069
+#: inc/elementor/class-typography.php:1043
 msgid "Select a different Style Kit to be applied on this page. The page will reload after your selection."
 msgstr ""
 
-#: inc/elementor/class-typography.php:1080
+#: inc/elementor/class-typography.php:1054
 msgid "Select Style Kit"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1080
+#: inc/elementor/class-typography.php:1054
 msgid "This will override your site's Global Style Kit for this page."
 msgstr ""
 
-#: inc/elementor/class-typography.php:1093
+#: inc/elementor/class-typography.php:1067
 msgid "Page Style Kit"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1106
+#: inc/elementor/class-typography.php:1080
 msgid "Set your Global Style Kit here"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1127
+#: inc/elementor/class-typography.php:1101
 msgid "Manage Style Kit"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1132
+#: inc/elementor/class-typography.php:1106
 msgid "This will reset the Theme Style Kit and clean up any values."
 msgstr ""
 
-#: inc/elementor/class-typography.php:1136
+#: inc/elementor/class-typography.php:1110
 msgid "Reset Theme Style Kit"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1143
+#: inc/elementor/class-typography.php:1117
 msgid "Save the current styles as a different Theme Style Kit. You can then apply it on other pages, or globally."
 msgstr ""
 
-#: inc/elementor/class-typography.php:1149
+#: inc/elementor/class-typography.php:1123
 msgid "Clone"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1157
+#: inc/elementor/class-typography.php:1131
 msgid "Export Theme Style Kit CSS"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1159
+#: inc/elementor/class-typography.php:1133
 msgid "Export"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1205
-#: inc/elementor/class-typography.php:1276
+#: inc/elementor/class-typography.php:1179
+#: inc/elementor/class-typography.php:1250
 msgid "No Padding"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1318
+#: inc/elementor/class-typography.php:1292
 msgid "Spacing Preset"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1319
-#: inc/elementor/class-typography.php:2182
-#: inc/elementor/class-typography.php:2223
-#: inc/elementor/class-typography.php:2309
-#: inc/elementor/class-typography.php:2350
-#: inc/elementor/class-typography.php:2398
-#: inc/elementor/class-typography.php:2455
-#: inc/elementor/class-typography.php:2484
+#: inc/elementor/class-typography.php:1293
+#: inc/elementor/class-typography.php:2156
+#: inc/elementor/class-typography.php:2197
+#: inc/elementor/class-typography.php:2283
+#: inc/elementor/class-typography.php:2324
+#: inc/elementor/class-typography.php:2372
+#: inc/elementor/class-typography.php:2429
+#: inc/elementor/class-typography.php:2458
 msgid "Edit in Style Kits"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1350
-#: inc/elementor/class-typography.php:2102
+#: inc/elementor/class-typography.php:1324
+#: inc/elementor/class-typography.php:2076
 #: inc/elementor/kit/Kits_List_Table.php:101
 msgid "None"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1351
+#: inc/elementor/class-typography.php:1325
 #: inc/elementor/tags/class-light-background.php:14
 msgid "Light Background"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1356
+#: inc/elementor/class-typography.php:1330
 msgid "Accent Background"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1362
+#: inc/elementor/class-typography.php:1336
 msgid "Background presets"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1589
+#: inc/elementor/class-typography.php:1563
 msgid "Headings"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1598
+#: inc/elementor/class-typography.php:1572
 #: inc/elementor/sections/background-color-classes.php:138
 #: inc/elementor/sections/background-color-classes.php:230
 msgid "Headings Color"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1611
+#: inc/elementor/class-typography.php:1585
 msgid "Headings Font"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1622
+#: inc/elementor/class-typography.php:1596
 msgid "You can set individual heading font and colors below."
 msgstr ""
 
-#: inc/elementor/class-typography.php:1641
+#: inc/elementor/class-typography.php:1615
 msgid "Style Kit Fonts"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1651
+#: inc/elementor/class-typography.php:1625
 msgid "The Style Kit's typographic styles."
 msgstr ""
 
-#: inc/elementor/class-typography.php:1743
+#: inc/elementor/class-typography.php:1717
 msgid "Display title"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1752
+#: inc/elementor/class-typography.php:1726
 msgid "Title 1"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1761
+#: inc/elementor/class-typography.php:1735
 msgid "Title 2"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1770
+#: inc/elementor/class-typography.php:1744
 msgid "Title 3"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1779
+#: inc/elementor/class-typography.php:1753
 msgid "Title 4"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1788
+#: inc/elementor/class-typography.php:1762
 msgid "Title 5"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1797
+#: inc/elementor/class-typography.php:1771
 msgid "Title 6"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1806
+#: inc/elementor/class-typography.php:1780
 msgid "Overline / Subheader"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1832
+#: inc/elementor/class-typography.php:1806
 msgid "Display text"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1841
+#: inc/elementor/class-typography.php:1815
 msgid "Large text"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1859
+#: inc/elementor/class-typography.php:1833
 msgid "Small text"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1868
+#: inc/elementor/class-typography.php:1842
 msgid "Caption"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1877
+#: inc/elementor/class-typography.php:1851
 msgid "Button text"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1886
+#: inc/elementor/class-typography.php:1860
 msgid "Form label"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1895
+#: inc/elementor/class-typography.php:1869
 msgid "Font Style 16"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1924
+#: inc/elementor/class-typography.php:1898
 msgid "Reset labels & fonts"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1944
+#: inc/elementor/class-typography.php:1918
 msgid "Shadows"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1954
+#: inc/elementor/class-typography.php:1928
 msgid "Add global shadow presets by using these controls."
 msgstr ""
 
-#: inc/elementor/class-typography.php:1974
+#: inc/elementor/class-typography.php:1948
 msgid "Shadow 1"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1978
+#: inc/elementor/class-typography.php:1952
 msgid "Shadow 2"
 msgstr ""
 
-#: inc/elementor/class-typography.php:1990
+#: inc/elementor/class-typography.php:1964
 msgid "Shadow 3"
 msgstr ""
 
-#: inc/elementor/class-typography.php:2002
+#: inc/elementor/class-typography.php:1976
 msgid "Shadow 4"
 msgstr ""
 
-#: inc/elementor/class-typography.php:2014
+#: inc/elementor/class-typography.php:1988
 msgid "Shadow 5"
 msgstr ""
 
-#: inc/elementor/class-typography.php:2026
+#: inc/elementor/class-typography.php:2000
 msgid "Shadow 6"
 msgstr ""
 
-#: inc/elementor/class-typography.php:2030
+#: inc/elementor/class-typography.php:2004
 msgid "Shadow 7"
 msgstr ""
 
-#: inc/elementor/class-typography.php:2034
+#: inc/elementor/class-typography.php:2008
 msgid "Shadow 8"
 msgstr ""
 
-#: inc/elementor/class-typography.php:2086
+#: inc/elementor/class-typography.php:2060
 msgid "Reset to default"
 msgstr ""
 
-#: inc/elementor/class-typography.php:2167
-#: inc/elementor/class-typography.php:2208
-#: inc/elementor/class-typography.php:2258
-#: inc/elementor/class-typography.php:2294
-#: inc/elementor/class-typography.php:2335
-#: inc/elementor/class-typography.php:2383
-#: inc/elementor/class-typography.php:2424
+#: inc/elementor/class-typography.php:2141
+#: inc/elementor/class-typography.php:2182
+#: inc/elementor/class-typography.php:2232
+#: inc/elementor/class-typography.php:2268
+#: inc/elementor/class-typography.php:2309
+#: inc/elementor/class-typography.php:2357
+#: inc/elementor/class-typography.php:2398
 msgid "Box Shadow Preset"
 msgstr ""
 
@@ -1814,15 +1814,15 @@ msgstr ""
 msgid "privacy and terms"
 msgstr ""
 
-#: inc/upgrade-functions.php:153
+#: inc/upgrade-functions.php:90
 msgid "Welcome to Style Kits 1.9.5. This version includes a brand new container-based pattern library, and a lot of other improvements."
 msgstr ""
 
-#: inc/upgrade-functions.php:155
+#: inc/upgrade-functions.php:92
 msgid "See what’s new."
 msgstr ""
 
-#: inc/upgrade-functions.php:180
+#: inc/upgrade-functions.php:117
 msgid "The New version of Style Kits introduces a setup wizard. You can trigger it at any time under Style Kits Settings."
 msgstr ""
 
