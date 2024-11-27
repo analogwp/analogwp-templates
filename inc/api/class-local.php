@@ -326,7 +326,7 @@ class Local extends Base {
 			array(
 				'template_id'    => $template['id'],
 				'editor_post_id' => false,
-				'license'        => Options::get_instance()->get( 'ang_license_key' ),
+				'license'        => Utils::get_license_key(),
 				'method'         => $method,
 				'site_id'        => $site_id,
 			)
