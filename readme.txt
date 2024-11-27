@@ -2,8 +2,8 @@
 Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 8.0
-Tested up to: 6.7
-Stable tag: 2.2.1
+Tested up to: 6.7.1
+Stable tag: 2.2.2
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -100,6 +100,11 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.2.2 - November 27, 2024 =
+* Fix: New license switch causing Pro template imports to fail
+* Fix: Old templates library not showing templates on page load
+* Improvement: Other minor code changes
 
 = 2.2.1 - November 25, 2024 =
 * New: Freemius Addons page at admin

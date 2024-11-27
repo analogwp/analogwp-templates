@@ -253,8 +253,8 @@ class App extends React.Component {
 			syncing: false,
 		} );
 
-		this.handleSort( 'latest', 'templates' );
-		this.handleSort( 'latest', 'blocks' );
+		this.handleSort( 'latest', 'templates', library.templates );
+		this.handleSort( 'latest', 'blocks', library.blocks );
 
 		// Listen for Elementor modal close, so we can reset some states.
 		document.addEventListener( 'modal-close', () => {
@@ -291,12 +291,12 @@ class App extends React.Component {
 		}
 	}
 
-	handleSort( value, library = 'templates' ) {
+	handleSort( value, library = 'templates', data = false ) {
 		this.setState( {
 			showing_favorites: false,
 		} );
 
-		const sortData = this.state[ library ];
+		const sortData = ( ! data ) ? this.state[ library ] : data;
 
 		if ( 'popular' === value ) {
 			const sorted = sortData.sort( ( a, b ) => {
