@@ -12,9 +12,8 @@ Your layouts deserve more. Use inspiring, extendable design resources for consis
 More information can be found at [analogwp.com](https://analogwp.com/).
 
 ### Build Commands
-- `yarn run dev` for development.
-- `yarn run build` for production.
-- `gulp build` for building distribution zip file.
+- `npm run dev-app` for development.
+- `npm run build` for production and release files.
 
 ### Bugs
 If you find a 🐞 or an issue, please [create an issue](https://github.com/analogwp/stag-blocks/issues/new).
