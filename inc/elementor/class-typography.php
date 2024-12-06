@@ -2410,6 +2410,17 @@ class Typography extends Module {
 	 * @param Element_Base $element Element_Base Class.
 	 */
 	public function add_typo_helper_link( Element_Base $element ) {
+		// Check and reset the condition to none at size control.
+		$size_control = $element->get_controls( 'size' );
+		if ( $size_control ) {
+			$element->update_control(
+				'size',
+				[
+					'condition' => [],
+				]
+			);
+		};
+
 		$element->start_injection(
 			array(
 				'of' => 'size',
