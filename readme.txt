@@ -105,6 +105,7 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 * New: Button Sizes/Styles back to Active features
 * New: Heading Sizes/Styles back to Active features
 * Improvement: Reset and enable size control for Button and Heading widgets
+* Improvements: Updated translation files
 * Improvement: Other minor code changes
 
 = 2.2.3 - November 27, 2024 =
