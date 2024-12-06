@@ -91,15 +91,6 @@ if ( ! $tab_exists ) {
 						<a href="<?php echo esc_url( 'https://analogwp.com/docs/' ); ?>" target="_blank"><?php esc_html_e( 'Visit the online docs', 'ang' ); ?></a>
 					</p>
 				</div>
-				<div class="newsletter-list">
-					<h3><?php esc_html_e( 'Sign up for email updates', 'ang' ); ?></h3>
-					<p><?php esc_html_e( 'Stay in the loop with Style Kits development by signing up to our newsletter.', 'ang' ); ?></p>
-					<form id="ang-newsletter" action="" class="form-newsletter">
-						<input id="ang-newsletter-email" type="email" placeholder="Enter your email" value="<?php echo esc_attr( $current_user->user_email ); ?>"/>
-						<button id="ang-newsletter-submit" class="ang-button button-primary" type="submit"><?php esc_html_e( 'Sign me up', 'ang' ); ?></button>
-					</form>
-					<p><?php esc_html_e( 'By signing up you agree to our', 'ang' ); ?> <a href="<?php echo esc_url( 'https://analogwp.com/privacy-policy/' ); ?>" target="_blank"><?php esc_html_e( 'privacy and terms', 'ang' ); ?></a></p>
-				</div>
 				<div class="social">
 					<a href="https://facebook.com/analogwp" target="_blank"><span class="dashicons dashicons-facebook-alt"></span></a>
 					<a href="https://twitter.com/analogwp" target="_blank"><span class="dashicons dashicons-twitter"></span></a>
