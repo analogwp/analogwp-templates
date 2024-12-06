@@ -1,9 +1,9 @@
 === Style Kits - Advanced Theme Styles for Elementor ===
 Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
-Requires PHP: 8.0
+Requires PHP: 7.4
 Tested up to: 6.7.1
-Stable tag: 2.2.3
+Stable tag: 2.3.0
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -100,6 +100,13 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.3.0 - December 06, 2024 =
+* New: Button Sizes/Styles back to Active features
+* New: Heading Sizes/Styles back to Active features
+* Improvement: Reset and enable size control for Button and Heading widgets
+* Improvements: Updated translation files
+* Improvement: Other minor code changes
 
 = 2.2.3 - November 27, 2024 =
 * Improvement: Other minor code changes

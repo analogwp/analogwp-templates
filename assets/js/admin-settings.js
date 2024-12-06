@@ -4,42 +4,6 @@
 		const { __ } = wp.i18n;
 		const { addQueryArgs } = wp.url;
 
-		// Process Newsletter.
-		function processNewsletter( e ) {
-			if ( e.preventDefault ) {
-				e.preventDefault();
-			}
-			const elSubmitBtn = $( '#ang-newsletter-submit' );
-			let status = __( 'Subscribing', 'ang' );
-			const angEmail = $( '#ang-newsletter-email' ).val();
-			elSubmitBtn.text( status );
-
-			$.ajax( {
-				url: 'https://analogwp.com/?ang-api=asdf&request=subscribe_newsletter',
-				cache: ! 1,
-				type: 'POST',
-				dataType: 'JSON',
-				data: {
-					email: angEmail,
-				},
-				error: function() {
-					status = __( 'Failed', 'ang' );
-					elSubmitBtn.text( status );
-					setTimeout( function() {
-						elSubmitBtn.text( __( 'Subscribe up to newsletter', 'ang' ) );
-					}, 2000 );
-				},
-				success: function() {
-					status = __( 'Subscribed', 'ang' );
-					elSubmitBtn.text( status );
-					elSubmitBtn.attr( 'disabled', 'disabled' );
-				},
-			} );
-
-			return false;
-		}
-		$( '#ang-newsletter' ).submit( processNewsletter );
-
 		// Process Plugin Rollback.
 		function processPluginRollback( e ) {
 			if ( e.preventDefault ) {

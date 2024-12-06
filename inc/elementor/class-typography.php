@@ -74,10 +74,10 @@ class Typography extends Module {
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_typography_sizes' ), 30, 2 );
 		add_action( 'elementor/element/after_section_end', array( $this, 'register_styling_settings' ), 20, 2 );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 40, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_tools' ), 270, 2 );
 
-		// Legacy features ( Button Sizes, Outer Section Padding and Column Gaps ) - deprecated to be removed.
-		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_buttons' ), 275, 2 );
+		// Legacy features ( Outer Section Padding and Column Gaps ) - deprecated to be removed.
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_outer_section_padding' ), 280, 2 );
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_columns_gap' ), 290, 2 );
 
@@ -104,9 +104,7 @@ class Typography extends Module {
 
 		add_action( 'elementor/element/heading/section_title/after_section_end', array( $this, 'add_typo_helper_link' ), 999, 2 );
 
-		if ( Utils::is_elementor_pre( '3.20.0' ) ) {
-			add_action( 'elementor/element/button/section_button/after_section_end', array( $this, 'add_btn_sizes_helper_link' ), 999, 2 );
-		}
+		add_action( 'elementor/element/button/section_button/after_section_end', array( $this, 'add_btn_sizes_helper_link' ), 999, 2 );
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_shadows' ), 47, 2 );
 
@@ -822,8 +820,7 @@ class Typography extends Module {
 			'ang_buttons_description',
 			array(
 				'raw'             => sprintf(
-					'%1$s<br/>%2$s <a href="%3$s" target="_blank">%4$s</a>',
-					__( 'Heads-up! This is a legacy feature, no longer supported in Elementor.', 'ang' ),
+					'%1$s <a href="%2$s" target="_blank">%3$s</a>',
 					__( 'Define the default styles for every button size.', 'ang' ),
 					'https://analogwp.com/docs/button-sizes/',
 					__( 'Learn more.', 'ang' )
@@ -2413,6 +2410,17 @@ class Typography extends Module {
 	 * @param Element_Base $element Element_Base Class.
 	 */
 	public function add_typo_helper_link( Element_Base $element ) {
+		// Check and reset the condition to none at size control.
+		$size_control = $element->get_controls( 'size' );
+		if ( $size_control ) {
+			$element->update_control(
+				'size',
+				[
+					'condition' => [],
+				]
+			);
+		};
+
 		$element->start_injection(
 			array(
 				'of' => 'size',
@@ -2442,6 +2450,17 @@ class Typography extends Module {
 	 * @param Element_Base $element Element_Base Class.
 	 */
 	public function add_btn_sizes_helper_link( Element_Base $element ) {
+		// Check and reset the condition to none at size control.
+		$size_control = $element->get_controls( 'size' );
+		if ( $size_control ) {
+			$element->update_control(
+				'size',
+				[
+					'condition' => [],
+				]
+			);
+		};
+
 		$element->start_injection(
 			array(
 				'of' => 'size',

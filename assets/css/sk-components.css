@@ -1156,23 +1156,6 @@
 /**
  * Legacy features
  */
-
-.elementor-control.elementor-control-ang_buttons {
-	margin-top: 40px;
-}
-
-.elementor-control.elementor-control-ang_buttons::before {
-	content: " ";
-	width: 100%;
-	height: 1px;
-	display: block;
-	background: #000;
-	opacity: 0.1;
-	top: -20px;
-	position: absolute;
-}
-
-.elementor-control.elementor-control-ang_buttons .elementor-control-content::after,
 .elementor-control.elementor-control-ang_section_padding .elementor-control-content::after,
 .elementor-control.elementor-control-ang_column_gaps .elementor-control-content::after,
 .elementor-control.elementor-control-ang_colors .elementor-control-content::after {
