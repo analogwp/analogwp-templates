@@ -3,7 +3,7 @@ Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.4
 Tested up to: 6.7.1
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -101,12 +101,18 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
+= 2.3.1 - December 07, 2024 =
+* Fix: Onboarding not working in some cases
+* Fix: Library showing Non-container based templates when Container feature is set to default
+* Improvement: Updated translation files
+* Improvement: Other minor code changes
+
 = 2.3.0 - December 06, 2024 =
 * New: Button Sizes/Styles back to Active features
 * New: Heading Sizes/Styles back to Active features
 * Improvement: Reset and enable size control for Button and Heading widgets
 * Improvement: Set minimum PHP required version back to v7.4
-* Improvements: Updated translation files
+* Improvement: Updated translation files
 * Improvement: Other minor code changes
 
 = 2.2.3 - November 27, 2024 =
