@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.3.0\n"
+"Project-Id-Version: Style Kits for Elementor 2.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-06T13:13:37+00:00\n"
+"POT-Creation-Date: 2024-12-07T18:01:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: ang\n"
@@ -199,106 +199,106 @@ msgstr ""
 msgid "AnalogWP Classes"
 msgstr ""
 
-#: inc/class-onboarding.php:55
-#: inc/class-onboarding.php:56
+#: inc/class-onboarding.php:46
+#: inc/class-onboarding.php:47
 msgid "Welcome to Style Kits"
 msgstr ""
 
-#: inc/class-onboarding.php:91
+#: inc/class-onboarding.php:82
 #: inc/elementor/kit/Kits_List_Table.php:341
 msgid "Working..."
 msgstr ""
 
-#: inc/class-onboarding.php:105
+#: inc/class-onboarding.php:96
 msgid "Install and Activate Elementor"
 msgstr ""
 
-#: inc/class-onboarding.php:106
+#: inc/class-onboarding.php:97
 msgid "This will install and activate Elementor from the WordPress repository"
 msgstr ""
 
-#: inc/class-onboarding.php:107
+#: inc/class-onboarding.php:98
 msgid "Elementor is installed and activated"
 msgstr ""
 
-#: inc/class-onboarding.php:108
+#: inc/class-onboarding.php:99
 msgid "Failed to install and activate Elementor"
 msgstr ""
 
-#: inc/class-onboarding.php:114
+#: inc/class-onboarding.php:105
 msgid "Enable Elementor container feature"
 msgstr ""
 
-#: inc/class-onboarding.php:115
+#: inc/class-onboarding.php:106
 msgid "The latest Style Kits version works best with flexbox containers. We will enable the Containers feature in Elementor."
 msgstr ""
 
-#: inc/class-onboarding.php:116
+#: inc/class-onboarding.php:107
 msgid "Container feature is now active"
 msgstr ""
 
-#: inc/class-onboarding.php:117
+#: inc/class-onboarding.php:108
 msgid "Failed to activate Elementor container experiment"
 msgstr ""
 
-#: inc/class-onboarding.php:123
+#: inc/class-onboarding.php:114
 msgid "Disable Elementor default colors and fonts"
 msgstr ""
 
-#: inc/class-onboarding.php:124
+#: inc/class-onboarding.php:115
 msgid "For Global Styles to work properly, Elementor default fonts and colors need to be disabled"
 msgstr ""
 
-#: inc/class-onboarding.php:125
+#: inc/class-onboarding.php:116
 msgid "Elementor default colors and fonts are disabled"
 msgstr ""
 
-#: inc/class-onboarding.php:126
+#: inc/class-onboarding.php:117
 msgid "Failed to disable Elementor default colors and fonts"
 msgstr ""
 
-#: inc/class-onboarding.php:139
+#: inc/class-onboarding.php:130
 msgid "Install and activate Hello Elementor Theme"
 msgstr ""
 
-#: inc/class-onboarding.php:140
+#: inc/class-onboarding.php:131
 msgid "Style Kits works best with Elementor Hello theme. This will replace your currently active theme"
 msgstr ""
 
-#: inc/class-onboarding.php:141
+#: inc/class-onboarding.php:132
 msgid "Hello Elementor theme is installed and activated"
 msgstr ""
 
-#: inc/class-onboarding.php:142
+#: inc/class-onboarding.php:133
 msgid "Failed to install and activate Hello Elementor"
 msgstr ""
 
-#: inc/class-onboarding.php:152
+#: inc/class-onboarding.php:143
 msgid "Import a starter theme style preset"
 msgstr ""
 
-#: inc/class-onboarding.php:153
+#: inc/class-onboarding.php:144
 msgid "Use a basic Style Kit as your starting point. This will replace your site’s default kit but you can always revert back to it later."
 msgstr ""
 
-#: inc/class-onboarding.php:154
+#: inc/class-onboarding.php:145
 msgid "A theme style preset \"Style Kit: Base\" has been imported"
 msgstr ""
 
-#: inc/class-onboarding.php:155
+#: inc/class-onboarding.php:146
 msgid "Failed to import a kit"
 msgstr ""
 
-#: inc/class-onboarding.php:213
+#: inc/class-onboarding.php:204
 msgid "Docs"
 msgstr ""
 
-#: inc/class-onboarding.php:217
+#: inc/class-onboarding.php:208
 msgid "Setup Elementor properly for a seamless Style Kits Experience."
 msgstr ""
 
 #. translators: %s: Link text
-#: inc/class-onboarding.php:217
+#: inc/class-onboarding.php:208
 #: inc/elementor/class-ang-action.php:121
 #: inc/elementor/class-typography.php:1041
 #: inc/elementor/class-typography.php:1926
@@ -310,33 +310,33 @@ msgstr ""
 msgid "Learn more"
 msgstr ""
 
-#: inc/class-onboarding.php:218
+#: inc/class-onboarding.php:209
 msgid "Looks like you have everything in place."
 msgstr ""
 
-#: inc/class-onboarding.php:277
+#: inc/class-onboarding.php:268
 msgid "Skip wizard"
 msgstr ""
 
-#: inc/class-onboarding.php:280
+#: inc/class-onboarding.php:271
 #: inc/elementor/kit/Kits_List_Table.php:342
 #: inc/elementor/kit/Kits_List_Table.php:377
 msgid "Apply"
 msgstr ""
 
-#: inc/class-onboarding.php:286
+#: inc/class-onboarding.php:277
 msgid "Go to Dashboard"
 msgstr ""
 
-#: inc/class-onboarding.php:287
+#: inc/class-onboarding.php:278
 msgid "Open a new template"
 msgstr ""
 
-#: inc/class-onboarding.php:520
+#: inc/class-onboarding.php:511
 msgid "Style Kit: Test Page"
 msgstr ""
 
-#: inc/class-onboarding.php:545
+#: inc/class-onboarding.php:536
 msgid "Oops, something went wrong at action: "
 msgstr ""
 
