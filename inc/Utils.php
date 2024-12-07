@@ -771,7 +771,7 @@ class Utils extends Base {
 		$flexbox_container           = get_option( 'elementor_experiment-container' );
 		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
 
-		if ( 'default' === $flexbox_container ) {
+		if ( 'default' === $flexbox_container || ! $is_flexbox_container_active ) {
 			$experiments                 = new \Elementor\Core\Experiments\Manager();
 			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
 		}
