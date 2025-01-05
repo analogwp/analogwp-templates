@@ -39,6 +39,14 @@ class Misc extends Settings_Page {
 					'id'   => 'ang_misc',
 				),
 				array(
+					'title'         => __( 'Show Global Kit Data at Inline Widgets', 'ang' ),
+					'desc'          => __( 'Check this box to also show global kit data at inline widgets.', 'ang' ),
+					'id'            => 'also_inline_global_kit',
+					'default'       => false,
+					'type'          => 'checkbox',
+					'checkboxgroup' => 'start',
+				),
+				array(
 					'title'         => __( 'Usage Data Tracking', 'ang' ),
 					'desc'          => __( 'Opt-in to our anonymous plugin data collection and to updates', 'ang' ),
 					'id'            => 'ang_data_collection',
