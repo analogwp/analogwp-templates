@@ -41,7 +41,7 @@ class Elementor {
 
 		add_action(
 			'elementor/dynamic_tags/register',
-			static function( Manager $dynamic_tags ) {
+			static function ( Manager $dynamic_tags ) {
 
 				$dynamic_tags->register_group(
 					'ang_classes',
@@ -55,7 +55,6 @@ class Elementor {
 
 				$dynamic_tags->register( new Light_Background() );
 				$dynamic_tags->register( new Dark_Background() );
-
 			}
 		);
 
@@ -116,7 +115,7 @@ class Elementor {
 
 		add_action(
 			'elementor/editor/init',
-			function() {
+			function () {
 				/**
 				 * Set current page id.
 				 */

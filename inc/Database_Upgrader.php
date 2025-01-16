@@ -42,6 +42,7 @@ class Database_Upgrader {
 			'2.0.6' => 'upgrade_2_0_6',
 			'2.1.0' => 'upgrade_2_1',
 			'2.2.1' => 'upgrade_2_2_1',
+			'2.3.2' => 'upgrade_2_3_2',
 		);
 
 		$version = get_option( self::OPTION, '0.0.0' );
@@ -205,5 +206,15 @@ class Database_Upgrader {
 	protected function upgrade_2_2_1() {
 		// Refresh templates library.
 		Remote::get_instance()->get_templates_info( true );
+	}
+
+	/**
+	 * Migrations for v2.3.2.
+	 *
+	 * @return void
+	 */
+	protected function upgrade_2_3_2() {
+		// Regenerate Elementor CSS.
+		Utils::clear_elementor_cache();
 	}
 }
