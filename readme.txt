@@ -3,7 +3,7 @@ Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.4
 Tested up to: 6.7.1
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -100,6 +100,14 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.3.2 - January 16, 2024 =
+* Fix: Inline kit data at widgets not including page kit data
+* Fix: Add body class when global kit class is missing, mostly on pages with page kit
+* Fix: Avoid kit shadow presets getter from running on frontend, as per support ticket props to @baraklevy
+* Improvement: Compatibility with Elementor v3.26.5 and Elementor Pro v3.26.3
+* Improvement: Updated translation files
+* Improvement: Other minor code changes
 
 = 2.3.1 - December 07, 2024 =
 * Fix: Onboarding not working in some cases
