@@ -2079,6 +2079,12 @@ class Typography extends Module {
 		$kit = Utils::get_document_kit( get_the_ID() );
 
 		if ( $kit ) {
+			// For some unexpected reason call get_data method on $kit causes errors in ajax requests in taxonomy filters.
+			// So to avoid that we simply don't go any far if it's not admin/editor screen.
+			if ( ! is_admin() ) {
+				return $options;
+			}
+
 			$controls = array(
 				'ang_box_shadows',
 				'ang_box_shadows_secondary',

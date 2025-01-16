@@ -15,36 +15,43 @@ class Colors extends Base {
 		return 'globals/colors/{id}';
 	}
 
-	protected function get_kit_items() {
-		$result     = array();
-		$global_kit = Plugin::elementor()->kits_manager->get_active_kit_for_frontend();
+	/**
+	 * Adds global kit colors if page kit colors are not set.
+	 *
+	 * @param $result
+	 * @param $kit_result
+	 * @return mixed
+	 */
+	protected function get_set_colors( $result, $kit_result ) {
+		foreach ( $kit_result as $key => $value ) {
+			if ( ! empty( $value['value'] ) ) {
 
-		$system_items = $global_kit->get_settings_for_display( 'system_colors' );
-		$custom_items = $global_kit->get_settings_for_display( 'custom_colors' );
+				if ( ! isset( $result[ $key ] ) ) {
+					$result[ $key ] = $value;
+					continue;
+				}
 
-		if ( ! $system_items ) {
-			$system_items = array();
+				$old_value = $result[ $key ];
+
+				if ( empty( $old_value['value'] ) ) {
+					$result[ $key ] = $value;
+				}
+			}
 		}
 
-		if ( ! $custom_items ) {
-			$custom_items = array();
-		}
+		return $result;
+	}
 
-		$items = array_merge( $system_items, $custom_items );
+	protected function get_kit_colors( $kit ) {
+		$result = array();
 
-		// Custom hack for getting the active kit on page.
-		$current_page_id = Options::get_instance()->get( 'ang_current_page_id' );
-		$kit             = false;
-		if ( $current_page_id ) {
-			$kit = Utils::get_document_kit( $current_page_id );
-		}
-
-		// Fallback to global kit.
-		if ( ! $kit ) {
-			$kit = $global_kit;
+		if ( ! $kit && method_exists( $kit, 'get_id' ) && ! Plugin::elementor()->kits_manager->is_kit( $kit->get_id() ) ) {
+			return $result;
 		}
 
 		$color_keys = array(
+			'system_colors',
+			'custom_colors',
 			'ang_global_background_colors',
 			'ang_global_accent_colors',
 			'ang_global_text_colors',
@@ -55,6 +62,8 @@ class Colors extends Base {
 			'ang_global_tertiary_part_two_colors',
 		);
 
+		$items = array();
+
 		foreach ( $color_keys as $color_key ) {
 			$colors = $kit->get_settings_for_display( $color_key );
 
@@ -63,6 +72,7 @@ class Colors extends Base {
 			}
 
 			$items = array_merge( $items, $colors );
+
 		}
 
 		foreach ( $items as $index => $item ) {
@@ -72,6 +82,37 @@ class Colors extends Base {
 				'title' => $item['title'] ?? '',
 				'value' => $item['color'] ?? '',
 			);
+		}
+
+		return $result;
+	}
+
+	protected function get_kit_items() {
+		$global_kit = Plugin::elementor()->kits_manager->get_active_kit_for_frontend();
+
+		// Whether to also get the globals data.
+		$also_inline_global_kit = Options::get_instance()->get( 'also_inline_global_kit' );
+
+		// Custom hack for getting the active kit on page.
+		$current_page_id = Options::get_instance()->get( 'ang_current_page_id' );
+		$kit             = false;
+
+		if ( $current_page_id ) {
+			$kit = Utils::get_document_kit( $current_page_id );
+		}
+
+		// Fallback to global kit.
+		if ( ! $kit ) {
+			$kit = $global_kit;
+		}
+
+		$result = $this->get_kit_colors( $kit );
+
+		if ( $also_inline_global_kit ) {
+			// In case there is a page kit we add the global kit data.
+			$global_kit_result = $this->get_kit_colors( $global_kit );
+			$result            = array_merge( $global_kit_result, $result );
+			$result            = $this->get_set_colors( $result, $global_kit_result );
 		}
 
 		return $result;

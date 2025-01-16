@@ -41,7 +41,7 @@ class Elementor {
 
 		add_action(
 			'elementor/dynamic_tags/register',
-			static function( Manager $dynamic_tags ) {
+			static function ( Manager $dynamic_tags ) {
 
 				$dynamic_tags->register_group(
 					'ang_classes',
@@ -55,7 +55,6 @@ class Elementor {
 
 				$dynamic_tags->register( new Light_Background() );
 				$dynamic_tags->register( new Dark_Background() );
-
 			}
 		);
 
@@ -66,6 +65,42 @@ class Elementor {
 		add_action( "update_option_{$active_kit_key}", array( $this, 'fix_active_kit_updates' ), 999, 2 );
 
 		$this->register_data_controllers();
+
+		// Add/update body classes for the front-end.
+		add_filter( 'body_class', array( $this, 'body_class' ), 9999 );
+	}
+
+	/**
+	 * Body tag classes.
+	 *
+	 * Add new elementor classes to the body tag.
+	 *
+	 * Fired by `body_class` filter.
+	 *
+	 * @since 2.3.2
+	 * @access public
+	 *
+	 * @param array $classes Optional. One or more classes to add to the body tag class list.
+	 *                       Default is an empty array.
+	 *
+	 * @return array Body tag classes.
+	 */
+	public function body_class( $classes = array() ) {
+		$id = get_the_ID();
+
+		$document = Plugin::elementor()->documents->get( $id );
+
+		if ( is_singular() && $document && $document->is_built_with_elementor() ) {
+			$global_kit       = Plugin::elementor()->kits_manager->get_active_kit_for_frontend();
+			$kit_id           = $global_kit->get_id();
+			$global_kit_class = 'elementor-kit-' . $kit_id;
+
+			if ( ! in_array( $global_kit_class, $classes, true ) ) {
+				$classes[] = $global_kit_class;
+			}
+		}
+
+		return $classes;
 	}
 
 	/**
@@ -80,7 +115,7 @@ class Elementor {
 
 		add_action(
 			'elementor/editor/init',
-			function() {
+			function () {
 				/**
 				 * Set current page id.
 				 */
