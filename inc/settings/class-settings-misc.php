@@ -39,8 +39,12 @@ class Misc extends Settings_Page {
 					'id'   => 'ang_misc',
 				),
 				array(
-					'title'         => __( 'Show Global Kit Data at Inline Widgets', 'ang' ),
-					'desc'          => __( 'Check this box to also show global kit data at inline widgets.', 'ang' ),
+					'title'         => __( 'Show Global Kit Data', 'ang' ),
+					'desc'          => sprintf(
+						"%s <a href='https://analogwp.com/docs/global-kit-data/'>%s</a>",
+						__( 'Global Colors and Fonts that belong to the Global Style Kit will still be available when working with other Style Kits.', 'ang' ),
+						__( 'More Info', 'ang' )
+					),
 					'id'            => 'also_inline_global_kit',
 					'default'       => false,
 					'type'          => 'checkbox',
