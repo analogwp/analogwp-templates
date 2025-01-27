@@ -3,7 +3,7 @@
 }
 
 .elementor-add-analogwp-button {
-	background-color: var(--ang-accent);
+	background-color: var(--ang-accent) !important;
 	margin-left: 5px;
 }
 

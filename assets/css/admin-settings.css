@@ -205,6 +205,20 @@
 	margin-top: 30px;
 }
 
+.ang .promo.promo {
+	padding-top: 25px;
+}
+
+.ang .promo h3 a {
+	text-decoration: none;
+}
+
+.ang .promo p {
+	font-size: 16px;
+	opacity: 0.8;
+	line-height: 1.8;
+}
+
 .ang .sidebar .form-newsletter input {
 	width: 100%;
 }

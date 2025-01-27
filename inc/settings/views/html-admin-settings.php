@@ -8,8 +8,6 @@
 
 namespace Analog\Settings\views;
 
-use Analog\Utils;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -58,6 +56,30 @@ if ( ! $tab_exists ) {
 		</form>
 		<div class="sidebar">
 			<?php do_action( 'ang_sidebar_start' ); ?>
+
+			<?php if ( ! class_exists( '\AnalogWP\CustomLibrary\Plugin' ) ) : ?>
+				<div class="promo">
+					<div>
+						<svg width="48" height="48" viewBox="0 0 99 99" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<g clip-path="url(#clip0_4170_3917)">
+								<path d="M49.5 99C76.8381 99 99 76.8381 99 49.5C99 22.1619 76.8381 0 49.5 0C22.1619 0 0 22.1619 0 49.5C0 76.8381 22.1619 99 49.5 99Z" fill="#232624"/>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M61.0206 35.3574H35.3572V61.0208H38.4217V38.4219H61.0206V35.3574Z" fill="white"/>
+								<path d="M66.0007 40.3359H40.3373V65.9993H66.0007V40.3359Z" fill="white"/>
+							</g>
+							<defs>
+								<clipPath id="clip0_4170_3917">
+									<rect width="99" height="99" fill="white"/>
+								</clipPath>
+							</defs>
+						</svg>
+					</div>
+					<h3><a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank"><?php esc_html_e( 'Meet Custom Library for Elementor', 'ang' ); ?></a></h3>
+
+					<p>Now you can curate and access your own library of templates right inside the editor. Build faster, stay organized, and empower your clients with a seamless design workflow by providing them with essential patterns to build new layouts with consistency.</p>
+
+					<p><a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank" class="button button-secondary">Learn more</a></p>
+				</div>
+			<?php endif; ?>
 
 			<?php if ( ! class_exists( '\AnalogPro\Plugin' ) ) : ?>
 			<div class="upgrade-box">

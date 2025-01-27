@@ -10,7 +10,7 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits extends the Elementor theme styles editor with more global styling options. Boost your design workflow in Elementor with intuitive global controls and theme style presets.
- * Version:     2.3.2
+ * Version:     2.3.3
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -19,8 +19,8 @@
  * Requires at least: 6.0
  * Requires PHP: 7.4
  *
- * Elementor tested up to: 3.26.5
- * Elementor Pro tested up to: 3.26.3
+ * Elementor tested up to: 3.27.1
+ * Elementor Pro tested up to: 3.27.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
 define( 'ANG_ELEMENTOR_MINIMUM', '3.20.0' );
 define( 'ANG_PHP_MINIMUM', '7.4' );
 define( 'ANG_WP_MINIMUM', '6.0' );
-define( 'ANG_VERSION', '2.3.2' );
+define( 'ANG_VERSION', '2.3.3' );
 define( 'ANG_PLUGIN_FILE', __FILE__ );
 define( 'ANG_PLUGIN_URL', plugin_dir_url( ANG_PLUGIN_FILE ) );
 define( 'ANG_PLUGIN_DIR', plugin_dir_path( ANG_PLUGIN_FILE ) );
@@ -189,28 +189,32 @@ if ( is_readable( $vendor_file ) ) {
 }
 
 if ( ! function_exists( 'sk_fs' ) ) {
-	// Create a helper function for easy SDK access.
+	/**
+	 * Create a helper function for easy SDK access.
+	 */
 	function sk_fs() {
 		global $sk_fs;
 
 		if ( ! isset( $sk_fs ) ) {
 			// Include Freemius SDK.
-			require_once dirname(__FILE__) . '/freemius/start.php';
+			require_once dirname( __FILE__ ) . '/freemius/start.php';
 
-			$sk_fs = fs_dynamic_init( array(
-				'id'                  => '17032',
-				'slug'                => 'analogwp-templates',
-				'type'                => 'plugin',
-				'public_key'          => 'pk_e05579cda0ad78db31e94616185cc',
-				'is_premium'          => false,
-				'has_addons'          => true,
-				'has_paid_plans'      => false,
-				'menu'                => array(
-					'slug'           => 'analogwp_templates',
-					'first-path'     => 'admin.php?page=analog_onboarding&from=freemius',
-					'support'        => false,
-				),
-			) );
+			$sk_fs = fs_dynamic_init(
+				array(
+					'id'             => '17032',
+					'slug'           => 'analogwp-templates',
+					'type'           => 'plugin',
+					'public_key'     => 'pk_e05579cda0ad78db31e94616185cc',
+					'is_premium'     => false,
+					'has_addons'     => true,
+					'has_paid_plans' => false,
+					'menu'           => array(
+						'slug'       => 'analogwp_templates',
+						'first-path' => 'admin.php?page=analog_onboarding&from=freemius',
+						'support'    => false,
+					),
+				)
+			);
 		}
 
 		return $sk_fs;
@@ -229,7 +233,7 @@ if ( ! function_exists( 'sk_fs' ) ) {
  */
 add_action(
 	'plugins_loaded',
-	static function() {
+	static function () {
 		if ( version_compare( PHP_VERSION, ANG_PHP_MINIMUM, '<' ) ) {
 			wp_die(
 			/* translators: %s: version number */
