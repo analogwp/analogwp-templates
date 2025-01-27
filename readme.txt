@@ -12,6 +12,8 @@ Power-up your Elementor workflow with global theme style presets, container-base
 
 == Description ==
 
+✨ Have you seen our brand new launch? [Custom Library for Elementor](https://analogwp.com/custom-library-for-elementor/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme)
+
 [Style Kits](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) extends the flexibility of Elementor theme styles with more global design controls, and introduces the most advanced container-based pattern library and theme style presets that will jumpstart your design process in Elementor.
 
 Style Kits creates the foundation for a design framework that will help you create better, more consistent websites with Elementor.
@@ -101,7 +103,13 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
-= 2.3.2 - January 16, 2024 =
+= 2.3.3 - January 27, 2025 =
+* New: Custom Library promo at Settings sidebar
+* Fix: Style Kits library icon showing greyed out icon at Elementor Editor screen
+* Improvement: Update Freemius to the latest version
+* Improvement: Other minor code changes
+
+= 2.3.2 - January 16, 2025 =
 * Fix: Inline kit data at widgets not including page kit data
 * Fix: Add body class when global kit class is missing, mostly on pages with page kit
 * Fix: Avoid kit shadow presets getter from running on frontend, as per support ticket props to @baraklevy
