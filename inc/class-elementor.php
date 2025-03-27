@@ -120,6 +120,12 @@ class Elementor {
 				 * Set current page id.
 				 */
 				Options::get_instance()->set( 'ang_current_page_id', get_the_ID() );
+
+				/**
+				 * Set default font set on the front-end kit.
+				 */
+				$default_fonts = Plugin::elementor()->kits_manager->get_current_settings( 'default_generic_fonts' );
+				Options::get_instance()->set( 'ang_default_generic_fonts', $default_fonts );
 			}
 		);
 

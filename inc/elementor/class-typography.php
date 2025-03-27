@@ -7,6 +7,7 @@
 
 namespace Analog\Elementor;
 
+use Analog\Options;
 use Analog\Plugin;
 use Elementor\Core\Base\Module;
 use Elementor\Controls_Manager;
@@ -1548,7 +1549,7 @@ class Typography extends Module {
 			)
 		);
 
-		$default_fonts = Plugin::elementor()->kits_manager->get_current_settings( 'default_generic_fonts' );
+		$default_fonts = Options::get_instance()->get( 'ang_default_generic_fonts' );
 
 		if ( $default_fonts ) {
 			$default_fonts = ', ' . $default_fonts;
