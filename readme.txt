@@ -2,8 +2,8 @@
 Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.4
-Tested up to: 6.7.1
-Stable tag: 2.3.3
+Tested up to: 6.7.2
+Stable tag: 2.3.4
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -102,6 +102,12 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.3.4 - March 27, 2025 =
+* Fix: Default font getter at kit sections throwing error in some rare cases
+* Improvement: Compatibility with Elementor v3.28.1 and Elementor Pro v3.28.1
+* Improvement: Updated translation files
+* Improvement: Other minor code changes
 
 = 2.3.3 - January 27, 2025 =
 * New: Custom Library promo at Settings sidebar
