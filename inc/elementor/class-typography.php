@@ -2422,11 +2422,11 @@ class Typography extends Module {
 		if ( $size_control ) {
 			$element->update_control(
 				'size',
-				[
-					'condition' => [],
-				]
+				array(
+					'condition' => array(),
+				)
 			);
-		};
+		}
 
 		$element->start_injection(
 			array(
@@ -2462,11 +2462,11 @@ class Typography extends Module {
 		if ( $size_control ) {
 			$element->update_control(
 				'size',
-				[
-					'condition' => [],
-				]
+				array(
+					'condition' => array(),
+				)
 			);
-		};
+		}
 
 		$element->start_injection(
 			array(
