@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.3.2\n"
+"Project-Id-Version: Style Kits for Elementor 2.3.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-16T05:18:41+00:00\n"
+"POT-Creation-Date: 2025-03-27T09:52:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: ang\n"
@@ -43,16 +43,16 @@ msgstr ""
 
 #. translators: %s: version number
 #: analogwp-templates.php:50
-#: analogwp-templates.php:236
+#: analogwp-templates.php:240
 #: build/analogwp-templates/analogwp-templates.php:50
-#: build/analogwp-templates/analogwp-templates.php:236
+#: build/analogwp-templates/analogwp-templates.php:240
 msgid "Style Kit for Elementor requires PHP version %s"
 msgstr ""
 
 #: analogwp-templates.php:51
-#: analogwp-templates.php:237
+#: analogwp-templates.php:241
 #: build/analogwp-templates/analogwp-templates.php:51
-#: build/analogwp-templates/analogwp-templates.php:237
+#: build/analogwp-templates/analogwp-templates.php:241
 msgid "Error Activating"
 msgstr ""
 
@@ -112,9 +112,9 @@ msgid "View Documentation"
 msgstr ""
 
 #: build/analogwp-templates/inc/admin/class-admin.php:65
-#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:88
+#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:110
 #: inc/admin/class-admin.php:65
-#: inc/settings/views/html-admin-settings.php:88
+#: inc/settings/views/html-admin-settings.php:110
 msgid "Documentation"
 msgstr ""
 
@@ -381,8 +381,8 @@ msgstr ""
 #: build/analogwp-templates/inc/upgrade-functions.php:119
 #: inc/class-onboarding.php:208
 #: inc/elementor/class-ang-action.php:121
-#: inc/elementor/class-typography.php:1041
-#: inc/elementor/class-typography.php:1926
+#: inc/elementor/class-typography.php:1042
+#: inc/elementor/class-typography.php:1927
 #: inc/elementor/sections/background-color-classes.php:71
 #: inc/elementor/sections/background-color-classes.php:162
 #: inc/settings/class-settings-experiments.php:49
@@ -471,10 +471,10 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-typography.php:696
 #: build/analogwp-templates/inc/elementor/class-typography.php:1179
 #: inc/Core/SVGs/Allow.php:174
-#: inc/elementor/class-typography.php:308
-#: inc/elementor/class-typography.php:359
-#: inc/elementor/class-typography.php:696
-#: inc/elementor/class-typography.php:1179
+#: inc/elementor/class-typography.php:309
+#: inc/elementor/class-typography.php:360
+#: inc/elementor/class-typography.php:697
+#: inc/elementor/class-typography.php:1180
 msgid "Medium"
 msgstr ""
 
@@ -484,10 +484,10 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-typography.php:697
 #: build/analogwp-templates/inc/elementor/class-typography.php:1180
 #: inc/Core/SVGs/Allow.php:175
-#: inc/elementor/class-typography.php:307
-#: inc/elementor/class-typography.php:358
-#: inc/elementor/class-typography.php:697
-#: inc/elementor/class-typography.php:1180
+#: inc/elementor/class-typography.php:308
+#: inc/elementor/class-typography.php:359
+#: inc/elementor/class-typography.php:698
+#: inc/elementor/class-typography.php:1181
 msgid "Large"
 msgstr ""
 
@@ -504,7 +504,7 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-ang-action.php:105
 #: build/analogwp-templates/inc/elementor/class-typography.php:1118
 #: inc/elementor/class-ang-action.php:105
-#: inc/elementor/class-typography.php:1118
+#: inc/elementor/class-typography.php:1119
 msgid "Clone Style Kit"
 msgstr ""
 
@@ -583,8 +583,8 @@ msgstr ""
 #: inc/elementor/class-ang-action.php:124
 #: inc/elementor/class-post-type.php:32
 #: inc/elementor/class-post-type.php:41
-#: inc/elementor/class-typography.php:666
-#: inc/elementor/class-typography.php:1029
+#: inc/elementor/class-typography.php:667
+#: inc/elementor/class-typography.php:1030
 #: inc/elementor/kit/tabs/Theme_Style_Kits.php:46
 #: inc/register-settings.php:29
 msgid "Style Kits"
@@ -710,11 +710,11 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-typography.php:765
 #: build/analogwp-templates/inc/elementor/class-typography.php:826
 #: inc/elementor/class-colors.php:241
-#: inc/elementor/class-typography.php:298
-#: inc/elementor/class-typography.php:349
-#: inc/elementor/class-typography.php:712
-#: inc/elementor/class-typography.php:765
-#: inc/elementor/class-typography.php:826
+#: inc/elementor/class-typography.php:299
+#: inc/elementor/class-typography.php:350
+#: inc/elementor/class-typography.php:713
+#: inc/elementor/class-typography.php:766
+#: inc/elementor/class-typography.php:827
 msgid "Learn more."
 msgstr ""
 
@@ -755,8 +755,8 @@ msgstr ""
 #: build/analogwp-templates/inc/settings/class-settings-general.php:95
 #: build/analogwp-templates/inc/settings/class-settings-general.php:106
 #: inc/elementor/class-colors.php:385
-#: inc/elementor/class-typography.php:424
-#: inc/elementor/class-typography.php:1623
+#: inc/elementor/class-typography.php:425
+#: inc/elementor/class-typography.php:1624
 #: inc/settings/class-settings-general.php:66
 #: inc/settings/class-settings-general.php:95
 #: inc/settings/class-settings-general.php:106
@@ -766,7 +766,7 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-colors.php:401
 #: build/analogwp-templates/inc/elementor/class-typography.php:1639
 #: inc/elementor/class-colors.php:401
-#: inc/elementor/class-typography.php:1639
+#: inc/elementor/class-typography.php:1640
 msgid "1-16"
 msgstr ""
 
@@ -783,7 +783,7 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-colors.php:445
 #: build/analogwp-templates/inc/elementor/class-typography.php:1323
 #: inc/elementor/class-colors.php:445
-#: inc/elementor/class-typography.php:1323
+#: inc/elementor/class-typography.php:1324
 msgid "Dark background"
 msgstr ""
 
@@ -820,7 +820,7 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-colors.php:519
 #: build/analogwp-templates/inc/elementor/class-typography.php:1821
 #: inc/elementor/class-colors.php:519
-#: inc/elementor/class-typography.php:1821
+#: inc/elementor/class-typography.php:1822
 msgid "Normal text"
 msgstr ""
 
@@ -865,10 +865,10 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-typography.php:1897
 #: build/analogwp-templates/inc/elementor/class-typography.php:2059
 #: inc/elementor/class-colors.php:599
-#: inc/elementor/class-typography.php:637
-#: inc/elementor/class-typography.php:1109
-#: inc/elementor/class-typography.php:1897
-#: inc/elementor/class-typography.php:2059
+#: inc/elementor/class-typography.php:638
+#: inc/elementor/class-typography.php:1110
+#: inc/elementor/class-typography.php:1898
+#: inc/elementor/class-typography.php:2060
 msgid "Reset"
 msgstr ""
 
@@ -981,61 +981,61 @@ msgid "Apply Global Style Kit"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:171
-#: inc/elementor/class-typography.php:171
+#: inc/elementor/class-typography.php:172
 msgid "Headings Typography"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:179
-#: inc/elementor/class-typography.php:179
+#: inc/elementor/class-typography.php:180
 msgid "These settings apply to all Headings in your layout. You can still override individual values at each element."
 msgstr ""
 
 #. translators: %s: Heading 1-6 type
 #: build/analogwp-templates/inc/elementor/class-typography.php:203
-#: inc/elementor/class-typography.php:203
+#: inc/elementor/class-typography.php:204
 msgid "Heading %s"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:231
 #: build/analogwp-templates/inc/elementor/class-typography.php:253
-#: inc/elementor/class-typography.php:231
-#: inc/elementor/class-typography.php:253
+#: inc/elementor/class-typography.php:232
+#: inc/elementor/class-typography.php:254
 msgid "Body Typography"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:239
-#: inc/elementor/class-typography.php:239
+#: inc/elementor/class-typography.php:240
 msgid "Recently Imported"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:274
-#: inc/elementor/class-typography.php:274
+#: inc/elementor/class-typography.php:275
 msgid "Typographic Sizes"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:291
-#: inc/elementor/class-typography.php:291
+#: inc/elementor/class-typography.php:292
 msgid "Heading Sizes"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:298
-#: inc/elementor/class-typography.php:298
+#: inc/elementor/class-typography.php:299
 msgid "Edit the available sizes for the Heading Element."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:305
 #: build/analogwp-templates/inc/elementor/class-typography.php:356
-#: inc/elementor/class-typography.php:305
-#: inc/elementor/class-typography.php:356
+#: inc/elementor/class-typography.php:306
+#: inc/elementor/class-typography.php:357
 msgid "XXL"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:306
 #: build/analogwp-templates/inc/elementor/class-typography.php:357
 #: build/analogwp-templates/inc/elementor/class-typography.php:838
-#: inc/elementor/class-typography.php:306
-#: inc/elementor/class-typography.php:357
-#: inc/elementor/class-typography.php:838
+#: inc/elementor/class-typography.php:307
+#: inc/elementor/class-typography.php:358
+#: inc/elementor/class-typography.php:839
 msgid "XL"
 msgstr ""
 
@@ -1043,112 +1043,112 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-typography.php:360
 #: build/analogwp-templates/inc/elementor/class-typography.php:695
 #: build/analogwp-templates/inc/elementor/class-typography.php:1178
-#: inc/elementor/class-typography.php:309
-#: inc/elementor/class-typography.php:360
-#: inc/elementor/class-typography.php:695
-#: inc/elementor/class-typography.php:1178
+#: inc/elementor/class-typography.php:310
+#: inc/elementor/class-typography.php:361
+#: inc/elementor/class-typography.php:696
+#: inc/elementor/class-typography.php:1179
 msgid "Small"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:327
-#: inc/elementor/class-typography.php:327
+#: inc/elementor/class-typography.php:328
 msgid "Heading"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:342
-#: inc/elementor/class-typography.php:342
+#: inc/elementor/class-typography.php:343
 msgid "Text Sizes"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:349
-#: inc/elementor/class-typography.php:349
+#: inc/elementor/class-typography.php:350
 msgid "Edit the available sizes for the p, span, and div tags of the Heading Element."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:368
-#: inc/elementor/class-typography.php:368
+#: inc/elementor/class-typography.php:369
 msgid "Text"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:399
-#: inc/elementor/class-typography.php:399
+#: inc/elementor/class-typography.php:400
 msgid "Container Spacing"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:409
-#: inc/elementor/class-typography.php:409
+#: inc/elementor/class-typography.php:410
 msgid "The default container padding is set in Elementor Theme Styles > Layout Settings > "
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:411
-#: inc/elementor/class-typography.php:411
+#: inc/elementor/class-typography.php:412
 msgid "Container padding"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:423
-#: inc/elementor/class-typography.php:423
+#: inc/elementor/class-typography.php:424
 msgid "Create additional spacing presets."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:444
-#: inc/elementor/class-typography.php:444
+#: inc/elementor/class-typography.php:445
 msgid "No Padding Styles"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:461
 #: build/analogwp-templates/inc/elementor/class-typography.php:1938
-#: inc/elementor/class-typography.php:461
-#: inc/elementor/class-typography.php:1938
+#: inc/elementor/class-typography.php:462
+#: inc/elementor/class-typography.php:1939
 msgid "1-8"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:468
-#: inc/elementor/class-typography.php:468
+#: inc/elementor/class-typography.php:469
 msgid "XXL - Hero Section"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:496
-#: inc/elementor/class-typography.php:496
+#: inc/elementor/class-typography.php:497
 msgid "XL - Primary Section"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:524
-#: inc/elementor/class-typography.php:524
+#: inc/elementor/class-typography.php:525
 msgid "Large - Box"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:544
-#: inc/elementor/class-typography.php:544
+#: inc/elementor/class-typography.php:545
 msgid "Medium - Box"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:556
-#: inc/elementor/class-typography.php:556
+#: inc/elementor/class-typography.php:557
 msgid "Small - Box"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:568
-#: inc/elementor/class-typography.php:568
+#: inc/elementor/class-typography.php:569
 msgid "Padding 6"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:572
-#: inc/elementor/class-typography.php:572
+#: inc/elementor/class-typography.php:573
 msgid "Padding 7"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:576
-#: inc/elementor/class-typography.php:576
+#: inc/elementor/class-typography.php:577
 msgid "Padding 8"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:635
-#: inc/elementor/class-typography.php:635
+#: inc/elementor/class-typography.php:636
 msgid "Reset labels and values to default"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:664
-#: inc/elementor/class-typography.php:664
+#: inc/elementor/class-typography.php:665
 msgid "Create additional spacing presets in "
 msgstr ""
 
@@ -1156,9 +1156,9 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-typography.php:1175
 #: build/analogwp-templates/inc/elementor/class-typography.php:1246
 #: build/analogwp-templates/inc/settings/class-settings-experiments.php:36
-#: inc/elementor/class-typography.php:693
-#: inc/elementor/class-typography.php:1175
-#: inc/elementor/class-typography.php:1246
+#: inc/elementor/class-typography.php:694
+#: inc/elementor/class-typography.php:1176
+#: inc/elementor/class-typography.php:1247
 #: inc/settings/class-settings-experiments.php:36
 #: client/popups/ImportTemplate.js:102
 msgid "Default"
@@ -1166,112 +1166,112 @@ msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:694
 #: build/analogwp-templates/inc/elementor/class-typography.php:1177
-#: inc/elementor/class-typography.php:694
-#: inc/elementor/class-typography.php:1177
+#: inc/elementor/class-typography.php:695
+#: inc/elementor/class-typography.php:1178
 msgid "Normal"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:698
 #: build/analogwp-templates/inc/elementor/class-typography.php:1181
-#: inc/elementor/class-typography.php:698
-#: inc/elementor/class-typography.php:1181
+#: inc/elementor/class-typography.php:699
+#: inc/elementor/class-typography.php:1182
 msgid "Extra Large"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:704
 #: build/analogwp-templates/inc/elementor/class-typography.php:1169
-#: inc/elementor/class-typography.php:704
-#: inc/elementor/class-typography.php:1169
+#: inc/elementor/class-typography.php:705
+#: inc/elementor/class-typography.php:1170
 msgid "Outer Section Padding"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:712
-#: inc/elementor/class-typography.php:712
+#: inc/elementor/class-typography.php:713
 msgid "Add padding to the outer sections of your layouts by using these controls."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:747
-#: inc/elementor/class-typography.php:747
+#: inc/elementor/class-typography.php:748
 msgid "Default Padding"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:748
-#: inc/elementor/class-typography.php:748
+#: inc/elementor/class-typography.php:749
 msgid "Narrow Padding"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:749
-#: inc/elementor/class-typography.php:749
+#: inc/elementor/class-typography.php:750
 msgid "Extended Padding"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:750
-#: inc/elementor/class-typography.php:750
+#: inc/elementor/class-typography.php:751
 msgid "Wide Padding"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:751
-#: inc/elementor/class-typography.php:751
+#: inc/elementor/class-typography.php:752
 msgid "Wider Padding"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:757
-#: inc/elementor/class-typography.php:757
+#: inc/elementor/class-typography.php:758
 msgid "Column Gaps"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:765
-#: inc/elementor/class-typography.php:765
+#: inc/elementor/class-typography.php:766
 msgid "Column Gap presets add padding to the columns of a section."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:791
-#: inc/elementor/class-typography.php:791
+#: inc/elementor/class-typography.php:792
 msgid "Space Between Widgets"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:792
-#: inc/elementor/class-typography.php:792
+#: inc/elementor/class-typography.php:793
 msgid "Sets the default space between widgets, overrides the default value set in Elementor > Style > Space Between Widgets."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:814
-#: inc/elementor/class-typography.php:814
+#: inc/elementor/class-typography.php:815
 msgid "Button Sizes"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:824
-#: inc/elementor/class-typography.php:824
+#: inc/elementor/class-typography.php:825
 msgid "Define the default styles for every button size."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:834
-#: inc/elementor/class-typography.php:834
+#: inc/elementor/class-typography.php:835
 msgid "XS"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:835
-#: inc/elementor/class-typography.php:835
+#: inc/elementor/class-typography.php:836
 msgid "S"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:836
-#: inc/elementor/class-typography.php:836
+#: inc/elementor/class-typography.php:837
 msgid "M"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:837
-#: inc/elementor/class-typography.php:837
+#: inc/elementor/class-typography.php:838
 msgid "L"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:850
-#: inc/elementor/class-typography.php:850
+#: inc/elementor/class-typography.php:851
 msgid "Typography"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:867
-#: inc/elementor/class-typography.php:867
+#: inc/elementor/class-typography.php:868
 msgid "Normal Styling"
 msgstr ""
 
@@ -1279,8 +1279,8 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-typography.php:934
 #: build/analogwp-templates/inc/elementor/sections/background-color-classes.php:95
 #: build/analogwp-templates/inc/elementor/sections/background-color-classes.php:186
-#: inc/elementor/class-typography.php:875
-#: inc/elementor/class-typography.php:934
+#: inc/elementor/class-typography.php:876
+#: inc/elementor/class-typography.php:935
 #: inc/elementor/sections/background-color-classes.php:95
 #: inc/elementor/sections/background-color-classes.php:186
 msgid "Text Color"
@@ -1290,8 +1290,8 @@ msgstr ""
 #: build/analogwp-templates/inc/elementor/class-typography.php:945
 #: build/analogwp-templates/inc/elementor/sections/background-color-classes.php:80
 #: build/analogwp-templates/inc/elementor/sections/background-color-classes.php:171
-#: inc/elementor/class-typography.php:886
-#: inc/elementor/class-typography.php:945
+#: inc/elementor/class-typography.php:887
+#: inc/elementor/class-typography.php:946
 #: inc/elementor/sections/background-color-classes.php:80
 #: inc/elementor/sections/background-color-classes.php:171
 msgid "Background Color"
@@ -1299,321 +1299,321 @@ msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:913
 #: build/analogwp-templates/inc/elementor/class-typography.php:972
-#: inc/elementor/class-typography.php:913
-#: inc/elementor/class-typography.php:972
+#: inc/elementor/class-typography.php:914
+#: inc/elementor/class-typography.php:973
 msgid "Border Radius"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:926
-#: inc/elementor/class-typography.php:926
+#: inc/elementor/class-typography.php:927
 msgid "Hover Styling"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:985
-#: inc/elementor/class-typography.php:985
+#: inc/elementor/class-typography.php:986
 msgid "Padding"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1040
-#: inc/elementor/class-typography.php:1040
+#: inc/elementor/class-typography.php:1041
 msgid "Select a different Style Kit to be applied on this page. The page will reload after your selection."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1051
-#: inc/elementor/class-typography.php:1051
+#: inc/elementor/class-typography.php:1052
 msgid "Select Style Kit"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1051
-#: inc/elementor/class-typography.php:1051
+#: inc/elementor/class-typography.php:1052
 msgid "This will override your site's Global Style Kit for this page."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1064
-#: inc/elementor/class-typography.php:1064
+#: inc/elementor/class-typography.php:1065
 msgid "Page Style Kit"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1077
-#: inc/elementor/class-typography.php:1077
+#: inc/elementor/class-typography.php:1078
 msgid "Set your Global Style Kit here"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1098
-#: inc/elementor/class-typography.php:1098
+#: inc/elementor/class-typography.php:1099
 msgid "Manage Style Kit"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1103
-#: inc/elementor/class-typography.php:1103
+#: inc/elementor/class-typography.php:1104
 msgid "This will reset the Theme Style Kit and clean up any values."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1107
-#: inc/elementor/class-typography.php:1107
+#: inc/elementor/class-typography.php:1108
 msgid "Reset Theme Style Kit"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1114
-#: inc/elementor/class-typography.php:1114
+#: inc/elementor/class-typography.php:1115
 msgid "Save the current styles as a different Theme Style Kit. You can then apply it on other pages, or globally."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1120
-#: inc/elementor/class-typography.php:1120
+#: inc/elementor/class-typography.php:1121
 msgid "Clone"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1128
-#: inc/elementor/class-typography.php:1128
+#: inc/elementor/class-typography.php:1129
 msgid "Export Theme Style Kit CSS"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1130
-#: inc/elementor/class-typography.php:1130
+#: inc/elementor/class-typography.php:1131
 msgid "Export"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1176
 #: build/analogwp-templates/inc/elementor/class-typography.php:1247
-#: inc/elementor/class-typography.php:1176
-#: inc/elementor/class-typography.php:1247
+#: inc/elementor/class-typography.php:1177
+#: inc/elementor/class-typography.php:1248
 msgid "No Padding"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1289
-#: inc/elementor/class-typography.php:1289
+#: inc/elementor/class-typography.php:1290
 msgid "Spacing Preset"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1290
-#: build/analogwp-templates/inc/elementor/class-typography.php:2153
-#: build/analogwp-templates/inc/elementor/class-typography.php:2194
-#: build/analogwp-templates/inc/elementor/class-typography.php:2280
-#: build/analogwp-templates/inc/elementor/class-typography.php:2321
-#: build/analogwp-templates/inc/elementor/class-typography.php:2369
-#: build/analogwp-templates/inc/elementor/class-typography.php:2437
-#: build/analogwp-templates/inc/elementor/class-typography.php:2477
-#: inc/elementor/class-typography.php:1290
-#: inc/elementor/class-typography.php:2159
-#: inc/elementor/class-typography.php:2200
-#: inc/elementor/class-typography.php:2286
-#: inc/elementor/class-typography.php:2327
-#: inc/elementor/class-typography.php:2375
-#: inc/elementor/class-typography.php:2443
-#: inc/elementor/class-typography.php:2483
+#: build/analogwp-templates/inc/elementor/class-typography.php:2159
+#: build/analogwp-templates/inc/elementor/class-typography.php:2200
+#: build/analogwp-templates/inc/elementor/class-typography.php:2286
+#: build/analogwp-templates/inc/elementor/class-typography.php:2327
+#: build/analogwp-templates/inc/elementor/class-typography.php:2375
+#: build/analogwp-templates/inc/elementor/class-typography.php:2443
+#: build/analogwp-templates/inc/elementor/class-typography.php:2483
+#: inc/elementor/class-typography.php:1291
+#: inc/elementor/class-typography.php:2160
+#: inc/elementor/class-typography.php:2201
+#: inc/elementor/class-typography.php:2287
+#: inc/elementor/class-typography.php:2328
+#: inc/elementor/class-typography.php:2376
+#: inc/elementor/class-typography.php:2444
+#: inc/elementor/class-typography.php:2484
 msgid "Edit in Style Kits"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1321
 #: build/analogwp-templates/inc/elementor/class-typography.php:2073
 #: build/analogwp-templates/inc/elementor/kit/Kits_List_Table.php:101
-#: inc/elementor/class-typography.php:1321
-#: inc/elementor/class-typography.php:2073
+#: inc/elementor/class-typography.php:1322
+#: inc/elementor/class-typography.php:2074
 #: inc/elementor/kit/Kits_List_Table.php:101
 msgid "None"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1322
 #: build/analogwp-templates/inc/elementor/tags/class-light-background.php:14
-#: inc/elementor/class-typography.php:1322
+#: inc/elementor/class-typography.php:1323
 #: inc/elementor/tags/class-light-background.php:14
 msgid "Light Background"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1327
-#: inc/elementor/class-typography.php:1327
+#: inc/elementor/class-typography.php:1328
 msgid "Accent Background"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1333
-#: inc/elementor/class-typography.php:1333
+#: inc/elementor/class-typography.php:1334
 msgid "Background presets"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1560
-#: inc/elementor/class-typography.php:1560
+#: inc/elementor/class-typography.php:1561
 msgid "Headings"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1569
 #: build/analogwp-templates/inc/elementor/sections/background-color-classes.php:138
 #: build/analogwp-templates/inc/elementor/sections/background-color-classes.php:230
-#: inc/elementor/class-typography.php:1569
+#: inc/elementor/class-typography.php:1570
 #: inc/elementor/sections/background-color-classes.php:138
 #: inc/elementor/sections/background-color-classes.php:230
 msgid "Headings Color"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1582
-#: inc/elementor/class-typography.php:1582
+#: inc/elementor/class-typography.php:1583
 msgid "Headings Font"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1593
-#: inc/elementor/class-typography.php:1593
+#: inc/elementor/class-typography.php:1594
 msgid "You can set individual heading font and colors below."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1612
-#: inc/elementor/class-typography.php:1612
+#: inc/elementor/class-typography.php:1613
 msgid "Style Kit Fonts"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1622
-#: inc/elementor/class-typography.php:1622
+#: inc/elementor/class-typography.php:1623
 msgid "The Style Kit's typographic styles."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1714
-#: inc/elementor/class-typography.php:1714
+#: inc/elementor/class-typography.php:1715
 msgid "Display title"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1723
-#: inc/elementor/class-typography.php:1723
+#: inc/elementor/class-typography.php:1724
 msgid "Title 1"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1732
-#: inc/elementor/class-typography.php:1732
+#: inc/elementor/class-typography.php:1733
 msgid "Title 2"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1741
-#: inc/elementor/class-typography.php:1741
+#: inc/elementor/class-typography.php:1742
 msgid "Title 3"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1750
-#: inc/elementor/class-typography.php:1750
+#: inc/elementor/class-typography.php:1751
 msgid "Title 4"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1759
-#: inc/elementor/class-typography.php:1759
+#: inc/elementor/class-typography.php:1760
 msgid "Title 5"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1768
-#: inc/elementor/class-typography.php:1768
+#: inc/elementor/class-typography.php:1769
 msgid "Title 6"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1777
-#: inc/elementor/class-typography.php:1777
+#: inc/elementor/class-typography.php:1778
 msgid "Overline / Subheader"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1803
-#: inc/elementor/class-typography.php:1803
+#: inc/elementor/class-typography.php:1804
 msgid "Display text"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1812
-#: inc/elementor/class-typography.php:1812
+#: inc/elementor/class-typography.php:1813
 msgid "Large text"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1830
-#: inc/elementor/class-typography.php:1830
+#: inc/elementor/class-typography.php:1831
 msgid "Small text"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1839
-#: inc/elementor/class-typography.php:1839
+#: inc/elementor/class-typography.php:1840
 msgid "Caption"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1848
-#: inc/elementor/class-typography.php:1848
+#: inc/elementor/class-typography.php:1849
 msgid "Button text"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1857
-#: inc/elementor/class-typography.php:1857
+#: inc/elementor/class-typography.php:1858
 msgid "Form label"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1866
-#: inc/elementor/class-typography.php:1866
+#: inc/elementor/class-typography.php:1867
 msgid "Font Style 16"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1895
-#: inc/elementor/class-typography.php:1895
+#: inc/elementor/class-typography.php:1896
 msgid "Reset labels & fonts"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1915
-#: inc/elementor/class-typography.php:1915
+#: inc/elementor/class-typography.php:1916
 msgid "Shadows"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1925
-#: inc/elementor/class-typography.php:1925
+#: inc/elementor/class-typography.php:1926
 msgid "Add global shadow presets by using these controls."
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1945
-#: inc/elementor/class-typography.php:1945
+#: inc/elementor/class-typography.php:1946
 msgid "Shadow 1"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1949
-#: inc/elementor/class-typography.php:1949
+#: inc/elementor/class-typography.php:1950
 msgid "Shadow 2"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1961
-#: inc/elementor/class-typography.php:1961
+#: inc/elementor/class-typography.php:1962
 msgid "Shadow 3"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1973
-#: inc/elementor/class-typography.php:1973
+#: inc/elementor/class-typography.php:1974
 msgid "Shadow 4"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1985
-#: inc/elementor/class-typography.php:1985
+#: inc/elementor/class-typography.php:1986
 msgid "Shadow 5"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:1997
-#: inc/elementor/class-typography.php:1997
+#: inc/elementor/class-typography.php:1998
 msgid "Shadow 6"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:2001
-#: inc/elementor/class-typography.php:2001
+#: inc/elementor/class-typography.php:2002
 msgid "Shadow 7"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:2005
-#: inc/elementor/class-typography.php:2005
+#: inc/elementor/class-typography.php:2006
 msgid "Shadow 8"
 msgstr ""
 
 #: build/analogwp-templates/inc/elementor/class-typography.php:2057
-#: inc/elementor/class-typography.php:2057
+#: inc/elementor/class-typography.php:2058
 msgid "Reset to default"
 msgstr ""
 
-#: build/analogwp-templates/inc/elementor/class-typography.php:2138
-#: build/analogwp-templates/inc/elementor/class-typography.php:2179
-#: build/analogwp-templates/inc/elementor/class-typography.php:2229
-#: build/analogwp-templates/inc/elementor/class-typography.php:2265
-#: build/analogwp-templates/inc/elementor/class-typography.php:2306
-#: build/analogwp-templates/inc/elementor/class-typography.php:2354
-#: build/analogwp-templates/inc/elementor/class-typography.php:2395
-#: inc/elementor/class-typography.php:2144
-#: inc/elementor/class-typography.php:2185
-#: inc/elementor/class-typography.php:2235
-#: inc/elementor/class-typography.php:2271
-#: inc/elementor/class-typography.php:2312
-#: inc/elementor/class-typography.php:2360
-#: inc/elementor/class-typography.php:2401
+#: build/analogwp-templates/inc/elementor/class-typography.php:2144
+#: build/analogwp-templates/inc/elementor/class-typography.php:2185
+#: build/analogwp-templates/inc/elementor/class-typography.php:2235
+#: build/analogwp-templates/inc/elementor/class-typography.php:2271
+#: build/analogwp-templates/inc/elementor/class-typography.php:2312
+#: build/analogwp-templates/inc/elementor/class-typography.php:2360
+#: build/analogwp-templates/inc/elementor/class-typography.php:2401
+#: inc/elementor/class-typography.php:2145
+#: inc/elementor/class-typography.php:2186
+#: inc/elementor/class-typography.php:2236
+#: inc/elementor/class-typography.php:2272
+#: inc/elementor/class-typography.php:2313
+#: inc/elementor/class-typography.php:2361
+#: inc/elementor/class-typography.php:2402
 msgid "Box Shadow Preset"
 msgstr ""
 
@@ -1991,9 +1991,9 @@ msgid "Library"
 msgstr ""
 
 #: build/analogwp-templates/inc/register-settings.php:47
-#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:28
+#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:26
 #: inc/register-settings.php:47
-#: inc/settings/views/html-admin-settings.php:28
+#: inc/settings/views/html-admin-settings.php:26
 msgid "Style Kits Settings"
 msgstr ""
 
@@ -2148,41 +2148,43 @@ msgstr ""
 
 #: build/analogwp-templates/inc/settings/class-settings-misc.php:42
 #: inc/settings/class-settings-misc.php:42
-msgid "Show Global Kit Data at Inline Widgets"
+msgid "Show Global Kit Data"
 msgstr ""
 
-#: build/analogwp-templates/inc/settings/class-settings-misc.php:43
-#: inc/settings/class-settings-misc.php:43
-msgid "Check this box to also show global kit data at inline widgets."
+#: build/analogwp-templates/inc/settings/class-settings-misc.php:45
+#: inc/settings/class-settings-misc.php:45
+msgid "Global Colors and Fonts that belong to the Global Style Kit will still be available when working with other Style Kits."
 msgstr ""
 
-#: build/analogwp-templates/inc/settings/class-settings-misc.php:50
-#: inc/settings/class-settings-misc.php:50
-msgid "Usage Data Tracking"
-msgstr ""
-
-#: build/analogwp-templates/inc/settings/class-settings-misc.php:51
-#: inc/settings/class-settings-misc.php:51
-msgid "Opt-in to our anonymous plugin data collection and to updates"
-msgstr ""
-
-#: build/analogwp-templates/inc/settings/class-settings-misc.php:56
-#: inc/settings/class-settings-misc.php:56
-msgid "We guarantee no sensitive data is collected. "
-msgstr ""
-
-#: build/analogwp-templates/inc/settings/class-settings-misc.php:56
-#: inc/settings/class-settings-misc.php:56
+#: build/analogwp-templates/inc/settings/class-settings-misc.php:46
+#: build/analogwp-templates/inc/settings/class-settings-misc.php:60
+#: inc/settings/class-settings-misc.php:46
+#: inc/settings/class-settings-misc.php:60
 msgid "More Info"
 msgstr ""
 
-#: build/analogwp-templates/inc/settings/class-settings-misc.php:59
-#: inc/settings/class-settings-misc.php:59
-msgid "Remove Data on Uninstall"
+#: build/analogwp-templates/inc/settings/class-settings-misc.php:54
+#: inc/settings/class-settings-misc.php:54
+msgid "Usage Data Tracking"
+msgstr ""
+
+#: build/analogwp-templates/inc/settings/class-settings-misc.php:55
+#: inc/settings/class-settings-misc.php:55
+msgid "Opt-in to our anonymous plugin data collection and to updates"
 msgstr ""
 
 #: build/analogwp-templates/inc/settings/class-settings-misc.php:60
 #: inc/settings/class-settings-misc.php:60
+msgid "We guarantee no sensitive data is collected. "
+msgstr ""
+
+#: build/analogwp-templates/inc/settings/class-settings-misc.php:63
+#: inc/settings/class-settings-misc.php:63
+msgid "Remove Data on Uninstall"
+msgstr ""
+
+#: build/analogwp-templates/inc/settings/class-settings-misc.php:64
+#: inc/settings/class-settings-misc.php:64
 msgid "Check this box to remove all data stored by Style Kit for Elementor plugin, including license info, user settings, import history etc. Any imported or manually saved Style Kits are not removed."
 msgstr ""
 
@@ -2276,49 +2278,54 @@ msgstr ""
 msgid "Explore Style Kits Pro"
 msgstr ""
 
-#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:53
-#: inc/settings/views/html-admin-settings.php:53
+#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:51
+#: inc/settings/views/html-admin-settings.php:51
 msgid "Save changes"
 msgstr ""
 
-#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:64
-#: inc/settings/views/html-admin-settings.php:64
+#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:76
+#: inc/settings/views/html-admin-settings.php:76
+msgid "Meet Custom Library for Elementor"
+msgstr ""
+
+#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:86
+#: inc/settings/views/html-admin-settings.php:86
 msgid "Upgrade to Style Kits Pro with a 15% discount"
-msgstr ""
-
-#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:69
-#: inc/settings/views/html-admin-settings.php:69
-msgid "Your Email"
-msgstr ""
-
-#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:70
-#: inc/settings/views/html-admin-settings.php:70
-msgid "First Name"
-msgstr ""
-
-#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:71
-#: inc/settings/views/html-admin-settings.php:71
-msgid "Send me the coupon"
-msgstr ""
-
-#. translators: %s: Link to AnalogWP privacy policy.
-#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:78
-#: inc/settings/views/html-admin-settings.php:78
-msgid "By submitting your details, you agree to our %s."
-msgstr ""
-
-#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:79
-#: inc/settings/views/html-admin-settings.php:79
-msgid "privacy policy"
-msgstr ""
-
-#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:90
-#: inc/settings/views/html-admin-settings.php:90
-msgid "Need help with Style Kits?"
 msgstr ""
 
 #: build/analogwp-templates/inc/settings/views/html-admin-settings.php:91
 #: inc/settings/views/html-admin-settings.php:91
+msgid "Your Email"
+msgstr ""
+
+#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:92
+#: inc/settings/views/html-admin-settings.php:92
+msgid "First Name"
+msgstr ""
+
+#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:93
+#: inc/settings/views/html-admin-settings.php:93
+msgid "Send me the coupon"
+msgstr ""
+
+#. translators: %s: Link to AnalogWP privacy policy.
+#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:100
+#: inc/settings/views/html-admin-settings.php:100
+msgid "By submitting your details, you agree to our %s."
+msgstr ""
+
+#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:101
+#: inc/settings/views/html-admin-settings.php:101
+msgid "privacy policy"
+msgstr ""
+
+#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:112
+#: inc/settings/views/html-admin-settings.php:112
+msgid "Need help with Style Kits?"
+msgstr ""
+
+#: build/analogwp-templates/inc/settings/views/html-admin-settings.php:113
+#: inc/settings/views/html-admin-settings.php:113
 msgid "Visit the online docs"
 msgstr ""
 
