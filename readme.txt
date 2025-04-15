@@ -2,7 +2,7 @@
 Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.4
-Tested up to: 6.7.2
+Tested up to: 6.8
 Stable tag: 2.3.4
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
@@ -11,8 +11,9 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Power-up your Elementor workflow with global theme style presets, container-based patterns, and more global design controls.
 
 == Description ==
-
 ✨ Have you seen our brand new launch? [Custom Library for Elementor](https://analogwp.com/custom-library-for-elementor/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme)
+
+[🚀[Pro] Grab the premium version at a Lifetime Deal](https://analogwp.com/style-kits/?utm_source=wporg&utm_medium=referral&utm_campaign=readme)
 
 [Style Kits](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) extends the flexibility of Elementor theme styles with more global design controls, and introduces the most advanced container-based pattern library and theme style presets that will jumpstart your design process in Elementor.
 
