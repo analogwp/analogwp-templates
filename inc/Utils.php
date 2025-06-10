@@ -784,6 +784,15 @@ class Utils extends Base {
 	}
 
 	/**
+	 * Returns true if Elementor Optimized Markup experiment is on.
+	 *
+	 * @return bool
+	 */
+	public static function is_elementor_optimized_markup() {
+		return Plugin::elementor()->experiments->is_feature_active( 'e_optimized_markup' );
+	}
+
+	/**
 	 * Returns true if Container experiment is on.
 	 *
 	 * @return bool
