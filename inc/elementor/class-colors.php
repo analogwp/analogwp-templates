@@ -196,6 +196,18 @@ class Colors extends Module {
 			'{{WRAPPER}} .elementor-widget-container a:hover:not([class])',
 		);
 
+		// If Elementor Optimized Markup is enabled, exclude the inner widget wrapper.
+		if ( Utils::is_elementor_optimized_markup() ) {
+			$link_selectors = array(
+				'{{WRAPPER}} *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-icon-box-icon):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item):not([role="link"])',
+				'{{WRAPPER}} a:not([class])',
+			);
+
+			$link_hover_selectors = array(
+				'{{WRAPPER}} a:hover:not([class])',
+			);
+		}
+
 		$link_selectors       = implode( ',', $link_selectors );
 		$link_hover_selectors = implode( ',', $link_hover_selectors );
 

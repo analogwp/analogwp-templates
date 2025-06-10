@@ -2018,6 +2018,13 @@ class Typography extends Module {
 			)
 		);
 
+		$css_selectors = '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover, {{WRAPPER}} {{CURRENT_ITEM}}_external.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.e-con, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-con:hover';
+
+		// If Elementor Optimized Markup is enabled, exclude the inner widget wrapper.
+		if ( Utils::is_elementor_optimized_markup() ) {
+			$css_selectors = '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover, {{WRAPPER}} {{CURRENT_ITEM}}.e-con, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-con:hover';
+		}
+
 		$repeater->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
@@ -2026,7 +2033,7 @@ class Typography extends Module {
 				'global'   => array(
 					'active' => false,
 				),
-				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.elementor-element .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}_hover.elementor-element:hover .elementor-element-populated, {{WRAPPER}} {{CURRENT_ITEM}}.e-container, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-container:hover, {{WRAPPER}} {{CURRENT_ITEM}}_external.elementor-element > .elementor-widget-container, {{WRAPPER}} {{CURRENT_ITEM}}.e-con, {{WRAPPER}} {{CURRENT_ITEM}}_hover.e-con:hover',
+				'selector' => $css_selectors,
 			)
 		);
 
