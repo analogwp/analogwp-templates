@@ -2,8 +2,8 @@
 Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.4
-Tested up to: 6.8
-Stable tag: 2.3.4
+Tested up to: 6.8.1
+Stable tag: 2.3.5
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -15,7 +15,7 @@ Power-up your Elementor workflow with global theme style presets, container-base
 
 [🚀[Pro] Grab the premium version at a Lifetime Deal](https://analogwp.com/style-kits/?utm_source=wporg&utm_medium=referral&utm_campaign=readme)
 
-[Style Kits](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) extends the flexibility of Elementor theme styles with more global design controls, and introduces the most advanced container-based pattern library and theme style presets that will jumpstart your design process in Elementor.
+[Style Kits](https://analogwp.com/style-kits/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) extends the flexibility of Elementor theme styles with more global design controls, and introduces the most advanced container-based pattern library and theme style presets that will jumpstart your design process in Elementor.
 
 Style Kits creates the foundation for a design framework that will help you create better, more consistent websites with Elementor.
 
@@ -103,6 +103,12 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.3.5 - June 10, 2025 =
+* Improvement: Support for Elementor Optimized Markup feature experiment
+* Improvement: Compatibility with Elementor v3.29.2 and Elementor Pro v3.29.2
+* Improvement: Updated translation files
+* Improvement: Other minor code changes
 
 = 2.3.4 - March 27, 2025 =
 * Fix: Default font getter at kit sections throwing error in some rare cases
