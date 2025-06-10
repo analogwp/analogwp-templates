@@ -23,6 +23,7 @@ namespace Analog\Settings\views;
 		<li><?php esc_html_e( 'Selectively de-activate Style Kits Panels from the site settings sidebar', 'ang' ); ?></li>
 	</ul>
 	<p><?php esc_html_e( '.. and much more.', 'ang' ); ?></p>
-	<a href="<?php echo esc_url( 'https://analogwp.com/pricing/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro' ); ?>" class="ang-button button-primary" target="_blank"><?php esc_html_e( 'Explore Style Kits Pro', 'ang' ); ?></a>
+	<a href="<?php echo esc_url( 'https://analogwp.com/style-kits/#pricing?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro' ); ?>" class="ang-button button-primary" target="_blank"><?php esc_html_e( 'Explore Style Kits Pro', 'ang' ); ?></a>
+	<p style="font-style:italic; font-weight: 500;"><?php esc_html_e( 'Now available with Lifetime plans for a limited time! ', 'ang' ); ?></p>
 </div>
 
