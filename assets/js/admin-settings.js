@@ -93,24 +93,28 @@
 			const lname = $( this ).find( 'input[name="last_name"]' ).val();
 
 			const elSubmitBtn = $( this ).find( 'input[type=submit]' );
+			const messageEl = $( this ).find( '.ang-discount-response span' );
+			const defaultLabel = elSubmitBtn.data( 'default-label' );
+			messageEl.text( '' );
 			elSubmitBtn.val( 'Sending...' );
 
 			$.post(
-				'https://analogwp.com/?ang-api=analogwp-templates&request=freemius_discount_code',
+				'https://analogwp.com/?ang-api=sk_bfcm_discount_code',
 				{
 					email: email,
 					first_name: JSON.stringify( fname ),
 					last_name: JSON.stringify( lname ),
 				}
 			).done( function( res ) {
-				status = 'Coupon sent!';
-				elSubmitBtn.val( status );
+				messageEl.text( res?.message );
+				elSubmitBtn.val( defaultLabel );
 				elSubmitBtn.attr( 'disabled', 'disabled' );
 			} ).fail( function(res) {
-				status = 'Failed to send, please contact support.';
-				elSubmitBtn.val( status );
+				messageEl.text( 'Failed to send, please contact support.' );
+				elSubmitBtn.attr( 'disabled', 'disabled' );
 				setTimeout( function() {
-					elSubmitBtn.val( 'Send me the coupon' );
+					messageEl.text( 'Send me the coupon' );
+					elSubmitBtn.removeAttr( 'disabled' );
 				}, 2000 );
 			} );
 		}
