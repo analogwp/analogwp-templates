@@ -176,10 +176,74 @@
 
 .ang .sidebar .promo,
 .ang .sidebar .upgrade-box {
-	margin-top: 50px;
+	margin-top: 0;
 	background: #fff;
 	border: 1px solid #dcdcdc;
 	padding: 5px 30px 25px;
+	margin-bottom: 30px;
+}
+
+.ang .sidebar .promo {
+	.promo-header {
+		display: flex;
+		align-items: center;
+		gap: 15px;
+
+		h3 {
+			margin: 0;
+			line-height: 1.4;
+		}
+	}
+
+	.buttons {
+		display: flex;
+		gap: 10px;
+	}
+}
+
+.ang .sidebar .upgrade-box {
+	.ang-discount-response {
+		font-style: italic;
+		font-weight: 500;
+		color: #602BC2;
+	}
+
+	&.special {
+		border-color:#602BC2;
+		background: #E1D5F6;
+		
+		h3 {
+			font-size: 18px;
+			color:#602BC2;
+			line-height: 1.5;
+		}
+
+		h3 + p {
+			font-size: 15px;
+		}
+
+		 input[type="email"]:focus,
+		 input[type="text"]:focus {
+			border-color:#602BC2;
+			box-shadow: 0 0 0 1px #602BC2;
+		 }
+
+		.button,
+		.button-secondary {
+			background-color:#602BC2;
+			border-color:#602BC2;
+			color:#fff;
+
+			&:hover,
+			&:focus {
+				box-shadow: none;
+			}
+		}
+
+		a {
+			color:currentColor;
+		}
+	}
 }
 
 .ang .sidebar .social {
