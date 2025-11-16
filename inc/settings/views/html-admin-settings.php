@@ -59,7 +59,7 @@ if ( ! $tab_exists ) {
 
 			<?php if ( ! class_exists( '\AnalogWP\CustomLibrary\Plugin' ) ) : ?>
 				<div class="promo">
-					<div>
+					<div class="promo-header">
 						<svg width="48" height="48" viewBox="0 0 99 99" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<g clip-path="url(#clip0_4170_3917)">
 								<path d="M49.5 99C76.8381 99 99 76.8381 99 49.5C99 22.1619 76.8381 0 49.5 0C22.1619 0 0 22.1619 0 49.5C0 76.8381 22.1619 99 49.5 99Z" fill="#232624"/>
@@ -72,30 +72,34 @@ if ( ! $tab_exists ) {
 								</clipPath>
 							</defs>
 						</svg>
+						<h3><a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank"><?php esc_html_e( 'Meet Custom Library for Elementor', 'ang' ); ?></a></h3>
 					</div>
-					<h3><a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank"><?php esc_html_e( 'Meet Custom Library for Elementor', 'ang' ); ?></a></h3>
 
 					<p>Now you can curate and access your own library of templates right inside the editor. Build faster, stay organized, and empower your clients with a seamless design workflow by providing them with essential patterns to build new layouts with consistency.</p>
 
-					<p><a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank" class="button button-secondary">Learn more</a></p>
+					<div class="buttons">
+						<a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank" class="button button-primary">⚡️ Get Custom Library</a>
+						<a href="https://www.youtube.com/watch?v=9RTBS6rhYgg" target="_blank" class="button button-secondary">Watch a quick video</a>
+					</div>
 				</div>
 			<?php endif; ?>
 
 			<?php if ( ! class_exists( '\AnalogPro\Plugin' ) ) : ?>
-			<div class="upgrade-box">
-				<h3><?php esc_html_e( 'Upgrade to Style Kits Pro with a 15% discount', 'ang' ); ?></h3>
+			<div class="upgrade-box special">
+				<h3>Upgrade to Style Kits Pro with<br/>80% discount in a Lifetime Deal</h3>
 
-				<p>Add your email address and we will send you a 15% discount code for your Style Kits PRO purchase.</p>
+				<p>Black Friday + Cyber Monday Special!<br/>We have <b>already applied 50% discount sitewide</b>—enter your email to <b>get an extra 30% code on top</b>. Limited-time offer!</p>
 
 				<form id="js-ang-request-discount" method="post">
 					<input required type="email" class="regular-text" name="email" value="<?php echo esc_attr( $current_user->user_email ); ?>" placeholder="<?php esc_attr_e( 'Your Email', 'ang' ); ?>">
 					<input required type="text" class="regular-text" name="first_name" value="<?php echo esc_attr( $current_user->first_name ); ?>" placeholder="<?php esc_attr_e( 'First Name', 'ang' ); ?>">
-					<input type="submit" class="button" style="width:100%" value="<?php esc_attr_e( 'Send me the coupon', 'ang' ); ?>">
+					<input type="submit" class="button" style="width:100%" value="<?php esc_attr_e( 'Send me the coupon', 'ang' ); ?>" data-default-label="<?php esc_attr_e( 'Send me the coupon', 'ang' ); ?>">
+					<p class="ang-discount-response"><span></span></p>
 				</form>
 
 				<p>
 					<?php
-					echo sprintf(
+					printf(
 							/* translators: %s: Link to AnalogWP privacy policy. */
 						esc_html__( 'By submitting your details, you agree to our %s.', 'ang' ),
 						'<a target="_blank" href="https://analogwp.com/privacy-policy/">' . esc_html__( 'privacy policy', 'ang' ) . '</a>'
@@ -114,9 +118,9 @@ if ( ! $tab_exists ) {
 					</p>
 				</div>
 				<div class="social">
-					<a href="https://facebook.com/analogwp" target="_blank"><span class="dashicons dashicons-facebook-alt"></span></a>
-					<a href="https://twitter.com/analogwp" target="_blank"><span class="dashicons dashicons-twitter"></span></a>
-					<a href="https://instagram.com/analogwp" target="_blank"><span class="dashicons dashicons-instagram"></span></span></a>
+					<a href="https://x.com/analogwp" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg></span></a>
+					<a href="https://facebook.com/analogwp" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-facebook"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg></a>
+					<a href="https://instagram.com/analogwp" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-instagram"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 8a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M16.5 7.5v.01" /></svg></a>
 				</div>
 			</div>
 
