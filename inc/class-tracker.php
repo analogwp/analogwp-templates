@@ -47,7 +47,7 @@ class Tracker {
 
 		add_filter(
 			'analog_admin_notices',
-			function( $notices ) {
+			function ( $notices ) {
 				$notices[] = $this->get_rating_notification();
 				return $notices;
 			}
@@ -132,7 +132,7 @@ class Tracker {
 					'<a href="https://analogwp.com/admin-review" target="_blank">' . __( 'review on WordPress.org', 'ang' ) . '</a>'
 				),
 				'type'            => Notice::TYPE_INFO,
-				'active_callback' => static function() {
+				'active_callback' => static function () {
 					if ( 0 === absint( self::$installed_time ) || ! self::$installed_time ) {
 						return false;
 					}
