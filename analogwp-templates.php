@@ -123,7 +123,7 @@ function analog_require_minimum_elementor() {
 	);
 	$message .= '</p>';
 
-	echo '<div class="error"><p>' . $message . '</p></div>'; // @codingStandardsIgnoreLine
+	echo '<div class="error"><p>' . $message . '</p></div>'; // phpcs:ignore
 }
 
 /**

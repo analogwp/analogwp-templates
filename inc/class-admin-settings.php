@@ -46,7 +46,7 @@ class Admin_Settings {
 		if ( empty( self::$settings ) ) {
 			$settings = array();
 
-			include_once dirname( __FILE__ ) . '/settings/class-settings-page.php';
+			include_once __DIR__ . '/settings/class-settings-page.php';
 
 			$settings[] = include 'settings/class-settings-general.php';
 			$settings[] = include 'settings/class-settings-experiments.php';
@@ -144,7 +144,7 @@ class Admin_Settings {
 		// Get tabs for the settings page.
 		$tabs = apply_filters( 'ang_settings_tabs_array', array() );
 
-		include dirname( __FILE__ ) . '/settings/views/html-admin-settings.php';
+		include __DIR__ . '/settings/views/html-admin-settings.php';
 	}
 
 	/**
@@ -486,7 +486,7 @@ class Admin_Settings {
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
 								<?php echo 'multiselect' === $value['type'] ? 'multiple="multiple"' : ''; ?>
-								<?php echo $disabled ? ' disabled="true"': ''; ?>
+								<?php echo $disabled ? ' disabled="true"' : ''; ?>
 								>
 								<?php
 								foreach ( $value['options'] as $key => $val ) {

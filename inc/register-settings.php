@@ -180,7 +180,7 @@ function create_options() {
 		return false;
 	}
 	// Include settings so that we can run through defaults.
-	include_once dirname( __FILE__ ) . '/class-admin-settings.php';
+	include_once __DIR__ . '/class-admin-settings.php';
 
 	$settings = array_filter( Admin_Settings::get_settings_pages() );
 
@@ -212,13 +212,14 @@ function sk_freemius_switch_notice() {
 	$options = Options::get_instance();
 
 	if ( $options->get( 'ang_license_key' ) && class_exists( LicenseManager::class ) && ! method_exists( LicenseManager::class, 'get_freemius_product_query_data' ) ) {
-		$message = sprintf( '<strong>%1$s</strong> %2$s <a href="mailto:%3$s">%3$s</a> %4$s',
+		$message = sprintf(
+			'<strong>%1$s</strong> %2$s <a href="mailto:%3$s">%3$s</a> %4$s',
 			esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'ang-pro' ),
-			esc_html__('that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'ang' ),
+			esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'ang' ),
 			esc_html( 'support@analogwp.com' ),
 			esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'ang-pro' )
 		);
-		$html_message = sprintf('<div class="error">%s</div>', wpautop($message));
+		$html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
 
 		echo wp_kses_post( $html_message );
 	}
@@ -238,13 +239,14 @@ function sk_add_freemius_switch_settings_notice( $settings ) {
 				'type'  => 'title',
 				'id'    => 'ang_freemius_license_switch_notice',
 				'title' => __( 'Experience the all new Style Kits Pro', 'ang-pro' ),
-				'desc'  => sprintf( '<strong>%1$s</strong> %2$s <a href="mailto:%3$s">%3$s</a> %4$s <br/><br/> %5$s',
+				'desc'  => sprintf(
+					'<strong>%1$s</strong> %2$s <a href="mailto:%3$s">%3$s</a> %4$s <br/><br/> %5$s',
 					esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'ang-pro' ),
-					esc_html__('that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'ang' ),
+					esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'ang' ),
 					esc_html( 'support@analogwp.com' ),
 					esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'ang-pro' ),
 					esc_html__( 'Please also know that coming future updates are now moved to this new licensing system and once you migrate to it everything else will work as is and better while with this switch we are working hard to bring you a more fine-tuned experience and all the more support for latest of Elementor.', 'ang-pro' )
-				)
+				),
 			),
 			array(
 				'type' => 'sectionend',
@@ -253,7 +255,6 @@ function sk_add_freemius_switch_settings_notice( $settings ) {
 		),
 		$settings
 	);
-
 
 	return $settings;
 }

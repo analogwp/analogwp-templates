@@ -296,7 +296,7 @@ final class Plugin {
 	 * @return void
 	 */
 	public function add_kit_to_menu_bar( \WP_Admin_Bar $wp_admin_bar ) {
-		if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG  ) {
+		if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
 			return;
 		}
 
@@ -310,17 +310,21 @@ final class Plugin {
 		}
 
 		$parent = 'style_kits';
-		$wp_admin_bar->add_menu( array(
-			'id'     => $parent,
-			'parent' => 'elementor_inspector',
-			'title'  => 'Style Kit',
-		) );
+		$wp_admin_bar->add_menu(
+			array(
+				'id'     => $parent,
+				'parent' => 'elementor_inspector',
+				'title'  => 'Style Kit',
+			)
+		);
 
-		$wp_admin_bar->add_menu( array(
-			'id'     => 'style_kits_kit',
-			'parent' => $parent,
-			'title'  => 'Kit: ' . $title,
-		) );
+		$wp_admin_bar->add_menu(
+			array(
+				'id'     => 'style_kits_kit',
+				'parent' => $parent,
+				'title'  => 'Kit: ' . $title,
+			)
+		);
 	}
 
 	/**
@@ -351,7 +355,7 @@ final class Plugin {
 	 * @return Plugin Plugin main instance.
 	 */
 	public static function instance() {
-		return static::$instance;
+		return self::$instance;
 	}
 
 	/**
@@ -363,12 +367,12 @@ final class Plugin {
 	 * @return bool True if the plugin main instance could be loaded, false otherwise.
 	 */
 	public static function load( $main_file ) {
-		if ( null !== static::$instance ) {
+		if ( null !== self::$instance ) {
 			return false;
 		}
 
-		static::$instance = new static( $main_file );
-		static::$instance->register();
+		self::$instance = new self( $main_file );
+		self::$instance->register();
 
 		do_action( 'ang_loaded' );
 
