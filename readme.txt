@@ -2,8 +2,8 @@
 Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.4
-Tested up to: 6.8.3
-Stable tag: 2.3.6
+Tested up to: 6.9
+Stable tag: 2.4.0
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,7 +13,7 @@ Power-up your Elementor workflow with global theme style presets, container-base
 == Description ==
 ✨ Have you seen our brand new launch? [Custom Library for Elementor](https://analogwp.com/custom-library-for-elementor/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme)
 
-[🚀[Pro] Limited time Black Friday + Cyber Monday Sale is on!](https://analogwp.com/style-kits/?utm_source=wporg&utm_medium=referral&utm_campaign=readme)
+[🚀 Take a better look at Style Kits](https://analogwp.com/style-kits/?utm_source=wporg&utm_medium=referral&utm_campaign=readme)
 
 [Style Kits](https://analogwp.com/style-kits/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp) extends the flexibility of Elementor theme styles with more global design controls, and introduces the most advanced container-based pattern library and theme style presets that will jumpstart your design process in Elementor.
 
@@ -103,6 +103,12 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.4.0 =
+* New: Rewrote the Rollback feature
+* Fix: Settings PROMO form
+* Improvement: Updated translation files
+* Improvement: Other minor code changes
 
 = 2.3.6 - November 16, 2025 =
 * New: Black Friday + Cyber Monday promo deal at settings page
