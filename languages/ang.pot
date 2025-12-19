@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.3.5\n"
+"Project-Id-Version: Style Kits for Elementor 2.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-18T10:15:45+00:00\n"
+"POT-Creation-Date: 2025-12-19T15:09:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: ang\n"
@@ -95,7 +95,7 @@ msgid "View Documentation"
 msgstr ""
 
 #: inc/admin/class-admin.php:65
-#: inc/settings/views/html-admin-settings.php:110
+#: inc/settings/views/html-admin-settings.php:114
 msgid "Documentation"
 msgstr ""
 
@@ -165,7 +165,7 @@ msgstr ""
 msgid "Your settings have been saved."
 msgstr ""
 
-#: inc/class-admin-settings.php:134
+#: inc/class-admin-settings.php:136
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr ""
 
@@ -177,12 +177,12 @@ msgstr ""
 msgid "Import it into Elementor"
 msgstr ""
 
-#: inc/class-admin-settings.php:570
-#: inc/class-admin-settings.php:635
+#: inc/class-admin-settings.php:571
+#: inc/class-admin-settings.php:636
 msgid "Toggle"
 msgstr ""
 
-#: inc/class-admin-settings.php:683
+#: inc/class-admin-settings.php:684
 msgid "Refresh"
 msgstr ""
 
@@ -682,7 +682,7 @@ msgid "Templates Library"
 msgstr ""
 
 #: inc/elementor/class-finder-shortcuts.php:53
-#: inc/Plugin.php:216
+#: inc/Plugin.php:218
 #: inc/register-settings.php:48
 msgid "Settings"
 msgstr ""
@@ -738,24 +738,12 @@ msgstr ""
 msgid "No Style Kit found in Trash."
 msgstr ""
 
-#: inc/elementor/class-tools.php:115
-msgid "Sorry, you are not allowed to rollback Style Kits plugin for this site."
-msgstr ""
-
-#: inc/elementor/class-tools.php:123
-msgid "Error occurred, the version selected is invalid. Try selecting different version."
-msgstr ""
-
-#: inc/elementor/class-tools.php:167
-msgid "Rollback to Previous Version"
-msgstr ""
-
 #. translators: %s: Style kit title.
-#: inc/elementor/class-tools.php:239
+#: inc/elementor/class-tools.php:168
 msgid "Style Kit: %s <span style=\"color:#5C32B6;\">&#9679;</span>"
 msgstr ""
 
-#: inc/elementor/class-tools.php:273
+#: inc/elementor/class-tools.php:202
 msgid "Apply Global Style Kit"
 msgstr ""
 
@@ -1435,8 +1423,8 @@ msgstr ""
 
 #. translators: %1$s: Link to Style Kits Pro. %2$s: Go Pro text.
 #: inc/elementor/Promotions.php:154
-#: inc/Plugin.php:222
-#: inc/register-settings.php:79
+#: inc/Plugin.php:224
+#: inc/register-settings.php:69
 #: client/blocks/BlockList.js:374
 #: client/stylekits/stylekits.js:272
 #: client/Template.js:31
@@ -1524,6 +1512,34 @@ msgstr ""
 msgid "Dark Background"
 msgstr ""
 
+#: inc/Featuresets/rollback/class-init.php:66
+msgid "Sorry, you are not allowed to rollback Style Kits plugin for this site."
+msgstr ""
+
+#: inc/Featuresets/rollback/class-init.php:74
+msgid "Error occurred, the version selected is invalid. Try selecting different version."
+msgstr ""
+
+#: inc/Featuresets/rollback/class-init.php:93
+msgid "Rollback to Previous Version"
+msgstr ""
+
+#: inc/Featuresets/rollback/class-rollback-downgrader-skin.php:31
+msgid "Rolling back plugin…"
+msgstr ""
+
+#: inc/Featuresets/rollback/class-rollback-downgrader-skin.php:73
+msgid "Rollback failed during installation."
+msgstr ""
+
+#: inc/Featuresets/rollback/class-rollback-downgrader-skin.php:84
+msgid "Rollback complete. The plugin files have been restored."
+msgstr ""
+
+#: inc/Featuresets/rollback/class-rollback-downgrader-skin.php:89
+msgid "Go to Plugins page"
+msgstr ""
+
 #: inc/register-settings.php:39
 msgid "Style Kits Library"
 msgstr ""
@@ -1537,8 +1553,8 @@ msgstr ""
 msgid "Style Kits Settings"
 msgstr ""
 
-#: inc/register-settings.php:227
-#: inc/register-settings.php:253
+#: inc/register-settings.php:218
+#: inc/register-settings.php:245
 msgid "that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at"
 msgstr ""
 
@@ -1694,31 +1710,31 @@ msgstr ""
 msgid "Version Control"
 msgstr ""
 
-#: inc/settings/class-settings-version-control.php:43
+#: inc/settings/class-settings-version-control.php:42
 msgid "Rollback Versions"
 msgstr ""
 
-#: inc/settings/class-settings-version-control.php:44
+#: inc/settings/class-settings-version-control.php:43
 msgid "If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version."
 msgstr ""
 
-#: inc/settings/class-settings-version-control.php:49
+#: inc/settings/class-settings-version-control.php:48
 msgid "Rollback Style Kits"
 msgstr ""
 
-#: inc/settings/class-settings-version-control.php:61
+#: inc/settings/class-settings-version-control.php:60
 msgid "Reinstall this version"
 msgstr ""
 
-#: inc/settings/class-settings-version-control.php:73
+#: inc/settings/class-settings-version-control.php:72
 msgid "Beta Features"
 msgstr ""
 
-#: inc/settings/class-settings-version-control.php:78
+#: inc/settings/class-settings-version-control.php:77
 msgid "Become a beta tester"
 msgstr ""
 
-#: inc/settings/class-settings-version-control.php:79
+#: inc/settings/class-settings-version-control.php:78
 msgid "Check this box to turn on beta updates for Style Kits and Style Kits Pro. The update will not be installed automatically, you always have the option to ignore it."
 msgstr ""
 
@@ -1770,40 +1786,36 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:76
+#: inc/settings/views/html-admin-settings.php:75
 msgid "Meet Custom Library for Elementor"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:86
-msgid "Upgrade to Style Kits Pro with a 15% discount"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:91
+#: inc/settings/views/html-admin-settings.php:94
 msgid "Your Email"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:92
+#: inc/settings/views/html-admin-settings.php:95
 msgid "First Name"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:93
+#: inc/settings/views/html-admin-settings.php:96
 msgid "Send me the coupon"
 msgstr ""
 
 #. translators: %s: Link to AnalogWP privacy policy.
-#: inc/settings/views/html-admin-settings.php:100
+#: inc/settings/views/html-admin-settings.php:104
 msgid "By submitting your details, you agree to our %s."
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:101
+#: inc/settings/views/html-admin-settings.php:105
 msgid "privacy policy"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:112
+#: inc/settings/views/html-admin-settings.php:116
 msgid "Need help with Style Kits?"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:113
+#: inc/settings/views/html-admin-settings.php:117
 msgid "Visit the online docs"
 msgstr ""
 
@@ -1821,7 +1833,7 @@ msgstr ""
 
 #. translators: Global Style Kit post title.
 #: inc/Utils.php:134
-#: inc/Utils.php:563
+#: inc/Utils.php:511
 msgid "Global: %s"
 msgstr ""
 
