@@ -8,7 +8,7 @@
 
 namespace Analog\Settings;
 
-use Analog\Utils;
+use Analog\Featuresets\Rollback\Init as Rollback;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,7 +24,6 @@ class Version_Control extends Settings_Page {
 		$this->id    = 'version-control';
 		$this->label = __( 'Version Control', 'ang' );
 		parent::__construct();
-
 	}
 
 	/**
@@ -96,11 +95,11 @@ class Version_Control extends Settings_Page {
 	/**
 	 * Get recent rollback versions in key/value pair.
 	 *
-	 * @uses \Analog\Utils::get_rollback_versions()
+	 * @uses \Analog\Featuresets\Rollback\Init::get_rollback_versions()
 	 * @return array
 	 */
 	public function get_rollback_versions() {
-		$keys = Utils::get_rollback_versions();
+		$keys = Rollback::get_rollback_versions();
 		$data = array();
 		foreach ( $keys as $key => $value ) {
 			$data[ $value ] = $value;

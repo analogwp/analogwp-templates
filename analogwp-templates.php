@@ -117,7 +117,7 @@ function analog_require_minimum_elementor() {
 	/* translators: %s: Link to rollback plugin to previous version. */
 	$message .= sprintf(
 		'<a href="%s" class="button-secondary" style="margin-left:10px">%s</a>',
-		wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=' . $versions[0] ), 'ang_rollback' ),
+		wp_nonce_url( admin_url( 'admin-post.php?action=analog_style_kits_rollback&version=' . $versions[0] ), 'analog_style_kits_rollback' ),
 		/* translators: %s: Version number. */
 		sprintf( __( 'Rollback to v%s', 'ang' ), $versions[0] )
 	);

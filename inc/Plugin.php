@@ -2,7 +2,7 @@
 /**
  * Class Analog\Plugin.
  *
- * @copyright 2024 SmallTownDev
+ * @copyright SmallTownDev
  * @package Analog
  */
 
@@ -120,9 +120,7 @@ final class Plugin {
 		$i10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
 			array(
-				'is_settings_page'  => 'toplevel_page_analogwp_templates' === $hook,
-				'rollback_url'      => wp_nonce_url( admin_url( 'admin-post.php?action=ang_rollback&version=VERSION' ), 'ang_rollback' ),
-				'rollback_versions' => Utils::get_rollback_versions(),
+				'is_settings_page' => 'toplevel_page_analogwp_templates' === $hook,
 			)
 		);
 
