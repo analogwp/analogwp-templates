@@ -8,6 +8,7 @@
 
 namespace Analog;
 
+use Analog\Featuresets\Register_Featuresets as Featuresets;
 use Analog\Admin\Notices;
 use Analog\Elementor\Google_Fonts;
 
@@ -70,6 +71,9 @@ final class Plugin {
 		add_filter( 'analog/app/strings', array( self::$instance, 'send_strings_to_app' ) );
 
 		add_action( 'admin_bar_menu', array( self::$instance, 'add_kit_to_menu_bar' ), 400 );
+
+		// Register Featuresets.
+		Featuresets::get_instance();
 
 		( new Consumer() )->register();
 		( new Notices() )->register();
@@ -238,6 +242,7 @@ final class Plugin {
 
 		require_once ANG_PLUGIN_DIR . 'inc/register-settings.php';
 		require_once ANG_PLUGIN_DIR . 'inc/settings-helpers.php';
+		require_once ANG_PLUGIN_DIR . 'inc/Featuresets/class-register-featuresets.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-import-image.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-options.php';
