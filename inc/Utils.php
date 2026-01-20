@@ -508,7 +508,7 @@ class Utils extends Base {
 
 			if ( $global_kit && $post->ID === $global_kit && $prefix ) {
 				/* translators: Global Style Kit post title. */
-				$title = sprintf( __( 'Global: %s', 'ang' ), $title );
+				$title = 'Global: ' . $title;
 			}
 
 			$kits[ $post->ID ] = $title;

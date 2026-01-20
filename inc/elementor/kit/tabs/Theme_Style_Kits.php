@@ -81,14 +81,19 @@ class Theme_Style_Kits extends Tab_Base {
 	protected function register_tab_controls() {}
 }
 
-new Theme_Style_Kits( Kit::class );
-
-/**
- * Fires on tabs registering.
- */
 add_action(
-	'elementor/kit/register_tabs',
-	function( $kit ) {
-		$kit->register_tab( 'theme-style-kits', Theme_Style_Kits::class );
+	'init',
+	function () {
+		new Theme_Style_Kits( Kit::class );
+
+		/**
+		* Fires on tabs registering.
+		*/
+		add_action(
+			'elementor/kit/register_tabs',
+			function ( $kit ) {
+				$kit->register_tab( 'theme-style-kits', Theme_Style_Kits::class );
+			}
+		);
 	}
 );
