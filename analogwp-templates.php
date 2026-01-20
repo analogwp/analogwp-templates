@@ -3,14 +3,14 @@
  * Plugin main file.
  *
  * @package     Analog
- * @copyright   2025 SmallTownDev.
+ * @copyright   2026 SmallTownDev.
  * @link        https://analogwp.com
  *
  * @wordpress-plugin
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits extends the Elementor theme styles editor with more global styling options. Boost your design workflow in Elementor with intuitive global controls and theme style presets.
- * Version:     2.4.0
+ * Version:     2.4.1
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
@@ -19,16 +19,16 @@
  * Requires at least: 6.0
  * Requires PHP: 7.4
  *
- * Elementor tested up to: 3.33.6
- * Elementor Pro tested up to: 3.33.2
+ * Elementor tested up to: 3.34.2
+ * Elementor Pro tested up to: 3.34.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ANG_ELEMENTOR_MINIMUM', '3.20.0' );
+define( 'ANG_ELEMENTOR_MINIMUM', '3.30.0' );
 define( 'ANG_PHP_MINIMUM', '7.4' );
 define( 'ANG_WP_MINIMUM', '6.0' );
-define( 'ANG_VERSION', '2.4.0' );
+define( 'ANG_VERSION', '2.4.1' );
 define( 'ANG_PLUGIN_FILE', __FILE__ );
 define( 'ANG_PLUGIN_URL', plugin_dir_url( ANG_PLUGIN_FILE ) );
 define( 'ANG_PLUGIN_DIR', plugin_dir_path( ANG_PLUGIN_FILE ) );
