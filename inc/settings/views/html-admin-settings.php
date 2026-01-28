@@ -57,8 +57,9 @@ if ( ! $tab_exists ) {
 		<div class="sidebar">
 			<?php do_action( 'ang_sidebar_start' ); ?>
 
-			<?php if ( ! class_exists( '\AnalogWP\CustomLibrary\Plugin' ) ) : ?>
-				<div class="promo">
+			<?php if ( ! class_exists( '\AnalogWP\CustomLibrary\Plugin' ) && ! get_option( 'ang_hide_custom_library_promo' ) ) : ?>
+				<div class="promo" data-promo-id="custom_library_promo">
+					<a href="#" class="ang-hide-promo" data-promo-id="custom_library_promo"><?php esc_html_e( 'Hide', 'ang' ); ?></a>
 					<span class="sticker-tag">New</span>
 					<div class="promo-header">
 						<svg width="48" height="48" viewBox="0 0 99 99" fill="none" xmlns="http://www.w3.org/2000/svg">

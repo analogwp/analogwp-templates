@@ -185,6 +185,25 @@
 
 .ang .sidebar .promo {
 	position: relative;
+
+	.ang-hide-promo {
+		position: absolute;
+		top: 10px;
+		right: 15px;
+		color: #787c82;
+		font-size: 12px;
+		text-decoration: none;
+		opacity: 0.7;
+		transition: opacity 0.2s ease;
+
+		&:hover,
+		&:focus {
+			opacity: 1;
+			color: #50575e;
+			text-decoration: none;
+		}
+	}
+
 	.sticker-tag {
 		background: #602BC2;
 		color: #fff;

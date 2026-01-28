@@ -76,6 +76,9 @@ function register_menu() {
 
 add_action( 'admin_menu', __NAMESPACE__ . '\register_menu' );
 
+// Register AJAX handlers for settings.
+add_action( 'wp_ajax_ang_hide_promo', array( 'Analog\Settings\Admin_Settings', 'ajax_hide_promo' ) );
+
 /**
  * Redirect external links.
  *
