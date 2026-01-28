@@ -184,6 +184,20 @@
 }
 
 .ang .sidebar .promo {
+	position: relative;
+	.sticker-tag {
+		background: #602BC2;
+		color: #fff;
+		font-size: 11px;
+		text-transform: uppercase;
+		font-weight: 600;
+		padding: 4px 8px;
+		border-radius: 3px;
+		position: absolute;
+		top: -10px;
+		left: -10px;
+	}
+
 	.promo-header {
 		display: flex;
 		align-items: center;
@@ -203,6 +217,16 @@
 			text-align: center;
 			padding: 10px;
 			font-size: 16px;
+			background-color:#602BC2;
+			border-color:#602BC2;
+			color:#fff;
+
+			&:hover,
+			&:focus {
+				box-shadow: none;
+				background-color:#4b1e99;
+				border-color:#4b1e99;
+			}
 		}
 	}
 

@@ -59,6 +59,7 @@ if ( ! $tab_exists ) {
 
 			<?php if ( ! class_exists( '\AnalogWP\CustomLibrary\Plugin' ) ) : ?>
 				<div class="promo">
+					<span class="sticker-tag">New</span>
 					<div class="promo-header">
 						<svg width="48" height="48" viewBox="0 0 99 99" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<g clip-path="url(#clip0_4170_3917)">
