@@ -7,7 +7,6 @@
 
 namespace Analog\Settings;
 
-use Analog\Utils;
 use Analog\Options;
 
 if ( ! defined( 'ABSPATH' ) ) {
