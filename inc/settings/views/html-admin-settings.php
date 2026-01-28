@@ -87,6 +87,8 @@ if ( ! $tab_exists ) {
 						<li><b>and so much more...</b></li>
 					</ul>
 
+					<p class="short-desc">Use code <a href="https://analogwp.com/custom-library-for-elementor/#pricing" target="_blank">REMOTE20</a> at checkout to get a special discount on our annual plans—limited time only.</p>
+
 					<div class="buttons">
 						<a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank" class="button button-primary">🚀 Explore Custom Library</a>
 					</div>

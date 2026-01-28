@@ -215,6 +215,14 @@
 			margin-bottom: 8px;
 		}
 	}
+
+	p.short-desc {
+		font-size: 14px;
+		font-style: italic;
+		color: #1d1d1d;
+		margin-top: -10px;
+		margin-bottom: 15px;
+	}
 }
 
 .ang .sidebar .upgrade-box {
