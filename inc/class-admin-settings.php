@@ -7,7 +7,6 @@
 
 namespace Analog\Settings;
 
-use Analog\Utils;
 use Analog\Options;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -59,6 +58,35 @@ class Admin_Settings {
 		}
 
 		return self::$settings;
+	}
+
+	/**
+	 * Register AJAX handlers for settings.
+	 */
+	public static function register_ajax_handlers() {
+		add_action( 'wp_ajax_ang_hide_promo', array( __CLASS__, 'ajax_hide_promo' ) );
+	}
+
+	/**
+	 * AJAX handler to hide a promo banner.
+	 */
+	public static function ajax_hide_promo() {
+		check_ajax_referer( 'ang_hide_promo', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ang' ) ) );
+		}
+
+		$promo_id = isset( $_POST['promo_id'] ) ? sanitize_key( $_POST['promo_id'] ) : '';
+
+		if ( empty( $promo_id ) ) {
+			wp_send_json_error( array( 'message' => __( 'Invalid promo ID.', 'ang' ) ) );
+		}
+
+		// Store the hidden state in the database.
+		update_option( 'ang_hide_' . $promo_id, true );
+
+		wp_send_json_success( array( 'message' => __( 'Promo hidden successfully.', 'ang' ) ) );
 	}
 
 	/**
@@ -137,6 +165,8 @@ class Admin_Settings {
 					'sitekit_importer_notice'   => __( 'Template Kit file downloaded.', 'ang' ),
 					'sitekit_importer_url_text' => __( 'Import it into Elementor', 'ang' ),
 					'sitekit_importer_url'      => esc_url( admin_url( 'admin.php?page=elementor-tools#tab-import-export-kit' ) ),
+					'hide_promo_nonce'          => wp_create_nonce( 'ang_hide_promo' ),
+					'ajax_url'                  => admin_url( 'admin-ajax.php' ),
 				)
 			)
 		);

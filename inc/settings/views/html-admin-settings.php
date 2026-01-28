@@ -57,8 +57,10 @@ if ( ! $tab_exists ) {
 		<div class="sidebar">
 			<?php do_action( 'ang_sidebar_start' ); ?>
 
-			<?php if ( ! class_exists( '\AnalogWP\CustomLibrary\Plugin' ) ) : ?>
-				<div class="promo">
+			<?php if ( ! class_exists( '\AnalogWP\CustomLibrary\Plugin' ) && ! get_option( 'ang_hide_custom_library_promo' ) ) : ?>
+				<div class="promo" data-promo-id="custom_library_promo">
+					<a href="#" class="ang-hide-promo" data-promo-id="custom_library_promo"><?php esc_html_e( 'Hide', 'ang' ); ?></a>
+					<span class="sticker-tag">New</span>
 					<div class="promo-header">
 						<svg width="48" height="48" viewBox="0 0 99 99" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<g clip-path="url(#clip0_4170_3917)">
@@ -75,11 +77,22 @@ if ( ! $tab_exists ) {
 						<h3><a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank"><?php esc_html_e( 'Meet Custom Library for Elementor', 'ang' ); ?></a></h3>
 					</div>
 
-					<p>Now you can curate and access your own library of templates right inside the editor. Build faster, stay organized, and empower your clients with a seamless design workflow by providing them with essential patterns to build new layouts with consistency.</p>
+					<p>Create and manage your own template library directly in the editor, and share it across any Elementor site. Build faster, stay organized, and give your clients consistent, ready-to-use design patterns.</p>
+
+					<ul class="features">
+						<li>✅ <b>Custom Template Library</b></li>
+						<li>✅ <b>Share Library Across Websites</b></li>
+						<li>✅ <b>Template Usage Reports/Analytics</b></li>
+						<li>✅ <b>Customizable and White-label ready</b></li>
+						<li>✅ <b>Role-Based Access Controls</b></li>
+						<li>✅ <b>Self-hosted, Secure and No Signups</b></li>
+						<li><b>and so much more...</b></li>
+					</ul>
+
+					<p class="short-desc">Use code <a href="https://analogwp.com/custom-library-for-elementor/#pricing" target="_blank">REMOTE20</a> at checkout to get a special discount on our annual plans—limited time only.</p>
 
 					<div class="buttons">
-						<a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank" class="button button-primary">⚡️ Get Custom Library</a>
-						<a href="https://www.youtube.com/watch?v=9RTBS6rhYgg" target="_blank" class="button button-secondary">Watch a quick video</a>
+						<a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank" class="button button-primary">🚀 Explore Custom Library</a>
 					</div>
 				</div>
 			<?php endif; ?>

@@ -122,6 +122,32 @@
 
 		$( '#js-ang-request-discount' ).on( 'submit', submitDiscountRequest );
 
+		// Handle promo hide functionality.
+		$( '.ang-hide-promo' ).on( 'click', function( e ) {
+			e.preventDefault();
+
+			const $link = $( this );
+			const promoId = $link.data( 'promo-id' );
+			const $promo = $link.closest( '.promo' );
+
+			$.ajax( {
+				url: data.ajax_url,
+				type: 'POST',
+				data: {
+					action: 'ang_hide_promo',
+					nonce: data.hide_promo_nonce,
+					promo_id: promoId,
+				},
+				success: function( response ) {
+					if ( response.success ) {
+						$promo.fadeOut( 300, function() {
+							$promo.remove();
+						} );
+					}
+				},
+			} );
+		} );
+
 		function processKitDownload() {
 			if ( ! $( '.titledesc + #starter-kits-message' ).length ) {
 				const el = $( '.titledesc' ),

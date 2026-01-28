@@ -184,6 +184,39 @@
 }
 
 .ang .sidebar .promo {
+	position: relative;
+
+	.ang-hide-promo {
+		position: absolute;
+		top: 10px;
+		right: 15px;
+		color: #787c82;
+		font-size: 12px;
+		text-decoration: none;
+		opacity: 0.7;
+		transition: opacity 0.2s ease;
+
+		&:hover,
+		&:focus {
+			opacity: 1;
+			color: #50575e;
+			text-decoration: none;
+		}
+	}
+
+	.sticker-tag {
+		background: #602BC2;
+		color: #fff;
+		font-size: 11px;
+		text-transform: uppercase;
+		font-weight: 600;
+		padding: 4px 8px;
+		border-radius: 3px;
+		position: absolute;
+		top: -10px;
+		left: -10px;
+	}
+
 	.promo-header {
 		display: flex;
 		align-items: center;
@@ -197,7 +230,41 @@
 
 	.buttons {
 		display: flex;
+		flex-direction: column;
 		gap: 10px;
+		.button {
+			text-align: center;
+			padding: 10px;
+			font-size: 16px;
+			background-color:#602BC2;
+			border-color:#602BC2;
+			color:#fff;
+
+			&:hover,
+			&:focus {
+				box-shadow: none;
+				background-color:#4b1e99;
+				border-color:#4b1e99;
+			}
+		}
+	}
+
+	ul.features {
+		list-style: none;
+		margin-top: 20px;
+		margin-bottom: 30px;
+
+		li {
+			margin-bottom: 8px;
+		}
+	}
+
+	p.short-desc {
+		font-size: 14px;
+		font-style: italic;
+		color: #1d1d1d;
+		margin-top: -10px;
+		margin-bottom: 15px;
 	}
 }
 
