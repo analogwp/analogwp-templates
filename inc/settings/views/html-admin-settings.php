@@ -81,9 +81,9 @@ if ( ! $tab_exists ) {
 
 					<ul class="features">
 						<li>✅ <b>Custom Template Library</b></li>
-						<li>✅ <b>Remote Library Sharing</b></li>
+						<li>✅ <b>Share Library Across Websites</b></li>
 						<li>✅ <b>Template Usage Reports/Analytics</b></li>
-						<li>✅ <b>Customizable and Brandable</b></li>
+						<li>✅ <b>Customizable and White-label ready</b></li>
 						<li>✅ <b>Role-Based Access Controls</b></li>
 						<li>✅ <b>Self-hosted, Secure and No Signups</b></li>
 						<li><b>and so much more...</b></li>

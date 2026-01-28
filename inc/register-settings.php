@@ -215,7 +215,7 @@ function sk_freemius_switch_notice() {
 	$options = Options::get_instance();
 
 	if ( $options->get( 'ang_license_key' ) && class_exists( LicenseManager::class ) && ! method_exists( LicenseManager::class, 'get_freemius_product_query_data' ) ) {
-		$message = sprintf(
+		$message      = sprintf(
 			'<strong>%1$s</strong> %2$s <a href="mailto:%3$s">%3$s</a> %4$s',
 			esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'ang-pro' ),
 			esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'ang' ),
