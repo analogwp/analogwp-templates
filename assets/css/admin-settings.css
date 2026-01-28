@@ -197,7 +197,23 @@
 
 	.buttons {
 		display: flex;
+		flex-direction: column;
 		gap: 10px;
+		.button {
+			text-align: center;
+			padding: 10px;
+			font-size: 16px;
+		}
+	}
+
+	ul.features {
+		list-style: none;
+		margin-top: 20px;
+		margin-bottom: 30px;
+
+		li {
+			margin-bottom: 8px;
+		}
 	}
 }
 
