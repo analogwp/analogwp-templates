@@ -540,20 +540,38 @@
                 return $transient_data;
             }
 
+            // Alias.
+            $basename = $this->_fs->premium_plugin_basename();
+
             global $wp_current_filter;
 
-            if ( ! empty( $wp_current_filter ) && in_array( 'upgrader_process_complete', $wp_current_filter ) ) {
+            /**
+             * During bulk updates, avoid re-injecting update data for the plugin itself once it has already been updated.
+             *
+             * If the custom package is re-added to the transient after the plugin update, WordPress may detect the package again and incorrectly report "The plugin is at the latest version" for a pending update, since the custom package version matches the currently installed version.
+             *
+             * Behavior differs depending on how the bulk update is triggered. Please refer to the inline comments for each flow below for details.
+             */
+            if (
+                ! empty( $wp_current_filter ) && (
+                    /**
+                     * update-core.php and other upgrader pages:
+                     * The `upgrader_process_complete` action fires only once after all updates have finished. In this case, it is the current action (`$wp_current_filter[0]`), while `self::$_upgrade_basename` may contain any plugin basename.
+                     */
+                    'upgrader_process_complete' === $wp_current_filter[0] ||
+                    /**
+                     * AJAX bulk updates (e.g., from the Plugins page):
+                     * The `upgrader_process_complete` action fires multiple times — once for each plugin after it finishes updating. In this flow, it is not the current action (`$wp_current_filter[0]`) because it is triggered from another action. Instead, we compare `self::$_upgrade_basename` with the basename of the plugin currently being updated, since the `upgrader_process_complete` action runs separately for each plugin.
+                     */
+                    ( in_array( 'upgrader_process_complete', $wp_current_filter ) && self::$_upgrade_basename === $basename )
+                )
+            ) {
                 return $transient_data;
             }
 
             if ( ! isset( $this->_update_details ) ) {
                 // Get plugin's newest update.
-                $new_version = $this->_fs->get_update(
-                    false,
-                    fs_request_get_bool( 'force-check' ),
-                    FS_Plugin_Updater::UPDATES_CHECK_CACHE_EXPIRATION,
-                    $this->_fs->get_plugin_version()
-                );
+                $new_version = $this->_fs->get_update( false, fs_request_get_bool( 'force-check' ) );
 
                 $this->_update_details = false;
 
@@ -570,9 +588,6 @@
                     $this->_update_details = $this->get_update_details( $new_version );
                 }
             }
-
-            // Alias.
-            $basename = $this->_fs->premium_plugin_basename();
 
             if ( is_object( $this->_update_details ) ) {
                 if ( isset( $transient_data->no_update ) ) {
@@ -704,16 +719,8 @@
                 );
             }
 
-            if ( $this->_fs->is_premium() ) {
-                $latest_tag = $this->_fs->_fetch_latest_version( $this->_fs->get_id(), false );
-
-                if (
-                    isset( $latest_tag->readme ) &&
-                    isset( $latest_tag->readme->upgrade_notice ) &&
-                    ! empty( $latest_tag->readme->upgrade_notice )
-                ) {
-                    $update->upgrade_notice = $latest_tag->readme->upgrade_notice;
-                }
+            if ( $this->_fs->is_premium() && ! empty( $new_version->upgrade_notice ) ) {
+                $update->upgrade_notice = $new_version->upgrade_notice;
             }
 
             $update->{$this->_fs->get_module_type()} = $this->_fs->get_plugin_basename();

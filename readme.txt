@@ -1,9 +1,9 @@
-=== Style Kits - Advanced Theme Styles for Elementor ===
+=== Style Kits - Advanced Theme Styles for Elementor, Elementor Kits & Elementor Patterns ===
 Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.4
 Tested up to: 6.9
-Stable tag: 2.4.2
+Stable tag: 2.5.0
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -103,6 +103,14 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.5.0 =
+* New: Redesigned Admin Settings page
+* Improvement: Make Style Kits elementor modal load fonts locally
+* Improvement: Remove rating notice
+* Improvement: Update Freemius SDK to v2.13.1
+* Improvement: Other minor code changes
+* Improvement: Compatibility with Elementor v3.35.x and Elementor Pro v3.35.x
 
 = 2.4.2 =
 * New: Promo banner can be hidden once and forever

@@ -11,19 +11,54 @@ namespace Analog\Settings\views;
 ?>
 
 <div class="gopro-content">
-	<h1 class="tab-heading"><?php esc_html_e( 'Transform your design workflow in Elementor with Style Kits PRO', 'ang' ); ?></h1>
-	<p>Excited with the free version of Style Kits? Try out Style Kits PRO and optimise your Elementor design workflow with more features:</p>
-	<ul>
-		<li><?php esc_html_e( 'Unlimited access to the container-based pattern library', 'ang' ); ?></li>
-		<li><?php esc_html_e( 'Unlimited access to the entire collection of Global theme style presets', 'ang' ); ?></li>
-		<li><?php esc_html_e( 'Unlock up to 48 Global Style Kit Fonts and Colors', 'ang' ); ?></li>
-		<li><?php esc_html_e( 'Unlock up to 24 container spacing  presets', 'ang' ); ?></li>
-		<li><?php esc_html_e( 'Hide any Style Kit reference from your clients, based on user roles', 'ang' ); ?></li>
-		<li><?php esc_html_e( 'Style Kits front-end switcher', 'ang' ); ?></li>
-		<li><?php esc_html_e( 'Selectively de-activate Style Kits Panels from the site settings sidebar', 'ang' ); ?></li>
-	</ul>
-	<p><?php esc_html_e( '.. and much more.', 'ang' ); ?></p>
-	<a href="<?php echo esc_url( 'https://analogwp.com/style-kits/#pricing?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro' ); ?>" class="ang-button button-primary" target="_blank"><?php esc_html_e( 'Explore Style Kits Pro', 'ang' ); ?></a>
-	<p style="font-style:italic; font-weight: 500;"><?php esc_html_e( 'Now available with Lifetime plans for a limited time! ', 'ang' ); ?></p>
+	<div class="gopro-hero">
+		<div class="gopro-hero__text">
+			<p class="gopro-eyebrow"><?php esc_html_e( 'Upgrade to PRO', 'ang' ); ?></p>
+			<h1><?php esc_html_e( 'Transform your design workflow in Elementor with Style Kits PRO', 'ang' ); ?></h1>
+			<p class="gopro-lead"><?php esc_html_e( 'Everything in the free version, plus more powerful tools to build faster, design smarter, and deliver a better client experience.', 'ang' ); ?></p>
+			<div class="gopro-cta">
+				<a href="<?php echo esc_url( 'https://analogwp.com/style-kits/#pricing?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro' ); ?>" class="button button-primary gopro-cta__primary" target="_blank"><?php esc_html_e( 'Explore Style Kits Pro', 'ang' ); ?></a>
+				<span class="gopro-cta__note"><?php esc_html_e( 'Also available in a Limited Lifetime plan!', 'ang' ); ?></span>
+			</div>
+		</div>
+	</div>
+
+	<div class="gopro-features">
+		<div class="gopro-feature-card">
+			<div class="gopro-feature-card__icon">🎨</div>
+			<div>
+				<h3><?php esc_html_e( 'Pattern &amp; Style Preset Libraries', 'ang' ); ?></h3>
+				<p><?php esc_html_e( 'Unlimited access to the container-based pattern library and the entire collection of Global theme style presets.', 'ang' ); ?></p>
+			</div>
+		</div>
+		<div class="gopro-feature-card">
+			<div class="gopro-feature-card__icon">✏️</div>
+			<div>
+				<h3><?php esc_html_e( 'More Fonts, Colors &amp; Spacing', 'ang' ); ?></h3>
+				<p><?php esc_html_e( 'Unlock up to 48 Global Style Kit Fonts and Colors, and up to 24 container spacing presets.', 'ang' ); ?></p>
+			</div>
+		</div>
+		<div class="gopro-feature-card">
+			<div class="gopro-feature-card__icon">🔒</div>
+			<div>
+				<h3><?php esc_html_e( 'Role-Based Access Controls', 'ang' ); ?></h3>
+				<p><?php esc_html_e( 'Hide any Style Kit reference from your clients based on user roles.', 'ang' ); ?></p>
+			</div>
+		</div>
+		<div class="gopro-feature-card">
+			<div class="gopro-feature-card__icon">🧩</div>
+			<div>
+				<h3><?php esc_html_e( 'Manage Style Kit Panels', 'ang' ); ?></h3>
+				<p><?php esc_html_e( 'Selectively de-activate Style Kits Panels from the site settings sidebar.', 'ang' ); ?></p>
+			</div>
+		</div>
+		<div class="gopro-feature-card">
+			<div class="gopro-feature-card__icon">🔄</div>
+			<div>
+				<h3><?php esc_html_e( 'Front-End Style Switcher', 'ang' ); ?></h3>
+				<p><?php esc_html_e( 'Let visitors or clients toggle between Style Kits on the front end — perfect for live previewing design variations.', 'ang' ); ?></p>
+			</div>
+		</div>
+	</div>
 </div>
 

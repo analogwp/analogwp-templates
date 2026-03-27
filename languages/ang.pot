@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.4.0\n"
+"Project-Id-Version: Style Kits for Elementor 2.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-20T08:45:14+00:00\n"
+"POT-Creation-Date: 2026-03-27T10:36:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: ang\n"
@@ -17,8 +17,8 @@ msgstr ""
 #. Plugin Name of the plugin
 #: analogwp-templates.php
 #: inc/admin/class-admin.php:44
-#: inc/class-tracker.php:131
 #: inc/register-settings.php:28
+#: inc/settings/views/html-admin-settings.php:108
 msgid "Style Kits for Elementor"
 msgstr ""
 
@@ -40,12 +40,12 @@ msgstr ""
 
 #. translators: %s: version number
 #: analogwp-templates.php:50
-#: analogwp-templates.php:240
+#: analogwp-templates.php:243
 msgid "Style Kit for Elementor requires PHP version %s"
 msgstr ""
 
 #: analogwp-templates.php:51
-#: analogwp-templates.php:241
+#: analogwp-templates.php:244
 msgid "Error Activating"
 msgstr ""
 
@@ -95,7 +95,7 @@ msgid "View Documentation"
 msgstr ""
 
 #: inc/admin/class-admin.php:65
-#: inc/settings/views/html-admin-settings.php:114
+#: inc/settings/views/html-admin-settings.php:113
 msgid "Documentation"
 msgstr ""
 
@@ -162,27 +162,39 @@ msgid "Invalid Block ID."
 msgstr ""
 
 #: inc/class-admin-settings.php:77
+msgid "Permission denied."
+msgstr ""
+
+#: inc/class-admin-settings.php:83
+msgid "Invalid promo ID."
+msgstr ""
+
+#: inc/class-admin-settings.php:89
+msgid "Promo hidden successfully."
+msgstr ""
+
+#: inc/class-admin-settings.php:105
 msgid "Your settings have been saved."
 msgstr ""
 
-#: inc/class-admin-settings.php:136
+#: inc/class-admin-settings.php:165
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr ""
 
-#: inc/class-admin-settings.php:137
+#: inc/class-admin-settings.php:166
 msgid "Template Kit file downloaded."
 msgstr ""
 
-#: inc/class-admin-settings.php:138
+#: inc/class-admin-settings.php:167
 msgid "Import it into Elementor"
 msgstr ""
 
-#: inc/class-admin-settings.php:571
-#: inc/class-admin-settings.php:636
+#: inc/class-admin-settings.php:602
+#: inc/class-admin-settings.php:667
 msgid "Toggle"
 msgstr ""
 
-#: inc/class-admin-settings.php:684
+#: inc/class-admin-settings.php:715
 msgid "Refresh"
 msgstr ""
 
@@ -344,15 +356,6 @@ msgstr ""
 #: inc/class-quick-edit.php:146
 #: inc/elementor/class-post-type.php:33
 msgid "Style Kit"
-msgstr ""
-
-#. translators: %2$s Plugin Name %3%s Review text
-#: inc/class-tracker.php:130
-msgid "Hey! You have been using %1$s for over 2 weeks, we hope you enjoy it! If so, please leave a positive %2$s."
-msgstr ""
-
-#: inc/class-tracker.php:132
-msgid "review on WordPress.org"
 msgstr ""
 
 #: inc/Core/SVGs/Allow.php:90
@@ -1549,12 +1552,12 @@ msgid "Library"
 msgstr ""
 
 #: inc/register-settings.php:47
-#: inc/settings/views/html-admin-settings.php:26
+#: inc/settings/views/html-admin-settings.php:28
 msgid "Style Kits Settings"
 msgstr ""
 
-#: inc/register-settings.php:218
-#: inc/register-settings.php:245
+#: inc/register-settings.php:221
+#: inc/register-settings.php:248
 msgid "that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at"
 msgstr ""
 
@@ -1738,85 +1741,122 @@ msgstr ""
 msgid "Check this box to turn on beta updates for Style Kits and Style Kits Pro. The update will not be installed automatically, you always have the option to ignore it."
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:14
-msgid "Transform your design workflow in Elementor with Style Kits PRO"
+#: inc/settings/views/html-admin-settings-gopro.php:16
+msgid "Upgrade to PRO"
 msgstr ""
 
 #: inc/settings/views/html-admin-settings-gopro.php:17
-msgid "Unlimited access to the container-based pattern library"
+msgid "Transform your design workflow in Elementor with Style Kits PRO"
 msgstr ""
 
 #: inc/settings/views/html-admin-settings-gopro.php:18
-msgid "Unlimited access to the entire collection of Global theme style presets"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:19
-msgid "Unlock up to 48 Global Style Kit Fonts and Colors"
+msgid "Everything in the free version, plus more powerful tools to build faster, design smarter, and deliver a better client experience."
 msgstr ""
 
 #: inc/settings/views/html-admin-settings-gopro.php:20
-msgid "Unlock up to 24 container spacing  presets"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:21
-msgid "Hide any Style Kit reference from your clients, based on user roles"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:22
-msgid "Style Kits front-end switcher"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:23
-msgid "Selectively de-activate Style Kits Panels from the site settings sidebar"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:25
-msgid ".. and much more."
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:26
 msgid "Explore Style Kits Pro"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:27
-msgid "Now available with Lifetime plans for a limited time! "
+#: inc/settings/views/html-admin-settings-gopro.php:21
+msgid "Also available in a Limited Lifetime plan!"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:51
+#: inc/settings/views/html-admin-settings-gopro.php:30
+msgid "Pattern &amp; Style Preset Libraries"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:31
+msgid "Unlimited access to the container-based pattern library and the entire collection of Global theme style presets."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:37
+msgid "More Fonts, Colors &amp; Spacing"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:38
+msgid "Unlock up to 48 Global Style Kit Fonts and Colors, and up to 24 container spacing presets."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:44
+msgid "Role-Based Access Controls"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:45
+msgid "Hide any Style Kit reference from your clients based on user roles."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:51
+msgid "Manage Style Kit Panels"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:52
+msgid "Selectively de-activate Style Kits Panels from the site settings sidebar."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:58
+msgid "Front-End Style Switcher"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:59
+msgid "Let visitors or clients toggle between Style Kits on the front end — perfect for live previewing design variations."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings.php:54
 msgid "Save changes"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:75
+#: inc/settings/views/html-admin-settings.php:65
+msgid "Hide"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings.php:80
 msgid "Meet Custom Library for Elementor"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:94
+#: inc/settings/views/html-admin-settings.php:115
+msgid "Explore Style Kits PRO Features"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings.php:118
+#: client/Template.js:20
+msgid "New"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings.php:118
+msgid "Custom Library for Elementor"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings.php:121
+msgid "Unlimited Access Pass"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings.php:133
 msgid "Your Email"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:95
+#: inc/settings/views/html-admin-settings.php:134
 msgid "First Name"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:96
+#: inc/settings/views/html-admin-settings.php:135
 msgid "Send me the coupon"
 msgstr ""
 
 #. translators: %s: Link to AnalogWP privacy policy.
-#: inc/settings/views/html-admin-settings.php:104
+#: inc/settings/views/html-admin-settings.php:143
 msgid "By submitting your details, you agree to our %s."
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:105
+#: inc/settings/views/html-admin-settings.php:144
 msgid "privacy policy"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:116
-msgid "Need help with Style Kits?"
+#: inc/settings/views/html-admin-settings.php:153
+msgid "Looking for help or have a feature request?"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:117
-msgid "Visit the online docs"
+#: inc/settings/views/html-admin-settings.php:160
+msgid "Visit Documentation"
 msgstr ""
 
 #: inc/upgrade-functions.php:90
@@ -2181,10 +2221,6 @@ msgstr ""
 
 #: client/Synchronization.js:38
 msgid "Close"
-msgstr ""
-
-#: client/Template.js:20
-msgid "New"
 msgstr ""
 
 #: client/Templates.js:268
