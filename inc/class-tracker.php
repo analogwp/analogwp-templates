@@ -7,7 +7,6 @@
 
 namespace Analog;
 
-use Analog\Admin\Notice;
 use Analog\Options;
 use Analog\Utils;
 
@@ -44,14 +43,6 @@ class Tracker {
 		self::$installed_time = self::get_installed_time();
 
 		add_action( 'analog/tracker/send_event', array( __CLASS__, 'send_tracking_data' ) );
-
-		add_filter(
-			'analog_admin_notices',
-			function ( $notices ) {
-				$notices[] = $this->get_rating_notification();
-				return $notices;
-			}
-		);
 	}
 
 	/**
@@ -106,40 +97,6 @@ class Tracker {
 				'body'      => array(
 					'data' => wp_json_encode( $data ),
 				),
-			)
-		);
-	}
-
-	/**
-	 * Show rating notification for users.
-	 *
-	 * Displayed only:
-	 * - If current user is admin users,
-	 * - If the user has been using the plugin for more than 2 weeks.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @return Notice
-	 */
-	public function get_rating_notification() {
-		return new Notice(
-			'rate_plugin',
-			array(
-				'content'         => sprintf(
-					/* translators: %2$s Plugin Name %3%s Review text */
-					__( 'Hey! You have been using %1$s for over 2 weeks, we hope you enjoy it! If so, please leave a positive %2$s.', 'ang' ),
-					'<strong>' . __( 'Style Kits for Elementor', 'ang' ) . '</strong>',
-					'<a href="https://analogwp.com/admin-review" target="_blank">' . __( 'review on WordPress.org', 'ang' ) . '</a>'
-				),
-				'type'            => Notice::TYPE_INFO,
-				'active_callback' => static function () {
-					if ( 0 === absint( self::$installed_time ) || ! self::$installed_time ) {
-						return false;
-					}
-
-					return current_user_can( 'manage_options' ) && ( self::$installed_time < strtotime( '-2 week' ) );
-				},
-				'dismissible'     => true,
 			)
 		);
 	}
