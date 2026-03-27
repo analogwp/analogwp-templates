@@ -4495,33 +4495,31 @@
                 return;
             }
 
-            if ( $this->has_api_connectivity() ) {
-                if ( self::is_cron() ) {
-                    $this->hook_callback_to_sync_cron();
-                } else if ( $this->is_user_in_admin() ) {
-                    /**
-                     * Schedule daily data sync cron if:
-                     *
-                     *  1. User opted-in (for tracking).
-                     *  2. If skipped, but later upgraded (opted-in via upgrade).
-                     *
-                     * @author Vova Feldman (@svovaf)
-                     * @since  1.1.7.3
-                     *
-                     */
-                    if ( $this->is_registered() && $this->is_tracking_allowed() ) {
-                        $this->maybe_schedule_sync_cron();
-                    }
+            $this->hook_callback_to_sync_cron();
 
-                    /**
-                     * Check if requested for manual blocking background sync.
-                     */
-                    if ( fs_request_has( 'background_sync' ) ) {
-                        self::require_pluggable_essentials();
-                        self::wp_cookie_constants();
+            if ( $this->has_api_connectivity() && ! self::is_cron() && $this->is_user_in_admin() ) {
+                /**
+                 * Schedule daily data sync cron if:
+                 *
+                 *  1. User opted-in (for tracking).
+                 *  2. If skipped, but later upgraded (opted-in via upgrade).
+                 *
+                 * @author Vova Feldman (@svovaf)
+                 * @since  1.1.7.3
+                 *
+                 */
+                if ( $this->is_registered() && $this->is_tracking_allowed() ) {
+                    $this->maybe_schedule_sync_cron();
+                }
 
-                        $this->run_manual_sync();
-                    }
+                /**
+                 * Check if requested for manual blocking background sync.
+                 */
+                if ( fs_request_has( 'background_sync' ) ) {
+                    self::require_pluggable_essentials();
+                    self::wp_cookie_constants();
+
+                    $this->run_manual_sync();
                 }
             }
 
@@ -6560,10 +6558,7 @@
             $next_schedule = $this->next_sync_cron();
 
             // The event is properly scheduled, so no need to reschedule it.
-            if (
-                is_numeric( $next_schedule ) &&
-                $next_schedule > time()
-            ) {
+            if ( is_numeric( $next_schedule ) ) {
                 return;
             }
 
@@ -7100,7 +7095,6 @@
          */
         function _enqueue_connect_essentials() {
             wp_enqueue_script( 'jquery' );
-            wp_enqueue_script( 'json2' );
 
             fs_enqueue_local_script( 'postmessage', 'nojquery.ba-postmessage.js' );
             fs_enqueue_local_script( 'fs-postmessage', 'postmessage.js' );
@@ -8841,8 +8835,13 @@
                      isset( $site_active_plugins[ $basename ] )
                 ) {
                     // Plugin was site level activated.
-                    $site_active_plugins_cache->plugins[ $basename ]              = $network_plugins[ $basename ];
-                    $site_active_plugins_cache->plugins[ $basename ]['is_active'] = true;
+                    $site_active_plugins_cache->plugins[ $basename ] = array(
+                        'slug'           => $network_plugins[ $basename ]['slug'],
+                        'version'        => $network_plugins[ $basename ]['Version'],
+                        'title'          => $network_plugins[ $basename ]['Name'],
+                        'is_active'      => $is_active,
+                        'is_uninstalled' => false,
+                    );
                 } else if ( isset( $site_active_plugins_cache->plugins[ $basename ] ) &&
                             ! isset( $site_active_plugins[ $basename ] )
                 ) {
@@ -14031,6 +14030,10 @@
                 $result['next_page'] = $next_page;
             }
 
+            if ( $result['success'] ) {
+                $this->do_action( 'after_license_activation' );
+            }
+
             return $result;
         }
 
@@ -15779,6 +15782,10 @@
         function get_site_info( $site = null, $load_registration = false ) {
             $this->_logger->entrance();
 
+            $fs_hook_snapshot = new FS_Hook_Snapshot();
+            // Remove all filters from `switch_blog`.
+            $fs_hook_snapshot->remove( 'switch_blog' );
+
             $switched = false;
 
             $registration_date = null;
@@ -15837,6 +15844,9 @@
             if ( $switched ) {
                 restore_current_blog();
             }
+
+            // Add the filters back to `switch_blog`.
+            $fs_hook_snapshot->restore( 'switch_blog' );
 
             return $info;
         }
@@ -17422,7 +17432,7 @@
                 FS_User_Lock::instance()->unlock();
             }
 
-            if ( 1 < count( $installs ) ) {
+            if ( 1 < count( $installs ) || fs_is_network_admin() ) {
                 // Only network level opt-in can have more than one install.
                 $is_network_level_opt_in = true;
             }
@@ -20605,11 +20615,18 @@
          * @param bool        $flush      Since 1.1.7.3
          * @param int         $expiration Since 1.2.2.7
          * @param bool|string $newer_than Since 2.2.1
+         * @param bool        $fetch_upgrade_notice Since 2.12.1
          *
          * @return object|false New plugin tag info if exist.
          */
-        private function _fetch_newer_version( $plugin_id = false, $flush = true, $expiration = WP_FS__TIME_24_HOURS_IN_SEC, $newer_than = false ) {
-            $latest_tag = $this->_fetch_latest_version( $plugin_id, $flush, $expiration, $newer_than );
+        private function _fetch_newer_version(
+            $plugin_id = false,
+            $flush = true,
+            $expiration = WP_FS__TIME_24_HOURS_IN_SEC,
+            $newer_than = false,
+            $fetch_upgrade_notice = true
+        ) {
+            $latest_tag = $this->_fetch_latest_version( $plugin_id, $flush, $expiration, $newer_than, false, $fetch_upgrade_notice );
 
             if ( ! is_object( $latest_tag ) ) {
                 return false;
@@ -20642,19 +20659,18 @@
          *
          * @param bool|number $plugin_id
          * @param bool        $flush      Since 1.1.7.3
-         * @param int         $expiration Since 1.2.2.7
-         * @param bool|string $newer_than Since 2.2.1
          *
          * @return bool|FS_Plugin_Tag
          */
-        function get_update( $plugin_id = false, $flush = true, $expiration = FS_Plugin_Updater::UPDATES_CHECK_CACHE_EXPIRATION, $newer_than = false ) {
+        function get_update( $plugin_id = false, $flush = true ) {
             $this->_logger->entrance();
 
             if ( ! is_numeric( $plugin_id ) ) {
                 $plugin_id = $this->_plugin->id;
             }
 
-            $this->check_updates( true, $plugin_id, $flush, $expiration, $newer_than );
+            $this->check_updates( true, $plugin_id, $flush );
+
             $updates = $this->get_all_updates();
 
             return isset( $updates[ $plugin_id ] ) && is_object( $updates[ $plugin_id ] ) ? $updates[ $plugin_id ] : false;
@@ -21651,6 +21667,8 @@
                 return;
             }
 
+            $this->do_action( 'after_license_activation' );
+
             $premium_license = new FS_Plugin_License( $license );
 
             // Updated site plan.
@@ -21730,6 +21748,8 @@
                     'error'
                 );
 
+                $this->do_action( 'after_license_deactivation', $license );
+
                 return;
             }
 
@@ -21749,6 +21769,8 @@
             $this->_update_site_license( null );
 
             $this->_store_account();
+
+            $this->do_action( 'after_license_deactivation', $license );
 
             if ( $show_notice ) {
                 $this->_admin_notices->add(
@@ -22111,6 +22133,7 @@
          * @param int         $expiration   Since 1.2.2.7
          * @param bool|string $newer_than   Since 2.2.1
          * @param bool|string $fetch_readme Since 2.2.1
+         * @param bool        $fetch_upgrade_notice Since 2.12.1
          *
          * @return object|false Plugin latest tag info.
          */
@@ -22119,7 +22142,8 @@
             $flush = true,
             $expiration = WP_FS__TIME_24_HOURS_IN_SEC,
             $newer_than = false,
-            $fetch_readme = true
+            $fetch_readme = true,
+            $fetch_upgrade_notice = false
         ) {
             $this->_logger->entrance();
 
@@ -22190,6 +22214,10 @@
 
                 // Don't cache the API response when fetching readme information.
                 $expiration = null;
+            }
+
+            if ( true === $fetch_upgrade_notice ) {
+                $latest_version_endpoint = add_query_arg( 'include_upgrade_notice', 'true', $latest_version_endpoint );
             }
 
             $tag = $this->get_api_site_or_plugin_scope()->get(
@@ -22337,20 +22365,20 @@
          *                                was initiated by the admin.
          * @param bool|number $plugin_id
          * @param bool        $flush      Since 1.1.7.3
-         * @param int         $expiration Since 1.2.2.7
-         * @param bool|string $newer_than Since 2.2.1
          */
-        private function check_updates(
-            $background = false,
-            $plugin_id = false,
-            $flush = true,
-            $expiration = FS_Plugin_Updater::UPDATES_CHECK_CACHE_EXPIRATION,
-            $newer_than = false
-        ) {
+        private function check_updates( $background = false, $plugin_id = false, $flush = true ) {
             $this->_logger->entrance();
 
+            $newer_than = ( $this->is_premium() ? $this->get_plugin_version() : false );
+
             // Check if there's a newer version for download.
-            $new_version = $this->_fetch_newer_version( $plugin_id, $flush, $expiration, $newer_than );
+            $new_version = $this->_fetch_newer_version(
+                $plugin_id,
+                $flush,
+                FS_Plugin_Updater::UPDATES_CHECK_CACHE_EXPIRATION,
+                $newer_than,
+                ( false !== $newer_than )
+            );
 
             $update = null;
             if ( is_object( $new_version ) ) {
@@ -23495,7 +23523,7 @@
                         $params['plugin_public_key'] = $this->get_public_key();
                     }
 
-                    $result = $api->get( 'pricing.json?' . http_build_query( $params ) );
+                    $result = $api->get( $this->add_show_pending( 'pricing.json?' . http_build_query( $params ) ) );
                     break;
                 case 'start_trial':
                     $trial_plan_id = fs_request_get( 'plan_id' );
@@ -24676,23 +24704,39 @@
                     $this->get_premium_slug() :
                     $this->premium_plugin_basename();
 
-                return sprintf(
-                /* translators: %1$s: Product title; %2$s: Plan title */
-                    $this->get_text_inline( ' The paid version of %1$s is already installed. Please activate it to start benefiting the %2$s features. %3$s', 'activate-premium-version' ),
-                    sprintf( '<em>%s</em>', esc_html( $this->get_plugin_title() ) ),
-                    $plan_title,
-                    sprintf(
-                        '<a style="margin-left: 10px;" href="%s"><button class="button button-primary">%s</button></a>',
-                        ( $this->is_theme() ?
-                            wp_nonce_url( 'themes.php?action=activate&amp;stylesheet=' . $premium_theme_slug_or_plugin_basename, 'switch-theme_' . $premium_theme_slug_or_plugin_basename ) :
-                            wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $premium_theme_slug_or_plugin_basename, 'activate-plugin_' . $premium_theme_slug_or_plugin_basename ) ),
-                        esc_html( sprintf(
-                        /* translators: %s: Plan title */
-                            $this->get_text_inline( 'Activate %s features', 'activate-x-features' ),
-                            $plan_title
-                        ) )
-                    )
-                );
+                if ( is_admin() ) {
+                    return sprintf(
+                        /* translators: %1$s: Product title; %2$s: Plan title */
+                        $this->get_text_inline( ' The paid version of %1$s is already installed. Please activate it to start benefiting from the %2$s features. %3$s', 'activate-premium-version' ),
+                        sprintf( '<em>%s</em>', esc_html( $this->get_plugin_title() ) ),
+                        $plan_title,
+                        sprintf(
+                            '<a style="margin-left: 10px;" href="%s"><button class="button button-primary">%s</button></a>',
+                            ( $this->is_theme() ?
+                                wp_nonce_url( 'themes.php?action=activate&amp;stylesheet=' . $premium_theme_slug_or_plugin_basename, 'switch-theme_' . $premium_theme_slug_or_plugin_basename ) :
+                                wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $premium_theme_slug_or_plugin_basename, 'activate-plugin_' . $premium_theme_slug_or_plugin_basename ) ),
+                            esc_html( sprintf(
+                            /* translators: %s: Plan title */
+                                $this->get_text_inline( 'Activate %s features', 'activate-x-features' ),
+                                $plan_title
+                            ) )
+                        )
+                    );
+                } else {
+                    return sprintf(
+                        /* translators: %1$s: Product title; %3$s: Plan title */
+                        $this->get_text_inline( ' The paid version of %1$s is already installed. Please navigate to the %2$s to activate it and start benefiting from the %3$s features.', 'activate-premium-version-plugins-page' ),
+                        sprintf( '<em>%s</em>', esc_html( $this->get_plugin_title() ) ),
+                        sprintf(
+                            '<a href="%s">%s</a>',
+                            admin_url( $this->is_theme() ? 'themes.php' : 'plugins.php' ),
+                            ( $this->is_theme() ?
+                                $this->get_text_inline( 'Themes page', 'themes-page' ) :
+                                $this->get_text_inline( 'Plugins page', 'plugins-page' ) )
+                        ),
+                        $plan_title
+                    );
+                }
             } else {
                 // @since 1.2.1.5 The free version is auto deactivated.
                 $deactivation_step = version_compare( $this->version, '1.2.1.5', '<' ) ?
