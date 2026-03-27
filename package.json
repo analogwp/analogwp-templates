@@ -8,7 +8,7 @@
     "install-scripts": "composer install && npm install",
     "build-app": "wp-scripts build --webpack-src-dir=client --output-path=assets/js/app",
     "dev-app": "wp-scripts start --webpack-src-dir=client --output-path=assets/js/app",
-    "makePot": "wp i18n make-pot . ./languages/ang.pot",
+    "makePot": "wp i18n make-pot . ./languages/ang.pot --exclude=build",
     "convertPot2json": "npx po2json ./languages/ang.pot ./languages/ang-analogwp-app.json -f jed1.x",
     "build": "gulp build",
     "gh:release": "gulp github-build"
