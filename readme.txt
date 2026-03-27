@@ -107,6 +107,7 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 = 2.5.0 =
 * New: Redesigned Admin Settings page
 * Improvement: Make Style Kits elementor modal load fonts locally
+* Improvement: Remove rating notice
 * Improvement: Update Freemius SDK to v2.13.1
 * Improvement: Other minor code changes
 * Improvement: Compatibility with Elementor v3.35.x and Elementor Pro v3.35.x
