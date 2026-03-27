@@ -95,7 +95,7 @@ final class Plugin {
 		}
 
 		wp_enqueue_style( 'wp-components' );
-		wp_enqueue_style( 'analog-google-fonts', 'https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap', array(), '20221016' );
+		wp_enqueue_style( 'analog-google-fonts', ANG_PLUGIN_URL . 'assets/css/inter-font.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/inter-font.css' ) );
 		wp_enqueue_style( 'analogwp-components-css', ANG_PLUGIN_URL . 'assets/css/sk-components.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/sk-components.css' ) );
 
 		wp_enqueue_script(
