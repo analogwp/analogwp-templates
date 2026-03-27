@@ -59,28 +59,6 @@ if ( ! $tab_exists ) {
 		<div class="sidebar">
 			<?php do_action( 'ang_sidebar_start' ); ?>
 
-			<div class="plugin-banner">
-				<div class="header">
-					<div class="brand">
-						<svg xmlns="http://www.w3.org/2000/svg" width="450" height="450" viewBox="0 0 450 450" fill="none"><rect width="450" height="450" fill="#413EC5"/><path fill-rule="evenodd" clip-rule="evenodd" d="M226.504 142.557C225.848 141.42 224.207 141.42 223.551 142.557L128.476 307.232C127.82 308.368 128.64 309.789 129.952 309.789H320.103C321.415 309.789 322.235 308.368 321.579 307.232L226.504 142.557ZM226.504 206.477C225.848 205.341 224.207 205.341 223.551 206.477L183.833 275.272C183.177 276.408 183.997 277.828 185.309 277.828H264.746C266.058 277.828 266.878 276.408 266.222 275.272L226.504 206.477Z" fill="white"/><script xmlns=""/></svg>
-						<div>
-							<h4><?php esc_html_e( 'Style Kits for Elementor', 'ang' ); ?></h4>
-						</div>
-					</div>
-				</div>
-				<ul class="feature-list">
-					<li><a href="https://analogwp.com/docs/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Documentation', 'ang' ); ?></a></li>
-					<?php if ( ! class_exists( '\AnalogPro\Plugin' ) ) : ?>
-					<li><a href="https://analogwp.com/style-kits-pro/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Explore Style Kits PRO Features', 'ang' ); ?></a></li>
-					<?php endif; ?>
-					<?php if ( ! defined( 'AGWP_LIBRARY_VERSION' ) ) : ?>
-					<li><span class="inline-badge"><?php esc_html_e( 'New', 'ang' ); ?></span>&nbsp;<a href="https://analogwp.com/custom-library-for-elementor/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Custom Library for Elementor', 'ang' ); ?></a></li>
-					<?php endif; ?>
-					<?php if ( ! class_exists( '\AnalogPro\Plugin' ) ) : ?>
-					<li><a href="https://analogwp.com/all-access-pass/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Unlimited Access Pass', 'ang' ); ?></a></li>
-					<?php endif; ?>
-				</ul>
-			</div>
 
 			<?php if ( ! class_exists( '\AnalogWP\CustomLibrary\Plugin' ) && ! get_option( 'ang_hide_custom_library_promo' ) ) : ?>
 				<div class="promo" data-promo-id="custom_library_promo">
@@ -121,6 +99,29 @@ if ( ! $tab_exists ) {
 					</div>
 				</div>
 			<?php endif; ?>
+
+			<div class="plugin-banner">
+				<div class="header">
+					<div class="brand">
+						<svg xmlns="http://www.w3.org/2000/svg" width="450" height="450" viewBox="0 0 450 450" fill="none"><rect width="450" height="450" fill="#413EC5"/><path fill-rule="evenodd" clip-rule="evenodd" d="M226.504 142.557C225.848 141.42 224.207 141.42 223.551 142.557L128.476 307.232C127.82 308.368 128.64 309.789 129.952 309.789H320.103C321.415 309.789 322.235 308.368 321.579 307.232L226.504 142.557ZM226.504 206.477C225.848 205.341 224.207 205.341 223.551 206.477L183.833 275.272C183.177 276.408 183.997 277.828 185.309 277.828H264.746C266.058 277.828 266.878 276.408 266.222 275.272L226.504 206.477Z" fill="white"/><script xmlns=""/></svg>
+						<div>
+							<h4><?php esc_html_e( 'Style Kits for Elementor', 'ang' ); ?></h4>
+						</div>
+					</div>
+				</div>
+				<ul class="feature-list">
+					<li><a href="https://analogwp.com/docs/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Documentation', 'ang' ); ?></a></li>
+					<?php if ( ! class_exists( '\AnalogPro\Plugin' ) ) : ?>
+					<li><a href="https://analogwp.com/style-kits-pro/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Explore Style Kits PRO Features', 'ang' ); ?></a></li>
+					<?php endif; ?>
+					<?php if ( ! defined( 'AGWP_LIBRARY_VERSION' ) ) : ?>
+					<li><span class="inline-badge"><?php esc_html_e( 'New', 'ang' ); ?></span>&nbsp;<a href="https://analogwp.com/custom-library-for-elementor/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Custom Library for Elementor', 'ang' ); ?></a></li>
+					<?php endif; ?>
+					<?php if ( ! class_exists( '\AnalogPro\Plugin' ) ) : ?>
+					<li><a href="https://analogwp.com/all-access-pass/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Unlimited Access Pass', 'ang' ); ?></a></li>
+					<?php endif; ?>
+				</ul>
+			</div>
 
 			<?php if ( ! class_exists( '\AnalogPro\Plugin' ) ) : ?>
 			<div class="upgrade-box special">
