@@ -42,7 +42,14 @@ namespace Analog\Settings\views;
 			<div class="gopro-feature-card__icon">🔒</div>
 			<div>
 				<h3><?php esc_html_e( 'Role-Based Access Controls', 'ang' ); ?></h3>
-				<p><?php esc_html_e( 'Hide any Style Kit reference from your clients based on user roles, and selectively de-activate Style Kits Panels from the site settings sidebar.', 'ang' ); ?></p>
+				<p><?php esc_html_e( 'Hide any Style Kit reference from your clients based on user roles.', 'ang' ); ?></p>
+			</div>
+		</div>
+		<div class="gopro-feature-card">
+			<div class="gopro-feature-card__icon">🧩</div>
+			<div>
+				<h3><?php esc_html_e( 'Manage Style Kit Panels', 'ang' ); ?></h3>
+				<p><?php esc_html_e( 'Selectively de-activate Style Kits Panels from the site settings sidebar.', 'ang' ); ?></p>
 			</div>
 		</div>
 		<div class="gopro-feature-card">
