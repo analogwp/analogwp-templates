@@ -350,6 +350,18 @@ body.style-kits_page_ang-settings .wrap {
 	border-top: 1px solid #E2E2E4;
 }
 
+.ang .sidebar .inline-badge {
+	background: #4D45BD;
+	color: #fff;
+	font-size: 10px;
+	text-transform: uppercase;
+	border-radius: 5px;
+	padding: 2px 3px;
+	border: 2px solid transparent;
+	vertical-align: middle;
+	text-decoration: none;
+}
+
 .ang .sidebar .help-box h3 {
 	margin-top: 0;
 	margin-bottom: 15px;

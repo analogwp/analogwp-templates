@@ -70,6 +70,11 @@ if ( ! $tab_exists ) {
 					<li><a href="https://analogwp.com/docs/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Documentation', 'ang' ); ?></a></li>
 					<?php if ( ! class_exists( '\AnalogPro\Plugin' ) ) : ?>
 					<li><a href="https://analogwp.com/style-kits-pro/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Explore Style Kits PRO Features', 'ang' ); ?></a></li>
+					<?php endif; ?>
+					<?php if ( ! defined( 'AGWP_LIBRARY_VERSION' ) ) : ?>
+					<li><span class="inline-badge"><?php esc_html_e( 'New', 'ang' ); ?></span>&nbsp;<a href="https://analogwp.com/custom-library-for-elementor/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Custom Library for Elementor', 'ang' ); ?></a></li>
+					<?php endif; ?>
+					<?php if ( ! class_exists( '\AnalogPro\Plugin' ) ) : ?>
 					<li><a href="https://analogwp.com/all-access-pass/?utm_source=plugin&utm_medium=referral&utm_campaign=settings-sidebar" target="_blank"><?php esc_html_e( 'Unlimited Access Pass', 'ang' ); ?></a></li>
 					<?php endif; ?>
 				</ul>
