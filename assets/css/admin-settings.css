@@ -371,6 +371,12 @@ body.style-kits_page_ang-settings .wrap {
 	margin-bottom: 15px;
 }
 
+.ang .sidebar .help-box .action-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
 .ang .sidebar .promo,
 .ang .sidebar .upgrade-box {
 	margin-top: 0;
