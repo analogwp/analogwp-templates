@@ -87,7 +87,7 @@ final class Allow {
 
 		if ( 'image/svg+xml' === $type ) {
 			if ( ! $this->sanitize( $file['tmp_name'] ) ) {
-				$file['error'] = __( "Unable to sanitize this file hence it wasn't uploaded!", 'ang' );
+				$file['error'] = __( "Unable to sanitize this file hence it wasn't uploaded!", 'analogwp-templates' );
 			}
 		}
 
@@ -169,10 +169,10 @@ final class Allow {
 			$possible_sizes = apply_filters(
 				'image_size_names_choose',
 				array(
-					'full'      => __( 'Full Size', 'ang' ),
-					'thumbnail' => __( 'Thumbnail', 'ang' ),
-					'medium'    => __( 'Medium', 'ang' ),
-					'large'     => __( 'Large', 'ang' ),
+					'full'      => __( 'Full Size', 'analogwp-templates' ),
+					'thumbnail' => __( 'Thumbnail', 'analogwp-templates' ),
+					'medium'    => __( 'Medium', 'analogwp-templates' ),
+					'large'     => __( 'Large', 'analogwp-templates' ),
 				)
 			);
 

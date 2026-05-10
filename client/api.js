@@ -211,10 +211,10 @@ export async function requestElementorImport( template, kit ) {
  * @returns void
  */
 export function doElementorInsert( content, context = 'template' ) {
-	let contextText = __( 'Template', 'ang' );
+	let contextText = __( 'Template', 'analogwp-templates' );
 
 	if ( context === 'block' ) {
-		contextText = __( 'Block', 'ang' );
+		contextText = __( 'Block', 'analogwp-templates' );
 	}
 
 	let insertIndex = analog.insertIndex || -1;
@@ -222,7 +222,7 @@ export function doElementorInsert( content, context = 'template' ) {
 	if ( typeof $e !== 'undefined' ) {
 		const historyId = $e.internal( 'document/history/start-log', {
 			type: 'add',
-			title: `${ __( 'Add Style Kits', 'ang' ) } ${ contextText }`,
+			title: `${ __( 'Add Style Kits', 'analogwp-templates' ) } ${ contextText }`,
 		} );
 
 		for ( let i = 0; i < content.length; i++ ) {

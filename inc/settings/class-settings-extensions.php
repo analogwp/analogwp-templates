@@ -22,7 +22,7 @@ class Extensions extends Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'extensions';
-		$this->label = __( 'Extensions', 'ang' );
+		$this->label = __( 'Extensions', 'analogwp-templates' );
 
 		parent::__construct();
 	}

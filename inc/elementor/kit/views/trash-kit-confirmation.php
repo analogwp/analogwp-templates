@@ -19,18 +19,18 @@ $config_url = add_query_arg(
 );
 ?>
 <h4>
-	<?php echo esc_html__( 'Are you sure you want to delete this Style Kit?', 'ang' ); ?>
+	<?php echo esc_html__( 'Are you sure you want to delete this Style Kit?', 'analogwp-templates' ); ?>
 </h4>
 
 <p>
-	<?php echo esc_html__( 'By removing this template you will delete the entire Style Kit, and all the related global style settings.', 'ang' ); ?>
+	<?php echo esc_html__( 'By removing this template you will delete the entire Style Kit, and all the related global style settings.', 'analogwp-templates' ); ?>
 </p>
 
 <br/>
 
 
 <a class="btn btn-cancel" href="javascript:history.back()">
-	<?php echo esc_html__( 'Cancel', 'ang' ); ?>
+	<?php echo esc_html__( 'Cancel', 'analogwp-templates' ); ?>
 </a>
 <a class="btn btn-primary btn-danger" href="
 <?php
@@ -38,7 +38,7 @@ $config_url = add_query_arg(
 echo $config_url; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 ?>
 ">
-	<?php echo esc_html__( 'Delete Style Kit', 'ang' ); ?>
+	<?php echo esc_html__( 'Delete Style Kit', 'analogwp-templates' ); ?>
 </a>
 <style>
 	/* In WordPress "die" screen there is very basic style, so the current css is required for basic button styles. */

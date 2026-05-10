@@ -63,7 +63,7 @@ class Init {
 		check_admin_referer( 'analog_style_kits_rollback' );
 
 		if ( defined( 'ANALOGWP_DEBUG' ) || ! current_user_can( 'update_plugins' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to rollback Style Kits plugin for this site.', 'ang' ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to rollback Style Kits plugin for this site.', 'analogwp-templates' ) );
 		}
 
 		$rollback_versions = self::get_rollback_versions();
@@ -71,7 +71,7 @@ class Init {
 		$version = filter_input( INPUT_GET, 'version', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 
 		if ( ! $version || ! in_array( $version, $rollback_versions, true ) ) {
-			wp_die( esc_html__( 'Error occurred, the version selected is invalid. Try selecting different version.', 'ang' ) );
+			wp_die( esc_html__( 'Error occurred, the version selected is invalid. Try selecting different version.', 'analogwp-templates' ) );
 		}
 
 		$plugin_slug = 'analogwp-templates';
@@ -90,7 +90,7 @@ class Init {
 
 		wp_die(
 			'',
-			esc_html__( 'Rollback to Previous Version', 'ang' ),
+			esc_html__( 'Rollback to Previous Version', 'analogwp-templates' ),
 			array(
 				'response' => 200,
 			)

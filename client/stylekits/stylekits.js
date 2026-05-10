@@ -123,10 +123,10 @@ const initialState = {
 };
 
 const footer = sprintf(
-	__( '%s <span class="footer-text">in WordPress dashboard.</span>', 'ang' ),
+	__( '%s <span class="footer-text">in WordPress dashboard.</span>', 'analogwp-templates' ),
 	sprintf(
 		`<a href="${ addQueryArgs( 'admin.php', { page: 'style-kits' } ) }" target="_blank" rel="noopener noreferer">%s</a>`,
-		__( 'Manage your Style Kits', 'ang' )
+		__( 'Manage your Style Kits', 'analogwp-templates' )
 	)
 );
 
@@ -202,7 +202,7 @@ export default class StyleKits extends React.Component {
 
 	getPopupTitle( title, hasImported, hasError ) {
 		if ( hasImported && ! hasError ) {
-			return decodeEntities( title ) + __( ' Imported!', 'ang' );
+			return decodeEntities( title ) + __( ' Imported!', 'analogwp-templates' );
 		}
 
 		return decodeEntities( title );
@@ -220,9 +220,9 @@ export default class StyleKits extends React.Component {
 		return (
 			<Container>
 				<p className="tab-description">
-					{ __( 'Style Kits are ready-made configurations of theme styles. When you import a Style Kit, it will be available in the', 'ang' ) } <a href={ addQueryArgs( 'admin.php', { page: 'style-kits' } ) }>{ __( 'Local Style Kits', 'ang' ) }</a> { __( 'page', 'ang' ) }.
-					&nbsp;{ __( 'You will then be able apply it globally, or on any page.', 'ang' ) }
-					&nbsp;<a href="https://analogwp.com/docs/importing-global-style-presets/" target="_blank" rel="noopener noreferrer">{ __( 'Learn more', 'ang' ) }</a>.
+					{ __( 'Style Kits are ready-made configurations of theme styles. When you import a Style Kit, it will be available in the', 'analogwp-templates' ) } <a href={ addQueryArgs( 'admin.php', { page: 'style-kits' } ) }>{ __( 'Local Style Kits', 'analogwp-templates' ) }</a> { __( 'page', 'analogwp-templates' ) }.
+					&nbsp;{ __( 'You will then be able apply it globally, or on any page.', 'analogwp-templates' ) }
+					&nbsp;<a href="https://analogwp.com/docs/importing-global-style-presets/" target="_blank" rel="noopener noreferrer">{ __( 'Learn more', 'analogwp-templates' ) }</a>.
 				</p>
 
 				{ this.state.previewing && this.state.previewing.preview && (
@@ -232,7 +232,7 @@ export default class StyleKits extends React.Component {
 								template={ this.state.previewing }
 								onRequestClose={ () => this.resetState() }
 								onRequestImport={ () => this.handleImport( this.state.previewing, add, true ) }
-								insertText={ __( 'Import Style Kit', 'ang' ) }
+								insertText={ __( 'Import Style Kit', 'analogwp-templates' ) }
 								style={ {
 									padding: '20px',
 									boxSizing: 'border-box',
@@ -249,7 +249,7 @@ export default class StyleKits extends React.Component {
 								<Card>
 									<CardBody>
 										{ kit.is_pro && (
-											<span className="pro">{ __( 'Pro', 'ang' ) }</span>
+											<span className="pro">{ __( 'Pro', 'analogwp-templates' ) }</span>
 										) }
 										<figure>
 											<img src={ kit.image || fallbackImage } alt={ kit.title } />
@@ -263,13 +263,13 @@ export default class StyleKits extends React.Component {
 															this.setState( { previewing: kit } );
 														} }
 													>
-														{ __( 'Preview', 'ang' ) }
+														{ __( 'Preview', 'analogwp-templates' ) }
 													</Button>
 												) }
 
 												{ ! isValid( kit.is_pro ) && (
 													<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank">
-														<Button isPrimary>{ __( 'Go Pro', 'ang' ) }</Button>
+														<Button isPrimary>{ __( 'Go Pro', 'analogwp-templates' ) }</Button>
 													</a>
 												) }
 
@@ -278,7 +278,7 @@ export default class StyleKits extends React.Component {
 														{ ( { add } ) => (
 															<Button isPrimary
 																onClick={ () => this.handleImport( kit, add, true ) }
-															>{ __( 'Import', 'ang' ) }</Button>
+															>{ __( 'Import', 'analogwp-templates' ) }</Button>
 														) }
 													</NotificationConsumer>
 												) }
@@ -304,15 +304,15 @@ export default class StyleKits extends React.Component {
 						{ this.state.hasError && (
 							<div className="stylekit-popup-content" >
 								<p className="popup-description">
-									{ __( 'A Style Kit named ', 'ang' ) + decodeEntities( this.state.activeKit.title ) + __( ' already exists in your website. To import it again please use a different name.', 'ang' ) }
+									{ __( 'A Style Kit named ', 'analogwp-templates' ) + decodeEntities( this.state.activeKit.title ) + __( ' already exists in your website. To import it again please use a different name.', 'analogwp-templates' ) }
 								</p>
 
 								{ this.context.state.installedKits.indexOf( this.state.kitname ) > -1 && (
-									<p className="error">{ __( 'Please try a different as a Style Kit with same name already exists.', 'ang' ) }</p>
+									<p className="error">{ __( 'Please try a different as a Style Kit with same name already exists.', 'analogwp-templates' ) }</p>
 								) }
 								<div className="form-row gap">
 									<TextControl
-										placeholder={ __( 'Enter a Style Kit Name', 'ang' ) }
+										placeholder={ __( 'Enter a Style Kit Name', 'analogwp-templates' ) }
 										onChange={ val => this.setState( { kitname: val } ) }
 										className="kit-name"
 									/>
@@ -334,7 +334,7 @@ export default class StyleKits extends React.Component {
 													this.handleImport( kit, add );
 												} }
 											>
-												{ __( 'Import', 'ang' ) }
+												{ __( 'Import', 'analogwp-templates' ) }
 											</Button>
 										) }
 									</NotificationConsumer>
@@ -346,7 +346,7 @@ export default class StyleKits extends React.Component {
 
 						{ ! this.state.hasError && this.state.importedKit && (
 							<div className="stylekit-popup-content" >
-								<p className="popup-description">{ decodeEntities( this.state.activeKit.title ) + __( ' has been successfully imported. You can now find it in the ', 'ang' ) }<a href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'list of your Local Style Kits' ) }</a>.</p>
+								<p className="popup-description">{ decodeEntities( this.state.activeKit.title ) + __( ' has been successfully imported. You can now find it in the ', 'analogwp-templates' ) }<a href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'list of your Local Style Kits' ) }</a>.</p>
 								<p className="success-buttons gap">
 									<a // eslint-disable-line
 										onClick={ ( e ) => {
@@ -360,7 +360,7 @@ export default class StyleKits extends React.Component {
 										} }
 									>
 										<Button isPrimary>
-											{ __( 'Stay on this page', 'ang' ) }
+											{ __( 'Stay on this page', 'analogwp-templates' ) }
 										</Button>
 									</a>
 									<a // eslint-disable-line
@@ -376,7 +376,7 @@ export default class StyleKits extends React.Component {
 										{ ...successButtonProps }
 									>
 										<Button isSecondary>
-											{ __( 'View local Style Kits', 'ang' ) }
+											{ __( 'View local Style Kits', 'analogwp-templates' ) }
 										</Button>
 									</a>
 								</p>
@@ -386,7 +386,7 @@ export default class StyleKits extends React.Component {
 						) }
 
 						{ ! this.state.hasError && ! this.state.importedKit && (
-							<p>{ __( 'Importing ', 'ang' ) } { decodeEntities( this.state.activeKit.title ) }</p>
+							<p>{ __( 'Importing ', 'analogwp-templates' ) } { decodeEntities( this.state.activeKit.title ) }</p>
 						) }
 					</Popup>
 				) }

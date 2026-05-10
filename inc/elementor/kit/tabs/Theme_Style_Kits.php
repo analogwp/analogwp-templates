@@ -43,7 +43,7 @@ class Theme_Style_Kits extends Tab_Base {
 	 * @return string|void
 	 */
 	public function get_title() {
-		return __( 'Style Kits', 'ang' );
+		return __( 'Style Kits', 'analogwp-templates' );
 	}
 
 	/**

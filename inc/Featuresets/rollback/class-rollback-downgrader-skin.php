@@ -28,7 +28,7 @@ class Rollback_Downgrader_Skin extends WP_Upgrader_Skin {
 	public function header() {
 		// Optional: custom header HTML.
 		echo '<div class="wrap">';
-		echo '<h1>' . esc_html__( 'Rolling back plugin…', 'ang' ) . '</h1>';
+		echo '<h1>' . esc_html__( 'Rolling back plugin…', 'analogwp-templates' ) . '</h1>';
 		echo '<div class="analog-style-kits-rollback-log">';
 	}
 
@@ -70,7 +70,7 @@ class Rollback_Downgrader_Skin extends WP_Upgrader_Skin {
 
 		if ( is_wp_error( $this->result ) || ! $this->result ) {
 			echo '<div class="notice notice-error">';
-			echo '<p>' . esc_html__( 'Rollback failed during installation.', 'ang' ) . '</p>';
+			echo '<p>' . esc_html__( 'Rollback failed during installation.', 'analogwp-templates' ) . '</p>';
 			// If it's WP_Error, show its messages too.
 			if ( is_wp_error( $this->result ) ) {
 				foreach ( $this->result->get_error_messages() as $message ) {
@@ -81,12 +81,12 @@ class Rollback_Downgrader_Skin extends WP_Upgrader_Skin {
 		} else {
 			// Success block.
 			echo '<div class="notice notice-success is-dismissible">';
-			echo '<p>' . esc_html__( 'Rollback complete. The plugin files have been restored.', 'ang' ) . '</p>';
+			echo '<p>' . esc_html__( 'Rollback complete. The plugin files have been restored.', 'analogwp-templates' ) . '</p>';
 			echo '</div>';
 		}
 
 		echo '<p><a class="button button-primary" href="' . esc_url( admin_url( 'plugins.php' ) ) . '">';
-		echo esc_html__( 'Go to Plugins page', 'ang' );
+		echo esc_html__( 'Go to Plugins page', 'analogwp-templates' );
 		echo '</a></p>';
 	}
 }

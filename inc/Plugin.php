@@ -115,7 +115,7 @@ final class Plugin {
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/app/index.js' ),
 			true
 		);
-		wp_set_script_translations( 'analogwp-app', 'ang', ANG_PLUGIN_DIR . 'languages' );
+		wp_set_script_translations( 'analogwp-app', 'analogwp-templates', ANG_PLUGIN_DIR . 'languages' );
 
 		$i10n = apply_filters( // phpcs:ignore
 			'analog/app/strings',
@@ -215,13 +215,13 @@ final class Plugin {
 	 * @return array An array of plugin action links.
 	 */
 	public function plugin_action_links( $links ) {
-		$settings_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=ang-settings' ), __( 'Settings', 'ang' ) );
+		$settings_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=ang-settings' ), __( 'Settings', 'analogwp-templates' ) );
 
 		array_unshift( $links, $settings_link );
 
 		if ( ! defined( 'ANG_PRO_VERSION' ) ) {
 			/* translators: %1$s: Link to Style Kits Pro. %2$s: Go Pro text. */
-			$links['go_pro'] = sprintf( '<a href="%1$s" style="color: #5c32b6;font-weight: 700;" target="_blank" class="ang-plugins-gopro">%2$s</a>', Utils::get_pro_link(), __( 'Go Pro', 'ang' ) );
+			$links['go_pro'] = sprintf( '<a href="%1$s" style="color: #5c32b6;font-weight: 700;" target="_blank" class="ang-plugins-gopro">%2$s</a>', Utils::get_pro_link(), __( 'Go Pro', 'analogwp-templates' ) );
 		}
 
 		return $links;
@@ -344,7 +344,32 @@ final class Plugin {
 	 * @return void
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'ang', false, dirname( ANG_PLUGIN_BASE ) . '/languages/' );
+		load_plugin_textdomain( ANG_TEXT_DOMAIN, false, dirname( ANG_PLUGIN_BASE ) . '/languages/' );
+		$this->load_legacy_textdomain();
+	}
+
+	/**
+	 * Load legacy translation files into the current text domain.
+	 *
+	 * This keeps existing custom translations working while the plugin migrates
+	 * from the historic `ang` text domain to the plugin-slug text domain.
+	 *
+	 * @return void
+	 */
+	private function load_legacy_textdomain() {
+		$locale = function_exists( 'determine_locale' ) ? determine_locale() : get_locale();
+
+		$mofile_paths = array(
+			WP_LANG_DIR . '/plugins/' . ANG_LEGACY_TEXT_DOMAIN . '-' . $locale . '.mo',
+			ANG_PLUGIN_DIR . 'languages/' . ANG_LEGACY_TEXT_DOMAIN . '-' . $locale . '.mo',
+		);
+
+		foreach ( $mofile_paths as $mofile_path ) {
+			if ( file_exists( $mofile_path ) ) {
+				load_textdomain( ANG_TEXT_DOMAIN, $mofile_path );
+				break;
+			}
+		}
 	}
 
 	/**

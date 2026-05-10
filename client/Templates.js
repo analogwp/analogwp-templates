@@ -265,8 +265,8 @@ class Templates extends React.Component {
 		if ( version && parseFloat( AGWP.version ) < parseFloat( version ) ) {
 			this.resetState();
 			add(
-				__( 'This template requires an updated version, please update your plugin to latest version.', 'ang' ),
-				'error', 'ang',
+				__( 'This template requires an updated version, please update your plugin to latest version.', 'analogwp-templates' ),
+				'error', 'analogwp-templates',
 				'import-error',
 				false
 			);

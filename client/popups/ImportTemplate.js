@@ -71,7 +71,7 @@ const formatGroupLabel = data => (
 
 const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyleKitInfo } ) => {
 	const [ step, setStep ] = useState( 1 );
-	const [ title, setTitle ] = useState( __( 'Import template', 'ang' ) );
+	const [ title, setTitle ] = useState( __( 'Import template', 'analogwp-templates' ) );
 
 	const kit = state.kit;
 	const { state: { styleKits, installedKits }, dispatch } = useContext( AnalogContext );
@@ -95,15 +95,15 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 
 	const groupedOptions = [
 		{
-			label: __( 'Global', 'ang' ),
+			label: __( 'Global', 'analogwp-templates' ),
 			options: AGWP.globalKit,
 		},
 		{
-			label: __( 'Default', 'ang' ),
+			label: __( 'Default', 'analogwp-templates' ),
 			options: importableOptions,
 		},
 		{
-			label: __( 'Installed', 'ang' ),
+			label: __( 'Installed', 'analogwp-templates' ),
 			options: filterOptions,
 		},
 	];
@@ -130,10 +130,10 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 	};
 
 	const footer = sprintf(
-		__( 'Learn more about this in %s.', 'ang' ),
+		__( 'Learn more about this in %s.', 'analogwp-templates' ),
 		sprintf(
 			'<a href="https://analogwp.com/docs/default-template-import-method/" target="_blank" rel="noopener noreferer">%s</a>',
-			__( 'Style Kits Docs', 'ang' )
+			__( 'Style Kits Docs', 'analogwp-templates' )
 		)
 	);
 
@@ -151,16 +151,16 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 				{ ( step === 1 ) && (
 					<div>
 						{ ( AGWP.isGlobalSkEnabled ) ?
-							<h3>{ __( 'The Global Style Kit will be applied on this template', 'ang' ) }</h3> :
-							<h3>{ __( 'Choose a Theme Style Kit to apply on the page.', 'ang' ) }</h3>
+							<h3>{ __( 'The Global Style Kit will be applied on this template', 'analogwp-templates' ) }</h3> :
+							<h3>{ __( 'Choose a Theme Style Kit to apply on the page.', 'analogwp-templates' ) }</h3>
 						}
 						{ ( AGWP.isGlobalSkEnabled ) ?
 							<p id="gsk_name">{ sprintf(
 								/* translators: 1: Global Style Kit label */
-								__( '%1$s', 'ang' ),
+								__( '%1$s', 'analogwp-templates' ),
 								AGWP.globalKit[ 0 ].label
 							) }</p> :
-							<p>{ __( 'The original Style Kit is pre-selected for you.', 'ang' ) }</p>
+							<p>{ __( 'The original Style Kit is pre-selected for you.', 'analogwp-templates' ) }</p>
 						}
 						{ ( ! AGWP.isGlobalSkEnabled ) &&
 							<div className="row" style={ { width: '42%' } }>
@@ -168,7 +168,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 									options={ groupedOptions }
 									formatGroupLabel={ formatGroupLabel }
 									isSearchable={ false }
-									placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
+									placeholder={ __( 'Choose a Style Kit...', 'analogwp-templates' ) }
 									defaultValue={ defaultDropdownValue }
 									onChange={ ( e ) => {
 										handler( { kit: e.value } );
@@ -179,14 +179,14 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 						{ ( AGWP.isGlobalSkEnabled ) ?
 							<>
 								<p>
-									{ __( 'You can change the default import method at the ', 'ang' ) }
-									<ExternalLink href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
+									{ __( 'You can change the default import method at the ', 'analogwp-templates' ) }
+									<ExternalLink href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'Settings Page', 'analogwp-templates' ) }</ExternalLink>
 								</p>
 							</> :
 							<>
 								<p>
-									{ __( 'You can manage and set a Global Style Kit at the ', 'ang' ) }
-									<ExternalLink href={ AGWP.adminURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
+									{ __( 'You can manage and set a Global Style Kit at the ', 'analogwp-templates' ) }
+									<ExternalLink href={ AGWP.adminURL }>{ __( 'Settings Page', 'analogwp-templates' ) }</ExternalLink>
 								</p>
 							</>
 						}
@@ -200,7 +200,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 							<div className="col1">
 								<h3>Import to this page</h3>
 								<p>
-									{ __( 'Import the template in the current page.', 'ang' ) }
+									{ __( 'Import the template in the current page.', 'analogwp-templates' ) }
 								</p>
 							</div>
 							<div className="col2">
@@ -218,7 +218,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 												setStep( 2 );
 											} }
 										>
-											{ __( 'Import to current page', 'ang' ) }
+											{ __( 'Import to current page', 'analogwp-templates' ) }
 										</Button>
 									) }
 								</NotificationConsumer>
@@ -229,9 +229,9 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 							<div className="col1">
 								<h3>Import to Library</h3>
 								<p>
-									{ __( 'Import this template to your library to make it available in your Elementor ', 'ang' ) }
-									<ExternalLink href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'ang' ) }</ExternalLink>
-									{ __( ' list for future use.', 'ang' ) }
+									{ __( 'Import this template to your library to make it available in your Elementor ', 'analogwp-templates' ) }
+									<ExternalLink href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'analogwp-templates' ) }</ExternalLink>
+									{ __( ' list for future use.', 'analogwp-templates' ) }
 								</p>
 							</div>
 							<div className="col2">
@@ -251,7 +251,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 												setStep( 2 );
 											} }
 										>
-											{ __( 'Import to Library', 'ang' ) }
+											{ __( 'Import to Library', 'analogwp-templates' ) }
 										</Button>
 									) }
 								</NotificationConsumer>
@@ -260,12 +260,12 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 						<CardDivider />
 						<div className="flex-row">
 							<div className="col1">
-								<h3>{ __( 'Import to a new page', 'ang' ) }</h3>
-								<p>{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }</p>
+								<h3>{ __( 'Import to a new page', 'analogwp-templates' ) }</h3>
+								<p>{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'analogwp-templates' ) }</p>
 							</div>
 							<div className="col2 gap">
 								<TextControl
-									placeholder={ __( 'Enter a Page Name', 'ang' ) }
+									placeholder={ __( 'Enter a Page Name', 'analogwp-templates' ) }
 									onChange={ val => {
 										handler( { pageName: val } );
 									} }
@@ -280,7 +280,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 												setStep( 2 );
 											} }
 										>
-											{ __( 'Import to page', 'ang' ) }
+											{ __( 'Import to page', 'analogwp-templates' ) }
 										</Button>
 									) }
 								</NotificationConsumer>
@@ -293,7 +293,7 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 					<div style={ { textAlign: 'center', fontSize: '15px' } }>
 						{ state.importedPage ?
 							( <Fragment>
-								<p>{ __( 'All done! The template has been imported.', 'ang' ) }</p>
+								<p>{ __( 'All done! The template has been imported.', 'analogwp-templates' ) }</p>
 								<p>
 									<a
 										href={ addQueryArgs( 'post.php', { post: state.importedPage, action: 'elementor' } ) }

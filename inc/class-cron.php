@@ -38,7 +38,7 @@ class Cron {
 		// Adds once weekly to the existing schedules.
 		$schedules['weekly'] = array(
 			'interval' => WEEK_IN_SECONDS,
-			'display'  => __( 'Once Weekly', 'ang' ),
+			'display'  => __( 'Once Weekly', 'analogwp-templates' ),
 		);
 
 		return $schedules;

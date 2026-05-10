@@ -15,12 +15,12 @@
  * Author URI:  https://analogwp.com/
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: ang
+ * Text Domain: analogwp-templates
  * Requires at least: 6.0
  * Requires PHP: 7.4
  *
- * Elementor tested up to: 3.35.9
- * Elementor Pro tested up to: 3.35.1
+ * Elementor tested up to: 4.0.7
+ * Elementor Pro tested up to: 4.0.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -29,6 +29,8 @@ define( 'ANG_ELEMENTOR_MINIMUM', '3.32.0' );
 define( 'ANG_PHP_MINIMUM', '7.4' );
 define( 'ANG_WP_MINIMUM', '6.0' );
 define( 'ANG_VERSION', '2.5.0' );
+define( 'ANG_TEXT_DOMAIN', 'analogwp-templates' );
+define( 'ANG_LEGACY_TEXT_DOMAIN', 'ang' );
 define( 'ANG_PLUGIN_FILE', __FILE__ );
 define( 'ANG_PLUGIN_URL', plugin_dir_url( ANG_PLUGIN_FILE ) );
 define( 'ANG_PLUGIN_DIR', plugin_dir_path( ANG_PLUGIN_FILE ) );
@@ -47,8 +49,8 @@ function analog_activate_plugin() {
 	if ( version_compare( PHP_VERSION, ANG_PHP_MINIMUM, '<' ) ) {
 		wp_die(
 			/* translators: %s: version number */
-			esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'ang' ), ANG_PHP_MINIMUM ) ),
-			esc_html__( 'Error Activating', 'ang' )
+			esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'analogwp-templates' ), ANG_PHP_MINIMUM ) ),
+			esc_html__( 'Error Activating', 'analogwp-templates' )
 		);
 	}
 
@@ -82,7 +84,7 @@ register_deactivation_hook( __FILE__, 'analog_deactivate_plugin' );
  */
 function analog_fail_wp_version() {
 	/* translators: %s: WordPress version */
-	$message      = sprintf( esc_html__( 'Style Kits requires WordPress version %s+. Because you are using an earlier version, the plugin is currently NOT RUNNING.', 'ang' ), ANG_WP_MINIMUM );
+	$message      = sprintf( esc_html__( 'Style Kits requires WordPress version %s+. Because you are using an earlier version, the plugin is currently NOT RUNNING.', 'analogwp-templates' ), ANG_WP_MINIMUM );
 	$html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
 
 	echo wp_kses_post( $html_message );
@@ -107,19 +109,19 @@ function analog_require_minimum_elementor() {
 	$update_url = wp_nonce_url( $link, 'upgrade-plugin_' . $file_path );
 
 	/* translators: %s: Minimum required Elementor version. */
-	$message = '<p>' . sprintf( __( 'Style Kits requires Elementor v%s or newer in order to work. Please update Elementor to the latest version.', 'ang' ), ANG_ELEMENTOR_MINIMUM ) . '</p>';
+	$message = '<p>' . sprintf( __( 'Style Kits requires Elementor v%s or newer in order to work. Please update Elementor to the latest version.', 'analogwp-templates' ), ANG_ELEMENTOR_MINIMUM ) . '</p>';
 
 	$versions = get_transient( 'ang_rollback_versions_' . ANG_VERSION );
 
 	$message .= '<p>';
 	/* translators: %s: Link to update Elementor. */
-	$message .= sprintf( '<a href="%s" class="button-primary">%s</a>', $update_url, __( 'Update Elementor Now', 'ang' ) );
+	$message .= sprintf( '<a href="%s" class="button-primary">%s</a>', $update_url, __( 'Update Elementor Now', 'analogwp-templates' ) );
 	/* translators: %s: Link to rollback plugin to previous version. */
 	$message .= sprintf(
 		'<a href="%s" class="button-secondary" style="margin-left:10px">%s</a>',
 		wp_nonce_url( admin_url( 'admin-post.php?action=analog_style_kits_rollback&version=' . $versions[0] ), 'analog_style_kits_rollback' ),
 		/* translators: %s: Version number. */
-		sprintf( __( 'Rollback to v%s', 'ang' ), $versions[0] )
+		sprintf( __( 'Rollback to v%s', 'analogwp-templates' ), $versions[0] )
 	);
 	$message .= '</p>';
 
@@ -166,16 +168,16 @@ function analog_fail_load() {
 		}
 
 		$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $file_path . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $file_path );
-		$message        = '<p>' . __( 'Style Kits is not working because you need to activate the Elementor plugin.', 'ang' ) . '</p>';
-		$message       .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $activation_url, __( 'Activate Elementor Now', 'ang' ) ) . '</p>';
+		$message        = '<p>' . __( 'Style Kits is not working because you need to activate the Elementor plugin.', 'analogwp-templates' ) . '</p>';
+		$message       .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $activation_url, __( 'Activate Elementor Now', 'analogwp-templates' ) ) . '</p>';
 	} elseif ( $is_not_installed ) {
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			return;
 		}
 
 		$install_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=elementor' ), 'install-plugin_elementor' );
-		$message     = '<p>' . __( 'Style Kits is not working because you need to install the Elementor plugin.', 'ang' ) . '</p>';
-		$message    .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $install_url, __( 'Install Elementor Now', 'ang' ) ) . '</p>';
+		$message     = '<p>' . __( 'Style Kits is not working because you need to install the Elementor plugin.', 'analogwp-templates' ) . '</p>';
+		$message    .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $install_url, __( 'Install Elementor Now', 'analogwp-templates' ) ) . '</p>';
 	}
 
 	echo '<div class="error"><p>' . $message . '</p></div>'; // @codingStandardsIgnoreLine
@@ -240,8 +242,8 @@ add_action(
 		if ( version_compare( PHP_VERSION, ANG_PHP_MINIMUM, '<' ) ) {
 			wp_die(
 			/* translators: %s: version number */
-				esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'ang' ), ANG_PHP_MINIMUM ) ),
-				esc_html__( 'Error Activating', 'ang' )
+				esc_html( sprintf( __( 'Style Kit for Elementor requires PHP version %s', 'analogwp-templates' ), ANG_PHP_MINIMUM ) ),
+				esc_html__( 'Error Activating', 'analogwp-templates' )
 			);
 		}
 

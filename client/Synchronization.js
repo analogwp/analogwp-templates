@@ -20,13 +20,13 @@ const Synchronization = () => {
 								onClick={ e => {
 									e.preventDefault();
 									context.forceRefresh()
-										.then( () => add( __( 'Library is now synced', 'ang' ) ) )
-										.catch( () => add( __( 'Something is not right, please try again.', 'ang' ), 'error' ) );
+										.then( () => add( __( 'Library is now synced', 'analogwp-templates' ) ) )
+										.catch( () => add( __( 'Something is not right, please try again.', 'analogwp-templates' ), 'error' ) );
 								} }
 							>
 								{ context.state.syncing ?
-									__( 'Syncing...', 'ang' ) :
-									__( 'Sync Library', 'ang' ) }
+									__( 'Syncing...', 'analogwp-templates' ) :
+									__( 'Sync Library', 'analogwp-templates' ) }
 								{ /*<Refresh />*/ }
 							</Button>
 						) }
@@ -35,7 +35,7 @@ const Synchronization = () => {
 			</AnalogContext.Consumer>
 			{ ! AGWP.is_settings_page && (
 				<Button isSecondary className="close-modal">
-					{ __( 'Close', 'ang' ) } <Close />
+					{ __( 'Close', 'analogwp-templates' ) } <Close />
 				</Button>
 			) }
 		</div>

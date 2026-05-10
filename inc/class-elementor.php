@@ -46,7 +46,7 @@ class Elementor {
 				$dynamic_tags->register_group(
 					'ang_classes',
 					array(
-						'title' => __( 'AnalogWP Classes', 'ang' ),
+						'title' => __( 'AnalogWP Classes', 'analogwp-templates' ),
 					)
 				);
 
@@ -174,7 +174,7 @@ class Elementor {
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/app/index.js' ),
 			true
 		);
-		wp_set_script_translations( 'analogwp-app', 'ang', ANG_PLUGIN_DIR . 'languages' );
+		wp_set_script_translations( 'analogwp-app', 'analogwp-templates', ANG_PLUGIN_DIR . 'languages' );
 
 		wp_enqueue_style( 'wp-components' );
 

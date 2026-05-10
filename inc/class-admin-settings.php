@@ -74,19 +74,19 @@ class Admin_Settings {
 		check_ajax_referer( 'ang_hide_promo', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ang' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'analogwp-templates' ) ) );
 		}
 
 		$promo_id = isset( $_POST['promo_id'] ) ? sanitize_key( $_POST['promo_id'] ) : '';
 
 		if ( empty( $promo_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid promo ID.', 'ang' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid promo ID.', 'analogwp-templates' ) ) );
 		}
 
 		// Store the hidden state in the database.
 		update_option( 'ang_hide_' . $promo_id, true );
 
-		wp_send_json_success( array( 'message' => __( 'Promo hidden successfully.', 'ang' ) ) );
+		wp_send_json_success( array( 'message' => __( 'Promo hidden successfully.', 'analogwp-templates' ) ) );
 	}
 
 	/**
@@ -102,7 +102,7 @@ class Admin_Settings {
 		do_action( 'ang_update_options_' . $current_tab );
 		do_action( 'ang_update_options' );
 
-		self::add_message( __( 'Your settings have been saved.', 'ang' ) );
+		self::add_message( __( 'Your settings have been saved.', 'analogwp-templates' ) );
 
 		// Clear any unwanted data and flush rules.
 		update_option( 'ang_queue_flush_rewrite_rules', 'yes' );
@@ -162,9 +162,9 @@ class Admin_Settings {
 			apply_filters(
 				'ang_settings_data',
 				array(
-					'i18n_nav_warning'          => __( 'The changes you made will be lost if you navigate away from this page.', 'ang' ),
-					'sitekit_importer_notice'   => __( 'Template Kit file downloaded.', 'ang' ),
-					'sitekit_importer_url_text' => __( 'Import it into Elementor', 'ang' ),
+					'i18n_nav_warning'          => __( 'The changes you made will be lost if you navigate away from this page.', 'analogwp-templates' ),
+					'sitekit_importer_notice'   => __( 'Template Kit file downloaded.', 'analogwp-templates' ),
+					'sitekit_importer_url_text' => __( 'Import it into Elementor', 'analogwp-templates' ),
 					'sitekit_importer_url'      => esc_url( admin_url( 'admin.php?page=elementor-tools#tab-import-export-kit' ) ),
 					'hide_promo_nonce'          => wp_create_nonce( 'ang_hide_promo' ),
 					'ajax_url'                  => admin_url( 'admin-ajax.php' ),
@@ -599,7 +599,7 @@ class Admin_Settings {
 												<?php checked( isset( $option_value[ $key ] ) ? $option_value[ $key ] : 0, true ); ?>
 											/>
 											<span>
-												<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
+												<span><?php esc_html_e( 'Toggle', 'analogwp-templates' ); ?></span>
 											</span>
 											<p><?php echo esc_html( $val ); ?></p>
 										</label>
@@ -664,7 +664,7 @@ class Admin_Settings {
 								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
 							/> <?php echo $description; // WPCS: XSS ok. ?>
 							<?php if ( $value['switch'] ) { ?>
-								<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
+								<span><?php esc_html_e( 'Toggle', 'analogwp-templates' ); ?></span>
 							<?php } ?>
 						</label> <?php echo $tooltip_html; // WPCS: XSS ok. ?>
 					<?php
@@ -712,7 +712,7 @@ class Admin_Settings {
 										echo '<h1 id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-title">' . esc_html( $value['title'] ) . '</h1>';
 									}
 									?>
-									<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=general&section=starter-kit&refresh=true' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Refresh', 'ang' ); ?></a>
+									<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=general&section=starter-kit&refresh=true' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Refresh', 'analogwp-templates' ); ?></a>
 								</div>
 
 							<?php

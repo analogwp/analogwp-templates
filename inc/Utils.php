@@ -131,7 +131,7 @@ class Utils extends Base {
 
 			if ( $global_token && $post->ID === $global_token && $prefix ) {
 				/* translators: Global Style Kit post title. */
-				$title = sprintf( __( 'Global: %s', 'ang' ), $title );
+				$title = sprintf( __( 'Global: %s', 'analogwp-templates' ), $title );
 			}
 
 			$tokens[ $post->ID ] = $title;

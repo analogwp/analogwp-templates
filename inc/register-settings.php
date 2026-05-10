@@ -25,8 +25,8 @@ function register_menu() {
 	$menu_slug = 'analogwp_templates';
 
 	add_menu_page(
-		esc_html__( 'Style Kits for Elementor', 'ang' ),
-		esc_html__( 'Style Kits', 'ang' ),
+		esc_html__( 'Style Kits for Elementor', 'analogwp-templates' ),
+		esc_html__( 'Style Kits', 'analogwp-templates' ),
 		$permission,
 		$menu_slug,
 		'Analog\Settings\settings_page',
@@ -36,16 +36,16 @@ function register_menu() {
 
 	add_submenu_page(
 		$menu_slug,
-		__( 'Style Kits Library', 'ang' ),
-		__( 'Library', 'ang' ),
+		__( 'Style Kits Library', 'analogwp-templates' ),
+		__( 'Library', 'analogwp-templates' ),
 		$permission,
 		'analogwp_templates'
 	);
 
 	add_submenu_page(
 		$menu_slug,
-		__( 'Style Kits Settings', 'ang' ),
-		__( 'Settings', 'ang' ),
+		__( 'Style Kits Settings', 'analogwp-templates' ),
+		__( 'Settings', 'analogwp-templates' ),
 		'manage_options',
 		'ang-settings',
 		'Analog\Settings\new_settings_page'
@@ -55,8 +55,8 @@ function register_menu() {
 
 	add_submenu_page(
 		$menu_slug,
-		__( 'Local Style Kits', 'ang' ),
-		__( 'Local Style Kits', 'ang' ),
+		__( 'Local Style Kits', 'analogwp-templates' ),
+		__( 'Local Style Kits', 'analogwp-templates' ),
 		'manage_options',
 		'style-kits',
 		'Analog\Elementor\Kit\ang_kits_list'
@@ -66,7 +66,7 @@ function register_menu() {
 		add_submenu_page(
 			$menu_slug,
 			'',
-			'<img width="12" src="' . esc_url( ANG_PLUGIN_URL . 'assets/img/triangle.svg' ) . '"> ' . __( 'Go Pro', 'ang' ),
+			'<img width="12" src="' . esc_url( ANG_PLUGIN_URL . 'assets/img/triangle.svg' ) . '"> ' . __( 'Go Pro', 'analogwp-templates' ),
 			'manage_options',
 			'go_style_kits_pro',
 			__NAMESPACE__ . '\handle_external_redirects'
@@ -217,10 +217,10 @@ function sk_freemius_switch_notice() {
 	if ( $options->get( 'ang_license_key' ) && class_exists( LicenseManager::class ) && ! method_exists( LicenseManager::class, 'get_freemius_product_query_data' ) ) {
 		$message      = sprintf(
 			'<strong>%1$s</strong> %2$s <a href="mailto:%3$s">%3$s</a> %4$s',
-			esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'ang-pro' ),
-			esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'ang' ),
+			esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'analogwp-templates' ),
+			esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'analogwp-templates' ),
 			esc_html( 'support@analogwp.com' ),
-			esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'ang-pro' )
+			esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'analogwp-templates' )
 		);
 		$html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
 
@@ -241,14 +241,14 @@ function sk_add_freemius_switch_settings_notice( $settings ) {
 			array(
 				'type'  => 'title',
 				'id'    => 'ang_freemius_license_switch_notice',
-				'title' => __( 'Experience the all new Style Kits Pro', 'ang-pro' ),
+				'title' => __( 'Experience the all new Style Kits Pro', 'analogwp-templates' ),
 				'desc'  => sprintf(
 					'<strong>%1$s</strong> %2$s <a href="mailto:%3$s">%3$s</a> %4$s <br/><br/> %5$s',
-					esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'ang-pro' ),
-					esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'ang' ),
+					esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'analogwp-templates' ),
+					esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'analogwp-templates' ),
 					esc_html( 'support@analogwp.com' ),
-					esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'ang-pro' ),
-					esc_html__( 'Please also know that coming future updates are now moved to this new licensing system and once you migrate to it everything else will work as is and better while with this switch we are working hard to bring you a more fine-tuned experience and all the more support for latest of Elementor.', 'ang-pro' )
+					esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'analogwp-templates' ),
+					esc_html__( 'Please also know that coming future updates are now moved to this new licensing system and once you migrate to it everything else will work as is and better while with this switch we are working hard to bring you a more fine-tuned experience and all the more support for latest of Elementor.', 'analogwp-templates' )
 				),
 			),
 			array(

@@ -9,10 +9,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-09T13:41:22+00:00\n"
+"POT-Creation-Date: 2026-05-10T13:59:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
-"X-Domain: ang\n"
+"X-Domain: analogwp-templates\n"
 
 #. Plugin Name of the plugin
 #: analogwp-templates.php
@@ -39,49 +39,49 @@ msgid "AnalogWP"
 msgstr ""
 
 #. translators: %s: version number
-#: analogwp-templates.php:50
-#: analogwp-templates.php:243
+#: analogwp-templates.php:52
+#: analogwp-templates.php:245
 msgid "Style Kit for Elementor requires PHP version %s"
 msgstr ""
 
-#: analogwp-templates.php:51
-#: analogwp-templates.php:244
+#: analogwp-templates.php:53
+#: analogwp-templates.php:246
 msgid "Error Activating"
 msgstr ""
 
 #. translators: %s: WordPress version
-#: analogwp-templates.php:85
+#: analogwp-templates.php:87
 msgid "Style Kits requires WordPress version %s+. Because you are using an earlier version, the plugin is currently NOT RUNNING."
 msgstr ""
 
 #. translators: %s: Minimum required Elementor version.
-#: analogwp-templates.php:110
+#: analogwp-templates.php:112
 msgid "Style Kits requires Elementor v%s or newer in order to work. Please update Elementor to the latest version."
 msgstr ""
 
 #. translators: %s: Link to update Elementor.
-#: analogwp-templates.php:116
+#: analogwp-templates.php:118
 msgid "Update Elementor Now"
 msgstr ""
 
 #. translators: %s: Version number.
-#: analogwp-templates.php:122
+#: analogwp-templates.php:124
 msgid "Rollback to v%s"
 msgstr ""
 
-#: analogwp-templates.php:169
+#: analogwp-templates.php:171
 msgid "Style Kits is not working because you need to activate the Elementor plugin."
 msgstr ""
 
-#: analogwp-templates.php:170
+#: analogwp-templates.php:172
 msgid "Activate Elementor Now"
 msgstr ""
 
-#: analogwp-templates.php:177
+#: analogwp-templates.php:179
 msgid "Style Kits is not working because you need to install the Elementor plugin."
 msgstr ""
 
-#: analogwp-templates.php:178
+#: analogwp-templates.php:180
 msgid "Install Elementor Now"
 msgstr ""
 
@@ -225,7 +225,7 @@ msgid "Welcome to Style Kits"
 msgstr ""
 
 #: inc/class-onboarding.php:82
-#: inc/elementor/kit/Kits_List_Table.php:342
+#: inc/elementor/kit/Kits_List_Table.php:340
 msgid "Working..."
 msgstr ""
 
@@ -325,6 +325,7 @@ msgstr ""
 #: inc/elementor/sections/background-color-classes.php:71
 #: inc/elementor/sections/background-color-classes.php:162
 #: inc/settings/class-settings-experiments.php:49
+#: inc/settings/class-settings-general.php:140
 #: inc/upgrade-functions.php:119
 #: client/stylekits/stylekits.js:225
 msgid "Learn more"
@@ -339,8 +340,8 @@ msgid "Skip wizard"
 msgstr ""
 
 #: inc/class-onboarding.php:271
-#: inc/elementor/kit/Kits_List_Table.php:343
-#: inc/elementor/kit/Kits_List_Table.php:378
+#: inc/elementor/kit/Kits_List_Table.php:341
+#: inc/elementor/kit/Kits_List_Table.php:376
 msgid "Apply"
 msgstr ""
 
@@ -1321,15 +1322,15 @@ msgid_plural "All <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/elementor/kit/Instance_List_Table.php:371
+#: inc/elementor/kit/Instance_List_Table.php:369
 msgid "Filter by Style Kit"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:382
+#: inc/elementor/kit/Instance_List_Table.php:380
 msgid "Filter"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:452
+#: inc/elementor/kit/Instance_List_Table.php:450
 msgid "Instance List"
 msgstr ""
 
@@ -1350,7 +1351,7 @@ msgid "Draft"
 msgstr ""
 
 #: inc/elementor/kit/Kits_List_Table.php:152
-#: inc/elementor/kit/Kits_List_Table.php:367
+#: inc/elementor/kit/Kits_List_Table.php:365
 msgid "Global Style Kit"
 msgstr ""
 
@@ -1358,7 +1359,7 @@ msgstr ""
 msgid "Export Theme Style Kit"
 msgstr ""
 
-#: inc/elementor/kit/Kits_List_Table.php:349
+#: inc/elementor/kit/Kits_List_Table.php:347
 #: inc/register-settings.php:58
 #: inc/register-settings.php:59
 #: inc/settings/class-settings-general.php:83
@@ -1366,15 +1367,15 @@ msgstr ""
 msgid "Local Style Kits"
 msgstr ""
 
-#: inc/elementor/kit/Kits_List_Table.php:353
+#: inc/elementor/kit/Kits_List_Table.php:351
 msgid "Choose an Elementor template JSON file or a .zip archive of Elementor templates, and add them to the list of templates available in your library."
 msgstr ""
 
-#: inc/elementor/kit/Kits_List_Table.php:360
+#: inc/elementor/kit/Kits_List_Table.php:358
 msgid "Import Now"
 msgstr ""
 
-#: inc/elementor/kit/Kits_List_Table.php:364
+#: inc/elementor/kit/Kits_List_Table.php:362
 msgid "A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below."
 msgstr ""
 
@@ -1564,9 +1565,27 @@ msgstr ""
 msgid "Style Kits Settings"
 msgstr ""
 
+#: inc/register-settings.php:220
+#: inc/register-settings.php:247
+msgid "Style Kits is switching to a new experience for our Pro plugin,"
+msgstr ""
+
 #: inc/register-settings.php:221
 #: inc/register-settings.php:248
 msgid "that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at"
+msgstr ""
+
+#: inc/register-settings.php:223
+#: inc/register-settings.php:250
+msgid "or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition."
+msgstr ""
+
+#: inc/register-settings.php:244
+msgid "Experience the all new Style Kits Pro"
+msgstr ""
+
+#: inc/register-settings.php:251
+msgid "Please also know that coming future updates are now moved to this new licensing system and once you migrate to it everything else will work as is and better while with this switch we are working hard to bring you a more fine-tuned experience and all the more support for latest of Elementor."
 msgstr ""
 
 #: inc/settings/class-settings-experiments.php:23
@@ -1666,6 +1685,10 @@ msgstr ""
 
 #: inc/settings/class-settings-general.php:136
 msgid "Download Starter Kit"
+msgstr ""
+
+#: inc/settings/class-settings-general.php:139
+msgid "Download a site kit zip that you can import into your website."
 msgstr ""
 
 #: inc/settings/class-settings-general.php:143

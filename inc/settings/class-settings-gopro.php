@@ -24,7 +24,7 @@ class GoPro extends Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'gopro';
-		$this->label = __( 'Style Kits Pro', 'ang' );
+		$this->label = __( 'Style Kits Pro', 'analogwp-templates' );
 		parent::__construct();
 
 		add_action( 'ang_settings_' . $this->id, array( $this, 'get_pro' ) );

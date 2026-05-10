@@ -85,7 +85,7 @@ gulp.task( 'checktextdomain', ( done ) => {
 	gulp
 		.src( [ '**/*.php', '!build/**', '!languages/**', '!./inc/class-licensemanager.php' ] )
 		.pipe( checktextdomain( {
-			text_domain: 'ang',
+			text_domain: 'analogwp-templates',
 			keywords: [
 				'__:1,2d',
 				'_e:1,2d',

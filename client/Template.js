@@ -17,23 +17,23 @@ const Template = ( { template, setModalContent, importLayout, favorites, makeFav
 			<Card>
 				<CardBody>
 					{ ( isNewTheme( template.published ) > -14 ) && (
-						<span className="new">{ __( 'New', 'ang' ) }</span>
+						<span className="new">{ __( 'New', 'analogwp-templates' ) }</span>
 					) }
 
 					<figure>
 						{ template.thumbnail ? <Image template={ template } /> : <img src={fallbackImage} /> }
 						<div className="actions">
 							<Button isSecondary className="black-transparent" onClick={ () => setModalContent( template ) }>
-								{ __( 'Preview', 'ang' ) }
+								{ __( 'Preview', 'analogwp-templates' ) }
 							</Button>
 							{ ! isValid( template.is_pro ) && (
 								<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank">
-									<Button isPrimary>{ __( 'Go Pro', 'ang' ) }</Button>
+									<Button isPrimary>{ __( 'Go Pro', 'analogwp-templates' ) }</Button>
 								</a>
 							) }
 							{ isValid( template.is_pro ) && (
 								<Button isPrimary onClick={ () => importLayout( template ) }>
-									{ __( 'Import', 'ang' ) }
+									{ __( 'Import', 'analogwp-templates' ) }
 								</Button>
 							) }
 						</div>
@@ -61,7 +61,7 @@ const Template = ( { template, setModalContent, importLayout, favorites, makeFav
 							) }
 						</span>
 						{ template.is_pro && (
-							<span className="pro">{ __( 'Pro', 'ang' ) }</span>
+							<span className="pro">{ __( 'Pro', 'analogwp-templates' ) }</span>
 						) }
 					</div>
 				</CardFooter>

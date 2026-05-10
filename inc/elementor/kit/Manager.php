@@ -585,7 +585,7 @@ class Manager {
 		}
 
 		if ( is_wp_error( $remote_kit ) ) {
-			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'ang' ) );
+			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'analogwp-templates' ) );
 		}
 
 		return $this->direct_kit_import( $remote_kit );
@@ -615,7 +615,7 @@ class Manager {
 		}
 
 		return array(
-			'message' => __( 'Style Kit imported', 'ang' ),
+			'message' => __( 'Style Kit imported', 'analogwp-templates' ),
 			'id'      => $kit_id,
 		);
 	}
@@ -687,9 +687,9 @@ class Manager {
 			array(
 				'content'         => sprintf(
 					'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
-					__( 'All good! The Style Kit has been set as Global.', 'ang' ),
+					__( 'All good! The Style Kit has been set as Global.', 'analogwp-templates' ),
 					get_bloginfo( 'url' ),
-					__( 'View site', 'ang' )
+					__( 'View site', 'analogwp-templates' )
 				),
 				'type'            => Notice::TYPE_INFO,
 				'active_callback' => static function () {

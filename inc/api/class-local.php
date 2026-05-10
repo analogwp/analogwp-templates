@@ -132,7 +132,7 @@ class Local extends Base {
 		}
 
 		if ( $is_pro && ! Utils::has_valid_license() ) {
-			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'ang' ) );
+			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'analogwp-templates' ) );
 		}
 
 		\update_post_meta( $editor_id, '_ang_import_type', 'elementor' );
@@ -327,7 +327,7 @@ class Local extends Base {
 		$method = $with_page ? 'page' : 'library';
 
 		if ( isset( $template['is_pro'] ) && $template['is_pro'] && ! Utils::has_valid_license() ) {
-			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'ang' ) );
+			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'analogwp-templates' ) );
 		}
 
 		// Initiate template import.
@@ -394,13 +394,13 @@ class Local extends Base {
 		$value = $request->get_param( 'value' );
 
 		if ( ! $key ) {
-			return new WP_Error( 'settings_error', __( 'No options key provided.', 'ang' ) );
+			return new WP_Error( 'settings_error', __( 'No options key provided.', 'analogwp-templates' ) );
 		}
 
 		Options::get_instance()->set( $key, $value );
 
 		return new WP_REST_Response(
-			array( 'message' => __( 'Setting updated.', 'ang' ) ),
+			array( 'message' => __( 'Setting updated.', 'analogwp-templates' ) ),
 			200
 		);
 	}
@@ -459,15 +459,15 @@ class Local extends Base {
 		$settings   = $request->get_param( 'settings' );
 
 		if ( ! isset( $belongs_to, $title, $settings ) ) {
-			return new WP_Error( 'kit_params_error', __( 'Invalid param(s).', 'ang' ) );
+			return new WP_Error( 'kit_params_error', __( 'Invalid param(s).', 'analogwp-templates' ) );
 		}
 
 		if ( ! $title ) {
-			return new WP_Error( 'kit_title_error', __( 'Please provide a title.', 'ang' ) );
+			return new WP_Error( 'kit_title_error', __( 'Please provide a title.', 'analogwp-templates' ) );
 		}
 
 		if ( Source_Local::CPT !== get_post_type( $belongs_to ) || ! current_user_can( 'edit_post', $belongs_to ) ) {
-			return new WP_Error( 'kit_permission_error', __( 'You are not allowed to save this Style Kit.', 'ang' ) );
+			return new WP_Error( 'kit_permission_error', __( 'You are not allowed to save this Style Kit.', 'analogwp-templates' ) );
 		}
 
 		$elementor_controls = \get_post_meta( $belongs_to, '_elementor_controls_usage', true );
@@ -475,7 +475,7 @@ class Local extends Base {
 		$tokens = json_decode( $settings, true );
 
 		if ( JSON_ERROR_NONE !== json_last_error() || ! is_array( $tokens ) ) {
-			return new WP_Error( 'kit_settings_error', __( 'Invalid kit settings provided.', 'ang' ) );
+			return new WP_Error( 'kit_settings_error', __( 'Invalid kit settings provided.', 'analogwp-templates' ) );
 		}
 
 		$kit_manager = new Manager();
@@ -492,13 +492,13 @@ class Local extends Base {
 		);
 
 		if ( is_wp_error( $post_id ) ) {
-			return new WP_Error( 'tokens_error', __( 'Unable to create a Kit', 'ang' ) );
+			return new WP_Error( 'tokens_error', __( 'Unable to create a Kit', 'analogwp-templates' ) );
 		}
 
 		return new WP_REST_Response(
 			array(
 				'id'      => $post_id,
-				'message' => __( 'The new Theme Style Kit has been saved and applied on this page.', 'ang' ),
+				'message' => __( 'The new Theme Style Kit has been saved and applied on this page.', 'analogwp-templates' ),
 			),
 			200
 		);
@@ -515,11 +515,11 @@ class Local extends Base {
 		$id = $request->get_param( 'id' );
 
 		if ( ! $id ) {
-			return new WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'ang' ) );
+			return new WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'analogwp-templates' ) );
 		}
 
 		if ( ! get_post( $id ) ) {
-			return new WP_Error( 'tokens_error', __( 'Invalid Post ID', 'ang' ) );
+			return new WP_Error( 'tokens_error', __( 'Invalid Post ID', 'analogwp-templates' ) );
 		}
 
 		$tokens_data = get_post_meta( $id, '_tokens_data', true );
@@ -543,7 +543,7 @@ class Local extends Base {
 		$kit = $request->get_param( 'kit' );
 
 		if ( ! $kit ) {
-			return new WP_Error( 'kit_import_error', __( 'Invalid Style Kit ID.', 'ang' ) );
+			return new WP_Error( 'kit_import_error', __( 'Invalid Style Kit ID.', 'analogwp-templates' ) );
 		}
 
 		$kit_manager = new Manager();
@@ -565,7 +565,7 @@ class Local extends Base {
 
 		if ( is_array( $kit ) && isset( $kit['id'] ) ) {
 			if ( isset( $kit['is_pro'] ) && $kit['is_pro'] && ! Utils::has_valid_license() ) {
-				return new WP_Error( 'kit_import_error', __( 'Invalid license provided.', 'ang' ) );
+				return new WP_Error( 'kit_import_error', __( 'Invalid license provided.', 'analogwp-templates' ) );
 			}
 
 			$kit_manager = new Manager();
@@ -583,7 +583,7 @@ class Local extends Base {
 		}
 
 		if ( ! $post_id ) {
-			return new WP_Error( 'invalid_token_data', __( 'Invalid token data returned', 'ang' ) );
+			return new WP_Error( 'invalid_token_data', __( 'Invalid token data returned', 'analogwp-templates' ) );
 		}
 
 		return array( 'ang_action_tokens' => $post_id );
@@ -601,7 +601,7 @@ class Local extends Base {
 		$method = $request->get_param( 'method' );
 
 		if ( ! $block ) {
-			return new WP_Error( 'block_import_error', __( 'Invalid Block ID.', 'ang' ) );
+			return new WP_Error( 'block_import_error', __( 'Invalid Block ID.', 'analogwp-templates' ) );
 		}
 
 		$data = $this->process_block_import( $block, $method );
@@ -632,7 +632,7 @@ class Local extends Base {
 		$license = Utils::get_license_key();
 
 		if ( isset( $block['is_pro'] ) && $block['is_pro'] && ! Utils::has_valid_license() ) {
-			return new WP_Error( 'block_import_error', __( 'Invalid license provided.', 'ang' ) );
+			return new WP_Error( 'block_import_error', __( 'Invalid license provided.', 'analogwp-templates' ) );
 		}
 
 		$raw_data = Remote::get_instance()->get_block_content( $block['id'], $license, $method, $block['siteID'] );

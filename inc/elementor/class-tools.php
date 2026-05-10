@@ -165,7 +165,7 @@ class Tools extends Base {
 
 				if ( '' !== $global_kit && 'publish' === $kit->post_status ) {
 					/* translators: %s: Style kit title. */
-					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#5C32B6;">&#9679;</span>', 'ang' ), esc_html( $kit->post_title ) );
+					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#5C32B6;">&#9679;</span>', 'analogwp-templates' ), esc_html( $kit->post_title ) );
 				}
 			}
 		}
@@ -199,7 +199,7 @@ class Tools extends Base {
 					$actions['apply_global_kit'] = sprintf(
 						'<a href="%1$s">%2$s</a>',
 						wp_nonce_url( $this->get_stylekit_global_link(), 'ang_make_global' ),
-						__( 'Apply Global Style Kit', 'ang' )
+						__( 'Apply Global Style Kit', 'analogwp-templates' )
 					);
 				}
 			}
