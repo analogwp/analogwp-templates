@@ -135,11 +135,12 @@ class Kits_List_Table extends \WP_List_Table {
 	public function column_title( $item ) {
 		$document = Plugin::elementor()->documents->get( $item['id'] );
 		$edit_url = get_edit_post_link( $item['id'] );
+		/* translators: %s: Kit Title */
+		$label = sprintf( __( '%s (Edit)', 'ang' ), $item['title'] );
 
 		$output = '<strong>';
 
-		/* translators: %s: Kit Title */
-		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . sprintf( __( '%s (Edit)', 'ang' ), $item['title'] ) . '">' . esc_html( $item['title'] ) . '</a>';
+		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . esc_attr( $label ) . '">' . esc_html( $item['title'] ) . '</a>';
 
 		$is_draft = 'draft' === get_post_status( $item['id'] );
 		if ( $is_draft ) {
@@ -248,7 +249,7 @@ class Kits_List_Table extends \WP_List_Table {
 				'action'         => 'stylekits_library_direct_actions',
 				'library_action' => 'export_kit',
 				'_nonce'         => wp_create_nonce( 'stylekits_ajax' ),
-				'kit_id'    => $id,
+				'kit_id'         => $id,
 			),
 			admin_url( 'admin-ajax.php' )
 		);

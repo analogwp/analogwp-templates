@@ -177,11 +177,12 @@ class Instance_List_Table extends \WP_List_Table {
 		$edit_url  = get_edit_post_link( $item['id'] );
 		$post_link = get_permalink( $item['id'] );
 		$document  = Plugin::elementor()->documents->get( $item['id'] );
+		/* translators: %s: Post Title */
+		$label = sprintf( __( '%s (Edit)', 'ang' ), $item['title'] );
 
 		$output = '<strong>';
 
-		/* translators: %s: Post Title */
-		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . sprintf( __( '%s (Edit)', 'ang' ), $item['title'] ) . '">' . esc_html( $item['title'] ) . '</a>';
+		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . esc_attr( $label ) . '">' . esc_html( $item['title'] ) . '</a>';
 		$output .= _post_states( get_post( $item['id'] ), false );
 		$output .= '</strong>';
 
@@ -464,7 +465,7 @@ function ang_instance_list() {
 
 add_action(
 	'admin_head',
-	function() {
+	function () {
 		$page = esc_attr( filter_input( INPUT_GET, 'page' ) );
 		if ( 'ang-instance-list' !== $page ) {
 			return;

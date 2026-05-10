@@ -44,7 +44,6 @@ class Colors extends Module {
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_theme_style_typography' ), 20, 2 );
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_colors' ), 10, 2 );
-
 	}
 
 	/**
@@ -369,7 +368,7 @@ class Colors extends Module {
 	 * @return string
 	 */
 	protected function get_tooltip( $text ) {
-		return ' <span class="hint--top-right hint--medium" aria-label="' . $text . '"><i class="fa fa-info-circle"></i></span>';
+		return ' <span class="hint--top-right hint--medium" aria-label="' . esc_attr( $text ) . '"><i class="fa fa-info-circle"></i></span>';
 	}
 
 	/**

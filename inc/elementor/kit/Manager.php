@@ -62,7 +62,6 @@ class Manager {
 			}
 		);
 
-		add_action( 'wp_ajax_nopriv_ang_global_kit', array( $this, 'update_global_kit' ) );
 		add_action( 'wp_ajax_ang_global_kit', array( $this, 'update_global_kit' ) );
 
 		add_action( 'wp_ajax_ang_trash_kit', array( $this, 'trash_kit' ) );
@@ -73,7 +72,7 @@ class Manager {
 
 		add_filter(
 			'analog_admin_notices',
-			function( $notices ) {
+			function ( $notices ) {
 				if ( isset( $_GET['success'] ) ) {
 					$notices[] = $this->get_kit_notification();
 				}
@@ -84,7 +83,6 @@ class Manager {
 		if ( ! $this->kits ) {
 			$this->kits = Utils::get_kits();
 		}
-
 	}
 
 	/**
@@ -112,10 +110,16 @@ class Manager {
 	 * Trash a kit.
 	 */
 	public function trash_kit() {
-		$kit_id = (int) $_REQUEST['kit_id'];
+		if ( ! User::is_current_user_can_edit_post_type( Source_Local::CPT ) || ! isset( $_REQUEST['kit_id'] ) ) {
+			wp_send_json_error();
+			return;
+		}
+
+		$kit_id = absint( wp_unslash( $_REQUEST['kit_id'] ) );
 
 		if ( ! $kit_id ) {
 			wp_send_json_error();
+			return;
 		}
 
 		if ( isset( $_REQUEST['ang_trash_kit_nonce'] ) && check_ajax_referer( 'ang_trash_kit', 'ang_trash_kit_nonce' ) ) {
@@ -123,6 +127,7 @@ class Manager {
 
 			if ( ! $kit ) {
 				wp_send_json_error();
+				return;
 			}
 
 			$global_kit = Options::get_instance()->get( 'global_kit' );
@@ -136,6 +141,8 @@ class Manager {
 			wp_safe_redirect( admin_url() . "admin.php?page=style-kits&trashed={$kit_id}" );
 			exit();
 		}
+
+		wp_send_json_error();
 	}
 
 	/**
@@ -220,7 +227,6 @@ class Manager {
 		}
 
 		return $this->process_uploaded_kit( $file['tmp_name'] );
-
 	}
 
 	/**
@@ -321,7 +327,7 @@ class Manager {
 
 		$export_data = array(
 			'title' => $kit->post_title,
-			'data' => $kit_data,
+			'data'  => $kit_data,
 		);
 
 		return array(
@@ -486,7 +492,7 @@ class Manager {
 			$this->generate_kit_css();
 		} else {
 			// TODO: 1.6.1 header/footer make use of this so its not safe to remove.
-			  // $this->remove_global_kit_css();
+				// $this->remove_global_kit_css();
 		}
 
 		$css = Post_CSS::create( $custom_kit );
@@ -539,6 +545,8 @@ class Manager {
 	 * @return string
 	 */
 	public function create_kit( $title, $meta = array() ) {
+		$title = sanitize_text_field( $title );
+
 		$kit = Plugin::elementor()->documents->create(
 			'kit',
 			array(
@@ -638,13 +646,24 @@ class Manager {
 	public function update_global_kit() {
 		$kit_key = 'global_kit';
 
+		if ( ! User::is_current_user_can_edit_post_type( Source_Local::CPT ) ) {
+			wp_send_json_error();
+			return;
+		}
+
 		if ( ! isset( $_REQUEST[ $kit_key ] ) ) {
 			wp_send_json_error();
 			return;
 		}
 
 		if ( isset( $_REQUEST['ang_global_kit_nonce'] ) && check_ajax_referer( 'ang_global_kit', 'ang_global_kit_nonce' ) ) {
-			$kit_id = wp_unslash( $_REQUEST[ $kit_key ] );
+			$kit_id = absint( wp_unslash( $_REQUEST[ $kit_key ] ) );
+
+			if ( Source_Local::CPT !== get_post_type( $kit_id ) ) {
+				wp_send_json_error();
+				return;
+			}
+
 			Options::get_instance()->set( $kit_key, $kit_id );
 			Utils::set_elementor_active_kit( $kit_id );
 

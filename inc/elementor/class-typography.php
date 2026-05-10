@@ -1516,7 +1516,7 @@ class Typography extends Module {
 	 * @return string
 	 */
 	public function get_tooltip( $text ) {
-		return ' <span class="hint--top-right hint--medium" aria-label="' . $text . '"><i class="fa fa-info-circle"></i></span>';
+		return ' <span class="hint--top-right hint--medium" aria-label="' . esc_attr( $text ) . '"><i class="fa fa-info-circle"></i></span>';
 	}
 
 	/**
