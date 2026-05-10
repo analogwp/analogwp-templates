@@ -55,6 +55,7 @@
     "inc",
     "languages",
     "third-party",
+    "vendor/freemius",
     "analogwp-templates.php",
     "uninstall.php",
     "readme.txt"

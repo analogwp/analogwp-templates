@@ -198,8 +198,23 @@ if ( ! function_exists( 'sk_fs' ) ) {
 		global $sk_fs;
 
 		if ( ! isset( $sk_fs ) ) {
+			$freemius_bootstrap_paths = array(
+				__DIR__ . '/vendor/freemius/wordpress-sdk/start.php',
+				__DIR__ . '/vendor/freemius/start.php',
+				__DIR__ . '/freemius/start.php',
+			);
+
+			$freemius_bootstrap = '';
+
+			foreach ( $freemius_bootstrap_paths as $bootstrap_path ) {
+				if ( is_readable( $bootstrap_path ) ) {
+					$freemius_bootstrap = $bootstrap_path;
+					break;
+				}
+			}
+
 			// Include Freemius SDK.
-			require_once __DIR__ . '/freemius/start.php';
+			require_once $freemius_bootstrap;
 
 			$sk_fs = fs_dynamic_init(
 				array(
