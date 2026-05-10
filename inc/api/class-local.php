@@ -13,7 +13,9 @@ use Analog\Classes\Import_Image;
 use Analog\Elementor\Kit\Manager;
 use Analog\Options;
 use Analog\Utils;
+use Elementor\TemplateLibrary\Source_Local;
 use Elementor\TemplateLibrary\Analog_Importer;
+use Elementor\User;
 use WP_Error;
 use WP_Query;
 use WP_REST_Request;
@@ -85,7 +87,7 @@ class Local extends Base {
 					array(
 						'methods'             => $method,
 						'callback'            => array( $this, $callback ),
-						'permission_callback' => array( $this, 'rest_permission_check' ),
+						'permission_callback' => '/tokens/save' === $endpoint ? array( $this, 'save_tokens_permission_check' ) : array( $this, 'rest_permission_check' ),
 						'args'                => array(),
 					)
 				);
@@ -100,6 +102,15 @@ class Local extends Base {
 	 */
 	public function rest_permission_check() {
 		return current_user_can( 'edit_posts' );
+	}
+
+	/**
+	 * Check if the current user can create or edit Style Kits.
+	 *
+	 * @return bool
+	 */
+	public function save_tokens_permission_check() {
+		return User::is_current_user_can_edit_post_type( Source_Local::CPT );
 	}
 
 	/**
@@ -443,8 +454,8 @@ class Local extends Base {
 	 * @since 1.2.0
 	 */
 	public function save_tokens( WP_REST_Request $request ) {
-		$belongs_to = $request->get_param( 'id' );
-		$title      = $request->get_param( 'title' );
+		$belongs_to = absint( $request->get_param( 'id' ) );
+		$title      = sanitize_text_field( $request->get_param( 'title' ) );
 		$settings   = $request->get_param( 'settings' );
 
 		if ( ! isset( $belongs_to, $title, $settings ) ) {
@@ -455,9 +466,18 @@ class Local extends Base {
 			return new WP_Error( 'kit_title_error', __( 'Please provide a title.', 'ang' ) );
 		}
 
+		if ( Source_Local::CPT !== get_post_type( $belongs_to ) || ! current_user_can( 'edit_post', $belongs_to ) ) {
+			return new WP_Error( 'kit_permission_error', __( 'You are not allowed to save this Style Kit.', 'ang' ) );
+		}
+
 		$elementor_controls = \get_post_meta( $belongs_to, '_elementor_controls_usage', true );
 
-		$tokens      = json_decode( $settings, true );
+		$tokens = json_decode( $settings, true );
+
+		if ( JSON_ERROR_NONE !== json_last_error() || ! is_array( $tokens ) ) {
+			return new WP_Error( 'kit_settings_error', __( 'Invalid kit settings provided.', 'ang' ) );
+		}
+
 		$kit_manager = new Manager();
 
 		$post_id = $kit_manager->create_kit(
