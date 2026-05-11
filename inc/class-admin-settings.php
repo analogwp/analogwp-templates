@@ -54,7 +54,7 @@ class Admin_Settings {
 			$settings[] = include 'settings/class-settings-version-control.php';
 			$settings[] = include 'settings/class-settings-gopro.php';
 
-			self::$settings = apply_filters( 'ang_get_settings_pages', $settings );
+			self::$settings = apply_filters( 'ang_get_settings_pages', $settings ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 
 		return self::$settings;
@@ -98,16 +98,16 @@ class Admin_Settings {
 		check_admin_referer( 'ang-settings' );
 
 		// Trigger actions.
-		do_action( 'ang_settings_save_' . $current_tab );
-		do_action( 'ang_update_options_' . $current_tab );
-		do_action( 'ang_update_options' );
+		do_action( 'ang_settings_save_' . $current_tab ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		do_action( 'ang_update_options_' . $current_tab ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		do_action( 'ang_update_options' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		self::add_message( __( 'Your settings have been saved.', 'analogwp-templates' ) );
 
 		// Clear any unwanted data and flush rules.
 		update_option( 'ang_queue_flush_rewrite_rules', 'yes' );
 
-		do_action( 'ang_settings_saved' );
+		do_action( 'ang_settings_saved' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
@@ -151,7 +151,7 @@ class Admin_Settings {
 	public static function output() {
 		global $current_section, $current_tab;
 
-		do_action( 'ang_settings_start' );
+		do_action( 'ang_settings_start' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/admin-settings.css' ) );
 
 		wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n', 'wp-api-fetch' ), filemtime( ANG_PLUGIN_DIR . 'assets/js/admin-settings.js' ), true );
@@ -160,7 +160,7 @@ class Admin_Settings {
 			'ang_settings',
 			'ang_settings_data',
 			apply_filters(
-				'ang_settings_data',
+				'ang_settings_data', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				array(
 					'i18n_nav_warning'          => __( 'The changes you made will be lost if you navigate away from this page.', 'analogwp-templates' ),
 					'sitekit_importer_notice'   => __( 'Template Kit file downloaded.', 'analogwp-templates' ),
@@ -173,7 +173,7 @@ class Admin_Settings {
 		);
 
 		// Get tabs for the settings page.
-		$tabs = apply_filters( 'ang_settings_tabs_array', array() );
+		$tabs = apply_filters( 'ang_settings_tabs_array', array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		include __DIR__ . '/settings/views/html-admin-settings.php';
 	}
@@ -313,7 +313,7 @@ class Admin_Settings {
 					}
 					echo '<table class="form-table">' . "\n\n";
 					if ( ! empty( $value['id'] ) ) {
-						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) );
+						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					}
 					break;
 
@@ -334,11 +334,11 @@ class Admin_Settings {
 				// Section Ends.
 				case 'sectionend':
 					if ( ! empty( $value['id'] ) ) {
-						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) . '_end' );
+						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) . '_end' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					}
 					echo '</table>';
 					if ( ! empty( $value['id'] ) ) {
-						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) . '_after' );
+						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) . '_after' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					}
 					break;
 
@@ -418,7 +418,7 @@ class Admin_Settings {
 					$option_value = $value['value'];
 					echo '<table class="form-table ang-action">' . "\n\n";
 					if ( ! empty( $value['id'] ) ) {
-						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) );
+						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					}
 					?>
 					<tr valign="top" id="<?php echo esc_attr( $value['id'] ); ?>">
@@ -747,7 +747,7 @@ class Admin_Settings {
 
 				// Default: run an action.
 				default:
-					do_action( 'ang_admin_field_' . $value['type'], $value );
+					do_action( 'ang_admin_field_' . $value['type'], $value ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					break;
 			}
 		}
@@ -864,14 +864,14 @@ class Admin_Settings {
 			 *
 			 * @since 2.4.0
 			 */
-			$value = apply_filters( 'ang_admin_settings_sanitize_option', $value, $option, $raw_value );
+			$value = apply_filters( 'ang_admin_settings_sanitize_option', $value, $option, $raw_value ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			/**
 			 * Sanitize the value of an option by option name.
 			 *
 			 * @since 2.4.0
 			 */
-			$value = apply_filters( "ang_admin_settings_sanitize_option_$option_name", $value, $option, $raw_value );
+			$value = apply_filters( "ang_admin_settings_sanitize_option_$option_name", $value, $option, $raw_value ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			if ( is_null( $value ) ) {
 				continue;
@@ -895,7 +895,7 @@ class Admin_Settings {
 			/**
 			 * Fire an action before saved.
 			 */
-			do_action( 'ang_update_option', $option );
+			do_action( 'ang_update_option', $option ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 
 		// Save all options in our array.

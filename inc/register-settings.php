@@ -124,7 +124,7 @@ function settings_page_init() {
 		Admin_Settings::add_message( wp_kses_post( wp_unslash( $ang_message ) ) );
 	}
 
-	do_action( 'ang_settings_page_init' );
+	do_action( 'ang_settings_page_init' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 }
 
 /**
@@ -157,9 +157,9 @@ function save_settings() {
 	$current_section = empty( $current_section_in ) ? '' : sanitize_title( wp_unslash( $current_section_in ) );
 
 	// Save settings if data has been posted.
-	if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", $has_save ) ) {
+	if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", $has_save ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		Admin_Settings::save();
-	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", $has_save || $has_license_action ) ) {
+	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", $has_save || $has_license_action ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		Admin_Settings::save();
 	}
 }
@@ -183,7 +183,7 @@ function new_settings_page() {
  * @return void
  */
 function settings_page() {
-	do_action( 'ang_loaded_templates' );
+	do_action( 'ang_loaded_templates' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	?>
 	<style>body { background: #F1F1F1; }</style>
 	<div id="analogwp-templates" class=""></div>

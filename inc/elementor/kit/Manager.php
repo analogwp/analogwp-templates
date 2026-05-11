@@ -203,7 +203,7 @@ class Manager {
 		$args = array_merge(
 			(array) wp_unslash( $_REQUEST ),
 			array(
-				'file' => Utils::get_super_global_value( $_FILES, 'file' ),
+				'file' => Utils::get_super_global_value( $_FILES, 'file', true ),
 			)
 		);
 

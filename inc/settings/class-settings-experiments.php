@@ -22,7 +22,6 @@ class Experiments extends Settings_Page {
 		$this->id    = 'experiments';
 		$this->label = __( 'Experiments', 'analogwp-templates' );
 		parent::__construct();
-
 	}
 
 	/**
@@ -39,7 +38,7 @@ class Experiments extends Settings_Page {
 		);
 
 		$settings = apply_filters(
-			'ang_experiments_settings',
+			'ang_experiments_settings', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			array(
 				array(
 					'title' => __( 'Style Kits Experiments', 'analogwp-templates' ),
@@ -66,7 +65,7 @@ class Experiments extends Settings_Page {
 			)
 		);
 
-		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
+		return apply_filters( 'ang_get_settings_' . $this->id, $settings ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**

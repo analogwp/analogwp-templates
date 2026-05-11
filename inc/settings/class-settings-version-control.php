@@ -66,9 +66,9 @@ class Version_Control extends Settings_Page {
 			);
 		}
 
-		$settings = apply_filters( 'ang_version_control_settings', $rollback_controls );
+		$settings = apply_filters( 'ang_version_control_settings', $rollback_controls ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
+		return apply_filters( 'ang_get_settings_' . $this->id, $settings ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**

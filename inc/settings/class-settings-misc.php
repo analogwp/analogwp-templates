@@ -32,7 +32,7 @@ class Misc extends Settings_Page {
 	 */
 	public function get_settings() {
 		$settings = apply_filters(
-			'ang_misc_settings',
+			'ang_misc_settings', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			array(
 				array(
 					'type' => 'title',
@@ -74,7 +74,7 @@ class Misc extends Settings_Page {
 			)
 		);
 
-		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
+		return apply_filters( 'ang_get_settings_' . $this->id, $settings ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**

@@ -171,7 +171,7 @@ final class Allow {
 			}
 
 			$possible_sizes = apply_filters(
-				'image_size_names_choose',
+				'image_size_names_choose', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				array(
 					'full'      => __( 'Full Size', 'analogwp-templates' ),
 					'thumbnail' => __( 'Thumbnail', 'analogwp-templates' ),

@@ -37,18 +37,18 @@ class GoPro extends Settings_Page {
 	 */
 	public function get_settings() {
 		$settings = apply_filters(
-			'ang_gopro_settings',
+			'ang_gopro_settings', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			array()
 		);
 
-		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
+		return apply_filters( 'ang_get_settings_' . $this->id, $settings ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
 	 * Get Pro Tab Data.
 	 */
 	public function get_pro() {
-		include dirname( __FILE__ ) . '/views/html-admin-settings-gopro.php';
+		include __DIR__ . '/views/html-admin-settings-gopro.php';
 	}
 
 	/**

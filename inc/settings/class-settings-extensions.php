@@ -33,7 +33,7 @@ class Extensions extends Settings_Page {
 	 * @return array
 	 */
 	public function get_sections() {
-		return apply_filters( 'ang_get_sections_' . $this->id, array() );
+		return apply_filters( 'ang_get_sections_' . $this->id, array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
@@ -52,12 +52,12 @@ class Extensions extends Settings_Page {
 		$settings = array();
 		if ( '' === $current_section ) {
 			$settings = apply_filters(
-				'ang_general_extension_settings',
+				'ang_general_extension_settings', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				array()
 			);
 		}
 
-		return apply_filters( 'ang_get_settings_extensions', $settings, $current_section );
+		return apply_filters( 'ang_get_settings_extensions', $settings, $current_section ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Extensions extends Settings_Page {
 
 		Admin_Settings::save_fields( $settings );
 		if ( $current_section ) {
-			do_action( 'ang_update_options_' . $this->id . '_' . $current_section );
+			do_action( 'ang_update_options_' . $this->id . '_' . $current_section ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 	}
 }

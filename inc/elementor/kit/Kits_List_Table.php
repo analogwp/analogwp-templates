@@ -89,7 +89,7 @@ class Kits_List_Table extends \WP_List_Table {
 					$h_time = get_the_time( 'Y/m/d', $item['id'] );
 				}
 
-				$result = __( 'Published', 'analogwp-templates' ) . '<br><span title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $item['id'], 'date', 'list' ) . '</span>';
+				$result = __( 'Published', 'analogwp-templates' ) . '<br><span title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $item['id'], 'date', 'list' ) . '</span>'; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				break;
 
 			case 'author':

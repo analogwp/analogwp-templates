@@ -38,7 +38,7 @@ class General extends Settings_Page {
 			''            => __( 'General', 'analogwp-templates' ),
 			'starter-kit' => __( 'Starter Kit', 'analogwp-templates' ),
 		);
-		return apply_filters( 'ang_get_sections_' . $this->id, $sections );
+		return apply_filters( 'ang_get_sections_' . $this->id, $sections ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
@@ -122,7 +122,7 @@ class General extends Settings_Page {
 					'id'   => 'ang_color_palette',
 				),
 			);
-			$settings = apply_filters( 'ang_' . $this->id . '_settings', $settings );
+			$settings = apply_filters( 'ang_' . $this->id . '_settings', $settings ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		} elseif ( 'starter-kit' === $current_section ) {
 			$response = Remote::get_instance()->get_starterkits_info();
 
@@ -146,10 +146,10 @@ class General extends Settings_Page {
 				),
 			);
 
-			$settings = apply_filters( 'ang_' . $this->id . '_settings', $settings );
+			$settings = apply_filters( 'ang_' . $this->id . '_settings', $settings ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 
-		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
+		return apply_filters( 'ang_get_settings_' . $this->id, $settings ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
@@ -162,7 +162,7 @@ class General extends Settings_Page {
 
 		Admin_Settings::save_fields( $settings );
 		if ( $current_section ) {
-			do_action( 'ang_update_options_' . $this->id . '_' . $current_section );
+			do_action( 'ang_update_options_' . $this->id . '_' . $current_section ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 	}
 }

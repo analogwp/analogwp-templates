@@ -37,10 +37,10 @@ abstract class Settings_Page {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_filter( 'ang_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
-		add_action( 'ang_sections_' . $this->id, array( $this, 'output_sections' ) );
-		add_action( 'ang_settings_' . $this->id, array( $this, 'output' ) );
-		add_action( 'ang_settings_save_' . $this->id, array( $this, 'save' ) );
+		add_filter( 'ang_settings_tabs_array', array( $this, 'add_settings_page' ), 20 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		add_action( 'ang_sections_' . $this->id, array( $this, 'output_sections' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		add_action( 'ang_settings_' . $this->id, array( $this, 'output' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		add_action( 'ang_settings_save_' . $this->id, array( $this, 'save' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
@@ -71,7 +71,7 @@ abstract class Settings_Page {
 	 * @return mixed
 	 */
 	public function add_settings_page( $pages ) {
-		if ( 'extensions' === $this->id && ! has_filter( 'ang_get_settings_' . $this->id ) ) {
+		if ( 'extensions' === $this->id && ! has_filter( 'ang_get_settings_' . $this->id ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			return $pages;
 		}
 
@@ -86,7 +86,7 @@ abstract class Settings_Page {
 	 * @return array
 	 */
 	public function get_settings() {
-		return apply_filters( 'ang_get_settings_' . $this->id, array() );
+		return apply_filters( 'ang_get_settings_' . $this->id, array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
@@ -95,7 +95,7 @@ abstract class Settings_Page {
 	 * @return array
 	 */
 	public function get_sections() {
-		return apply_filters( 'ang_get_sections_' . $this->id, array() );
+		return apply_filters( 'ang_get_sections_' . $this->id, array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
@@ -140,7 +140,7 @@ abstract class Settings_Page {
 		Admin_Settings::save_fields( $settings );
 
 		if ( $current_section ) {
-			do_action( 'ang_update_options_' . $this->id . '_' . $current_section );
+			do_action( 'ang_update_options_' . $this->id . '_' . $current_section ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 	}
 }

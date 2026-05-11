@@ -72,36 +72,16 @@ class Import_Image extends Base {
 	 * @return bool|array        Hash string.
 	 */
 	private function get_saved_image( $attachment ) {
-		global $wpdb;
-
 		if ( isset( $this->already_imported_ids[ $attachment['id'] ] ) ) {
 			return $this->already_imported_ids[ $attachment['id'] ];
 		}
 
-		$post_id = $wpdb->get_var(
-			$wpdb->prepare(
-				"
-					SELECT post_id FROM {$wpdb->postmeta}
-						WHERE meta_key = '_analog_image_hash'
-						AND meta_value = %s
-					",
-				$this->get_hash_image( $attachment['url'] )
-			)
-		);
+		$post_id = $this->find_attachment_id_by_meta( '_analog_image_hash', $this->get_hash_image( $attachment['url'] ) );
 
 		if ( empty( $post_id ) ) {
 			$filename = basename( $attachment['url'] );
 
-			$post_id = $wpdb->get_var(
-				$wpdb->prepare(
-					"
-					SELECT post_id FROM {$wpdb->postmeta}
-					WHERE meta_key = '_wp_attached_file'
-					AND meta_value LIKE %s
-				",
-					'%/' . $filename . '%'
-				)
-			);
+			$post_id = $this->find_attachment_id_by_meta( '_wp_attached_file', $filename, 'LIKE' );
 		}
 
 		if ( $post_id ) {
@@ -116,6 +96,38 @@ class Import_Image extends Base {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Find an attachment by meta value using core post queries.
+	 *
+	 * @param string $meta_key   Meta key.
+	 * @param string $meta_value Meta value.
+	 * @param string $compare    Meta compare operator.
+	 * @return int
+	 */
+	private function find_attachment_id_by_meta( $meta_key, $meta_value, $compare = '=' ) {
+		$attachments = get_posts(
+			array(
+				'post_type'              => 'attachment',
+				'post_status'            => 'inherit',
+				'fields'                 => 'ids',
+				'posts_per_page'         => 1,
+				'no_found_rows'          => true,
+				'cache_results'          => true,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+				'meta_query'             => array(
+					array(
+						'key'     => $meta_key,
+						'value'   => $meta_value,
+						'compare' => $compare,
+					),
+				),
+			)
+		);
+
+		return empty( $attachments ) ? 0 : (int) $attachments[0];
 	}
 
 	/**

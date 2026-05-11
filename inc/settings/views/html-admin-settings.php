@@ -14,12 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$ang_tab_exists        = isset( $tabs[ $current_tab ] ) || has_action( 'ang_sections_' . $current_tab ) || has_action( 'ang_settings_' . $current_tab ) || has_action( 'ang_settings_tabs_' . $current_tab );
-$ang_current_tab_label = $tabs[ $current_tab ] ?? '';
-
 global $current_user;
 
-if ( ! $ang_tab_exists ) {
+if ( ! isset( $tabs[ $current_tab ] ) && ! has_action( 'ang_sections_' . $current_tab ) && ! has_action( 'ang_settings_' . $current_tab ) && ! has_action( 'ang_settings_tabs_' . $current_tab ) ) {
 	wp_safe_redirect( admin_url( 'admin.php?page=ang-settings' ) );
 	exit;
 }
@@ -27,26 +24,29 @@ if ( ! $ang_tab_exists ) {
 <div class="wrap ang <?php echo esc_attr( $current_tab ); ?>">
 	<h1 class="menu-title"><?php esc_html_e( 'Style Kits Settings', 'analogwp-templates' ); ?></h1>
 	<div class="ang-wrapper">
-		<form method="<?php echo esc_attr( apply_filters( 'ang_settings_form_method_tab_' . $current_tab, 'post' ) ); ?>" id="mainform" action="" enctype="multipart/form-data">
+		<form method="<?php echo esc_attr( apply_filters( 'ang_settings_form_method_tab_' . $current_tab, 'post' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound ?>" id="mainform" action="" enctype="multipart/form-data">
 			<nav class="nav-tab-wrapper ang-nav-tab-wrapper">
 				<?php
 
-				foreach ( $tabs as $ang_slug => $ang_label ) {
-					echo '<a href="' . esc_html( admin_url( 'admin.php?page=ang-settings&tab=' . esc_attr( $ang_slug ) ) ) . '" class="ang-nav-tab nav-tab-' . esc_attr( $ang_slug ) . ( $current_tab === $ang_slug ? ' ang-nav-tab-active' : '' ) . '">' . esc_html( $ang_label ) . '</a>';
-				}
+				array_walk(
+					$tabs,
+					static function ( $tab_label, $tab_slug ) use ( $current_tab ) {
+						echo '<a href="' . esc_html( admin_url( 'admin.php?page=ang-settings&tab=' . esc_attr( $tab_slug ) ) ) . '" class="ang-nav-tab nav-tab-' . esc_attr( $tab_slug ) . ( $current_tab === $tab_slug ? ' ang-nav-tab-active' : '' ) . '">' . esc_html( $tab_label ) . '</a>';
+					}
+				);
 
-				do_action( 'ang_settings_tabs' );
+				do_action( 'ang_settings_tabs' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 				?>
 			</nav>
 			<div class="tab-content">
-				<h1 class="screen-reader-text"><?php echo esc_html( $ang_current_tab_label ); ?></h1>
+				<h1 class="screen-reader-text"><?php echo esc_html( $tabs[ $current_tab ] ?? '' ); ?></h1>
 				<?php
-					do_action( 'ang_sections_' . $current_tab );
+					do_action( 'ang_sections_' . $current_tab ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 					self::show_messages();
 
-					do_action( 'ang_settings_' . $current_tab );
+					do_action( 'ang_settings_' . $current_tab ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				?>
 			</div>
 			<p class="submit">
@@ -57,7 +57,7 @@ if ( ! $ang_tab_exists ) {
 			</p>
 		</form>
 		<div class="sidebar">
-			<?php do_action( 'ang_sidebar_start' ); ?>
+			<?php do_action( 'ang_sidebar_start' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound ?>
 
 
 			<?php if ( ! class_exists( '\AnalogWP\CustomLibrary\Plugin' ) && ! get_option( 'ang_hide_custom_library_promo' ) ) : ?>
@@ -161,7 +161,7 @@ if ( ! $ang_tab_exists ) {
 				</div>
 			</div>
 
-			<?php do_action( 'ang_sidebar_end' ); ?>
+			<?php do_action( 'ang_sidebar_end' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound ?>
 		</div>
 	</div>
 </div>

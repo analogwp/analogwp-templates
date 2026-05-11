@@ -407,7 +407,7 @@ final class Plugin {
 		self::$instance = new self( $main_file );
 		self::$instance->register();
 
-		do_action( 'ang_loaded' );
+		do_action( 'ang_loaded' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		return true;
 	}
