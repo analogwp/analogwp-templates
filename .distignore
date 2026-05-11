@@ -20,6 +20,8 @@ phpcs.xml.dist
 /vendor
 !/vendor/composer
 !/vendor/autoload.php
+!/vendor/freemius
+!/vendor/freemius/**
 
 # Files
 .babelrc
