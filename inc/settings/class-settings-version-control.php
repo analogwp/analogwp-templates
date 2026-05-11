@@ -66,27 +66,6 @@ class Version_Control extends Settings_Page {
 			);
 		}
 
-		array_push(
-			$rollback_controls,
-			array(
-				'title' => __( 'Beta Features', 'analogwp-templates' ),
-				'type'  => 'title',
-				'id'    => 'ang_beta',
-			),
-			array(
-				'title'         => __( 'Become a beta tester', 'analogwp-templates' ),
-				'desc'          => __( 'Check this box to turn on beta updates for Style Kits and Style Kits Pro. The update will not be installed automatically, you always have the option to ignore it.', 'analogwp-templates' ),
-				'id'            => 'beta_tester',
-				'default'       => false,
-				'type'          => 'checkbox',
-				'checkboxgroup' => 'start',
-			),
-			array(
-				'type' => 'sectionend',
-				'id'   => 'ang_beta',
-			)
-		);
-
 		$settings = apply_filters( 'ang_version_control_settings', $rollback_controls );
 
 		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
