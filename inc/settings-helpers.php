@@ -40,7 +40,7 @@ function ang_clean( $var ) {
 function ang_admin_fields( $options ) {
 
 	if ( ! class_exists( 'Admin_Settings', false ) ) {
-		include dirname( __FILE__ ) . '/class-admin-settings.php';
+		include __DIR__ . '/class-admin-settings.php';
 	}
 
 	Admin_Settings::output_fields( $options );
@@ -55,7 +55,7 @@ function ang_admin_fields( $options ) {
 function ang_update_options( $options, $data = null ) {
 
 	if ( ! class_exists( 'Admin_Settings', false ) ) {
-		include dirname( __FILE__ ) . '/class-admin-settings.php';
+		include __DIR__ . '/class-admin-settings.php';
 	}
 
 	Admin_Settings::save_fields( $options, $data );
@@ -71,7 +71,7 @@ function ang_update_options( $options, $data = null ) {
 function ang_settings_get_option( $option_name, $default = '' ) {
 
 	if ( ! class_exists( 'Admin_Settings', false ) ) {
-		include dirname( __FILE__ ) . '/class-admin-settings.php';
+		include __DIR__ . '/class-admin-settings.php';
 	}
 
 	return Admin_Settings::get_option( $option_name, $default );
@@ -89,7 +89,7 @@ function ang_update_elementor_kit() {
 	}
 
 	$data              = $_POST; // phpcs:ignore
-	$key               = 'global_kit';
+	$key  = 'global_kit';
 
 	$kit_id = wp_unslash( $data[ $key ] ?? Options::get_instance()->get( $key ) );
 

@@ -288,6 +288,8 @@ class Admin_Settings {
 				}
 			}
 
+			$custom_attributes_html = wp_kses_post( implode( ' ', $custom_attributes ) );
+
 			// Description handling.
 			$field_description = self::get_field_description( $value );
 			$description       = $field_description['description'];
@@ -371,7 +373,7 @@ class Admin_Settings {
 
 					?><tr valign="top">
 						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<input
@@ -382,8 +384,8 @@ class Admin_Settings {
 								value="<?php echo esc_attr( $option_value ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
-								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // WPCS: XSS ok. ?>
+								<?php echo $custom_attributes_html; ?>
+								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo wp_kses_post( $description ); ?>
 						</td>
 					</tr>
 					<?php
@@ -394,7 +396,7 @@ class Admin_Settings {
 					<tr valign="top">
 						<?php if ( isset( $value['title'] ) && ! empty( $value['title'] ) ) : ?>
 							<th scope="row" class="titledesc">
-								<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // phpcs:ignore ?></label>
+								<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 							</th>
 						<?php endif; ?>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
@@ -403,11 +405,11 @@ class Admin_Settings {
 								id="<?php echo esc_attr( $value['id'] ); ?>"
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // phpcs:ignore ?>
+								<?php echo $custom_attributes_html; ?>
 								><?php echo esc_html( $option_value ); ?></a>
 							<?php endif; ?>
 
-							<?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // phpcs:ignore ?>
+							<?php echo esc_html( $value['suffix'] ); ?> <?php echo wp_kses_post( $description ); ?>
 						</td>
 					</tr>
 					<?php
@@ -439,7 +441,7 @@ class Admin_Settings {
 					?>
 					<tr valign="top">
 						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<?php if ( ! empty( $option_value ) ) : ?>
@@ -450,7 +452,7 @@ class Admin_Settings {
 								value="<?php echo esc_attr( str_repeat( '*', strlen( $option_value ) ) ); ?>"
 								readonly="readonly"
 								disabled
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+								<?php echo $custom_attributes_html; ?>
 								/><?php echo esc_html( $value['suffix'] ); ?>
 							<?php else : ?>
 							<input
@@ -461,8 +463,8 @@ class Admin_Settings {
 								value="<?php echo esc_attr( $option_value ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
-								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // WPCS: XSS ok. ?>
+								<?php echo $custom_attributes_html; ?>
+								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo wp_kses_post( $description ); ?>
 							<?php endif; ?>
 						</td>
 					</tr>
@@ -476,10 +478,10 @@ class Admin_Settings {
 					?>
 					<tr valign="top">
 						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
-							<?php echo $description; // WPCS: XSS ok. ?>
+							<?php echo wp_kses_post( $description ); ?>
 
 							<textarea
 								name="<?php echo esc_attr( $value['id'] ); ?>"
@@ -487,7 +489,7 @@ class Admin_Settings {
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+								<?php echo $custom_attributes_html; ?>
 								><?php echo esc_textarea( $option_value ); // WPCS: XSS ok. ?></textarea>
 						</td>
 					</tr>
@@ -506,7 +508,7 @@ class Admin_Settings {
 							<?php if ( false !== strpos( $value['id'], '_experiment' ) ) : ?>
 							<span class="experiment-indicator <?php echo ( $value['value'] === false || $value['value'] === 'default' || $value['value'] === 'active' ) ? 'active' : 'inactive'; ?>"></span>
 							<?php endif; ?>
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<?php } ?>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
@@ -515,7 +517,7 @@ class Admin_Settings {
 								id="<?php echo esc_attr( $value['id'] ); ?>"
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+								<?php echo $custom_attributes_html; ?>
 								<?php echo 'multiselect' === $value['type'] ? 'multiple="multiple"' : ''; ?>
 								<?php echo $disabled ? ' disabled="true"' : ''; ?>
 								>
@@ -549,11 +551,11 @@ class Admin_Settings {
 					?>
 					<tr valign="top">
 						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<fieldset>
-								<?php echo $description; // WPCS: XSS ok. ?>
+								<?php echo wp_kses_post( $description ); ?>
 								<ul>
 								<?php
 								foreach ( $value['options'] as $key => $val ) {
@@ -565,7 +567,7 @@ class Admin_Settings {
 											type="radio"
 											style="<?php echo esc_attr( $value['css'] ); ?>"
 											class="<?php echo esc_attr( $value['class'] ); ?>"
-											<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+											<?php echo $custom_attributes_html; ?>
 											<?php checked( $key, $option_value ); ?>
 											/> <?php echo esc_html( $val ); ?></label>
 									</li>
@@ -585,7 +587,7 @@ class Admin_Settings {
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<fieldset>
 								<?php
-								echo $description; // phpcs:ignore
+									echo wp_kses_post( $description );
 								?>
 								<ul>
 									<?php foreach ( $value['options'] as $key => $val ) : ?>
@@ -661,12 +663,12 @@ class Admin_Settings {
 								class="<?php echo esc_attr( isset( $value['class'] ) ? $value['class'] : '' ); ?>"
 								value="1"
 								<?php checked( $option_value, true ); ?>
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
-							/> <?php echo $description; // WPCS: XSS ok. ?>
+								<?php echo $custom_attributes_html; ?>
+							/> <?php echo wp_kses_post( $description ); ?>
 							<?php if ( $value['switch'] ) { ?>
 								<span><?php esc_html_e( 'Toggle', 'analogwp-templates' ); ?></span>
 							<?php } ?>
-						</label> <?php echo $tooltip_html; // WPCS: XSS ok. ?>
+						</label> <?php echo wp_kses_post( $tooltip_html ); ?>
 					<?php
 
 					if ( ! isset( $value['checkboxgroup'] ) || 'end' === $value['checkboxgroup'] ) {
@@ -690,11 +692,11 @@ class Admin_Settings {
 							<?php if ( false !== strpos( $value['id'], '_experiment' ) ) : ?>
 							<span class="experiment-indicator <?php echo ( $value['value'] === 'active' ) ? 'active' : 'inactive'; ?>"></span>
 							<?php endif; ?>
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // phpcs:ignore ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<?php } ?>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
-							<?php echo $description; // phpcs:ignore ?>
+							<?php echo wp_kses_post( $description ); ?>
 						</td>
 					</tr>
 					<?php
