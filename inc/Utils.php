@@ -10,6 +10,10 @@ namespace Analog;
 use Analog\Core\Storage\Transients;
 use Elementor\Core\Base\Document;
 use Elementor\Core\Kits\Manager;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 use Elementor\TemplateLibrary\Source_Local;
 use WP_Query;
 

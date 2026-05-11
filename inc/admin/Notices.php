@@ -7,6 +7,10 @@
 
 namespace Analog\Admin;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class managing admin Notices.
  *

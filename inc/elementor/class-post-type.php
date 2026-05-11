@@ -7,6 +7,10 @@
 
 namespace Analog\Elementor;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Post_Type class.
  *

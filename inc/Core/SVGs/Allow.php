@@ -11,6 +11,10 @@ namespace Analog\Core\SVGs;
 use Analog\Options;
 use Analog\Dependencies\enshrined\svgSanitize\Sanitizer;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class enabling SVG uploads and imports.
  *

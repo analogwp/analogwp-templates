@@ -5,6 +5,10 @@
 
 namespace Analog\Elementor;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Google_Fonts.
  *

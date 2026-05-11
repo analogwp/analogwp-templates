@@ -10,6 +10,10 @@ namespace Analog\Elementor\Kit;
 use Analog\Admin\Notice;
 use Analog\API\Remote;
 use Analog\Options;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 use Analog\Plugin;
 use Analog\Utils;
 use Elementor\Core\Files\CSS\Post as Post_CSS;

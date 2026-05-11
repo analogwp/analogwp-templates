@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+if ( ! defined( 'ABSPATH' ) && 'cli' !== PHP_SAPI ) {
+	exit;
+}
+
 use Isolated\Symfony\Component\Finder\Finder;
 
 $wp_classes   = json_decode( file_get_contents( 'vendor/sniccowp/php-scoper-wordpress-excludes/generated/exclude-wordpress-classes.json' ), true );

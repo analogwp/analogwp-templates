@@ -10,6 +10,10 @@ namespace Analog\Elementor;
 use Analog\Base;
 use Analog\Options;
 use Analog\Utils;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
 use Elementor\Repeater;

@@ -7,6 +7,10 @@ use Analog\Utils;
 use Elementor\Core\Base\Document;
 use Elementor\TemplateLibrary\Source_Local;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( \WP_List_Table::class ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }

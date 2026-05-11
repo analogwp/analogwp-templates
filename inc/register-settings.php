@@ -11,6 +11,10 @@ use Analog\Options;
 use Analog\Utils;
 use AnalogPro\LicenseManager;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Register plugin menu.
  *

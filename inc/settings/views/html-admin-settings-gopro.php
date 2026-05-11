@@ -8,6 +8,10 @@
 
 namespace Analog\Settings\views;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 ?>
 
 <div class="gopro-content">

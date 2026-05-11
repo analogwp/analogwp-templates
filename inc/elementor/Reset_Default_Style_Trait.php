@@ -9,6 +9,10 @@ namespace Analog\Elementor;
 
 use Elementor\Element_Base;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Trait Reset_Default_Style_Trait
  *

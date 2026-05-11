@@ -10,6 +10,10 @@ namespace Analog;
 use Analog\Elementor\ANG_Action;
 use Analog\Elementor\Globals\Controller;
 use Elementor\Core\Common\Modules\Finder\Categories_Manager;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 use Elementor\Core\DynamicTags\Manager;
 use Analog\Elementor\Tags\Light_Background;
 use Analog\Elementor\Tags\Dark_Background;

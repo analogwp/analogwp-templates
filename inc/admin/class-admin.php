@@ -9,6 +9,10 @@ namespace Analog\Admin;
 
 use Analog\Base;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class to handle Admin related funtionality.
  *

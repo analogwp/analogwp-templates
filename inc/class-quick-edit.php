@@ -9,6 +9,10 @@ namespace Analog;
 
 use Elementor\User;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Quick_Edit
  *

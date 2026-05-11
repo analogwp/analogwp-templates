@@ -10,6 +10,10 @@ namespace Analog\Elementor;
 use Analog\Base;
 use Analog\Plugin;
 use Analog\Utils;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 use Elementor\Core\Base\Document;
 use Elementor\TemplateLibrary\Source_Local;
 use Elementor\User;

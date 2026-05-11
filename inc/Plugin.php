@@ -10,6 +10,10 @@ namespace Analog;
 
 use Analog\Featuresets\Register_Featuresets as Featuresets;
 use Analog\Admin\Notices;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 use Analog\Elementor\Google_Fonts;
 
 /**

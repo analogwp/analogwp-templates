@@ -7,6 +7,10 @@
 
 namespace Analog;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Analog\Cron class..
  *
