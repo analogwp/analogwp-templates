@@ -346,7 +346,13 @@ final class Plugin {
 	 * @return void
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( ANG_TEXT_DOMAIN, false, dirname( ANG_PLUGIN_BASE ) . '/languages/' );
+		$locale = function_exists( 'determine_locale' ) ? determine_locale() : get_locale();
+		$mofile = ANG_PLUGIN_DIR . 'languages/' . ANG_TEXT_DOMAIN . '-' . $locale . '.mo';
+
+		if ( file_exists( $mofile ) ) {
+			load_textdomain( ANG_TEXT_DOMAIN, $mofile );
+		}
+
 		$this->load_legacy_textdomain();
 	}
 
