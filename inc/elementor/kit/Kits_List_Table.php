@@ -290,7 +290,9 @@ class Kits_List_Table extends \WP_List_Table {
 				'All <span class="count">(%s)</span>',
 				'All <span class="count">(%s)</span>',
 				$total_posts,
-				'posts', 'analogwp-templates' ),
+				'posts',
+				'analogwp-templates'
+			),
 			number_format_i18n( $total_posts )
 		);
 
@@ -363,7 +365,7 @@ function ang_kits_list() {
 				</fieldset>
 			</form>
 		</div>
-		<p style="margin: 20px 0; font-size: 14px; line-height: 1.5;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below.', 'analogwp-templates' ); ?> <a href="https://analogwp.com/docs/local-style-kits/" target="_blank"><?php esc_html_e( 'Learn more' ); ?></a></p>
+		<p style="margin: 20px 0; font-size: 14px; line-height: 1.5;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below.', 'analogwp-templates' ); ?> <a href="https://analogwp.com/docs/local-style-kits/" target="_blank"><?php esc_html_e( 'Learn more', 'analogwp-templates' ); ?></a></p>
 
 		<form style="margin-bottom: 30px;" >
 			<label for="global_kit" style="font-size: 16px; color: #000; font-weight: bold; margin-right: 16px;"><?php esc_html_e( 'Global Style Kit', 'analogwp-templates' ); ?></label>

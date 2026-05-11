@@ -26,7 +26,7 @@ final class Notices {
 	 * @since 1.5.0
 	 */
 	public function register() {
-		$callback = function() {
+		$callback = function () {
 			global $hook_suffix;
 
 			if ( empty( $hook_suffix ) ) {
@@ -86,7 +86,7 @@ final class Notices {
 
 		return array_filter(
 			$notices,
-			static function( $notice ) {
+			static function ( $notice ) {
 				return $notice instanceof Notice;
 			}
 		);
@@ -120,5 +120,4 @@ final class Notices {
 
 		wp_enqueue_script( 'analog-admin' );
 	}
-
 }

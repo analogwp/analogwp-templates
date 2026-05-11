@@ -303,7 +303,9 @@ class Instance_List_Table extends \WP_List_Table {
 				'All <span class="count">(%s)</span>',
 				'All <span class="count">(%s)</span>',
 				$total_posts,
-				'posts', 'analogwp-templates' ),
+				'posts',
+				'analogwp-templates'
+			),
 			number_format_i18n( $total_posts )
 		);
 
