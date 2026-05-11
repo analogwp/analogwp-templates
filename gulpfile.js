@@ -27,6 +27,7 @@ const buildFiles = [
 	'!TODO',
 	'!*.git',
 	'!*.DS_Store',
+	'!scoper.inc.php',
 	'!yarn.lock',
 	'!*.md',
 	'!package.lock',
