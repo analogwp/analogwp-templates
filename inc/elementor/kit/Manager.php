@@ -77,7 +77,7 @@ class Manager {
 		add_filter(
 			'analog_admin_notices',
 			function ( $notices ) {
-				if ( isset( $_GET['success'] ) ) {
+				if ( filter_input( INPUT_GET, 'success', FILTER_DEFAULT ) ) {
 					$notices[] = $this->get_kit_notification();
 				}
 				return $notices;
@@ -200,9 +200,16 @@ class Manager {
 			$this->handle_error( 'Access Denied' );
 		}
 
-		$action = Utils::get_super_global_value( $_REQUEST, 'library_action' ); // phpcs:ignore -- Nonce already verified.
+		$args = array_merge(
+			(array) wp_unslash( $_REQUEST ),
+			array(
+				'file' => Utils::get_super_global_value( $_FILES, 'file' ),
+			)
+		);
 
-		$result = $this->$action( $_REQUEST ); // phpcs:ignore -- Nonce already verified.
+		$action = Utils::get_super_global_value( $args, 'library_action' ); // phpcs:ignore -- Nonce already verified.
+
+		$result = $this->$action( $args ); // phpcs:ignore -- Nonce already verified.
 
 		if ( is_wp_error( $result ) ) {
 			/** @var \WP_Error $result */
@@ -224,7 +231,7 @@ class Manager {
 	 * @return mixed Whether the export succeeded or failed.
 	 */
 	public function import_local_kit( array $args ) {
-		$file = Utils::get_super_global_value( $_FILES, 'file' );
+		$file = Utils::get_super_global_value( $args, 'file' );
 
 		if ( empty( $file ) ) {
 			return new \WP_Error( 'file_error', 'Please upload a file to import' );
@@ -347,13 +354,15 @@ class Manager {
 	 * @param false   $is_permanently_delete
 	 */
 	private function before_delete_kit( $post_id ) {
-		$document = Plugin::elementor()->documents->get( $post_id );
+		$document         = Plugin::elementor()->documents->get( $post_id );
+		$ang_action       = filter_input( INPUT_GET, 'ang_action', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		$force_delete_kit = filter_input( INPUT_GET, 'force_delete_kit', FILTER_DEFAULT );
 
 		if (
 			! $document ||
 			! Plugin::elementor()->kits_manager->is_kit( $post_id ) ||
-			! isset( $_GET['ang_action'] ) ||
-			isset( $_GET['force_delete_kit'] ) ||  // phpcs:ignore -- nonce validation is not require here.
+			! $ang_action ||
+			$force_delete_kit ||
 			( $document->is_trash() )
 		) {
 			return;

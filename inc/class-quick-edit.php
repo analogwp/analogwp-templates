@@ -169,8 +169,10 @@ class Quick_Edit extends Base {
 	 * @return void
 	 */
 	public function quick_edit_save( $post_id ) {
-		if ( isset( $_POST['ang_stylekit'] ) && '-1' !== $_POST['ang_stylekit'] ) {
-			$this->update_posts_stylekit( $post_id, $_POST['ang_stylekit'] ); // phpcs:ignore
+		$stylekit_id = filter_input( INPUT_POST, 'ang_stylekit', FILTER_SANITIZE_NUMBER_INT );
+
+		if ( null !== $stylekit_id && '-1' !== $stylekit_id ) {
+			$this->update_posts_stylekit( $post_id, absint( $stylekit_id ) );
 		}
 	}
 

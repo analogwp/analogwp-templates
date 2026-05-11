@@ -92,12 +92,14 @@ add_action( 'wp_ajax_ang_hide_promo', array( 'Analog\Settings\Admin_Settings', '
  * @access public
  */
 function handle_external_redirects() {
-	if ( empty( $_GET['page'] ) ) {
+	$page = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+
+	if ( empty( $page ) ) {
 		return;
 	}
 
-	if ( 'go_style_kits_pro' === $_GET['page'] ) {
-		wp_redirect( Utils::get_pro_link( array( 'utm_source' => 'wp-menu' ) ) );
+	if ( 'go_style_kits_pro' === $page ) {
+		wp_safe_redirect( Utils::get_pro_link( array( 'utm_source' => 'wp-menu' ) ) );
 		exit();
 	}
 }
@@ -112,12 +114,14 @@ function settings_page_init() {
 	Admin_Settings::get_settings_pages();
 
 	// Add any posted messages.
-	if ( ! empty( $_GET['ang_error'] ) ) { // phpcs:ignore
-		Admin_Settings::add_error( wp_kses_post( wp_unslash( $_GET['ang_error'] ) ) ); // phpcs:ignore
+	$ang_error = filter_input( INPUT_GET, 'ang_error', FILTER_DEFAULT );
+	if ( ! empty( $ang_error ) ) {
+		Admin_Settings::add_error( wp_kses_post( wp_unslash( $ang_error ) ) );
 	}
 
-	if ( ! empty( $_GET['ang_message'] ) ) { // phpcs:ignore
-		Admin_Settings::add_message( wp_kses_post( wp_unslash( $_GET['ang_message'] ) ) ); // phpcs:ignore
+	$ang_message = filter_input( INPUT_GET, 'ang_message', FILTER_DEFAULT );
+	if ( ! empty( $ang_message ) ) {
+		Admin_Settings::add_message( wp_kses_post( wp_unslash( $ang_message ) ) );
 	}
 
 	do_action( 'ang_settings_page_init' );
@@ -131,8 +135,17 @@ function settings_page_init() {
 function save_settings() {
 	global $current_tab, $current_section;
 
+	$page               = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	$current_tab_input  = filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	$current_section_in = filter_input( INPUT_POST, 'section', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	if ( null === $current_section_in ) {
+		$current_section_in = filter_input( INPUT_GET, 'section', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	}
+	$has_save           = null !== filter_input( INPUT_POST, 'save', FILTER_DEFAULT );
+	$has_license_action = null !== filter_input( INPUT_POST, 'ang-license_activate', FILTER_DEFAULT );
+
 	// We should only save on the settings page.
-	if ( ! is_admin() || ! isset( $_GET['page'] ) || 'ang-settings' !== $_GET['page'] ) { // phpcs:ignore
+	if ( ! is_admin() || 'ang-settings' !== $page ) {
 		return;
 	}
 
@@ -140,13 +153,13 @@ function save_settings() {
 	Admin_Settings::get_settings_pages();
 
 	// Get current tab/section.
-	$current_tab     = empty( $_GET['tab'] ) ? 'general' : sanitize_title( wp_unslash( $_GET['tab'] ) ); // phpcs:ignore
-	$current_section = empty( $_REQUEST['section'] ) ? '' : sanitize_title( wp_unslash( $_REQUEST['section'] ) ); // phpcs:ignore
+	$current_tab     = empty( $current_tab_input ) ? 'general' : sanitize_title( wp_unslash( $current_tab_input ) );
+	$current_section = empty( $current_section_in ) ? '' : sanitize_title( wp_unslash( $current_section_in ) );
 
 	// Save settings if data has been posted.
-	if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", ! empty( $_POST['save'] ) ) ) { // phpcs:ignore
+	if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", $has_save ) ) {
 		Admin_Settings::save();
-	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", ! empty( $_POST['save'] ) || isset( $_POST['ang-license_activate'] ) ) ) { // phpcs:ignore
+	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", $has_save || $has_license_action ) ) {
 		Admin_Settings::save();
 	}
 }

@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$tab_exists        = isset( $tabs[ $current_tab ] ) || has_action( 'ang_sections_' . $current_tab ) || has_action( 'ang_settings_' . $current_tab ) || has_action( 'ang_settings_tabs_' . $current_tab );
-$current_tab_label = $tabs[ $current_tab ] ?? '';
+$ang_tab_exists        = isset( $tabs[ $current_tab ] ) || has_action( 'ang_sections_' . $current_tab ) || has_action( 'ang_settings_' . $current_tab ) || has_action( 'ang_settings_tabs_' . $current_tab );
+$ang_current_tab_label = $tabs[ $current_tab ] ?? '';
 
 global $current_user;
 
-if ( ! $tab_exists ) {
+if ( ! $ang_tab_exists ) {
 	wp_safe_redirect( admin_url( 'admin.php?page=ang-settings' ) );
 	exit;
 }
@@ -31,8 +31,8 @@ if ( ! $tab_exists ) {
 			<nav class="nav-tab-wrapper ang-nav-tab-wrapper">
 				<?php
 
-				foreach ( $tabs as $slug => $label ) {
-					echo '<a href="' . esc_html( admin_url( 'admin.php?page=ang-settings&tab=' . esc_attr( $slug ) ) ) . '" class="ang-nav-tab nav-tab-' . esc_attr( $slug ) . ( $current_tab === $slug ? ' ang-nav-tab-active' : '' ) . '">' . esc_html( $label ) . '</a>';
+				foreach ( $tabs as $ang_slug => $ang_label ) {
+					echo '<a href="' . esc_html( admin_url( 'admin.php?page=ang-settings&tab=' . esc_attr( $ang_slug ) ) ) . '" class="ang-nav-tab nav-tab-' . esc_attr( $ang_slug ) . ( $current_tab === $ang_slug ? ' ang-nav-tab-active' : '' ) . '">' . esc_html( $ang_label ) . '</a>';
 				}
 
 				do_action( 'ang_settings_tabs' );
@@ -40,7 +40,7 @@ if ( ! $tab_exists ) {
 				?>
 			</nav>
 			<div class="tab-content">
-				<h1 class="screen-reader-text"><?php echo esc_html( $current_tab_label ); ?></h1>
+				<h1 class="screen-reader-text"><?php echo esc_html( $ang_current_tab_label ); ?></h1>
 				<?php
 					do_action( 'ang_sections_' . $current_tab );
 

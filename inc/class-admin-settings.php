@@ -288,7 +288,7 @@ class Admin_Settings {
 				}
 			}
 
-			$custom_attributes_html = wp_kses_post( implode( ' ', $custom_attributes ) );
+			$custom_attributes_html = implode( ' ', $custom_attributes );
 
 			// Description handling.
 			$field_description = self::get_field_description( $value );
@@ -384,7 +384,7 @@ class Admin_Settings {
 								value="<?php echo esc_attr( $option_value ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
-								<?php echo $custom_attributes_html; ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
 								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo wp_kses_post( $description ); ?>
 						</td>
 					</tr>
@@ -405,7 +405,7 @@ class Admin_Settings {
 								id="<?php echo esc_attr( $value['id'] ); ?>"
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
-								<?php echo $custom_attributes_html; ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
 								><?php echo esc_html( $option_value ); ?></a>
 							<?php endif; ?>
 
@@ -452,7 +452,7 @@ class Admin_Settings {
 								value="<?php echo esc_attr( str_repeat( '*', strlen( $option_value ) ) ); ?>"
 								readonly="readonly"
 								disabled
-								<?php echo $custom_attributes_html; ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
 								/><?php echo esc_html( $value['suffix'] ); ?>
 							<?php else : ?>
 							<input
@@ -463,7 +463,7 @@ class Admin_Settings {
 								value="<?php echo esc_attr( $option_value ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
-								<?php echo $custom_attributes_html; ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
 								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo wp_kses_post( $description ); ?>
 							<?php endif; ?>
 						</td>
@@ -489,7 +489,7 @@ class Admin_Settings {
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
-								<?php echo $custom_attributes_html; ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
 								><?php echo esc_textarea( $option_value ); // WPCS: XSS ok. ?></textarea>
 						</td>
 					</tr>
@@ -517,7 +517,7 @@ class Admin_Settings {
 								id="<?php echo esc_attr( $value['id'] ); ?>"
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
-								<?php echo $custom_attributes_html; ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
 								<?php echo 'multiselect' === $value['type'] ? 'multiple="multiple"' : ''; ?>
 								<?php echo $disabled ? ' disabled="true"' : ''; ?>
 								>
@@ -567,7 +567,7 @@ class Admin_Settings {
 											type="radio"
 											style="<?php echo esc_attr( $value['css'] ); ?>"
 											class="<?php echo esc_attr( $value['class'] ); ?>"
-											<?php echo $custom_attributes_html; ?>
+											<?php echo wp_kses_post( $custom_attributes_html ); ?>
 											<?php checked( $key, $option_value ); ?>
 											/> <?php echo esc_html( $val ); ?></label>
 									</li>
@@ -663,7 +663,7 @@ class Admin_Settings {
 								class="<?php echo esc_attr( isset( $value['class'] ) ? $value['class'] : '' ); ?>"
 								value="1"
 								<?php checked( $option_value, true ); ?>
-								<?php echo $custom_attributes_html; ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
 							/> <?php echo wp_kses_post( $description ); ?>
 							<?php if ( $value['switch'] ) { ?>
 								<span><?php esc_html_e( 'Toggle', 'analogwp-templates' ); ?></span>

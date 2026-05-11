@@ -221,10 +221,13 @@ class Elementor {
 	 * @return void
 	 */
 	public function maybe_add_elementor_data() {
-		if ( isset( $_REQUEST['library_action'] ) && 'export_template' === $_REQUEST['library_action'] ) {
-			$template_id = filter_input( INPUT_GET, 'template_id' );
+		$library_action = filter_input( INPUT_GET, 'library_action', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+
+		if ( 'export_template' === $library_action ) {
+			$template_id = filter_input( INPUT_GET, 'template_id', FILTER_SANITIZE_NUMBER_INT );
 
 			if ( $template_id ) {
+				$template_id   = absint( $template_id );
 				$template_data = get_post_meta( $template_id, '_elementor_data', true );
 
 				if ( ! $template_data || '[]' === $template_data ) {

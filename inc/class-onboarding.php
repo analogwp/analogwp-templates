@@ -534,8 +534,10 @@ class Onboarding {
 	 */
 	public function ajax_actions() {
 		if ( isset( $_REQUEST['nonce'] ) && check_ajax_referer( 'analog_onboarding', 'nonce' ) ) {
-			$action = isset( $_POST['stepId'] ) ? sanitize_key( $_POST['stepId'] ) : '';
-			$value  = isset( $_POST['stepValue'] ) ? wp_validate_boolean( wp_unslash( $_POST['stepValue'] ) ) : '';
+			$step_id    = filter_input( INPUT_POST, 'stepId', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+			$step_value = filter_input( INPUT_POST, 'stepValue', FILTER_DEFAULT );
+			$action     = $step_id ? sanitize_key( wp_unslash( $step_id ) ) : '';
+			$value      = null !== $step_value ? wp_validate_boolean( wp_unslash( $step_value ) ) : '';
 
 			$error_response = __( 'Oops, something went wrong at action: ', 'analogwp-templates' ) . $action;
 

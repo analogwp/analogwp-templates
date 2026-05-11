@@ -43,7 +43,6 @@ class Extensions extends Settings_Page {
 	 * @return array
 	 */
 	public function get_settings( $current_section = '' ) {
-		global $current_section;
 		$sections = $this->get_sections();
 
 		if ( ! empty( $sections ) && empty( $current_section ) ) {
