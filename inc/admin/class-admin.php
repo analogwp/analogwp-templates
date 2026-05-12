@@ -24,33 +24,7 @@ final class Admin extends Base {
 	 * Admin constructor.
 	 */
 	public function __construct() {
-		add_filter( 'admin_footer_text', array( $this, 'footer_text' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
-	}
-
-	/**
-	 * Update footer admin text for Analog screens.
-	 *
-	 * @access public
-	 *
-	 * @param string $text Original footer text.
-	 *
-	 * @return string Updated footer text.
-	 */
-	public function footer_text( $text ) {
-		$current_screen   = get_current_screen();
-		$is_analog_screen = 'analogwp_templates' === $current_screen->parent_base;
-
-		if ( $is_analog_screen ) {
-			$text = sprintf(
-				/* translators: 1: Style Kits for Elementor, 2: Link to plugin review */
-				__( 'Enjoyed %1$s? Please leave us a %2$s rating. We really appreciate your support!', 'analogwp-templates' ),
-				'<strong>' . __( 'Style Kits for Elementor', 'analogwp-templates' ) . '</strong>',
-				'<a href="https://analogwp.com/admin-review" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
-			);
-		}
-
-		return $text;
 	}
 
 	/**
