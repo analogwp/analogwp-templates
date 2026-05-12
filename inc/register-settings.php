@@ -133,7 +133,7 @@ function settings_page_init() {
  * @return void
  */
 function save_settings() {
-	global $current_tab, $current_section;
+	global $ang_current_tab, $ang_current_section;
 
 	$page               = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 	$current_tab_input  = filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
@@ -153,13 +153,13 @@ function save_settings() {
 	Admin_Settings::get_settings_pages();
 
 	// Get current tab/section.
-	$current_tab     = empty( $current_tab_input ) ? 'general' : sanitize_title( wp_unslash( $current_tab_input ) );
-	$current_section = empty( $current_section_in ) ? '' : sanitize_title( wp_unslash( $current_section_in ) );
+	$ang_current_tab     = empty( $current_tab_input ) ? 'general' : sanitize_title( wp_unslash( $current_tab_input ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+	$ang_current_section = empty( $current_section_in ) ? '' : sanitize_title( wp_unslash( $current_section_in ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
 	// Save settings if data has been posted.
-	if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", $has_save ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+	if ( '' !== $ang_current_section && apply_filters( "ang_save_settings_{$ang_current_tab}_{$ang_current_section}", $has_save ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		Admin_Settings::save();
-	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", $has_save || $has_license_action ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+	} elseif ( '' === $ang_current_section && apply_filters( "ang_save_settings_{$ang_current_tab}", $has_save || $has_license_action ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		Admin_Settings::save();
 	}
 }

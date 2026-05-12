@@ -64,9 +64,9 @@ class Extensions extends Settings_Page {
 	 * Output the settings.
 	 */
 	public function output() {
-		global $current_section;
+		global $ang_current_section;
 
-		$settings = $this->get_settings( $current_section );
+		$settings = $this->get_settings( $ang_current_section );
 
 		Admin_Settings::output_fields( $settings );
 	}
@@ -75,13 +75,13 @@ class Extensions extends Settings_Page {
 	 * Save settings.
 	 */
 	public function save() {
-		global $current_section;
+		global $ang_current_section;
 
-		$settings = $this->get_settings( $current_section );
+		$settings = $this->get_settings( $ang_current_section );
 
 		Admin_Settings::save_fields( $settings );
-		if ( $current_section ) {
-			do_action( 'ang_update_options_' . $this->id . '_' . $current_section ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		if ( $ang_current_section ) {
+			do_action( 'ang_update_options_' . $this->id . '_' . $ang_current_section ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 	}
 }

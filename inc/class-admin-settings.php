@@ -93,13 +93,13 @@ class Admin_Settings {
 	 * Save the settings.
 	 */
 	public static function save() {
-		global $current_tab;
+		global $ang_current_tab;
 
 		check_admin_referer( 'ang-settings' );
 
 		// Trigger actions.
-		do_action( 'ang_settings_save_' . $current_tab ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-		do_action( 'ang_update_options_' . $current_tab ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		do_action( 'ang_settings_save_' . $ang_current_tab ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		do_action( 'ang_update_options_' . $ang_current_tab ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		do_action( 'ang_update_options' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		self::add_message( __( 'Your settings have been saved.', 'analogwp-templates' ) );
@@ -149,7 +149,7 @@ class Admin_Settings {
 	 * Handles the display of the main Analog settings page in admin.
 	 */
 	public static function output() {
-		global $current_section, $current_tab;
+		global $ang_current_section, $ang_current_tab;
 
 		do_action( 'ang_settings_start' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/admin-settings.css' ) );

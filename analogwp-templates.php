@@ -184,17 +184,15 @@ function analog_fail_load() {
 }
 
 // Third party dependencies.
-$vendor_file = __DIR__ . '/third-party/vendor/scoper-autoload.php';
-
-if ( is_readable( $vendor_file ) ) {
-	require_once $vendor_file;
+if ( is_readable( __DIR__ . '/third-party/vendor/scoper-autoload.php' ) ) {
+	require_once __DIR__ . '/third-party/vendor/scoper-autoload.php';
 }
 
 if ( ! function_exists( 'sk_fs' ) ) {
 	/**
 	 * Create a helper function for easy SDK access.
 	 */
-	function sk_fs() {
+	function sk_fs() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 		global $sk_fs;
 
 		if ( ! isset( $sk_fs ) ) {
@@ -216,7 +214,7 @@ if ( ! function_exists( 'sk_fs' ) ) {
 			// Include Freemius SDK.
 			require_once $freemius_bootstrap;
 
-			$sk_fs = fs_dynamic_init(
+			$sk_fs = fs_dynamic_init( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 				array(
 					'id'             => '17032',
 					'slug'           => 'analogwp-templates',
@@ -243,7 +241,7 @@ if ( ! function_exists( 'sk_fs' ) ) {
 	// Init Freemius.
 	sk_fs();
 	// Signal that SDK was initiated.
-	do_action( 'sk_fs_loaded' );
+	do_action( 'sk_fs_loaded' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 }
 
 /**
