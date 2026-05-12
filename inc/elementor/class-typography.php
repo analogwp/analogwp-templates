@@ -169,7 +169,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_headings_typography',
 			array(
-				'label' => __( 'Headings Typography', 'ang' ),
+				'label' => __( 'Headings Typography', 'analogwp-templates' ),
 				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
@@ -177,7 +177,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_headings_typography_description',
 			array(
-				'raw'             => __( 'These settings apply to all Headings in your layout. You can still override individual values at each element.', 'ang' ),
+				'raw'             => __( 'These settings apply to all Headings in your layout. You can still override individual values at each element.', 'analogwp-templates' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -201,7 +201,7 @@ class Typography extends Module {
 				array(
 					'name'     => 'ang_heading_' . $i,
 					/* translators: %s: Heading 1-6 type */
-					'label'    => sprintf( __( 'Heading %s', 'ang' ), $i ),
+					'label'    => sprintf( __( 'Heading %s', 'analogwp-templates' ), $i ),
 					'selector' => "{$selector} h{$i}, {$selector} .elementor-widget-heading h{$i}.elementor-heading-title",
 					'global'   => array(
 						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
@@ -229,7 +229,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_body_and_paragraph_typography',
 			array(
-				'label' => __( 'Body Typography', 'ang' ),
+				'label' => __( 'Body Typography', 'analogwp-templates' ),
 				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
@@ -237,7 +237,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_recently_imported',
 			array(
-				'label'     => __( 'Recently Imported', 'ang' ),
+				'label'     => __( 'Recently Imported', 'analogwp-templates' ),
 				'type'      => Controls_Manager::HIDDEN,
 				'default'   => 'no',
 				'selectors' => array(
@@ -251,7 +251,7 @@ class Typography extends Module {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'ang_body',
-				'label'    => __( 'Body Typography', 'ang' ),
+				'label'    => __( 'Body Typography', 'analogwp-templates' ),
 				'selector' => '{{WRAPPER}}',
 				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
@@ -272,7 +272,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_typography_sizes',
 			array(
-				'label' => __( 'Typographic Sizes', 'ang' ),
+				'label' => __( 'Typographic Sizes', 'analogwp-templates' ),
 				'tab'   => $this->settings_tab,
 			)
 		);
@@ -289,25 +289,25 @@ class Typography extends Module {
 		$element->start_controls_tab(
 			'ang_typographic_tab_heading',
 			array(
-				'label' => __( 'Heading Sizes', 'ang' ),
+				'label' => __( 'Heading Sizes', 'analogwp-templates' ),
 			)
 		);
 
 		$element->add_control(
 			'ang_typography_sizes_description',
 			array(
-				'raw'             => __( 'Edit the available sizes for the Heading Element.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/typographic-sizes/', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Edit the available sizes for the Heading Element.', 'analogwp-templates' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/typographic-sizes/', __( 'Learn more.', 'analogwp-templates' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
 		$settings = array(
-			array( 'xxl', __( 'XXL', 'ang' ), 59 ),
-			array( 'xl', __( 'XL', 'ang' ), 39 ),
-			array( 'large', __( 'Large', 'ang' ), 29 ),
-			array( 'medium', __( 'Medium', 'ang' ), 19 ),
-			array( 'small', __( 'Small', 'ang' ), 15 ),
+			array( 'xxl', __( 'XXL', 'analogwp-templates' ), 59 ),
+			array( 'xl', __( 'XL', 'analogwp-templates' ), 39 ),
+			array( 'large', __( 'Large', 'analogwp-templates' ), 29 ),
+			array( 'medium', __( 'Medium', 'analogwp-templates' ), 19 ),
+			array( 'small', __( 'Small', 'analogwp-templates' ), 15 ),
 		);
 
 		foreach ( $settings as $setting ) {
@@ -325,7 +325,7 @@ class Typography extends Module {
 				Group_Control_Typography::get_type(),
 				array(
 					'name'     => 'ang_size_' . $setting[0],
-					'label'    => __( 'Heading', 'ang' ) . ' ' . $setting[1],
+					'label'    => __( 'Heading', 'analogwp-templates' ) . ' ' . $setting[1],
 					'global'   => array(
 						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
 					),
@@ -340,25 +340,25 @@ class Typography extends Module {
 		$element->start_controls_tab(
 			'ang_typographic_tab_text',
 			array(
-				'label' => __( 'Text Sizes', 'ang' ),
+				'label' => __( 'Text Sizes', 'analogwp-templates' ),
 			)
 		);
 
 		$element->add_control(
 			'ang_text_sizes_description',
 			array(
-				'raw'             => __( 'Edit the available sizes for the p, span, and div tags of the Heading Element.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/typographic-sizes/', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Edit the available sizes for the p, span, and div tags of the Heading Element.', 'analogwp-templates' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/typographic-sizes/', __( 'Learn more.', 'analogwp-templates' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
 		$settings = array(
-			array( 'xxl', __( 'XXL', 'ang' ), 59 ),
-			array( 'xl', __( 'XL', 'ang' ), 39 ),
-			array( 'large', __( 'Large', 'ang' ), 29 ),
-			array( 'medium', __( 'Medium', 'ang' ), 19 ),
-			array( 'small', __( 'Small', 'ang' ), 15 ),
+			array( 'xxl', __( 'XXL', 'analogwp-templates' ), 59 ),
+			array( 'xl', __( 'XL', 'analogwp-templates' ), 39 ),
+			array( 'large', __( 'Large', 'analogwp-templates' ), 29 ),
+			array( 'medium', __( 'Medium', 'analogwp-templates' ), 19 ),
+			array( 'small', __( 'Small', 'analogwp-templates' ), 15 ),
 		);
 
 		foreach ( $settings as $setting ) {
@@ -366,7 +366,7 @@ class Typography extends Module {
 				Group_Control_Typography::get_type(),
 				array(
 					'name'     => 'ang_text_size_' . $setting[0],
-					'label'    => __( 'Text', 'ang' ) . ' ' . $setting[1],
+					'label'    => __( 'Text', 'analogwp-templates' ) . ' ' . $setting[1],
 					'global'   => array(
 						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
 					),
@@ -397,7 +397,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_container_spacing',
 			array(
-				'label' => __( 'Container Spacing', 'ang' ),
+				'label' => __( 'Container Spacing', 'analogwp-templates' ),
 				'tab'   => $this->settings_tab,
 			)
 		);
@@ -407,9 +407,9 @@ class Typography extends Module {
 			array(
 				'raw'             => sprintf(
 					'%1$s <a href="#" onClick="%2$s">%3$s</a>',
-					__( 'The default container padding is set in Elementor Theme Styles > Layout Settings > ', 'ang' ),
+					__( 'The default container padding is set in Elementor Theme Styles > Layout Settings > ', 'analogwp-templates' ),
 					"analog.redirectToSection( 'settings-layout', 'section_settings-layout', 'global', true )",
-					__( 'Container padding', 'ang' ),
+					__( 'Container padding', 'analogwp-templates' ),
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -421,8 +421,8 @@ class Typography extends Module {
 			array(
 				'raw'             => sprintf(
 					'%1$s <a href="https://analogwp.com/docs/container-spacing/" target="_blank">%2$s</a>',
-					__( 'Create additional spacing presets.', 'ang' ),
-					__( 'Read more', 'ang' ),
+					__( 'Create additional spacing presets.', 'analogwp-templates' ),
+					__( 'Read more', 'analogwp-templates' ),
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -442,7 +442,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_no_padding_hidden',
 			array(
-				'label'     => __( 'No Padding Styles', 'ang' ),
+				'label'     => __( 'No Padding Styles', 'analogwp-templates' ),
 				'type'      => Controls_Manager::HIDDEN,
 				'default'   => 'no',
 				'selectors' => $no_padding_styles,
@@ -459,14 +459,14 @@ class Typography extends Module {
 		$element->start_controls_tab(
 			'ang_tab_container_spacing_primary',
 			array(
-				'label' => __( '1-8', 'ang' ),
+				'label' => __( '1-8', 'analogwp-templates' ),
 			)
 		);
 
 		$padding_defaults = array(
 			array(
 				'_id'            => 'ang_container_padding_1',
-				'title'          => __( 'XXL - Hero Section', 'ang' ),
+				'title'          => __( 'XXL - Hero Section', 'analogwp-templates' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '80',
@@ -494,7 +494,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_2',
-				'title'          => __( 'XL - Primary Section', 'ang' ),
+				'title'          => __( 'XL - Primary Section', 'analogwp-templates' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '64',
@@ -522,7 +522,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'            => 'ang_container_padding_3',
-				'title'          => __( 'Large - Box', 'ang' ),
+				'title'          => __( 'Large - Box', 'analogwp-templates' ),
 				'padding'        => array(
 					'unit'     => 'px',
 					'top'      => '40',
@@ -542,7 +542,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_4',
-				'title'   => __( 'Medium - Box', 'ang' ),
+				'title'   => __( 'Medium - Box', 'analogwp-templates' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '24',
@@ -554,7 +554,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'     => 'ang_container_padding_5',
-				'title'   => __( 'Small - Box', 'ang' ),
+				'title'   => __( 'Small - Box', 'analogwp-templates' ),
 				'padding' => array(
 					'unit'     => 'px',
 					'top'      => '16',
@@ -566,15 +566,15 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'ang_container_padding_6',
-				'title' => __( 'Padding 6', 'ang' ),
+				'title' => __( 'Padding 6', 'analogwp-templates' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_7',
-				'title' => __( 'Padding 7', 'ang' ),
+				'title' => __( 'Padding 7', 'analogwp-templates' ),
 			),
 			array(
 				'_id'   => 'ang_container_padding_8',
-				'title' => __( 'Padding 8', 'ang' ),
+				'title' => __( 'Padding 8', 'analogwp-templates' ),
 			),
 		);
 
@@ -633,9 +633,9 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_padding_reset',
 			array(
-				'label' => __( 'Reset labels and values to default', 'ang' ),
+				'label' => __( 'Reset labels and values to default', 'analogwp-templates' ),
 				'type'  => 'button',
-				'text'  => __( 'Reset', 'ang' ),
+				'text'  => __( 'Reset', 'analogwp-templates' ),
 				'event' => 'analog:resetContainerPadding',
 			)
 		);
@@ -662,9 +662,9 @@ class Typography extends Module {
 			array(
 				'raw'             => sprintf(
 					'%1$s <a href="#" onClick="%2$s">%3$s</a>',
-					__( 'Create additional spacing presets in ', 'ang' ),
+					__( 'Create additional spacing presets in ', 'analogwp-templates' ),
 					"analog.redirectToSection( 'theme-style-kits', 'ang_container_spacing', 'global', true );",
-					__( 'Style Kits', 'ang' ),
+					__( 'Style Kits', 'analogwp-templates' ),
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -691,18 +691,18 @@ class Typography extends Module {
 	 */
 	public function register_outer_section_padding( Controls_Stack $element, $section_id ) {
 		$gaps = array(
-			'initial'  => __( 'Default', 'ang' ),
-			'default'  => __( 'Normal', 'ang' ),
-			'narrow'   => __( 'Small', 'ang' ),
-			'extended' => __( 'Medium', 'ang' ),
-			'wide'     => __( 'Large', 'ang' ),
-			'wider'    => __( 'Extra Large', 'ang' ),
+			'initial'  => __( 'Default', 'analogwp-templates' ),
+			'default'  => __( 'Normal', 'analogwp-templates' ),
+			'narrow'   => __( 'Small', 'analogwp-templates' ),
+			'extended' => __( 'Medium', 'analogwp-templates' ),
+			'wide'     => __( 'Large', 'analogwp-templates' ),
+			'wider'    => __( 'Extra Large', 'analogwp-templates' ),
 		);
 
 		$element->start_controls_section(
 			'ang_section_padding',
 			array(
-				'label' => __( 'Outer Section Padding', 'ang' ),
+				'label' => __( 'Outer Section Padding', 'analogwp-templates' ),
 				'tab'   => $this->settings_tab,
 			)
 		);
@@ -710,7 +710,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_section_padding_description',
 			array(
-				'raw'             => __( 'Add padding to the outer sections of your layouts by using these controls.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/outer-section-padding/', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Add padding to the outer sections of your layouts by using these controls.', 'analogwp-templates' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/outer-section-padding/', __( 'Learn more.', 'analogwp-templates' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -745,17 +745,17 @@ class Typography extends Module {
 	 */
 	public function register_columns_gap( Controls_Stack $element, $section_id ) {
 		$gaps = array(
-			'default'  => __( 'Default Padding', 'ang' ),
-			'narrow'   => __( 'Narrow Padding', 'ang' ),
-			'extended' => __( 'Extended Padding', 'ang' ),
-			'wide'     => __( 'Wide Padding', 'ang' ),
-			'wider'    => __( 'Wider Padding', 'ang' ),
+			'default'  => __( 'Default Padding', 'analogwp-templates' ),
+			'narrow'   => __( 'Narrow Padding', 'analogwp-templates' ),
+			'extended' => __( 'Extended Padding', 'analogwp-templates' ),
+			'wide'     => __( 'Wide Padding', 'analogwp-templates' ),
+			'wider'    => __( 'Wider Padding', 'analogwp-templates' ),
 		);
 
 		$element->start_controls_section(
 			'ang_column_gaps',
 			array(
-				'label' => __( 'Column Gaps', 'ang' ),
+				'label' => __( 'Column Gaps', 'analogwp-templates' ),
 				'tab'   => $this->settings_tab,
 			)
 		);
@@ -763,7 +763,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_column_gaps_description',
 			array(
-				'raw'             => __( 'Column Gap presets add padding to the columns of a section.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/column-gaps/', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Column Gap presets add padding to the columns of a section.', 'analogwp-templates' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/column-gaps/', __( 'Learn more.', 'analogwp-templates' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -789,8 +789,8 @@ class Typography extends Module {
 		$element->add_responsive_control(
 			'ang_widget_spacing',
 			array(
-				'label'       => __( 'Space Between Widgets', 'ang' ),
-				'description' => __( 'Sets the default space between widgets, overrides the default value set in Elementor > Style > Space Between Widgets.', 'ang' ),
+				'label'       => __( 'Space Between Widgets', 'analogwp-templates' ),
+				'description' => __( 'Sets the default space between widgets, overrides the default value set in Elementor > Style > Space Between Widgets.', 'analogwp-templates' ),
 				'type'        => Controls_Manager::NUMBER,
 				'selectors'   => array(
 					'{{WRAPPER}} .elementor-widget:not(:last-child)' => 'margin-bottom: {{VALUE}}px',
@@ -812,7 +812,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_buttons',
 			array(
-				'label' => __( 'Button Sizes', 'ang' ),
+				'label' => __( 'Button Sizes', 'analogwp-templates' ),
 				'tab'   => $this->settings_tab,
 			)
 		);
@@ -822,9 +822,9 @@ class Typography extends Module {
 			array(
 				'raw'             => sprintf(
 					'%1$s <a href="%2$s" target="_blank">%3$s</a>',
-					__( 'Define the default styles for every button size.', 'ang' ),
+					__( 'Define the default styles for every button size.', 'analogwp-templates' ),
 					'https://analogwp.com/docs/button-sizes/',
-					__( 'Learn more.', 'ang' )
+					__( 'Learn more.', 'analogwp-templates' )
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -832,11 +832,11 @@ class Typography extends Module {
 		);
 
 		$sizes = array(
-			'xs' => __( 'XS', 'ang' ),
-			'sm' => __( 'S', 'ang' ),
-			'md' => __( 'M', 'ang' ),
-			'lg' => __( 'L', 'ang' ),
-			'xl' => __( 'XL', 'ang' ),
+			'xs' => __( 'XS', 'analogwp-templates' ),
+			'sm' => __( 'S', 'analogwp-templates' ),
+			'md' => __( 'M', 'analogwp-templates' ),
+			'lg' => __( 'L', 'analogwp-templates' ),
+			'xl' => __( 'XL', 'analogwp-templates' ),
 		);
 
 		$element->start_controls_tabs( 'ang_button_sizes' );
@@ -848,7 +848,7 @@ class Typography extends Module {
 				Group_Control_Typography::get_type(),
 				array(
 					'name'     => 'ang_button_' . $size,
-					'label'    => __( 'Typography', 'ang' ),
+					'label'    => __( 'Typography', 'analogwp-templates' ),
 					'selector' => "{{WRAPPER}} .elementor-button.elementor-size-{$size}",
 				)
 			);
@@ -865,7 +865,7 @@ class Typography extends Module {
 				'ang_normal_state_' . $size,
 				array(
 					'type'      => Controls_Manager::HEADING,
-					'label'     => __( 'Normal Styling', 'ang' ),
+					'label'     => __( 'Normal Styling', 'analogwp-templates' ),
 					'separator' => 'before',
 				)
 			);
@@ -873,7 +873,7 @@ class Typography extends Module {
 			$element->add_control(
 				'ang_button_text_color_' . $size,
 				array(
-					'label'     => __( 'Text Color', 'ang' ),
+					'label'     => __( 'Text Color', 'analogwp-templates' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'color: {{VALUE}};',
@@ -884,7 +884,7 @@ class Typography extends Module {
 			$element->add_control(
 				'ang_button_background_color_' . $size,
 				array(
-					'label'     => __( 'Background Color', 'ang' ),
+					'label'     => __( 'Background Color', 'analogwp-templates' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}, {{WRAPPER}} .elementor-button.elementor-size-{$size}" => 'background-color: {{VALUE}};',
@@ -911,7 +911,7 @@ class Typography extends Module {
 			$element->add_control(
 				'ang_button_border_radius_' . $size,
 				array(
-					'label'      => __( 'Border Radius', 'ang' ),
+					'label'      => __( 'Border Radius', 'analogwp-templates' ),
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => array( 'px', 'em', '%', 'rem', 'custom' ),
 					'selectors'  => array(
@@ -924,7 +924,7 @@ class Typography extends Module {
 				'ang_hover_state_' . $size,
 				array(
 					'type'      => Controls_Manager::HEADING,
-					'label'     => __( 'Hover Styling', 'ang' ),
+					'label'     => __( 'Hover Styling', 'analogwp-templates' ),
 					'separator' => 'before',
 				)
 			);
@@ -932,7 +932,7 @@ class Typography extends Module {
 			$element->add_control(
 				'ang_button_text_hover_color_' . $size,
 				array(
-					'label'     => __( 'Text Color', 'ang' ),
+					'label'     => __( 'Text Color', 'analogwp-templates' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} a.elementor-button.elementor-size-{$size}:focus, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus" => 'color: {{VALUE}};',
@@ -943,7 +943,7 @@ class Typography extends Module {
 			$element->add_control(
 				'ang_button_background_hover_color_' . $size,
 				array(
-					'label'     => __( 'Background Color', 'ang' ),
+					'label'     => __( 'Background Color', 'analogwp-templates' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array(
 						"{{WRAPPER}} a.elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} .elementor-button.elementor-size-{$size}:hover, {{WRAPPER}} a.elementor-button.elementor-size-{$size}:focus, {{WRAPPER}} .elementor-button.elementor-size-{$size}:focus" => 'background-color: {{VALUE}};',
@@ -970,7 +970,7 @@ class Typography extends Module {
 			$element->add_control(
 				'ang_button_border_radius_hover_' . $size,
 				array(
-					'label'      => __( 'Border Radius', 'ang' ),
+					'label'      => __( 'Border Radius', 'analogwp-templates' ),
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => array( 'px', 'em', '%', 'rem', 'custom' ),
 					'selectors'  => array(
@@ -983,7 +983,7 @@ class Typography extends Module {
 			$element->add_responsive_control(
 				'ang_button_padding_' . $size,
 				array(
-					'label'      => __( 'Padding', 'ang' ),
+					'label'      => __( 'Padding', 'analogwp-templates' ),
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => array( 'px', 'em', '%', 'rem', 'vw', 'custom' ),
 					'selectors'  => array(
@@ -1027,7 +1027,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_style_settings',
 			array(
-				'label' => __( 'Style Kits', 'ang' ),
+				'label' => __( 'Style Kits', 'analogwp-templates' ),
 				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
@@ -1038,8 +1038,8 @@ class Typography extends Module {
 				'raw'             => sprintf(
 									/* translators: %s: Link to Style Kits */
 					'<p>%1$s <a href="https://analogwp.com/docs/overriding-global-style-kit/" target="_blank">%2$s</a></p>',
-					__( 'Select a different Style Kit to be applied on this page. The page will reload after your selection.', 'ang' ),
-					__( 'Learn more', 'ang' )
+					__( 'Select a different Style Kit to be applied on this page. The page will reload after your selection.', 'analogwp-templates' ),
+					__( 'Learn more', 'analogwp-templates' )
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -1049,7 +1049,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_tokens',
 			array(
-				'label'          => __( 'Select Style Kit', 'ang' ) . $this->get_tooltip( __( 'This will override your site\'s Global Style Kit for this page.', 'ang' ) ),
+				'label'          => __( 'Select Style Kit', 'analogwp-templates' ) . $this->get_tooltip( __( 'This will override your site\'s Global Style Kit for this page.', 'analogwp-templates' ) ),
 				'type'           => Controls_Manager::SELECT2,
 				'select2options' => array(
 					'allowClear' => false,
@@ -1062,7 +1062,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_updated_token',
 			array(
-				'label'   => __( 'Page Style Kit', 'ang' ),
+				'label'   => __( 'Page Style Kit', 'analogwp-templates' ),
 				'type'    => Controls_Manager::HIDDEN,
 				'default' => '',
 			)
@@ -1075,7 +1075,7 @@ class Typography extends Module {
 					/* translators: %s: Link to Style Kits */
 					'<p class="ang-notice description"><a href="%1$s" target="_blank">%2$s</a></p>',
 					admin_url( 'admin.php?page=style-kits' ),
-					__( 'Set your Global Style Kit here', 'ang' ),
+					__( 'Set your Global Style Kit here', 'analogwp-templates' ),
 				),
 				'type' => Controls_Manager::RAW_HTML,
 			)
@@ -1096,29 +1096,29 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_tools',
 			array(
-				'label' => __( 'Manage Style Kit', 'ang' ),
+				'label' => __( 'Manage Style Kit', 'analogwp-templates' ),
 				'tab'   => $this->settings_tab,
 			)
 		);
 
-		$label = __( 'This will reset the Theme Style Kit and clean up any values.', 'ang' );
+		$label = __( 'This will reset the Theme Style Kit and clean up any values.', 'analogwp-templates' );
 		$element->add_control(
 			'ang_action_reset',
 			array(
-				'label' => __( 'Reset Theme Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'label' => __( 'Reset Theme Style Kit', 'analogwp-templates' ) . $this->get_tooltip( $label ),
 				'type'  => 'button',
-				'text'  => __( 'Reset', 'ang' ),
+				'text'  => __( 'Reset', 'analogwp-templates' ),
 				'event' => 'analog:resetKit',
 			)
 		);
 
-		$label = __( 'Save the current styles as a different Theme Style Kit. You can then apply it on other pages, or globally.', 'ang' );
+		$label = __( 'Save the current styles as a different Theme Style Kit. You can then apply it on other pages, or globally.', 'analogwp-templates' );
 		$element->add_control(
 			'ang_action_save_token',
 			array(
-				'label' => __( 'Clone Style Kit', 'ang' ) . $this->get_tooltip( $label ),
+				'label' => __( 'Clone Style Kit', 'analogwp-templates' ) . $this->get_tooltip( $label ),
 				'type'  => 'button',
-				'text'  => __( 'Clone', 'ang' ),
+				'text'  => __( 'Clone', 'analogwp-templates' ),
 				'event' => 'analog:saveKit',
 			)
 		);
@@ -1126,9 +1126,9 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_action_export_css',
 			array(
-				'label' => __( 'Export Theme Style Kit CSS', 'ang' ),
+				'label' => __( 'Export Theme Style Kit CSS', 'analogwp-templates' ),
 				'type'  => 'button',
-				'text'  => __( 'Export', 'ang' ),
+				'text'  => __( 'Export', 'analogwp-templates' ),
 				'event' => 'analog:exportCSS',
 			)
 		);
@@ -1167,19 +1167,19 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_outer_gap',
 			array(
-				'label'         => __( 'Outer Section Padding', 'ang' ),
+				'label'         => __( 'Outer Section Padding', 'analogwp-templates' ),
 				'description'   => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_section_padding' )", 'Edit in Style Kits' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => $default,
 				'options'       => array(
-					'initial'  => __( 'Default', 'ang' ),
-					'no'       => __( 'No Padding', 'ang' ),
-					'default'  => __( 'Normal', 'ang' ),
-					'narrow'   => __( 'Small', 'ang' ),
-					'extended' => __( 'Medium', 'ang' ),
-					'wide'     => __( 'Large', 'ang' ),
-					'wider'    => __( 'Extra Large', 'ang' ),
+					'initial'  => __( 'Default', 'analogwp-templates' ),
+					'no'       => __( 'No Padding', 'analogwp-templates' ),
+					'default'  => __( 'Normal', 'analogwp-templates' ),
+					'narrow'   => __( 'Small', 'analogwp-templates' ),
+					'extended' => __( 'Medium', 'analogwp-templates' ),
+					'wide'     => __( 'Large', 'analogwp-templates' ),
+					'wider'    => __( 'Extra Large', 'analogwp-templates' ),
 				),
 				'prefix_class'  => 'ang-section-padding-',
 			)
@@ -1244,8 +1244,8 @@ class Typography extends Module {
 
 		// Register default options array.
 		$options = array(
-			'default_padding'          => __( 'Default', 'ang' ),
-			'ang_container_no_padding' => __( 'No Padding', 'ang' ),
+			'default_padding'          => __( 'Default', 'analogwp-templates' ),
+			'ang_container_no_padding' => __( 'No Padding', 'analogwp-templates' ),
 		);
 
 		/**
@@ -1287,8 +1287,8 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_spacing_size',
 			array(
-				'label'              => __( 'Spacing Preset', 'ang' ),
-				'description'        => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_spacing' )", __( 'Edit in Style Kits', 'ang' ) ),
+				'label'              => __( 'Spacing Preset', 'analogwp-templates' ),
+				'description'        => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', "analog.redirectToPanel( 'ang_container_spacing' )", __( 'Edit in Style Kits', 'analogwp-templates' ) ),
 				'type'               => Controls_Manager::SELECT,
 				'hide_in_inner'      => false,
 				'default'            => 'default_padding',
@@ -1319,19 +1319,19 @@ class Typography extends Module {
 		);
 
 		$bg_presets = array(
-			'none'     => __( 'None', 'ang' ),
-			'light-bg' => __( 'Light Background', 'ang' ),
-			'dark-bg'  => __( 'Dark background', 'ang' ),
+			'none'     => __( 'None', 'analogwp-templates' ),
+			'light-bg' => __( 'Light Background', 'analogwp-templates' ),
+			'dark-bg'  => __( 'Dark background', 'analogwp-templates' ),
 		);
 
 		if ( Utils::has_pro() ) {
-			$bg_presets['accent-bg'] = __( 'Accent Background', 'ang' );
+			$bg_presets['accent-bg'] = __( 'Accent Background', 'analogwp-templates' );
 		}
 
 		$element->add_control(
 			'ang_container_bg_preset',
 			array(
-				'label'         => __( 'Background presets', 'ang' ),
+				'label'         => __( 'Background presets', 'analogwp-templates' ),
 				'description'   => sprintf( '<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>', 'analog.openThemeStyles()', 'Edit in Style Kits' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => false,
@@ -1516,7 +1516,7 @@ class Typography extends Module {
 	 * @return string
 	 */
 	public function get_tooltip( $text ) {
-		return ' <span class="hint--top-right hint--medium" aria-label="' . $text . '"><i class="fa fa-info-circle"></i></span>';
+		return ' <span class="hint--top-right hint--medium" aria-label="' . esc_attr( $text ) . '"><i class="fa fa-info-circle"></i></span>';
 	}
 
 	/**
@@ -1558,7 +1558,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_heading_color_heading',
 			array(
-				'label'     => __( 'Headings', 'ang' ),
+				'label'     => __( 'Headings', 'analogwp-templates' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
@@ -1567,7 +1567,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_color_heading',
 			array(
-				'label'     => __( 'Headings Color', 'ang' ),
+				'label'     => __( 'Headings Color', 'analogwp-templates' ),
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_color_heading',
 				'selectors' => array(
@@ -1580,7 +1580,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_default_heading_font_family',
 			array(
-				'label'     => __( 'Headings Font', 'ang' ),
+				'label'     => __( 'Headings Font', 'analogwp-templates' ),
 				'type'      => Controls_Manager::FONT,
 				'selectors' => array(
 					'{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'font-family: "{{VALUE}}"' . $default_fonts . ';',
@@ -1591,7 +1591,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_description_default_heading',
 			array(
-				'raw'             => __( 'You can set individual heading font and colors below.', 'ang' ),
+				'raw'             => __( 'You can set individual heading font and colors below.', 'analogwp-templates' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -1610,7 +1610,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_global_fonts_section',
 			array(
-				'label' => esc_html__( 'Style Kit Fonts', 'ang' ),
+				'label' => esc_html__( 'Style Kit Fonts', 'analogwp-templates' ),
 				'tab'   => 'global-typography',
 			)
 		);
@@ -1620,8 +1620,8 @@ class Typography extends Module {
 			array(
 				'raw'             => sprintf(
 					'%1$s <a href="https://analogwp.com/docs/style-kit-global-fonts/" target="_blank">%2$s</a>',
-					__( 'The Style Kit\'s typographic styles.', 'ang' ),
-					__( 'Read more', 'ang' ),
+					__( 'The Style Kit\'s typographic styles.', 'analogwp-templates' ),
+					__( 'Read more', 'analogwp-templates' ),
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -1637,7 +1637,7 @@ class Typography extends Module {
 
 		$element->start_controls_tab(
 			'ang_tab_global_fonts_primary',
-			array( 'label' => __( '1-16', 'ang' ) )
+			array( 'label' => __( '1-16', 'analogwp-templates' ) )
 		);
 
 		$repeater = new Repeater();
@@ -1712,7 +1712,7 @@ class Typography extends Module {
 		$title_typography = array(
 			array(
 				'_id'                   => 'sk_type_1',
-				'title'                 => esc_html__( 'Display title', 'ang' ),
+				'title'                 => esc_html__( 'Display title', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 5,
@@ -1721,7 +1721,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_2',
-				'title'                 => esc_html__( 'Title 1', 'ang' ),
+				'title'                 => esc_html__( 'Title 1', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 4,
@@ -1730,7 +1730,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_3',
-				'title'                 => esc_html__( 'Title 2', 'ang' ),
+				'title'                 => esc_html__( 'Title 2', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 3,
@@ -1739,7 +1739,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_4',
-				'title'                 => esc_html__( 'Title 3', 'ang' ),
+				'title'                 => esc_html__( 'Title 3', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 2,
@@ -1748,7 +1748,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_5',
-				'title'                 => esc_html__( 'Title 4', 'ang' ),
+				'title'                 => esc_html__( 'Title 4', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 1.5,
@@ -1757,7 +1757,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_6',
-				'title'                 => esc_html__( 'Title 5', 'ang' ),
+				'title'                 => esc_html__( 'Title 5', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 1.2,
@@ -1766,7 +1766,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_7',
-				'title'                 => esc_html__( 'Title 6', 'ang' ),
+				'title'                 => esc_html__( 'Title 6', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 1,
@@ -1775,7 +1775,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_8',
-				'title'                 => esc_html__( 'Overline / Subheader', 'ang' ),
+				'title'                 => esc_html__( 'Overline / Subheader', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 0.8,
@@ -1801,7 +1801,7 @@ class Typography extends Module {
 		$text_typography = array(
 			array(
 				'_id'                   => 'sk_type_9',
-				'title'                 => esc_html__( 'Display text', 'ang' ),
+				'title'                 => esc_html__( 'Display text', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 2,
@@ -1810,7 +1810,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_10',
-				'title'                 => esc_html__( 'Large text', 'ang' ),
+				'title'                 => esc_html__( 'Large text', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 1.5,
@@ -1819,7 +1819,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_11',
-				'title'                 => esc_html__( 'Normal text', 'ang' ),
+				'title'                 => esc_html__( 'Normal text', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 1,
@@ -1828,7 +1828,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_12',
-				'title'                 => esc_html__( 'Small text', 'ang' ),
+				'title'                 => esc_html__( 'Small text', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 0.95,
@@ -1837,7 +1837,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_13',
-				'title'                 => esc_html__( 'Caption', 'ang' ),
+				'title'                 => esc_html__( 'Caption', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 0.8,
@@ -1846,7 +1846,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_14',
-				'title'                 => esc_html__( 'Button text', 'ang' ),
+				'title'                 => esc_html__( 'Button text', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 1,
@@ -1855,7 +1855,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_15',
-				'title'                 => esc_html__( 'Form label', 'ang' ),
+				'title'                 => esc_html__( 'Form label', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 				'typography_font_size'  => array(
 					'size' => 1,
@@ -1864,7 +1864,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                   => 'sk_type_16',
-				'title'                 => esc_html__( 'Font Style 16', 'ang' ),
+				'title'                 => esc_html__( 'Font Style 16', 'analogwp-templates' ),
 				'typography_typography' => 'custom',
 			),
 		);
@@ -1893,9 +1893,9 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_global_reset_fonts',
 			array(
-				'label' => __( 'Reset labels & fonts', 'ang' ),
+				'label' => __( 'Reset labels & fonts', 'analogwp-templates' ),
 				'type'  => 'button',
-				'text'  => __( 'Reset', 'ang' ),
+				'text'  => __( 'Reset', 'analogwp-templates' ),
 				'event' => 'analog:resetGlobalFonts',
 			)
 		);
@@ -1913,7 +1913,7 @@ class Typography extends Module {
 		$element->start_controls_section(
 			'ang_shadows',
 			array(
-				'label' => __( 'Shadows', 'ang' ),
+				'label' => __( 'Shadows', 'analogwp-templates' ),
 				'tab'   => Utils::get_kit_settings_tab(),
 			)
 		);
@@ -1923,8 +1923,8 @@ class Typography extends Module {
 			array(
 				'raw'             => sprintf(
 					'%1$s <a href="https://analogwp.com/docs/global-shadows/" target="_blank">%2$s</a>',
-					__( 'Add global shadow presets by using these controls.', 'ang' ),
-					__( 'Learn more', 'ang' ),
+					__( 'Add global shadow presets by using these controls.', 'analogwp-templates' ),
+					__( 'Learn more', 'analogwp-templates' ),
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -1936,18 +1936,18 @@ class Typography extends Module {
 		$element->start_controls_tab(
 			'ang_tab_shadows_primary',
 			array(
-				'label' => __( '1-8', 'ang' ),
+				'label' => __( '1-8', 'analogwp-templates' ),
 			)
 		);
 
 		$shadow_defaults = array(
 			array(
 				'_id'   => 'shadow_1',
-				'title' => __( 'Shadow 1', 'ang' ),
+				'title' => __( 'Shadow 1', 'analogwp-templates' ),
 			),
 			array(
 				'_id'                    => 'shadow_2',
-				'title'                  => __( 'Shadow 2', 'ang' ),
+				'title'                  => __( 'Shadow 2', 'analogwp-templates' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1959,7 +1959,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_3',
-				'title'                  => __( 'Shadow 3', 'ang' ),
+				'title'                  => __( 'Shadow 3', 'analogwp-templates' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1971,7 +1971,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_4',
-				'title'                  => __( 'Shadow 4', 'ang' ),
+				'title'                  => __( 'Shadow 4', 'analogwp-templates' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1983,7 +1983,7 @@ class Typography extends Module {
 			),
 			array(
 				'_id'                    => 'shadow_5',
-				'title'                  => __( 'Shadow 5', 'ang' ),
+				'title'                  => __( 'Shadow 5', 'analogwp-templates' ),
 				'shadow_box_shadow_type' => 'yes',
 				'shadow_box_shadow'      => array(
 					'horizontal' => 0,
@@ -1995,15 +1995,15 @@ class Typography extends Module {
 			),
 			array(
 				'_id'   => 'shadow_6',
-				'title' => __( 'Shadow 6', 'ang' ),
+				'title' => __( 'Shadow 6', 'analogwp-templates' ),
 			),
 			array(
 				'_id'   => 'shadow_7',
-				'title' => __( 'Shadow 7', 'ang' ),
+				'title' => __( 'Shadow 7', 'analogwp-templates' ),
 			),
 			array(
 				'_id'   => 'shadow_8',
-				'title' => __( 'Shadow 8', 'ang' ),
+				'title' => __( 'Shadow 8', 'analogwp-templates' ),
 			),
 		);
 
@@ -2062,9 +2062,9 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_box_shadows_reset',
 			array(
-				'label' => __( 'Reset to default', 'ang' ),
+				'label' => __( 'Reset to default', 'analogwp-templates' ),
 				'type'  => 'button',
-				'text'  => __( 'Reset', 'ang' ),
+				'text'  => __( 'Reset', 'analogwp-templates' ),
 				'event' => 'analog:resetBoxShadows',
 			)
 		);
@@ -2078,7 +2078,7 @@ class Typography extends Module {
 	public function get_kit_shadow_presets() {
 		// Register default options array.
 		$options = array(
-			'none' => __( 'None', 'ang' ),
+			'none' => __( 'None', 'analogwp-templates' ),
 		);
 
 		/**
@@ -2149,7 +2149,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'label'         => __( 'Box Shadow Preset', 'analogwp-templates' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2164,7 +2164,7 @@ class Typography extends Module {
 				'raw'             => sprintf(
 					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
 					'analog.redirectToPanel( \'ang_shadows\' )',
-					__( 'Edit in Style Kits', 'ang' )
+					__( 'Edit in Style Kits', 'analogwp-templates' )
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -2190,7 +2190,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'label'         => __( 'Box Shadow Preset', 'analogwp-templates' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none_hover',
@@ -2205,7 +2205,7 @@ class Typography extends Module {
 				'raw'             => sprintf(
 					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
 					'analog.redirectToPanel( \'ang_shadows\' )',
-					__( 'Edit in Style Kits', 'ang' )
+					__( 'Edit in Style Kits', 'analogwp-templates' )
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -2240,7 +2240,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_image_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'label'         => __( 'Box Shadow Preset', 'analogwp-templates' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none_external',
@@ -2276,7 +2276,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_sc_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'label'         => __( 'Box Shadow Preset', 'analogwp-templates' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none',
@@ -2291,7 +2291,7 @@ class Typography extends Module {
 				'raw'             => sprintf(
 					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
 					'analog.redirectToPanel( \'ang_shadows\' )',
-					__( 'Edit in Style Kits', 'ang' )
+					__( 'Edit in Style Kits', 'analogwp-templates' )
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -2317,7 +2317,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_sc_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'label'         => __( 'Box Shadow Preset', 'analogwp-templates' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none_hover',
@@ -2332,7 +2332,7 @@ class Typography extends Module {
 				'raw'             => sprintf(
 					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
 					'analog.redirectToPanel( \'ang_shadows\' )',
-					__( 'Edit in Style Kits', 'ang' )
+					__( 'Edit in Style Kits', 'analogwp-templates' )
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -2365,7 +2365,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_box_shadow_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'label'         => __( 'Box Shadow Preset', 'analogwp-templates' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => false,
 				'default'       => 'none',
@@ -2380,7 +2380,7 @@ class Typography extends Module {
 				'raw'             => sprintf(
 					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
 					'analog.redirectToPanel( \'ang_shadows\' )',
-					__( 'Edit in Style Kits', 'ang' )
+					__( 'Edit in Style Kits', 'analogwp-templates' )
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -2406,7 +2406,7 @@ class Typography extends Module {
 		$element->add_control(
 			'ang_container_box_shadow_hover_preset',
 			array(
-				'label'         => __( 'Box Shadow Preset', 'ang' ),
+				'label'         => __( 'Box Shadow Preset', 'analogwp-templates' ),
 				'type'          => Controls_Manager::SELECT,
 				'hide_in_inner' => true,
 				'default'       => 'none_hover',
@@ -2448,7 +2448,7 @@ class Typography extends Module {
 				'raw'             => sprintf(
 					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
 					'analog.redirectToPanel( \'ang_typography_sizes\' )',
-					__( 'Edit in Style Kits', 'ang' )
+					__( 'Edit in Style Kits', 'analogwp-templates' )
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -2488,7 +2488,7 @@ class Typography extends Module {
 				'raw'             => sprintf(
 					'<a href="#" class="ang-notice blue" onClick="%1$s">%2$s</a>',
 					'analog.redirectToPanel( \'ang_buttons\' )',
-					__( 'Edit in Style Kits', 'ang' )
+					__( 'Edit in Style Kits', 'analogwp-templates' )
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',

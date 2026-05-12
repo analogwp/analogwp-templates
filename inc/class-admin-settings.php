@@ -54,7 +54,7 @@ class Admin_Settings {
 			$settings[] = include 'settings/class-settings-version-control.php';
 			$settings[] = include 'settings/class-settings-gopro.php';
 
-			self::$settings = apply_filters( 'ang_get_settings_pages', $settings );
+			self::$settings = apply_filters( 'ang_get_settings_pages', $settings ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 
 		return self::$settings;
@@ -74,40 +74,40 @@ class Admin_Settings {
 		check_ajax_referer( 'ang_hide_promo', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ang' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'analogwp-templates' ) ) );
 		}
 
 		$promo_id = isset( $_POST['promo_id'] ) ? sanitize_key( $_POST['promo_id'] ) : '';
 
 		if ( empty( $promo_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid promo ID.', 'ang' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid promo ID.', 'analogwp-templates' ) ) );
 		}
 
 		// Store the hidden state in the database.
 		update_option( 'ang_hide_' . $promo_id, true );
 
-		wp_send_json_success( array( 'message' => __( 'Promo hidden successfully.', 'ang' ) ) );
+		wp_send_json_success( array( 'message' => __( 'Promo hidden successfully.', 'analogwp-templates' ) ) );
 	}
 
 	/**
 	 * Save the settings.
 	 */
 	public static function save() {
-		global $current_tab;
+		global $ang_current_tab;
 
 		check_admin_referer( 'ang-settings' );
 
 		// Trigger actions.
-		do_action( 'ang_settings_save_' . $current_tab );
-		do_action( 'ang_update_options_' . $current_tab );
-		do_action( 'ang_update_options' );
+		do_action( 'ang_settings_save_' . $ang_current_tab ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		do_action( 'ang_update_options_' . $ang_current_tab ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		do_action( 'ang_update_options' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-		self::add_message( __( 'Your settings have been saved.', 'ang' ) );
+		self::add_message( __( 'Your settings have been saved.', 'analogwp-templates' ) );
 
 		// Clear any unwanted data and flush rules.
 		update_option( 'ang_queue_flush_rewrite_rules', 'yes' );
 
-		do_action( 'ang_settings_saved' );
+		do_action( 'ang_settings_saved' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
@@ -149,9 +149,9 @@ class Admin_Settings {
 	 * Handles the display of the main Analog settings page in admin.
 	 */
 	public static function output() {
-		global $current_section, $current_tab;
+		global $ang_current_section, $ang_current_tab;
 
-		do_action( 'ang_settings_start' );
+		do_action( 'ang_settings_start' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/admin-settings.css' ) );
 
 		wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n', 'wp-api-fetch' ), filemtime( ANG_PLUGIN_DIR . 'assets/js/admin-settings.js' ), true );
@@ -160,11 +160,11 @@ class Admin_Settings {
 			'ang_settings',
 			'ang_settings_data',
 			apply_filters(
-				'ang_settings_data',
+				'ang_settings_data', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				array(
-					'i18n_nav_warning'          => __( 'The changes you made will be lost if you navigate away from this page.', 'ang' ),
-					'sitekit_importer_notice'   => __( 'Template Kit file downloaded.', 'ang' ),
-					'sitekit_importer_url_text' => __( 'Import it into Elementor', 'ang' ),
+					'i18n_nav_warning'          => __( 'The changes you made will be lost if you navigate away from this page.', 'analogwp-templates' ),
+					'sitekit_importer_notice'   => __( 'Template Kit file downloaded.', 'analogwp-templates' ),
+					'sitekit_importer_url_text' => __( 'Import it into Elementor', 'analogwp-templates' ),
 					'sitekit_importer_url'      => esc_url( admin_url( 'admin.php?page=elementor-tools#tab-import-export-kit' ) ),
 					'hide_promo_nonce'          => wp_create_nonce( 'ang_hide_promo' ),
 					'ajax_url'                  => admin_url( 'admin-ajax.php' ),
@@ -173,7 +173,7 @@ class Admin_Settings {
 		);
 
 		// Get tabs for the settings page.
-		$tabs = apply_filters( 'ang_settings_tabs_array', array() );
+		$tabs = apply_filters( 'ang_settings_tabs_array', array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		include __DIR__ . '/settings/views/html-admin-settings.php';
 	}
@@ -288,6 +288,8 @@ class Admin_Settings {
 				}
 			}
 
+			$custom_attributes_html = implode( ' ', $custom_attributes );
+
 			// Description handling.
 			$field_description = self::get_field_description( $value );
 			$description       = $field_description['description'];
@@ -311,7 +313,7 @@ class Admin_Settings {
 					}
 					echo '<table class="form-table">' . "\n\n";
 					if ( ! empty( $value['id'] ) ) {
-						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) );
+						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					}
 					break;
 
@@ -332,11 +334,11 @@ class Admin_Settings {
 				// Section Ends.
 				case 'sectionend':
 					if ( ! empty( $value['id'] ) ) {
-						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) . '_end' );
+						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) . '_end' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					}
 					echo '</table>';
 					if ( ! empty( $value['id'] ) ) {
-						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) . '_after' );
+						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) . '_after' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					}
 					break;
 
@@ -371,7 +373,7 @@ class Admin_Settings {
 
 					?><tr valign="top">
 						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<input
@@ -382,8 +384,8 @@ class Admin_Settings {
 								value="<?php echo esc_attr( $option_value ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
-								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // WPCS: XSS ok. ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
+								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo wp_kses_post( $description ); ?>
 						</td>
 					</tr>
 					<?php
@@ -394,7 +396,7 @@ class Admin_Settings {
 					<tr valign="top">
 						<?php if ( isset( $value['title'] ) && ! empty( $value['title'] ) ) : ?>
 							<th scope="row" class="titledesc">
-								<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // phpcs:ignore ?></label>
+								<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 							</th>
 						<?php endif; ?>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
@@ -403,11 +405,11 @@ class Admin_Settings {
 								id="<?php echo esc_attr( $value['id'] ); ?>"
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // phpcs:ignore ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
 								><?php echo esc_html( $option_value ); ?></a>
 							<?php endif; ?>
 
-							<?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // phpcs:ignore ?>
+							<?php echo esc_html( $value['suffix'] ); ?> <?php echo wp_kses_post( $description ); ?>
 						</td>
 					</tr>
 					<?php
@@ -416,7 +418,7 @@ class Admin_Settings {
 					$option_value = $value['value'];
 					echo '<table class="form-table ang-action">' . "\n\n";
 					if ( ! empty( $value['id'] ) ) {
-						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) );
+						do_action( 'ang_settings_' . sanitize_title( $value['id'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					}
 					?>
 					<tr valign="top" id="<?php echo esc_attr( $value['id'] ); ?>">
@@ -439,7 +441,7 @@ class Admin_Settings {
 					?>
 					<tr valign="top">
 						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<?php if ( ! empty( $option_value ) ) : ?>
@@ -450,7 +452,7 @@ class Admin_Settings {
 								value="<?php echo esc_attr( str_repeat( '*', strlen( $option_value ) ) ); ?>"
 								readonly="readonly"
 								disabled
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
 								/><?php echo esc_html( $value['suffix'] ); ?>
 							<?php else : ?>
 							<input
@@ -461,8 +463,8 @@ class Admin_Settings {
 								value="<?php echo esc_attr( $option_value ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
-								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; // WPCS: XSS ok. ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
+								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo wp_kses_post( $description ); ?>
 							<?php endif; ?>
 						</td>
 					</tr>
@@ -476,10 +478,10 @@ class Admin_Settings {
 					?>
 					<tr valign="top">
 						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
-							<?php echo $description; // WPCS: XSS ok. ?>
+							<?php echo wp_kses_post( $description ); ?>
 
 							<textarea
 								name="<?php echo esc_attr( $value['id'] ); ?>"
@@ -487,7 +489,7 @@ class Admin_Settings {
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
 								><?php echo esc_textarea( $option_value ); // WPCS: XSS ok. ?></textarea>
 						</td>
 					</tr>
@@ -506,7 +508,7 @@ class Admin_Settings {
 							<?php if ( false !== strpos( $value['id'], '_experiment' ) ) : ?>
 							<span class="experiment-indicator <?php echo ( $value['value'] === false || $value['value'] === 'default' || $value['value'] === 'active' ) ? 'active' : 'inactive'; ?>"></span>
 							<?php endif; ?>
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<?php } ?>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
@@ -515,7 +517,7 @@ class Admin_Settings {
 								id="<?php echo esc_attr( $value['id'] ); ?>"
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
 								<?php echo 'multiselect' === $value['type'] ? 'multiple="multiple"' : ''; ?>
 								<?php echo $disabled ? ' disabled="true"' : ''; ?>
 								>
@@ -549,11 +551,11 @@ class Admin_Settings {
 					?>
 					<tr valign="top">
 						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<fieldset>
-								<?php echo $description; // WPCS: XSS ok. ?>
+								<?php echo wp_kses_post( $description ); ?>
 								<ul>
 								<?php
 								foreach ( $value['options'] as $key => $val ) {
@@ -565,7 +567,7 @@ class Admin_Settings {
 											type="radio"
 											style="<?php echo esc_attr( $value['css'] ); ?>"
 											class="<?php echo esc_attr( $value['class'] ); ?>"
-											<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
+											<?php echo wp_kses_post( $custom_attributes_html ); ?>
 											<?php checked( $key, $option_value ); ?>
 											/> <?php echo esc_html( $val ); ?></label>
 									</li>
@@ -585,7 +587,7 @@ class Admin_Settings {
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<fieldset>
 								<?php
-								echo $description; // phpcs:ignore
+									echo wp_kses_post( $description );
 								?>
 								<ul>
 									<?php foreach ( $value['options'] as $key => $val ) : ?>
@@ -599,7 +601,7 @@ class Admin_Settings {
 												<?php checked( isset( $option_value[ $key ] ) ? $option_value[ $key ] : 0, true ); ?>
 											/>
 											<span>
-												<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
+												<span><?php esc_html_e( 'Toggle', 'analogwp-templates' ); ?></span>
 											</span>
 											<p><?php echo esc_html( $val ); ?></p>
 										</label>
@@ -661,12 +663,12 @@ class Admin_Settings {
 								class="<?php echo esc_attr( isset( $value['class'] ) ? $value['class'] : '' ); ?>"
 								value="1"
 								<?php checked( $option_value, true ); ?>
-								<?php echo implode( ' ', $custom_attributes ); // WPCS: XSS ok. ?>
-							/> <?php echo $description; // WPCS: XSS ok. ?>
+								<?php echo wp_kses_post( $custom_attributes_html ); ?>
+							/> <?php echo wp_kses_post( $description ); ?>
 							<?php if ( $value['switch'] ) { ?>
-								<span><?php esc_html_e( 'Toggle', 'ang' ); ?></span>
+								<span><?php esc_html_e( 'Toggle', 'analogwp-templates' ); ?></span>
 							<?php } ?>
-						</label> <?php echo $tooltip_html; // WPCS: XSS ok. ?>
+						</label> <?php echo wp_kses_post( $tooltip_html ); ?>
 					<?php
 
 					if ( ! isset( $value['checkboxgroup'] ) || 'end' === $value['checkboxgroup'] ) {
@@ -690,11 +692,11 @@ class Admin_Settings {
 							<?php if ( false !== strpos( $value['id'], '_experiment' ) ) : ?>
 							<span class="experiment-indicator <?php echo ( $value['value'] === 'active' ) ? 'active' : 'inactive'; ?>"></span>
 							<?php endif; ?>
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // phpcs:ignore ?></label>
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
 						<?php } ?>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
-							<?php echo $description; // phpcs:ignore ?>
+							<?php echo wp_kses_post( $description ); ?>
 						</td>
 					</tr>
 					<?php
@@ -712,7 +714,7 @@ class Admin_Settings {
 										echo '<h1 id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-content-title">' . esc_html( $value['title'] ) . '</h1>';
 									}
 									?>
-									<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=general&section=starter-kit&refresh=true' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Refresh', 'ang' ); ?></a>
+									<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings&tab=general&section=starter-kit&refresh=true' ) ); ?>" class="button-secondary"><?php esc_html_e( 'Refresh', 'analogwp-templates' ); ?></a>
 								</div>
 
 							<?php
@@ -745,7 +747,7 @@ class Admin_Settings {
 
 				// Default: run an action.
 				default:
-					do_action( 'ang_admin_field_' . $value['type'], $value );
+					do_action( 'ang_admin_field_' . $value['type'], $value ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					break;
 			}
 		}
@@ -862,14 +864,14 @@ class Admin_Settings {
 			 *
 			 * @since 2.4.0
 			 */
-			$value = apply_filters( 'ang_admin_settings_sanitize_option', $value, $option, $raw_value );
+			$value = apply_filters( 'ang_admin_settings_sanitize_option', $value, $option, $raw_value ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			/**
 			 * Sanitize the value of an option by option name.
 			 *
 			 * @since 2.4.0
 			 */
-			$value = apply_filters( "ang_admin_settings_sanitize_option_$option_name", $value, $option, $raw_value );
+			$value = apply_filters( "ang_admin_settings_sanitize_option_$option_name", $value, $option, $raw_value ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			if ( is_null( $value ) ) {
 				continue;
@@ -893,7 +895,7 @@ class Admin_Settings {
 			/**
 			 * Fire an action before saved.
 			 */
-			do_action( 'ang_update_option', $option );
+			do_action( 'ang_update_option', $option ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 
 		// Save all options in our array.

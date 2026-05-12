@@ -24,19 +24,19 @@ class Filters extends React.Component {
 		} );
 
 		const filterOptions = [
-			{ value: 'all', label: __( 'All template types', 'ang' ) },
+			{ value: 'all', label: __( 'All template types', 'analogwp-templates' ) },
 			...filterTypes,
 		];
 
 		const sortOptions = [
-			{ value: 'latest', label: __( 'Newest first', 'ang' ) },
-			{ value: 'popular', label: __( 'Popular', 'ang' ) },
+			{ value: 'latest', label: __( 'Newest first', 'analogwp-templates' ) },
+			{ value: 'popular', label: __( 'Popular', 'analogwp-templates' ) },
 		];
 
 		const productTypeOptions = [
-			{ value: 'all', label: __( 'Both Free and Pro', 'ang' ) },
-			{ value: 'pro', label: __( 'Pro', 'ang' ) },
-			{ value: 'free', label: __( 'Free', 'ang' ) },
+			{ value: 'all', label: __( 'Both Free and Pro', 'analogwp-templates' ) },
+			{ value: 'pro', label: __( 'Pro', 'analogwp-templates' ) },
+			{ value: 'free', label: __( 'Free', 'analogwp-templates' ) },
 		];
 
 		const showingKit = ( this.context.state.group && this.context.state.activeKit );
@@ -47,7 +47,7 @@ class Filters extends React.Component {
 						<div className="top">
 							{ showingKit && (
 								<React.Fragment>
-									<h2 className="kit-title">{ __( 'Template Kit', 'ang' ) }: { this.context.state.activeKit.title }</h2>
+									<h2 className="kit-title">{ __( 'Template Kit', 'analogwp-templates' ) }: { this.context.state.activeKit.title }</h2>
 									<Button
 										className="kit-back"
 										isSecondary
@@ -57,7 +57,7 @@ class Filters extends React.Component {
 											} );
 										} }
 									>
-										{ __( 'Back to all Kits', 'ang' ) }
+										{ __( 'Back to all Kits', 'analogwp-templates' ) }
 									</Button>
 								</React.Fragment>
 							) }
@@ -71,8 +71,8 @@ class Filters extends React.Component {
 								>
 									<Star />{ ' ' }
 									{ this.context.state.showing_favorites ?
-										__( 'Back to all', 'ang' ) :
-										__( 'Favorites', 'ang' ) }
+										__( 'Back to all', 'analogwp-templates' ) :
+										__( 'Favorites', 'analogwp-templates' ) }
 								</button>
 							) }
 
@@ -143,7 +143,7 @@ class Filters extends React.Component {
 								<span>
 									{ ! showingKit && <TextControl
 										type="search"
-										placeholder={ __( 'Search templates...', 'ang' ) }
+										placeholder={ __( 'Search templates...', 'analogwp-templates' ) }
 										onChange={ value => this.context.handleSearch(value.toLowerCase())
 										}
 									/>

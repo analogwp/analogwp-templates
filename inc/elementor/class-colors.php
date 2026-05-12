@@ -44,7 +44,6 @@ class Colors extends Module {
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_theme_style_typography' ), 20, 2 );
 
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_global_colors' ), 10, 2 );
-
 	}
 
 	/**
@@ -241,7 +240,7 @@ class Colors extends Module {
 		$element->start_controls_section(
 			'ang_colors',
 			array(
-				'label' => _x( 'Accent Colors', 'Section Title', 'ang' ),
+				'label' => _x( 'Accent Colors', 'Section Title', 'analogwp-templates' ),
 				'tab'   => Utils::get_kit_settings_tab(),
 			)
 		);
@@ -250,7 +249,7 @@ class Colors extends Module {
 			'ang_colors_description',
 			array(
 				/* translators: %1$s: Link to documentation, %2$s: Link text. */
-				'raw'             => __( 'Set the accent colors of your layout.', 'ang' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/style-kit-global-colors/', __( 'Learn more.', 'ang' ) ),
+				'raw'             => __( 'Set the accent colors of your layout.', 'analogwp-templates' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://analogwp.com/docs/style-kit-global-colors/', __( 'Learn more.', 'analogwp-templates' ) ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -316,11 +315,11 @@ class Colors extends Module {
 			$primary_accent_background_selectors    => 'background-color: {{VALUE}};',
 		);
 
-		$tooltip = __( 'The primary accent color applies on links, icons, and other elements. You can also define the text link color in the Typography panel.', 'ang' );
+		$tooltip = __( 'The primary accent color applies on links, icons, and other elements. You can also define the text link color in the Typography panel.', 'analogwp-templates' );
 		$element->add_control(
 			'ang_color_accent_primary',
 			array(
-				'label'     => __( 'Primary Accent', 'ang' ) . $this->get_tooltip( $tooltip ),
+				'label'     => __( 'Primary Accent', 'analogwp-templates' ) . $this->get_tooltip( $tooltip ),
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_color_accent_primary',
 				'selectors' => $selectors,
@@ -339,11 +338,11 @@ class Colors extends Module {
 
 		$accent_secondary_selectors = implode( ',', $accent_secondary_selectors );
 
-		$tooltip = __( 'The default button color. You can also define button colors under the Buttons panel, and individually for each button size under Buttons Sizes panel.', 'ang' );
+		$tooltip = __( 'The default button color. You can also define button colors under the Buttons panel, and individually for each button size under Buttons Sizes panel.', 'analogwp-templates' );
 		$element->add_control(
 			'ang_color_accent_secondary',
 			array(
-				'label'     => __( 'Secondary Accent', 'ang' ) . $this->get_tooltip( $tooltip ),
+				'label'     => __( 'Secondary Accent', 'analogwp-templates' ) . $this->get_tooltip( $tooltip ),
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_color_accent_secondary',
 				'selectors' => array(
@@ -369,7 +368,7 @@ class Colors extends Module {
 	 * @return string
 	 */
 	protected function get_tooltip( $text ) {
-		return ' <span class="hint--top-right hint--medium" aria-label="' . $text . '"><i class="fa fa-info-circle"></i></span>';
+		return ' <span class="hint--top-right hint--medium" aria-label="' . esc_attr( $text ) . '"><i class="fa fa-info-circle"></i></span>';
 	}
 
 	/**
@@ -383,7 +382,7 @@ class Colors extends Module {
 		$element->start_controls_section(
 			'ang_global_colors_section',
 			array(
-				'label' => esc_html__( 'Style Kit Colors', 'ang' ),
+				'label' => esc_html__( 'Style Kit Colors', 'analogwp-templates' ),
 				'tab'   => 'global-colors',
 			)
 		);
@@ -393,8 +392,8 @@ class Colors extends Module {
 			array(
 				'raw'             => sprintf(
 					'%1$s <a href="https://analogwp.com/docs/style-kit-global-colors/" target="_blank">%2$s</a>',
-					__( 'The Style Kit\'s color palette.', 'ang' ),
-					__( 'Read more', 'ang' ),
+					__( 'The Style Kit\'s color palette.', 'analogwp-templates' ),
+					__( 'Read more', 'analogwp-templates' ),
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
@@ -410,7 +409,7 @@ class Colors extends Module {
 
 		$element->start_controls_tab(
 			'ang_tab_global_colors_primary',
-			array( 'label' => __( '1-16', 'ang' ) )
+			array( 'label' => __( '1-16', 'analogwp-templates' ) )
 		);
 
 		$repeater = new Repeater();
@@ -444,22 +443,22 @@ class Colors extends Module {
 		$default_surface_colors = array(
 			array(
 				'_id'   => 'sk_color_1',
-				'title' => esc_html__( 'Site background', 'ang' ),
+				'title' => esc_html__( 'Site background', 'analogwp-templates' ),
 				'color' => '#FFFFFF',
 			),
 			array(
 				'_id'   => 'sk_color_2',
-				'title' => esc_html__( 'Light background', 'ang' ),
+				'title' => esc_html__( 'Light background', 'analogwp-templates' ),
 				'color' => '#F4F4F4',
 			),
 			array(
 				'_id'   => 'sk_color_3',
-				'title' => esc_html__( 'Dark background', 'ang' ),
+				'title' => esc_html__( 'Dark background', 'analogwp-templates' ),
 				'color' => '#171720',
 			),
 			array(
 				'_id'   => 'sk_color_4',
-				'title' => esc_html__( 'Background 4', 'ang' ),
+				'title' => esc_html__( 'Background 4', 'analogwp-templates' ),
 				'color' => '',
 			),
 		);
@@ -484,22 +483,22 @@ class Colors extends Module {
 		$default_accent_colors = array(
 			array(
 				'_id'   => 'sk_color_5',
-				'title' => esc_html__( 'Accent 1', 'ang' ),
+				'title' => esc_html__( 'Accent 1', 'analogwp-templates' ),
 				'color' => '#413EC5',
 			),
 			array(
 				'_id'   => 'sk_color_6',
-				'title' => esc_html__( 'Accent 2', 'ang' ),
+				'title' => esc_html__( 'Accent 2', 'analogwp-templates' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_7',
-				'title' => esc_html__( 'Accent 3', 'ang' ),
+				'title' => esc_html__( 'Accent 3', 'analogwp-templates' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_8',
-				'title' => esc_html__( 'Accent 4', 'ang' ),
+				'title' => esc_html__( 'Accent 4', 'analogwp-templates' ),
 				'color' => '',
 			),
 		);
@@ -523,22 +522,22 @@ class Colors extends Module {
 		$default_type_colors = array(
 			array(
 				'_id'   => 'sk_color_9',
-				'title' => esc_html__( 'Titles', 'ang' ),
+				'title' => esc_html__( 'Titles', 'analogwp-templates' ),
 				'color' => '#1B1B1D',
 			),
 			array(
 				'_id'   => 'sk_color_10',
-				'title' => esc_html__( 'Normal text', 'ang' ),
+				'title' => esc_html__( 'Normal text', 'analogwp-templates' ),
 				'color' => '#1B1B1D',
 			),
 			array(
 				'_id'   => 'sk_color_11',
-				'title' => esc_html__( 'Secondary text', 'ang' ),
+				'title' => esc_html__( 'Secondary text', 'analogwp-templates' ),
 				'color' => '#707071',
 			),
 			array(
 				'_id'   => 'sk_color_12',
-				'title' => esc_html__( 'Inverted text', 'ang' ),
+				'title' => esc_html__( 'Inverted text', 'analogwp-templates' ),
 				'color' => '#FFFFFF',
 			),
 		);
@@ -562,22 +561,22 @@ class Colors extends Module {
 		$default_other_colors = array(
 			array(
 				'_id'   => 'sk_color_13',
-				'title' => esc_html__( 'Border', 'ang' ),
+				'title' => esc_html__( 'Border', 'analogwp-templates' ),
 				'color' => '#0000001A',
 			),
 			array(
 				'_id'   => 'sk_color_14',
-				'title' => esc_html__( 'Color Style 14', 'ang' ),
+				'title' => esc_html__( 'Color Style 14', 'analogwp-templates' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_15',
-				'title' => esc_html__( 'Color Style 15', 'ang' ),
+				'title' => esc_html__( 'Color Style 15', 'analogwp-templates' ),
 				'color' => '',
 			),
 			array(
 				'_id'   => 'sk_color_16',
-				'title' => esc_html__( 'Color Style 16', 'ang' ),
+				'title' => esc_html__( 'Color Style 16', 'analogwp-templates' ),
 				'color' => '',
 			),
 		);
@@ -606,9 +605,9 @@ class Colors extends Module {
 		$element->add_control(
 			'ang_global_reset_colors',
 			array(
-				'label' => __( 'Reset labels & colors', 'ang' ),
+				'label' => __( 'Reset labels & colors', 'analogwp-templates' ),
 				'type'  => 'button',
-				'text'  => __( 'Reset', 'ang' ),
+				'text'  => __( 'Reset', 'analogwp-templates' ),
 				'event' => 'analog:resetGlobalColors',
 			)
 		);

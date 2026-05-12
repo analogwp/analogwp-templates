@@ -10,6 +10,10 @@ namespace Analog;
 use Analog\Elementor\ANG_Action;
 use Analog\Elementor\Globals\Controller;
 use Elementor\Core\Common\Modules\Finder\Categories_Manager;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 use Elementor\Core\DynamicTags\Manager;
 use Analog\Elementor\Tags\Light_Background;
 use Analog\Elementor\Tags\Dark_Background;
@@ -46,7 +50,7 @@ class Elementor {
 				$dynamic_tags->register_group(
 					'ang_classes',
 					array(
-						'title' => __( 'AnalogWP Classes', 'ang' ),
+						'title' => __( 'AnalogWP Classes', 'analogwp-templates' ),
 					)
 				);
 
@@ -153,7 +157,7 @@ class Elementor {
 		// Independent components.
 		wp_enqueue_style( 'analogwp-components-css', ANG_PLUGIN_URL . 'assets/css/sk-components.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/sk-components.css' ) );
 
-		do_action( 'ang_loaded_templates' );
+		do_action( 'ang_loaded_templates' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		wp_enqueue_script( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/js/elementor-modal.js', array( 'jquery' ), filemtime( ANG_PLUGIN_DIR . 'assets/js/elementor-modal.js' ), false );
 		wp_enqueue_style( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/css/elementor-modal.css', array( 'dashicons' ), filemtime( ANG_PLUGIN_DIR . 'assets/css/elementor-modal.css' ) );
@@ -174,7 +178,7 @@ class Elementor {
 			filemtime( ANG_PLUGIN_DIR . 'assets/js/app/index.js' ),
 			true
 		);
-		wp_set_script_translations( 'analogwp-app', 'ang', ANG_PLUGIN_DIR . 'languages' );
+		wp_set_script_translations( 'analogwp-app', 'analogwp-templates', ANG_PLUGIN_DIR . 'languages' );
 
 		wp_enqueue_style( 'wp-components' );
 
@@ -217,10 +221,13 @@ class Elementor {
 	 * @return void
 	 */
 	public function maybe_add_elementor_data() {
-		if ( isset( $_REQUEST['library_action'] ) && 'export_template' === $_REQUEST['library_action'] ) {
-			$template_id = filter_input( INPUT_GET, 'template_id' );
+		$library_action = filter_input( INPUT_GET, 'library_action', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+
+		if ( 'export_template' === $library_action ) {
+			$template_id = filter_input( INPUT_GET, 'template_id', FILTER_SANITIZE_NUMBER_INT );
 
 			if ( $template_id ) {
+				$template_id   = absint( $template_id );
 				$template_data = get_post_meta( $template_id, '_elementor_data', true );
 
 				if ( ! $template_data || '[]' === $template_data ) {

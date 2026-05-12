@@ -286,7 +286,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 					{ state.state.blockImported && (
 						<React.Fragment>
 							<p>
-								{ sprintf( __( 'The %s has been imported and is now available in the', 'ang' ), AGWP.isContainer ? 'container' : 'section' ) }
+								{ sprintf( __( 'The %s has been imported and is now available in the', 'analogwp-templates' ), AGWP.isContainer ? 'container' : 'section' ) }
 								{ ' ' }
 								<a
 									target="_blank"
@@ -297,7 +297,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 										elementor_library_type: AGWP.isContainer ? 'container' : 'section',
 									} ) }
 								>
-									{ sprintf( __( 'Elementor %s library', 'ang' ), AGWP.isContainer ? 'container' : 'section' ) }
+									{ sprintf( __( 'Elementor %s library', 'analogwp-templates' ), AGWP.isContainer ? 'container' : 'section' ) }
 								</a>.
 							</p>
 							<p>
@@ -311,7 +311,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 										} );
 									} }
 								>
-									{ __( 'Ok, thanks', 'ang' ) } <Dashicon icon="yes" />
+									{ __( 'Ok, thanks', 'analogwp-templates' ) } <Dashicon icon="yes" />
 								</Button>
 							</p>
 						</React.Fragment>
@@ -327,11 +327,11 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 				) }
 
 				{ ! context.state.syncing && context.state.blocks.length < 1 && (
-					<Empty text={ AGWP.isContainer ? __( 'No patterns found', 'ang' ) : __( 'No blocks found', 'ang' ) } />
+					<Empty text={ AGWP.isContainer ? __( 'No patterns found', 'analogwp-templates' ) : __( 'No blocks found', 'analogwp-templates' ) } />
 				) }
 
 				{ context.state.syncing && context.state.blocks.length < 1 && (
-					<Empty text={ AGWP.isContainer ? __( 'Loading Patterns...', 'ang' ) : __( 'Loading Blocks...', 'ang' ) } />
+					<Empty text={ AGWP.isContainer ? __( 'Loading Patterns...', 'analogwp-templates' ) : __( 'Loading Blocks...', 'analogwp-templates' ) } />
 				) }
 
 				<Masonry
@@ -356,7 +356,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 								<Card>
 									<CardBody>
 										{ block.is_pro && (
-											<span className="pro">{ __( 'Pro', 'ang' ) }</span>
+											<span className="pro">{ __( 'Pro', 'analogwp-templates' ) }</span>
 										) }
 
 										<figure>
@@ -371,7 +371,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 											<div className="actions">
 												{ ! isValid( block.is_pro ) && (
 													<a className="ang-promo" href="https://analogwp.com/style-kits-pro/?utm_medium=plugin&utm_source=library&utm_campaign=style+kits+pro" target="_blank">
-														<Button isPrimary>{ __( 'Go Pro', 'ang' ) }</Button>
+														<Button isPrimary>{ __( 'Go Pro', 'analogwp-templates' ) }</Button>
 													</a>
 												) }
 												{ isValid( block.is_pro ) && requiresElementorPro && (
@@ -385,7 +385,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 													{ ( { add } ) => (
 														! requiresElementorPro && isValid( block.is_pro ) && (
 															<Button isPrimary onClick={ () => importBlock( block, add ) }>
-																{ __( 'Import', 'ang' ) }
+																{ __( 'Import', 'analogwp-templates' ) }
 															</Button>
 														)
 													) }
@@ -409,7 +409,7 @@ const BlockList = ( { state, importBlock, favorites, makeFavorite } ) => {
 									{ ! AGWP.isContainer && <CardFooter>
 										<div className="content">
 											<h3>{ decodeEntities( block.title ) }</h3>
-											{ block.is_pro && <span className="pro">{ __( 'Pro', 'ang' ) }</span> }
+											{ block.is_pro && <span className="pro">{ __( 'Pro', 'analogwp-templates' ) }</span> }
 										</div>
 									</CardFooter> }
 								</Card>

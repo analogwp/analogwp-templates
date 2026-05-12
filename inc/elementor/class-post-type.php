@@ -7,6 +7,10 @@
 
 namespace Analog\Elementor;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Post_Type class.
  *
@@ -29,20 +33,20 @@ class Post_Type {
 	 */
 	public function labels() {
 		return array(
-			'name'               => __( 'Style Kits', 'ang' ),
-			'singular_name'      => __( 'Style Kit', 'ang' ),
-			'menu_name'          => _x( 'Style Kits', 'admin menu', 'ang' ),
-			'name_admin_bar'     => _x( 'Style Kit', 'add new on admin bar', 'ang' ),
-			'add_new'            => _x( 'Add New', 'book', 'ang' ),
-			'add_new_item'       => __( 'Add New Style Kit', 'ang' ),
-			'new_item'           => __( 'New Style Kit', 'ang' ),
-			'edit_item'          => __( 'Edit Style Kit', 'ang' ),
-			'view_item'          => __( 'View Style Kit', 'ang' ),
-			'all_items'          => __( 'Style Kits', 'ang' ),
-			'search_items'       => __( 'Search Style Kits', 'ang' ),
-			'parent_item_colon'  => __( 'Parent Style Kits:', 'ang' ),
-			'not_found'          => __( 'No Style Kit found.', 'ang' ),
-			'not_found_in_trash' => __( 'No Style Kit found in Trash.', 'ang' ),
+			'name'               => __( 'Style Kits', 'analogwp-templates' ),
+			'singular_name'      => __( 'Style Kit', 'analogwp-templates' ),
+			'menu_name'          => _x( 'Style Kits', 'admin menu', 'analogwp-templates' ),
+			'name_admin_bar'     => _x( 'Style Kit', 'add new on admin bar', 'analogwp-templates' ),
+			'add_new'            => _x( 'Add New', 'book', 'analogwp-templates' ),
+			'add_new_item'       => __( 'Add New Style Kit', 'analogwp-templates' ),
+			'new_item'           => __( 'New Style Kit', 'analogwp-templates' ),
+			'edit_item'          => __( 'Edit Style Kit', 'analogwp-templates' ),
+			'view_item'          => __( 'View Style Kit', 'analogwp-templates' ),
+			'all_items'          => __( 'Style Kits', 'analogwp-templates' ),
+			'search_items'       => __( 'Search Style Kits', 'analogwp-templates' ),
+			'parent_item_colon'  => __( 'Parent Style Kits:', 'analogwp-templates' ),
+			'not_found'          => __( 'No Style Kit found.', 'analogwp-templates' ),
+			'not_found_in_trash' => __( 'No Style Kit found in Trash.', 'analogwp-templates' ),
 		);
 	}
 

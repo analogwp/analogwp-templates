@@ -10,6 +10,10 @@ namespace Analog;
 use Analog\Core\Storage\Transients;
 use Elementor\Core\Base\Document;
 use Elementor\Core\Kits\Manager;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 use Elementor\TemplateLibrary\Source_Local;
 use WP_Query;
 
@@ -131,7 +135,7 @@ class Utils extends Base {
 
 			if ( $global_token && $post->ID === $global_token && $prefix ) {
 				/* translators: Global Style Kit post title. */
-				$title = sprintf( __( 'Global: %s', 'ang' ), $title );
+				$title = sprintf( __( 'Global: %s', 'analogwp-templates' ), $title );
 			}
 
 			$tokens[ $post->ID ] = $title;
@@ -779,16 +783,17 @@ class Utils extends Base {
 	 *
 	 * @since 2.0.5
 	 *
-	 * @param $super_global
-	 * @param $key
+	 * @param array  $super_global Source data.
+	 * @param string $key          Entry key.
+	 * @param bool   $is_file      Whether the source data came from a file upload.
 	 * @return mixed|null
 	 */
-	public static function get_super_global_value( $super_global, $key ) {
+	public static function get_super_global_value( $super_global, $key, $is_file = false ) {
 		if ( ! isset( $super_global[ $key ] ) ) {
 			return null;
 		}
 
-		if ( $_FILES === $super_global ) {
+		if ( $is_file ) {
 			$super_global[ $key ]['name'] = sanitize_file_name( $super_global[ $key ]['name'] );
 
 			return $super_global[ $key ];
@@ -820,7 +825,7 @@ class Utils extends Base {
 	 * @return string
 	 */
 	public static function get_license_key() {
-		return apply_filters( 'sk_pro_license_key', Options::get_instance()->get( 'ang_license_key' ) );
+		return apply_filters( 'sk_pro_license_key', Options::get_instance()->get( 'ang_license_key' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
@@ -829,7 +834,7 @@ class Utils extends Base {
 	 * @return string
 	 */
 	public static function get_license_status() {
-		return apply_filters( 'sk_pro_license_status', Options::get_instance()->get( 'ang_license_key_status' ) );
+		return apply_filters( 'sk_pro_license_status', Options::get_instance()->get( 'ang_license_key_status' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**
@@ -839,7 +844,7 @@ class Utils extends Base {
 	 */
 	public static function get_freemius_product_query_data() {
 		// Needs via_freemius and product_id.
-		return apply_filters( 'sk_pro_freemius_product_query_data', array() );
+		return apply_filters( 'sk_pro_freemius_product_query_data', array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 }
 

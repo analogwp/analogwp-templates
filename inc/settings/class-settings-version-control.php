@@ -22,7 +22,7 @@ class Version_Control extends Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'version-control';
-		$this->label = __( 'Version Control', 'ang' );
+		$this->label = __( 'Version Control', 'analogwp-templates' );
 		parent::__construct();
 	}
 
@@ -39,13 +39,13 @@ class Version_Control extends Settings_Page {
 			array_push(
 				$rollback_controls,
 				array(
-					'title' => __( 'Rollback Versions', 'ang' ),
-					'desc'  => __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'ang' ),
+					'title' => __( 'Rollback Versions', 'analogwp-templates' ),
+					'desc'  => __( 'If you are having issues with current version of Style Kits for Elementor, you can rollback to a previous stable version.', 'analogwp-templates' ),
 					'type'  => 'title',
 					'id'    => 'ang_plugin_rollback_version',
 				),
 				array(
-					'title'     => __( 'Rollback Style Kits', 'ang' ),
+					'title'     => __( 'Rollback Style Kits', 'analogwp-templates' ),
 					'id'        => 'ang_rollback_version_select_option',
 					'type'      => 'select',
 					'class'     => 'ang-enhanced-select',
@@ -57,7 +57,7 @@ class Version_Control extends Settings_Page {
 					'id'    => 'ang_rollback_version_button',
 					'type'  => 'button',
 					'class' => 'ang-rollback-version-button ang-button button-secondary',
-					'value' => __( 'Reinstall this version', 'ang' ),
+					'value' => __( 'Reinstall this version', 'analogwp-templates' ),
 				),
 				array(
 					'type' => 'sectionend',
@@ -66,30 +66,9 @@ class Version_Control extends Settings_Page {
 			);
 		}
 
-		array_push(
-			$rollback_controls,
-			array(
-				'title' => __( 'Beta Features', 'ang' ),
-				'type'  => 'title',
-				'id'    => 'ang_beta',
-			),
-			array(
-				'title'         => __( 'Become a beta tester', 'ang' ),
-				'desc'          => __( 'Check this box to turn on beta updates for Style Kits and Style Kits Pro. The update will not be installed automatically, you always have the option to ignore it.', 'ang' ),
-				'id'            => 'beta_tester',
-				'default'       => false,
-				'type'          => 'checkbox',
-				'checkboxgroup' => 'start',
-			),
-			array(
-				'type' => 'sectionend',
-				'id'   => 'ang_beta',
-			)
-		);
+		$settings = apply_filters( 'ang_version_control_settings', $rollback_controls ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-		$settings = apply_filters( 'ang_version_control_settings', $rollback_controls );
-
-		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
+		return apply_filters( 'ang_get_settings_' . $this->id, $settings ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**

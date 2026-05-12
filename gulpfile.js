@@ -27,6 +27,7 @@ const buildFiles = [
 	'!TODO',
 	'!*.git',
 	'!*.DS_Store',
+	'!scoper.inc.php',
 	'!yarn.lock',
 	'!*.md',
 	'!package.lock',
@@ -38,7 +39,19 @@ const buildFiles = [
 	'!composer.lock',
 	'!codeception.dist.yml',
 	'!tests/**',
-	'!vendor/**',
+	'!vendor/*',
+	'!vendor/bin',
+	'!vendor/bin/**',
+	'!vendor/autoload.php',
+	'!vendor/composer/**',
+	'!vendor/civicrm/**',
+	'!vendor/enshrined/**',
+	'!vendor/ergebnis/**',
+	'!vendor/flow/**',
+	'!vendor/justinrainbow/**',
+	'!vendor/localheinz/**',
+	'!vendor/sniccowp/**',
+	'!vendor/togos/**',
 ];
 
 const buildDestination = `./build/${ project }/`;
@@ -85,7 +98,7 @@ gulp.task( 'checktextdomain', ( done ) => {
 	gulp
 		.src( [ '**/*.php', '!build/**', '!languages/**', '!./inc/class-licensemanager.php' ] )
 		.pipe( checktextdomain( {
-			text_domain: 'ang',
+			text_domain: 'analogwp-templates',
 			keywords: [
 				'__:1,2d',
 				'_e:1,2d',

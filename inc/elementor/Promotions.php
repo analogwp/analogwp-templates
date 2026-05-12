@@ -10,6 +10,10 @@ namespace Analog\Elementor;
 use Analog\Base;
 use Analog\Options;
 use Analog\Utils;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
 use Elementor\Repeater;
@@ -57,7 +61,7 @@ final class Promotions extends Base {
 		$element->start_controls_section(
 			'ang_shortcuts_pro',
 			array(
-				'label' => _x( 'Layout Tools', 'Section Title', 'ang' ),
+				'label' => _x( 'Layout Tools', 'Section Title', 'analogwp-templates' ),
 				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
@@ -68,9 +72,9 @@ final class Promotions extends Base {
 				'type' => Controls_Manager::RAW_HTML,
 				'raw'  => $this->get_teaser_template(
 					array(
-						'title'    => __( 'Layout Tools', 'ang' ),
+						'title'    => __( 'Layout Tools', 'analogwp-templates' ),
 						'messages' => array(
-							__( 'Handy tools to clean inline styles from your existing layouts and make them global-design-ready. Highlight elements that have Classes or custom CSS.', 'ang' ),
+							__( 'Handy tools to clean inline styles from your existing layouts and make them global-design-ready. Highlight elements that have Classes or custom CSS.', 'analogwp-templates' ),
 						),
 						'link'     => array( 'utm_source' => 'panel-shortcuts' ),
 					)
@@ -94,7 +98,7 @@ final class Promotions extends Base {
 		$element->start_controls_section(
 			'ang_forms_pro',
 			array(
-				'label' => _x( 'Elementor Forms', 'Section Title', 'ang' ),
+				'label' => _x( 'Elementor Forms', 'Section Title', 'analogwp-templates' ),
 				'tab'   => Utils::get_kit_settings_tab(),
 			)
 		);
@@ -105,9 +109,9 @@ final class Promotions extends Base {
 				'type' => Controls_Manager::RAW_HTML,
 				'raw'  => $this->get_teaser_template(
 					array(
-						'title'    => __( 'Advanced Form Controls', 'ang' ),
+						'title'    => __( 'Advanced Form Controls', 'analogwp-templates' ),
 						'messages' => array(
-							__( 'Offers controls to customize form column/rows gap, label spacing, and form messages colors.', 'ang' ),
+							__( 'Offers controls to customize form column/rows gap, label spacing, and form messages colors.', 'analogwp-templates' ),
 						),
 						'link'     => array( 'utm_source' => 'panel-forms-extended' ),
 					)
@@ -151,7 +155,7 @@ final class Promotions extends Base {
 					href="<?php echo esc_url( Utils::get_pro_link( $texts['link'] ) ); ?>"
 					style="background-color:var(--ang-accent)"
 					target="_blank">
-					<?php esc_html_e( 'Go Pro', 'ang' ); ?>
+					<?php esc_html_e( 'Go Pro', 'analogwp-templates' ); ?>
 				</a>
 			<?php } ?>
 		</div>
@@ -196,7 +200,7 @@ final class Promotions extends Base {
 							href="<?php echo esc_url( Utils::get_pro_link( $texts['link'] ) ); ?>"
 							style="background-color:var(--ang-accent)"
 							target="_blank">
-						<?php esc_html_e( 'Learn More', 'ang' ); ?>
+						<?php esc_html_e( 'Learn More', 'analogwp-templates' ); ?>
 					</a>
 				<?php } ?>
 			</div>
@@ -217,7 +221,7 @@ final class Promotions extends Base {
 	public function add_background_color_accent_promo( Controls_Stack $element ) {
 		$element->start_controls_tab(
 			'ang_tab_background_accent',
-			array( 'label' => __( 'Accent', 'ang' ) )
+			array( 'label' => __( 'Accent', 'analogwp-templates' ) )
 		);
 
 		$element->add_control(
@@ -226,9 +230,9 @@ final class Promotions extends Base {
 				'type' => Controls_Manager::RAW_HTML,
 				'raw'  => $this->get_teaser_template(
 					array(
-						'title'    => __( 'Accent Background Color', 'ang' ),
+						'title'    => __( 'Accent Background Color', 'analogwp-templates' ),
 						'messages' => array(
-							__( 'Enjoy better background color control in your layouts by adding a third background color class. Available in Style Kits Pro.', 'ang' ),
+							__( 'Enjoy better background color control in your layouts by adding a third background color class. Available in Style Kits Pro.', 'analogwp-templates' ),
 						),
 						'link'     => array( 'utm_source' => 'panel-shortcuts' ),
 					)
@@ -250,7 +254,7 @@ final class Promotions extends Base {
 	public function add_additional_container_spacing_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
 		$element->start_controls_tab(
 			'ang_tab_container_spacing_secondary',
-			array( 'label' => __( '9-16', 'ang' ) )
+			array( 'label' => __( '9-16', 'analogwp-templates' ) )
 		);
 
 		$element->add_control(
@@ -260,7 +264,7 @@ final class Promotions extends Base {
 				'raw'  => $this->get_updated_teaser_template(
 					array(
 						'messages' => array(
-							__( 'Extend your container spacing system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+							__( 'Extend your container spacing system with more variables, plus many more features with Style Kits Pro.', 'analogwp-templates' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-container-spacing' ),
 					)
@@ -272,7 +276,7 @@ final class Promotions extends Base {
 
 		$element->start_controls_tab(
 			'ang_tab_container_spacing_tertiary',
-			array( 'label' => __( '17-24', 'ang' ) )
+			array( 'label' => __( '17-24', 'analogwp-templates' ) )
 		);
 
 		$element->add_control(
@@ -282,7 +286,7 @@ final class Promotions extends Base {
 				'raw'  => $this->get_updated_teaser_template(
 					array(
 						'messages' => array(
-							__( 'Extend your container spacing system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+							__( 'Extend your container spacing system with more variables, plus many more features with Style Kits Pro.', 'analogwp-templates' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-container-spacing' ),
 					)
@@ -304,7 +308,7 @@ final class Promotions extends Base {
 	public function add_additional_color_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
 		$element->start_controls_tab(
 			'ang_tab_global_colors_secondary',
-			array( 'label' => __( '17-32', 'ang' ) )
+			array( 'label' => __( '17-32', 'analogwp-templates' ) )
 		);
 
 		$element->add_control(
@@ -314,7 +318,7 @@ final class Promotions extends Base {
 				'raw'       => $this->get_updated_teaser_template(
 					array(
 						'messages' => array(
-							__( 'Extend your color system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+							__( 'Extend your color system with more variables, plus many more features with Style Kits Pro.', 'analogwp-templates' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-global-colors' ),
 					)
@@ -327,7 +331,7 @@ final class Promotions extends Base {
 
 		$element->start_controls_tab(
 			'ang_tab_global_colors_tertiary',
-			array( 'label' => __( '33-48', 'ang' ) )
+			array( 'label' => __( '33-48', 'analogwp-templates' ) )
 		);
 
 		$element->add_control(
@@ -337,7 +341,7 @@ final class Promotions extends Base {
 				'raw'       => $this->get_updated_teaser_template(
 					array(
 						'messages' => array(
-							__( 'Extend your color system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+							__( 'Extend your color system with more variables, plus many more features with Style Kits Pro.', 'analogwp-templates' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-global-colors' ),
 					)
@@ -360,7 +364,7 @@ final class Promotions extends Base {
 	public function add_additional_font_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
 		$element->start_controls_tab(
 			'ang_tab_global_fonts_secondary',
-			array( 'label' => __( '17-32', 'ang' ) )
+			array( 'label' => __( '17-32', 'analogwp-templates' ) )
 		);
 
 		$element->add_control(
@@ -370,7 +374,7 @@ final class Promotions extends Base {
 				'raw'  => $this->get_updated_teaser_template(
 					array(
 						'messages' => array(
-							__( 'Extend your typography system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+							__( 'Extend your typography system with more variables, plus many more features with Style Kits Pro.', 'analogwp-templates' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-global-fonts' ),
 					)
@@ -382,7 +386,7 @@ final class Promotions extends Base {
 
 		$element->start_controls_tab(
 			'ang_tab_global_fonts_tertiary',
-			array( 'label' => __( '33-48', 'ang' ) )
+			array( 'label' => __( '33-48', 'analogwp-templates' ) )
 		);
 
 		$element->add_control(
@@ -392,7 +396,7 @@ final class Promotions extends Base {
 				'raw'  => $this->get_updated_teaser_template(
 					array(
 						'messages' => array(
-							__( 'Extend your typography system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+							__( 'Extend your typography system with more variables, plus many more features with Style Kits Pro.', 'analogwp-templates' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-global-fonts' ),
 					)
@@ -414,7 +418,7 @@ final class Promotions extends Base {
 	public function add_additional_shadow_tabs_promo( Controls_Stack $element, Repeater $repeater ) {
 		$element->start_controls_tab(
 			'ang_tab_box_shadows_secondary',
-			array( 'label' => __( '9-16', 'ang' ) )
+			array( 'label' => __( '9-16', 'analogwp-templates' ) )
 		);
 
 		$element->add_control(
@@ -424,7 +428,7 @@ final class Promotions extends Base {
 				'raw'  => $this->get_updated_teaser_template(
 					array(
 						'messages' => array(
-							__( 'Extend your shadows system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+							__( 'Extend your shadows system with more variables, plus many more features with Style Kits Pro.', 'analogwp-templates' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-box-shadows' ),
 					)
@@ -436,7 +440,7 @@ final class Promotions extends Base {
 
 		$element->start_controls_tab(
 			'ang_tab_box_shadows_tertiary',
-			array( 'label' => __( '17-24', 'ang' ) )
+			array( 'label' => __( '17-24', 'analogwp-templates' ) )
 		);
 
 		$element->add_control(
@@ -446,7 +450,7 @@ final class Promotions extends Base {
 				'raw'  => $this->get_updated_teaser_template(
 					array(
 						'messages' => array(
-							__( 'Extend your shadows system with more variables, plus many more features with Style Kits Pro.', 'ang' ),
+							__( 'Extend your shadows system with more variables, plus many more features with Style Kits Pro.', 'analogwp-templates' ),
 						),
 						'link'     => array( 'utm_source' => 'ang-box-shadows' ),
 					)

@@ -11,7 +11,7 @@ class Dark_Background extends Tag {
 	}
 
 	public function get_title() {
-		return __( 'Dark Background', 'ang' );
+		return __( 'Dark Background', 'analogwp-templates' );
 	}
 
 	public function get_group() {

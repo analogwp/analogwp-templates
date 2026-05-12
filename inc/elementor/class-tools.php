@@ -10,6 +10,10 @@ namespace Analog\Elementor;
 use Analog\Base;
 use Analog\Plugin;
 use Analog\Utils;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 use Elementor\Core\Base\Document;
 use Elementor\TemplateLibrary\Source_Local;
 use Elementor\User;
@@ -165,7 +169,7 @@ class Tools extends Base {
 
 				if ( '' !== $global_kit && 'publish' === $kit->post_status ) {
 					/* translators: %s: Style kit title. */
-					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#5C32B6;">&#9679;</span>', 'ang' ), $kit->post_title );
+					$post_states['style_kit'] = sprintf( __( 'Style Kit: %s <span style="color:#5C32B6;">&#9679;</span>', 'analogwp-templates' ), esc_html( $kit->post_title ) );
 				}
 			}
 		}
@@ -199,7 +203,7 @@ class Tools extends Base {
 					$actions['apply_global_kit'] = sprintf(
 						'<a href="%1$s">%2$s</a>',
 						wp_nonce_url( $this->get_stylekit_global_link(), 'ang_make_global' ),
-						__( 'Apply Global Style Kit', 'ang' )
+						__( 'Apply Global Style Kit', 'analogwp-templates' )
 					);
 				}
 			}
@@ -221,9 +225,14 @@ class Tools extends Base {
 			exit;
 		}
 
-		$post_id = $_REQUEST['post_id'];
-		$token   = get_post_meta( Utils::get_global_kit_id(), '_tokens_data', true );
-		$token   = json_decode( $token, ARRAY_A );
+		$post_id = absint( wp_unslash( $_REQUEST['post_id'] ) );
+
+		if ( ! $post_id || ! User::is_current_user_can_edit( $post_id ) ) {
+			exit;
+		}
+
+		$token = get_post_meta( Utils::get_global_kit_id(), '_tokens_data', true );
+		$token = json_decode( $token, ARRAY_A );
 
 		$token['ang_action_tokens'] = (string) Utils::get_global_kit_id();
 

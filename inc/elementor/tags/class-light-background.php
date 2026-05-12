@@ -11,7 +11,7 @@ class Light_Background extends Tag {
 	}
 
 	public function get_title() {
-		return __( 'Light Background', 'ang' );
+		return __( 'Light Background', 'analogwp-templates' );
 	}
 
 	public function get_group() {

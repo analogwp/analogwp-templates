@@ -7,6 +7,10 @@
 
 namespace Analog;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Initializes plugin onboarding.
  */
@@ -43,8 +47,8 @@ class Onboarding {
 	public function register_menu() {
 		add_submenu_page(
 			'ang',
-			__( 'Welcome to Style Kits', 'ang' ),
-			__( 'Welcome to Style Kits', 'ang' ),
+			__( 'Welcome to Style Kits', 'analogwp-templates' ),
+			__( 'Welcome to Style Kits', 'analogwp-templates' ),
 			'manage_options',
 			'analog_onboarding',
 			array( $this, 'render_markup' ),
@@ -79,7 +83,7 @@ class Onboarding {
 			'analogOnboarding',
 			array(
 				'nonce'          => wp_create_nonce( 'analog_onboarding' ),
-				'processingText' => __( 'Working...', 'ang' ),
+				'processingText' => __( 'Working...', 'analogwp-templates' ),
 			)
 		);
 	}
@@ -93,28 +97,28 @@ class Onboarding {
 		$steps = array(
 			array(
 				'id'            => 'install-elementor',
-				'label'         => __( 'Install and Activate Elementor', 'ang' ),
-				'description'   => __( 'This will install and activate Elementor from the WordPress repository', 'ang' ),
-				'label_success' => __( 'Elementor is installed and activated', 'ang' ),
-				'label_failed'  => __( 'Failed to install and activate Elementor', 'ang' ),
+				'label'         => __( 'Install and Activate Elementor', 'analogwp-templates' ),
+				'description'   => __( 'This will install and activate Elementor from the WordPress repository', 'analogwp-templates' ),
+				'label_success' => __( 'Elementor is installed and activated', 'analogwp-templates' ),
+				'label_failed'  => __( 'Failed to install and activate Elementor', 'analogwp-templates' ),
 				'checked'       => true,
 				'todo'          => ! did_action( 'elementor/loaded' ),
 			),
 			array(
 				'id'            => 'enable-el-container-experiment',
-				'label'         => __( 'Enable Elementor container feature', 'ang' ),
-				'description'   => __( 'The latest Style Kits version works best with flexbox containers. We will enable the Containers feature in Elementor.', 'ang' ),
-				'label_success' => __( 'Container feature is now active', 'ang' ),
-				'label_failed'  => __( 'Failed to activate Elementor container experiment', 'ang' ),
+				'label'         => __( 'Enable Elementor container feature', 'analogwp-templates' ),
+				'description'   => __( 'The latest Style Kits version works best with flexbox containers. We will enable the Containers feature in Elementor.', 'analogwp-templates' ),
+				'label_success' => __( 'Container feature is now active', 'analogwp-templates' ),
+				'label_failed'  => __( 'Failed to activate Elementor container experiment', 'analogwp-templates' ),
 				'checked'       => true,
 				'todo'          => ! did_action( 'elementor/loaded' ) || ( method_exists( '\Analog\Utils', 'is_elementor_container' ) && ! \Analog\Utils::is_elementor_container() ),
 			),
 			array(
 				'id'            => 'disable-el-defaults',
-				'label'         => __( 'Disable Elementor default colors and fonts', 'ang' ),
-				'description'   => __( 'For Global Styles to work properly, Elementor default fonts and colors need to be disabled', 'ang' ),
-				'label_success' => __( 'Elementor default colors and fonts are disabled', 'ang' ),
-				'label_failed'  => __( 'Failed to disable Elementor default colors and fonts', 'ang' ),
+				'label'         => __( 'Disable Elementor default colors and fonts', 'analogwp-templates' ),
+				'description'   => __( 'For Global Styles to work properly, Elementor default fonts and colors need to be disabled', 'analogwp-templates' ),
+				'label_success' => __( 'Elementor default colors and fonts are disabled', 'analogwp-templates' ),
+				'label_failed'  => __( 'Failed to disable Elementor default colors and fonts', 'analogwp-templates' ),
 				'checked'       => true,
 				'todo'          => ! get_option( 'elementor_disable_color_schemes' ) || ! get_option( 'elementor_disable_typography_schemes' ),
 			),
@@ -127,10 +131,10 @@ class Onboarding {
 
 		$steps[] = array(
 			'id'            => 'install-hello-theme',
-			'label'         => __( 'Install and activate Hello Elementor Theme', 'ang' ),
-			'description'   => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'ang' ),
-			'label_success' => __( 'Hello Elementor theme is installed and activated', 'ang' ),
-			'label_failed'  => __( 'Failed to install and activate Hello Elementor', 'ang' ),
+			'label'         => __( 'Install and activate Hello Elementor Theme', 'analogwp-templates' ),
+			'description'   => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'analogwp-templates' ),
+			'label_success' => __( 'Hello Elementor theme is installed and activated', 'analogwp-templates' ),
+			'label_failed'  => __( 'Failed to install and activate Hello Elementor', 'analogwp-templates' ),
 			'checked'       => true,
 			'todo'          => ( ! in_array( $needle, array_keys( $themes ), true ) || $needle !== $current_theme ),
 		);
@@ -140,10 +144,10 @@ class Onboarding {
 
 		$steps[] = array(
 			'id'            => 'import-base-kit',
-			'label'         => __( 'Import a starter theme style preset', 'ang' ),
-			'description'   => __( 'Use a basic Style Kit as your starting point. This will replace your site’s default kit but you can always revert back to it later.', 'ang' ),
-			'label_success' => __( 'A theme style preset "Style Kit: Base" has been imported', 'ang' ),
-			'label_failed'  => __( 'Failed to import a kit', 'ang' ),
+			'label'         => __( 'Import a starter theme style preset', 'analogwp-templates' ),
+			'description'   => __( 'Use a basic Style Kit as your starting point. This will replace your site’s default kit but you can always revert back to it later.', 'analogwp-templates' ),
+			'label_success' => __( 'A theme style preset "Style Kit: Base" has been imported', 'analogwp-templates' ),
+			'label_failed'  => __( 'Failed to import a kit', 'analogwp-templates' ),
 			'checked'       => true,
 			'todo'          => ( ! in_array( 'Style Kit: Base', array_values( $all_kits ), true ) ),
 		);
@@ -201,12 +205,12 @@ class Onboarding {
 						<span class="brand-title">Style Kits</span>
 					</div>
 					<nav>
-						<a href="<?php echo esc_url( 'https://analogwp.com/docs/' ); ?>" target="_blank"><?php esc_html_e( 'Docs', 'ang' ); ?></a>
+						<a href="<?php echo esc_url( 'https://analogwp.com/docs/' ); ?>" target="_blank"><?php esc_html_e( 'Docs', 'analogwp-templates' ); ?></a>
 					</nav>
 				</div>
 				<div class="content-wrapper">
-					<p class="short-description description-todo <?php echo $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Setup Elementor properly for a seamless Style Kits Experience.', 'ang' ); ?> <a href="https://analogwp.com/docs/the-setup-wizard/" target="_blank"><?php esc_html_e( 'Learn more', 'ang' ); ?></a></p>
-					<p class="short-description description-success <?php echo ! $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Looks like you have everything in place.', 'ang' ); ?></p>
+					<p class="short-description description-todo <?php echo $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Setup Elementor properly for a seamless Style Kits Experience.', 'analogwp-templates' ); ?> <a href="https://analogwp.com/docs/the-setup-wizard/" target="_blank"><?php esc_html_e( 'Learn more', 'analogwp-templates' ); ?></a></p>
+					<p class="short-description description-success <?php echo ! $finished ? esc_attr( 'hidden' ) : ''; ?>"><?php esc_html_e( 'Looks like you have everything in place.', 'analogwp-templates' ); ?></p>
 					<div class="steps-wrapper">
 						<?php
 						foreach ( $steps as $step ) :
@@ -265,17 +269,17 @@ class Onboarding {
 				</div>
 				<div class="entry-footer">
 					<div class="prev">
-						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings' ) ); ?>"><?php esc_html_e( 'Skip wizard', 'ang' ); ?></a>
+						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ang-settings' ) ); ?>"><?php esc_html_e( 'Skip wizard', 'analogwp-templates' ); ?></a>
 					</div>
 					<div class="next <?php echo $finished ? esc_attr( 'hidden' ) : ''; ?>">
-						<button id="start-onboarding" class="button btn-primary"><?php esc_html_e( 'Apply', 'ang' ); ?></button>
+						<button id="start-onboarding" class="button btn-primary"><?php esc_html_e( 'Apply', 'analogwp-templates' ); ?></button>
 					</div>
 					<div class="next-success <?php echo ! $finished ? esc_attr( 'hidden' ) : ''; ?>">
 						<input type="hidden" name="action" value="analog_elementor_new_post">
 						<?php // PHPCS - a nonce doesn't have to be escaped. ?>
 						<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'analog_elementor_new_post_action' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
-						<a href="<?php echo esc_url( admin_url( 'index.php' ) ); ?>" class="button btn-secondary"><?php esc_html_e( 'Go to Dashboard', 'ang' ); ?></a>
-						<button type="submit" class="button btn-primary"><?php esc_html_e( 'Open a new template', 'ang' ); ?></button>
+						<a href="<?php echo esc_url( admin_url( 'index.php' ) ); ?>" class="button btn-secondary"><?php esc_html_e( 'Go to Dashboard', 'analogwp-templates' ); ?></a>
+						<button type="submit" class="button btn-primary"><?php esc_html_e( 'Open a new template', 'analogwp-templates' ); ?></button>
 					</div>
 				</div>
 			</form>
@@ -508,7 +512,7 @@ class Onboarding {
 		$type = 'page';
 
 		$post_data = array(
-			'post_title' => __( 'Style Kit: Test Page', 'ang' ),
+			'post_title' => __( 'Style Kit: Test Page', 'analogwp-templates' ),
 			'post_type'  => $post_type,
 		);
 
@@ -530,10 +534,12 @@ class Onboarding {
 	 */
 	public function ajax_actions() {
 		if ( isset( $_REQUEST['nonce'] ) && check_ajax_referer( 'analog_onboarding', 'nonce' ) ) {
-			$action = isset( $_POST['stepId'] ) ? sanitize_key( $_POST['stepId'] ) : '';
-			$value  = isset( $_POST['stepValue'] ) ? wp_validate_boolean( wp_unslash( $_POST['stepValue'] ) ) : '';
+			$step_id    = filter_input( INPUT_POST, 'stepId', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+			$step_value = filter_input( INPUT_POST, 'stepValue', FILTER_DEFAULT );
+			$action     = $step_id ? sanitize_key( wp_unslash( $step_id ) ) : '';
+			$value      = null !== $step_value ? wp_validate_boolean( wp_unslash( $step_value ) ) : '';
 
-			$error_response = __( 'Oops, something went wrong at action: ', 'ang' ) . $action;
+			$error_response = __( 'Oops, something went wrong at action: ', 'analogwp-templates' ) . $action;
 
 			if ( ! $value ) {
 				wp_send_json_error(

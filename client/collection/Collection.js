@@ -109,7 +109,7 @@ export default class Collection extends React.Component {
 															activeKit: kit,
 														} );
 													} }>
-														{ __( 'View Templates', 'ang' ) }
+														{ __( 'View Templates', 'analogwp-templates' ) }
 													</Button>
 												</div>
 											</figure>

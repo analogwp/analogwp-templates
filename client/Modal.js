@@ -79,18 +79,18 @@ const Modal = props => {
 		<Container loading={ loading }>
 			<div className="frame-header">
 				<Button isSecondary onClick={ props.onRequestClose }>
-					{ __( 'Exit preview', 'ang' ) }
+					{ __( 'Exit preview', 'analogwp-templates' ) }
 				</Button>
 
 				<a href={ props.template.url } rel="noopener noreferrer" target="_blank">
 					<Button isSecondary>
-						{ __( 'Open in new tab', 'ang' ) }
+						{ __( 'Open in new tab', 'analogwp-templates' ) }
 					</Button>
 				</a>
 
 				{ ! ( props.template.is_pro && AGWP.license.status !== 'valid' ) && (
 					<Button isPrimary onClick={ props.onRequestImport }>
-						{ __( 'Import Template', 'ang' ) }
+						{ __( 'Import Template', 'analogwp-templates' ) }
 					</Button>
 				) }
 			</div>

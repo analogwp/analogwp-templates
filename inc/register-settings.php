@@ -11,6 +11,10 @@ use Analog\Options;
 use Analog\Utils;
 use AnalogPro\LicenseManager;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Register plugin menu.
  *
@@ -25,8 +29,8 @@ function register_menu() {
 	$menu_slug = 'analogwp_templates';
 
 	add_menu_page(
-		esc_html__( 'Style Kits for Elementor', 'ang' ),
-		esc_html__( 'Style Kits', 'ang' ),
+		esc_html__( 'Style Kits for Elementor', 'analogwp-templates' ),
+		esc_html__( 'Style Kits', 'analogwp-templates' ),
 		$permission,
 		$menu_slug,
 		'Analog\Settings\settings_page',
@@ -36,16 +40,16 @@ function register_menu() {
 
 	add_submenu_page(
 		$menu_slug,
-		__( 'Style Kits Library', 'ang' ),
-		__( 'Library', 'ang' ),
+		__( 'Style Kits Library', 'analogwp-templates' ),
+		__( 'Library', 'analogwp-templates' ),
 		$permission,
 		'analogwp_templates'
 	);
 
 	add_submenu_page(
 		$menu_slug,
-		__( 'Style Kits Settings', 'ang' ),
-		__( 'Settings', 'ang' ),
+		__( 'Style Kits Settings', 'analogwp-templates' ),
+		__( 'Settings', 'analogwp-templates' ),
 		'manage_options',
 		'ang-settings',
 		'Analog\Settings\new_settings_page'
@@ -55,8 +59,8 @@ function register_menu() {
 
 	add_submenu_page(
 		$menu_slug,
-		__( 'Local Style Kits', 'ang' ),
-		__( 'Local Style Kits', 'ang' ),
+		__( 'Local Style Kits', 'analogwp-templates' ),
+		__( 'Local Style Kits', 'analogwp-templates' ),
 		'manage_options',
 		'style-kits',
 		'Analog\Elementor\Kit\ang_kits_list'
@@ -66,7 +70,7 @@ function register_menu() {
 		add_submenu_page(
 			$menu_slug,
 			'',
-			'<img width="12" src="' . esc_url( ANG_PLUGIN_URL . 'assets/img/triangle.svg' ) . '"> ' . __( 'Go Pro', 'ang' ),
+			'<img width="12" src="' . esc_url( ANG_PLUGIN_URL . 'assets/img/triangle.svg' ) . '"> ' . __( 'Go Pro', 'analogwp-templates' ),
 			'manage_options',
 			'go_style_kits_pro',
 			__NAMESPACE__ . '\handle_external_redirects'
@@ -88,12 +92,14 @@ add_action( 'wp_ajax_ang_hide_promo', array( 'Analog\Settings\Admin_Settings', '
  * @access public
  */
 function handle_external_redirects() {
-	if ( empty( $_GET['page'] ) ) {
+	$page = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+
+	if ( empty( $page ) ) {
 		return;
 	}
 
-	if ( 'go_style_kits_pro' === $_GET['page'] ) {
-		wp_redirect( Utils::get_pro_link( array( 'utm_source' => 'wp-menu' ) ) );
+	if ( 'go_style_kits_pro' === $page ) {
+		wp_safe_redirect( Utils::get_pro_link( array( 'utm_source' => 'wp-menu' ) ) );
 		exit();
 	}
 }
@@ -108,15 +114,17 @@ function settings_page_init() {
 	Admin_Settings::get_settings_pages();
 
 	// Add any posted messages.
-	if ( ! empty( $_GET['ang_error'] ) ) { // phpcs:ignore
-		Admin_Settings::add_error( wp_kses_post( wp_unslash( $_GET['ang_error'] ) ) ); // phpcs:ignore
+	$ang_error = filter_input( INPUT_GET, 'ang_error', FILTER_DEFAULT );
+	if ( ! empty( $ang_error ) ) {
+		Admin_Settings::add_error( wp_kses_post( wp_unslash( $ang_error ) ) );
 	}
 
-	if ( ! empty( $_GET['ang_message'] ) ) { // phpcs:ignore
-		Admin_Settings::add_message( wp_kses_post( wp_unslash( $_GET['ang_message'] ) ) ); // phpcs:ignore
+	$ang_message = filter_input( INPUT_GET, 'ang_message', FILTER_DEFAULT );
+	if ( ! empty( $ang_message ) ) {
+		Admin_Settings::add_message( wp_kses_post( wp_unslash( $ang_message ) ) );
 	}
 
-	do_action( 'ang_settings_page_init' );
+	do_action( 'ang_settings_page_init' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 }
 
 /**
@@ -125,10 +133,19 @@ function settings_page_init() {
  * @return void
  */
 function save_settings() {
-	global $current_tab, $current_section;
+	global $ang_current_tab, $ang_current_section;
+
+	$page               = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	$current_tab_input  = filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	$current_section_in = filter_input( INPUT_POST, 'section', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	if ( null === $current_section_in ) {
+		$current_section_in = filter_input( INPUT_GET, 'section', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	}
+	$has_save           = null !== filter_input( INPUT_POST, 'save', FILTER_DEFAULT );
+	$has_license_action = null !== filter_input( INPUT_POST, 'ang-license_activate', FILTER_DEFAULT );
 
 	// We should only save on the settings page.
-	if ( ! is_admin() || ! isset( $_GET['page'] ) || 'ang-settings' !== $_GET['page'] ) { // phpcs:ignore
+	if ( ! is_admin() || 'ang-settings' !== $page ) {
 		return;
 	}
 
@@ -136,13 +153,13 @@ function save_settings() {
 	Admin_Settings::get_settings_pages();
 
 	// Get current tab/section.
-	$current_tab     = empty( $_GET['tab'] ) ? 'general' : sanitize_title( wp_unslash( $_GET['tab'] ) ); // phpcs:ignore
-	$current_section = empty( $_REQUEST['section'] ) ? '' : sanitize_title( wp_unslash( $_REQUEST['section'] ) ); // phpcs:ignore
+	$ang_current_tab     = empty( $current_tab_input ) ? 'general' : sanitize_title( wp_unslash( $current_tab_input ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+	$ang_current_section = empty( $current_section_in ) ? '' : sanitize_title( wp_unslash( $current_section_in ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
 	// Save settings if data has been posted.
-	if ( '' !== $current_section && apply_filters( "ang_save_settings_{$current_tab}_{$current_section}", ! empty( $_POST['save'] ) ) ) { // phpcs:ignore
+	if ( '' !== $ang_current_section && apply_filters( "ang_save_settings_{$ang_current_tab}_{$ang_current_section}", $has_save ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		Admin_Settings::save();
-	} elseif ( '' === $current_section && apply_filters( "ang_save_settings_{$current_tab}", ! empty( $_POST['save'] ) || isset( $_POST['ang-license_activate'] ) ) ) { // phpcs:ignore
+	} elseif ( '' === $ang_current_section && apply_filters( "ang_save_settings_{$ang_current_tab}", $has_save || $has_license_action ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		Admin_Settings::save();
 	}
 }
@@ -166,7 +183,7 @@ function new_settings_page() {
  * @return void
  */
 function settings_page() {
-	do_action( 'ang_loaded_templates' );
+	do_action( 'ang_loaded_templates' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	?>
 	<style>body { background: #F1F1F1; }</style>
 	<div id="analogwp-templates" class=""></div>
@@ -217,10 +234,10 @@ function sk_freemius_switch_notice() {
 	if ( $options->get( 'ang_license_key' ) && class_exists( LicenseManager::class ) && ! method_exists( LicenseManager::class, 'get_freemius_product_query_data' ) ) {
 		$message      = sprintf(
 			'<strong>%1$s</strong> %2$s <a href="mailto:%3$s">%3$s</a> %4$s',
-			esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'ang-pro' ),
-			esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'ang' ),
+			esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'analogwp-templates' ),
+			esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'analogwp-templates' ),
 			esc_html( 'support@analogwp.com' ),
-			esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'ang-pro' )
+			esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'analogwp-templates' )
 		);
 		$html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
 
@@ -241,14 +258,14 @@ function sk_add_freemius_switch_settings_notice( $settings ) {
 			array(
 				'type'  => 'title',
 				'id'    => 'ang_freemius_license_switch_notice',
-				'title' => __( 'Experience the all new Style Kits Pro', 'ang-pro' ),
+				'title' => __( 'Experience the all new Style Kits Pro', 'analogwp-templates' ),
 				'desc'  => sprintf(
 					'<strong>%1$s</strong> %2$s <a href="mailto:%3$s">%3$s</a> %4$s <br/><br/> %5$s',
-					esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'ang-pro' ),
-					esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'ang' ),
+					esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'analogwp-templates' ),
+					esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'analogwp-templates' ),
 					esc_html( 'support@analogwp.com' ),
-					esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'ang-pro' ),
-					esc_html__( 'Please also know that coming future updates are now moved to this new licensing system and once you migrate to it everything else will work as is and better while with this switch we are working hard to bring you a more fine-tuned experience and all the more support for latest of Elementor.', 'ang-pro' )
+					esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'analogwp-templates' ),
+					esc_html__( 'Please also know that coming future updates are now moved to this new licensing system and once you migrate to it everything else will work as is and better while with this switch we are working hard to bring you a more fine-tuned experience and all the more support for latest of Elementor.', 'analogwp-templates' )
 				),
 			),
 			array(

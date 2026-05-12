@@ -9,6 +9,10 @@ namespace Analog;
 
 use Elementor\User;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Quick_Edit
  *
@@ -89,7 +93,7 @@ class Quick_Edit extends Base {
 	 * @return mixed Modified columns.
 	 */
 	public function add_sk_column( $columns ) {
-		$columns[ self::FIELD_SLUG ] = __( 'Style Kit', 'ang' );
+		$columns[ self::FIELD_SLUG ] = __( 'Style Kit', 'analogwp-templates' );
 
 		return $columns;
 	}
@@ -143,7 +147,7 @@ class Quick_Edit extends Base {
 				<div class="inline-edit-col">
 					<div class="inline-edit-group wp-clearfix">
 						<label class="inline-edit-group">
-							<span class="title"><?php esc_html_e( 'Style Kit', 'ang' ); ?></span>
+							<span class="title"><?php esc_html_e( 'Style Kit', 'analogwp-templates' ); ?></span>
 							<select name="ang_stylekit">
 								<?php foreach ( self::$kits as $id => $title ) : ?>
 									<option value="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $title ); ?></option>
@@ -165,8 +169,10 @@ class Quick_Edit extends Base {
 	 * @return void
 	 */
 	public function quick_edit_save( $post_id ) {
-		if ( isset( $_POST['ang_stylekit'] ) && '-1' !== $_POST['ang_stylekit'] ) {
-			$this->update_posts_stylekit( $post_id, $_POST['ang_stylekit'] ); // phpcs:ignore
+		$stylekit_id = filter_input( INPUT_POST, 'ang_stylekit', FILTER_SANITIZE_NUMBER_INT );
+
+		if ( null !== $stylekit_id && '-1' !== $stylekit_id ) {
+			$this->update_posts_stylekit( $post_id, absint( $stylekit_id ) );
 		}
 	}
 

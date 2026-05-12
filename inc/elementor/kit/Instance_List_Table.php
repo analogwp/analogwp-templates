@@ -5,6 +5,10 @@ namespace Analog\Elementor\Kit;
 use Analog\Plugin;
 use Analog\Utils;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( \WP_List_Table::class ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
@@ -107,7 +111,7 @@ class Instance_List_Table extends \WP_List_Table {
 	 * Display text for when there are no items.
 	 */
 	public function no_items() {
-		esc_html_e( 'No posts found.', 'ang' );
+		esc_html_e( 'No posts found.', 'analogwp-templates' );
 	}
 
 	/**
@@ -127,12 +131,12 @@ class Instance_List_Table extends \WP_List_Table {
 
 				if ( $time && $time_diff > 0 && $time_diff < DAY_IN_SECONDS ) {
 					/* translators: %s: Human-readable time difference. */
-					$h_time = sprintf( __( '%s ago', 'ang' ), human_time_diff( $time ) );
+					$h_time = sprintf( __( '%s ago', 'analogwp-templates' ), human_time_diff( $time ) );
 				} else {
 					$h_time = get_the_time( 'Y/m/d', $item['id'] );
 				}
 
-				$result = __( 'Published', 'ang' ) . '<br><span title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $item['id'], 'date', 'list' ) . '</span>';
+				$result = __( 'Published', 'analogwp-templates' ) . '<br><span title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $item['id'], 'date', 'list' ) . '</span>'; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				break;
 
 			case 'author':
@@ -159,11 +163,11 @@ class Instance_List_Table extends \WP_List_Table {
 	public function get_columns() {
 		return array(
 			'cb'     => '<input type="checkbox"/>',
-			'title'  => __( 'Title', 'ang' ),
-			'type'   => __( 'Type', 'ang' ),
-			'kit'    => __( 'Kit', 'ang' ),
-			'author' => __( 'Author', 'ang' ),
-			'date'   => __( 'Date', 'ang' ),
+			'title'  => __( 'Title', 'analogwp-templates' ),
+			'type'   => __( 'Type', 'analogwp-templates' ),
+			'kit'    => __( 'Kit', 'analogwp-templates' ),
+			'author' => __( 'Author', 'analogwp-templates' ),
+			'date'   => __( 'Date', 'analogwp-templates' ),
 		);
 	}
 
@@ -177,20 +181,21 @@ class Instance_List_Table extends \WP_List_Table {
 		$edit_url  = get_edit_post_link( $item['id'] );
 		$post_link = get_permalink( $item['id'] );
 		$document  = Plugin::elementor()->documents->get( $item['id'] );
+		/* translators: %s: Post Title */
+		$label = sprintf( __( '%s (Edit)', 'analogwp-templates' ), $item['title'] );
 
 		$output = '<strong>';
 
-		/* translators: %s: Post Title */
-		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . sprintf( __( '%s (Edit)', 'ang' ), $item['title'] ) . '">' . esc_html( $item['title'] ) . '</a>';
+		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . esc_attr( $label ) . '">' . esc_html( $item['title'] ) . '</a>';
 		$output .= _post_states( get_post( $item['id'] ), false );
 		$output .= '</strong>';
 
 		// Get actions.
 		$actions = array(
-			'edit'                => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'ang' ) . '</a>',
-			'trash'               => '<a href="' . esc_url( get_delete_post_link( $item['id'] ) ) . '" class="submitdelete">' . __( 'Trash', 'ang' ) . '</a>',
-			'view'                => '<a href="' . esc_url( $post_link ) . '">' . __( 'View', 'ang' ) . '</a>',
-			'edit_with_elementor' => '<a href="' . esc_url( $document->get_edit_url() ) . '">' . __( 'Edit with Elementor', 'ang' ) . '</a>',
+			'edit'                => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'analogwp-templates' ) . '</a>',
+			'trash'               => '<a href="' . esc_url( get_delete_post_link( $item['id'] ) ) . '" class="submitdelete">' . __( 'Trash', 'analogwp-templates' ) . '</a>',
+			'view'                => '<a href="' . esc_url( $post_link ) . '">' . __( 'View', 'analogwp-templates' ) . '</a>',
+			'edit_with_elementor' => '<a href="' . esc_url( $document->get_edit_url() ) . '">' . __( 'Edit with Elementor', 'analogwp-templates' ) . '</a>',
 		);
 
 		$row_actions = array();
@@ -278,7 +283,7 @@ class Instance_List_Table extends \WP_List_Table {
 	 */
 	public function get_bulk_actions() {
 		return array(
-			'trash' => __( 'Move to Trash', 'ang' ),
+			'trash' => __( 'Move to Trash', 'analogwp-templates' ),
 		);
 	}
 
@@ -299,7 +304,7 @@ class Instance_List_Table extends \WP_List_Table {
 				'All <span class="count">(%s)</span>',
 				$total_posts,
 				'posts',
-				'ang'
+				'analogwp-templates'
 			),
 			number_format_i18n( $total_posts )
 		);
@@ -367,7 +372,7 @@ class Instance_List_Table extends \WP_List_Table {
 				),
 				'label'     => array(
 					'class'      => 'screen-reader-text',
-					'inner_text' => __( 'Filter by Style Kit', 'ang' ),
+					'inner_text' => __( 'Filter by Style Kit', 'analogwp-templates' ),
 				),
 				'select'    => array(
 					'name'     => 'kit',
@@ -378,7 +383,7 @@ class Instance_List_Table extends \WP_List_Table {
 
 			$this->html_dropdown( $kits_dropdown_arg );
 
-			submit_button( __( 'Filter', 'ang' ), 'secondary', 'action', false );
+			submit_button( __( 'Filter', 'analogwp-templates' ), 'secondary', 'action', false );
 		}
 	}
 
@@ -448,7 +453,7 @@ function ang_instance_list() {
 	$kits_table = new Instance_List_Table();
 	?>
 	<div class="wrap">
-		<h2><?php esc_html_e( 'Instance List', 'ang' ); ?></h2>
+		<h2><?php esc_html_e( 'Instance List', 'analogwp-templates' ); ?></h2>
 		<form id="ang-instance-list" method="get">
 			<input type="hidden" name="page" value="ang-instance-list" />
 
@@ -464,7 +469,7 @@ function ang_instance_list() {
 
 add_action(
 	'admin_head',
-	function() {
+	function () {
 		$page = esc_attr( filter_input( INPUT_GET, 'page' ) );
 		if ( 'ang-instance-list' !== $page ) {
 			return;

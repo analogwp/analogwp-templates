@@ -20,9 +20,8 @@ class Experiments extends Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'experiments';
-		$this->label = __( 'Experiments', 'ang' );
+		$this->label = __( 'Experiments', 'analogwp-templates' );
 		parent::__construct();
-
 	}
 
 	/**
@@ -33,27 +32,27 @@ class Experiments extends Settings_Page {
 	public function get_settings() {
 
 		$options = array(
-			'default'  => __( 'Default', 'ang' ),
-			'active'   => __( 'Active', 'ang' ),
-			'inactive' => __( 'Inactive', 'ang' ),
+			'default'  => __( 'Default', 'analogwp-templates' ),
+			'active'   => __( 'Active', 'analogwp-templates' ),
+			'inactive' => __( 'Inactive', 'analogwp-templates' ),
 		);
 
 		$settings = apply_filters(
-			'ang_experiments_settings',
+			'ang_experiments_settings', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			array(
 				array(
-					'title' => __( 'Style Kits Experiments', 'ang' ),
+					'title' => __( 'Style Kits Experiments', 'analogwp-templates' ),
 					'desc'  => sprintf(
 						/* translators: %s: Style Kits Experiments Documentation link */
-						__( 'Below you can activate experimental features for Style Kits and Style Kits Pro. We suggest you to turn on backups while using these experiments. %s about how this works.', 'ang' ),
-						'<a href="https://analogwp.com/docs/style-kits-experiments/" target="_blank">' . __( 'Learn more', 'ang' ) . '</a>'
+						__( 'Below you can activate experimental features for Style Kits and Style Kits Pro. We suggest you to turn on backups while using these experiments. %s about how this works.', 'analogwp-templates' ),
+						'<a href="https://analogwp.com/docs/style-kits-experiments/" target="_blank">' . __( 'Learn more', 'analogwp-templates' ) . '</a>'
 					),
 					'type'  => 'title',
 					'id'    => 'ang_experiments',
 				),
 				array(
-					'title'   => __( 'Container-based Library', 'ang' ),
-					'desc'    => __( 'Get access to the container-based library of Patterns. You need to have the Containers Feature activated in Elementor, to test the new library.', 'ang' ),
+					'title'   => __( 'Container-based Library', 'analogwp-templates' ),
+					'desc'    => __( 'Get access to the container-based library of Patterns. You need to have the Containers Feature activated in Elementor, to test the new library.', 'analogwp-templates' ),
 					'id'      => 'container_library_experiment',
 					'default' => 'default',
 					'type'    => 'select',
@@ -66,7 +65,7 @@ class Experiments extends Settings_Page {
 			)
 		);
 
-		return apply_filters( 'ang_get_settings_' . $this->id, $settings );
+		return apply_filters( 'ang_get_settings_' . $this->id, $settings ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/**

@@ -87,9 +87,9 @@ function do_automatic_upgrades() {
 					array(
 						'content'     => sprintf(
 							'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
-							__( 'Welcome to Style Kits 1.9.5. This version includes a brand new container-based pattern library, and a lot of other improvements.', 'ang' ),
+							__( 'Welcome to Style Kits 1.9.5. This version includes a brand new container-based pattern library, and a lot of other improvements.', 'analogwp-templates' ),
 							'https://analogwp.com/stylekits-195/',
-							__( 'See what’s new.', 'ang' )
+							__( 'See what’s new.', 'analogwp-templates' )
 						),
 						'type'        => Notice::TYPE_INFO,
 						'dismissible' => true,
@@ -114,9 +114,9 @@ function do_automatic_upgrades() {
 					array(
 						'content'     => sprintf(
 							'%1$s&nbsp;<a href="%2$s" target="_blank">%3$s</a>',
-							__( 'The New version of Style Kits introduces a setup wizard. You can trigger it at any time under Style Kits Settings.', 'ang' ),
+							__( 'The New version of Style Kits introduces a setup wizard. You can trigger it at any time under Style Kits Settings.', 'analogwp-templates' ),
 							'https://analogwp.com/docs/the-setup-wizard/',
-							__( 'Learn more', 'ang' )
+							__( 'Learn more', 'analogwp-templates' )
 						),
 						'type'        => Notice::TYPE_INFO,
 						'dismissible' => true,

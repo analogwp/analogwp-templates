@@ -3,10 +3,10 @@ const { __ } = wp.i18n;
 const { TabPanel } = wp.components;
 
 const ITEMS = [
-	{ key: 'blocks', label: AGWP.isContainer ? __( 'Patterns', 'ang' ) : __( 'Blocks', 'ang' ) },
-	{ key: 'templates', label: __( 'Templates', 'ang' ) },
+	{ key: 'blocks', label: AGWP.isContainer ? __( 'Patterns', 'analogwp-templates' ) : __( 'Blocks', 'analogwp-templates' ) },
+	{ key: 'templates', label: __( 'Templates', 'analogwp-templates' ) },
 	// dont change the "styleKits" casing here
-	{ key: 'styleKits', label: __( 'Styles', 'ang' ) },
+	{ key: 'styleKits', label: __( 'Styles', 'analogwp-templates' ) },
 ];
 
 const Nav = () => {

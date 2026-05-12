@@ -9,6 +9,10 @@ namespace Analog\Elementor;
 
 use Elementor\Element_Base;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Trait Reset_Default_Style_Trait
  *
@@ -29,7 +33,7 @@ trait Reset_Default_Style_Trait {
 	private function reset_default_style_for_widget( $widget, $section, $control_id, $default = '' ) {
 		add_action(
 			"elementor/element/{$widget}/{$section}/before_section_end",
-			function( Element_Base $element ) use ( $control_id, $default ) {
+			function ( Element_Base $element ) use ( $control_id, $default ) {
 				$element->update_control( $control_id, array( 'default' => $default ) );
 			}
 		);

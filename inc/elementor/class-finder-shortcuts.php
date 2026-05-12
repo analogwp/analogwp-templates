@@ -31,7 +31,7 @@ class Finder_Shortcuts extends Base_Category {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Style Kits for Elementor Shortcuts', 'ang' );
+		return __( 'Style Kits for Elementor Shortcuts', 'analogwp-templates' );
 	}
 
 	/**
@@ -44,19 +44,19 @@ class Finder_Shortcuts extends Base_Category {
 	public function get_category_items( array $options = array() ) {
 		return array(
 			'library'    => array(
-				'title'    => __( 'Templates Library', 'ang' ),
+				'title'    => __( 'Templates Library', 'analogwp-templates' ),
 				'url'      => admin_url( 'admin.php?page=analogwp_templates' ),
 				'icon'     => 'library-download',
 				'keywords' => array( 'analog', 'library', 'settings' ),
 			),
 			'settings'   => array(
-				'title'    => __( 'Settings', 'ang' ),
+				'title'    => __( 'Settings', 'analogwp-templates' ),
 				'url'      => admin_url( 'admin.php?page=ang-settings' ),
 				'icon'     => 'settings',
 				'keywords' => array( 'analog', 'settings' ),
 			),
 			'style-kits' => array(
-				'title'    => __( 'Theme Style Kits', 'ang' ),
+				'title'    => __( 'Theme Style Kits', 'analogwp-templates' ),
 				'url'      => admin_url( 'admin.php?page=style-kits' ),
 				'icon'     => 'settings',
 				'keywords' => array( 'analog', 'style', 'kits' ),

@@ -4,6 +4,10 @@ namespace Analog;
 
 use Analog\Admin\Notice;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Consumer.
  *

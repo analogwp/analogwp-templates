@@ -7,6 +7,10 @@ use Analog\Utils;
 use Elementor\Core\Base\Document;
 use Elementor\TemplateLibrary\Source_Local;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( \WP_List_Table::class ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
@@ -60,7 +64,7 @@ class Kits_List_Table extends \WP_List_Table {
 	 * Display text for when there are no items.
 	 */
 	public function no_items() {
-		esc_html_e( 'No Kits found.', 'ang' );
+		esc_html_e( 'No Kits found.', 'analogwp-templates' );
 	}
 
 	/**
@@ -80,12 +84,12 @@ class Kits_List_Table extends \WP_List_Table {
 
 				if ( $time && $time_diff > 0 && $time_diff < DAY_IN_SECONDS ) {
 					/* translators: %s: Human-readable time difference. */
-					$h_time = sprintf( __( '%s ago', 'ang' ), human_time_diff( $time ) );
+					$h_time = sprintf( __( '%s ago', 'analogwp-templates' ), human_time_diff( $time ) );
 				} else {
 					$h_time = get_the_time( 'Y/m/d', $item['id'] );
 				}
 
-				$result = __( 'Published', 'ang' ) . '<br><span title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $item['id'], 'date', 'list' ) . '</span>';
+				$result = __( 'Published', 'analogwp-templates' ) . '<br><span title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $item['id'], 'date', 'list' ) . '</span>'; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				break;
 
 			case 'author':
@@ -96,9 +100,9 @@ class Kits_List_Table extends \WP_List_Table {
 				$count = count( Utils::posts_using_stylekit( $item['id'] ) );
 
 				if ( Utils::get_global_kit_id() === $item['id'] ) {
-					$result = __( 'Entire Site', 'ang' );
+					$result = __( 'Entire Site', 'analogwp-templates' );
 				} else {
-					$result = __( 'None', 'ang' );
+					$result = __( 'None', 'analogwp-templates' );
 					if ( $count > 0 ) {
 						$url    = admin_url( 'admin.php?page=ang-instance-list&kit=' . $item['id'] );
 						$result = '<a href="' . $url . '">' . $count . '</a>';
@@ -119,10 +123,10 @@ class Kits_List_Table extends \WP_List_Table {
 	public function get_columns() {
 		return array(
 			'cb'        => '<input type="checkbox"/>',
-			'title'     => __( 'Title', 'ang' ),
-			'instances' => __( 'Instances', 'ang' ),
-			'author'    => __( 'Author', 'ang' ),
-			'date'      => __( 'Date', 'ang' ),
+			'title'     => __( 'Title', 'analogwp-templates' ),
+			'instances' => __( 'Instances', 'analogwp-templates' ),
+			'author'    => __( 'Author', 'analogwp-templates' ),
+			'date'      => __( 'Date', 'analogwp-templates' ),
 		);
 	}
 
@@ -135,20 +139,21 @@ class Kits_List_Table extends \WP_List_Table {
 	public function column_title( $item ) {
 		$document = Plugin::elementor()->documents->get( $item['id'] );
 		$edit_url = get_edit_post_link( $item['id'] );
+		/* translators: %s: Kit Title */
+		$label = sprintf( __( '%s (Edit)', 'analogwp-templates' ), $item['title'] );
 
 		$output = '<strong>';
 
-		/* translators: %s: Kit Title */
-		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . sprintf( __( '%s (Edit)', 'ang' ), $item['title'] ) . '">' . esc_html( $item['title'] ) . '</a>';
+		$output .= '<a class="row-title" href="' . esc_url( $edit_url ) . '" aria-label="' . esc_attr( $label ) . '">' . esc_html( $item['title'] ) . '</a>';
 
 		$is_draft = 'draft' === get_post_status( $item['id'] );
 		if ( $is_draft ) {
-			$output .= '&nbsp;&mdash; ' . __( 'Draft', 'ang' );
+			$output .= '&nbsp;&mdash; ' . __( 'Draft', 'analogwp-templates' );
 		}
 
 		if ( (int) get_option( \Elementor\Core\Kits\Manager::OPTION_ACTIVE ) === $item['id'] ) {
 			$output .= $is_draft ? ', ' : '&nbsp;&mdash;	&nbsp;';
-			$output .= '<span class="post-state"><span style="color:#32b644;">&#9679; ' . esc_html__( 'Global Style Kit', 'ang' ) . '</span></span>';
+			$output .= '<span class="post-state"><span style="color:#32b644;">&#9679; ' . esc_html__( 'Global Style Kit', 'analogwp-templates' ) . '</span></span>';
 		}
 
 		$output .= '</strong>';
@@ -159,15 +164,15 @@ class Kits_List_Table extends \WP_List_Table {
 
 		// Get actions.
 		$actions = array(
-			'edit'            => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'ang' ) . '</a>',
+			'edit'            => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'analogwp-templates' ) . '</a>',
 			'trash'           => '<a href="' . esc_url(
 				add_query_arg(
 					$args,
 					get_delete_post_link( $item['id'] )
 				)
-			) . '" class="submitdelete">' . __( 'Trash', 'ang' ) . '</a>',
-			'export-template' => '<a href="' . esc_url( $this->get_export_link( $item['id'] ) ) . '">' . __( 'Export Theme Style Kit', 'ang' ) . '</a>',
-			// 'edit_with_elementor' => '<a href="' . esc_url( $document->get_edit_url() ) . '">' . __( 'Edit with Elementor', 'ang' ) . '</a>',
+			) . '" class="submitdelete">' . __( 'Trash', 'analogwp-templates' ) . '</a>',
+			'export-template' => '<a href="' . esc_url( $this->get_export_link( $item['id'] ) ) . '">' . __( 'Export Theme Style Kit', 'analogwp-templates' ) . '</a>',
+			// 'edit_with_elementor' => '<a href="' . esc_url( $document->get_edit_url() ) . '">' . __( 'Edit with Elementor', 'analogwp-templates' ) . '</a>',
 		);
 
 		$row_actions = array();
@@ -248,7 +253,7 @@ class Kits_List_Table extends \WP_List_Table {
 				'action'         => 'stylekits_library_direct_actions',
 				'library_action' => 'export_kit',
 				'_nonce'         => wp_create_nonce( 'stylekits_ajax' ),
-				'kit_id'    => $id,
+				'kit_id'         => $id,
 			),
 			admin_url( 'admin-ajax.php' )
 		);
@@ -263,7 +268,7 @@ class Kits_List_Table extends \WP_List_Table {
 	 */
 	public function get_bulk_actions() {
 		return array(
-			'trash' => __( 'Move to Trash', 'ang' ),
+			'trash' => __( 'Move to Trash', 'analogwp-templates' ),
 		);
 	}
 
@@ -286,7 +291,7 @@ class Kits_List_Table extends \WP_List_Table {
 				'All <span class="count">(%s)</span>',
 				$total_posts,
 				'posts',
-				'ang'
+				'analogwp-templates'
 			),
 			number_format_i18n( $total_posts )
 		);
@@ -338,32 +343,32 @@ function ang_kits_list() {
 		array(
 			'nonce'             => wp_create_nonce( 'ang_global_kit' ),
 			'redirectURL'       => esc_url( admin_url( 'admin.php?page=style-kits&success=true' ) ),
-			'processingBtnText' => __( 'Working...', 'ang' ),
-			'initialBtnText'    => __( 'Apply', 'ang' ),
+			'processingBtnText' => __( 'Working...', 'analogwp-templates' ),
+			'initialBtnText'    => __( 'Apply', 'analogwp-templates' ),
 		)
 	);
 
 	?>
 	<div class="wrap">
-		<h1 class="wp-heading-inline" style="font-weight: bold;"><?php esc_html_e( 'Local Style Kits', 'ang' ); ?></h1>
+		<h1 class="wp-heading-inline" style="font-weight: bold;"><?php esc_html_e( 'Local Style Kits', 'analogwp-templates' ); ?></h1>
 		<a href="http://sk.test/wp-admin/post-new.php?post_type=page" class="page-title-action" id="import-kit">Import</a>
 		<hr class="wp-header-end">
 		<div id="analog-import-template-area" style="display: none; margin: 50px 0 30px; text-align: center;">
-			<div id="analog-import-template-title" style="font-size: 18px; color: #555d66;"><?php echo esc_html__( 'Choose an Elementor template JSON file or a .zip archive of Elementor templates, and add them to the list of templates available in your library.', 'ang' ); ?></div>
+			<div id="analog-import-template-title" style="font-size: 18px; color: #555d66;"><?php echo esc_html__( 'Choose an Elementor template JSON file or a .zip archive of Elementor templates, and add them to the list of templates available in your library.', 'analogwp-templates' ); ?></div>
 			<form id="analog-import-template-form" style="display: inline-block;margin-top: 30px;padding: 30px 50px;background-color: #FFFFFF;border: 1px solid #e5e5e5;" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" enctype="multipart/form-data">
 				<input type="hidden" name="action" value="stylekits_library_direct_actions">
 				<input type="hidden" name="library_action" value="import_local_kit">
 				<input type="hidden" name="_nonce" value="<?php echo wp_create_nonce( 'stylekits_ajax' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 				<fieldset id="elementor-import-template-form-inputs">
 					<input type="file" name="file" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" required="">
-					<input id="analog-import-template-action" type="submit" class="button" value="<?php echo esc_attr__( 'Import Now', 'ang' ); ?>">
+					<input id="analog-import-template-action" type="submit" class="button" value="<?php echo esc_attr__( 'Import Now', 'analogwp-templates' ); ?>">
 				</fieldset>
 			</form>
 		</div>
-		<p style="margin: 20px 0; font-size: 14px; line-height: 1.5;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below.', 'ang' ); ?> <a href="https://analogwp.com/docs/local-style-kits/" target="_blank"><?php esc_html_e( 'Learn more' ); ?></a></p>
+		<p style="margin: 20px 0; font-size: 14px; line-height: 1.5;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below.', 'analogwp-templates' ); ?> <a href="https://analogwp.com/docs/local-style-kits/" target="_blank"><?php esc_html_e( 'Learn more', 'analogwp-templates' ); ?></a></p>
 
 		<form style="margin-bottom: 30px;" >
-			<label for="global_kit" style="font-size: 16px; color: #000; font-weight: bold; margin-right: 16px;"><?php esc_html_e( 'Global Style Kit', 'ang' ); ?></label>
+			<label for="global_kit" style="font-size: 16px; color: #000; font-weight: bold; margin-right: 16px;"><?php esc_html_e( 'Global Style Kit', 'analogwp-templates' ); ?></label>
 			<select name="global_kit" id="global_kit" style="width: auto; padding: 12px 25px 12px 10px; font-size: 14px; line-height: 1;">
 				<?php
 				$kits = Utils::get_kits( false );
@@ -374,7 +379,7 @@ function ang_kits_list() {
 				}
 				?>
 			</select>
-			<input id="apply-kit" type="submit" value="<?php esc_html_e( 'Apply', 'ang' ); ?>" style="padding: 12px 20px; text-transform: uppercase; font-weight: 600; background: #413EC5; color: #fff; font-size: 14px; line-height: 1; box-shadow: none !important; outline: none !important;" class="button">
+			<input id="apply-kit" type="submit" value="<?php esc_html_e( 'Apply', 'analogwp-templates' ); ?>" style="padding: 12px 20px; text-transform: uppercase; font-weight: 600; background: #413EC5; color: #fff; font-size: 14px; line-height: 1; box-shadow: none !important; outline: none !important;" class="button">
 		</form>
 
 		<form id="style-kits" method="get">

@@ -49,7 +49,7 @@ final class BackgroundColorClasses extends Module {
 		$element->start_controls_section(
 			'ang_background_color_classes',
 			array(
-				'label' => _x( 'Background Color Classes', 'Section Title', 'ang' ),
+				'label' => _x( 'Background Color Classes', 'Section Title', 'analogwp-templates' ),
 				'tab'   => Utils::get_kit_settings_tab(),
 			)
 		);
@@ -58,7 +58,7 @@ final class BackgroundColorClasses extends Module {
 
 		$element->start_controls_tab(
 			'ang_tab_background_light',
-			array( 'label' => __( 'Light', 'ang' ) )
+			array( 'label' => __( 'Light', 'analogwp-templates' ) )
 		);
 
 		$element->add_control(
@@ -67,8 +67,8 @@ final class BackgroundColorClasses extends Module {
 				'type'    => Controls_Manager::RAW_HTML,
 				'raw'     => sprintf(
 					'%1$s <a href="https://analogwp.com/docs/background-color-classes/" target="_blank">%2$s</a>',
-					__( 'Add the class <strong>sk-light-bg</strong> to a section or column to apply these colors.', 'ang' ),
-					__( 'Learn more', 'ang' ),
+					__( 'Add the class <strong>sk-light-bg</strong> to a section or column to apply these colors.', 'analogwp-templates' ),
+					__( 'Learn more', 'analogwp-templates' ),
 				),
 				'classes' => 'elementor-descriptor',
 			)
@@ -77,7 +77,7 @@ final class BackgroundColorClasses extends Module {
 		$element->add_control(
 			'ang_background_light_background',
 			array(
-				'label'     => __( 'Background Color', 'ang' ),
+				'label'     => __( 'Background Color', 'analogwp-templates' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#F4F4F4',
 				'variable'  => 'ang_background_light_background',
@@ -92,7 +92,7 @@ final class BackgroundColorClasses extends Module {
 		$element->add_control(
 			'ang_background_light_text',
 			array(
-				'label'     => __( 'Text Color', 'ang' ),
+				'label'     => __( 'Text Color', 'analogwp-templates' ),
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_color_text_light',
 				'selectors' => array(
@@ -135,7 +135,7 @@ final class BackgroundColorClasses extends Module {
 		$element->add_control(
 			'ang_background_light_heading',
 			array(
-				'label'     => __( 'Headings Color', 'ang' ),
+				'label'     => __( 'Headings Color', 'analogwp-templates' ),
 				'type'      => Controls_Manager::COLOR,
 				'variable'  => 'ang_background_light_heading',
 				'selectors' => array(
@@ -149,7 +149,7 @@ final class BackgroundColorClasses extends Module {
 
 		$element->start_controls_tab(
 			'ang_tab_background_dark',
-			array( 'label' => __( 'Dark', 'ang' ) )
+			array( 'label' => __( 'Dark', 'analogwp-templates' ) )
 		);
 
 		$element->add_control(
@@ -158,8 +158,8 @@ final class BackgroundColorClasses extends Module {
 				'type'    => Controls_Manager::RAW_HTML,
 				'raw'     => sprintf(
 					'%1$s <a href="https://analogwp.com/docs/background-color-classes/" target="_blank">%2$s</a>',
-					__( 'Add the class <strong>sk-dark-bg</strong> to a section or column to apply these colors.', 'ang' ),
-					__( 'Learn more', 'ang' ),
+					__( 'Add the class <strong>sk-dark-bg</strong> to a section or column to apply these colors.', 'analogwp-templates' ),
+					__( 'Learn more', 'analogwp-templates' ),
 				),
 				'classes' => 'elementor-descriptor',
 			)
@@ -168,7 +168,7 @@ final class BackgroundColorClasses extends Module {
 		$element->add_control(
 			'ang_background_dark_background',
 			array(
-				'label'     => __( 'Background Color', 'ang' ),
+				'label'     => __( 'Background Color', 'analogwp-templates' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#171720',
 				'variable'  => 'ang_background_dark_background',
@@ -183,7 +183,7 @@ final class BackgroundColorClasses extends Module {
 		$element->add_control(
 			'ang_background_dark_text',
 			array(
-				'label'     => __( 'Text Color', 'ang' ),
+				'label'     => __( 'Text Color', 'analogwp-templates' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'variable'  => 'ang_color_text_dark',
@@ -227,7 +227,7 @@ final class BackgroundColorClasses extends Module {
 		$element->add_control(
 			'ang_background_dark_heading',
 			array(
-				'label'     => __( 'Headings Color', 'ang' ),
+				'label'     => __( 'Headings Color', 'analogwp-templates' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'variable'  => 'ang_background_dark_heading',

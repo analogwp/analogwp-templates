@@ -169,7 +169,7 @@ final class Notice {
 				}
 			</style>
 			<div class="logo">
-				<img src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/triangle.svg' ); ?>" alt="<?php esc_attr_e( 'Style Kits for Elementor Logo', 'ang' ); ?>" />
+				<img src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/triangle.svg' ); ?>" alt="<?php esc_attr_e( 'Style Kits for Elementor Logo', 'analogwp-templates' ); ?>" />
 			</div>
 			<?php echo $content; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
 			<?php echo self::$nonce_field; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>

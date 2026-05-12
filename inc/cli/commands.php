@@ -2,6 +2,10 @@
 
 namespace Analog\CLI;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use Analog\Core\Util\Migration;
 use Analog\Elementor\Kit\Manager;
 use Analog\Utils;

@@ -221,7 +221,7 @@ const Sidebar = ( { state } ) => {
 	return (
 		<SidebarWrapper className="sidebar">
 			<TextControl
-				placeholder={ AGWP.isContainer ? __( 'Search Patterns', 'ang' ) : __( 'Search Blocks', 'ang' ) }
+				placeholder={ AGWP.isContainer ? __( 'Search Patterns', 'analogwp-templates' ) : __( 'Search Blocks', 'analogwp-templates' ) }
 				value={ context.state.blocksSearchInput }
 				onChange={ ( value ) => {
 					context.handleSearch( value, 'patterns' );
@@ -231,7 +231,7 @@ const Sidebar = ( { state } ) => {
 
 			{ AGWP.license.status !== 'valid' && (
 				<ToggleControl
-					label={ AGWP.isContainer ? __( 'Show Pro Patterns', 'ang' ) : __( 'Show Pro Blocks', 'ang' ) }
+					label={ AGWP.isContainer ? __( 'Show Pro Patterns', 'analogwp-templates' ) : __( 'Show Pro Blocks', 'analogwp-templates' ) }
 					checked={ ! context.state.showFree }
 					onChange={ toggleProBlocks }
 				/>
