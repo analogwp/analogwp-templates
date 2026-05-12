@@ -19,7 +19,7 @@
  * Requires at least: 6.0
  * Requires PHP: 7.4
  *
- * Elementor tested up to: 4.0.7
+ * Elementor tested up to: 4.0.8
  * Elementor Pro tested up to: 4.0.4
  */
 
