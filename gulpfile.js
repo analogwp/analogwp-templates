@@ -1,5 +1,4 @@
 const gulp = require( 'gulp' );
-const copy = require( 'gulp-copy' );
 const zip = require( 'gulp-zip' );
 const del = require( 'del' );
 const run = require( 'gulp-run-command' ).default;
@@ -39,19 +38,6 @@ const buildFiles = [
 	'!composer.lock',
 	'!codeception.dist.yml',
 	'!tests/**',
-	'!vendor/*',
-	'!vendor/bin',
-	'!vendor/bin/**',
-	'!vendor/autoload.php',
-	'!vendor/composer/**',
-	'!vendor/civicrm/**',
-	'!vendor/enshrined/**',
-	'!vendor/ergebnis/**',
-	'!vendor/flow/**',
-	'!vendor/justinrainbow/**',
-	'!vendor/localheinz/**',
-	'!vendor/sniccowp/**',
-	'!vendor/togos/**',
 ];
 
 const buildDestination = `./build/${ project }/`;
@@ -68,9 +54,8 @@ gulp.task( 'clean', function( done ) {
 } );
 
 gulp.task( 'copy', function( done ) {
-	return gulp.src( buildFiles )
-		.pipe( copy( buildDestination ) );
-	done(); // eslint-disable-line
+	return gulp.src( buildFiles, { base: '.' } )
+		.pipe( gulp.dest( buildDestination ) );
 } );
 
 gulp.task( 'zip', function( done ) {

@@ -3,7 +3,7 @@ Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.4
 Tested up to: 7.0
-Stable tag: 2.6.0
+Stable tag: 2.6.1
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -103,6 +103,9 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.6.1 =
+* Fix: Vendor folder missing in the last update
 
 = 2.6.0 =
 * Improvement: Ground up re-scan and fixes with respect to WPCS and Plugin Check by WP.org
