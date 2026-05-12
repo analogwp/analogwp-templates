@@ -15,6 +15,7 @@ jobs:
       - name: Install Composer dependencies
         uses: php-actions/composer@v6
         with:
+          dev: no
           version: 2
           php_version: '8.0'
 
