@@ -1,9 +1,9 @@
-=== Style Kits - Advanced Theme Styles for Elementor, Elementor Kits & Elementor Patterns ===
+=== Style Kits for Elementor ===
 Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.4
-Tested up to: 6.9
-Stable tag: 2.5.0
+Tested up to: 7.0
+Stable tag: 2.6.0
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -103,6 +103,12 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.6.0 =
+* Improvement: Ground up re-scan and fixes with respect to WPCS and Plugin Check by WP.org
+* Improvement: Update Freemius SDK to v2.13.1
+* Improvement: Compatibility with Elementor v4 and Elementor Pro v4
+* Improvement: Other major code changes
 
 = 2.5.0 =
 * New: Redesigned Admin Settings page
