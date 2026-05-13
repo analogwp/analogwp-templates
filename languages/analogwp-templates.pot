@@ -2,21 +2,20 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.6.0\n"
+"Project-Id-Version: Style Kits for Elementor 2.6.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-12T16:08:06+00:00\n"
+"POT-Creation-Date: 2026-05-13T07:04:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: analogwp-templates\n"
 
 #. Plugin Name of the plugin
 #: analogwp-templates.php
-#: inc/admin/class-admin.php:48
 #: inc/register-settings.php:32
 #: inc/settings/views/html-admin-settings.php:108
 msgid "Style Kits for Elementor"
@@ -85,21 +84,16 @@ msgstr ""
 msgid "Install Elementor Now"
 msgstr ""
 
-#. translators: 1: Style Kits for Elementor, 2: Link to plugin review
-#: inc/admin/class-admin.php:47
-msgid "Enjoyed %1$s? Please leave us a %2$s rating. We really appreciate your support!"
-msgstr ""
-
-#: inc/admin/class-admin.php:69
+#: inc/admin/class-admin.php:43
 msgid "View Documentation"
 msgstr ""
 
-#: inc/admin/class-admin.php:69
+#: inc/admin/class-admin.php:43
 #: inc/settings/views/html-admin-settings.php:113
 msgid "Documentation"
 msgstr ""
 
-#: inc/admin/class-admin.php:70
+#: inc/admin/class-admin.php:44
 msgid "Get Support"
 msgstr ""
 

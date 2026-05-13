@@ -11,9 +11,9 @@
 /bin
 /phpunit.xml
 /build
-/client
 .nvmrc
 .wp-env.json
+.travis.yml
 phpcs.xml.dist
 
 # Include vendor directory in release.
@@ -37,11 +37,9 @@ CONTRIBUTING.md
 CREDITS.md
 LICENSE.md
 README.md
-composer.json
-composer.lock
-package-lock.json
 yarn.lock
-package.json
+package-lock.json
+composer.lock
 phpcs.xml
 phpunit.xml
 webpack.config.js

@@ -1,11 +1,12 @@
 {
   "name": "analogwp-templates",
-  "version": "2.6.2",
+  "version": "2.6.3",
   "description": "Handfully crafted Elementor templates packs.",
   "main": "/client/index.js",
   "private": true,
   "scripts": {
     "install-scripts": "composer install && npm install",
+    "prefix-dependencies": "composer run-script prefix-dependencies",
     "build-app": "wp-scripts build --webpack-src-dir=client --output-path=assets/js/app",
     "dev-app": "wp-scripts start --webpack-src-dir=client --output-path=assets/js/app",
     "makePot": "wp i18n make-pot . ./languages/analogwp-templates.pot --exclude=build",
