@@ -115,10 +115,10 @@ class Quick_Edit extends Base {
 				if ( 'builder' === $is_elementor ) {
 					$value = Options::get_instance()->get( 'global_kit' );
 					if ( is_array( $settings ) && isset( $settings['ang_action_tokens'] ) ) {
-						$value = esc_html( $settings['ang_action_tokens'] );
+						$value = $settings['ang_action_tokens'];
 					}
 
-					echo $value; // phpcs:ignore
+					echo esc_html( (string) $value );
 				}
 				break;
 		endswitch;  // phpcs:ignore

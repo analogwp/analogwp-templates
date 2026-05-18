@@ -358,7 +358,7 @@ function ang_kits_list() {
 			<form id="analog-import-template-form" style="display: inline-block;margin-top: 30px;padding: 30px 50px;background-color: #FFFFFF;border: 1px solid #e5e5e5;" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" enctype="multipart/form-data">
 				<input type="hidden" name="action" value="stylekits_library_direct_actions">
 				<input type="hidden" name="library_action" value="import_local_kit">
-				<input type="hidden" name="_nonce" value="<?php echo wp_create_nonce( 'stylekits_ajax' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+				<input type="hidden" name="_nonce" value="<?php echo esc_attr( wp_create_nonce( 'stylekits_ajax' ) ); ?>">
 				<fieldset id="elementor-import-template-form-inputs">
 					<input type="file" name="file" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" required="">
 					<input id="analog-import-template-action" type="submit" class="button" value="<?php echo esc_attr__( 'Import Now', 'analogwp-templates' ); ?>">

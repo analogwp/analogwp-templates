@@ -119,26 +119,36 @@ final class Notice {
 	 * Renders the notice.
 	 */
 	public function render() {
+		$allowed_html = apply_filters(
+			'analog_admin_notices_html',
+			array(
+				'a'      => array(
+					'href'   => array(),
+					'target' => array(),
+					'class'  => array(),
+				),
+				'br'     => array(),
+				'em'     => array(),
+				'input'  => array(
+					'type'  => array(),
+					'id'    => array(),
+					'name'  => array(),
+					'value' => array(),
+				),
+				'p'      => array(),
+				'strong' => array(),
+			)
+		);
+
 		if ( is_callable( $this->args['content'] ) ) {
 			$content = call_user_func( $this->args['content'] );
 			if ( empty( $content ) ) {
 				return;
 			}
+
+			$content = wp_kses( $content, $allowed_html );
 		} else {
-			$allowed_html = apply_filters(
-				'analog_admin_notices_html',
-				array(
-					'a'      => array(
-						'href'   => array(),
-						'target' => array(),
-						'class'  => array(),
-					),
-					'br'     => array(),
-					'em'     => array(),
-					'strong' => array(),
-				)
-			);
-			$content      = '<p>' . wp_kses( $this->args['content'], $allowed_html ) . '</p>';
+			$content = '<p>' . wp_kses( $this->args['content'], $allowed_html ) . '</p>';
 		}
 
 		$class = 'notice notice-' . $this->args['type'];
@@ -146,7 +156,7 @@ final class Notice {
 			$class .= ' is-dismissible';
 		}
 
-		self::$nonce_field = wp_nonce_field( self::$nonce_action );
+		self::$nonce_field = wp_nonce_field( self::$nonce_action, '_wpnonce', true, false );
 
 		?>
 		<div id="<?php echo esc_attr( 'analog-notice-' . $this->slug ); ?>" class="analog-notice <?php echo esc_attr( $class ); ?>" data-key="<?php echo esc_attr( $this->slug ); ?>">
@@ -171,8 +181,8 @@ final class Notice {
 			<div class="logo">
 				<img src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/triangle.svg' ); ?>" alt="<?php esc_attr_e( 'Style Kits for Elementor Logo', 'analogwp-templates' ); ?>" />
 			</div>
-			<?php echo $content; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
-			<?php echo self::$nonce_field; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
+			<?php echo wp_kses( $content, $allowed_html ); ?>
+			<?php echo wp_kses( self::$nonce_field, $allowed_html ); ?>
 		</div>
 		<?php
 	}

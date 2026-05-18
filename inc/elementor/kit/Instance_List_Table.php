@@ -470,7 +470,7 @@ function ang_instance_list() {
 add_action(
 	'admin_head',
 	function () {
-		$page = esc_attr( filter_input( INPUT_GET, 'page' ) );
+		$page = sanitize_key( (string) filter_input( INPUT_GET, 'page' ) );
 		if ( 'ang-instance-list' !== $page ) {
 			return;
 		}

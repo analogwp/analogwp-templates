@@ -401,7 +401,7 @@ class Admin_Settings {
 						<?php endif; ?>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<?php if ( ! $disabled ) : ?>
-							<a  href="<?php echo esc_attr( $value['to'] ); ?>"
+							<a  href="<?php echo esc_url( $value['to'] ); ?>"
 								id="<?php echo esc_attr( $value['id'] ); ?>"
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
@@ -506,7 +506,7 @@ class Admin_Settings {
 						<?php if ( ! empty( $value['title'] ) ) { ?>
 						<th scope="row" class="titledesc">
 							<?php if ( false !== strpos( $value['id'], '_experiment' ) ) : ?>
-							<span class="experiment-indicator <?php echo ( $value['value'] === false || $value['value'] === 'default' || $value['value'] === 'active' ) ? 'active' : 'inactive'; ?>"></span>
+							<span class="experiment-indicator <?php echo ( false === $value['value'] || 'default' === $value['value'] || 'active' === $value['value'] ) ? 'active' : 'inactive'; ?>"></span>
 							<?php endif; ?>
 							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); ?></label>
 						</th>
@@ -518,8 +518,8 @@ class Admin_Settings {
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								<?php echo wp_kses_post( $custom_attributes_html ); ?>
-								<?php echo 'multiselect' === $value['type'] ? 'multiple="multiple"' : ''; ?>
-								<?php echo $disabled ? ' disabled="true"' : ''; ?>
+								<?php echo 'multiselect' === $value['type'] ? esc_html( 'multiple="multiple"' ) : esc_html( '' ); ?>
+								<?php echo $disabled ? esc_html( ' disabled="true"' ) : esc_html( '' ); ?>
 								>
 								<?php
 								foreach ( $value['options'] as $key => $val ) {

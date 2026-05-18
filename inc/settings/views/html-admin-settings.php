@@ -31,7 +31,7 @@ if ( ! isset( $tabs[ $ang_current_tab ] ) && ! has_action( 'ang_sections_' . $an
 				array_walk(
 					$tabs,
 					static function ( $tab_label, $tab_slug ) use ( $ang_current_tab ) {
-						echo '<a href="' . esc_html( admin_url( 'admin.php?page=ang-settings&tab=' . esc_attr( $tab_slug ) ) ) . '" class="ang-nav-tab nav-tab-' . esc_attr( $tab_slug ) . ( $ang_current_tab === $tab_slug ? ' ang-nav-tab-active' : '' ) . '">' . esc_html( $tab_label ) . '</a>';
+						echo '<a href="' . esc_url( admin_url( 'admin.php?page=ang-settings&tab=' . $tab_slug ) ) . '" class="ang-nav-tab nav-tab-' . esc_attr( $tab_slug ) . ( $ang_current_tab === $tab_slug ? ' ang-nav-tab-active' : '' ) . '">' . esc_html( $tab_label ) . '</a>';
 					}
 				);
 
