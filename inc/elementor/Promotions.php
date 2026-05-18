@@ -137,13 +137,13 @@ final class Promotions extends Base {
 		<div class="elementor-nerd-box">
 			<img class="elementor-nerd-box-icon" style="width:45px;margin-right:0;" alt="Style Kits for Elementor" src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/analog.svg' ); ?>" />
 			<?php if ( isset( $texts['title'] ) && $texts['title'] ) : ?>
-			<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
+			<div class="elementor-nerd-box-title"><?php echo wp_kses_post( $texts['title'] ); ?></div>
 				<?php
 			endif;
 			if ( ! empty( $messages ) ) :
 				foreach ( $messages as $message ) {
 					?>
-					<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+					<div class="elementor-nerd-box-message"><?php echo wp_kses_post( $message ); ?></div>
 					<?php
 				}
 			endif;
@@ -182,13 +182,13 @@ final class Promotions extends Base {
 				<?php
 				if ( isset( $texts['title'] ) && $texts['title'] ) :
 					?>
-					<div class="elementor-nerd-box-title"><?php echo $texts['title']; // @codingStandardsIgnoreLine ?></div>
+					<div class="elementor-nerd-box-title"><?php echo wp_kses_post( $texts['title'] ); ?></div>
 					<?php
 				endif;
 				if ( ! empty( $messages ) ) :
 					foreach ( $messages as $message ) {
 						?>
-						<div class="elementor-nerd-box-message"><?php echo $message; // @codingStandardsIgnoreLine ?></div>
+						<div class="elementor-nerd-box-message"><?php echo wp_kses_post( $message ); ?></div>
 						<?php
 					}
 				endif;

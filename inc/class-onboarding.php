@@ -276,8 +276,7 @@ class Onboarding {
 					</div>
 					<div class="next-success <?php echo ! $finished ? esc_attr( 'hidden' ) : ''; ?>">
 						<input type="hidden" name="action" value="analog_elementor_new_post">
-						<?php // PHPCS - a nonce doesn't have to be escaped. ?>
-						<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'analog_elementor_new_post_action' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+						<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'analog_elementor_new_post_action' ) ); ?>">
 						<a href="<?php echo esc_url( admin_url( 'index.php' ) ); ?>" class="button btn-secondary"><?php esc_html_e( 'Go to Dashboard', 'analogwp-templates' ); ?></a>
 						<button type="submit" class="button btn-primary"><?php esc_html_e( 'Open a new template', 'analogwp-templates' ); ?></button>
 					</div>
