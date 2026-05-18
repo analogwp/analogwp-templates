@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.6.2\n"
+"Project-Id-Version: Style Kits for Elementor 2.6.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-13T07:04:07+00:00\n"
+"POT-Creation-Date: 2026-05-18T07:00:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: analogwp-templates\n"
@@ -39,12 +39,12 @@ msgstr ""
 
 #. translators: %s: version number
 #: analogwp-templates.php:52
-#: analogwp-templates.php:258
+#: analogwp-templates.php:285
 msgid "Style Kit for Elementor requires PHP version %s"
 msgstr ""
 
 #: analogwp-templates.php:53
-#: analogwp-templates.php:259
+#: analogwp-templates.php:286
 msgid "Error Activating"
 msgstr ""
 
@@ -54,33 +54,33 @@ msgid "Style Kits requires WordPress version %s+. Because you are using an earli
 msgstr ""
 
 #. translators: %s: Minimum required Elementor version.
-#: analogwp-templates.php:112
+#: analogwp-templates.php:123
 msgid "Style Kits requires Elementor v%s or newer in order to work. Please update Elementor to the latest version."
 msgstr ""
 
-#. translators: %s: Link to update Elementor.
-#: analogwp-templates.php:118
-msgid "Update Elementor Now"
-msgstr ""
-
 #. translators: %s: Version number.
-#: analogwp-templates.php:124
+#: analogwp-templates.php:132
 msgid "Rollback to v%s"
 msgstr ""
 
-#: analogwp-templates.php:171
+#. translators: %s: Link to update Elementor.
+#: analogwp-templates.php:136
+msgid "Update Elementor Now"
+msgstr ""
+
+#: analogwp-templates.php:198
 msgid "Style Kits is not working because you need to activate the Elementor plugin."
 msgstr ""
 
-#: analogwp-templates.php:172
+#: analogwp-templates.php:199
 msgid "Activate Elementor Now"
 msgstr ""
 
-#: analogwp-templates.php:179
+#: analogwp-templates.php:206
 msgid "Style Kits is not working because you need to install the Elementor plugin."
 msgstr ""
 
-#: analogwp-templates.php:180
+#: analogwp-templates.php:207
 msgid "Install Elementor Now"
 msgstr ""
 
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Get Support"
 msgstr ""
 
-#: inc/admin/Notice.php:172
+#: inc/admin/Notice.php:182
 msgid "Style Kits for Elementor Logo"
 msgstr ""
 
@@ -340,19 +340,19 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: inc/class-onboarding.php:281
+#: inc/class-onboarding.php:280
 msgid "Go to Dashboard"
 msgstr ""
 
-#: inc/class-onboarding.php:282
+#: inc/class-onboarding.php:281
 msgid "Open a new template"
 msgstr ""
 
-#: inc/class-onboarding.php:515
+#: inc/class-onboarding.php:514
 msgid "Style Kit: Test Page"
 msgstr ""
 
-#: inc/class-onboarding.php:542
+#: inc/class-onboarding.php:541
 msgid "Oops, something went wrong at action: "
 msgstr ""
 

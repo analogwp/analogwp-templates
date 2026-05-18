@@ -3,7 +3,7 @@ Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.4
 Tested up to: 7.0
-Stable tag: 2.6.3
+Stable tag: 2.6.5
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -104,10 +104,13 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 
 == Changelog ==
 
+= 2.6.5 =
+* Improvement: Fix requested issues by WP.org
+* Improvement: Other minor code changes
+
 = 2.6.3 =
 * Improvement: Includes src files for the wp.org repo
 * Improvement: Other minor code changes
-
 
 = 2.6.2 =
 * Fix: Dev composer deps getting included in vendor files

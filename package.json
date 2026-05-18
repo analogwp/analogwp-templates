@@ -1,6 +1,6 @@
 {
   "name": "analogwp-templates",
-  "version": "2.6.3",
+  "version": "2.6.5",
   "description": "Handfully crafted Elementor templates packs.",
   "main": "/client/index.js",
   "private": true,
@@ -11,7 +11,7 @@
     "dev-app": "wp-scripts start --webpack-src-dir=client --output-path=assets/js/app",
     "makePot": "wp i18n make-pot . ./languages/analogwp-templates.pot --exclude=build",
     "convertPot2json": "npx po2json ./languages/analogwp-templates.pot ./languages/analogwp-templates-analogwp-app.json -f jed1.x",
-    "build": "gulp build",
+    "build": "composer install --no-dev && gulp build",
     "gh:release": "gulp github-build"
   },
   "repository": {
