@@ -219,13 +219,13 @@ final class Plugin {
 	 * @return array An array of plugin action links.
 	 */
 	public function plugin_action_links( $links ) {
-		$settings_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=ang-settings' ), __( 'Settings', 'analogwp-templates' ) );
+		$settings_link = sprintf( '<a href="%1$s">%2$s</a>', esc_url( admin_url( 'admin.php?page=ang-settings' ) ), esc_html__( 'Settings', 'analogwp-templates' ) );
 
 		array_unshift( $links, $settings_link );
 
 		if ( ! defined( 'ANG_PRO_VERSION' ) ) {
 			/* translators: %1$s: Link to Style Kits Pro. %2$s: Go Pro text. */
-			$links['go_pro'] = sprintf( '<a href="%1$s" style="color: #5c32b6;font-weight: 700;" target="_blank" class="ang-plugins-gopro">%2$s</a>', Utils::get_pro_link(), __( 'Go Pro', 'analogwp-templates' ) );
+			$links['go_pro'] = sprintf( '<a href="%1$s" style="color: #5c32b6;font-weight: 700;" target="_blank" class="ang-plugins-gopro">%2$s</a>', esc_url( Utils::get_pro_link() ), esc_html__( 'Go Pro', 'analogwp-templates' ) );
 		}
 
 		return $links;
