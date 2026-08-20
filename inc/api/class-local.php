@@ -15,7 +15,6 @@ use Analog\Options;
 use Analog\Utils;
 use Elementor\TemplateLibrary\Source_Local;
 use Elementor\TemplateLibrary\Analog_Importer;
-use Elementor\User;
 use WP_Error;
 use WP_Query;
 use WP_REST_Request;
@@ -45,49 +44,82 @@ class Local extends Base {
 	public function register_endpoints() {
 		$endpoints = array(
 			'/import/elementor'        => array(
-				WP_REST_Server::CREATABLE => 'handle_import',
+				WP_REST_Server::CREATABLE => array(
+					'callback'   => 'handle_import',
+					'permission' => 'rest_permission_check',
+				),
 			),
 			'/import/elementor/direct' => array(
-				WP_REST_Server::CREATABLE => 'handle_direct_import',
+				WP_REST_Server::CREATABLE => array(
+					'callback'   => 'handle_direct_import',
+					'permission' => 'create_kits_permission_check',
+				),
 			),
 			'/templates'               => array(
-				WP_REST_Server::READABLE => 'templates_list',
+				WP_REST_Server::READABLE => array(
+					'callback'   => 'templates_list',
+					'permission' => 'rest_permission_check',
+				),
 			),
 			'/mark_favorite/'          => array(
-				WP_REST_Server::CREATABLE => 'mark_as_favorite',
+				WP_REST_Server::CREATABLE => array(
+					'callback'   => 'mark_as_favorite',
+					'permission' => 'rest_permission_check',
+				),
 			),
 			'/get/settings/'           => array(
-				WP_REST_Server::READABLE => 'get_settings',
+				WP_REST_Server::READABLE => array(
+					'callback'   => 'get_settings',
+					'permission' => 'rest_permission_check',
+				),
 			),
 			'/update/settings/'        => array(
-				WP_REST_Server::CREATABLE => 'update_setting',
+				WP_REST_Server::CREATABLE => array(
+					'callback'   => 'update_setting',
+					'permission' => 'update_setting_permission_check',
+				),
 			),
 			'/tokens'                  => array(
-				WP_REST_Server::READABLE => 'get_tokens',
+				WP_REST_Server::READABLE => array(
+					'callback'   => 'get_tokens',
+					'permission' => 'rest_permission_check',
+				),
 			),
 			'/tokens/save'             => array(
-				WP_REST_Server::CREATABLE => 'save_tokens',
+				WP_REST_Server::CREATABLE => array(
+					'callback'   => 'save_tokens',
+					'permission' => 'create_kits_permission_check',
+				),
 			),
 			'/tokens/get'              => array(
-				WP_REST_Server::CREATABLE => 'get_token',
+				WP_REST_Server::CREATABLE => array(
+					'callback'   => 'get_token',
+					'permission' => 'rest_permission_check',
+				),
 			),
 			'/import/kit'              => array(
-				WP_REST_Server::CREATABLE => 'handle_kit_import',
+				WP_REST_Server::CREATABLE => array(
+					'callback'   => 'handle_kit_import',
+					'permission' => 'create_kits_permission_check',
+				),
 			),
 			'/blocks/insert'           => array(
-				WP_REST_Server::CREATABLE => 'get_blocks_content',
+				WP_REST_Server::CREATABLE => array(
+					'callback'   => 'get_blocks_content',
+					'permission' => 'rest_permission_check',
+				),
 			),
 		);
 
 		foreach ( $endpoints as $endpoint => $details ) {
-			foreach ( $details as $method => $callback ) {
+			foreach ( $details as $method => $handler ) {
 				register_rest_route(
 					'agwp/v1',
 					$endpoint,
 					array(
 						'methods'             => $method,
-						'callback'            => array( $this, $callback ),
-						'permission_callback' => '/tokens/save' === $endpoint ? array( $this, 'save_tokens_permission_check' ) : array( $this, 'rest_permission_check' ),
+						'callback'            => array( $this, $handler['callback'] ),
+						'permission_callback' => array( $this, $handler['permission'] ),
 						'args'                => array(),
 					)
 				);
@@ -96,21 +128,63 @@ class Local extends Base {
 	}
 
 	/**
-	 * Check if a given request has access to update a setting
+	 * Check if a given request has access to editor-level Style Kits actions.
 	 *
-	 * @return WP_Error|bool
+	 * @return bool
 	 */
 	public function rest_permission_check() {
 		return current_user_can( 'edit_posts' );
 	}
 
 	/**
+	 * Check if the current user can create or import Style Kits.
+	 *
+	 * @since 2.6.6
+	 * @return bool
+	 */
+	public function create_kits_permission_check() {
+		return Utils::current_user_can_create_kits();
+	}
+
+	/**
+	 * Check if the current user can manage plugin settings and kits in wp-admin.
+	 *
+	 * @since 2.6.6
+	 * @return bool
+	 */
+	public function manage_kits_permission_check() {
+		return Utils::current_user_can_manage_kits();
+	}
+
+	/**
+	 * Permission check for updating plugin settings.
+	 *
+	 * Most option keys require manage_options. `install_count` is incremented
+	 * from the template library in the editor, so editors may update that key.
+	 *
+	 * @since 2.6.6
+	 *
+	 * @param WP_REST_Request $request Request object.
+	 * @return bool
+	 */
+	public function update_setting_permission_check( WP_REST_Request $request ) {
+		$key = sanitize_key( (string) $request->get_param( 'key' ) );
+
+		if ( 'install_count' === $key ) {
+			return current_user_can( 'edit_posts' );
+		}
+
+		return Utils::current_user_can_manage_kits();
+	}
+
+	/**
 	 * Check if the current user can create or edit Style Kits.
 	 *
+	 * @deprecated 2.6.6 Use create_kits_permission_check().
 	 * @return bool
 	 */
 	public function save_tokens_permission_check() {
-		return User::is_current_user_can_edit_post_type( Source_Local::CPT );
+		return $this->create_kits_permission_check();
 	}
 
 	/**
@@ -122,7 +196,7 @@ class Local extends Base {
 	 */
 	public function handle_import( WP_REST_Request $request ) {
 		$template_id = $request->get_param( 'template_id' );
-		$editor_id   = $request->get_param( 'editor_post_id' );
+		$editor_id   = absint( $request->get_param( 'editor_post_id' ) );
 		$is_pro      = (bool) $request->get_param( 'is_pro' );
 		$site_id     = $request->get_param( 'site_id' );
 		$kit_info    = $request->get_param( 'kit' );
@@ -131,21 +205,31 @@ class Local extends Base {
 			return new WP_REST_Response( array( 'error' => 'Invalid Template ID.' ), 500 );
 		}
 
+		if ( $editor_id && ! current_user_can( 'edit_post', $editor_id ) ) {
+			return new WP_Error(
+				'rest_forbidden',
+				__( 'Sorry, you are not allowed to import into this post.', 'analogwp-templates' ),
+				array( 'status' => 403 )
+			);
+		}
+
 		if ( $is_pro && ! Utils::has_valid_license() ) {
 			return new WP_Error( 'license_error', __( 'Invalid or expired license provided.', 'analogwp-templates' ) );
 		}
 
-		\update_post_meta( $editor_id, '_ang_import_type', 'elementor' );
-		\update_post_meta( $editor_id, '_ang_template_id', $template_id );
+		if ( $editor_id ) {
+			\update_post_meta( $editor_id, '_ang_import_type', 'elementor' );
+			\update_post_meta( $editor_id, '_ang_template_id', $template_id );
 
-		// Add import history.
-		Utils::add_import_log( $template_id, $editor_id, 'elementor' );
+			// Add import history.
+			Utils::add_import_log( $template_id, $editor_id, 'elementor' );
+		}
 
 		$obj  = new Analog_Importer();
 		$data = $obj->get_data(
 			array(
 				'template_id'    => $template_id,
-				'editor_post_id' => $editor_id,
+				'editor_post_id' => $editor_id ? $editor_id : false,
 				'license'        => Utils::get_license_key(),
 				'method'         => 'elementor',
 				'site_id'        => $site_id,
@@ -155,7 +239,9 @@ class Local extends Base {
 		if ( $kit_info && isset( $kit_info['data'] ) ) {
 			$tokens = $this->fetch_kit_content( $kit_info['data'] );
 
-			$data['tokens'] = $tokens;
+			if ( ! is_wp_error( $tokens ) ) {
+				$data['tokens'] = $tokens;
+			}
 		}
 
 		return new WP_REST_Response( wp_json_encode( maybe_unserialize( $data ) ), 200 );
@@ -319,6 +405,14 @@ class Local extends Base {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function handle_direct_import( WP_REST_Request $request ) {
+		if ( ! Utils::current_user_can_create_kits() ) {
+			return new WP_Error(
+				'rest_forbidden',
+				__( 'Sorry, you are not allowed to import templates.', 'analogwp-templates' ),
+				array( 'status' => 403 )
+			);
+		}
+
 		$template  = $request->get_param( 'template' );
 		$with_page = $request->get_param( 'with_page' );
 		$site_id   = $request->get_param( 'site_id' );
@@ -390,11 +484,29 @@ class Local extends Base {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function update_setting( WP_REST_Request $request ) {
-		$key   = $request->get_param( 'key' );
+		$key   = sanitize_key( (string) $request->get_param( 'key' ) );
 		$value = $request->get_param( 'value' );
 
 		if ( ! $key ) {
 			return new WP_Error( 'settings_error', __( 'No options key provided.', 'analogwp-templates' ) );
+		}
+
+		$allowed_for_editors = array( 'install_count' );
+
+		if ( in_array( $key, $allowed_for_editors, true ) ) {
+			if ( ! current_user_can( 'edit_posts' ) ) {
+				return new WP_Error(
+					'rest_forbidden',
+					__( 'Sorry, you are not allowed to update settings.', 'analogwp-templates' ),
+					array( 'status' => 403 )
+				);
+			}
+		} elseif ( ! Utils::current_user_can_manage_kits() ) {
+			return new WP_Error(
+				'rest_forbidden',
+				__( 'Sorry, you are not allowed to update settings.', 'analogwp-templates' ),
+				array( 'status' => 403 )
+			);
 		}
 
 		Options::get_instance()->set( $key, $value );
@@ -466,7 +578,7 @@ class Local extends Base {
 			return new WP_Error( 'kit_title_error', __( 'Please provide a title.', 'analogwp-templates' ) );
 		}
 
-		if ( Source_Local::CPT !== get_post_type( $belongs_to ) || ! current_user_can( 'edit_post', $belongs_to ) ) {
+		if ( Source_Local::CPT !== get_post_type( $belongs_to ) || ! current_user_can( 'edit_post', $belongs_to ) || ! Utils::current_user_can_create_kits() ) {
 			return new WP_Error( 'kit_permission_error', __( 'You are not allowed to save this Style Kit.', 'analogwp-templates' ) );
 		}
 
@@ -540,6 +652,14 @@ class Local extends Base {
 	 * @return WP_REST_Response|WP_Error
 	 */
 	public function handle_kit_import( WP_REST_Request $request ) {
+		if ( ! Utils::current_user_can_create_kits() ) {
+			return new WP_Error(
+				'kit_permission_error',
+				__( 'You are not allowed to import Style Kits.', 'analogwp-templates' ),
+				array( 'status' => 403 )
+			);
+		}
+
 		$kit = $request->get_param( 'kit' );
 
 		if ( ! $kit ) {
@@ -564,6 +684,10 @@ class Local extends Base {
 		$post_id = false;
 
 		if ( is_array( $kit ) && isset( $kit['id'] ) ) {
+			if ( ! Utils::current_user_can_create_kits() ) {
+				return new WP_Error( 'kit_permission_error', __( 'You are not allowed to import Style Kits.', 'analogwp-templates' ) );
+			}
+
 			if ( isset( $kit['is_pro'] ) && $kit['is_pro'] && ! Utils::has_valid_license() ) {
 				return new WP_Error( 'kit_import_error', __( 'Invalid license provided.', 'analogwp-templates' ) );
 			}
@@ -629,6 +753,13 @@ class Local extends Base {
 	 * @return array|WP_Error
 	 */
 	protected function process_block_import( $block, $method = 'library' ) {
+		if ( 'library' === $method && ! Utils::current_user_can_create_kits() ) {
+			return new WP_Error(
+				'block_import_error',
+				__( 'You are not allowed to save blocks to the library.', 'analogwp-templates' )
+			);
+		}
+
 		$license = Utils::get_license_key();
 
 		if ( isset( $block['is_pro'] ) && $block['is_pro'] && ! Utils::has_valid_license() ) {

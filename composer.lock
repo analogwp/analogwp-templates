@@ -4,26 +4,26 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b4a47dccbc3c3035086f08f6e8deb01",
+    "content-hash": "fdbc7036912ddf76c528e7e4b2c40069",
     "packages": [
         {
             "name": "enshrined/svg-sanitize",
-            "version": "0.15.4",
+            "version": "0.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/darylldoyle/svg-sanitizer.git",
-                "reference": "e50b83a2f1f296ca61394fe88fbfe3e896a84cf4"
+                "reference": "0afa95ea74be155a7bcd6c6fb60c276c39984500"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/e50b83a2f1f296ca61394fe88fbfe3e896a84cf4",
-                "reference": "e50b83a2f1f296ca61394fe88fbfe3e896a84cf4",
+                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/0afa95ea74be155a7bcd6c6fb60c276c39984500",
+                "reference": "0afa95ea74be155a7bcd6c6fb60c276c39984500",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
-                "php": "^7.0 || ^8.0"
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^6.5 || ^8.5"
@@ -47,22 +47,22 @@
             "description": "An SVG sanitizer for PHP",
             "support": {
                 "issues": "https://github.com/darylldoyle/svg-sanitizer/issues",
-                "source": "https://github.com/darylldoyle/svg-sanitizer/tree/0.15.4"
+                "source": "https://github.com/darylldoyle/svg-sanitizer/tree/0.22.0"
             },
-            "time": "2022-02-21T09:13:59+00:00"
+            "time": "2025-08-12T10:13:48+00:00"
         },
         {
             "name": "freemius/wordpress-sdk",
-            "version": "2.13.1",
+            "version": "2.13.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Freemius/wordpress-sdk.git",
-                "reference": "7376c0eca1ae7f92aaba9d3b550bd10affe797ff"
+                "reference": "fa43eb92ae9dffa0d9f5ae11b5a1739bd7222308"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/7376c0eca1ae7f92aaba9d3b550bd10affe797ff",
-                "reference": "7376c0eca1ae7f92aaba9d3b550bd10affe797ff",
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/fa43eb92ae9dffa0d9f5ae11b5a1739bd7222308",
+                "reference": "fa43eb92ae9dffa0d9f5ae11b5a1739bd7222308",
                 "shasum": ""
             },
             "require": {
@@ -100,9 +100,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Freemius/wordpress-sdk/issues",
-                "source": "https://github.com/Freemius/wordpress-sdk/tree/2.13.1"
+                "source": "https://github.com/Freemius/wordpress-sdk/tree/2.13.4"
             },
-            "time": "2026-03-25T15:26:13+00:00"
+            "time": "2026-07-09T08:50:52+00:00"
         }
     ],
     "packages-dev": [

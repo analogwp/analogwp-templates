@@ -19,7 +19,6 @@ use Analog\Utils;
 use Elementor\Core\Files\CSS\Post as Post_CSS;
 use Elementor\Core\Kits\Manager as KitManager;
 use Elementor\TemplateLibrary\Source_Local;
-use Elementor\User;
 use WP_Error;
 
 /**
@@ -114,14 +113,14 @@ class Manager {
 	 * Trash a kit.
 	 */
 	public function trash_kit() {
-		if ( ! User::is_current_user_can_edit_post_type( Source_Local::CPT ) || ! isset( $_REQUEST['kit_id'] ) ) {
+		if ( ! Utils::current_user_can_manage_kits() || ! isset( $_REQUEST['kit_id'] ) ) {
 			wp_send_json_error();
 			return;
 		}
 
 		$kit_id = absint( wp_unslash( $_REQUEST['kit_id'] ) );
 
-		if ( ! $kit_id ) {
+		if ( ! $kit_id || ! current_user_can( 'delete_post', $kit_id ) ) {
 			wp_send_json_error();
 			return;
 		}
@@ -129,7 +128,7 @@ class Manager {
 		if ( isset( $_REQUEST['ang_trash_kit_nonce'] ) && check_ajax_referer( 'ang_trash_kit', 'ang_trash_kit_nonce' ) ) {
 			$kit = get_post( $kit_id );
 
-			if ( ! $kit ) {
+			if ( ! $kit || Source_Local::CPT !== $kit->post_type ) {
 				wp_send_json_error();
 				return;
 			}
@@ -166,7 +165,8 @@ class Manager {
 	 * @return void
 	 */
 	public function handle_template_import() {
-		if ( ! User::is_current_user_can_edit_post_type( Source_Local::CPT ) ) {
+		if ( ! Utils::current_user_can_manage_kits() ) {
+			$this->handle_error( 'Access Denied' );
 			return;
 		}
 
@@ -192,7 +192,8 @@ class Manager {
 	 * @return void
 	 */
 	public function handle_library_actions() {
-		if ( ! User::is_current_user_can_edit_post_type( Source_Local::CPT ) ) {
+		if ( ! Utils::current_user_can_manage_kits() ) {
+			$this->handle_error( 'Access Denied' );
 			return;
 		}
 
@@ -207,9 +208,15 @@ class Manager {
 			)
 		);
 
-		$action = Utils::get_super_global_value( $args, 'library_action' ); // phpcs:ignore -- Nonce already verified.
+		$action          = Utils::get_super_global_value( $args, 'library_action' ); // phpcs:ignore -- Nonce already verified.
+		$allowed_actions = array( 'import_local_kit', 'export_kit' );
 
-		$result = $this->$action( $args ); // phpcs:ignore -- Nonce already verified.
+		if ( ! in_array( $action, $allowed_actions, true ) || ! method_exists( $this, $action ) ) {
+			$this->handle_error( 'Access Denied' );
+			return;
+		}
+
+		$result = $this->$action( $args ); // phpcs:ignore -- Nonce already verified. Allowed actions are allowlisted above.
 
 		if ( is_wp_error( $result ) ) {
 			/** @var \WP_Error $result */
@@ -328,10 +335,15 @@ class Manager {
 	 * @return \WP_Error|array Exported kit data.
 	 */
 	private function prepare_kit_export( $kit_id ) {
-		$kit = get_post( $kit_id );
+		$kit_id = absint( $kit_id );
+		$kit    = get_post( $kit_id );
 
-		if ( ! $kit ) {
+		if ( ! $kit || Source_Local::CPT !== $kit->post_type ) {
 			return new \WP_Error( 'stylekit_error', 'Style Kit source not found.' );
+		}
+
+		if ( ! current_user_can( 'read_post', $kit_id ) ) {
+			return new \WP_Error( 'stylekit_error', 'You are not allowed to export this Style Kit.' );
 		}
 
 		$kit_data = serialize( get_post_meta( $kit_id, '_elementor_page_settings', true ) );
@@ -659,7 +671,7 @@ class Manager {
 	public function update_global_kit() {
 		$kit_key = 'global_kit';
 
-		if ( ! User::is_current_user_can_edit_post_type( Source_Local::CPT ) ) {
+		if ( ! Utils::current_user_can_manage_kits() ) {
 			wp_send_json_error();
 			return;
 		}

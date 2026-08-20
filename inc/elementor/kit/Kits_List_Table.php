@@ -309,12 +309,27 @@ class Kits_List_Table extends \WP_List_Table {
 	 * @return void
 	 */
 	public function process_bulk_action() {
-		if ( 'trash' === $this->current_action() ) {
-			$kit_ids = filter_input( INPUT_GET, 'kit_id', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-			$kit_ids = array_map( 'intval', $kit_ids );
+		if ( 'trash' !== $this->current_action() ) {
+			return;
+		}
 
-			if ( count( $kit_ids ) ) {
-				array_map( 'wp_trash_post', $kit_ids );
+		if ( ! Utils::current_user_can_manage_kits() ) {
+			return;
+		}
+
+		check_admin_referer( 'bulk-kits' );
+
+		$kit_ids = filter_input( INPUT_GET, 'kit_id', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+
+		if ( empty( $kit_ids ) || ! is_array( $kit_ids ) ) {
+			return;
+		}
+
+		$kit_ids = array_map( 'intval', $kit_ids );
+
+		foreach ( $kit_ids as $kit_id ) {
+			if ( $kit_id && current_user_can( 'delete_post', $kit_id ) ) {
+				wp_trash_post( $kit_id );
 			}
 		}
 	}

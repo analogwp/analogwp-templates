@@ -532,6 +532,15 @@ class Onboarding {
 	 * @return void
 	 */
 	public function ajax_actions() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				array(
+					'message' => __( 'Permission denied.', 'analogwp-templates' ),
+				),
+				403
+			);
+		}
+
 		if ( isset( $_REQUEST['nonce'] ) && check_ajax_referer( 'analog_onboarding', 'nonce' ) ) {
 			$step_id    = filter_input( INPUT_POST, 'stepId', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 			$step_value = filter_input( INPUT_POST, 'stepValue', FILTER_DEFAULT );
