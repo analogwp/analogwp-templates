@@ -95,6 +95,10 @@ class Admin_Settings {
 	public static function save() {
 		global $ang_current_tab;
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		check_admin_referer( 'ang-settings' );
 
 		// Trigger actions.

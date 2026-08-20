@@ -227,7 +227,12 @@ class Elementor {
 			$template_id = filter_input( INPUT_GET, 'template_id', FILTER_SANITIZE_NUMBER_INT );
 
 			if ( $template_id ) {
-				$template_id   = absint( $template_id );
+				$template_id = absint( $template_id );
+
+				if ( ! current_user_can( 'edit_post', $template_id ) ) {
+					return;
+				}
+
 				$template_data = get_post_meta( $template_id, '_elementor_data', true );
 
 				if ( ! $template_data || '[]' === $template_data ) {

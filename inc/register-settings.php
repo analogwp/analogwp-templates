@@ -149,6 +149,10 @@ function save_settings() {
 		return;
 	}
 
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
 	// Include settings pages.
 	Admin_Settings::get_settings_pages();
 

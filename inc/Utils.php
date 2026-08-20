@@ -154,6 +154,76 @@ class Utils extends Base {
 	}
 
 	/**
+	 * Capability required to create or import Style Kits.
+	 *
+	 * Contributors have `edit_posts` and can use Elementor, but Style Kits are
+	 * site-wide theme styles. Default is `edit_others_posts` so editors and
+	 * administrators retain Clone/Import, while contributors cannot.
+	 *
+	 * @since 2.6.6
+	 * @return string
+	 */
+	public static function get_create_kits_capability() {
+		/**
+		 * Filter the capability required to create or import Style Kits.
+		 *
+		 * @since 2.6.6
+		 * @param string $capability Default edit_others_posts.
+		 */
+		return (string) apply_filters( 'analog_create_kits_capability', 'edit_others_posts' );
+	}
+
+	/**
+	 * Capability required to manage Style Kits in wp-admin.
+	 *
+	 * Matches Local Style Kits and Settings screens (`manage_options`).
+	 *
+	 * @since 2.6.6
+	 * @return string
+	 */
+	public static function get_manage_kits_capability() {
+		/**
+		 * Filter the capability required to trash, set global, or locally import/export Style Kits.
+		 *
+		 * @since 2.6.6
+		 * @param string $capability Default manage_options.
+		 */
+		return (string) apply_filters( 'analog_manage_kits_capability', 'manage_options' );
+	}
+
+	/**
+	 * Whether the current user can create or import Style Kits.
+	 *
+	 * Used to close CVE-2026-65484 (contributor missing authorization).
+	 *
+	 * @since 2.6.6
+	 * @return bool
+	 */
+	public static function current_user_can_create_kits() {
+		if ( ! current_user_can( self::get_create_kits_capability() ) ) {
+			return false;
+		}
+
+		if ( ! class_exists( '\Elementor\User' ) ) {
+			return false;
+		}
+
+		return \Elementor\User::is_current_user_can_edit_post_type( Source_Local::CPT );
+	}
+
+	/**
+	 * Whether the current user can manage Style Kits in wp-admin.
+	 *
+	 * Covers trash, set-global, and local import/export.
+	 *
+	 * @since 2.6.6
+	 * @return bool
+	 */
+	public static function current_user_can_manage_kits() {
+		return current_user_can( self::get_manage_kits_capability() );
+	}
+
+	/**
 	 * Get global token post metadata.
 	 *
 	 * @return array|bool Tokens data.
