@@ -17,44 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="sidebar">
 	<?php do_action( 'ang_sidebar_start' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound ?>
 
-	<?php if ( ! class_exists( '\AnalogWP\CustomLibrary\Plugin' ) && ! get_option( 'ang_hide_custom_library_promo' ) ) : ?>
-		<div class="promo" data-promo-id="custom_library_promo">
-			<a href="#" class="ang-hide-promo" data-promo-id="custom_library_promo"><?php esc_html_e( 'Hide', 'analogwp-templates' ); ?></a>
-			<span class="sticker-tag"><?php esc_html_e( 'New', 'analogwp-templates' ); ?></span>
-			<div class="promo-header">
-				<svg width="48" height="48" viewBox="0 0 99 99" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<g clip-path="url(#clip0_4170_3917)">
-						<path d="M49.5 99C76.8381 99 99 76.8381 99 49.5C99 22.1619 76.8381 0 49.5 0C22.1619 0 0 22.1619 0 49.5C0 76.8381 22.1619 99 49.5 99Z" fill="#232624"/>
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M61.0206 35.3574H35.3572V61.0208H38.4217V38.4219H61.0206V35.3574Z" fill="white"/>
-						<path d="M66.0007 40.3359H40.3373V65.9993H66.0007V40.3359Z" fill="white"/>
-					</g>
-					<defs>
-						<clipPath id="clip0_4170_3917">
-							<rect width="99" height="99" fill="white"/>
-						</clipPath>
-					</defs>
-				</svg>
-				<h3><a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank"><?php esc_html_e( 'Meet Custom Library for Elementor', 'analogwp-templates' ); ?></a></h3>
-			</div>
-
-			<p><?php esc_html_e( 'Create and manage your own template library directly in the editor, and share it across any Elementor site. Build faster, stay organized, and give your clients consistent, ready-to-use design patterns.', 'analogwp-templates' ); ?></p>
-
-			<ul class="features">
-				<li>✅ <b><?php esc_html_e( 'Custom Template Library', 'analogwp-templates' ); ?></b></li>
-				<li>✅ <b><?php esc_html_e( 'Share Library Across Websites', 'analogwp-templates' ); ?></b></li>
-				<li>✅ <b><?php esc_html_e( 'Template Usage Reports/Analytics', 'analogwp-templates' ); ?></b></li>
-				<li>✅ <b><?php esc_html_e( 'Customizable and White-label ready', 'analogwp-templates' ); ?></b></li>
-				<li>✅ <b><?php esc_html_e( 'Role-Based Access Controls', 'analogwp-templates' ); ?></b></li>
-				<li>✅ <b><?php esc_html_e( 'Self-hosted, Secure and No Signups', 'analogwp-templates' ); ?></b></li>
-				<li><b><?php esc_html_e( 'and so much more...', 'analogwp-templates' ); ?></b></li>
-			</ul>
-
-			<div class="buttons">
-				<a href="https://analogwp.com/custom-library-for-elementor/?utm_medium=plugin&utm_source=settings&utm_campaign=style+kits" target="_blank" class="button button-primary">🚀 <?php esc_html_e( 'Explore Custom Library', 'analogwp-templates' ); ?></a>
-			</div>
-		</div>
-	<?php endif; ?>
-
 	<div class="plugin-banner">
 		<div class="header">
 			<div class="brand">

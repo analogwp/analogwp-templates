@@ -341,7 +341,7 @@ class Kits_List_Table extends \WP_List_Table {
  */
 function ang_kits_list() {
 	// Enqueue assets.
-	Admin_Settings::enqueue_assets();
+	Admin_Settings::enqueue_styles();
 
 	wp_enqueue_script(
 		'analog-kit-list',

@@ -61,28 +61,6 @@ class Admin_Settings {
 	}
 
 	/**
-	 * AJAX handler to hide a promo banner.
-	 */
-	public static function ajax_hide_promo() {
-		check_ajax_referer( 'ang_hide_promo', 'nonce' );
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'analogwp-templates' ) ) );
-		}
-
-		$promo_id = isset( $_POST['promo_id'] ) ? sanitize_key( $_POST['promo_id'] ) : '';
-
-		if ( empty( $promo_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid promo ID.', 'analogwp-templates' ) ) );
-		}
-
-		// Store the hidden state in the database.
-		update_option( 'ang_hide_' . $promo_id, true );
-
-		wp_send_json_success( array( 'message' => __( 'Promo hidden successfully.', 'analogwp-templates' ) ) );
-	}
-
-	/**
 	 * Save the settings.
 	 */
 	public static function save() {
@@ -158,12 +136,21 @@ class Admin_Settings {
 	}
 
 	/**
+	 * Enqueue the settings screen styles.
+	 *
+	 * @since 2.7.0
+	 */
+	public static function enqueue_styles() {
+		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/admin-settings.css' ) );
+	}
+
+	/**
 	 * Enqueue the settings screen styles and scripts.
 	 *
 	 * @since 2.7.0
 	 */
 	public static function enqueue_assets() {
-		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/admin-settings.css' ) );
+		self::enqueue_styles();
 
 		wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n', 'wp-api-fetch' ), filemtime( ANG_PLUGIN_DIR . 'assets/js/admin-settings.js' ), true );
 
@@ -177,8 +164,6 @@ class Admin_Settings {
 					'sitekit_importer_notice'   => __( 'Template Kit file downloaded.', 'analogwp-templates' ),
 					'sitekit_importer_url_text' => __( 'Import it into Elementor', 'analogwp-templates' ),
 					'sitekit_importer_url'      => esc_url( admin_url( 'admin.php?page=elementor-tools#tab-import-export-kit' ) ),
-					'hide_promo_nonce'          => wp_create_nonce( 'ang_hide_promo' ),
-					'ajax_url'                  => admin_url( 'admin-ajax.php' ),
 				)
 			)
 		);
