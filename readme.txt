@@ -131,7 +131,7 @@ The Version Control settings ask the WordPress.org plugin directory for the list
 == Changelog ==
 
 = 2.7.0 =
-* New: Introducing Delta, from the Style Kits team, on Style Kits screens and in the sidebar
+* New: Introducing Delta, from the Style Kits team, in the settings sidebar
 * New: Settings sidebar is now also available on the Local Style Kits screen
 * Fix: Go Pro menu link now opens the Style Kits Pro page
 * Fix: Applying the Global Style Kit from the posts list no longer resets a page's other settings
@@ -146,6 +146,7 @@ The Version Control settings ask the WordPress.org plugin directory for the list
 * Improvement: Update SVG sanitizer to v1.1.1
 * Improvement: Less waiting on remote requests when a service is unreachable
 * Improvement: Import history is now limited and no longer loaded on every request
+* Improvement: Redesigned Style Kits Pro settings tab
 * Improvement: Removed coupon offers from the plugin
 * Improvement: Usage Data Tracking now states what is shared, and the readme lists external services
 * Improvement: More data is removed on uninstall, and the scheduled event is cleared on deactivation

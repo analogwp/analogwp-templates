@@ -7,12 +7,6 @@
 		} );
 	} );
 
-	// Inline "dismiss" links inside a notice behave like the core dismiss button.
-	$('.analog-notice').on( 'click', '.analog-notice-dismiss', function( e ){
-		e.preventDefault();
-		$( this ).closest('.analog-notice').find('button.notice-dismiss').trigger('click');
-	} );
-
 	// Library screen has no .wrap h1, so core leaves notices above the app header. Move them into the content area once the app mounts.
 	var app = document.getElementById( 'analogwp-templates' );
 	var $notices = $( '.analog-notice' );

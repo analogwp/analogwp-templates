@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-30T19:01:08+00:00\n"
+"POT-Creation-Date: 2026-10-30T19:06:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: analogwp-templates\n"
@@ -97,77 +97,58 @@ msgstr ""
 msgid "Get Support"
 msgstr ""
 
-#: inc/admin/Delta_Promo.php:113
-#: inc/admin/Delta_Promo.php:203
-msgid "Delta logo"
-msgstr ""
-
-#: inc/admin/Delta_Promo.php:147
-msgid "Meet Delta, from the Style Kits team."
-msgstr ""
-
-#: inc/admin/Delta_Promo.php:148
-msgid "Seven months in the making and now out: describe the site you want and your AI agent builds it in clean HTML and CSS. No page builder, no learning curve. Early adopters are already shipping professional sites with it."
-msgstr ""
-
-#. translators: 1: single site price, 2: unlimited sites price.
-#: inc/admin/Delta_Promo.php:153
-msgid "Founder’s Lifetime License: %1$s single site · %2$s unlimited sites."
-msgstr ""
-
-#: inc/admin/Delta_Promo.php:161
-#: inc/admin/Delta_Promo.php:229
-msgid "Explore Delta"
-msgstr ""
-
-#: inc/admin/Delta_Promo.php:162
-msgid "Maybe later"
-msgstr ""
-
-#: inc/admin/Delta_Promo.php:200
+#: inc/admin/Delta_Promo.php:87
 #: inc/settings/views/html-admin-sidebar.php:23
 #: client/Template.js:20
 msgid "New"
 msgstr ""
 
-#: inc/admin/Delta_Promo.php:201
+#: inc/admin/Delta_Promo.php:88
 msgid "Our latest and greatest"
 msgstr ""
 
-#: inc/admin/Delta_Promo.php:204
+#: inc/admin/Delta_Promo.php:90
+msgid "Delta logo"
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:91
 msgid "Meet Delta: build WordPress sites with AI"
 msgstr ""
 
-#: inc/admin/Delta_Promo.php:207
+#: inc/admin/Delta_Promo.php:94
 msgid "From the Style Kits team, seven months in the making and now out. Describe the site you want and your AI agent builds it in clean HTML and CSS, without the headache and learning curve of page builders."
 msgstr ""
 
-#: inc/admin/Delta_Promo.php:210
+#: inc/admin/Delta_Promo.php:97
 msgid "Works with Claude, ChatGPT, Cursor and any MCP client"
 msgstr ""
 
-#: inc/admin/Delta_Promo.php:211
+#: inc/admin/Delta_Promo.php:98
 msgid "Clean HTML and CSS output, no builder markup"
 msgstr ""
 
-#: inc/admin/Delta_Promo.php:212
+#: inc/admin/Delta_Promo.php:99
 msgid "Templates for every part of the site"
 msgstr ""
 
-#: inc/admin/Delta_Promo.php:213
+#: inc/admin/Delta_Promo.php:100
 msgid "Sketchbook boards to try ideas safely"
 msgstr ""
 
-#: inc/admin/Delta_Promo.php:214
+#: inc/admin/Delta_Promo.php:101
 msgid "Bring your own AI, no AI fee from Delta"
 msgstr ""
 
 #. translators: 1: single site price, 2: unlimited sites price.
-#: inc/admin/Delta_Promo.php:221
+#: inc/admin/Delta_Promo.php:108
 msgid "Founder’s Lifetime License: %1$s single site · %2$s unlimited sites. One payment, lifetime updates."
 msgstr ""
 
-#: inc/admin/Notice.php:85
+#: inc/admin/Delta_Promo.php:116
+msgid "Explore Delta"
+msgstr ""
+
+#: inc/admin/Notice.php:189
 msgid "Style Kits for Elementor Logo"
 msgstr ""
 
@@ -1751,6 +1732,7 @@ msgid "View Demo"
 msgstr ""
 
 #: inc/settings/class-settings-gopro.php:27
+#: inc/settings/views/html-admin-settings-gopro.php:53
 msgid "Style Kits Pro"
 msgstr ""
 
@@ -1808,64 +1790,88 @@ msgid "Reinstall this version"
 msgstr ""
 
 #: inc/settings/views/html-admin-settings-gopro.php:20
-msgid "Upgrade to PRO"
+msgid "Pattern and Style Preset Libraries"
 msgstr ""
 
 #: inc/settings/views/html-admin-settings-gopro.php:21
-msgid "Transform your design workflow in Elementor with Style Kits PRO"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:22
-msgid "Everything in the free version, plus more powerful tools to build faster, design smarter, and deliver a better client experience."
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:24
-msgid "Explore Style Kits Pro"
+msgid "Unlimited access to the container-based pattern library and the full collection of theme style presets."
 msgstr ""
 
 #: inc/settings/views/html-admin-settings-gopro.php:25
-msgid "Also available in a Limited Lifetime plan!"
+msgid "More Fonts, Colors and Spacing"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:34
-msgid "Pattern &amp; Style Preset Libraries"
+#: inc/settings/views/html-admin-settings-gopro.php:26
+msgid "Up to 48 Global Style Kit Fonts and Colors, and up to 24 container spacing presets."
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:35
-msgid "Unlimited access to the container-based pattern library and the entire collection of Global theme style presets."
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:41
-msgid "More Fonts, Colors &amp; Spacing"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:42
-msgid "Unlock up to 48 Global Style Kit Fonts and Colors, and up to 24 container spacing presets."
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:48
+#: inc/settings/views/html-admin-settings-gopro.php:30
 #: inc/settings/views/html-admin-sidebar.php:47
 msgid "Role-Based Access Controls"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:49
-msgid "Hide any Style Kit reference from your clients based on user roles."
+#: inc/settings/views/html-admin-settings-gopro.php:31
+msgid "Hide Style Kits references from your clients based on their user role."
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:55
+#: inc/settings/views/html-admin-settings-gopro.php:35
 msgid "Manage Style Kit Panels"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:56
-msgid "Selectively de-activate Style Kits Panels from the site settings sidebar."
+#: inc/settings/views/html-admin-settings-gopro.php:36
+msgid "Turn off the Style Kits panels you don’t need in the site settings sidebar."
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:62
+#: inc/settings/views/html-admin-settings-gopro.php:40
 msgid "Front-End Style Switcher"
 msgstr ""
 
+#: inc/settings/views/html-admin-settings-gopro.php:41
+msgid "Let visitors or clients switch between Style Kits on the front end to preview design variations."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:45
+msgid "Cleanup Tools"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:46
+msgid "Remove inline styles from your layouts to keep them clean and easy to maintain."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:54
+msgid "Build every Elementor site on a design system you control"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:55
+msgid "Everything in the free plugin, plus the full pattern and preset libraries, more global design controls, and tools for handing sites over to clients."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:57
+msgid "View plans and pricing"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:58
+msgid "See all features"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:60
+msgid "Annual and lifetime plans available. 14-day money-back guarantee."
+msgstr ""
+
 #: inc/settings/views/html-admin-settings-gopro.php:63
-msgid "Let visitors or clients toggle between Style Kits on the front end — perfect for live previewing design variations."
+msgid "What you get with Pro"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:78
+msgid "Every plan includes all Pro features"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:79
+msgid "Unlimited library access, plugin updates and support."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:81
+msgid "Get Style Kits Pro"
 msgstr ""
 
 #: inc/settings/views/html-admin-settings.php:50

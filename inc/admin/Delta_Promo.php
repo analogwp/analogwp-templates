@@ -14,18 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Promotes Delta (deltatheme.com) inside Style Kits admin screens.
  *
- * Two surfaces:
- * - A dismissible admin notice shown only on Style Kits screens (per-user dismiss via Notice/Consumer).
- * - A permanent card at the top of the sidebar on the Settings and Local Style Kits screens.
+ * Shown as a permanent card at the top of the sidebar on the Settings and Local Style Kits screens.
  *
  * @since 2.7.0
  */
 final class Delta_Promo {
-	/**
-	 * Notice slug.
-	 */
-	const SLUG = 'delta_promo';
-
 	/**
 	 * Base URL for all Delta links.
 	 */
@@ -39,24 +32,9 @@ final class Delta_Promo {
 	private $delta_theme_slugs = array( '21press-delta', 'delta' );
 
 	/**
-	 * Admin page slugs the notice is allowed on. Hook suffixes can't be used as they contain the translated menu title.
-	 *
-	 * @var string[]
-	 */
-	private $pages = array(
-		'analogwp_templates',
-		'ang-settings',
-		'style-kits',
-		'analog_onboarding',
-	);
-
-	/**
 	 * Registers functionality through WordPress hooks.
 	 */
 	public function register() {
-		add_filter( 'analog_admin_notices', array( $this, 'add_notice' ) );
-		add_filter( 'analog_admin_notices_html', array( $this, 'allow_paragraph_class' ) );
-		add_action( 'admin_head', array( $this, 'print_notice_styles' ) );
 		add_action( 'ang_sidebar_start', array( $this, 'render_sidebar_card' ) );
 	}
 
@@ -95,97 +73,6 @@ final class Delta_Promo {
 			),
 			self::URL . ltrim( $path, '/' )
 		);
-	}
-
-	/**
-	 * Adds the dismissible notice to the Style Kits notice stack.
-	 *
-	 * @param Notice[] $notices Registered notices.
-	 * @return Notice[]
-	 */
-	public function add_notice( $notices ) {
-		$notices[] = new Notice(
-			self::SLUG,
-			array(
-				'type'            => Notice::TYPE_INFO,
-				'dismissible'     => true,
-				'logo'            => ANG_PLUGIN_URL . 'assets/img/delta-logo.svg',
-				'logo_alt'        => __( 'Delta logo', 'analogwp-templates' ),
-				'logo_background' => '#f6f4f1',
-				'active_callback' => function () {
-					global $plugin_page;
-
-					return in_array( $plugin_page, $this->pages, true ) && $this->is_eligible();
-				},
-				'content'         => array( $this, 'get_notice_content' ),
-			)
-		);
-
-		return $notices;
-	}
-
-	/**
-	 * Lets notice paragraphs carry a class so the action row can be styled.
-	 *
-	 * @param array $allowed_html Allowed tags for notice content.
-	 * @return array
-	 */
-	public function allow_paragraph_class( $allowed_html ) {
-		$allowed_html['p'] = array( 'class' => array() );
-
-		return $allowed_html;
-	}
-
-	/**
-	 * Notice markup. Limited to the tags allowed by Notice::render().
-	 *
-	 * @return string
-	 */
-	public function get_notice_content() {
-		$intro = sprintf(
-			'<strong>%1$s</strong> %2$s',
-			esc_html__( 'Meet Delta, from the Style Kits team.', 'analogwp-templates' ),
-			esc_html__( 'Seven months in the making and now out: describe the site you want and your AI agent builds it in clean HTML and CSS. No page builder, no learning curve. Early adopters are already shipping professional sites with it.', 'analogwp-templates' )
-		);
-
-		$pricing = sprintf(
-			/* translators: 1: single site price, 2: unlimited sites price. */
-			esc_html__( 'Founder’s Lifetime License: %1$s single site · %2$s unlimited sites.', 'analogwp-templates' ),
-			'<strong>$49</strong>',
-			'<strong>$99</strong>'
-		);
-
-		$actions = sprintf(
-			'<a href="%1$s" target="_blank" class="button button-primary">%2$s</a> <a href="#" class="analog-notice-dismiss">%3$s</a>',
-			esc_url( $this->link( 'notice' ) ),
-			esc_html__( 'Explore Delta', 'analogwp-templates' ),
-			esc_html__( 'Maybe later', 'analogwp-templates' )
-		);
-
-		return sprintf( '<p>%1$s</p><p>%2$s</p><p class="delta-actions">%3$s</p>', $intro, $pricing, $actions );
-	}
-
-	/**
-	 * Small amount of CSS for the notice. Printed only where the notice can show.
-	 */
-	public function print_notice_styles() {
-		global $plugin_page;
-
-		if ( ! in_array( $plugin_page, $this->pages, true ) ) {
-			return;
-		}
-		?>
-		<style>
-			#analog-notice-<?php echo esc_attr( self::SLUG ); ?> { flex-wrap: wrap; row-gap: 0; padding-right: 38px; }
-			#analog-notice-<?php echo esc_attr( self::SLUG ); ?> p { margin: 6px 0; flex-basis: calc(100% - 50px); }
-			#analog-notice-<?php echo esc_attr( self::SLUG ); ?> p + p { margin-left: 50px; }
-			#analog-notice-<?php echo esc_attr( self::SLUG ); ?> .delta-actions { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
-			#analog-notice-<?php echo esc_attr( self::SLUG ); ?> .delta-actions .button-primary { background: #15171b; border-color: #15171b; }
-			#analog-notice-<?php echo esc_attr( self::SLUG ); ?> .delta-actions .button-primary:hover { background: #26292a; border-color: #26292a; }
-			#analog-notice-<?php echo esc_attr( self::SLUG ); ?> .analog-notice-dismiss { color: #646970; text-decoration: none; }
-			#analog-notice-<?php echo esc_attr( self::SLUG ); ?> .analog-notice-dismiss:hover { color: #1d2327; text-decoration: underline; }
-		</style>
-		<?php
 	}
 
 	/**

@@ -66,9 +66,6 @@ final class Notice {
 	 *                                     current context. The current admin screen's hook suffix is passed to
 	 *                                     the callback. Default is that the notice is active unconditionally.
 	 *     @type bool     $dismissible     Whether the notice should be dismissible. Default false.
-	 *     @type string   $logo            Image URL shown at the start of the notice. Default Style Kits triangle.
-	 *     @type string   $logo_alt        Alt text for the logo image.
-	 *     @type string   $logo_background Background color behind the logo. Default Style Kits purple.
 	 * }
 	 */
 	public function __construct( $slug, array $args ) {
@@ -81,9 +78,6 @@ final class Notice {
 				'type'            => self::TYPE_INFO,
 				'active_callback' => null,
 				'dismissible'     => false,
-				'logo'            => ANG_PLUGIN_URL . 'assets/img/triangle.svg',
-				'logo_alt'        => __( 'Style Kits for Elementor Logo', 'analogwp-templates' ),
-				'logo_background' => '#5c32b6',
 			)
 		);
 	}
@@ -191,8 +185,8 @@ final class Notice {
 					border-radius: 50%;
 				}
 			</style>
-			<div class="logo" style="background: <?php echo esc_attr( $this->args['logo_background'] ); ?>">
-				<img src="<?php echo esc_url( $this->args['logo'] ); ?>" alt="<?php echo esc_attr( $this->args['logo_alt'] ); ?>" />
+			<div class="logo">
+				<img src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/triangle.svg' ); ?>" alt="<?php esc_attr_e( 'Style Kits for Elementor Logo', 'analogwp-templates' ); ?>" />
 			</div>
 			<?php echo wp_kses( $content, $allowed_html ); ?>
 			<?php echo wp_kses( self::$nonce_field, $allowed_html ); ?>
