@@ -61,13 +61,6 @@ class Admin_Settings {
 	}
 
 	/**
-	 * Register AJAX handlers for settings.
-	 */
-	public static function register_ajax_handlers() {
-		add_action( 'wp_ajax_ang_hide_promo', array( __CLASS__, 'ajax_hide_promo' ) );
-	}
-
-	/**
 	 * AJAX handler to hide a promo banner.
 	 */
 	public static function ajax_hide_promo() {
@@ -156,6 +149,20 @@ class Admin_Settings {
 		global $ang_current_section, $ang_current_tab;
 
 		do_action( 'ang_settings_start' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		self::enqueue_assets();
+
+		// Get tabs for the settings page.
+		$tabs = apply_filters( 'ang_settings_tabs_array', array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+
+		include __DIR__ . '/settings/views/html-admin-settings.php';
+	}
+
+	/**
+	 * Enqueue the settings screen styles and scripts.
+	 *
+	 * @since 2.7.0
+	 */
+	public static function enqueue_assets() {
 		wp_enqueue_style( 'ang_settings', ANG_PLUGIN_URL . 'assets/css/admin-settings.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/admin-settings.css' ) );
 
 		wp_enqueue_script( 'ang_settings', ANG_PLUGIN_URL . 'assets/js/admin-settings.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'wp-i18n', 'wp-api-fetch' ), filemtime( ANG_PLUGIN_DIR . 'assets/js/admin-settings.js' ), true );
@@ -175,11 +182,15 @@ class Admin_Settings {
 				)
 			)
 		);
+	}
 
-		// Get tabs for the settings page.
-		$tabs = apply_filters( 'ang_settings_tabs_array', array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-
-		include __DIR__ . '/settings/views/html-admin-settings.php';
+	/**
+	 * Output the sidebar shared by the Settings and Local Style Kits screens.
+	 *
+	 * @since 2.7.0
+	 */
+	public static function output_sidebar() {
+		include __DIR__ . '/settings/views/html-admin-sidebar.php';
 	}
 
 	/**

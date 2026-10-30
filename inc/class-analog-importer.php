@@ -10,7 +10,6 @@ namespace Elementor\TemplateLibrary;
 use Analog\API\Remote;
 use Analog\Formatter;
 use Analog\Plugin;
-use Elementor\TemplateLibrary\Classes\Images;
 use Analog\Utils;
 
 /**

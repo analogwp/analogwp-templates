@@ -52,12 +52,12 @@ class Misc extends Settings_Page {
 				),
 				array(
 					'title'         => __( 'Usage Data Tracking', 'analogwp-templates' ),
-					'desc'          => __( 'Opt-in to our anonymous plugin data collection and to updates', 'analogwp-templates' ),
+					'desc'          => __( 'Opt-in to share plugin usage data with us, including your site URL and admin email, and to receive updates', 'analogwp-templates' ),
 					'id'            => 'ang_data_collection',
 					'default'       => false,
 					'type'          => 'checkbox',
 					'checkboxgroup' => 'start',
-					'desc_tip'      => __( 'We guarantee no sensitive data is collected. ', 'analogwp-templates' ) . '<a class="ang-link" href="https://analogwp.com/docs/what-usage-data-is-tracked-by-style-kits/" target="_blank">' . __( 'More Info', 'analogwp-templates' ) . '</a>',
+					'desc_tip'      => '<a class="ang-link" href="https://analogwp.com/docs/what-usage-data-is-tracked-by-style-kits/" target="_blank">' . __( 'More Info', 'analogwp-templates' ) . '</a>',
 				),
 				array(
 					'title'         => __( 'Remove Data on Uninstall', 'analogwp-templates' ),

@@ -3,7 +3,7 @@ Contributors: analogwp, lushkant, johnpixle, mauryaratan
 Requires at least: 6.0
 Requires PHP: 7.4
 Tested up to: 7.1
-Stable tag: 2.6.6
+Stable tag: 2.7.0
 Tags: elementor, patterns, global styles, elementor addons, design system
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -93,6 +93,32 @@ Using Elementor Hello theme is also recommended.
 = Do I get support if I need help? =
 We offer high-level support for all Style Kits users. Reach out to https://analogwp.com/support/ and submit a support request. We’ll get back to you asap.
 
+== External services ==
+
+This plugin connects to the services below.
+
+= AnalogWP (analogwp.com) =
+Provides the Style Kits, patterns, templates and starter kits library. The plugin sends your site URL and plugin version, plus your license key if you have one, when it loads or syncs the library and when you import an item.
+
+If you opt in to Usage Data Tracking under Style Kits > Settings > Misc (off by default), it also sends your site language, admin email, WordPress version, site URL, plugin version and template import history once a week.
+
+[Terms](https://analogwp.com/terms-and-conditions/) and [privacy policy](https://analogwp.com/privacy-policy/).
+
+= GitHub (raw.githubusercontent.com) =
+Serves the list of Google Fonts names offered in Elementor. The plugin requests this file about once a day from your server and sends no site data beyond the request itself.
+
+[Terms](https://docs.github.com/site-policy/github-terms/github-terms-of-service) and [privacy statement](https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement).
+
+= Freemius (freemius.com) =
+Handles plugin licensing, the optional opt-in, and support requests. If you opt in or activate a license, Freemius receives your site URL, admin name and email, and WordPress, PHP and plugin versions. The opt-in can be skipped.
+
+[Terms](https://freemius.com/terms/) and [privacy policy](https://freemius.com/privacy/).
+
+= WordPress.org =
+The Version Control settings ask the WordPress.org plugin directory for the list of earlier versions of this plugin. Rolling back downloads the selected version from WordPress.org.
+
+[Privacy policy](https://wordpress.org/about/privacy/).
+
 == Screenshots ==
 
 1. The Style Kits pattern library
@@ -103,6 +129,27 @@ We offer high-level support for all Style Kits users. Reach out to https://analo
 6. Container spacing presets
 
 == Changelog ==
+
+= 2.7.0 =
+* New: Introducing Delta, from the Style Kits team, on Style Kits screens and in the sidebar
+* New: Settings sidebar is now also available on the Local Style Kits screen
+* Fix: Go Pro menu link now opens the Style Kits Pro page
+* Fix: Applying the Global Style Kit from the posts list no longer resets a page's other settings
+* Fix: Errors when importing a Style Kit with no connection to the library
+* Fix: Errors in quick edit and bulk edit with an invalid Style Kit
+* Fix: Errors on older Elementor versions, and the rollback button on that notice
+* Fix: Plugin notices missing on some translated sites
+* Fix: Library version checks for versions such as 2.10
+* Fix: Onboarding redirect now only applies to administrators in wp-admin
+* Improvement: General security hardening for uploads, settings, imports and remote requests
+* Improvement: Update Freemius SDK to v2.13.5
+* Improvement: Update SVG sanitizer to v1.1.1
+* Improvement: Less waiting on remote requests when a service is unreachable
+* Improvement: Import history is now limited and no longer loaded on every request
+* Improvement: Removed coupon offers from the plugin
+* Improvement: Usage Data Tracking now states what is shared, and the readme lists external services
+* Improvement: More data is removed on uninstall, and the scheduled event is cleared on deactivation
+* Improvement: Compatibility with latest Elementor
 
 = 2.6.6 =
 * Fix: Add missing authorization checks so contributors cannot create, modify, or delete Style Kits

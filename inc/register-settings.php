@@ -55,8 +55,6 @@ function register_menu() {
 		'Analog\Settings\new_settings_page'
 	);
 
-	add_action( 'load-style-kits_page_settings', 'Analog\Settings\settings_page_init' );
-
 	add_submenu_page(
 		$menu_slug,
 		__( 'Local Style Kits', 'analogwp-templates' ),
@@ -99,33 +97,20 @@ function handle_external_redirects() {
 	}
 
 	if ( 'go_style_kits_pro' === $page ) {
+		add_filter(
+			'allowed_redirect_hosts',
+			static function ( $hosts ) {
+				$hosts[] = 'analogwp.com';
+
+				return $hosts;
+			}
+		);
+
 		wp_safe_redirect( Utils::get_pro_link( array( 'utm_source' => 'wp-menu' ) ) );
 		exit();
 	}
 }
 add_action( 'admin_init', __NAMESPACE__ . '\handle_external_redirects' );
-
-/**
- * Loads methods into memory for use within settings.
- */
-function settings_page_init() {
-
-	// Include settings pages.
-	Admin_Settings::get_settings_pages();
-
-	// Add any posted messages.
-	$ang_error = filter_input( INPUT_GET, 'ang_error', FILTER_DEFAULT );
-	if ( ! empty( $ang_error ) ) {
-		Admin_Settings::add_error( wp_kses_post( wp_unslash( $ang_error ) ) );
-	}
-
-	$ang_message = filter_input( INPUT_GET, 'ang_message', FILTER_DEFAULT );
-	if ( ! empty( $ang_message ) ) {
-		Admin_Settings::add_message( wp_kses_post( wp_unslash( $ang_message ) ) );
-	}
-
-	do_action( 'ang_settings_page_init' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-}
 
 /**
  * Handle saving of settings.
@@ -241,7 +226,7 @@ function sk_freemius_switch_notice() {
 			esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'analogwp-templates' ),
 			esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'analogwp-templates' ),
 			esc_html( 'support@analogwp.com' ),
-			esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'analogwp-templates' )
+			esc_html__( 'and include your license key so we can help with a smooth transition.', 'analogwp-templates' )
 		);
 		$html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
 
@@ -268,7 +253,7 @@ function sk_add_freemius_switch_settings_notice( $settings ) {
 					esc_html__( 'Style Kits is switching to a new experience for our Pro plugin,', 'analogwp-templates' ),
 					esc_html__( 'that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at', 'analogwp-templates' ),
 					esc_html( 'support@analogwp.com' ),
-					esc_html__( 'or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition.', 'analogwp-templates' ),
+					esc_html__( 'and include your license key so we can help with a smooth transition.', 'analogwp-templates' ),
 					esc_html__( 'Please also know that coming future updates are now moved to this new licensing system and once you migrate to it everything else will work as is and better while with this switch we are working hard to bring you a more fine-tuned experience and all the more support for latest of Elementor.', 'analogwp-templates' )
 				),
 			),

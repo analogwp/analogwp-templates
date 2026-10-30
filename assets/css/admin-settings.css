@@ -36,6 +36,10 @@ body.style-kits_page_ang-settings .wrap {
 	line-height: 1.2;
 }
 
+.ang-wrapper > .ang-main {
+	min-width: 0;
+}
+
 .ang-wrapper > form > .tab-content {
 	background: #fff;
 	border-bottom-right-radius: 8px;
@@ -312,7 +316,6 @@ body.style-kits_page_ang-settings .wrap {
 
 .ang .sidebar .plugin-banner,
 .ang .sidebar .promo,
-.ang .sidebar .upgrade-box,
 .ang .sidebar .help-box {
 	background: #fff;
 	border-radius: 8px;
@@ -350,18 +353,6 @@ body.style-kits_page_ang-settings .wrap {
 	border-top: 1px solid #E2E2E4;
 }
 
-.ang .sidebar .inline-badge {
-	background: #4D45BD;
-	color: #fff;
-	font-size: 10px;
-	text-transform: uppercase;
-	border-radius: 5px;
-	padding: 2px 3px;
-	border: 2px solid transparent;
-	vertical-align: middle;
-	text-decoration: none;
-}
-
 .ang .sidebar .help-box h3 {
 	margin-top: 0;
 	margin-bottom: 15px;
@@ -377,8 +368,7 @@ body.style-kits_page_ang-settings .wrap {
 	gap: 10px;
 }
 
-.ang .sidebar .promo,
-.ang .sidebar .upgrade-box {
+.ang .sidebar .promo {
 	margin-top: 0;
 	border: 1px solid #dcdcdc;
 	margin-bottom: 30px;
@@ -470,6 +460,15 @@ body.style-kits_page_ang-settings .wrap {
 }
 
 .ang .sidebar .promo.promo-delta {
+	.promo-eyebrow {
+		margin: 0 0 12px;
+		color: #646970;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
 	.sticker-tag {
 		background: #15171b;
 	}
@@ -495,75 +494,9 @@ body.style-kits_page_ang-settings .wrap {
 	}
 }
 
-.ang .sidebar .upgrade-box {
-	.ang-discount-response {
-		font-style: italic;
-		font-weight: 500;
-		color: #602BC2;
-	}
-
-	&.special {
-		border-color:#602BC2;
-		background: #E1D5F6;
-		
-		h3 {
-			margin: 0;
-			font-size: 18px;
-			color:#602BC2;
-			line-height: 1.5;
-		}
-
-		h3 + p {
-			font-size: 15px;
-		}
-
-		 input[type="email"]:focus,
-		 input[type="text"]:focus {
-			border-color:#602BC2;
-			box-shadow: 0 0 0 1px #602BC2;
-		 }
-
-		.button,
-		.button-secondary {
-			background-color:#602BC2;
-			border-color:#602BC2;
-			color:#fff;
-
-			&:hover,
-			&:focus {
-				box-shadow: none;
-			}
-		}
-
-		a {
-			color:currentColor;
-		}
-	}
-}
-
 .ang .sidebar .social {
 	display: flex;
 	gap: 15px;
-}
-
-.ang .upgrade-box li {
-	list-style: disc;
-	font-size: 1.1em;
-}
-
-.ang .upgrade-box h3 {
-	margin: 0;
-	font-size: 18px;
-	line-height: 1.5;
-}
-
-.ang .upgrade-box .regular-text {
-	width: 100%;
-	margin-bottom: 8px;
-}
-
-.ang .upgrade-box + .promo {
-	margin-top: 30px;
 }
 
 .ang .promo.promo {

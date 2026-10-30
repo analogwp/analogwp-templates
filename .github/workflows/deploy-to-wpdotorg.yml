@@ -10,7 +10,13 @@ jobs:
     name: New tag
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
+
+      - name: Verify version numbers match the tag
+        run: |
+          grep -Eq "^ \* Version: +${GITHUB_REF_NAME}$" analogwp-templates.php
+          grep -q "^define( 'ANG_VERSION', '${GITHUB_REF_NAME}' );$" analogwp-templates.php
+          grep -q "^Stable tag: ${GITHUB_REF_NAME}$" readme.txt
 
       - name: Install Composer dependencies
         uses: php-actions/composer@v6
@@ -20,9 +26,9 @@ jobs:
           php_version: '8.0'
 
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: '21'
+          node-version: '22'
 
       - name: Install dependencies
         run: npm install
@@ -36,8 +42,11 @@ jobs:
       - name: Verify scoped autoloader build artifact
         run: test -f build/analogwp-templates/third-party/vendor/scoper-autoload.php
 
+      - name: Verify unscoped dependencies are left out of the build
+        run: test ! -e build/analogwp-templates/vendor/enshrined
+
       - name: WordPress Plugin Deploy
-        uses: 10up/action-wordpress-plugin-deploy@master
+        uses: 10up/action-wordpress-plugin-deploy@stable
         env:
           BUILD_DIR: ./build/analogwp-templates
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}

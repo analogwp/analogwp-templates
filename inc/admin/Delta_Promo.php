@@ -14,15 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Promotes Delta (deltatheme.com) inside Style Kits admin screens.
  *
- * Two surfaces, both opt-out:
+ * Two surfaces:
  * - A dismissible admin notice shown only on Style Kits screens (per-user dismiss via Notice/Consumer).
- * - A card at the top of the Settings sidebar (site-wide hide via the existing `ang_hide_promo` AJAX handler).
+ * - A permanent card at the top of the sidebar on the Settings and Local Style Kits screens.
  *
  * @since 2.7.0
  */
 final class Delta_Promo {
 	/**
-	 * Notice slug, also used as the sidebar promo id.
+	 * Notice slug.
 	 */
 	const SLUG = 'delta_promo';
 
@@ -189,16 +189,16 @@ final class Delta_Promo {
 	}
 
 	/**
-	 * Renders the sidebar card on the Settings screen.
+	 * Renders the sidebar card.
 	 */
 	public function render_sidebar_card() {
-		if ( get_option( 'ang_hide_' . self::SLUG ) || ! $this->is_eligible() ) {
+		if ( ! $this->is_eligible() ) {
 			return;
 		}
 		?>
-		<div class="promo promo-delta" data-promo-id="<?php echo esc_attr( self::SLUG ); ?>">
-			<a href="#" class="ang-hide-promo" data-promo-id="<?php echo esc_attr( self::SLUG ); ?>"><?php esc_html_e( 'Hide', 'analogwp-templates' ); ?></a>
+		<div class="promo promo-delta">
 			<span class="sticker-tag"><?php esc_html_e( 'New', 'analogwp-templates' ); ?></span>
+			<p class="promo-eyebrow"><?php esc_html_e( 'Our latest and greatest', 'analogwp-templates' ); ?></p>
 			<div class="promo-header">
 				<img width="48" height="48" src="<?php echo esc_url( ANG_PLUGIN_URL . 'assets/img/delta-logo.svg' ); ?>" alt="<?php esc_attr_e( 'Delta logo', 'analogwp-templates' ); ?>" />
 				<h3><a href="<?php echo esc_url( $this->link( 'sidebar' ) ); ?>" target="_blank"><?php esc_html_e( 'Meet Delta: build WordPress sites with AI', 'analogwp-templates' ); ?></a></h3>

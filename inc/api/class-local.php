@@ -9,7 +9,6 @@ namespace Analog\API;
 
 use Analog\Plugin;
 use Analog\Base;
-use Analog\Classes\Import_Image;
 use Analog\Elementor\Kit\Manager;
 use Analog\Options;
 use Analog\Utils;
