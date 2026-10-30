@@ -2,6 +2,7 @@
 const { apiFetch } = wp;
 const { __ } = wp.i18n;
 import 'regenerator-runtime/runtime';
+import { isOlderVersion } from './helpers/validate';
 
 export async function markFavorite( id, favorite = true, type = 'template' ) {
 	return await apiFetch( {
@@ -127,7 +128,7 @@ export async function requestElementorImport( template, kit ) {
 	let elementsLength = elementor.elements.length;
 
 	if ( template.version ) {
-		if ( parseFloat( AGWP.version ) < parseFloat( template.version ) ) {
+		if ( isOlderVersion( AGWP.version, template.version ) ) {
 			elementorCommon.dialogsManager.createWidget( 'alert', {
 				message: 'This template requires an updated version, please update your plugin to latest version.',
 			} ).show();

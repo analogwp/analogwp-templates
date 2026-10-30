@@ -17,6 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Google_Fonts {
 	const TRANSIENT = 'analogwp_google_fonts';
 
+	const RETRY_TRANSIENT = 'analogwp_google_fonts_retry';
+
 	/**
 	 * Registers functionality through WordPress hooks.
 	 *
@@ -34,17 +36,25 @@ class Google_Fonts {
 	 * @since 1.8.0
 	 */
 	public function fetch_google_fonts() {
-		if ( ! get_transient( self::TRANSIENT ) ) {
-			$url = 'https://raw.githubusercontent.com/analogwp/google-fonts/main/fonts.json';
+		if ( get_transient( self::TRANSIENT ) || get_transient( self::RETRY_TRANSIENT ) ) {
+			return;
+		}
 
-			$request = wp_remote_get( $url, array( 'timeout' => 20 ) );
+		// This runs on every request, so a failing fetch shouldn't be attempted again for a while.
+		set_transient( self::RETRY_TRANSIENT, 1, HOUR_IN_SECONDS );
 
-			if ( ! is_wp_error( $request ) ) {
-				$body = wp_remote_retrieve_body( $request );
-				if ( ! empty( $body ) ) {
-					set_transient( self::TRANSIENT, $body, DAY_IN_SECONDS );
-				}
-			}
+		$url = 'https://raw.githubusercontent.com/analogwp/google-fonts/main/fonts.json';
+
+		$request = wp_remote_get( $url, array( 'timeout' => 10 ) );
+
+		if ( is_wp_error( $request ) || 200 !== wp_remote_retrieve_response_code( $request ) ) {
+			return;
+		}
+
+		$body = wp_remote_retrieve_body( $request );
+
+		if ( is_array( json_decode( $body, true ) ) ) {
+			set_transient( self::TRANSIENT, $body, DAY_IN_SECONDS );
 		}
 	}
 

@@ -35,10 +35,24 @@ class Onboarding {
 		$options_table    = get_option( 'ang_options' );
 
 		if ( ! $options_table && version_compare( self::$version, $existing_version, '>' ) ) {
-			// Redirect to onboarding page.
-			wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
-			update_option( 'analog_onboarding', self::$version );
+			add_action( 'admin_init', array( $this, 'redirect_to_onboarding' ) );
 		}
+	}
+
+	/**
+	 * Redirects the first admin able to use the onboarding page to it.
+	 *
+	 * @since 2.7.0
+	 */
+	public function redirect_to_onboarding() {
+		if ( wp_doing_ajax() || ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		update_option( 'analog_onboarding', self::$version );
+
+		wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
+		exit;
 	}
 
 	/**

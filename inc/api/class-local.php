@@ -280,6 +280,10 @@ class Local extends Base {
 		$favorite  = $request->get_param( 'favorite' );
 		$favorites = get_user_meta( get_current_user_id(), $type, true );
 
+		if ( ! is_scalar( $id ) ) {
+			return new WP_Error( 'favorite_error', __( 'Invalid ID.', 'analogwp-templates' ), array( 'status' => 400 ) );
+		}
+
 		if ( ! $favorites ) {
 			$favorites = array();
 		}
@@ -335,10 +339,10 @@ class Local extends Base {
 		if ( $new_post_id && ! is_wp_error( $new_post_id ) ) {
 			\update_post_meta( $new_post_id, '_ang_import_type', $with_page ? 'page' : 'library' );
 			\update_post_meta( $new_post_id, '_ang_template_id', $template['id'] );
-			\update_post_meta( $new_post_id, '_wp_page_template', ! empty( $template['page_template'] ) ? $template['page_template'] : 'elementor_canvas' );
+			\update_post_meta( $new_post_id, '_wp_page_template', ! empty( $template['page_template'] ) ? sanitize_text_field( $template['page_template'] ) : 'elementor_canvas' );
 
 			if ( ! $with_page ) {
-				wp_set_object_terms( $new_post_id, ! empty( $template['elementor_library_type'] ) ? $template['elementor_library_type'] : 'page', 'elementor_library_type' );
+				wp_set_object_terms( $new_post_id, ! empty( $template['elementor_library_type'] ) ? sanitize_key( $template['elementor_library_type'] ) : 'page', 'elementor_library_type' );
 			}
 
 			return $new_post_id;
@@ -630,13 +634,13 @@ class Local extends Base {
 	 * @return WP_REST_Response|WP_Error
 	 */
 	public function get_token( WP_REST_Request $request ) {
-		$id = $request->get_param( 'id' );
+		$id = absint( $request->get_param( 'id' ) );
 
 		if ( ! $id ) {
 			return new WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'analogwp-templates' ) );
 		}
 
-		if ( ! get_post( $id ) ) {
+		if ( ! get_post( $id ) || ! current_user_can( 'read_post', $id ) ) {
 			return new WP_Error( 'tokens_error', __( 'Invalid Post ID', 'analogwp-templates' ) );
 		}
 

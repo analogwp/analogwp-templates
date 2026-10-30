@@ -5,6 +5,7 @@ import { requestDirectImport } from './api';
 import Collection from './collection/Collection';
 import { Theme } from './contexts/ThemeContext';
 import Empty from './helpers/Empty';
+import { isOlderVersion } from './helpers/validate';
 import CustomModal from './Modal';
 import ImportTemplate from './popups/ImportTemplate';
 import Template from './Template';
@@ -262,7 +263,7 @@ class Templates extends React.Component {
 		const kit = this.getStyleKitInfo();
 		const version = this.state.template.version;
 
-		if ( version && parseFloat( AGWP.version ) < parseFloat( version ) ) {
+		if ( version && isOlderVersion( AGWP.version, version ) ) {
 			this.resetState();
 			add(
 				__( 'This template requires an updated version, please update your plugin to latest version.', 'analogwp-templates' ),

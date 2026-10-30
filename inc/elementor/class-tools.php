@@ -266,7 +266,7 @@ class Tools extends Base {
 	 * @return mixed
 	 */
 	public function heartbeat_received( $response, $data ) {
-		if ( isset( $data['ang_sk_post']['kit_id'] ) ) {
+		if ( isset( $data['ang_sk_post']['kit_id'] ) && current_user_can( 'edit_posts' ) ) {
 			$kit_id  = (int) $data['ang_sk_post']['kit_id'];
 			$post_id = (int) $data['ang_sk_post']['post_id'];
 			$updated = $data['ang_sk_post']['updated'];

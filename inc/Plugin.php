@@ -311,7 +311,7 @@ final class Plugin {
 		if ( ! isset( $settings['ang_action_tokens'] ) ) {
 			$title = get_the_title( Options::get_instance()->get( 'global_kit' ) );
 		} else {
-			$title = get_the_title( $settings['ang_action_tokens'] );
+			$title = get_the_title( absint( $settings['ang_action_tokens'] ) );
 		}
 
 		$parent = 'style_kits';
@@ -327,7 +327,7 @@ final class Plugin {
 			array(
 				'id'     => 'style_kits_kit',
 				'parent' => $parent,
-				'title'  => 'Kit: ' . $title,
+				'title'  => 'Kit: ' . esc_html( $title ),
 			)
 		);
 	}

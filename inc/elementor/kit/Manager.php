@@ -510,6 +510,12 @@ class Manager {
 			return;
 		}
 
+		$custom_kit = absint( $custom_kit );
+
+		if ( ! $custom_kit ) {
+			return;
+		}
+
 		$post_status = get_post_status( $custom_kit );
 		if ( 'publish' !== $post_status ) {
 			return;
