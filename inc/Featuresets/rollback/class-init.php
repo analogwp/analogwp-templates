@@ -118,6 +118,9 @@ class Init {
 			);
 
 			if ( empty( $plugin_information->versions ) || ! is_array( $plugin_information->versions ) ) {
+				// Settings defaults read this on admin requests, so a failed lookup shouldn't be repeated on each one.
+				set_transient( 'ang_rollback_versions_' . ANG_VERSION, array(), HOUR_IN_SECONDS );
+
 				return array();
 			}
 

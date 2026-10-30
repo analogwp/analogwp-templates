@@ -10,6 +10,7 @@ namespace Analog;
 
 use Analog\Featuresets\Register_Featuresets as Featuresets;
 use Analog\Admin\Notices;
+use Analog\Admin\Delta_Promo;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -81,6 +82,7 @@ final class Plugin {
 
 		( new Consumer() )->register();
 		( new Notices() )->register();
+		( new Delta_Promo() )->register();
 		( new Google_Fonts() )->register();
 
 		// Migrations.
@@ -246,12 +248,12 @@ final class Plugin {
 		require_once ANG_PLUGIN_DIR . 'inc/settings-helpers.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Featuresets/class-register-featuresets.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
-		require_once ANG_PLUGIN_DIR . 'inc/class-import-image.php';
 		require_once ANG_PLUGIN_DIR . 'inc/class-options.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Core/SVGs/Allow.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Consumer.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notice.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notices.php';
+		require_once ANG_PLUGIN_DIR . 'inc/admin/Delta_Promo.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Utils.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-remote.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-local.php';
@@ -279,7 +281,6 @@ final class Plugin {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Kits_List_Table.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Core/Util/Migration.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/tabs/Theme_Style_Kits.php';
-		require_once ANG_PLUGIN_DIR . 'inc/elementor/kit/Instance_List_Table.php';
 
 		if ( ! defined( 'ANG_PRO_VERSION' ) ) {
 			require_once ANG_PLUGIN_DIR . 'inc/elementor/Promotions.php';
@@ -308,7 +309,7 @@ final class Plugin {
 		if ( ! isset( $settings['ang_action_tokens'] ) ) {
 			$title = get_the_title( Options::get_instance()->get( 'global_kit' ) );
 		} else {
-			$title = get_the_title( $settings['ang_action_tokens'] );
+			$title = get_the_title( absint( $settings['ang_action_tokens'] ) );
 		}
 
 		$parent = 'style_kits';
@@ -324,7 +325,7 @@ final class Plugin {
 			array(
 				'id'     => 'style_kits_kit',
 				'parent' => $parent,
-				'title'  => 'Kit: ' . $title,
+				'title'  => 'Kit: ' . esc_html( $title ),
 			)
 		);
 	}

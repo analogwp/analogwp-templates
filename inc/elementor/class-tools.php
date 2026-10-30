@@ -186,7 +186,9 @@ class Tools extends Base {
 	 * @return mixed
 	 */
 	public function filter_post_row_actions( $actions, $post ) {
-		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::elementor()->documents->get( $post->ID )->is_built_with_elementor() ) {
+		$document = Plugin::elementor()->documents->get( $post->ID );
+
+		if ( $document && User::is_current_user_can_edit( $post->ID ) && $document->is_built_with_elementor() ) {
 			$settings   = get_post_meta( $post->ID, '_elementor_page_settings', true );
 			$global_kit = (string) Utils::get_global_kit_id();
 
@@ -234,9 +236,19 @@ class Tools extends Base {
 		$token = get_post_meta( Utils::get_global_kit_id(), '_tokens_data', true );
 		$token = json_decode( $token, ARRAY_A );
 
+		if ( ! is_array( $token ) ) {
+			$token = array();
+		}
+
 		$token['ang_action_tokens'] = (string) Utils::get_global_kit_id();
 
-		update_post_meta( $post_id, '_elementor_page_settings', $token );
+		$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+
+		if ( ! is_array( $settings ) ) {
+			$settings = array();
+		}
+
+		update_post_meta( $post_id, '_elementor_page_settings', wp_slash( array_merge( $settings, $token ) ) );
 
 		Utils::clear_elementor_cache();
 
@@ -254,7 +266,7 @@ class Tools extends Base {
 	 * @return mixed
 	 */
 	public function heartbeat_received( $response, $data ) {
-		if ( isset( $data['ang_sk_post']['kit_id'] ) ) {
+		if ( isset( $data['ang_sk_post']['kit_id'] ) && current_user_can( 'edit_posts' ) ) {
 			$kit_id  = (int) $data['ang_sk_post']['kit_id'];
 			$post_id = (int) $data['ang_sk_post']['post_id'];
 			$updated = $data['ang_sk_post']['updated'];

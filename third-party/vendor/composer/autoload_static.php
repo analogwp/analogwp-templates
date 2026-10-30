@@ -4,13 +4,14 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit882a4c4df5dbd8f967edcf5e94410876
+class ComposerStaticInit141c8ccf149b54fbc2ebe923e618a5af
 {
     public static $classMap = array (
         'Analog\\Dependencies\\enshrined\\svgSanitize\\ElementReference\\Resolver' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/ElementReference/Resolver.php',
         'Analog\\Dependencies\\enshrined\\svgSanitize\\ElementReference\\Subject' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/ElementReference/Subject.php',
         'Analog\\Dependencies\\enshrined\\svgSanitize\\ElementReference\\Usage' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/ElementReference/Usage.php',
         'Analog\\Dependencies\\enshrined\\svgSanitize\\Exceptions\\NestingException' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/Exceptions/NestingException.php',
+        'Analog\\Dependencies\\enshrined\\svgSanitize\\Exceptions\\RegexException' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/Exceptions/RegexException.php',
         'Analog\\Dependencies\\enshrined\\svgSanitize\\Helper' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/Helper.php',
         'Analog\\Dependencies\\enshrined\\svgSanitize\\Sanitizer' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/Sanitizer.php',
         'Analog\\Dependencies\\enshrined\\svgSanitize\\data\\AllowedAttributes' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/AllowedAttributes.php',
@@ -24,7 +25,7 @@ class ComposerStaticInit882a4c4df5dbd8f967edcf5e94410876
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit882a4c4df5dbd8f967edcf5e94410876::$classMap;
+            $loader->classMap = ComposerStaticInit141c8ccf149b54fbc2ebe923e618a5af::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -49,7 +49,7 @@ class Typography extends Base {
 	protected function get_kit_fonts( $kit ) {
 		$result = array();
 
-		if ( ! $kit && method_exists( $kit, 'get_id' ) && ! Plugin::elementor()->kits_manager->is_kit( $kit->get_id() ) ) {
+		if ( ! $kit || ! method_exists( $kit, 'get_id' ) || ! Plugin::elementor()->kits_manager->is_kit( $kit->get_id() ) ) {
 			return $result;
 		}
 

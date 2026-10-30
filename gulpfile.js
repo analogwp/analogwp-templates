@@ -32,11 +32,15 @@ const buildFiles = [
 	'!.eslintrc.json',
 	'!webpack.config.js',
 	'!phpcs.xml.dist',
-	'!.travis.yml',
 	'!composer.lock',
 	'!package-lock.json',
 	'!codeception.dist.yml',
 	'!tests/**',
+	'!.wp-env.json',
+	'!vendor/autoload.php',
+	'!vendor/bin/**',
+	'!vendor/composer/**',
+	'!vendor/enshrined/**',
 ];
 
 const buildDestination = `./build/${ project }/`;

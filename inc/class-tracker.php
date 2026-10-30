@@ -91,10 +91,9 @@ class Tracker {
 		wp_remote_post(
 			self::$api_url,
 			array(
-				'timeout'   => 25,
-				'blocking'  => false,
-				'sslverify' => false,
-				'body'      => array(
+				'timeout'  => 25,
+				'blocking' => false,
+				'body'     => array(
 					'data' => wp_json_encode( $data ),
 				),
 			)

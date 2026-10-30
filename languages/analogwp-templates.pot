@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Style Kits for Elementor 2.6.6\n"
+"Project-Id-Version: Style Kits for Elementor 2.7.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/analogwp-templates\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-20T11:21:33+00:00\n"
+"POT-Creation-Date: 2026-10-30T19:52:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: analogwp-templates\n"
@@ -17,7 +17,7 @@ msgstr ""
 #. Plugin Name of the plugin
 #: analogwp-templates.php
 #: inc/register-settings.php:32
-#: inc/settings/views/html-admin-settings.php:108
+#: inc/settings/views/html-admin-sidebar.php:25
 msgid "Style Kits for Elementor"
 msgstr ""
 
@@ -39,48 +39,48 @@ msgstr ""
 
 #. translators: %s: version number
 #: analogwp-templates.php:52
-#: analogwp-templates.php:285
+#: analogwp-templates.php:289
 msgid "Style Kit for Elementor requires PHP version %s"
 msgstr ""
 
 #: analogwp-templates.php:53
-#: analogwp-templates.php:286
+#: analogwp-templates.php:290
 msgid "Error Activating"
 msgstr ""
 
 #. translators: %s: WordPress version
-#: analogwp-templates.php:87
+#: analogwp-templates.php:89
 msgid "Style Kits requires WordPress version %s+. Because you are using an earlier version, the plugin is currently NOT RUNNING."
 msgstr ""
 
 #. translators: %s: Minimum required Elementor version.
-#: analogwp-templates.php:123
+#: analogwp-templates.php:125
 msgid "Style Kits requires Elementor v%s or newer in order to work. Please update Elementor to the latest version."
 msgstr ""
 
 #. translators: %s: Version number.
-#: analogwp-templates.php:132
+#: analogwp-templates.php:134
 msgid "Rollback to v%s"
 msgstr ""
 
 #. translators: %s: Link to update Elementor.
-#: analogwp-templates.php:136
+#: analogwp-templates.php:138
 msgid "Update Elementor Now"
 msgstr ""
 
-#: analogwp-templates.php:198
+#: analogwp-templates.php:202
 msgid "Style Kits is not working because you need to activate the Elementor plugin."
 msgstr ""
 
-#: analogwp-templates.php:199
+#: analogwp-templates.php:203
 msgid "Activate Elementor Now"
 msgstr ""
 
-#: analogwp-templates.php:206
+#: analogwp-templates.php:210
 msgid "Style Kits is not working because you need to install the Elementor plugin."
 msgstr ""
 
-#: analogwp-templates.php:207
+#: analogwp-templates.php:211
 msgid "Install Elementor Now"
 msgstr ""
 
@@ -89,7 +89,7 @@ msgid "View Documentation"
 msgstr ""
 
 #: inc/admin/class-admin.php:43
-#: inc/settings/views/html-admin-settings.php:113
+#: inc/settings/views/html-admin-sidebar.php:30
 msgid "Documentation"
 msgstr ""
 
@@ -97,129 +97,174 @@ msgstr ""
 msgid "Get Support"
 msgstr ""
 
-#: inc/admin/Notice.php:182
+#: inc/admin/Delta_Promo.php:87
+#: client/Template.js:20
+msgid "New"
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:88
+msgid "Our latest and greatest"
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:90
+msgid "Delta logo"
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:91
+msgid "Meet Delta: build WordPress sites with AI"
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:94
+msgid "From the Style Kits team, seven months in the making and now out. Describe the site you want and your AI agent builds it in clean HTML and CSS, without the headache and learning curve of page builders."
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:97
+msgid "Works with Claude, ChatGPT, Cursor and any MCP client"
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:98
+msgid "Clean HTML and CSS output, no builder markup"
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:99
+msgid "Templates for every part of the site"
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:100
+msgid "Sketchbook boards to try ideas safely"
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:101
+msgid "Bring your own AI, no AI fee from Delta"
+msgstr ""
+
+#. translators: 1: single site price, 2: unlimited sites price.
+#: inc/admin/Delta_Promo.php:108
+msgid "Founder’s Lifetime License: %1$s single site · %2$s unlimited sites. One payment, lifetime updates, 30-day refund guarantee."
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:115
+msgid "Every Founder’s License helps us build Delta, the next big thing for AI in WordPress."
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:118
+msgid "Explore Delta"
+msgstr ""
+
+#: inc/admin/Notice.php:189
 msgid "Style Kits for Elementor Logo"
 msgstr ""
 
-#: inc/api/class-local.php:211
+#: inc/api/class-local.php:210
 msgid "Sorry, you are not allowed to import into this post."
 msgstr ""
 
-#: inc/api/class-local.php:217
-#: inc/api/class-local.php:424
+#: inc/api/class-local.php:216
+#: inc/api/class-local.php:427
 msgid "Invalid or expired license provided."
 msgstr ""
 
-#: inc/api/class-local.php:411
+#: inc/api/class-local.php:283
+msgid "Invalid ID."
+msgstr ""
+
+#: inc/api/class-local.php:414
 msgid "Sorry, you are not allowed to import templates."
 msgstr ""
 
-#: inc/api/class-local.php:491
+#: inc/api/class-local.php:498
 msgid "No options key provided."
 msgstr ""
 
-#: inc/api/class-local.php:500
 #: inc/api/class-local.php:507
+#: inc/api/class-local.php:516
 msgid "Sorry, you are not allowed to update settings."
 msgstr ""
 
-#: inc/api/class-local.php:515
+#: inc/api/class-local.php:524
 msgid "Setting updated."
 msgstr ""
 
-#: inc/api/class-local.php:574
+#: inc/api/class-local.php:583
 msgid "Invalid param(s)."
 msgstr ""
 
-#: inc/api/class-local.php:578
+#: inc/api/class-local.php:587
 msgid "Please provide a title."
 msgstr ""
 
-#: inc/api/class-local.php:582
+#: inc/api/class-local.php:591
 msgid "You are not allowed to save this Style Kit."
 msgstr ""
 
-#: inc/api/class-local.php:590
+#: inc/api/class-local.php:599
 msgid "Invalid kit settings provided."
 msgstr ""
 
-#: inc/api/class-local.php:607
+#: inc/api/class-local.php:616
 msgid "Unable to create a Kit"
 msgstr ""
 
-#: inc/api/class-local.php:613
+#: inc/api/class-local.php:622
 msgid "The new Theme Style Kit has been saved and applied on this page."
 msgstr ""
 
-#: inc/api/class-local.php:630
+#: inc/api/class-local.php:639
 msgid "Please provide a valid post ID."
 msgstr ""
 
-#: inc/api/class-local.php:634
+#: inc/api/class-local.php:643
 msgid "Invalid Post ID"
 msgstr ""
 
-#: inc/api/class-local.php:658
-#: inc/api/class-local.php:688
+#: inc/api/class-local.php:667
+#: inc/api/class-local.php:697
 msgid "You are not allowed to import Style Kits."
 msgstr ""
 
-#: inc/api/class-local.php:666
+#: inc/api/class-local.php:675
 msgid "Invalid Style Kit ID."
 msgstr ""
 
-#: inc/api/class-local.php:692
-#: inc/api/class-local.php:766
+#: inc/api/class-local.php:701
+#: inc/api/class-local.php:775
 msgid "Invalid license provided."
 msgstr ""
 
-#: inc/api/class-local.php:710
+#: inc/api/class-local.php:719
 msgid "Invalid token data returned"
 msgstr ""
 
-#: inc/api/class-local.php:728
+#: inc/api/class-local.php:737
 msgid "Invalid Block ID."
 msgstr ""
 
-#: inc/api/class-local.php:759
+#: inc/api/class-local.php:768
 msgid "You are not allowed to save blocks to the library."
 msgstr ""
 
-#: inc/class-admin-settings.php:77
-#: inc/class-onboarding.php:538
-msgid "Permission denied."
-msgstr ""
-
-#: inc/class-admin-settings.php:83
-msgid "Invalid promo ID."
-msgstr ""
-
-#: inc/class-admin-settings.php:89
-msgid "Promo hidden successfully."
-msgstr ""
-
-#: inc/class-admin-settings.php:109
+#: inc/class-admin-settings.php:80
 msgid "Your settings have been saved."
 msgstr ""
 
-#: inc/class-admin-settings.php:169
+#: inc/class-admin-settings.php:163
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr ""
 
-#: inc/class-admin-settings.php:170
+#: inc/class-admin-settings.php:164
 msgid "Template Kit file downloaded."
 msgstr ""
 
-#: inc/class-admin-settings.php:171
+#: inc/class-admin-settings.php:165
 msgid "Import it into Elementor"
 msgstr ""
 
-#: inc/class-admin-settings.php:608
-#: inc/class-admin-settings.php:673
+#: inc/class-admin-settings.php:604
+#: inc/class-admin-settings.php:669
 msgid "Toggle"
 msgstr ""
 
-#: inc/class-admin-settings.php:721
+#: inc/class-admin-settings.php:717
 msgid "Refresh"
 msgstr ""
 
@@ -236,110 +281,110 @@ msgstr ""
 msgid "AnalogWP Classes"
 msgstr ""
 
-#: inc/class-onboarding.php:50
-#: inc/class-onboarding.php:51
+#: inc/class-onboarding.php:64
+#: inc/class-onboarding.php:65
 msgid "Welcome to Style Kits"
 msgstr ""
 
-#: inc/class-onboarding.php:86
-#: inc/elementor/kit/Kits_List_Table.php:361
+#: inc/class-onboarding.php:100
+#: inc/elementor/kit/Kits_List_Table.php:360
 msgid "Working..."
 msgstr ""
 
-#: inc/class-onboarding.php:100
+#: inc/class-onboarding.php:114
 msgid "Install and Activate Elementor"
 msgstr ""
 
-#: inc/class-onboarding.php:101
+#: inc/class-onboarding.php:115
 msgid "This will install and activate Elementor from the WordPress repository"
 msgstr ""
 
-#: inc/class-onboarding.php:102
+#: inc/class-onboarding.php:116
 msgid "Elementor is installed and activated"
 msgstr ""
 
-#: inc/class-onboarding.php:103
+#: inc/class-onboarding.php:117
 msgid "Failed to install and activate Elementor"
 msgstr ""
 
-#: inc/class-onboarding.php:109
+#: inc/class-onboarding.php:123
 msgid "Enable Elementor container feature"
 msgstr ""
 
-#: inc/class-onboarding.php:110
+#: inc/class-onboarding.php:124
 msgid "The latest Style Kits version works best with flexbox containers. We will enable the Containers feature in Elementor."
 msgstr ""
 
-#: inc/class-onboarding.php:111
+#: inc/class-onboarding.php:125
 msgid "Container feature is now active"
 msgstr ""
 
-#: inc/class-onboarding.php:112
+#: inc/class-onboarding.php:126
 msgid "Failed to activate Elementor container experiment"
 msgstr ""
 
-#: inc/class-onboarding.php:118
+#: inc/class-onboarding.php:132
 msgid "Disable Elementor default colors and fonts"
 msgstr ""
 
-#: inc/class-onboarding.php:119
+#: inc/class-onboarding.php:133
 msgid "For Global Styles to work properly, Elementor default fonts and colors need to be disabled"
 msgstr ""
 
-#: inc/class-onboarding.php:120
+#: inc/class-onboarding.php:134
 msgid "Elementor default colors and fonts are disabled"
 msgstr ""
 
-#: inc/class-onboarding.php:121
+#: inc/class-onboarding.php:135
 msgid "Failed to disable Elementor default colors and fonts"
 msgstr ""
 
-#: inc/class-onboarding.php:134
+#: inc/class-onboarding.php:149
 msgid "Install and activate Hello Elementor Theme"
 msgstr ""
 
-#: inc/class-onboarding.php:135
+#: inc/class-onboarding.php:150
 msgid "Style Kits works best with Elementor Hello theme. This will replace your currently active theme"
 msgstr ""
 
-#: inc/class-onboarding.php:136
+#: inc/class-onboarding.php:151
 msgid "Hello Elementor theme is installed and activated"
 msgstr ""
 
-#: inc/class-onboarding.php:137
+#: inc/class-onboarding.php:152
 msgid "Failed to install and activate Hello Elementor"
 msgstr ""
 
-#: inc/class-onboarding.php:147
+#: inc/class-onboarding.php:163
 msgid "Import a starter theme style preset"
 msgstr ""
 
-#: inc/class-onboarding.php:148
+#: inc/class-onboarding.php:164
 msgid "Use a basic Style Kit as your starting point. This will replace your site’s default kit but you can always revert back to it later."
 msgstr ""
 
-#: inc/class-onboarding.php:149
+#: inc/class-onboarding.php:165
 msgid "A theme style preset \"Style Kit: Base\" has been imported"
 msgstr ""
 
-#: inc/class-onboarding.php:150
+#: inc/class-onboarding.php:166
 msgid "Failed to import a kit"
 msgstr ""
 
-#: inc/class-onboarding.php:208
+#: inc/class-onboarding.php:224
 msgid "Docs"
 msgstr ""
 
-#: inc/class-onboarding.php:212
+#: inc/class-onboarding.php:228
 msgid "Setup Elementor properly for a seamless Style Kits Experience."
 msgstr ""
 
 #. translators: %s: Link text
-#: inc/class-onboarding.php:212
+#: inc/class-onboarding.php:228
 #: inc/elementor/class-ang-action.php:121
 #: inc/elementor/class-typography.php:1042
 #: inc/elementor/class-typography.php:1927
-#: inc/elementor/kit/Kits_List_Table.php:383
+#: inc/elementor/kit/Kits_List_Table.php:384
 #: inc/elementor/sections/background-color-classes.php:71
 #: inc/elementor/sections/background-color-classes.php:162
 #: inc/settings/class-settings-experiments.php:48
@@ -349,55 +394,59 @@ msgstr ""
 msgid "Learn more"
 msgstr ""
 
-#: inc/class-onboarding.php:213
+#: inc/class-onboarding.php:229
 msgid "Looks like you have everything in place."
 msgstr ""
 
-#: inc/class-onboarding.php:272
+#: inc/class-onboarding.php:288
 msgid "Skip wizard"
 msgstr ""
 
-#: inc/class-onboarding.php:275
-#: inc/elementor/kit/Kits_List_Table.php:362
-#: inc/elementor/kit/Kits_List_Table.php:397
+#: inc/class-onboarding.php:291
+#: inc/elementor/kit/Kits_List_Table.php:361
+#: inc/elementor/kit/Kits_List_Table.php:398
 msgid "Apply"
 msgstr ""
 
-#: inc/class-onboarding.php:280
+#: inc/class-onboarding.php:296
 msgid "Go to Dashboard"
 msgstr ""
 
-#: inc/class-onboarding.php:281
+#: inc/class-onboarding.php:297
 msgid "Open a new template"
 msgstr ""
 
-#: inc/class-onboarding.php:514
+#: inc/class-onboarding.php:563
 msgid "Style Kit: Test Page"
 msgstr ""
 
-#: inc/class-onboarding.php:550
+#: inc/class-onboarding.php:587
+msgid "Permission denied."
+msgstr ""
+
+#: inc/class-onboarding.php:599
 msgid "Oops, something went wrong at action: "
 msgstr ""
 
-#: inc/class-quick-edit.php:96
-#: inc/class-quick-edit.php:150
+#: inc/class-quick-edit.php:101
+#: inc/class-quick-edit.php:155
 #: inc/elementor/class-post-type.php:37
 msgid "Style Kit"
 msgstr ""
 
-#: inc/Core/SVGs/Allow.php:94
+#: inc/Core/SVGs/Allow.php:95
 msgid "Unable to sanitize this file hence it wasn't uploaded!"
 msgstr ""
 
-#: inc/Core/SVGs/Allow.php:176
+#: inc/Core/SVGs/Allow.php:177
 msgid "Full Size"
 msgstr ""
 
-#: inc/Core/SVGs/Allow.php:177
+#: inc/Core/SVGs/Allow.php:178
 msgid "Thumbnail"
 msgstr ""
 
-#: inc/Core/SVGs/Allow.php:178
+#: inc/Core/SVGs/Allow.php:179
 #: inc/elementor/class-typography.php:309
 #: inc/elementor/class-typography.php:360
 #: inc/elementor/class-typography.php:697
@@ -405,7 +454,7 @@ msgstr ""
 msgid "Medium"
 msgstr ""
 
-#: inc/Core/SVGs/Allow.php:179
+#: inc/Core/SVGs/Allow.php:180
 #: inc/elementor/class-typography.php:308
 #: inc/elementor/class-typography.php:359
 #: inc/elementor/class-typography.php:698
@@ -712,7 +761,7 @@ msgid "Templates Library"
 msgstr ""
 
 #: inc/elementor/class-finder-shortcuts.php:53
-#: inc/Plugin.php:222
+#: inc/Plugin.php:224
 #: inc/register-settings.php:52
 msgid "Settings"
 msgstr ""
@@ -773,7 +822,7 @@ msgstr ""
 msgid "Style Kit: %s <span style=\"color:#5C32B6;\">&#9679;</span>"
 msgstr ""
 
-#: inc/elementor/class-tools.php:206
+#: inc/elementor/class-tools.php:208
 msgid "Apply Global Style Kit"
 msgstr ""
 
@@ -1102,7 +1151,7 @@ msgstr ""
 
 #: inc/elementor/class-typography.php:1322
 #: inc/elementor/class-typography.php:2081
-#: inc/elementor/kit/Kits_List_Table.php:105
+#: inc/elementor/kit/Kits_List_Table.php:106
 msgid "None"
 msgstr ""
 
@@ -1263,153 +1312,111 @@ msgstr ""
 msgid "Box Shadow Preset"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:114
-msgid "No posts found."
+#: inc/elementor/kit/Kits_List_Table.php:68
+msgid "No Kits found."
 msgstr ""
 
 #. translators: %s: Human-readable time difference.
-#: inc/elementor/kit/Instance_List_Table.php:134
-#: inc/elementor/kit/Kits_List_Table.php:87
+#: inc/elementor/kit/Kits_List_Table.php:88
 msgid "%s ago"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:139
-#: inc/elementor/kit/Kits_List_Table.php:92
+#: inc/elementor/kit/Kits_List_Table.php:93
 msgid "Published"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:166
-#: inc/elementor/kit/Kits_List_Table.php:126
+#: inc/elementor/kit/Kits_List_Table.php:104
+msgid "Entire Site"
+msgstr ""
+
+#: inc/elementor/kit/Kits_List_Table.php:123
 msgid "Title"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:167
-msgid "Type"
+#: inc/elementor/kit/Kits_List_Table.php:124
+msgid "Instances"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:168
-msgid "Kit"
-msgstr ""
-
-#: inc/elementor/kit/Instance_List_Table.php:169
-#: inc/elementor/kit/Kits_List_Table.php:128
+#: inc/elementor/kit/Kits_List_Table.php:125
 msgid "Author"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:170
-#: inc/elementor/kit/Kits_List_Table.php:129
+#: inc/elementor/kit/Kits_List_Table.php:126
 msgid "Date"
 msgstr ""
 
-#. translators: %s: Post Title
 #. translators: %s: Kit Title
-#: inc/elementor/kit/Instance_List_Table.php:185
-#: inc/elementor/kit/Kits_List_Table.php:143
+#: inc/elementor/kit/Kits_List_Table.php:140
 msgid "%s (Edit)"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:195
-#: inc/elementor/kit/Kits_List_Table.php:167
+#: inc/elementor/kit/Kits_List_Table.php:148
+msgid "Draft"
+msgstr ""
+
+#: inc/elementor/kit/Kits_List_Table.php:153
+#: inc/elementor/kit/Kits_List_Table.php:387
+msgid "Global Style Kit"
+msgstr ""
+
+#: inc/elementor/kit/Kits_List_Table.php:164
 msgid "Edit"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:196
-#: inc/elementor/kit/Kits_List_Table.php:173
+#: inc/elementor/kit/Kits_List_Table.php:170
 msgid "Trash"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:197
-msgid "View"
+#: inc/elementor/kit/Kits_List_Table.php:171
+msgid "Export Theme Style Kit"
 msgstr ""
 
-#: inc/elementor/kit/Instance_List_Table.php:198
-msgid "Edit with Elementor"
-msgstr ""
-
-#: inc/elementor/kit/Instance_List_Table.php:286
-#: inc/elementor/kit/Kits_List_Table.php:271
+#: inc/elementor/kit/Kits_List_Table.php:268
 msgid "Move to Trash"
 msgstr ""
 
 #. translators: %s: Number of posts.
-#: inc/elementor/kit/Instance_List_Table.php:302
-#: inc/elementor/kit/Kits_List_Table.php:289
+#: inc/elementor/kit/Kits_List_Table.php:286
 msgctxt "posts"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/elementor/kit/Instance_List_Table.php:375
-msgid "Filter by Style Kit"
-msgstr ""
-
-#: inc/elementor/kit/Instance_List_Table.php:386
-msgid "Filter"
-msgstr ""
-
-#: inc/elementor/kit/Instance_List_Table.php:456
-msgid "Instance List"
-msgstr ""
-
-#: inc/elementor/kit/Kits_List_Table.php:67
-msgid "No Kits found."
-msgstr ""
-
-#: inc/elementor/kit/Kits_List_Table.php:103
-msgid "Entire Site"
-msgstr ""
-
-#: inc/elementor/kit/Kits_List_Table.php:127
-msgid "Instances"
-msgstr ""
-
-#: inc/elementor/kit/Kits_List_Table.php:151
-msgid "Draft"
-msgstr ""
-
-#: inc/elementor/kit/Kits_List_Table.php:156
-#: inc/elementor/kit/Kits_List_Table.php:386
-msgid "Global Style Kit"
-msgstr ""
-
-#: inc/elementor/kit/Kits_List_Table.php:174
-msgid "Export Theme Style Kit"
-msgstr ""
-
-#: inc/elementor/kit/Kits_List_Table.php:368
-#: inc/register-settings.php:62
-#: inc/register-settings.php:63
+#: inc/elementor/kit/Kits_List_Table.php:367
+#: inc/register-settings.php:60
+#: inc/register-settings.php:61
 #: inc/settings/class-settings-general.php:87
 #: client/stylekits/stylekits.js:223
 msgid "Local Style Kits"
 msgstr ""
 
-#: inc/elementor/kit/Kits_List_Table.php:372
+#: inc/elementor/kit/Kits_List_Table.php:373
 msgid "Choose an Elementor template JSON file or a .zip archive of Elementor templates, and add them to the list of templates available in your library."
 msgstr ""
 
-#: inc/elementor/kit/Kits_List_Table.php:379
+#: inc/elementor/kit/Kits_List_Table.php:380
 msgid "Import Now"
 msgstr ""
 
-#: inc/elementor/kit/Kits_List_Table.php:383
+#: inc/elementor/kit/Kits_List_Table.php:384
 msgid "A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:613
+#: inc/elementor/kit/Manager.php:711
+#: inc/elementor/kit/Manager.php:719
 msgid "Error occured while requesting Style Kit data."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:643
+#: inc/elementor/kit/Manager.php:751
 msgid "Style Kit imported"
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:715
+#: inc/elementor/kit/Manager.php:823
 msgid "All good! The Style Kit has been set as Global."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:717
+#: inc/elementor/kit/Manager.php:825
 msgid "View site"
 msgstr ""
 
@@ -1453,8 +1460,8 @@ msgstr ""
 
 #. translators: %1$s: Link to Style Kits Pro. %2$s: Go Pro text.
 #: inc/elementor/Promotions.php:158
-#: inc/Plugin.php:228
-#: inc/register-settings.php:73
+#: inc/Plugin.php:230
+#: inc/register-settings.php:71
 #: client/blocks/BlockList.js:374
 #: client/stylekits/stylekits.js:272
 #: client/Template.js:31
@@ -1580,30 +1587,30 @@ msgid "Library"
 msgstr ""
 
 #: inc/register-settings.php:51
-#: inc/settings/views/html-admin-settings.php:25
+#: inc/settings/views/html-admin-settings.php:21
 msgid "Style Kits Settings"
 msgstr ""
 
-#: inc/register-settings.php:241
-#: inc/register-settings.php:268
+#: inc/register-settings.php:223
+#: inc/register-settings.php:250
 msgid "Style Kits is switching to a new experience for our Pro plugin,"
 msgstr ""
 
-#: inc/register-settings.php:242
-#: inc/register-settings.php:269
+#: inc/register-settings.php:224
+#: inc/register-settings.php:251
 msgid "that in turn requires us to move away from our old licensing system. If you are an existing Style Kits Pro user please email us at"
 msgstr ""
 
-#: inc/register-settings.php:244
-#: inc/register-settings.php:271
-msgid "or click on Contact Us link available in the left plugin menu, include your license key and we will provide a discount as per the license for a smooth transition."
+#: inc/register-settings.php:226
+#: inc/register-settings.php:253
+msgid "and include your license key so we can help with a smooth transition."
 msgstr ""
 
-#: inc/register-settings.php:265
+#: inc/register-settings.php:247
 msgid "Experience the all new Style Kits Pro"
 msgstr ""
 
-#: inc/register-settings.php:272
+#: inc/register-settings.php:254
 msgid "Please also know that coming future updates are now moved to this new licensing system and once you migrate to it everything else will work as is and better while with this switch we are working hard to bring you a more fine-tuned experience and all the more support for latest of Elementor."
 msgstr ""
 
@@ -1719,6 +1726,7 @@ msgid "View Demo"
 msgstr ""
 
 #: inc/settings/class-settings-gopro.php:27
+#: inc/settings/views/html-admin-settings-gopro.php:53
 msgid "Style Kits Pro"
 msgstr ""
 
@@ -1744,11 +1752,7 @@ msgid "Usage Data Tracking"
 msgstr ""
 
 #: inc/settings/class-settings-misc.php:55
-msgid "Opt-in to our anonymous plugin data collection and to updates"
-msgstr ""
-
-#: inc/settings/class-settings-misc.php:60
-msgid "We guarantee no sensitive data is collected. "
+msgid "Opt-in to share plugin usage data with us, including your site URL and admin email, and to receive updates"
 msgstr ""
 
 #: inc/settings/class-settings-misc.php:63
@@ -1780,120 +1784,110 @@ msgid "Reinstall this version"
 msgstr ""
 
 #: inc/settings/views/html-admin-settings-gopro.php:20
-msgid "Upgrade to PRO"
+msgid "Pattern and Style Preset Libraries"
 msgstr ""
 
 #: inc/settings/views/html-admin-settings-gopro.php:21
-msgid "Transform your design workflow in Elementor with Style Kits PRO"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:22
-msgid "Everything in the free version, plus more powerful tools to build faster, design smarter, and deliver a better client experience."
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:24
-msgid "Explore Style Kits Pro"
+msgid "Unlimited access to the container-based pattern library and the full collection of theme style presets."
 msgstr ""
 
 #: inc/settings/views/html-admin-settings-gopro.php:25
-msgid "Also available in a Limited Lifetime plan!"
+msgid "More Fonts, Colors and Spacing"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:34
-msgid "Pattern &amp; Style Preset Libraries"
+#: inc/settings/views/html-admin-settings-gopro.php:26
+msgid "Up to 48 Global Style Kit Fonts and Colors, and up to 24 container spacing presets."
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:35
-msgid "Unlimited access to the container-based pattern library and the entire collection of Global theme style presets."
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:41
-msgid "More Fonts, Colors &amp; Spacing"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:42
-msgid "Unlock up to 48 Global Style Kit Fonts and Colors, and up to 24 container spacing presets."
-msgstr ""
-
-#: inc/settings/views/html-admin-settings-gopro.php:48
+#: inc/settings/views/html-admin-settings-gopro.php:30
 msgid "Role-Based Access Controls"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:49
-msgid "Hide any Style Kit reference from your clients based on user roles."
+#: inc/settings/views/html-admin-settings-gopro.php:31
+msgid "Hide Style Kits references from your clients based on their user role."
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:55
+#: inc/settings/views/html-admin-settings-gopro.php:35
 msgid "Manage Style Kit Panels"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:56
-msgid "Selectively de-activate Style Kits Panels from the site settings sidebar."
+#: inc/settings/views/html-admin-settings-gopro.php:36
+msgid "Turn off the Style Kits panels you don’t need in the site settings sidebar."
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:62
+#: inc/settings/views/html-admin-settings-gopro.php:40
 msgid "Front-End Style Switcher"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings-gopro.php:63
-msgid "Let visitors or clients toggle between Style Kits on the front end — perfect for live previewing design variations."
+#: inc/settings/views/html-admin-settings-gopro.php:41
+msgid "Let visitors or clients switch between Style Kits on the front end to preview design variations."
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:54
+#: inc/settings/views/html-admin-settings-gopro.php:45
+msgid "Cleanup Tools"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:46
+msgid "Remove inline styles from your layouts to keep them clean and easy to maintain."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:54
+msgid "Build every Elementor site on a design system you control"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:55
+msgid "Everything in the free plugin, plus the full pattern and preset libraries, more global design controls, and tools for handing sites over to clients."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:57
+msgid "View plans and pricing"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:58
+msgid "See all features"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:60
+msgid "Annual and lifetime plans available. 14-day money-back guarantee."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:63
+msgid "What you get with Pro"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:78
+msgid "Every plan includes all Pro features"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:79
+msgid "Unlimited library access, plugin updates and support."
+msgstr ""
+
+#: inc/settings/views/html-admin-settings-gopro.php:81
+msgid "Get Style Kits Pro"
+msgstr ""
+
+#: inc/settings/views/html-admin-settings.php:50
 msgid "Save changes"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:65
-msgid "Hide"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:80
-msgid "Meet Custom Library for Elementor"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:115
+#: inc/settings/views/html-admin-sidebar.php:32
 msgid "Explore Style Kits PRO Features"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:118
-#: client/Template.js:20
-msgid "New"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:118
-msgid "Custom Library for Elementor"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:121
-msgid "Unlimited Access Pass"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:133
-msgid "Your Email"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:134
-msgid "First Name"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:135
-msgid "Send me the coupon"
-msgstr ""
-
-#. translators: %s: Link to AnalogWP privacy policy.
-#: inc/settings/views/html-admin-settings.php:143
-msgid "By submitting your details, you agree to our %s."
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:144
-msgid "privacy policy"
-msgstr ""
-
-#: inc/settings/views/html-admin-settings.php:153
+#: inc/settings/views/html-admin-sidebar.php:39
 msgid "Looking for help or have a feature request?"
 msgstr ""
 
-#: inc/settings/views/html-admin-settings.php:160
+#: inc/settings/views/html-admin-sidebar.php:43
+msgid "Account"
+msgstr ""
+
+#: inc/settings/views/html-admin-sidebar.php:45
+msgid "Create a Support Request"
+msgstr ""
+
+#: inc/settings/views/html-admin-sidebar.php:46
 msgid "Visit Documentation"
 msgstr ""
 
@@ -1915,17 +1909,17 @@ msgid "Global: %s"
 msgstr ""
 
 #: assets/js/app/index.js:1
-#: client/api.js:214
+#: client/api.js:215
 msgid "Template"
 msgstr ""
 
 #: assets/js/app/index.js:1
-#: client/api.js:217
+#: client/api.js:218
 msgid "Block"
 msgstr ""
 
 #: assets/js/app/index.js:1
-#: client/api.js:225
+#: client/api.js:226
 msgid "Add Style Kits"
 msgstr ""
 
@@ -2032,25 +2026,25 @@ msgstr ""
 msgid "Search templates..."
 msgstr ""
 
-#: client/Modal.js:82
+#: client/Modal.js:83
 msgid "Exit preview"
 msgstr ""
 
-#: client/Modal.js:87
-#: client/modal/Preview.js:91
+#: client/Modal.js:88
+#: client/modal/Preview.js:92
 msgid "Open in new tab"
 msgstr ""
 
-#: client/Modal.js:93
-#: client/modal/Preview.js:97
+#: client/Modal.js:94
+#: client/modal/Preview.js:98
 msgid "Import Template"
 msgstr ""
 
-#: client/modal/Preview.js:86
+#: client/modal/Preview.js:87
 msgid "Back to Library"
 msgstr ""
 
-#: client/modal/Preview.js:104
+#: client/modal/Preview.js:105
 msgid "Loading icon"
 msgstr ""
 
@@ -2261,6 +2255,6 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: client/Templates.js:268
+#: client/Templates.js:269
 msgid "This template requires an updated version, please update your plugin to latest version."
 msgstr ""

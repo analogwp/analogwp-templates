@@ -270,6 +270,9 @@ class Elementor {
 	 */
 	public function fix_active_kit_updates( $old_value, $value ) {
 		if ( $value && $old_value !== $value ) {
+			\Analog\Elementor\Kit\Manager::remove_site_settings( $old_value );
+			\Analog\Elementor\Kit\Manager::remove_site_settings( $value );
+
 			Options::get_instance()->set( 'global_kit', $value );
 			Utils::set_elementor_active_kit( $value );
 

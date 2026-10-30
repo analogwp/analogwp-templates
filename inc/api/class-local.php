@@ -9,7 +9,6 @@ namespace Analog\API;
 
 use Analog\Plugin;
 use Analog\Base;
-use Analog\Classes\Import_Image;
 use Analog\Elementor\Kit\Manager;
 use Analog\Options;
 use Analog\Utils;
@@ -244,7 +243,7 @@ class Local extends Base {
 			}
 		}
 
-		return new WP_REST_Response( wp_json_encode( maybe_unserialize( $data ) ), 200 );
+		return new WP_REST_Response( wp_json_encode( Utils::safe_unserialize( $data ) ), 200 );
 	}
 
 	/**
@@ -279,6 +278,10 @@ class Local extends Base {
 		$id        = $request->get_param( 'id' );
 		$favorite  = $request->get_param( 'favorite' );
 		$favorites = get_user_meta( get_current_user_id(), $type, true );
+
+		if ( ! is_scalar( $id ) ) {
+			return new WP_Error( 'favorite_error', __( 'Invalid ID.', 'analogwp-templates' ), array( 'status' => 400 ) );
+		}
 
 		if ( ! $favorites ) {
 			$favorites = array();
@@ -335,10 +338,10 @@ class Local extends Base {
 		if ( $new_post_id && ! is_wp_error( $new_post_id ) ) {
 			\update_post_meta( $new_post_id, '_ang_import_type', $with_page ? 'page' : 'library' );
 			\update_post_meta( $new_post_id, '_ang_template_id', $template['id'] );
-			\update_post_meta( $new_post_id, '_wp_page_template', ! empty( $template['page_template'] ) ? $template['page_template'] : 'elementor_canvas' );
+			\update_post_meta( $new_post_id, '_wp_page_template', ! empty( $template['page_template'] ) ? sanitize_text_field( $template['page_template'] ) : 'elementor_canvas' );
 
 			if ( ! $with_page ) {
-				wp_set_object_terms( $new_post_id, ! empty( $template['elementor_library_type'] ) ? $template['elementor_library_type'] : 'page', 'elementor_library_type' );
+				wp_set_object_terms( $new_post_id, ! empty( $template['elementor_library_type'] ) ? sanitize_key( $template['elementor_library_type'] ) : 'page', 'elementor_library_type' );
 			}
 
 			return $new_post_id;
@@ -473,6 +476,10 @@ class Local extends Base {
 	public function get_settings() {
 		$options = Options::get_instance()->get();
 
+		if ( ! Utils::current_user_can_manage_kits() ) {
+			unset( $options['ang_license_key'] );
+		}
+
 		return new WP_REST_Response( $options, 200 );
 	}
 
@@ -501,6 +508,8 @@ class Local extends Base {
 					array( 'status' => 403 )
 				);
 			}
+
+			$value = absint( $value );
 		} elseif ( ! Utils::current_user_can_manage_kits() ) {
 			return new WP_Error(
 				'rest_forbidden',
@@ -596,7 +605,7 @@ class Local extends Base {
 			$title,
 			array(
 				'_elementor_data'           => $kit_manager->get_kit_content(),
-				'_elementor_page_settings'  => $tokens,
+				'_elementor_page_settings'  => $kit_manager->sanitize_kit_settings( $tokens ),
 				'_duplicate_of'             => $belongs_to,
 				'_is_analog_user_kit'       => true,
 				'_elementor_controls_usage' => $elementor_controls,
@@ -624,13 +633,13 @@ class Local extends Base {
 	 * @return WP_REST_Response|WP_Error
 	 */
 	public function get_token( WP_REST_Request $request ) {
-		$id = $request->get_param( 'id' );
+		$id = absint( $request->get_param( 'id' ) );
 
 		if ( ! $id ) {
 			return new WP_Error( 'tokens_error', __( 'Please provide a valid post ID.', 'analogwp-templates' ) );
 		}
 
-		if ( ! get_post( $id ) ) {
+		if ( ! get_post( $id ) || ! current_user_can( 'read_post', $id ) ) {
 			return new WP_Error( 'tokens_error', __( 'Invalid Post ID', 'analogwp-templates' ) );
 		}
 

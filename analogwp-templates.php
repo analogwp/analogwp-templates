@@ -10,25 +10,25 @@
  * Plugin Name: Style Kits for Elementor
  * Plugin URI:  https://analogwp.com/
  * Description: Style Kits extends the Elementor theme styles editor with more global styling options. Boost your design workflow in Elementor with intuitive global controls and theme style presets.
- * Version:     2.6.6
+ * Version:     2.7.0
  * Author:      AnalogWP
  * Author URI:  https://analogwp.com/
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: analogwp-templates
- * Requires at least: 6.0
+ * Requires at least: 6.6
  * Requires PHP: 7.4
  *
- * Elementor tested up to: 4.2.3
- * Elementor Pro tested up to: 4.2.2
+ * Elementor tested up to: 4.3.5
+ * Elementor Pro tested up to: 4.3.2
  */
 
 defined( 'ABSPATH' ) || exit;
 
 define( 'ANG_ELEMENTOR_MINIMUM', '3.32.0' );
 define( 'ANG_PHP_MINIMUM', '7.4' );
-define( 'ANG_WP_MINIMUM', '6.0' );
-define( 'ANG_VERSION', '2.6.6' );
+define( 'ANG_WP_MINIMUM', '6.6' );
+define( 'ANG_VERSION', '2.7.0' );
 define( 'ANG_TEXT_DOMAIN', 'analogwp-templates' );
 define( 'ANG_LEGACY_TEXT_DOMAIN', 'ang' );
 define( 'ANG_PLUGIN_FILE', __FILE__ );
@@ -67,6 +67,8 @@ register_activation_hook( __FILE__, 'analog_activate_plugin' );
  * @return void
  */
 function analog_deactivate_plugin() {
+	wp_clear_scheduled_hook( 'analog/tracker/send_event' );
+
 	if ( version_compare( PHP_VERSION, ANG_PHP_MINIMUM, '<' ) ) {
 		return;
 	}
@@ -134,12 +136,14 @@ function analog_require_minimum_elementor() {
 	$message .= '<p>';
 	/* translators: %s: Link to update Elementor. */
 	$message .= sprintf( '<a href="%s" class="button-primary">%s</a>', esc_url( $update_url ), esc_html__( 'Update Elementor Now', 'analogwp-templates' ) );
-	/* translators: %s: Link to rollback plugin to previous version. */
-	$message .= sprintf(
-		'<a href="%s" class="button-secondary" style="margin-left:10px">%s</a>',
-		esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=analog_style_kits_rollback&version=' . $versions[0] ), 'analog_style_kits_rollback' ) ),
-		esc_html( sprintf( $rollback_version_label, $versions[0] ) )
-	);
+	if ( ! empty( $versions[0] ) ) {
+		/* translators: %s: Link to rollback plugin to previous version. */
+		$message .= sprintf(
+			'<a href="%s" class="button-secondary" style="margin-left:10px">%s</a>',
+			esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=analog_style_kits_rollback&version=' . $versions[0] ), 'analog_style_kits_rollback' ) ),
+			esc_html( sprintf( $rollback_version_label, $versions[0] ) )
+		);
+	}
 	$message .= '</p>';
 
 	echo wp_kses( '<div class="error">' . $message . '</div>', $allowed_notice_html );
@@ -299,7 +303,8 @@ add_action(
 			// Include files temporarily, required for rollbacks to work.
 			require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 			require_once ANG_PLUGIN_DIR . 'inc/Core/Storage/Transients.php';
-			require_once ANG_PLUGIN_DIR . 'inc/elementor/class-tools.php';
+			require_once ANG_PLUGIN_DIR . 'inc/Featuresets/rollback/class-rollbacker.php';
+			require_once ANG_PLUGIN_DIR . 'inc/Featuresets/rollback/class-init.php';
 			require_once ANG_PLUGIN_DIR . 'inc/Utils.php';
 
 			add_action( 'admin_notices', 'analog_require_minimum_elementor' );

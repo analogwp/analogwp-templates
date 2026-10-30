@@ -165,7 +165,6 @@ class Remote extends Base {
 				'timeout'    => $force_update ? 25 : 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
 				'body'       => $body_args,
-				'sslverify'  => false,
 			)
 		);
 
@@ -182,7 +181,8 @@ class Remote extends Base {
 	 * @return mixed|\WP_Error
 	 */
 	public function get_block_content( $block_id, $license, $method, $site_id ) {
-		$url = self::$blocks_endpoint . $block_id;
+		$block_id = absint( $block_id );
+		$url      = self::$blocks_endpoint . $block_id;
 
 		if ( Utils::is_container() ) {
 			$url = self::$patterns_endpoint . $block_id;
@@ -203,9 +203,8 @@ class Remote extends Base {
 		$response = wp_remote_get(
 			$url,
 			array(
-				'timeout'   => 40,
-				'sslverify' => false,
-				'body'      => $body_args,
+				'timeout' => 40,
+				'body'    => $body_args,
 			)
 		);
 
@@ -242,7 +241,7 @@ class Remote extends Base {
 	 * @return array|mixed|object
 	 */
 	public function get_stylekit_data( $kit ) {
-		$url = self::$kits_endpoint . $kit['id'];
+		$url = self::$kits_endpoint . absint( $kit['id'] );
 
 		global $wp_version;
 		$body_args = apply_filters( 'analog/api/get_stylekits_data/body_args', self::$api_call_args ); // @codingStandardsIgnoreLine
@@ -262,7 +261,6 @@ class Remote extends Base {
 				'timeout'    => 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
 				'body'       => $body_args,
-				'sslverify'  => false,
 			)
 		);
 
@@ -300,9 +298,8 @@ class Remote extends Base {
 		$response = wp_remote_get(
 			$url,
 			array(
-				'timeout'   => 40,
-				'body'      => $body_args,
-				'sslverify' => false,
+				'timeout' => 40,
+				'body'    => $body_args,
 			)
 		);
 
@@ -380,7 +377,6 @@ class Remote extends Base {
 				'timeout'    => $force_update ? 25 : 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
 				'body'       => $body_args,
-				'sslverify'  => false,
 			)
 		);
 

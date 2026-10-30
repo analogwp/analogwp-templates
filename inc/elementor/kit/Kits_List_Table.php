@@ -3,6 +3,7 @@
 namespace Analog\Elementor\Kit;
 
 use Analog\Plugin;
+use Analog\Settings\Admin_Settings;
 use Analog\Utils;
 use Elementor\Core\Base\Document;
 use Elementor\TemplateLibrary\Source_Local;
@@ -102,11 +103,7 @@ class Kits_List_Table extends \WP_List_Table {
 				if ( Utils::get_global_kit_id() === $item['id'] ) {
 					$result = __( 'Entire Site', 'analogwp-templates' );
 				} else {
-					$result = __( 'None', 'analogwp-templates' );
-					if ( $count > 0 ) {
-						$url    = admin_url( 'admin.php?page=ang-instance-list&kit=' . $item['id'] );
-						$result = '<a href="' . $url . '">' . $count . '</a>';
-					}
+					$result = $count > 0 ? $count : __( 'None', 'analogwp-templates' );
 				}
 
 				break;
@@ -344,6 +341,8 @@ class Kits_List_Table extends \WP_List_Table {
  */
 function ang_kits_list() {
 	// Enqueue assets.
+	Admin_Settings::enqueue_styles();
+
 	wp_enqueue_script(
 		'analog-kit-list',
 		ANG_PLUGIN_URL . 'assets/js/kit-list.js',
@@ -364,49 +363,54 @@ function ang_kits_list() {
 	);
 
 	?>
-	<div class="wrap">
+	<div class="wrap ang">
 		<h1 class="wp-heading-inline" style="font-weight: bold;"><?php esc_html_e( 'Local Style Kits', 'analogwp-templates' ); ?></h1>
 		<a href="http://sk.test/wp-admin/post-new.php?post_type=page" class="page-title-action" id="import-kit">Import</a>
 		<hr class="wp-header-end">
-		<div id="analog-import-template-area" style="display: none; margin: 50px 0 30px; text-align: center;">
-			<div id="analog-import-template-title" style="font-size: 18px; color: #555d66;"><?php echo esc_html__( 'Choose an Elementor template JSON file or a .zip archive of Elementor templates, and add them to the list of templates available in your library.', 'analogwp-templates' ); ?></div>
-			<form id="analog-import-template-form" style="display: inline-block;margin-top: 30px;padding: 30px 50px;background-color: #FFFFFF;border: 1px solid #e5e5e5;" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" enctype="multipart/form-data">
-				<input type="hidden" name="action" value="stylekits_library_direct_actions">
-				<input type="hidden" name="library_action" value="import_local_kit">
-				<input type="hidden" name="_nonce" value="<?php echo esc_attr( wp_create_nonce( 'stylekits_ajax' ) ); ?>">
-				<fieldset id="elementor-import-template-form-inputs">
-					<input type="file" name="file" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" required="">
-					<input id="analog-import-template-action" type="submit" class="button" value="<?php echo esc_attr__( 'Import Now', 'analogwp-templates' ); ?>">
-				</fieldset>
-			</form>
-		</div>
-		<p style="margin: 20px 0; font-size: 14px; line-height: 1.5;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below.', 'analogwp-templates' ); ?> <a href="https://analogwp.com/docs/local-style-kits/" target="_blank"><?php esc_html_e( 'Learn more', 'analogwp-templates' ); ?></a></p>
+		<div class="ang-wrapper">
+			<div class="ang-main">
+				<div id="analog-import-template-area" style="display: none; margin: 50px 0 30px; text-align: center;">
+					<div id="analog-import-template-title" style="font-size: 18px; color: #555d66;"><?php echo esc_html__( 'Choose an Elementor template JSON file or a .zip archive of Elementor templates, and add them to the list of templates available in your library.', 'analogwp-templates' ); ?></div>
+					<form id="analog-import-template-form" style="display: inline-block;margin-top: 30px;padding: 30px 50px;background-color: #FFFFFF;border: 1px solid #e5e5e5;" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" enctype="multipart/form-data">
+						<input type="hidden" name="action" value="stylekits_library_direct_actions">
+						<input type="hidden" name="library_action" value="import_local_kit">
+						<input type="hidden" name="_nonce" value="<?php echo esc_attr( wp_create_nonce( 'stylekits_ajax' ) ); ?>">
+						<fieldset id="elementor-import-template-form-inputs">
+							<input type="file" name="file" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" required="">
+							<input id="analog-import-template-action" type="submit" class="button" value="<?php echo esc_attr__( 'Import Now', 'analogwp-templates' ); ?>">
+						</fieldset>
+					</form>
+				</div>
+				<p style="margin: 20px 0; font-size: 14px; line-height: 1.5;"><?php esc_html_e( 'A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below.', 'analogwp-templates' ); ?> <a href="https://analogwp.com/docs/local-style-kits/" target="_blank"><?php esc_html_e( 'Learn more', 'analogwp-templates' ); ?></a></p>
 
-		<form style="margin-bottom: 30px;" >
-			<label for="global_kit" style="font-size: 16px; color: #000; font-weight: bold; margin-right: 16px;"><?php esc_html_e( 'Global Style Kit', 'analogwp-templates' ); ?></label>
-			<select name="global_kit" id="global_kit" style="width: auto; padding: 12px 25px 12px 10px; font-size: 14px; line-height: 1;">
-				<?php
-				$kits = Utils::get_kits( false );
-				foreach ( $kits as $kit_id => $kit_title ) {
-					?>
-					<option value="<?php echo esc_attr( $kit_id ); ?>" <?php selected( $kit_id, get_option( 'elementor_active_kit' ) ); ?>><?php echo esc_html( $kit_title ); ?></option>
+				<form style="margin-bottom: 30px;" >
+					<label for="global_kit" style="font-size: 16px; color: #000; font-weight: bold; margin-right: 16px;"><?php esc_html_e( 'Global Style Kit', 'analogwp-templates' ); ?></label>
+					<select name="global_kit" id="global_kit" style="width: auto; padding: 12px 25px 12px 10px; font-size: 14px; line-height: 1;">
+						<?php
+						$kits = Utils::get_kits( false );
+						foreach ( $kits as $kit_id => $kit_title ) {
+							?>
+							<option value="<?php echo esc_attr( $kit_id ); ?>" <?php selected( $kit_id, get_option( 'elementor_active_kit' ) ); ?>><?php echo esc_html( $kit_title ); ?></option>
+							<?php
+						}
+						?>
+					</select>
+					<input id="apply-kit" type="submit" value="<?php esc_html_e( 'Apply', 'analogwp-templates' ); ?>" style="padding: 12px 20px; text-transform: uppercase; font-weight: 600; background: #413EC5; color: #fff; font-size: 14px; line-height: 1; box-shadow: none !important; outline: none !important;" class="button">
+				</form>
+
+				<form id="style-kits" method="get">
+					<input type="hidden" name="page" value="style-kits" />
+
 					<?php
-				}
-				?>
-			</select>
-			<input id="apply-kit" type="submit" value="<?php esc_html_e( 'Apply', 'analogwp-templates' ); ?>" style="padding: 12px 20px; text-transform: uppercase; font-weight: 600; background: #413EC5; color: #fff; font-size: 14px; line-height: 1; box-shadow: none !important; outline: none !important;" class="button">
-		</form>
-
-		<form id="style-kits" method="get">
-			<input type="hidden" name="page" value="style-kits" />
-
-			<?php
-			$kits_table = new Kits_List_Table();
-			$kits_table->prepare_items();
-			// $kits_table->views();
-			$kits_table->display();
-			?>
-		</form>
+					$kits_table = new Kits_List_Table();
+					$kits_table->prepare_items();
+					// $kits_table->views();
+					$kits_table->display();
+					?>
+				</form>
+			</div>
+			<?php Admin_Settings::output_sidebar(); ?>
+		</div>
 	</div>
 	<?php
 }

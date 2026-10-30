@@ -458,13 +458,13 @@ jQuery( window ).on( 'elementor/init', function() {
 				stripped = replaceAll( stripped, elBody + ':', elSelector + ':' );
 				stripped = replaceAll( stripped, elBody + ',', elSelector + ',' );
 
-				jQuery(elTextarea).html(stripped);
+				jQuery(elTextarea).val(stripped);
 			} else {
 				let stripped = replaceAll( formattedCSS, elSelector + ' ', elBody + ' ' );
 				stripped = replaceAll( stripped, elSelector + ':', elBody + ':' );
 				stripped = replaceAll( stripped, elSelector + ',', elBody + ',' );
 
-				jQuery(elTextarea).html(stripped);
+				jQuery(elTextarea).val(stripped);
 			}
 		};
 
@@ -493,7 +493,7 @@ jQuery( window ).on( 'elementor/init', function() {
 						const content = modal.getElements( 'content' ).find('#ang-export-css');
 
 						if( navigator.clipboard ) {
-							const textToCopy = content[0].innerHTML;
+							const textToCopy = content.val();
 							navigator.clipboard.writeText( textToCopy ).then( () => {
 								elementor.notifications.showToast( {
 									message: ANG_Action.translate.cssCopied,
@@ -515,13 +515,14 @@ jQuery( window ).on( 'elementor/init', function() {
 			onShow: function() {
 				const content = modal.getElements( 'content' );
 				content.append( `
-						<textarea id="ang-export-css" rows="10">${formattedCSS}</textarea>
+						<textarea id="ang-export-css" rows="10"></textarea>
 						<div style="text-align:left;">
 							<input type="checkbox" id="ang-switch-selector" />
 							<label for="ang-switch-selector">${ANG_Action.translate.cssSelector}</label>
 						</div>
 					` );
 
+				jQuery('#ang-export-css').val(formattedCSS);
 				jQuery('#ang-switch-selector').bind('change', replacer);
 			},
 			onHide: function() {

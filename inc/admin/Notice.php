@@ -165,6 +165,13 @@ final class Notice {
 					display: flex;
 					align-items: center;
 				}
+				.analog-notice .logo img {
+					max-width: 22px;
+					max-height: 22px;
+				}
+				#analogwp-templates .analog-notice {
+					margin: 20px 24px 0;
+				}
 				.analog-notice .logo {
 					display: inline-flex;
 					margin: 5px 10px 5px 0;

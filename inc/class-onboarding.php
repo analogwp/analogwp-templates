@@ -35,10 +35,24 @@ class Onboarding {
 		$options_table    = get_option( 'ang_options' );
 
 		if ( ! $options_table && version_compare( self::$version, $existing_version, '>' ) ) {
-			// Redirect to onboarding page.
-			wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
-			update_option( 'analog_onboarding', self::$version );
+			add_action( 'admin_init', array( $this, 'redirect_to_onboarding' ) );
 		}
+	}
+
+	/**
+	 * Redirects the first admin able to use the onboarding page to it.
+	 *
+	 * @since 2.7.0
+	 */
+	public function redirect_to_onboarding() {
+		if ( wp_doing_ajax() || ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		update_option( 'analog_onboarding', self::$version );
+
+		wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
+		exit;
 	}
 
 	/**
@@ -129,15 +143,17 @@ class Onboarding {
 		$current_theme = wp_get_theme()->get_stylesheet();
 		$needle        = 'hello-elementor';
 
-		$steps[] = array(
-			'id'            => 'install-hello-theme',
-			'label'         => __( 'Install and activate Hello Elementor Theme', 'analogwp-templates' ),
-			'description'   => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'analogwp-templates' ),
-			'label_success' => __( 'Hello Elementor theme is installed and activated', 'analogwp-templates' ),
-			'label_failed'  => __( 'Failed to install and activate Hello Elementor', 'analogwp-templates' ),
-			'checked'       => true,
-			'todo'          => ( ! in_array( $needle, array_keys( $themes ), true ) || $needle !== $current_theme ),
-		);
+		if ( $this->can_use_hello_theme() ) {
+			$steps[] = array(
+				'id'            => 'install-hello-theme',
+				'label'         => __( 'Install and activate Hello Elementor Theme', 'analogwp-templates' ),
+				'description'   => __( 'Style Kits works best with Elementor Hello theme. This will replace your currently active theme', 'analogwp-templates' ),
+				'label_success' => __( 'Hello Elementor theme is installed and activated', 'analogwp-templates' ),
+				'label_failed'  => __( 'Failed to install and activate Hello Elementor', 'analogwp-templates' ),
+				'checked'       => true,
+				'todo'          => ( ! in_array( $needle, array_keys( $themes ), true ) || $needle !== $current_theme ),
+			);
+		}
 
 		// Show this option in case of base kit is not imported.
 		$all_kits = method_exists( '\Analog\Utils', 'get_kits' ) ? \Analog\Utils::get_kits() : array();
@@ -331,7 +347,15 @@ class Onboarding {
 		$file    = 'elementor/elementor.php';
 		$plugins = get_plugins();
 
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return false;
+		}
+
 		if ( ! in_array( $file, array_keys( $plugins ), true ) ) {
+			if ( ! current_user_can( 'install_plugins' ) ) {
+				return false;
+			}
+
 			$slug      = 'elementor';
 			$installer = new \Plugin_Upgrader( new \Automatic_Upgrader_Skin() );
 
@@ -368,6 +392,27 @@ class Onboarding {
 	}
 
 	/**
+	 * Whether the current user may install, if needed, and switch to Hello Elementor.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @return bool
+	 */
+	private function can_use_hello_theme() {
+		if ( ! current_user_can( 'switch_themes' ) ) {
+			return false;
+		}
+
+		$theme = wp_get_theme( 'hello-elementor' );
+
+		if ( ! $theme->exists() ) {
+			return current_user_can( 'install_themes' );
+		}
+
+		return ! is_multisite() || current_user_can( 'manage_network_themes' ) || $theme->is_allowed();
+	}
+
+	/**
 	 * Install and activate Elementor Pro plugin.
 	 *
 	 * @return bool
@@ -379,6 +424,10 @@ class Onboarding {
 
 		$themes     = wp_get_themes();
 		$stylesheet = 'hello-elementor';
+
+		if ( ! $this->can_use_hello_theme() ) {
+			return false;
+		}
 
 		if ( ! in_array( $stylesheet, array_keys( $themes ), true ) ) {
 			$installer = new \Theme_Upgrader( new \Automatic_Upgrader_Skin() );

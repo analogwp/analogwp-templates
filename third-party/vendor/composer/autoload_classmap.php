@@ -10,6 +10,7 @@ return array(
     'Analog\\Dependencies\\enshrined\\svgSanitize\\ElementReference\\Subject' => $vendorDir . '/enshrined/svg-sanitize/src/ElementReference/Subject.php',
     'Analog\\Dependencies\\enshrined\\svgSanitize\\ElementReference\\Usage' => $vendorDir . '/enshrined/svg-sanitize/src/ElementReference/Usage.php',
     'Analog\\Dependencies\\enshrined\\svgSanitize\\Exceptions\\NestingException' => $vendorDir . '/enshrined/svg-sanitize/src/Exceptions/NestingException.php',
+    'Analog\\Dependencies\\enshrined\\svgSanitize\\Exceptions\\RegexException' => $vendorDir . '/enshrined/svg-sanitize/src/Exceptions/RegexException.php',
     'Analog\\Dependencies\\enshrined\\svgSanitize\\Helper' => $vendorDir . '/enshrined/svg-sanitize/src/Helper.php',
     'Analog\\Dependencies\\enshrined\\svgSanitize\\Sanitizer' => $vendorDir . '/enshrined/svg-sanitize/src/Sanitizer.php',
     'Analog\\Dependencies\\enshrined\\svgSanitize\\data\\AllowedAttributes' => $vendorDir . '/enshrined/svg-sanitize/src/data/AllowedAttributes.php',

@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { safeUrl } from '../helpers/validate';
 const { FocusableIframe, Button } = wp.components;
 const { __ } = wp.i18n;
 
@@ -77,7 +78,7 @@ const Preview = ( props ) => {
 
 	const { onRequestClose, onRequestImport, ...rest } = props;
 
-	const previewURL = props.template.url || props.template.preview;
+	const previewURL = safeUrl( props.template.url || props.template.preview );
 
 	return (
 		<Container loading={ loading } { ...rest }>

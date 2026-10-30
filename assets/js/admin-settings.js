@@ -85,69 +85,6 @@
 			}
 		}
 
-		function submitDiscountRequest( e ) {
-			e.preventDefault();
-
-			const email = $( this ).find( 'input[name="email"]' ).val();
-			const fname = $( this ).find( 'input[name="first_name"]' ).val();
-			const lname = $( this ).find( 'input[name="last_name"]' ).val();
-
-			const elSubmitBtn = $( this ).find( 'input[type=submit]' );
-			const messageEl = $( this ).find( '.ang-discount-response span' );
-			const defaultLabel = elSubmitBtn.data( 'default-label' );
-			messageEl.text( '' );
-			elSubmitBtn.val( 'Sending...' );
-
-			$.post(
-				'https://analogwp.com/?ang-api=pro_discount_code',
-				{
-					email: email,
-					first_name: JSON.stringify( fname ),
-					last_name: JSON.stringify( lname ),
-					slug: 'style-kits',
-				}
-			).done( function( res ) {
-				messageEl.text( res?.message );
-				elSubmitBtn.val( defaultLabel );
-				elSubmitBtn.attr( 'disabled', 'disabled' );
-			} ).fail( function(res) {
-				messageEl.text( 'Failed to send, please contact support.' );
-				elSubmitBtn.attr( 'disabled', 'disabled' );
-				setTimeout( function() {
-					messageEl.text( 'Send me the coupon' );
-					elSubmitBtn.removeAttr( 'disabled' );
-				}, 2000 );
-			} );
-		}
-
-		$( '#js-ang-request-discount' ).on( 'submit', submitDiscountRequest );
-
-		// Handle promo hide functionality.
-		$( '.ang-hide-promo' ).on( 'click', function( e ) {
-			e.preventDefault();
-
-			const $link = $( this );
-			const promoId = $link.data( 'promo-id' );
-			const $promo = $link.closest( '.promo' );
-
-			$.ajax( {
-				url: data.ajax_url,
-				type: 'POST',
-				data: {
-					action: 'ang_hide_promo',
-					nonce: data.hide_promo_nonce,
-					promo_id: promoId,
-				},
-				success: function( response ) {
-					if ( response.success ) {
-						$promo.fadeOut( 300, function() {
-							$promo.remove();
-						} );
-					}
-				},
-			} );
-		} );
-
 		function processKitDownload() {
 			if ( ! $( '.titledesc + #starter-kits-message' ).length ) {
 				const el = $( '.titledesc' ),

@@ -36,6 +36,10 @@ body.style-kits_page_ang-settings .wrap {
 	line-height: 1.2;
 }
 
+.ang-wrapper > .ang-main {
+	min-width: 0;
+}
+
 .ang-wrapper > form > .tab-content {
 	background: #fff;
 	border-bottom-right-radius: 8px;
@@ -196,114 +200,172 @@ body.style-kits_page_ang-settings .wrap {
 .ang.gopro .submit {
 	display: none;
 }
-.ang.gopro .ang-button.ang-gopro-button {
-	display: inline-block;
-	margin-top: 30px;
+/* Style Kits Pro tab */
+.ang.gopro .tab-content {
+	padding: 40px;
 }
 
-/* GoPro Hero */
-.ang.gopro .gopro-hero {
-	margin-bottom: 36px;
-	padding-bottom: 32px;
-	border-bottom: 1px solid #E2E2E4;
+.gopro-hero {
+	max-width: 620px;
+	margin-bottom: 40px;
 }
 
 .gopro-eyebrow {
-	display: inline-block;
-	margin-bottom: 10px;
-	margin-top: 0;
+	margin: 0 0 12px;
 	color: #413EC5;
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: 600;
-	letter-spacing: 0.04em;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
 }
 
-.ang.gopro .gopro-content h1 {
-	margin: 0 0 12px;
-	font-weight: 700;
-	font-size: 26px;
-	line-height: 1.25;
+.ang.gopro .gopro-content h2 {
+	margin: 0 0 14px;
+	padding: 0;
 	color: #1d2327;
+	font-size: 28px;
+	font-weight: 600;
+	line-height: 1.25;
 }
 
 .ang.gopro .gopro-lead {
-	max-width: 560px;
-	font-size: 15px;
+	margin: 0 0 24px;
 	color: #50575e;
-	line-height: 1.7;
-	margin-bottom: 24px;
+	font-size: 15px;
+	line-height: 1.65;
 }
 
 .gopro-cta {
 	display: flex;
 	align-items: center;
-	gap: 20px;
 	flex-wrap: wrap;
+	gap: 12px 20px;
 }
 
 .gopro-cta__primary.button {
-	background: #413EC5;
+	padding: 9px 22px;
 	border-color: #413EC5;
+	border-radius: 6px;
+	background: #413EC5;
 	color: #fff;
-	padding: 10px 24px;
-	font-size: 15px;
+	font-size: 14px;
 	font-weight: 600;
-	height: auto;
 	line-height: 1.5;
 
 	&:hover,
 	&:focus {
-		background: #302db0;
 		border-color: #302db0;
+		background: #302db0;
 		color: #fff;
-		box-shadow: none;
-		outline: none;
+	}
+
+	&:focus {
+		box-shadow: 0 0 0 1px #fff, 0 0 0 3px #413EC5;
 	}
 }
 
-.gopro-cta__note {
-	font-size: 13px;
-	font-style: italic;
-	color: #50575e;
+.gopro-cta__secondary {
+	color: #413EC5;
+	font-size: 14px;
+	font-weight: 500;
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		color: #302db0;
+		text-decoration: underline;
+	}
 }
 
-/* GoPro Feature Cards */
+.gopro-assurance {
+	margin: 16px 0 0;
+	color: #646970;
+	font-size: 13px;
+}
+
+.ang.gopro .gopro-content .gopro-section-title {
+	margin: 0 0 16px;
+	font-size: 16px;
+	line-height: 1.4;
+}
+
 .gopro-features {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-	gap: 20px;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1px;
+	overflow: hidden;
+	margin-bottom: 24px;
+	border: 1px solid #E2E2E4;
+	border-radius: 8px;
+	background: #E2E2E4;
 }
 
 .gopro-feature-card {
 	display: flex;
-	gap: 16px;
-	padding: 20px;
-	background: #F8F8FC;
-	border: 1px solid #E2E2E4;
-	border-radius: 8px;
+	gap: 14px;
+	padding: 22px;
+	background: #fff;
 }
 
 .gopro-feature-card__icon {
-	font-size: 24px;
-	line-height: 1;
-	margin-top: 2px;
+	display: flex;
 	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 8px;
+	background: #EFEFFB;
+	color: #413EC5;
 }
 
-.gopro-feature-card h3 {
-	margin: 0 0 6px;
-	font-size: 14px;
-	font-weight: 700;
+.ang.gopro .gopro-feature-card h3 {
+	margin: 0 0 4px;
 	color: #1d2327;
+	font-size: 14px;
+	font-weight: 600;
 	line-height: 1.4;
 }
 
 .gopro-feature-card p {
 	margin: 0;
-	font-size: 13px;
 	color: #50575e;
+	font-size: 13px;
 	line-height: 1.6;
+}
+
+.gopro-closing {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 16px 24px;
+	padding: 22px 24px;
+	border-radius: 8px;
+	background: #F6F6FC;
+}
+
+.ang.gopro .gopro-closing h3 {
+	margin: 0 0 4px;
+	color: #1d2327;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.gopro-closing p {
+	margin: 0;
+	color: #50575e;
+	font-size: 13px;
+}
+
+@media screen and (max-width: 782px) {
+	.ang.gopro .tab-content {
+		padding: 24px 20px;
+	}
+
+	.gopro-features {
+		grid-template-columns: minmax(0, 1fr);
+	}
 }
 
 .ang .ang-enhanced-select {
@@ -312,7 +374,6 @@ body.style-kits_page_ang-settings .wrap {
 
 .ang .sidebar .plugin-banner,
 .ang .sidebar .promo,
-.ang .sidebar .upgrade-box,
 .ang .sidebar .help-box {
 	background: #fff;
 	border-radius: 8px;
@@ -350,18 +411,6 @@ body.style-kits_page_ang-settings .wrap {
 	border-top: 1px solid #E2E2E4;
 }
 
-.ang .sidebar .inline-badge {
-	background: #4D45BD;
-	color: #fff;
-	font-size: 10px;
-	text-transform: uppercase;
-	border-radius: 5px;
-	padding: 2px 3px;
-	border: 2px solid transparent;
-	vertical-align: middle;
-	text-decoration: none;
-}
-
 .ang .sidebar .help-box h3 {
 	margin-top: 0;
 	margin-bottom: 15px;
@@ -377,8 +426,7 @@ body.style-kits_page_ang-settings .wrap {
 	gap: 10px;
 }
 
-.ang .sidebar .promo,
-.ang .sidebar .upgrade-box {
+.ang .sidebar .promo {
 	margin-top: 0;
 	border: 1px solid #dcdcdc;
 	margin-bottom: 30px;
@@ -386,24 +434,6 @@ body.style-kits_page_ang-settings .wrap {
 
 .ang .sidebar .promo {
 	position: relative;
-
-	.ang-hide-promo {
-		position: absolute;
-		top: 10px;
-		right: 15px;
-		color: #787c82;
-		font-size: 12px;
-		text-decoration: none;
-		opacity: 0.7;
-		transition: opacity 0.2s ease;
-
-		&:hover,
-		&:focus {
-			opacity: 1;
-			color: #50575e;
-			text-decoration: none;
-		}
-	}
 
 	.sticker-tag {
 		background: #602BC2;
@@ -469,48 +499,44 @@ body.style-kits_page_ang-settings .wrap {
 	}
 }
 
-.ang .sidebar .upgrade-box {
-	.ang-discount-response {
-		font-style: italic;
-		font-weight: 500;
-		color: #602BC2;
+.ang .sidebar .promo.promo-delta {
+	.promo-support {
+		margin: -6px 0 18px;
+		color: #50575e;
+		font-size: 13px;
+		line-height: 1.5;
 	}
 
-	&.special {
-		border-color:#602BC2;
-		background: #E1D5F6;
-		
-		h3 {
-			margin: 0;
-			font-size: 18px;
-			color:#602BC2;
-			line-height: 1.5;
-		}
+	.promo-eyebrow {
+		margin: 0 0 12px;
+		color: #646970;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
 
-		h3 + p {
-			font-size: 15px;
-		}
+	.sticker-tag {
+		background: #15171b;
+	}
 
-		 input[type="email"]:focus,
-		 input[type="text"]:focus {
-			border-color:#602BC2;
-			box-shadow: 0 0 0 1px #602BC2;
-		 }
+	.promo-header h3 a {
+		color: #15171b;
+		text-decoration: none;
+	}
 
-		.button,
-		.button-secondary {
-			background-color:#602BC2;
-			border-color:#602BC2;
-			color:#fff;
+	.promo-header h3 a:hover {
+		text-decoration: underline;
+	}
 
-			&:hover,
-			&:focus {
-				box-shadow: none;
-			}
-		}
+	.buttons .button {
+		background-color: #15171b;
+		border-color: #15171b;
 
-		a {
-			color:currentColor;
+		&:hover,
+		&:focus {
+			background-color: #26292a;
+			border-color: #26292a;
 		}
 	}
 }
@@ -518,26 +544,6 @@ body.style-kits_page_ang-settings .wrap {
 .ang .sidebar .social {
 	display: flex;
 	gap: 15px;
-}
-
-.ang .upgrade-box li {
-	list-style: disc;
-	font-size: 1.1em;
-}
-
-.ang .upgrade-box h3 {
-	margin: 0;
-	font-size: 18px;
-	line-height: 1.5;
-}
-
-.ang .upgrade-box .regular-text {
-	width: 100%;
-	margin-bottom: 8px;
-}
-
-.ang .upgrade-box + .promo {
-	margin-top: 30px;
 }
 
 .ang .promo.promo {

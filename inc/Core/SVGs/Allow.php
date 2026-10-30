@@ -49,6 +49,7 @@ final class Allow {
 
 		add_filter( 'upload_mimes', array( $this, 'allow_svg' ) );
 		add_filter( 'wp_handle_upload_prefilter', array( $this, 'check_for_svg' ) );
+		add_filter( 'wp_handle_sideload_prefilter', array( $this, 'check_for_svg' ) );
 		add_filter( 'wp_prepare_attachment_for_js', array( $this, 'fix_admin_preview' ), 10, 3 );
 		add_filter( 'wp_get_attachment_image_src', array( $this, 'fix_dimensions' ), 10, 4 );
 		add_action( 'get_image_tag', array( $this, 'get_image_tag_override' ), 10, 6 );

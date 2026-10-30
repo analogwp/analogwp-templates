@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { safeUrl } from './helpers/validate';
 const { FocusableIframe, Button } = wp.components;
 const { __ } = wp.i18n;
 
@@ -82,7 +83,7 @@ const Modal = props => {
 					{ __( 'Exit preview', 'analogwp-templates' ) }
 				</Button>
 
-				<a href={ props.template.url } rel="noopener noreferrer" target="_blank">
+				<a href={ safeUrl( props.template.url ) } rel="noopener noreferrer" target="_blank">
 					<Button isSecondary>
 						{ __( 'Open in new tab', 'analogwp-templates' ) }
 					</Button>
@@ -100,7 +101,7 @@ const Modal = props => {
 				alt="Loading icon"
 			/> }
 
-			<FocusableIframe src={ props.template.url } onLoad={ () => setLoading( false ) } />
+			<FocusableIframe src={ safeUrl( props.template.url ) } onLoad={ () => setLoading( false ) } />
 		</Container>
 	);
 };

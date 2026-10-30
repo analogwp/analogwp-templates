@@ -109,7 +109,7 @@ class Utils extends Base {
 
 		$imports[] = compact( 'id', 'post_id', 'method', 'time' );
 
-		update_option( '_ang_import_history', $imports );
+		update_option( '_ang_import_history', array_slice( $imports, -100 ), false );
 	}
 
 	/**
@@ -794,7 +794,7 @@ class Utils extends Base {
 		$is_flexbox_container_active = \Elementor\Core\Experiments\Manager::STATE_ACTIVE === $flexbox_container;
 
 		if ( 'default' === $flexbox_container || ! $is_flexbox_container_active ) {
-			$experiments                 = new \Elementor\Core\Experiments\Manager();
+			$experiments                 = \Elementor\Plugin::$instance->experiments ?? new \Elementor\Core\Experiments\Manager();
 			$is_flexbox_container_active = $experiments->is_feature_active( 'container' );
 		}
 
@@ -870,6 +870,24 @@ class Utils extends Base {
 		}
 
 		return wp_kses_post_deep( wp_unslash( $super_global[ $key ] ) );
+	}
+
+	/**
+	 * Unserializes data without instantiating any objects.
+	 *
+	 * Style Kit data is made of arrays and scalars only.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param mixed $data Data to unserialize, if serialized.
+	 * @return mixed
+	 */
+	public static function safe_unserialize( $data ) {
+		if ( ! is_serialized( $data ) ) {
+			return $data;
+		}
+
+		return @unserialize( trim( $data ), array( 'allowed_classes' => false ) ); // phpcs:ignore
 	}
 
 	/**
