@@ -1,6 +1,6 @@
 === Style Kits for Elementor ===
 Contributors: analogwp, lushkant, johnpixle, mauryaratan
-Requires at least: 6.0
+Requires at least: 6.6
 Requires PHP: 7.4
 Tested up to: 7.1
 Stable tag: 2.7.0
@@ -156,12 +156,14 @@ The Version Control settings ask the WordPress.org plugin directory for the list
 * Fix: Plugin notices missing on some translated sites
 * Fix: Library version checks for versions such as 2.10
 * Fix: Onboarding redirect now only applies to administrators in wp-admin
+* Improvement: Minimum WordPress version is now 6.6, as required by Elementor v3.32
 * Improvement: General security hardening for uploads, settings, imports and remote requests
 * Improvement: Update Freemius SDK to v2.13.5
 * Improvement: Update SVG sanitizer to v1.1.1
 * Improvement: Less waiting on remote requests when a service is unreachable
 * Improvement: Import history is now limited and no longer loaded on every request
 * Improvement: Redesigned Style Kits Pro settings tab
+* Improvement: Simplified the settings sidebar
 * Improvement: Removed coupon offers from the plugin
 * Improvement: Usage Data Tracking now states what is shared, and the readme lists external services
 * Improvement: More data is removed on uninstall, and the scheduled event is cleared on deactivation

@@ -16,7 +16,7 @@
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: analogwp-templates
- * Requires at least: 6.0
+ * Requires at least: 6.6
  * Requires PHP: 7.4
  *
  * Elementor tested up to: 4.3.5
@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
 
 define( 'ANG_ELEMENTOR_MINIMUM', '3.32.0' );
 define( 'ANG_PHP_MINIMUM', '7.4' );
-define( 'ANG_WP_MINIMUM', '6.0' );
+define( 'ANG_WP_MINIMUM', '6.6' );
 define( 'ANG_VERSION', '2.7.0' );
 define( 'ANG_TEXT_DOMAIN', 'analogwp-templates' );
 define( 'ANG_LEGACY_TEXT_DOMAIN', 'ang' );
