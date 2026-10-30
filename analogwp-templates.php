@@ -20,7 +20,7 @@
  * Requires PHP: 7.4
  *
  * Elementor tested up to: 4.3.5
- * Elementor Pro tested up to: 4.2.2
+ * Elementor Pro tested up to: 4.3.2
  */
 
 defined( 'ABSPATH' ) || exit;
