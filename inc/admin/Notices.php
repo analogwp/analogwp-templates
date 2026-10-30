@@ -104,9 +104,9 @@ final class Notices {
 	public function enqueue_scripts() {
 		wp_register_script(
 			'analog-admin',
-			ANG_PLUGIN_URL . '/assets/js/admin.js',
+			ANG_PLUGIN_URL . 'assets/js/admin.js',
 			array( 'jquery' ),
-			ANG_VERSION,
+			filemtime( ANG_PLUGIN_DIR . 'assets/js/admin.js' ),
 			true
 		);
 

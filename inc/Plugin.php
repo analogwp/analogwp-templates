@@ -10,6 +10,7 @@ namespace Analog;
 
 use Analog\Featuresets\Register_Featuresets as Featuresets;
 use Analog\Admin\Notices;
+use Analog\Admin\Delta_Promo;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -81,6 +82,7 @@ final class Plugin {
 
 		( new Consumer() )->register();
 		( new Notices() )->register();
+		( new Delta_Promo() )->register();
 		( new Google_Fonts() )->register();
 
 		// Migrations.
@@ -252,6 +254,7 @@ final class Plugin {
 		require_once ANG_PLUGIN_DIR . 'inc/Consumer.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notice.php';
 		require_once ANG_PLUGIN_DIR . 'inc/admin/Notices.php';
+		require_once ANG_PLUGIN_DIR . 'inc/admin/Delta_Promo.php';
 		require_once ANG_PLUGIN_DIR . 'inc/Utils.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-remote.php';
 		require_once ANG_PLUGIN_DIR . 'inc/api/class-local.php';

@@ -469,6 +469,32 @@ body.style-kits_page_ang-settings .wrap {
 	}
 }
 
+.ang .sidebar .promo.promo-delta {
+	.sticker-tag {
+		background: #15171b;
+	}
+
+	.promo-header h3 a {
+		color: #15171b;
+		text-decoration: none;
+	}
+
+	.promo-header h3 a:hover {
+		text-decoration: underline;
+	}
+
+	.buttons .button {
+		background-color: #15171b;
+		border-color: #15171b;
+
+		&:hover,
+		&:focus {
+			background-color: #26292a;
+			border-color: #26292a;
+		}
+	}
+}
+
 .ang .sidebar .upgrade-box {
 	.ang-discount-response {
 		font-style: italic;
