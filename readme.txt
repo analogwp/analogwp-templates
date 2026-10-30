@@ -11,7 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Power-up your Elementor workflow with global theme style presets, container-based patterns, and more global design controls.
 
 == Description ==
-✨ Have you seen our brand new launch? [Custom Library for Elementor](https://analogwp.com/custom-library-for-elementor/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme)
+✨ Have you seen our brand new launch? [Delta, the agent-first WordPress theme with built-in MCP](https://deltatheme.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme)
 
 [🚀 Take a better look at Style Kits](https://analogwp.com/style-kits/?utm_source=wporg&utm_medium=referral&utm_campaign=readme)
 
@@ -60,6 +60,18 @@ Style Kits for Elementor adds a set of extra UI controls to Theme Styles editor,
 - **User Role** management to hide Style Kits from your clients
 - **Cleanup tools** to help you clean layouts from inline styles
 - Many more PRO features and tools to improve your workflow
+
+### Meet Delta, from the Style Kits team
+
+[Delta](https://deltatheme.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=description) is our latest product: an agent-first WordPress theme with built-in MCP. Describe the site you want and your AI agent builds and maintains it in clean HTML and CSS, with no page builder involved.
+
+- Works with Claude, ChatGPT, Cursor and any MCP client
+- Clean HTML and CSS output, no builder markup
+- Templates for every part of your site
+- Keep writing posts in the block editor
+- Bring your own AI, no AI fee from Delta
+
+Delta replaces your current theme, so it is best for a new site or a planned rebuild. It is a separate product and is not required to use Style Kits.
 
 **Find us**:
 - [Visit the AnalogWP Website](https://analogwp.com/?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=analogwp)
