@@ -8,6 +8,9 @@
 namespace Analog;
 
 use Analog\API\Remote;
+use Analog\Elementor\Kit\Manager;
+use Elementor\Core\Base\Document;
+use Elementor\TemplateLibrary\Source_Local;
 
 /**
  * Class Database_Upgrader
@@ -43,6 +46,7 @@ class Database_Upgrader {
 			'2.1.0' => 'upgrade_2_1',
 			'2.2.1' => 'upgrade_2_2_1',
 			'2.3.2' => 'upgrade_2_3_2',
+			'2.7.0' => 'upgrade_2_7',
 		);
 
 		$version = get_option( self::OPTION, '0.0.0' );
@@ -216,5 +220,29 @@ class Database_Upgrader {
 	protected function upgrade_2_3_2() {
 		// Regenerate Elementor CSS.
 		Utils::clear_elementor_cache();
+	}
+
+	/**
+	 * Remove site identity settings from existing Style Kits.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @return void
+	 */
+	protected function upgrade_2_7() {
+		$kits = get_posts(
+			array(
+				'fields'         => 'ids',
+				'post_type'      => Source_Local::CPT,
+				'post_status'    => 'any',
+				'posts_per_page' => -1,
+				'meta_key'       => Document::TYPE_META_KEY, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'     => 'kit', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+			)
+		);
+
+		foreach ( $kits as $kit_id ) {
+			Manager::remove_site_settings( $kit_id );
+		}
 	}
 }

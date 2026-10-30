@@ -38,6 +38,16 @@ class Manager {
 	const OPTION_CUSTOM_KIT = '_elementor_page_settings';
 
 	/**
+	 * Kit settings that belong to the site rather than a Style Kit.
+	 *
+	 * Elementor copies these to the site options and theme mods whenever a kit is saved,
+	 * so a value stored in a kit would overwrite the current site identity.
+	 *
+	 * @since 2.7.0
+	 */
+	const SITE_SETTINGS = array( 'site_name', 'site_description', 'site_logo', 'site_favicon' );
+
+	/**
 	 * Holds Elementor kits list.
 	 *
 	 * @var array
@@ -348,7 +358,13 @@ class Manager {
 			return new \WP_Error( 'stylekit_error', 'You are not allowed to export this Style Kit.' );
 		}
 
-		$kit_data = serialize( get_post_meta( $kit_id, '_elementor_page_settings', true ) );
+		$kit_data = get_post_meta( $kit_id, '_elementor_page_settings', true );
+
+		if ( is_array( $kit_data ) ) {
+			$kit_data = array_diff_key( $kit_data, array_flip( self::SITE_SETTINGS ) );
+		}
+
+		$kit_data = serialize( $kit_data );
 
 		$export_data = array(
 			'title' => $kit->post_title,
@@ -614,6 +630,8 @@ class Manager {
 			return array();
 		}
 
+		$settings = array_diff_key( $settings, array_flip( self::SITE_SETTINGS ) );
+
 		if ( ! current_user_can( 'unfiltered_html' ) ) {
 			$settings = map_deep(
 				$settings,
@@ -646,6 +664,30 @@ class Manager {
 		}
 
 		return $settings;
+	}
+
+	/**
+	 * Removes site identity settings from a stored kit.
+	 *
+	 * Elementor falls back to the current site values for missing settings.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param int $kit_id Kit ID.
+	 * @return void
+	 */
+	public static function remove_site_settings( $kit_id ) {
+		$settings = get_post_meta( $kit_id, self::OPTION_CUSTOM_KIT, true );
+
+		if ( ! is_array( $settings ) ) {
+			return;
+		}
+
+		$cleaned = array_diff_key( $settings, array_flip( self::SITE_SETTINGS ) );
+
+		if ( count( $cleaned ) !== count( $settings ) ) {
+			update_post_meta( $kit_id, self::OPTION_CUSTOM_KIT, wp_slash( $cleaned ) );
+		}
 	}
 
 	/**

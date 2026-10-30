@@ -146,6 +146,7 @@ The Version Control settings ask the WordPress.org plugin directory for the list
 * New: Introducing Delta, from the Style Kits team, in the settings sidebar
 * New: Settings sidebar is now also available on the Local Style Kits screen
 * Fix: Go Pro menu link now opens the Style Kits Pro page
+* Fix: Style Kits no longer overwrite your site title, description, logo and favicon
 * Fix: Applying the Global Style Kit from the posts list no longer resets a page's other settings
 * Fix: Errors when importing a Style Kit with no connection to the library
 * Fix: Errors in quick edit and bulk edit with an invalid Style Kit
