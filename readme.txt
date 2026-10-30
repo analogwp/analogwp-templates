@@ -71,6 +71,8 @@ Style Kits for Elementor adds a set of extra UI controls to Theme Styles editor,
 - Keep writing posts in the block editor
 - Bring your own AI, no AI fee from Delta
 
+Delta is in early development and available with a Founder’s Lifetime License: one payment, lifetime updates and support, and a 30-day refund guarantee. Every Founder’s License helps us build Delta, the next big thing for AI in WordPress.
+
 Delta replaces your current theme, so it is best for a new site or a planned rebuild. It is a separate product and is not required to use Style Kits.
 
 **Find us**:

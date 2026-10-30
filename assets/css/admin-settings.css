@@ -500,6 +500,13 @@ body.style-kits_page_ang-settings .wrap {
 }
 
 .ang .sidebar .promo.promo-delta {
+	.promo-support {
+		margin: -6px 0 18px;
+		color: #50575e;
+		font-size: 13px;
+		line-height: 1.5;
+	}
+
 	.promo-eyebrow {
 		margin: 0 0 12px;
 		color: #646970;

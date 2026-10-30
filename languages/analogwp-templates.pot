@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-30T19:10:00+00:00\n"
+"POT-Creation-Date: 2026-10-30T19:52:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: analogwp-templates\n"
@@ -140,10 +140,14 @@ msgstr ""
 
 #. translators: 1: single site price, 2: unlimited sites price.
 #: inc/admin/Delta_Promo.php:108
-msgid "Founder’s Lifetime License: %1$s single site · %2$s unlimited sites. One payment, lifetime updates."
+msgid "Founder’s Lifetime License: %1$s single site · %2$s unlimited sites. One payment, lifetime updates, 30-day refund guarantee."
 msgstr ""
 
-#: inc/admin/Delta_Promo.php:116
+#: inc/admin/Delta_Promo.php:115
+msgid "Every Founder’s License helps us build Delta, the next big thing for AI in WordPress."
+msgstr ""
+
+#: inc/admin/Delta_Promo.php:118
 msgid "Explore Delta"
 msgstr ""
 
@@ -1399,20 +1403,20 @@ msgstr ""
 msgid "A list of all the imported and custom Style Kits. A global Style Kit is the one that applies globally on your site. You can set a Global Style Kit below."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:669
-#: inc/elementor/kit/Manager.php:677
+#: inc/elementor/kit/Manager.php:711
+#: inc/elementor/kit/Manager.php:719
 msgid "Error occured while requesting Style Kit data."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:709
+#: inc/elementor/kit/Manager.php:751
 msgid "Style Kit imported"
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:781
+#: inc/elementor/kit/Manager.php:823
 msgid "All good! The Style Kit has been set as Global."
 msgstr ""
 
-#: inc/elementor/kit/Manager.php:783
+#: inc/elementor/kit/Manager.php:825
 msgid "View site"
 msgstr ""
 

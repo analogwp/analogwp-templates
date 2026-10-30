@@ -105,12 +105,14 @@ final class Delta_Promo {
 				<?php
 				printf(
 					/* translators: 1: single site price, 2: unlimited sites price. */
-					esc_html__( 'Founder’s Lifetime License: %1$s single site · %2$s unlimited sites. One payment, lifetime updates.', 'analogwp-templates' ),
+					esc_html__( 'Founder’s Lifetime License: %1$s single site · %2$s unlimited sites. One payment, lifetime updates, 30-day refund guarantee.', 'analogwp-templates' ),
 					'<b>$49</b>',
 					'<b>$99</b>'
 				);
 				?>
 			</p>
+
+			<p class="promo-support"><?php esc_html_e( 'Every Founder’s License helps us build Delta, the next big thing for AI in WordPress.', 'analogwp-templates' ); ?></p>
 
 			<div class="buttons">
 				<a href="<?php echo esc_url( $this->link( 'sidebar-cta', 'pricing/' ) ); ?>" target="_blank" class="button button-primary">🚀 <?php esc_html_e( 'Explore Delta', 'analogwp-templates' ); ?></a>
