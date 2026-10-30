@@ -244,7 +244,7 @@ class Local extends Base {
 			}
 		}
 
-		return new WP_REST_Response( wp_json_encode( maybe_unserialize( $data ) ), 200 );
+		return new WP_REST_Response( wp_json_encode( Utils::safe_unserialize( $data ) ), 200 );
 	}
 
 	/**
@@ -473,6 +473,10 @@ class Local extends Base {
 	public function get_settings() {
 		$options = Options::get_instance()->get();
 
+		if ( ! Utils::current_user_can_manage_kits() ) {
+			unset( $options['ang_license_key'] );
+		}
+
 		return new WP_REST_Response( $options, 200 );
 	}
 
@@ -501,6 +505,8 @@ class Local extends Base {
 					array( 'status' => 403 )
 				);
 			}
+
+			$value = absint( $value );
 		} elseif ( ! Utils::current_user_can_manage_kits() ) {
 			return new WP_Error(
 				'rest_forbidden',

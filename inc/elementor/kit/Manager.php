@@ -266,7 +266,7 @@ class Manager {
 			return new \WP_Error( 'file_error', 'Invalid File' );
 		}
 
-		$content = maybe_unserialize( $data['data'] );
+		$content = Utils::safe_unserialize( $data['data'] );
 
 		if ( ! is_array( $content ) ) {
 			return new \WP_Error( 'file_error', 'Invalid Content In File' );
@@ -624,7 +624,7 @@ class Manager {
 	 * @return WP_Error|array
 	 */
 	public function direct_kit_import( $kit ) {
-		$kit_settings = maybe_unserialize( $kit['data'] );
+		$kit_settings = Utils::safe_unserialize( $kit['data'] );
 
 		$kit_id = $this->create_kit(
 			$kit['title'],

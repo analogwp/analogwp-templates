@@ -165,7 +165,6 @@ class Remote extends Base {
 				'timeout'    => $force_update ? 25 : 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
 				'body'       => $body_args,
-				'sslverify'  => false,
 			)
 		);
 
@@ -203,9 +202,8 @@ class Remote extends Base {
 		$response = wp_remote_get(
 			$url,
 			array(
-				'timeout'   => 40,
-				'sslverify' => false,
-				'body'      => $body_args,
+				'timeout' => 40,
+				'body'    => $body_args,
 			)
 		);
 
@@ -262,7 +260,6 @@ class Remote extends Base {
 				'timeout'    => 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
 				'body'       => $body_args,
-				'sslverify'  => false,
 			)
 		);
 
@@ -300,9 +297,8 @@ class Remote extends Base {
 		$response = wp_remote_get(
 			$url,
 			array(
-				'timeout'   => 40,
-				'body'      => $body_args,
-				'sslverify' => false,
+				'timeout' => 40,
+				'body'    => $body_args,
 			)
 		);
 
@@ -380,7 +376,6 @@ class Remote extends Base {
 				'timeout'    => $force_update ? 25 : 10,
 				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url(),
 				'body'       => $body_args,
-				'sslverify'  => false,
 			)
 		);
 

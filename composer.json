@@ -19,8 +19,8 @@
         }
 	},
 	"require": {
-	  "freemius/wordpress-sdk": "2.13.4",
-	  "enshrined/svg-sanitize": "^0.22.0"
+	  "freemius/wordpress-sdk": "2.13.5",
+	  "enshrined/svg-sanitize": "^1.1.1"
 	},
     "require-dev": {
         "civicrm/composer-downloads-plugin": "*",

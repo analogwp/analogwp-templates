@@ -153,8 +153,7 @@ class Import_Image extends Base {
 			\wp_safe_remote_get(
 				$attachment['url'],
 				array(
-					'timeout'   => '60',
-					'sslverify' => false,
+					'timeout' => '60',
 				)
 			)
 		);

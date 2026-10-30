@@ -873,6 +873,24 @@ class Utils extends Base {
 	}
 
 	/**
+	 * Unserializes data without instantiating any objects.
+	 *
+	 * Style Kit data is made of arrays and scalars only.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param mixed $data Data to unserialize, if serialized.
+	 * @return mixed
+	 */
+	public static function safe_unserialize( $data ) {
+		if ( ! is_serialized( $data ) ) {
+			return $data;
+		}
+
+		return @unserialize( trim( $data ), array( 'allowed_classes' => false ) ); // phpcs:ignore
+	}
+
+	/**
 	 * Returns file content.
 	 *
 	 * @since 2.0.5
