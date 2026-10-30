@@ -67,11 +67,16 @@ class Quick_Edit extends Base {
 			return;
 		}
 
-		if ( ! $kit_id || '-1' === $kit_id ) {
+		if ( ! $kit_id || '-1' === $kit_id || ! Plugin::elementor()->kits_manager->is_kit( $kit_id ) ) {
 			return;
 		}
 
 		$token = get_post_meta( $kit_id, '_elementor_page_settings', true );
+
+		if ( ! is_array( $token ) ) {
+			$token = array();
+		}
+
 		$token = array_merge( $token, array( 'ang_action_tokens' => (string) $kit_id ) );
 
 		$settings = get_post_meta( $post_id, '_elementor_page_settings', true );
@@ -213,7 +218,9 @@ class Quick_Edit extends Base {
 
 			// Loop through each post and save updated kit.
 			foreach ( $post_ids as $post_id ) {
-				if ( User::is_current_user_can_edit( $post_id ) && Plugin::elementor()->documents->get( $post_id )->is_built_with_elementor() ) {
+				$document = Plugin::elementor()->documents->get( $post_id );
+
+				if ( $document && User::is_current_user_can_edit( $post_id ) && $document->is_built_with_elementor() ) {
 					$this->update_posts_stylekit( $post_id, $kit_id );
 				}
 			}

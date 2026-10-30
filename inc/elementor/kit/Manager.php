@@ -16,6 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 use Analog\Plugin;
 use Analog\Utils;
+use Elementor\Base_Data_Control;
+use Elementor\Control_Repeater;
 use Elementor\Core\Files\CSS\Post as Post_CSS;
 use Elementor\Core\Kits\Manager as KitManager;
 use Elementor\TemplateLibrary\Source_Local;
@@ -583,7 +585,61 @@ class Manager {
 			$meta
 		);
 
+		if ( is_wp_error( $kit ) ) {
+			return $kit;
+		}
+
 		return $kit->get_id();
+	}
+
+	/**
+	 * Filter kit settings received from a request, file or remote library before storing them.
+	 *
+	 * Filters values the way Elementor does when saving a document, and drops values that are
+	 * not arrays when their control needs one, as these break rendering of pages using the kit.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param mixed $settings Kit settings.
+	 * @return array
+	 */
+	public function sanitize_kit_settings( $settings ) {
+		if ( ! is_array( $settings ) ) {
+			return array();
+		}
+
+		if ( ! current_user_can( 'unfiltered_html' ) ) {
+			$settings = map_deep(
+				$settings,
+				static function ( $value ) {
+					return is_string( $value ) ? wp_kses_post( $value ) : $value;
+				}
+			);
+		}
+
+		$elementor  = Plugin::elementor();
+		$active_kit = $elementor->kits_manager->get_active_kit();
+		$controls   = $active_kit ? $active_kit->get_controls() : array();
+
+		foreach ( $settings as $key => $value ) {
+			if ( '' === $value || ! isset( $controls[ $key ]['type'] ) ) {
+				continue;
+			}
+
+			$control = $elementor->controls_manager->get_control( $controls[ $key ]['type'] );
+
+			if ( ! $control instanceof Base_Data_Control || ! is_array( $control->get_default_value() ) ) {
+				continue;
+			}
+
+			if ( ! is_array( $value ) ) {
+				unset( $settings[ $key ] );
+			} elseif ( $control instanceof Control_Repeater ) {
+				$settings[ $key ] = array_values( array_filter( $value, 'is_array' ) );
+			}
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -603,15 +659,19 @@ class Manager {
 
 		$remote_kit = Remote::get_instance()->get_stylekit_data( $kit );
 
-		$remote_kit['title'] = $kit['title'] ?? '';
+		if ( is_wp_error( $remote_kit ) ) {
+			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'analogwp-templates' ) );
+		}
 
 		if ( isset( $remote_kit['message'], $remote_kit['code'] ) ) {
 			return new WP_Error( $remote_kit['code'], $remote_kit['message'] );
 		}
 
-		if ( is_wp_error( $remote_kit ) ) {
+		if ( ! isset( $remote_kit['data'] ) ) {
 			return new WP_Error( 'kit_import_request_error', __( 'Error occured while requesting Style Kit data.', 'analogwp-templates' ) );
 		}
+
+		$remote_kit['title'] = $kit['title'] ?? '';
 
 		return $this->direct_kit_import( $remote_kit );
 	}
@@ -624,7 +684,7 @@ class Manager {
 	 * @return WP_Error|array
 	 */
 	public function direct_kit_import( $kit ) {
-		$kit_settings = Utils::safe_unserialize( $kit['data'] );
+		$kit_settings = $this->sanitize_kit_settings( Utils::safe_unserialize( $kit['data'] ) );
 
 		$kit_id = $this->create_kit(
 			$kit['title'],
@@ -718,9 +778,9 @@ class Manager {
 				),
 				'type'            => Notice::TYPE_INFO,
 				'active_callback' => static function () {
-					$screen = get_current_screen();
+					global $plugin_page;
 
-					return ! ( 'style-kits_page_style-kits' !== $screen->id );
+					return 'style-kits' === $plugin_page;
 				},
 			)
 		);

@@ -39,15 +39,15 @@ final class Delta_Promo {
 	private $delta_theme_slugs = array( '21press-delta', 'delta' );
 
 	/**
-	 * Admin screen hook suffixes the notice is allowed on.
+	 * Admin page slugs the notice is allowed on. Hook suffixes can't be used as they contain the translated menu title.
 	 *
 	 * @var string[]
 	 */
-	private $screens = array(
-		'toplevel_page_analogwp_templates',
-		'style-kits_page_ang-settings',
-		'style-kits_page_style-kits',
-		'admin_page_analog_onboarding',
+	private $pages = array(
+		'analogwp_templates',
+		'ang-settings',
+		'style-kits',
+		'analog_onboarding',
 	);
 
 	/**
@@ -112,8 +112,10 @@ final class Delta_Promo {
 				'logo'            => ANG_PLUGIN_URL . 'assets/img/delta-logo.svg',
 				'logo_alt'        => __( 'Delta logo', 'analogwp-templates' ),
 				'logo_background' => '#f6f4f1',
-				'active_callback' => function ( $hook_suffix ) {
-					return in_array( $hook_suffix, $this->screens, true ) && $this->is_eligible();
+				'active_callback' => function () {
+					global $plugin_page;
+
+					return in_array( $plugin_page, $this->pages, true ) && $this->is_eligible();
 				},
 				'content'         => array( $this, 'get_notice_content' ),
 			)
@@ -167,9 +169,9 @@ final class Delta_Promo {
 	 * Small amount of CSS for the notice. Printed only where the notice can show.
 	 */
 	public function print_notice_styles() {
-		global $hook_suffix;
+		global $plugin_page;
 
-		if ( ! in_array( $hook_suffix, $this->screens, true ) ) {
+		if ( ! in_array( $plugin_page, $this->pages, true ) ) {
 			return;
 		}
 		?>

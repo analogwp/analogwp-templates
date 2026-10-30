@@ -602,7 +602,7 @@ class Local extends Base {
 			$title,
 			array(
 				'_elementor_data'           => $kit_manager->get_kit_content(),
-				'_elementor_page_settings'  => $tokens,
+				'_elementor_page_settings'  => $kit_manager->sanitize_kit_settings( $tokens ),
 				'_duplicate_of'             => $belongs_to,
 				'_is_analog_user_kit'       => true,
 				'_elementor_controls_usage' => $elementor_controls,

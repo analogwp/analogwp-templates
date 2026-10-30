@@ -134,12 +134,14 @@ function analog_require_minimum_elementor() {
 	$message .= '<p>';
 	/* translators: %s: Link to update Elementor. */
 	$message .= sprintf( '<a href="%s" class="button-primary">%s</a>', esc_url( $update_url ), esc_html__( 'Update Elementor Now', 'analogwp-templates' ) );
-	/* translators: %s: Link to rollback plugin to previous version. */
-	$message .= sprintf(
-		'<a href="%s" class="button-secondary" style="margin-left:10px">%s</a>',
-		esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=analog_style_kits_rollback&version=' . $versions[0] ), 'analog_style_kits_rollback' ) ),
-		esc_html( sprintf( $rollback_version_label, $versions[0] ) )
-	);
+	if ( ! empty( $versions[0] ) ) {
+		/* translators: %s: Link to rollback plugin to previous version. */
+		$message .= sprintf(
+			'<a href="%s" class="button-secondary" style="margin-left:10px">%s</a>',
+			esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=analog_style_kits_rollback&version=' . $versions[0] ), 'analog_style_kits_rollback' ) ),
+			esc_html( sprintf( $rollback_version_label, $versions[0] ) )
+		);
+	}
 	$message .= '</p>';
 
 	echo wp_kses( '<div class="error">' . $message . '</div>', $allowed_notice_html );
@@ -299,7 +301,8 @@ add_action(
 			// Include files temporarily, required for rollbacks to work.
 			require_once ANG_PLUGIN_DIR . 'inc/class-base.php';
 			require_once ANG_PLUGIN_DIR . 'inc/Core/Storage/Transients.php';
-			require_once ANG_PLUGIN_DIR . 'inc/elementor/class-tools.php';
+			require_once ANG_PLUGIN_DIR . 'inc/Featuresets/rollback/class-rollbacker.php';
+			require_once ANG_PLUGIN_DIR . 'inc/Featuresets/rollback/class-init.php';
 			require_once ANG_PLUGIN_DIR . 'inc/Utils.php';
 
 			add_action( 'admin_notices', 'analog_require_minimum_elementor' );
